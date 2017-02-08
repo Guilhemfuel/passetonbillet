@@ -18,3 +18,12 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+Route::get('/test', function () {
+    $eurostar = new \App\EurostarAPI\Eurostar();
+    $date = $eurostar::create_date(7,2,2017);
+    $trains = $eurostar->singles("Londres","Bruxelles",$date);
+    return response()->json($trains);
+});
+
+
