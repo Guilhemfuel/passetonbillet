@@ -9,6 +9,8 @@
 
 namespace App\EurostarAPI;
 
+use App\Train;
+
 class Eurostar implements TrainInterface
 {
 
@@ -18,14 +20,11 @@ class Eurostar implements TrainInterface
     private $cities_translation = [ "Londres" => "London", "Bruxelles" => "Brusells"];
     // Eurostar's city codes
     private $cities = ["London"=>7015400, "Paris"=>8727100, "Lille"=>8722326, "Brusells" => 8814001];
+    // All possible connections
+    public $connections = [["London","Paris"],["London","Lille"],["London","Brusells"],["Lille","Brusells"]];
 
-    //Simple helper to create date in a proper format
-    public static function create_date($day,$month,$year){
-        $date = date_create($year."-".$month."-".$day);
-        return date_format($date,"Y-m-d");
-    }
-
-    //Retrieve all single way eurostar for a date, a city and a departure date
+    //Take a a depart city, an arrival city and a date
+    //Return an array of trains for that day
     public function singles($departure_city,$arrival_city,$departure_date){
 
         // Translate city names if needed
@@ -61,14 +60,30 @@ class Eurostar implements TrainInterface
             trigger_error('Error occured: ' . $decoded->errors[0]->message, E_USER_ERROR);
         }
 
+        $trains = [];
 
-        //TODO: Create train model+db with train number, time day, origin and destination (instanciate object after that)
+        foreach ($decoded->proposal_sets as $query_train) {
 
-        //TODO: Setup a function updateMonth() with cron saving/updating the whole month of train
+            //Retrieve useful information
+            $number = $query_train->proposals[0]->tno;
+            $departure_time = $query_train->dep;
+            $arrival_time = $query_train->arr;
 
 
-        return $decoded;
+            //Create new train
+            $train = $train = new Train();
+            $train->number = $number;
+            $train->departure_date = $departure_date;
+            $train->departure_time = $departure_time;
+            $train->arrival_time = $arrival_time;
+            $train->departure_city = $departure_city_code;
+            $train->arrival_city = $arrival_city_code;
 
+            //Add it to array
+            array_push($trains,$train);
+        }
+
+        return $trains;
     }
 
     //If query is in French, translate to english
@@ -88,6 +103,12 @@ class Eurostar implements TrainInterface
 
         }
         trigger_error("Eurostar Error: Cannot find the city: ".$departure_city, E_USER_ERROR);
+    }
+
+    //Simple helper to create date in a proper format
+    public static function create_date($day,$month,$year){
+        $date = date_create($year."-".$month."-".$day);
+        return date_format($date,"Y-m-d");
     }
 
 
