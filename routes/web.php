@@ -1,5 +1,6 @@
 <?php
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,56 +12,46 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'PageController@home')->name('home');
 
-Auth::routes();
+// Lang
+Route::get('lang/{lang}', 'LanguageController@switchLang')->name('lang');
+
+// Registration Routes...
+Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register.page');
+Route::post('register', 'Auth\RegisterController@register')->name('register');
+// Auth Routes...
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login.page');
+Route::post('login', 'Auth\LoginController@login')->name('login');
+Route::get('logout', 'Auth\LoginController@logout')->name('logout');
+// Password Routes...
+Route::get('password/reset/{token?}', 'Auth\PasswordController@showResetForm')->name('password.token');
+Route::post('password/email', 'Auth\PasswordController@sendResetLinkEmail')->name('password.email');
+Route::post('password/reset', 'Auth\PasswordController@reset')->name('password.page');
+
+
+// Register Social
+Route::get('/redirect/fb', 'Auth\RegisterController@fb_redirect')->name('fb_redirect');
+Route::get('/callback/fb', 'Auth\RegisterController@fb_callback')->name('fb_callback');
 
 Route::get('/home', 'HomeController@index');
 
-Route::get('/test', function () {
+// Test ticket
+Route::get('/test', 'TicketController@test')->name('test.billet');
 
-    $start = microtime(true);
-
-    $eurostar = new \App\EurostarAPI\Eurostar();
-
-    $trains = [];
-    $my_date = "2017-02-10";
-
-    //Loop through all possible journey combination and add them to train
-    foreach ($eurostar->connections as $connection){
-        $temp_trains = $eurostar->singles($connection[0],$connection[1],$my_date);
-        $trains = array_merge($trains,$temp_trains);
-        $temp_trains = $eurostar->singles($connection[1],$connection[0],$my_date);
-        $trains = array_merge($trains,$temp_trains);
-    }
-
-
-    //Create or update trains
-
-    $created = 0;
-    $updated = 0;
-    foreach ($trains as $train){
-        $existing_train = \App\Train::where('departure_date',$train->departure_date)
-            ->where('number',$train->number)
-            ->where('departure_city',$train->departure_city)
-            ->where('arrival_city',$train->arrival_city)
-            ->first();
-
-        if ($train === null){
-            //If doesn't exist create it
-            $train->save();
-            $created++;
-        } else{
-            //If it does exist, update possible time changes
-            $existing_train = $train;
-            $existing_train->save();
-            $updated++;
-        }
-    }
-
-    return "Execution time: ".(microtime(true) - $start).". ".$created." entries created and ".$updated." entries updated.";
+// Auth Routes...
+Route::group(['middleware' => 'auth'], function()
+{
+    Route::get('/auth', function () {
+        return 'ok';
+    });
 });
 
+// Admin Routes...
+Route::group(['prefix' => 'lastadmin',  'middleware' => 'admin'], function()
+{
+    Route::get('/', function () {
+        return 'ok admin';
+    });
 
+});

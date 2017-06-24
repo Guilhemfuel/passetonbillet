@@ -1,0 +1,97 @@
+//////////////////////////////////
+//////    General
+//////////////////////////////////
+
+html, body, #app {
+  height: 100%;
+  font-weight: 200;
+}
+
+////// HELPERS /////
+
+.no-pad {
+  padding: 0px;
+}
+.no-marg {
+  margin: 0px;
+}
+
+////// NAV //////
+
+
+#nav {
+
+  background-color: transparent;
+  border: none;
+  -webkit-transition: background-color 200ms linear;
+  -ms-transition: background-color 200ms linear;
+  transition: background-color 200ms linear;
+
+  @media (max-width: $screen-xs-max) {
+    background-color: $brand-primary;
+  }
+
+  .navbar-collapse{
+    border:none;
+    text-align: center;
+  }
+
+  .icon-bar {
+    background-color: white;
+  }
+
+  .navbar-toggle:hover{
+    background-color: transparent;
+    border-color: $brand-success;
+
+    .icon-bar {
+      background-color: $brand-success;
+    }
+  }
+
+  .nav-link, .navbar-brand, .navbar-toggler{
+    color: white;
+    transition: 0.2s;
+  }
+
+  .nav-link:hover{
+    @media (max-width: $screen-xs-max) {
+      color: $brand-success;
+    }
+    color: $brand-primary;
+  }
+
+  .navbar-brand:hover{
+    color: white;
+    text-shadow: 0px 0px 5px rgba(0,0,0,0.3);
+  }
+
+  .navbar-brand {
+    font-family: $font-keep-calm;
+  }
+
+}
+
+.flag {
+  width: 24px;
+}
+
+
+/////////  BUTTONS //////////
+
+.btn-lastar-outline{
+  background-color: transparent;
+  padding: 10px 20px;
+  border: 1px white solid;
+  color: white;
+
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+
+
+  &:hover, &:active, &:focus {
+    background-color: $brand-success;
+    border: 1px solid $brand-success;
+    color: white;
+  }
+}

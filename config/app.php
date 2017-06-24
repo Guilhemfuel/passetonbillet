@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'Laravel',
+    'name' => 'Lastar',
 
     /*
     |--------------------------------------------------------------------------
@@ -78,6 +78,7 @@ return [
     */
 
     'locale' => 'en',
+    'locales' => ['en' => 'English','fr' => 'Français'],
 
     /*
     |--------------------------------------------------------------------------
@@ -167,6 +168,8 @@ return [
          * Package Service Providers...
          */
         Laravel\Tinker\TinkerServiceProvider::class,
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class, //Ide-Helper
+        Laravel\Socialite\SocialiteServiceProvider::class,  //Socialite, linkedin and facebook connect
 
         /*
          * Application Service Providers...
@@ -177,9 +180,6 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-
-        //--------Added------
-        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class, //Ide-Helper
 
     ],
 
@@ -229,6 +229,11 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+
+        //Added
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
+
 
     ],
 

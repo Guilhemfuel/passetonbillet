@@ -7,7 +7,8 @@ window._ = require('lodash');
  * code may be modified to fit the specific needs of your application.
  */
 
-window.$ = window.jQuery = require('jquery');
+window.Tether = require('tether')
+window.jQuery = window.$ = require('jquery');
 
 require('bootstrap-sass');
 

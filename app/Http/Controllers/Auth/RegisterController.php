@@ -6,6 +6,7 @@ use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Laravel\Socialite\Facades\Socialite;
 
 class RegisterController extends Controller
 {
@@ -27,7 +28,25 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
+
+    //TODO: register, then connect with socials
+
+    public function fb_redirect(){
+        return Socialite::driver('facebook')->fields([
+            'first_name', 'last_name', 'email', 'gender', 'birthday'
+        ])->scopes([
+            'email', 'user_birthday'
+        ])->redirect();
+    }
+
+    public function fb_callback()
+    {
+        $providerUser = \Socialite::driver('facebook')->user();
+        print_r($providerUser);
+
+
+    }
 
     /**
      * Create a new controller instance.
@@ -48,11 +67,13 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|max:255',
+            'first_name' => 'required|max:255',
+            'last_name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
         ]);
     }
+
 
     /**
      * Create a new user instance after a valid registration.
@@ -63,9 +84,11 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'status' => 0
         ]);
     }
 }

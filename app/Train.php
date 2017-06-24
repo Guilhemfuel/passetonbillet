@@ -11,4 +11,9 @@ class Train extends Model
         'number', 'departure_date', 'departure_time','arrival_time','departure_city','arrival_city'
     ];
 
+    public function tickets()
+    {
+        return $this->hasMany('App\Ticket');
+    }
+
 }

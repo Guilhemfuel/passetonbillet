@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Backpack\Base\app\Notifications\ResetPasswordNotification as ResetPasswordNotification;
+
 
 class User extends Authenticatable
 {
@@ -14,8 +16,12 @@ class User extends Authenticatable
      *
      * @var array
      */
+
     protected $fillable = [
-        'first_name','last_name','facebook','linkedin','phone', 'email', 'password',
+        'first_name','last_name','gender','phone','birthdate',
+        'email', 'password',
+        'facebook_id','linkedin_id','identity_confirmed',
+        'status',
     ];
 
     /**
@@ -24,6 +30,33 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token',''
     ];
+
+    public function tickets()
+    {
+        return $this->hasMany('App\Ticket');
+    }
+
+    /**
+     * Send the password reset notification.
+     *
+     * @param  string  $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPasswordNotification($token));
+    }
+
+
+    /**
+     *
+     * User is admin if status = 100
+     *
+     * @return bool
+     */
+    public function isAdmin(){
+        return $this->status == 100;
+    }
 }
