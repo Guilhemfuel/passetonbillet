@@ -106,6 +106,9 @@ html, body, #app {
   border-radius: 20px 20px 0px 0px;
   background-color: $brand-iceberg;
 }
+.panel-default {
+  border:none;
+}
 
 ///////// FORMS /////////
 
@@ -118,8 +121,15 @@ html, body, #app {
     box-shadow: none;
   }
 
-  &.has-error{
-    border-color: $brand-danger;
+}
+
+.has-error .form-control {
+  border-color: $brand-danger;
+  &:focus {
     box-shadow: none;
   }
+}
+
+.has-error .control-label {
+  color: $brand-danger;
 }

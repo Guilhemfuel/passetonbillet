@@ -6,7 +6,7 @@
     <div id="section_header">
 
         <div class="header-content">
-            <h1 class="header-title">Lastar.io</h1>
+            <h1 class="header-title">{{config('app.name')}}</h1>
             <p class="header-subtitle">
                 @lang('common.catchline')
             </p>

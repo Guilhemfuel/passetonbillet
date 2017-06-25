@@ -31,7 +31,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-12 form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
+                                    <div class="col-xs-12 form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
                                         <label for="name" class="control-label">Last Name</label>
 
                                         <input id="name" type="text" class="form-control" name="last_name" value="{{ old('last_name') }}" required autofocus>

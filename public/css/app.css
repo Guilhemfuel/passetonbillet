@@ -8459,6 +8459,10 @@ body,
   background-color: #F8FDFF;
 }
 
+.panel-default {
+  border: none;
+}
+
 .form-control {
   background-color: #F8FDFF;
 }
@@ -8470,10 +8474,17 @@ body,
           box-shadow: none;
 }
 
-.form-control.has-error {
+.has-error .form-control {
   border-color: #f45e58;
+}
+
+.has-error .form-control:focus {
   -webkit-box-shadow: none;
           box-shadow: none;
+}
+
+.has-error .control-label {
+  color: #f45e58;
 }
 
 #section_header {
