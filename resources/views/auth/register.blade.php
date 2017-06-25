@@ -38,7 +38,7 @@
 
                                         @if ($errors->has('last_name'))
                                             <span class="help-block">
-                                                <strong>{{ $errors->first('last_name') }}</strong>
+                                                <strong>{{ $errors->first('last_name') }} </strong>
                                             </span>
                                         @endif
                                     </div>
