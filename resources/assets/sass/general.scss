@@ -95,3 +95,31 @@ html, body, #app {
     color: white;
   }
 }
+
+
+///////// PANELs /////////
+
+.panel {
+  border-radius: 20px;
+}
+.panel-heading, .panel-default > .panel-heading {
+  border-radius: 20px 20px 0px 0px;
+  background-color: $brand-iceberg;
+}
+
+///////// FORMS /////////
+
+.form-control {
+  background-color: $brand-iceberg;
+
+  &:focus {
+    background-color: white;
+    border-color: $brand-info;
+    box-shadow: none;
+  }
+
+  &.has-error{
+    border-color: $brand-danger;
+    box-shadow: none;
+  }
+}

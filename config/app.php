@@ -171,6 +171,7 @@ return [
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class, //Ide-Helper
         Laravel\Socialite\SocialiteServiceProvider::class,  //Socialite, linkedin and facebook connect
 
+
         /*
          * Application Service Providers...
          */

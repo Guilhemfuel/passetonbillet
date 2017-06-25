@@ -12,6 +12,7 @@
 |
 */
 
+// Home Page
 Route::get('/', 'PageController@home')->name('home');
 
 // Lang
@@ -29,12 +30,9 @@ Route::get('password/reset/{token?}', 'Auth\PasswordController@showResetForm')->
 Route::post('password/email', 'Auth\PasswordController@sendResetLinkEmail')->name('password.email');
 Route::post('password/reset', 'Auth\PasswordController@reset')->name('password.page');
 
-
 // Register Social
 Route::get('/redirect/fb', 'Auth\RegisterController@fb_redirect')->name('fb_redirect');
 Route::get('/callback/fb', 'Auth\RegisterController@fb_callback')->name('fb_callback');
-
-Route::get('/home', 'HomeController@index');
 
 // Test ticket
 Route::get('/test', 'TicketController@test')->name('test.billet');
@@ -48,10 +46,7 @@ Route::group(['middleware' => 'auth'], function()
 });
 
 // Admin Routes...
-Route::group(['prefix' => 'lastadmin',  'middleware' => 'admin'], function()
+Route::group(['prefix' => 'lastadmin',  'middleware' => 'auth.admin'], function()
 {
-    Route::get('/', function () {
-        return 'ok admin';
-    });
 
 });

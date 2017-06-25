@@ -12,8 +12,8 @@ class TicketController extends Controller
         $url = 'https://m.eurostar.com/api/v2/mob/fr-fr/booking/retrieve';
 
 //        Collect Data
-        $name = "nahum";
-        $code = "SFXQRO";
+        $name = "amer";
+        $code = "QOQDCR";
 
 //        Encore JSON to post
         $data = '{"travellers": [{"ln": "'.$name.'","pnr": "'.$code.'"}]}';
@@ -34,7 +34,7 @@ class TicketController extends Controller
         $result = json_decode(curl_exec($ch));
 
 
-        print_r($result->{"SFXQRO-nahum"}->{"LoadTravelOutput"});
+        print_r($result->{$code."-".$name}->{"LoadTravelOutput"});
 
     }
 
