@@ -8482,6 +8482,8 @@ body,
 
 .form-control {
   background-color: #F8FDFF;
+  -webkit-box-shadow: none;
+  box-shadow: none;
 }
 
 .form-control:focus {
@@ -8557,5 +8559,14 @@ body,
 #section_register .register-headline {
   margin-top: 15px;
   color: #1d7aa2;
+}
+
+#section_register .control-label {
+  color: #50514F;
+}
+
+#section_register .help-label {
+  font-size: 12px;
+  font-weight: 200;
 }
 
