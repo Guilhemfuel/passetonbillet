@@ -27,26 +27,10 @@ html, body, #app {
   -ms-transition: background-color 200ms linear;
   transition: background-color 200ms linear;
 
-  @media (max-width: $screen-xs-max) {
-    background-color: $brand-primary;
-  }
 
   .navbar-collapse{
     border:none;
     text-align: center;
-  }
-
-  .icon-bar {
-    background-color: white;
-  }
-
-  .navbar-toggle:hover{
-    background-color: transparent;
-    border-color: $brand-success;
-
-    .icon-bar {
-      background-color: $brand-success;
-    }
   }
 
   .nav-link, .navbar-brand, .navbar-toggler{
@@ -61,6 +45,31 @@ html, body, #app {
     color: $brand-primary;
   }
 
+  .icon-bar {
+    background-color: white;
+    &:hover {
+      background-color: $brand-primary ;
+    }
+  }
+
+  .navbar-toggle:hover{
+    background-color: transparent;
+    border-color: $brand-primary;
+
+    .icon-bar {
+      background-color: $brand-primary;
+    }
+  }
+
+  .navbar-toggle[aria-expanded="true"]{
+    border-color: $brand-primary;
+    background-color: $brand-primary;
+
+    &:hover .icon-bar{
+      background-color: $brand-success;
+    }
+  }
+
   .navbar-brand:hover{
     color: white;
     text-shadow: 0px 0px 5px rgba(0,0,0,0.3);
@@ -69,6 +78,15 @@ html, body, #app {
   .navbar-brand {
     font-family: $font-keep-calm;
   }
+
+  #collapse-nav.in,  #collapse-nav.collapsing {
+    background-color: white;
+
+    ul.nav li a{
+      color:$brand-primary;
+    }
+  }
+
 
 }
 
@@ -97,13 +115,13 @@ html, body, #app {
 }
 
 
-///////// PANELs /////////
+///////// PANELS /////////
 
 .panel {
-  border-radius: 20px;
+  border-radius: 4px;
 }
 .panel-heading, .panel-default > .panel-heading {
-  border-radius: 20px 20px 0px 0px;
+  border-radius: 4px 4px 0px 0px;
   background-color: $brand-iceberg;
 }
 .panel-default {
@@ -123,13 +141,21 @@ html, body, #app {
 
 }
 
-.has-error .form-control {
-  border-color: $brand-danger;
-  &:focus {
-    box-shadow: none;
+.has-error{
+
+  .form-control, .help-block {
+    border-color: $brand-danger;
+    color: $brand-danger;
+    &:focus {
+      box-shadow: none;
+      border-color: $brand-danger;
+    }
   }
+
+  .control-label {
+    color: $brand-danger;
+  }
+
 }
 
-.has-error .control-label {
-  color: $brand-danger;
-}
+
