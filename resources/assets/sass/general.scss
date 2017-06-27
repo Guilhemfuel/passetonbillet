@@ -2,9 +2,14 @@
 //////    General
 //////////////////////////////////
 
-html, body, #app {
+html, body {
   height: 100%;
   font-weight: 200;
+}
+
+#app{
+  height: 100%;
+  min-height: 100%;
 }
 
 ////// HELPERS /////
@@ -77,6 +82,9 @@ html, body, #app {
 
   .navbar-brand {
     font-family: $font-keep-calm;
+    &.mobile{
+      color: $brand-primary;
+    }
   }
 
   #collapse-nav.in,  #collapse-nav.collapsing {

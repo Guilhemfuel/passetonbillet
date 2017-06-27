@@ -791,7 +791,20 @@ __webpack_require__(10);
 // Vue.component('example', require('./components/Example.vue'));
 
 var app = new Vue({
-  el: '#app'
+    el: '#app'
+});
+
+$(document).ready(function () {
+
+    // Navbar mobile logo color change
+    $('#nav').click(function () {
+        $toggler = $('#nav').find("#toggle-nav");
+        if ($toggler.attr('aria-expanded') === "false") {
+            $('#nav').find('.navbar-brand').addClass('mobile');
+        } else {
+            $('#nav').find('.navbar-brand').removeClass('mobile');
+        }
+    });
 });
 
 /***/ }),

@@ -8356,10 +8356,14 @@ button.close {
 }
 
 html,
-body,
-#app {
+body {
   height: 100%;
   font-weight: 200;
+}
+
+#app {
+  height: 100%;
+  min-height: 100%;
 }
 
 .no-pad {
@@ -8433,6 +8437,10 @@ body,
 
 #nav .navbar-brand {
   font-family: "KeepCalm", sans-serif;
+}
+
+#nav .navbar-brand.mobile {
+  color: #1d7aa2;
 }
 
 #nav #collapse-nav.in,
@@ -8545,11 +8553,12 @@ body,
 #section_register {
   margin-top: -80px;
   width: 100%;
-  height: 100%;
+  min-height: 100%;
   background-image: url("/../img/home/bg-register.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
+  background-attachment: fixed;
 }
 
 #section_register .content {
