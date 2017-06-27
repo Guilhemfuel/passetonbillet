@@ -1,68 +1,80 @@
 @extends('layouts.app')
 
+@section('title')
+    - @lang('auth.auth.title')
+@endsection
+
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Login</div>
-                <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">
-                        {{ csrf_field() }}
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+    <div id="section_login">
+        <div class="content container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <h2 class="text-center login-headline">@lang('auth.auth.title')</h2>
+                            <form role="form"
+                                  method="POST"
+                                  action="{{ route('login') }}"
+                                  data-toggle="validator">
+                                {{ csrf_field() }}
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
+                                <div class="col-xs-12 form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                                    <label for="email" class="control-label">@lang('auth.auth.email')</label>
 
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
+                                    <input id="email" type="email" class="form-control" name="email"
+                                           value="{{ old('email') }}" required autofocus>
+
+                                    @if ($errors->has('email'))
+                                        <span class="help-block">
                                         <strong>{{ $errors->first('email') }}</strong>
                                     </span>
-                                @endif
-                            </div>
-                        </div>
+                                    @endif
+                                </div>
 
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
+                                <div class="col-xs-12 form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                                    <label for="password" class="control-label">@lang('auth.auth.password')</label>
 
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
+                                    <input id="password" type="password" class="form-control" name="password"
+                                           required>
 
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
+                                    @if ($errors->has('password'))
+                                        <span class="help-block">
                                         <strong>{{ $errors->first('password') }}</strong>
                                     </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
-                                    </label>
+                                    @endif
                                 </div>
-                            </div>
-                        </div>
 
-                        <div class="form-group">
-                            <div class="col-md-8 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Login
-                                </button>
+                                <div class="form-group">
+                                    <div class="col-xs-12">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox"
+                                                       name="remember" {{ old('remember') ? 'checked' : '' }}>
+                                                @lang('auth.auth.remember_me')
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
 
-                                <a class="btn btn-link" href="{{ route('password.page') }}">
-                                    Forgot Your Password?
-                                </a>
-                            </div>
+                                <div class="form-group">
+                                    <div class="col-xs-12">
+                                        <button type="submit" class="btn btn-info center-block">
+                                            Login
+                                        </button>
+
+                                        {{-- TODO: Password reset --}}
+                                        {{--<a class="btn btn-link" href="{{ route('password.page') }}">--}}
+                                        {{--Forgot Your Password?--}}
+                                        {{--</a>--}}
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+
 @endsection

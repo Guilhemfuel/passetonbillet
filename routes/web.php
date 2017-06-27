@@ -21,14 +21,16 @@ Route::get('lang/{lang}', 'LanguageController@switchLang')->name('lang');
 // Registration Routes...
 Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register.page');
 Route::post('register', 'Auth\RegisterController@register')->name('register');
+
 // Auth Routes...
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login.page');
 Route::post('login', 'Auth\LoginController@login')->name('login');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
+
 // Password Routes...
-Route::get('password/reset/{token?}', 'Auth\PasswordController@showResetForm')->name('password.token');
-Route::post('password/email', 'Auth\PasswordController@sendResetLinkEmail')->name('password.email');
-Route::post('password/reset', 'Auth\PasswordController@reset')->name('password.page');
+//Route::get('password/reset/{token?}', 'Auth\ResetPasswordController@showResetForm')->name('password.token');
+//Route::post('password/email', 'Auth\ResetPasswordController@sendResetLinkEmail')->name('password.email');
+//Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.page');
 
 // Register Social
 Route::get('/redirect/fb', 'Auth\RegisterController@fb_redirect')->name('fb_redirect');

@@ -8366,6 +8366,18 @@ body {
   min-height: 100%;
 }
 
+#dashboard {
+  margin-top: -80px;
+  padding-top: 100px;
+  width: 100%;
+  min-height: 100%;
+  background-image: url("/../img/home/bg-dashboard.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+}
+
 .no-pad {
   padding: 0px;
 }
@@ -8575,6 +8587,35 @@ body {
 }
 
 #section_register .help-label {
+  font-size: 12px;
+  font-weight: 200;
+}
+
+#section_login {
+  margin-top: -80px;
+  width: 100%;
+  min-height: 100%;
+  background-image: url("/../img/home/bg-register.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+}
+
+#section_login .content {
+  padding-top: 100px;
+}
+
+#section_login .login-headline {
+  margin-top: 15px;
+  color: #1d7aa2;
+}
+
+#section_login .control-label {
+  color: #50514F;
+}
+
+#section_login .help-label {
   font-size: 12px;
   font-weight: 200;
 }

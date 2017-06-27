@@ -7,9 +7,26 @@ html, body {
   font-weight: 200;
 }
 
-#app{
+#app {
   height: 100%;
   min-height: 100%;
+}
+
+////// DASHBOARD //////
+
+#dashboard {
+  margin-top: -80px;
+  padding-top: 100px;
+
+  width: 100%;
+  min-height: 100%;
+
+  background-image: url("/../img/home/bg-dashboard.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+
 }
 
 ////// HELPERS /////
@@ -17,12 +34,12 @@ html, body {
 .no-pad {
   padding: 0px;
 }
+
 .no-marg {
   margin: 0px;
 }
 
 ////// NAV //////
-
 
 #nav {
 
@@ -32,18 +49,17 @@ html, body {
   -ms-transition: background-color 200ms linear;
   transition: background-color 200ms linear;
 
-
-  .navbar-collapse{
-    border:none;
+  .navbar-collapse {
+    border: none;
     text-align: center;
   }
 
-  .nav-link, .navbar-brand, .navbar-toggler{
+  .nav-link, .navbar-brand, .navbar-toggler {
     color: white;
     transition: 0.2s;
   }
 
-  .nav-link:hover{
+  .nav-link:hover {
     @media (max-width: $screen-xs-max) {
       color: $brand-success;
     }
@@ -53,11 +69,11 @@ html, body {
   .icon-bar {
     background-color: white;
     &:hover {
-      background-color: $brand-primary ;
+      background-color: $brand-primary;
     }
   }
 
-  .navbar-toggle:hover{
+  .navbar-toggle:hover {
     background-color: transparent;
     border-color: $brand-primary;
 
@@ -66,35 +82,34 @@ html, body {
     }
   }
 
-  .navbar-toggle[aria-expanded="true"]{
+  .navbar-toggle[aria-expanded="true"] {
     border-color: $brand-primary;
     background-color: $brand-primary;
 
-    &:hover .icon-bar{
+    &:hover .icon-bar {
       background-color: $brand-success;
     }
   }
 
-  .navbar-brand:hover{
+  .navbar-brand:hover {
     color: white;
-    text-shadow: 0px 0px 5px rgba(0,0,0,0.3);
+    text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
   }
 
   .navbar-brand {
     font-family: $font-keep-calm;
-    &.mobile{
+    &.mobile {
       color: $brand-primary;
     }
   }
 
-  #collapse-nav.in,  #collapse-nav.collapsing {
+  #collapse-nav.in, #collapse-nav.collapsing {
     background-color: white;
 
-    ul.nav li a{
-      color:$brand-primary;
+    ul.nav li a {
+      color: $brand-primary;
     }
   }
-
 
 }
 
@@ -102,10 +117,9 @@ html, body {
   width: 24px;
 }
 
-
 /////////  BUTTONS //////////
 
-.btn-lastar-outline{
+.btn-lastar-outline {
   background-color: transparent;
   padding: 10px 20px;
   border: 1px white solid;
@@ -114,7 +128,6 @@ html, body {
   -webkit-transition: all 0.2s;
   transition: all 0.2s;
 
-
   &:hover, &:active, &:focus {
     background-color: $brand-success;
     border: 1px solid $brand-success;
@@ -122,18 +135,19 @@ html, body {
   }
 }
 
-
 ///////// PANELS /////////
 
 .panel {
   border-radius: 4px;
 }
+
 .panel-heading, .panel-default > .panel-heading {
   border-radius: 4px 4px 0px 0px;
   background-color: $brand-iceberg;
 }
+
 .panel-default {
-  border:none;
+  border: none;
 }
 
 ///////// FORMS /////////
@@ -152,7 +166,7 @@ html, body {
 
 }
 
-.has-error{
+.has-error {
 
   .form-control, .help-block {
     border-color: $brand-danger;

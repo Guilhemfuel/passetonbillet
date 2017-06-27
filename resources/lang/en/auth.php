@@ -22,6 +22,12 @@ return [
         'email'            => 'E-Mail Address',
         'password'         => 'Password',
         'password_confirm' => 'Confirm password'
+    ],
+    'auth'     => [
+        'title'       => 'Login',
+        'email'       => 'E-Mail Address',
+        'password'    => 'Password',
+        'remember_me' => 'Remember Me'
     ]
 
 ];

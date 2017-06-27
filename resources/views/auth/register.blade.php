@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+    - @lang('auth.register.title')
+@endsection
+
 @section('content')
 
     <div id="section_register">
