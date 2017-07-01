@@ -69,7 +69,6 @@ class Eurostar
 
     public function singles( Station $departure_station, Station $arrival_station, $departure_date )
     {
-        return ['ok'];
 
         //Construct URL
         $url = $this->baseURL . "/single/outbound/" . $departure_station->eurostar_id . "/"

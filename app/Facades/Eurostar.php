@@ -5,7 +5,7 @@ namespace App\Facades;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * Description of AppIntercom Facade Accessor
+ * Description of Eurostar Facade Accessor
  */
 class Eurostar extends Facade
 {
