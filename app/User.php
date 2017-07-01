@@ -7,6 +7,13 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Backpack\Base\app\Notifications\ResetPasswordNotification as ResetPasswordNotification;
 
 
+/**
+ * App\User
+ *
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Ticket[] $tickets
+ * @mixin \Eloquent
+ */
 class User extends Authenticatable
 {
     use Notifiable;

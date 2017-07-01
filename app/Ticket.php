@@ -4,16 +4,25 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Ticket
+ *
+ * @property-read \App\Station $arrivalCity
+ * @property-read \App\Station $departureCity
+ * @property-read \App\Train $train
+ * @property-read \App\User $user
+ * @mixin \Eloquent
+ */
 class Ticket extends Model
 {
-    //Two types of tickets: the online tickets, and the printed tickets
+
     protected $fillable = [
         'train_id','user_id',
         'conditions', 'user_notes', 'class', //class: standard premier?...
         'price','currency',
         'bought_price','bought_currency',
-        'type', //Online or paper
         'eurostar_code','eurostar_name',  //Online Type
+        'departure_city', 'arrival_city'
     ];
 
     //TODO: belongs to one train, belongs to one user
@@ -26,6 +35,14 @@ class Ticket extends Model
     public function train()
     {
         return $this->belongsTo('App\Train');
+    }
+
+    public function departureCity(){
+        return $this->hasOne('App\Station', 'id','departure_city');
+    }
+
+    public function arrivalCity(){
+        return $this->hasOne('App\Station', 'id','arrival_city');
     }
 
 }

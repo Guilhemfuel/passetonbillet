@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
+
 class Handler extends ExceptionHandler
 {
     /**
@@ -44,6 +45,12 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ( $exception instanceof EurostarException ) {
+            $errorMsg = 'Eurostar Error: ' . $exception->getMessage();
+
+            return \Redirect::back()->withInput( $request->input() )->with( 'eurostar_error', $errorMsg  );
+        }
+
         return parent::render($request, $exception);
     }
 

@@ -4,6 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Train
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Ticket[] $tickets
+ * @mixin \Eloquent
+ */
 class Train extends Model
 {
 

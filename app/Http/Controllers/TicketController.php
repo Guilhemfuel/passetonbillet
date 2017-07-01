@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\EurostarException;
 use Illuminate\Http\Request;
 
 class TicketController extends Controller
@@ -12,8 +13,8 @@ class TicketController extends Controller
         $url = 'https://m.eurostar.com/api/v2/mob/fr-fr/booking/retrieve';
 
 //        Collect Data
-        $name = "amer";
-        $code = "QOQDCR";
+        $name = "nahum";
+        $code = "QBVPJP";
 
 //        Encore JSON to post
         $data = '{"travellers": [{"ln": "'.$name.'","pnr": "'.$code.'"}]}';
@@ -33,8 +34,11 @@ class TicketController extends Controller
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $result = json_decode(curl_exec($ch));
 
-
-        print_r($result->{$code."-".$name}->{"LoadTravelOutput"});
+        if (isset($result->{$code."-".$name})) {
+            print_r( $result->{$code . "-" . $name}->{"LoadTravelOutput"} );
+        } else {
+            throw new EurostarException('Ticket not found!');
+        }
 
     }
 
