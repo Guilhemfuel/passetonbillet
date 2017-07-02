@@ -89,7 +89,7 @@
                                                name="password_confirmation" required placeholder="@lang('auth.register.password')">
                                     </div>
 
-                                    {{-- TODO: Accept rules checkbox --}}
+                                    {{-- TODO: Accept rules checkbox + Captcha --}}
 
                                     <button type="submit" class="btn btn-info center-block">
                                         Register

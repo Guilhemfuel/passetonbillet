@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 
+use App\Exceptions\LastarException;
 use App\Facades\Eurostar;
 use App\Station;
 use Illuminate\Console\Command;
@@ -55,8 +56,17 @@ class UpdateTrains extends Command
         //Loop through all possible journey combination to retrive all trains
         foreach ($stations as $departure_station){
             foreach ($stations as $arrival_station) {
-                $temp_trains = Eurostar::singles( $departure_station, $arrival_station, $my_date );
-                $trains = array_merge( $trains, $temp_trains );
+                // Retry 3 times in case of error
+                for ($i=1; $i <= 3; $i++) {
+                    try {
+                        $temp_trains = Eurostar::singles( $departure_station, $arrival_station, $my_date );
+                        $trains = array_merge( $trains, $temp_trains );
+                        break;
+                    }
+                    catch (LastarException $e) {
+                        $this->alert($departure_station->eurostar_id.' to '.$arrival_station->eurostar_id.' error.');
+                    }
+                }
                 $bar->advance();
             }
         }

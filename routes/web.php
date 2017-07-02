@@ -37,7 +37,9 @@ Route::get('/redirect/fb', 'Auth\RegisterController@fb_redirect')->name('fb_redi
 Route::get('/callback/fb', 'Auth\RegisterController@fb_callback')->name('fb_callback');
 
 // Test ticket
-Route::get('/test', 'TicketController@test')->name('test.billet');
+Route::get('/testRetrieve', 'TicketController@test')->name('test.billet');
+Route::get('/test', 'PageController@test')->name('test.trains');
+
 
 // Auth Routes...
 Route::group(['middleware' => 'auth'], function()

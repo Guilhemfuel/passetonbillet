@@ -9,6 +9,7 @@
 
 namespace App\EurostarAPI;
 
+use App\Exceptions\LastarException;
 use Exception;
 use App\Station;
 use App\Train;
@@ -16,6 +17,7 @@ use GuzzleHttp\Client;
 use App\Exceptions\EurostarException;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
+use Symfony\Component\Debug\Debug;
 
 class Eurostar
 {
@@ -49,6 +51,7 @@ class Eurostar
                     if ( $e instanceof ClientException ) {
                         throw new EurostarException( $e->getMessage() );
                     }
+                    throw $e;
                 }
             }
         };
@@ -73,29 +76,32 @@ class Eurostar
         //Construct URL
         $url = $this->baseURL . "/single/outbound/" . $departure_station->eurostar_id . "/"
                . $arrival_station->eurostar_id . "/1/0/0/0/" . $departure_date;
-        try {
-            $response = $this->client->request(
-                'GET',
-                $url
-            );
-        } catch ( ServerException $e ){
-            return [];
-        }
 
-        //Deal with response
+        $response = $this->client->request(
+            'GET',
+            $url,
+            [ 'http_errors' => false ]
+        );
+
         $decoded = json_decode( (string) $response->getBody(), true );
-        if ( isset( $decoded->errors[0]->message ) ) {
-            trigger_error( 'Error occured: ' . $decoded->errors[0]->message, E_USER_ERROR );
+
+        // Handle errors (if there isn't a trip from a station to another one)
+        if ($response->getStatusCode() == 500){
+            \Debugbar::error($decoded);
+            if( isset($decoded['errors'][0]['code']) && $decoded['errors'][0]['code'] == 'API_1008'){
+                return [];
+            }
+            throw new LastarException('Please try again later.');
         }
 
         $trains = [];
 
-        foreach ( $decoded->proposal_sets as $query_train ) {
+        foreach ( $decoded['proposal_sets'] as $query_train ) {
 
             //Retrieve useful information
-            $number = $query_train->proposals[0]->tno;
-            $departure_time = $query_train->dep;
-            $arrival_time = $query_train->arr;
+            $number = $query_train['proposals'][0]['tno'];
+            $departure_time = $query_train['dep'];
+            $arrival_time = $query_train['arr'];
 
 
             //Create new train
