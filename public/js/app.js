@@ -766,7 +766,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(9);
-module.exports = __webpack_require__(37);
+module.exports = __webpack_require__(38);
 
 
 /***/ }),
@@ -800,7 +800,7 @@ var app = new Vue({
  *
  */
 
-var swal = __webpack_require__(47);
+var swal = __webpack_require__(37);
 
 $(document).ready(function () {
 
@@ -43613,21 +43613,6 @@ module.exports = function spread(callback) {
 
 /***/ }),
 /* 37 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 38 */,
-/* 39 */,
-/* 40 */,
-/* 41 */,
-/* 42 */,
-/* 43 */,
-/* 44 */,
-/* 45 */,
-/* 46 */,
-/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
@@ -45274,6 +45259,12 @@ return sweetAlert;
 })));
 if (window.Sweetalert2) window.sweetAlert = window.swal = window.Sweetalert2;
 
+
+/***/ }),
+/* 38 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

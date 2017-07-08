@@ -26,7 +26,6 @@ class PageController extends Controller
         $arrival_station = Station::find( 6 );
         $my_date = date( "Y-m-d", strtotime( "tomorrow" ) );
         var_dump( Eurostar::singles( $departure_station, $arrival_station, $my_date ) );
-
     }
 
 }

@@ -64,7 +64,7 @@ class UpdateTrains extends Command
                         break;
                     }
                     catch (LastarException $e) {
-                        $this->alert($departure_station->eurostar_id.' to '.$arrival_station->eurostar_id.' error.');
+                        $this->alert($departure_station->name_en.' to '.$arrival_station->name_en.' error.');
                     }
                 }
                 $bar->advance();

@@ -25,7 +25,7 @@ class Ticket extends Model
         'departure_city', 'arrival_city'
     ];
 
-    //TODO: belongs to one train, belongs to one user
+    //TODO: add inbound or ountbound, acheteur email nom prenom
 
     public function user()
     {

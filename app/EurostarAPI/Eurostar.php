@@ -86,12 +86,11 @@ class Eurostar
         $decoded = json_decode( (string) $response->getBody(), true );
 
         // Handle errors (if there isn't a trip from a station to another one)
-        if ($response->getStatusCode() == 500){
-            \Debugbar::error($decoded);
-            if( isset($decoded['errors'][0]['code']) && $decoded['errors'][0]['code'] == 'API_1008'){
+        if ( $response->getStatusCode() == 500 ) {
+            if ( isset( $decoded['errors'][0]['code'] ) && $decoded['errors'][0]['code'] == 'API_1008' ) {
                 return [];
             }
-            throw new LastarException('Please try again later.');
+            throw new LastarException( 'Please try again later.' );
         }
 
         $trains = [];
@@ -118,6 +117,36 @@ class Eurostar
         }
 
         return $trains;
+    }
+
+    public function retrieveTicket( $lastName, $referenceNumber )
+    {
+        $response = $this->client->request(
+            'POST',
+            $this->retrieveURL,
+            [
+                'http_errors' => false,
+                'body'        => '{"travellers": [{"ln": "' . $lastName . '","pnr": "' . $referenceNumber . '"}]}'
+            ]
+        );
+
+        $decoded = json_decode( (string) $response->getBody(), true )[$referenceNumber.'-'.$lastName]['LoadTravelOutput'];
+
+        // Handle errors (if there isn't a trip from a station to another one)
+        if ( $response->getStatusCode() == 500 ) {
+            if ( isset( $decoded['errors'][0]['code'] ) && $decoded['errors'][0]['code'] == 'API_1008' ) {
+                return [];
+            }
+            throw new LastarException( 'Please try again later.' );
+        }
+
+        // Find tickets
+        $currency = $decoded['currency'];
+        $ticketsList = $decoded['JourneyRetrievePnrOutputs'];
+
+        // Todo rebuild tickets
+
+        return $ticketsList;
     }
 
 }

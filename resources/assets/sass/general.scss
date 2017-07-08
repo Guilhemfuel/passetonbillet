@@ -60,16 +60,13 @@ html, body {
   }
 
   .nav-link:hover {
-    @media (max-width: $screen-xs-max) {
-      color: $brand-success;
-    }
-    color: $brand-primary;
+    color: $brand-success;
   }
 
   .icon-bar {
     background-color: white;
     &:hover {
-      background-color: $brand-primary;
+      background-color: $brand-success;
     }
   }
 
@@ -84,10 +81,18 @@ html, body {
 
   .navbar-toggle[aria-expanded="true"] {
     border-color: $brand-primary;
-    background-color: $brand-primary;
+    background-color: $white;
 
-    &:hover .icon-bar {
-      background-color: $brand-success;
+    .icon-bar {
+      background-color: $brand-primary;
+    }
+
+    &:hover {
+      border-color: $brand-success;
+
+      .icon-bar {
+        background-color: $brand-success;
+      }
     }
   }
 
@@ -108,6 +113,10 @@ html, body {
 
     ul.nav li a {
       color: $brand-primary;
+
+      &:hover{
+        color: $brand-success;
+      }
     }
   }
 
@@ -124,6 +133,7 @@ html, body {
   padding: 10px 20px;
   border: 1px white solid;
   color: white;
+  text-transform: uppercase;
 
   -webkit-transition: all 0.2s;
   transition: all 0.2s;
