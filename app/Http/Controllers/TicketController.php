@@ -17,6 +17,8 @@ class TicketController extends Controller
         $tickets = Eurostar::retrieveTicket($name,$code);
         \Debugbar::info($tickets);
 
+        //TODO: Make sure all tickets aren't passed
+
         return view('home');
     }
 

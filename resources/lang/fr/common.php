@@ -7,5 +7,15 @@ return [
         'buy' => 'acheter',
         'sell'=> 'vendre'
     ],
+    'ticket' => [
+        'flexibility' => [
+            '1' => 'Non Flexible',
+            '2' => 'Semi Flexible',
+            '3' => 'Flexible',
+            '7' => 'Hors pointe',
+            '8' => 'Pro',
+            '9' => 'À tout moment'
+        ]
+    ]
 
 ];

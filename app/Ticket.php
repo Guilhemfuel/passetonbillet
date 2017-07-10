@@ -7,42 +7,57 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Ticket
  *
- * @property-read \App\Station $arrivalCity
- * @property-read \App\Station $departureCity
  * @property-read \App\Train $train
- * @property-read \App\User $user
+ * @property-read \App\User  $user
  * @mixin \Eloquent
  */
 class Ticket extends Model
 {
 
     protected $fillable = [
-        'train_id','user_id',
-        'conditions', 'user_notes', 'class', //class: standard premier?...
-        'price','currency',
-        'bought_price','bought_currency',
-        'eurostar_code','eurostar_name',  //Online Type
-        'departure_city', 'arrival_city'
-    ];
+        // Train info
+        'train_id',
 
-    //TODO: add inbound or ountbound, acheteur email nom prenom
+        // User info
+        'user_id',
+        'user_notes',
+        'price',
+        'currency',
+
+        // Ticket info
+        'flexibility',
+        'class',
+        'bought_price',
+        'bought_currency',
+        'inbound',
+
+        // Buyer info
+        'eurostar_code',
+        'buyer_email',
+        'buyer_name',
+    ];
 
     public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo( 'App\User' );
     }
 
     public function train()
     {
-        return $this->belongsTo('App\Train');
+        return $this->belongsTo( 'App\Train' );
     }
 
-    public function departureCity(){
-        return $this->hasOne('App\Station', 'id','departure_city');
+    public function getFlexibilityAttribute( $value )
+    {
+        return trans( 'common.ticket.flexibility.' . $value );
     }
 
-    public function arrivalCity(){
-        return $this->hasOne('App\Station', 'id','arrival_city');
+    public function getClassAttribute( $value )
+    {
+        //TODO: use JSON below to make string from class
+        return $value;
     }
+
+//{"fareFlexibility":{"1":{"code":"1","value":"Non Flexible"},"2":{"code":"2","value":"Semi Flexible"},"3":{"code":"3","value":"Fully Flexible"},"7":{"code":"7","value":"Off Peak"},"8":{"code":"8","value":"Advance"},"9":{"code":"9","value":"Anytime"}},"classOfService":{"B":{"code":"B","value":"Standard"},"H":{"code":"H","value":"Standard Premier"},"A":{"code":"A","value":"Business Premier"},"2":{"code":"2","value":"Standard Class"},"1":{"code":"1","value":"First Class"}}}
 
 }

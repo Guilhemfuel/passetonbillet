@@ -10,6 +10,7 @@
 namespace App\EurostarAPI;
 
 use App\Exceptions\LastarException;
+use App\Ticket;
 use Exception;
 use App\Station;
 use App\Train;
@@ -119,6 +120,17 @@ class Eurostar
         return $trains;
     }
 
+
+    /**
+     *
+     * Take a name and a lastname and returns ticket information (create train if not in database)
+     *
+     * @param $lastName
+     * @param $referenceNumber
+     *
+     * @return array
+     * @throws LastarException
+     */
     public function retrieveTicket( $lastName, $referenceNumber )
     {
         $response = $this->client->request(
@@ -130,7 +142,7 @@ class Eurostar
             ]
         );
 
-        $decoded = json_decode( (string) $response->getBody(), true )[$referenceNumber.'-'.$lastName]['LoadTravelOutput'];
+        $decoded = json_decode( (string) $response->getBody(), true )[ $referenceNumber . '-' . $lastName ]['LoadTravelOutput'];
 
         // Handle errors (if there isn't a trip from a station to another one)
         if ( $response->getStatusCode() == 500 ) {
@@ -144,7 +156,43 @@ class Eurostar
         $currency = $decoded['currency'];
         $ticketsList = $decoded['JourneyRetrievePnrOutputs'];
 
-        // Todo rebuild tickets
+        \Debugbar::info($ticketsList);
+
+
+        $tickets = [];
+
+        foreach ( $ticketsList as $ticketInfo ) {
+
+            \Debugbar::info($ticketInfo);
+
+            // Retrieve useful information
+            $trainNumber = $ticketInfo['TravelSegments'][0]['marketingTrainNumber'];
+            $trainDepartureDate = $ticketInfo['departureDate']['date'];
+            $trainDepartureTime = $ticketInfo['departureDate']['time'];
+            $trainArrivalDate = $ticketInfo['arrivalDate']['date'];
+            $trainArrivalTime = $ticketInfo['arrivalDate']['time'];
+            $trainDepartureStation = $ticketInfo['originCode'];
+            $trainArrivalStation = $ticketInfo['destinationCode'];
+
+            $train = Train::firstOrCreate(
+                [
+                    'number'         => $trainNumber,
+                    'departure_date' => $trainDepartureDate,
+                    'departure_time' => $trainDepartureTime,
+                    'departure_city' => $trainDepartureStation,
+                    'arrival_date'   => $trainArrivalDate,
+                    'arrival_time'   => $trainArrivalTime,
+                    'arrival_city'   => $trainArrivalStation
+                ]
+            );
+
+            // Create new Ticket
+            $ticket = new Ticket();
+            $ticket->train_id = $train->id;
+
+            // TODO: finish completing ticket info
+
+        }
 
         return $ticketsList;
     }
