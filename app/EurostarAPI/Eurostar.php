@@ -18,13 +18,15 @@ use GuzzleHttp\Client;
 use App\Exceptions\EurostarException;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
-use Symfony\Component\Debug\Debug;
 
 class Eurostar
 {
     private $baseURL;
     private $retrieveURL;
     private $client;
+
+    const DATE_FORMAT_JSON = 'd/m/Y';
+    const DATE_FORMAT_DB = 'Y-m-d';
 
     public function __construct()
     {
@@ -64,19 +66,19 @@ class Eurostar
      * Take a a depart city, an arrival city and a date
      * Return an array of trains for that day
      *
-     * @param $departure_city
-     * @param $arrival_city
-     * @param $departure_date
+     * @param $departure_city Station
+     * @param $arrival_city Station
+     * @param $departure_date Datetime
      *
      * @return array
      */
 
-    public function singles( Station $departure_station, Station $arrival_station, $departure_date )
+    public function singles( Station $departure_station, Station $arrival_station, \DateTime $departure_date )
     {
 
         //Construct URL
         $url = $this->baseURL . "/single/outbound/" . $departure_station->eurostar_id . "/"
-               . $arrival_station->eurostar_id . "/1/0/0/0/" . $departure_date;
+               . $arrival_station->eurostar_id . "/1/0/0/0/" . $departure_date->format(static::DATE_FORMAT_DB);
 
         $response = $this->client->request(
             'GET',
@@ -103,11 +105,11 @@ class Eurostar
             $departure_time = $query_train['dep'];
             $arrival_time = $query_train['arr'];
 
-
             //Create new train
             $train = $train = new Train();
             $train->number = $number;
-            $train->departure_date = $departure_date;
+            $train->departure_date = $departure_date->format(static::DATE_FORMAT_DB);
+            $train->arrival_date = $departure_date->format(static::DATE_FORMAT_DB);
             $train->departure_time = $departure_time;
             $train->arrival_time = $arrival_time;
             $train->departure_city = $departure_station->eurostar_id;
@@ -153,27 +155,29 @@ class Eurostar
         }
 
         // Find tickets
+        $buyerEmail = $decoded['contact']['email'];
         $currency = $decoded['currency'];
         $ticketsList = $decoded['JourneyRetrievePnrOutputs'];
-
-        \Debugbar::info($ticketsList);
-
 
         $tickets = [];
 
         foreach ( $ticketsList as $ticketInfo ) {
 
-            \Debugbar::info($ticketInfo);
-
-            // Retrieve useful information
+            // Retrieve train information
             $trainNumber = $ticketInfo['TravelSegments'][0]['marketingTrainNumber'];
-            $trainDepartureDate = $ticketInfo['departureDate']['date'];
+            $trainDepartureDate = \DateTime::createFromFormat(static::DATE_FORMAT_JSON, $ticketInfo['departureDate']['date']);
             $trainDepartureTime = $ticketInfo['departureDate']['time'];
-            $trainArrivalDate = $ticketInfo['arrivalDate']['date'];
+            $trainArrivalDate = \DateTime::createFromFormat(static::DATE_FORMAT_JSON, $ticketInfo['arrivalDate']['date']);
             $trainArrivalTime = $ticketInfo['arrivalDate']['time'];
             $trainDepartureStation = $ticketInfo['originCode'];
             $trainArrivalStation = $ticketInfo['destinationCode'];
 
+            if($trainDepartureDate < new \DateTime()){
+                // We don't consider past tickets
+                continue;
+            }
+
+            // Create train
             $train = Train::firstOrCreate(
                 [
                     'number'         => $trainNumber,
@@ -186,15 +190,28 @@ class Eurostar
                 ]
             );
 
+            // Retrieve ticket information
+            $flexibility = $ticketInfo['FareAllocations'][0]['fareInformation']['flexibilityLevel'];
+            $class = $ticketInfo['FareAllocations'][0]['fareInformation']['classOfService'];
+            $boughtPrice = $ticketInfo['FareAllocations'][0]['fareInformation']['totalAmount'];
+            $outbound = $ticketInfo['outboundIndicator'];
+
             // Create new Ticket
             $ticket = new Ticket();
             $ticket->train_id = $train->id;
+            $ticket->flexibility = $flexibility;
+            $ticket->class = $class;
+            $ticket->bought_price = $boughtPrice;
+            $ticket->bought_currency = $currency;
+            $ticket->inbound = !$outbound;
+            $ticket->buyer_name = $lastName;
+            $ticket->eurostar_code = $referenceNumber;
+            $ticket->buyer_email = $buyerEmail;
 
-            // TODO: finish completing ticket info
-
+            array_push($tickets,$ticket);
         }
 
-        return $ticketsList;
+        return $tickets;
     }
 
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\EurostarAPI\Eurostar as EurostarSrc;
 use App\Facades\Eurostar;
 use App\Station;
 use Illuminate\Http\Request;
@@ -24,8 +25,9 @@ class PageController extends Controller
     {
         $departure_station = Station::find( 1 );
         $arrival_station = Station::find( 6 );
-        $my_date = date( "Y-m-d", strtotime( "tomorrow" ) );
-        var_dump( Eurostar::singles( $departure_station, $arrival_station, $my_date ) );
+        $my_date =  new \DateTime();
+        \Debugbar::info( Eurostar::singles( $departure_station, $arrival_station, $my_date ) );
+        return view('home');
     }
 
 }

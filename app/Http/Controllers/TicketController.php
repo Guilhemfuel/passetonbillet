@@ -12,12 +12,10 @@ class TicketController extends Controller
     public function test(){
 
         $name = "nahum";
-        $code = "QBVPJP";
+        $code = "ROCLRR";
 
         $tickets = Eurostar::retrieveTicket($name,$code);
         \Debugbar::info($tickets);
-
-        //TODO: Make sure all tickets aren't passed
 
         return view('home');
     }

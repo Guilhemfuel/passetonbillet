@@ -38,17 +38,41 @@ namespace App{
 /**
  * App\Ticket
  *
- * @property-read \App\Station $arrivalCity
- * @property-read \App\Station $departureCity
  * @property-read \App\Train $train
- * @property-read \App\User $user
+ * @property-read \App\User  $user
  * @mixin \Eloquent
  * @property int $id
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
+ * @property int $train_id
+ * @property int $user_id
+ * @property string|null $user_notes
+ * @property int|null $price
+ * @property string|null $currency
+ * @property int $flexibility
+ * @property string $class
+ * @property int $bought_price
+ * @property string $bought_currency
+ * @property bool $inbound
+ * @property string $eurostar_code
+ * @property string $buyer_email
+ * @property string $buyer_name
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Ticket whereBoughtCurrency($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Ticket whereBoughtPrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Ticket whereBuyerEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Ticket whereBuyerName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Ticket whereClass($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Ticket whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Ticket whereCurrency($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Ticket whereEurostarCode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Ticket whereFlexibility($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Ticket whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Ticket whereInbound($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Ticket wherePrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Ticket whereTrainId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Ticket whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Ticket whereUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Ticket whereUserNotes($value)
  */
 	class Ticket extends \Eloquent {}
 }
@@ -57,18 +81,22 @@ namespace App{
 /**
  * App\Train
  *
+ * @property-read $number
+ * @property-read $departure_date
+ * @property-read $departure_time
+ * @property-read $departure_city
+ * @property-read $arrival_date
+ * @property-read $arrival_time
+ * @property-read $arrival_city
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Ticket[] $tickets
  * @mixin \Eloquent
  * @property int $id
- * @property int $number
- * @property int $departure_city
- * @property int $arrival_city
- * @property string $departure_date
- * @property string $departure_time
- * @property string $arrival_time
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
+ * @property-read \App\Station $arrivalCity
+ * @property-read \App\Station $departureCity
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Train whereArrivalCity($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Train whereArrivalDate($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Train whereArrivalTime($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Train whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Train whereDepartureCity($value)
