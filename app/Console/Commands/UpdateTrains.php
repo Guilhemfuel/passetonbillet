@@ -46,14 +46,14 @@ class UpdateTrains extends Command
         $start = microtime(true);
 
         $trains = [];
-        $my_date = date("Y-m-d", strtotime("tomorrow"));
+        $my_date = new \DateTime('tomorrow');
 
         //Display information to terminal
         $stations = Station::all();
-        $this->info('Retrieving data from Eurostar API');
+        $this->info("Retrieving data from Eurostar API");
         $bar = $this->output->createProgressBar(count($stations)*count($stations));
 
-        //Loop through all possible journey combination to retrive all trains
+        //Loop through all possible journey combination to retrieve all trains
         foreach ($stations as $departure_station){
             foreach ($stations as $arrival_station) {
                 // Retry 3 times in case of error
