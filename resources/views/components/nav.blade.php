@@ -28,6 +28,9 @@
                         </li>
                     @endif
                     <li>
+                        <a class="nav-link" href="{{route('test.billet')}}">test</a>
+                    </li>
+                    <li>
                         @if (App::isLocale('fr'))
                             <a class="nav-link"href="{{route('lang','en')}}">
                                 <svg class="flag flag"  viewBox="0 0 36 35" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">

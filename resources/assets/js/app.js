@@ -19,7 +19,18 @@ const app = new Vue({
     el: '#app'
 });
 
+/**
+ *
+ * Common JS to all pages
+ *
+ */
+
+const swal = require('sweetalert2')
+
+
 $( document ).ready(function() {
+
+    $swal = swal;
 
     // Navbar mobile logo color change
     $('#nav').click(function(){

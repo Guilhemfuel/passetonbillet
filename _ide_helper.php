@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.4.27 on 2017-06-24.
+ * Generated for Laravel 5.4.28 on 2017-07-09.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -11556,6 +11556,43 @@ namespace Illuminate\Support\Facades {
  
 }
 
+namespace App\Facades { 
+
+    class Eurostar {
+        
+        /**
+         * Take a a depart city, an arrival city and a date
+         * Return an array of trains for that day
+         *
+         * @param $departure_city
+         * @param $arrival_city
+         * @param $departure_date
+         * @return array 
+         * @static 
+         */ 
+        public static function singles($departure_station, $arrival_station, $departure_date)
+        {
+            return \App\EurostarAPI\Eurostar::singles($departure_station, $arrival_station, $departure_date);
+        }
+        
+        /**
+         * Take a name and a lastname and returns ticket information (create train if not in database)
+         *
+         * @param $lastName
+         * @param $referenceNumber
+         * @return array 
+         * @throws LastarException
+         * @static 
+         */ 
+        public static function retrieveTicket($lastName, $referenceNumber)
+        {
+            return \App\EurostarAPI\Eurostar::retrieveTicket($lastName, $referenceNumber);
+        }
+         
+    }
+ 
+}
+
 namespace Laravel\Socialite\Facades { 
 
     class Socialite {
@@ -12593,7 +12630,7 @@ namespace  {
              * Save a new model and return the instance.
              *
              * @param array $attributes
-             * @return \Illuminate\Database\Eloquent\Model 
+             * @return \Illuminate\Database\Eloquent\Model|$this 
              * @static 
              */ 
             public static function create($attributes = array())
@@ -12605,7 +12642,7 @@ namespace  {
              * Save a new model and return the instance. Allow mass-assignment.
              *
              * @param array $attributes
-             * @return \Illuminate\Database\Eloquent\Model 
+             * @return \Illuminate\Database\Eloquent\Model|$this 
              * @static 
              */ 
             public static function forceCreate($attributes)
@@ -12814,6 +12851,20 @@ namespace  {
             public static function when($value, $callback, $default = null)
             {    
                 return \Illuminate\Database\Eloquent\Builder::when($value, $callback, $default);
+            }
+         
+            /**
+             * Apply the callback's query changes if the given "value" is false.
+             *
+             * @param mixed $value
+             * @param callable $callback
+             * @param callable $default
+             * @return mixed 
+             * @static 
+             */ 
+            public static function unless($value, $callback, $default = null)
+            {    
+                return \Illuminate\Database\Eloquent\Builder::unless($value, $callback, $default);
             }
          
             /**
@@ -14250,6 +14301,8 @@ namespace  {
     class Validator extends \Illuminate\Support\Facades\Validator {}
 
     class View extends \Illuminate\Support\Facades\View {}
+
+    class Eurostar extends \App\Facades\Eurostar {}
 
     class Socialite extends \Laravel\Socialite\Facades\Socialite {}
 

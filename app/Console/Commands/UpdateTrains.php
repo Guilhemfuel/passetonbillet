@@ -2,7 +2,10 @@
 
 namespace App\Console\Commands;
 
-use App\EurostarAPI\Eurostar;
+
+use App\Exceptions\LastarException;
+use App\Facades\Eurostar;
+use App\Station;
 use Illuminate\Console\Command;
 
 class UpdateTrains extends Command
@@ -26,6 +29,7 @@ class UpdateTrains extends Command
      *
      * @return void
      */
+
     public function __construct()
     {
         parent::__construct();
@@ -41,25 +45,30 @@ class UpdateTrains extends Command
         //Set timer to time cron job
         $start = microtime(true);
 
-        $eurostar = new Eurostar();
-
         $trains = [];
         $my_date = date("Y-m-d", strtotime("tomorrow"));
 
         //Display information to terminal
+        $stations = Station::all();
         $this->info('Retrieving data from Eurostar API');
-        $bar = $this->output->createProgressBar(count($eurostar->connections)*2);
+        $bar = $this->output->createProgressBar(count($stations)*count($stations));
 
         //Loop through all possible journey combination to retrive all trains
-        foreach ($eurostar->connections as $connection){
-
-            $temp_trains = $eurostar->singles($connection[0],$connection[1],$my_date);
-            $trains = array_merge($trains,$temp_trains);
-            $bar->advance();
-            $temp_trains = $eurostar->singles($connection[1],$connection[0],$my_date);
-            $trains = array_merge($trains,$temp_trains);
-            $bar->advance();
-
+        foreach ($stations as $departure_station){
+            foreach ($stations as $arrival_station) {
+                // Retry 3 times in case of error
+                for ($i=1; $i <= 3; $i++) {
+                    try {
+                        $temp_trains = Eurostar::singles( $departure_station, $arrival_station, $my_date );
+                        $trains = array_merge( $trains, $temp_trains );
+                        break;
+                    }
+                    catch (LastarException $e) {
+                        $this->alert($departure_station->name_en.' to '.$arrival_station->name_en.' error.');
+                    }
+                }
+                $bar->advance();
+            }
         }
 
         //Display information to terminal
@@ -90,9 +99,6 @@ class UpdateTrains extends Command
         }
 
         $this->info("\nExecution time: ".(microtime(true) - $start)." sec. ".$created." entries created and ".$updated." entries updated.");
-
-        //TODO: retrieve for 2-3 month | Everyday 1 day?
-
 
     }
 }

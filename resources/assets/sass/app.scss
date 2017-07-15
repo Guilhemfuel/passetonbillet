@@ -6,6 +6,8 @@
   src: url("/../fonts/KeepCalm.ttf") format("truetype");
 }
 
+// JS Components css
+@import "node_modules/sweetalert2/src/sweetalert2.scss";
 
 // Variables
 @import "variables";
