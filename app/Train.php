@@ -7,14 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Train
  *
- * @property-read                                                        $number
- * @property-read                                                        $departure_date
- * @property-read                                                        $departure_time
- * @property-read                                                        $departure_city
- * @property-read                                                        $arrival_date
- * @property-read                                                        $arrival_time
- * @property-read                                                        $arrival_city
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Ticket[] $tickets
+ * @property                                                        $number
+ * @property                                                        $departure_date
+ * @property                                                        $departure_time
+ * @property                                                        $departure_city
+ * @property                                                        $arrival_date
+ * @property                                                        $arrival_time
+ * @property                                                        $arrival_city
+ * @property \Illuminate\Database\Eloquent\Collection|\App\Ticket[] $tickets
  * @mixin \Eloquent
  */
 class Train extends Model
