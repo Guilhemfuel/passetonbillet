@@ -15,7 +15,7 @@ class UpdateTrains extends Command
      *
      * @var string
      */
-    protected $signature = 'trains:update';
+    protected $signature = 'lastar:update';
 
     /**
      * The console command description.

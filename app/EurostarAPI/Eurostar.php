@@ -28,17 +28,22 @@ class Eurostar
     const DATE_FORMAT_JSON = 'd/m/Y';
     const DATE_FORMAT_DB = 'Y-m-d';
 
-    public function __construct()
+    public function __construct(Client $customClient = null)
     {
         $this->baseURL = config( 'eurostar.trains_url' );
         $this->retrieveURL = config( 'eurostar.booking_url' );
         // wrap Guzzle Client in order to throw a EurostarException instead of a ClientException on a request
-        $this->client = new class
+        $this->client = new class($customClient)
         {
             public $client;
 
-            public function __construct()
+            public function __construct($customClient = null)
             {
+                if ($customClient){
+                    $this->client = $customClient;
+                    return;
+                }
+
                 $this->client = new Client( [
                     'headers' => [
                         'Content-type' => 'application/json',
@@ -68,7 +73,9 @@ class Eurostar
      *
      * @param $departure_city Station
      * @param $arrival_city Station
-     * @param $departure_date Datetime
+     * @param $departure_date \Datetime
+     *
+     * @throws LastarException
      *
      * @return array
      */
