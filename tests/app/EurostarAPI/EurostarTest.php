@@ -1122,7 +1122,7 @@ class EurostarTest extends TestCase
         $client = new Client( [ 'handler' => $handler ] );
 
         $eurostarApi = new Eurostar( $client );
-        $tickets = $eurostarApi->retrieveTicket( $this->familyName, $this->bookingCode );
+        $eurostarApi->retrieveTicket( $this->familyName, $this->bookingCode );
     }
 
 }

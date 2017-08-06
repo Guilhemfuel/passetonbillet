@@ -105,6 +105,10 @@ class Eurostar
 
         $trains = [];
 
+        if(count($decoded['proposal_sets'])==0){
+            return $trains;
+        }
+
         foreach ( $decoded['proposal_sets'] as $query_train ) {
 
             //Retrieve useful information

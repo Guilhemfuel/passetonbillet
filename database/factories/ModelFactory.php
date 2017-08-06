@@ -15,10 +15,14 @@
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     static $password;
 
-    //TODO: update user factory
-
     return [
-        'name' => $faker->name,
+        'first_name' => $faker->firstName,
+        'last_name' => $faker->firstName,
+        'gender' => $faker->numberBetween(0,1),
+        'phone' => $faker->phoneNumber,
+        'birthdate' => $faker->dateTimeThisCentury->format(\App\EurostarAPI\Eurostar::DATE_FORMAT_DB),
+        'language' => str_random(2),
+        'status' => 1,
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
         'remember_token' => str_random(10),
@@ -38,24 +42,38 @@ $factory->define(App\Station::class, function (Faker\Generator $faker) {
 });
 
 $factory->define(App\Train::class, function (Faker\Generator $faker) {
+    $station1 = \App\Station::inRandomOrder()->first();
+    $station2 = \App\Station::where('id','!=',$station1->id)->inRandomOrder()->first();
+
+    $date = $faker->dateTimeThisMonth()->format(\App\EurostarAPI\Eurostar::DATE_FORMAT_DB);
     return [
         'number' => $faker->randomNumber(4),
-        'departure_date' => $faker->date(\App\EurostarAPI\Eurostar::DATE_FORMAT_DB),
+        'departure_date' => $date,
         'departure_time' => $faker->time(),
-        'arrival_date' => $faker->date(\App\EurostarAPI\Eurostar::DATE_FORMAT_DB),
+        'arrival_date' => $date,
         'arrival_time' => $faker->time(),
-        'departure_city' => function() {
-            return factory(App\Station::class)->create()->id;
-        },
-        'arrival_city' => function() {
-            return factory(App\Station::class)->create()->id;
-        }
+        'departure_city' => $station1->id,
+        'arrival_city' => $station2->id
     ];
 });
 
 $factory->define(App\Ticket::class, function (Faker\Generator $faker) {
+    $train = factory(App\Train::class)->create();
+    $user = factory(App\User::class)->create();
     return [
-        //TODO: ticket factory
+        'train_id' => $train->id,
+        'user_id' => $user->id,
+        'user_notes' => $faker->text(120),
+        'price' => $faker->numberBetween(30,100),
+        'currency' => $faker->numberBetween(0,1)?'EUR':'GBP',
+        'bought_price' => $faker->numberBetween(30,100),
+        'bought_currency' => $faker->numberBetween(0,1)?'EUR':'GBP',
+        'flexibility' => $faker->numberBetween(0,3),
+        'inbound' => $faker->boolean(),
+        'class' => str_random(2),
+        'eurostar_code' => $faker->text(6),
+        'buyer_email' => $user->email,
+        'buyer_name' => $user->last_name,
     ];
 });
 
