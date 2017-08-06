@@ -17,7 +17,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 
     return [
         'first_name' => $faker->firstName,
-        'last_name' => $faker->firstName,
+        'last_name' => $faker->lastName,
         'gender' => $faker->numberBetween(0,1),
         'phone' => $faker->phoneNumber,
         'birthdate' => $faker->dateTimeThisCentury->format(\App\EurostarAPI\Eurostar::DATE_FORMAT_DB),

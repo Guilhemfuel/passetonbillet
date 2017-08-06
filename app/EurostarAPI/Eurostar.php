@@ -123,8 +123,8 @@ class Eurostar
             $train->arrival_date = $departure_date->format(static::DATE_FORMAT_DB);
             $train->departure_time = $departure_time;
             $train->arrival_time = $arrival_time;
-            $train->departure_city = $departure_station->eurostar_id;
-            $train->arrival_city = $arrival_station->eurostar_id;
+            $train->departure_city = $departure_station->id;
+            $train->arrival_city = $arrival_station->id;
 
             //Add it to array
             array_push( $trains, $train );

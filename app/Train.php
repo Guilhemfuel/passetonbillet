@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Nicolaslopezj\Searchable\SearchableTrait;
 
 /**
  * App\Train
@@ -20,6 +21,8 @@ use Illuminate\Database\Eloquent\Model;
 class Train extends Model
 {
 
+    use SearchableTrait;
+
     protected $fillable = [
         'number',
         'departure_date',
@@ -28,6 +31,28 @@ class Train extends Model
         'arrival_time',
         'departure_city',
         'arrival_city'
+    ];
+
+    /**
+     * Searchable rules.
+     *
+     * @var array
+     */
+    protected $searchable = [
+        /**
+         * Columns and their priority in search results.
+         * Columns with higher values are more important.
+         * Columns with equal values have equal importance.
+         *
+         * @var array
+         */
+        // TODO: fix train search
+        
+        'columns' => [
+            'trains.number' => 5,
+            'trains.departure_date' => 5,
+            'trains.departure_time' => 5,
+        ],
     ];
 
     public function tickets()

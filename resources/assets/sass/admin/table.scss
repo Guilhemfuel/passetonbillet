@@ -1,0 +1,28 @@
+
+
+.crud-search{
+  top: -7px;
+  position: relative;
+  margin-right: 450px;
+}
+
+.top-pagination {
+  .pagination {
+    margin-top: -40px;
+  }
+}
+
+.pagination {
+  font-size: 12px;
+  float: right !important;
+
+  li > a, .pagination > li > span {
+    color: $new-purple;
+  }
+
+  li.active span {
+    background-color: $new-purple;
+    border-color: $purple-color-bottom;
+  }
+
+}

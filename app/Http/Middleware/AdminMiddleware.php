@@ -19,6 +19,7 @@ class AdminMiddleware
     public function handle( $request, Closure $next )
     {
         if ( ! Auth::check() || ! Auth::user()->isAdmin() ) {
+            // TODO: add flash message
             return redirect()->route( 'home' );
         }
 

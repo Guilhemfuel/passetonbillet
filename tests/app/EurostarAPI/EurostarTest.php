@@ -922,8 +922,8 @@ class EurostarTest extends TestCase
 
         foreach ( $trains as $train ) {
             /* @var Train $train */
-            $this->assertEquals( $train->arrival_city, $station2->eurostar_id, 'Arrival city match' );
-            $this->assertEquals( $train->departure_city, $station1->eurostar_id, 'Departure city match' );
+            $this->assertEquals( $train->arrival_city, $station2->id, 'Arrival city match' );
+            $this->assertEquals( $train->departure_city, $station1->id, 'Departure city match' );
             $this->assertEquals( $train->departure_date, $myDate->format( Eurostar::DATE_FORMAT_DB ) );
             $this->assertEquals( $train->arrival_date, $myDate->format( Eurostar::DATE_FORMAT_DB ) );
         }

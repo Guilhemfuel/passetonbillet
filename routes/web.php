@@ -39,15 +39,14 @@ Route::get( '/testRetrieve', 'TicketController@test' )->name( 'test.billet' );
 Route::get( '/test', 'PageController@test' )->name( 'test.trains' );
 
 
-// Logged Routes...
-Route::group( [ 'middleware' => 'auth' ], function () {
-    Route::get( '/auth', function () {
-        return 'ok';
-    } );
-} );
-
 // Admin Routes...
 Route::group( [ 'prefix' => 'lastadmin', 'middleware' => 'auth.admin' ], function () {
+    Route::get( '/', 'Admin\HomeController@home' )->name( 'admin.home' );
+
+    Route::resource('users', 'Admin\UserController');
+    Route::resource('tickets', 'Admin\TicketController');
+    Route::resource('stations', 'Admin\StationController');
+    Route::resource('trains', 'Admin\TrainController');
 
 } );
 
