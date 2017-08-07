@@ -18,6 +18,8 @@
     "vue": "^2.1.10"
   },
   "dependencies": {
-    "sweetalert2": "^6.6.5"
+    "sweetalert2": "^6.6.5",
+    "vue-cleave": "^1.2.2",
+    "vuejs-datepicker": "^0.9.7"
   }
 }

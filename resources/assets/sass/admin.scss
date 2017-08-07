@@ -8,6 +8,9 @@
   src: url("/../fonts/KeepCalm.ttf") format("truetype");
 }
 
+// Flags icon css
+@import "~flag-icon-css/sass/flag-icon";
+
 @import "admin/variables";
 @import "admin/mixins";
 

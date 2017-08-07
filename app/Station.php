@@ -62,4 +62,9 @@ class Station extends Model
         }
     }
 
+    public function getFlagAttribute()
+    {
+        return "<span class=\"flag-icon flag-icon-".$this->country."\"></span>";
+    }
+
 }

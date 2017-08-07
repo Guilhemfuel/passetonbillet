@@ -10,18 +10,10 @@ class TrainController extends BaseController
 {
 
     protected $CRUDmodelName = 'trains';
+    protected $CRUDsingularEntityName = 'Train';
 
     protected $model = Train::class;
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.

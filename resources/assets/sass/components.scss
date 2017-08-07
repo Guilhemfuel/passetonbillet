@@ -1,0 +1,32 @@
+
+// Datepicker
+
+.lastar-calendar {
+
+  .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control{
+    background-color: $white;
+  }
+
+  .vdp-datepicker__calendar{
+    border-radius: 4px;
+    border: 1px solid #AAAAAA;
+
+    .cell{
+      &:not(.blank):not(.disabled).day,
+      &:not(.blank):not(.disabled).month,
+      &:not(.blank):not(.disabled).year {
+        &:hover{
+          border: 1px solid $new-purple;
+        }
+      }
+      &.selected{
+        background-color: $new-purple;
+        color: $white;
+        &:hover, &.highlighted{
+          background-color: $purple-color-bottom;
+          border: 0px;
+        }
+      }
+    }
+  }
+}
