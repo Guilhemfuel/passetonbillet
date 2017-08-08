@@ -19,7 +19,7 @@
 
         @section('card-body')
 
-            <div class="crud-add">
+            <div class="crud-actions">
                 <a href="{{route($model.'.create')}}" class="btn btn-success btn-fill btn-sm"><i class="fa fa-plus"></i> Add new</a>
             </div>
 
@@ -51,7 +51,7 @@
             </div>
 
             <div class="table-responsive table-full-width">
-                @yield('table')
+                @include('admin.CRUD.'. $model .'.table')
             </div>
 
             <div class="bottom-pagination">

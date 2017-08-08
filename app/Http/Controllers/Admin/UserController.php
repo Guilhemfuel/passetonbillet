@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\UserRequest;
+use App\Exceptions\LastarException;
 
 class UserController extends BaseController
 {
@@ -21,9 +23,9 @@ class UserController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function store( Request $request )
+    public function store( UserRequest $request )
     {
-        //
+        return $this->lastarView( 'admin.CRUD.' . $this->CRUDmodelName . '.index' );
     }
 
     /**

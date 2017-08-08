@@ -1,6 +1,4 @@
-@extends('admin.CRUD.index')
 
-@section('table')
     {{--TODO: add links to station--}}
     <table class="table table-hover table-striped">
         <thead>
@@ -28,4 +26,3 @@
         @endforeach
         </tbody>
     </table>
-@endsection

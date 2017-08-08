@@ -51,6 +51,16 @@ class User extends Authenticatable
         ]
     ];
 
+    public static $rules = [
+        'first_name' => 'required',
+        'last_name' => 'required',
+        'gender' => 'required|numeric',
+        'phone' => 'required|numeric',
+        'birthdate' => 'required|date',
+        'language' => 'required',
+        'email' => 'required|email',
+    ];
+
     /**
      * The attributes that should be hidden for arrays.
      *

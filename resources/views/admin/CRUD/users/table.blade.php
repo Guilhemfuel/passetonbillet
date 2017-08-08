@@ -1,6 +1,4 @@
-@extends('admin.CRUD.index')
 
-@section('table')
     <table class="table table-hover table-striped">
         <thead>
         <th>First Name</th>
@@ -23,4 +21,3 @@
         @endforeach
         </tbody>
     </table>
-@endsection

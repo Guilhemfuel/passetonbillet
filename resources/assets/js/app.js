@@ -12,9 +12,10 @@ require('./bootstrap');
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-
-Vue.component('datepicker', require('vuejs-datepicker'));
 Vue.component('cleave', require('vue-cleave'));
+Vue.component('datepicker', require('vuejs-datepicker'));
+Vue.component('phone', require('./components/Phone.vue'));
+
 
 
 /**
@@ -22,11 +23,6 @@ Vue.component('cleave', require('vue-cleave'));
  * Common JS to all pages
  *
  */
-
-// Phone formatter
-require('cleave.js/src/addons/phone-type-formatter.fr');
-require('cleave.js/src/addons/phone-type-formatter.gb');
-require('cleave.js/src/addons/phone-type-formatter.be');
 
 const swal = require('sweetalert2')
 

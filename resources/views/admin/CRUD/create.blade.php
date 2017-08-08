@@ -19,8 +19,10 @@
 
         @section('card-body')
 
-            <form id="createForm">
-                @yield('form')
+            <form id="createForm" method="POST" action="{{route($model.'.store')}}">
+                {{csrf_field()}}
+
+                @include('admin.CRUD.'.$model.'.form')
 
                 <div class="crud-form-bottom">
                     <button class="btn btn-success btn-fill" type="submit">

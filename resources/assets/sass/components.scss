@@ -30,3 +30,30 @@
     }
   }
 }
+
+// Phone
+
+.lastar-phone {
+  .select-phone {
+    position: relative;
+    margin-right: -1px;
+    padding-right:0px !important;
+    padding-top: 0px !important;
+    select {
+      border-radius: 4px 0px 0px 4px !important;
+      -webkit-appearance: none;
+    }
+    .fa-caret-down{
+      position: absolute;
+      right: 6px;
+      top: 12px;
+    }
+  }
+  .input-phone {
+    padding-left:0px !important;
+    padding-top: 0px !important;
+    input.form-control {
+      border-radius: 0px 4px 4px 0px !important;
+    }
+  }
+}

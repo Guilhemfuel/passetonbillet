@@ -48,6 +48,20 @@
 
                 <div class="content">
                     <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                @if ($errors->any())
+                                    <div class="alert alert-danger alert-dismissible" role="alert">
+                                        <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">×</button>
+                                        Whoops!</br>
+                                        @foreach ($errors->all() as $error)
+                                            <span>{{$error}}</span>
+                                        @endforeach
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+
                         @yield('content')
                     </div>
                 </div>

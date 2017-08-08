@@ -1,6 +1,3 @@
-@extends('admin.CRUD.index')
-
-@section('table')
 
     {{-- TODO: links to trains and users--}}
 
@@ -30,4 +27,3 @@
         @endforeach
         </tbody>
     </table>
-@endsection

@@ -11,6 +11,10 @@
 // Flags icon css
 @import "~flag-icon-css/sass/flag-icon";
 
+// Import app variables and components
+@import "variables";
+@import "components";
+
 @import "admin/variables";
 @import "admin/mixins";
 
@@ -21,13 +25,11 @@
 @import "admin/sidebar-and-main-panel";
 @import "admin/buttons";
 @import "admin/inputs";
-
-@import "admin/alerts";
-@import "admin/tables";
-
 @import "admin/checkbox-radio-switch";
 @import "admin/navbars";
 @import "admin/footers";
+@import "admin/alerts";
+
 
 // Fancy Stuff
 @import "admin/dropdown";
@@ -35,3 +37,9 @@
 @import "admin/chartist";
 @import "admin/responsive";
 @import "admin/table";
+
+// Custom
+@import "admin/tables";
+
+
+

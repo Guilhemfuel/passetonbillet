@@ -17,33 +17,35 @@ abstract class BaseController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
-        $this->middleware('auth.admin');
+        $this->middleware( 'auth' );
+        $this->middleware( 'auth.admin' );
     }
 
-    protected function lastarView( $viewName, $data = []){
-        if ($this->CRUDmodelName === null){
-            throw new LastarException('$CRUDmodelName must not be null.');
+    protected function lastarView( $viewName, $data = [] )
+    {
+        if ( $this->CRUDmodelName === null ) {
+            throw new LastarException( '$CRUDmodelName must not be null.' );
         }
-        if ($this->CRUDsingularEntityName === null){
-            throw new LastarException('$CRUDsingularEntityName must not be null.');
+        if ( $this->CRUDsingularEntityName === null ) {
+            throw new LastarException( '$CRUDsingularEntityName must not be null.' );
         }
         $data['model'] = $this->CRUDmodelName;
         $data['entitySingleName'] = $this->CRUDsingularEntityName;
-        return view($viewName, $data);
+
+        return view( $viewName, $data );
     }
 
-    public function index(Request $request)
+    public function index( Request $request )
     {
-        if ($request->has('search')){
-            $entities = $this->model::search($request->input('search'))->paginate( 30 );
-            $data = [ 'entities' => $entities, 'search' => $request->input('search') ];
+        if ( $request->has( 'search' ) ) {
+            $entities = $this->model::search( $request->input( 'search' ) )->paginate( 30 );
+            $data = [ 'entities' => $entities, 'search' => $request->input( 'search' ) ];
         } else {
             $entities = $this->model::paginate( 30 );
             $data = [ 'entities' => $entities ];
         }
 
-        return $this->lastarView( 'admin.CRUD.'.$this->CRUDmodelName.'.index', $data );
+        return $this->lastarView( 'admin.CRUD.index', $data );
     }
 
     /**
@@ -53,7 +55,8 @@ abstract class BaseController extends Controller
      */
     public function create()
     {
-        return $this->lastarView( 'admin.CRUD.'.$this->CRUDmodelName.'.create' );
+        return $this->lastarView( 'admin.CRUD.create' );
     }
+
 
 }

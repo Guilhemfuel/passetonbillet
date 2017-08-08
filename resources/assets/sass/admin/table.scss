@@ -10,13 +10,21 @@
 
   .top-pagination {
     .pagination {
-      margin-top: -40px;
+      margin-top: -37px;
     }
+  }
+
+  .bottom-pagination {
+    margin-right: -15px;
   }
 
   .pagination {
     font-size: 12px;
     float: right !important;
+
+    li > a, li > span {
+      padding: 5px 14px 4px;
+    }
 
     li > a, .pagination > li > span {
       color: $new-purple;
@@ -30,8 +38,11 @@
   }
 }
 
-.crud-add {
+.crud-actions {
   position: absolute;
   top: 10px;
-  right: 10px;
+  right: 15px;
+  a {
+    margin-left: 10px;
+  }
 }
