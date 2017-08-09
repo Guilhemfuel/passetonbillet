@@ -2,7 +2,8 @@
     <div class="col-md-12">
         <div class="form-group">
             <label>Number</label>
-            <input type="text" class="form-control" placeholder="Train number" value="{{isset($entity)?$entity->number:(old('number'))}}" name="number">
+            <input type="text" class="form-control" placeholder="Train number"
+                   value="{{isset($entity)?$entity->number:(old('number'))}}" name="number">
         </div>
     </div>
 </div>
@@ -21,8 +22,31 @@
     <div class="col-md-6">
         <div class="form-group">
             <label>Departure Time</label>
-            <phone :value="'{{isset($entity)?$entity->phone:(old('phone'))}}'"
-                   :country-value="'{{isset($entity)?$entity->phone_country:(old('phone_country'))}}'"></phone>
+            <timepicker :name="'departure_time'"
+                        :value="'{{isset($entity)?$entity->departure_time:(old('departure_time'))}}'"
+                        :placeholder="'Departure time'"></timepicker>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Arrival Date</label>
+            <datepicker :input-class="inputClass"
+                        :wrapper-class="'lastar-calendar'"
+                        :placeholder="'Departure Date'"
+                        :name="'arrival_date'"
+                        :value="'{{isset($entity)?$entity->arrival_date:(old('arrival_date'))}}'"
+            ></datepicker>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Arrival Time</label>
+            <timepicker :name="'arrival_time'"
+                        :value="'{{isset($entity)?$entity->arrival_time:(old('arrival_time'))}}'"
+                        :placeholder="'Arrival time'"
+            ></timepicker>
         </div>
     </div>
 </div>
@@ -30,7 +54,7 @@
     <div class="col-md-6">
         <div class="form-group">
             <label>Email</label>
-            <input type="text" class="form-control" placeholder="Email" name="email" value="{{isset($entity)?$entity->email:(old('email'))}}">
+            <stationpicker></stationpicker>
         </div>
     </div>
 </div>

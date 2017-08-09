@@ -4336,7 +4336,8 @@ output {
   color: #555555;
 }
 
-.form-control {
+.form-control,
+.el-input__inner {
   display: block;
   width: 100%;
   height: 40px;
@@ -4357,44 +4358,55 @@ output {
   transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s, -webkit-box-shadow ease-in-out 0.15s;
 }
 
-.form-control:focus {
+.form-control:focus,
+.el-input__inner:focus {
   border-color: #66afe9;
   outline: 0;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
 }
 
-.form-control::-moz-placeholder {
+.form-control::-moz-placeholder,
+.el-input__inner::-moz-placeholder {
   color: #999;
   opacity: 1;
 }
 
-.form-control:-ms-input-placeholder {
+.form-control:-ms-input-placeholder,
+.el-input__inner:-ms-input-placeholder {
   color: #999;
 }
 
-.form-control::-webkit-input-placeholder {
+.form-control::-webkit-input-placeholder,
+.el-input__inner::-webkit-input-placeholder {
   color: #999;
 }
 
-.form-control::-ms-expand {
+.form-control::-ms-expand,
+.el-input__inner::-ms-expand {
   border: 0;
   background-color: transparent;
 }
 
 .form-control[disabled],
+[disabled].el-input__inner,
 .form-control[readonly],
-fieldset[disabled] .form-control {
+[readonly].el-input__inner,
+fieldset[disabled] .form-control,
+fieldset[disabled] .el-input__inner {
   background-color: #eeeeee;
   opacity: 1;
 }
 
 .form-control[disabled],
-fieldset[disabled] .form-control {
+[disabled].el-input__inner,
+fieldset[disabled] .form-control,
+fieldset[disabled] .el-input__inner {
   cursor: not-allowed;
 }
 
-textarea.form-control {
+textarea.form-control,
+textarea.el-input__inner {
   height: auto;
 }
 
@@ -4404,31 +4416,39 @@ input[type="search"] {
 
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
   input[type="date"].form-control,
+  input[type="date"].el-input__inner,
   input[type="time"].form-control,
+  input[type="time"].el-input__inner,
   input[type="datetime-local"].form-control,
-  input[type="month"].form-control {
+  input[type="datetime-local"].el-input__inner,
+  input[type="month"].form-control,
+  input[type="month"].el-input__inner {
     line-height: 40px;
   }
 
   input[type="date"].input-sm,
   .input-group-sm > input[type="date"].form-control,
+  .input-group-sm > input[type="date"].el-input__inner,
   .input-group-sm > input[type="date"].input-group-addon,
   .input-group-sm > .input-group-btn > input[type="date"].btn,
   .input-group-sm input[type="date"],
   input[type="time"].input-sm,
   .input-group-sm > input[type="time"].form-control,
+  .input-group-sm > input[type="time"].el-input__inner,
   .input-group-sm > input[type="time"].input-group-addon,
   .input-group-sm > .input-group-btn > input[type="time"].btn,
   .input-group-sm
   input[type="time"],
   input[type="datetime-local"].input-sm,
   .input-group-sm > input[type="datetime-local"].form-control,
+  .input-group-sm > input[type="datetime-local"].el-input__inner,
   .input-group-sm > input[type="datetime-local"].input-group-addon,
   .input-group-sm > .input-group-btn > input[type="datetime-local"].btn,
   .input-group-sm
   input[type="datetime-local"],
   input[type="month"].input-sm,
   .input-group-sm > input[type="month"].form-control,
+  .input-group-sm > input[type="month"].el-input__inner,
   .input-group-sm > input[type="month"].input-group-addon,
   .input-group-sm > .input-group-btn > input[type="month"].btn,
   .input-group-sm
@@ -4438,23 +4458,27 @@ input[type="search"] {
 
   input[type="date"].input-lg,
   .input-group-lg > input[type="date"].form-control,
+  .input-group-lg > input[type="date"].el-input__inner,
   .input-group-lg > input[type="date"].input-group-addon,
   .input-group-lg > .input-group-btn > input[type="date"].btn,
   .input-group-lg input[type="date"],
   input[type="time"].input-lg,
   .input-group-lg > input[type="time"].form-control,
+  .input-group-lg > input[type="time"].el-input__inner,
   .input-group-lg > input[type="time"].input-group-addon,
   .input-group-lg > .input-group-btn > input[type="time"].btn,
   .input-group-lg
   input[type="time"],
   input[type="datetime-local"].input-lg,
   .input-group-lg > input[type="datetime-local"].form-control,
+  .input-group-lg > input[type="datetime-local"].el-input__inner,
   .input-group-lg > input[type="datetime-local"].input-group-addon,
   .input-group-lg > .input-group-btn > input[type="datetime-local"].btn,
   .input-group-lg
   input[type="datetime-local"],
   input[type="month"].input-lg,
   .input-group-lg > input[type="month"].form-control,
+  .input-group-lg > input[type="month"].el-input__inner,
   .input-group-lg > input[type="month"].input-group-addon,
   .input-group-lg > .input-group-btn > input[type="month"].btn,
   .input-group-lg
@@ -4550,10 +4574,12 @@ fieldset[disabled]
 
 .form-control-static.input-lg,
 .input-group-lg > .form-control-static.form-control,
+.input-group-lg > .form-control-static.el-input__inner,
 .input-group-lg > .form-control-static.input-group-addon,
 .input-group-lg > .input-group-btn > .form-control-static.btn,
 .form-control-static.input-sm,
 .input-group-sm > .form-control-static.form-control,
+.input-group-sm > .form-control-static.el-input__inner,
 .input-group-sm > .form-control-static.input-group-addon,
 .input-group-sm > .input-group-btn > .form-control-static.btn {
   padding-left: 0;
@@ -4562,6 +4588,7 @@ fieldset[disabled]
 
 .input-sm,
 .input-group-sm > .form-control,
+.input-group-sm > .el-input__inner,
 .input-group-sm > .input-group-addon,
 .input-group-sm > .input-group-btn > .btn {
   height: 30px;
@@ -4573,6 +4600,7 @@ fieldset[disabled]
 
 select.input-sm,
 .input-group-sm > select.form-control,
+.input-group-sm > select.el-input__inner,
 .input-group-sm > select.input-group-addon,
 .input-group-sm > .input-group-btn > select.btn {
   height: 30px;
@@ -4581,16 +4609,19 @@ select.input-sm,
 
 textarea.input-sm,
 .input-group-sm > textarea.form-control,
+.input-group-sm > textarea.el-input__inner,
 .input-group-sm > textarea.input-group-addon,
 .input-group-sm > .input-group-btn > textarea.btn,
 select[multiple].input-sm,
 .input-group-sm > select[multiple].form-control,
+.input-group-sm > select[multiple].el-input__inner,
 .input-group-sm > select[multiple].input-group-addon,
 .input-group-sm > .input-group-btn > select[multiple].btn {
   height: auto;
 }
 
-.form-group-sm .form-control {
+.form-group-sm .form-control,
+.form-group-sm .el-input__inner {
   height: 30px;
   padding: 5px 10px;
   font-size: 12px;
@@ -4598,13 +4629,16 @@ select[multiple].input-sm,
   border-radius: 3px;
 }
 
-.form-group-sm select.form-control {
+.form-group-sm select.form-control,
+.form-group-sm select.el-input__inner {
   height: 30px;
   line-height: 30px;
 }
 
 .form-group-sm textarea.form-control,
-.form-group-sm select[multiple].form-control {
+.form-group-sm textarea.el-input__inner,
+.form-group-sm select[multiple].form-control,
+.form-group-sm select[multiple].el-input__inner {
   height: auto;
 }
 
@@ -4618,6 +4652,7 @@ select[multiple].input-sm,
 
 .input-lg,
 .input-group-lg > .form-control,
+.input-group-lg > .el-input__inner,
 .input-group-lg > .input-group-addon,
 .input-group-lg > .input-group-btn > .btn {
   height: 54px;
@@ -4629,6 +4664,7 @@ select[multiple].input-sm,
 
 select.input-lg,
 .input-group-lg > select.form-control,
+.input-group-lg > select.el-input__inner,
 .input-group-lg > select.input-group-addon,
 .input-group-lg > .input-group-btn > select.btn {
   height: 54px;
@@ -4637,16 +4673,19 @@ select.input-lg,
 
 textarea.input-lg,
 .input-group-lg > textarea.form-control,
+.input-group-lg > textarea.el-input__inner,
 .input-group-lg > textarea.input-group-addon,
 .input-group-lg > .input-group-btn > textarea.btn,
 select[multiple].input-lg,
 .input-group-lg > select[multiple].form-control,
+.input-group-lg > select[multiple].el-input__inner,
 .input-group-lg > select[multiple].input-group-addon,
 .input-group-lg > .input-group-btn > select[multiple].btn {
   height: auto;
 }
 
-.form-group-lg .form-control {
+.form-group-lg .form-control,
+.form-group-lg .el-input__inner {
   height: 54px;
   padding: 14px 30px;
   font-size: 18px;
@@ -4654,13 +4693,16 @@ select[multiple].input-lg,
   border-radius: 6px;
 }
 
-.form-group-lg select.form-control {
+.form-group-lg select.form-control,
+.form-group-lg select.el-input__inner {
   height: 54px;
   line-height: 54px;
 }
 
 .form-group-lg textarea.form-control,
-.form-group-lg select[multiple].form-control {
+.form-group-lg textarea.el-input__inner,
+.form-group-lg select[multiple].form-control,
+.form-group-lg select[multiple].el-input__inner {
   height: auto;
 }
 
@@ -4676,7 +4718,8 @@ select[multiple].input-lg,
   position: relative;
 }
 
-.has-feedback .form-control {
+.has-feedback .form-control,
+.has-feedback .el-input__inner {
   padding-right: 50px;
 }
 
@@ -4695,10 +4738,12 @@ select[multiple].input-lg,
 
 .input-lg + .form-control-feedback,
 .input-group-lg > .form-control + .form-control-feedback,
+.input-group-lg > .el-input__inner + .form-control-feedback,
 .input-group-lg > .input-group-addon + .form-control-feedback,
 .input-group-lg > .input-group-btn > .btn + .form-control-feedback,
 .input-group-lg + .form-control-feedback,
-.form-group-lg .form-control + .form-control-feedback {
+.form-group-lg .form-control + .form-control-feedback,
+.form-group-lg .el-input__inner + .form-control-feedback {
   width: 54px;
   height: 54px;
   line-height: 54px;
@@ -4706,10 +4751,12 @@ select[multiple].input-lg,
 
 .input-sm + .form-control-feedback,
 .input-group-sm > .form-control + .form-control-feedback,
+.input-group-sm > .el-input__inner + .form-control-feedback,
 .input-group-sm > .input-group-addon + .form-control-feedback,
 .input-group-sm > .input-group-btn > .btn + .form-control-feedback,
 .input-group-sm + .form-control-feedback,
-.form-group-sm .form-control + .form-control-feedback {
+.form-group-sm .form-control + .form-control-feedback,
+.form-group-sm .el-input__inner + .form-control-feedback {
   width: 30px;
   height: 30px;
   line-height: 30px;
@@ -4728,13 +4775,15 @@ select[multiple].input-lg,
   color: #3c763d;
 }
 
-.has-success .form-control {
+.has-success .form-control,
+.has-success .el-input__inner {
   border-color: #3c763d;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 
-.has-success .form-control:focus {
+.has-success .form-control:focus,
+.has-success .el-input__inner:focus {
   border-color: #2b542c;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #67b168;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #67b168;
@@ -4763,13 +4812,15 @@ select[multiple].input-lg,
   color: #8a6d3b;
 }
 
-.has-warning .form-control {
+.has-warning .form-control,
+.has-warning .el-input__inner {
   border-color: #8a6d3b;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 
-.has-warning .form-control:focus {
+.has-warning .form-control:focus,
+.has-warning .el-input__inner:focus {
   border-color: #66512c;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #c0a16b;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #c0a16b;
@@ -4798,13 +4849,15 @@ select[multiple].input-lg,
   color: #a94442;
 }
 
-.has-error .form-control {
+.has-error .form-control,
+.has-error .el-input__inner {
   border-color: #a94442;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 
-.has-error .form-control:focus {
+.has-error .form-control:focus,
+.has-error .el-input__inner:focus {
   border-color: #843534;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #ce8483;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #ce8483;
@@ -4842,7 +4895,8 @@ select[multiple].input-lg,
     vertical-align: middle;
   }
 
-  .form-inline .form-control {
+  .form-inline .form-control,
+  .form-inline .el-input__inner {
     display: inline-block;
     width: auto;
     vertical-align: middle;
@@ -4859,11 +4913,13 @@ select[multiple].input-lg,
 
   .form-inline .input-group .input-group-addon,
   .form-inline .input-group .input-group-btn,
-  .form-inline .input-group .form-control {
+  .form-inline .input-group .form-control,
+  .form-inline .input-group .el-input__inner {
     width: auto;
   }
 
-  .form-inline .input-group > .form-control {
+  .form-inline .input-group > .form-control,
+  .form-inline .input-group > .el-input__inner {
     width: 100%;
   }
 
@@ -5925,7 +5981,8 @@ tbody.collapse.in {
   padding-right: 0;
 }
 
-.input-group .form-control {
+.input-group .form-control,
+.input-group .el-input__inner {
   position: relative;
   z-index: 2;
   float: left;
@@ -5933,19 +5990,22 @@ tbody.collapse.in {
   margin-bottom: 0;
 }
 
-.input-group .form-control:focus {
+.input-group .form-control:focus,
+.input-group .el-input__inner:focus {
   z-index: 3;
 }
 
 .input-group-addon,
 .input-group-btn,
-.input-group .form-control {
+.input-group .form-control,
+.input-group .el-input__inner {
   display: table-cell;
 }
 
 .input-group-addon:not(:first-child):not(:last-child),
 .input-group-btn:not(:first-child):not(:last-child),
-.input-group .form-control:not(:first-child):not(:last-child) {
+.input-group .form-control:not(:first-child):not(:last-child),
+.input-group .el-input__inner:not(:first-child):not(:last-child) {
   border-radius: 0;
 }
 
@@ -5990,6 +6050,7 @@ tbody.collapse.in {
 }
 
 .input-group .form-control:first-child,
+.input-group .el-input__inner:first-child,
 .input-group-addon:first-child,
 .input-group-btn:first-child > .btn,
 .input-group-btn:first-child > .btn-group > .btn,
@@ -6005,6 +6066,7 @@ tbody.collapse.in {
 }
 
 .input-group .form-control:last-child,
+.input-group .el-input__inner:last-child,
 .input-group-addon:last-child,
 .input-group-btn:last-child > .btn,
 .input-group-btn:last-child > .btn-group > .btn,
@@ -6543,7 +6605,8 @@ tbody.collapse.in {
     vertical-align: middle;
   }
 
-  .navbar-form .form-control {
+  .navbar-form .form-control,
+  .navbar-form .el-input__inner {
     display: inline-block;
     width: auto;
     vertical-align: middle;
@@ -6560,11 +6623,13 @@ tbody.collapse.in {
 
   .navbar-form .input-group .input-group-addon,
   .navbar-form .input-group .input-group-btn,
-  .navbar-form .input-group .form-control {
+  .navbar-form .input-group .form-control,
+  .navbar-form .input-group .el-input__inner {
     width: auto;
   }
 
-  .navbar-form .input-group > .form-control {
+  .navbar-form .input-group > .form-control,
+  .navbar-form .input-group > .el-input__inner {
     width: 100%;
   }
 
@@ -9495,13 +9560,15 @@ body {
   border: none;
 }
 
-.form-control {
+.form-control,
+.el-input__inner {
   background-color: #F8FDFF;
   -webkit-box-shadow: none;
   box-shadow: none;
 }
 
-.form-control:focus {
+.form-control:focus,
+.el-input__inner:focus {
   background-color: white;
   border-color: #481AFD;
   -webkit-box-shadow: none;
@@ -9509,12 +9576,14 @@ body {
 }
 
 .has-error .form-control,
+.has-error .el-input__inner,
 .has-error .help-block {
   border-color: #f45e58;
   color: #f45e58;
 }
 
 .has-error .form-control:focus,
+.has-error .el-input__inner:focus,
 .has-error .help-block:focus {
   -webkit-box-shadow: none;
           box-shadow: none;
@@ -9640,8 +9709,11 @@ body {
 }
 
 .lastar-calendar .form-control[disabled],
+.lastar-calendar [disabled].el-input__inner,
 .lastar-calendar .form-control[readonly],
-.lastar-calendar fieldset[disabled] .form-control {
+.lastar-calendar [readonly].el-input__inner,
+.lastar-calendar fieldset[disabled] .form-control,
+.lastar-calendar fieldset[disabled] .el-input__inner {
   background-color: white;
 }
 
@@ -9674,7 +9746,7 @@ body {
   padding-top: 0px !important;
 }
 
-.lastar-phone .select-phone select {
+.lastar-phone .select-phone input {
   border-radius: 4px 0px 0px 4px !important;
   -webkit-appearance: none;
 }
@@ -9690,12 +9762,24 @@ body {
   padding-top: 0px !important;
 }
 
-.lastar-phone .input-phone input.form-control {
+.lastar-phone .input-phone input.form-control,
+.lastar-phone .input-phone input.el-input__inner {
   border-radius: 0px 4px 4px 0px !important;
 }
 
-.btn-margin {
-  margin-right: 10px;
-  margin-left: 10px;
+.el-select,
+.el-input,
+.el-date-editor.el-input {
+  width: 100% !important;
+}
+
+.el-time-panel {
+  max-width: 200px;
+}
+
+.el-input__inner {
+  height: 40px !important;
+  background-color: white !important;
+  border: 1px solid #E3E3E3 !important;
 }
 

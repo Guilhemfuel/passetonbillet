@@ -59,7 +59,7 @@
 
         $(document).ready(function(){
             $('#btn-delete').click(function(){
-                $swal({
+                swal({
                     title: 'Are you sure?',
                     text: "You won't be able to revert this!",
                     type: 'warning',
@@ -71,7 +71,7 @@
 
                 }).then(function () {
                     $('#deleteForm').submit();
-                }).catch($swal.noop);
+                }).catch(swal.noop);
             });
         });
     </script>

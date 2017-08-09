@@ -22,6 +22,7 @@ class CreateStationTable extends Migration
             $table->string('country');
             $table->string('timezone_txt');
             $table->string('timezone');
+            $table->timestamps();
         });
     }
 

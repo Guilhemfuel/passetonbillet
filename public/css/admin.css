@@ -2068,8 +2068,11 @@
 /*      light colors         */
 
 .lastar-calendar .form-control[disabled],
+.lastar-calendar [disabled].el-input__inner,
 .lastar-calendar .form-control[readonly],
-.lastar-calendar fieldset[disabled] .form-control {
+.lastar-calendar [readonly].el-input__inner,
+.lastar-calendar fieldset[disabled] .form-control,
+.lastar-calendar fieldset[disabled] .el-input__inner {
   background-color: white;
 }
 
@@ -2102,7 +2105,7 @@
   padding-top: 0px !important;
 }
 
-.lastar-phone .select-phone select {
+.lastar-phone .select-phone input {
   border-radius: 4px 0px 0px 4px !important;
   -webkit-appearance: none;
 }
@@ -2118,13 +2121,25 @@
   padding-top: 0px !important;
 }
 
-.lastar-phone .input-phone input.form-control {
+.lastar-phone .input-phone input.form-control,
+.lastar-phone .input-phone input.el-input__inner {
   border-radius: 0px 4px 4px 0px !important;
 }
 
-.btn-margin {
-  margin-right: 10px;
-  margin-left: 10px;
+.el-select,
+.el-input,
+.el-date-editor.el-input {
+  width: 100% !important;
+}
+
+.el-time-panel {
+  max-width: 200px;
+}
+
+.el-input__inner {
+  height: 40px !important;
+  background-color: white !important;
+  border: 1px solid #E3E3E3 !important;
 }
 
 /*      light colors         */
@@ -2344,6 +2359,7 @@ input:focus {
 /*           Animations              */
 
 .form-control,
+.el-input__inner,
 .input-group-addon,
 .tagsinput,
 .navbar,
@@ -3295,31 +3311,36 @@ fieldset[disabled] .btn-neutral.active {
   right: 8px;
 }
 
-.form-control::-moz-placeholder {
+.form-control::-moz-placeholder,
+.el-input__inner::-moz-placeholder {
   color: #DDDDDD;
   opacity: 1;
   filter: alpha(opacity=100);
 }
 
-.form-control:-moz-placeholder {
+.form-control:-moz-placeholder,
+.el-input__inner:-moz-placeholder {
   color: #DDDDDD;
   opacity: 1;
   filter: alpha(opacity=100);
 }
 
-.form-control::-webkit-input-placeholder {
+.form-control::-webkit-input-placeholder,
+.el-input__inner::-webkit-input-placeholder {
   color: #DDDDDD;
   opacity: 1;
   filter: alpha(opacity=100);
 }
 
-.form-control:-ms-input-placeholder {
+.form-control:-ms-input-placeholder,
+.el-input__inner:-ms-input-placeholder {
   color: #DDDDDD;
   opacity: 1;
   filter: alpha(opacity=100);
 }
 
-.form-control {
+.form-control,
+.el-input__inner {
   background-color: #FFFFFF;
   border: 1px solid #E3E3E3;
   border-radius: 4px;
@@ -3330,7 +3351,8 @@ fieldset[disabled] .btn-neutral.active {
   box-shadow: none;
 }
 
-.form-control:focus {
+.form-control:focus,
+.el-input__inner:focus {
   background-color: #FFFFFF;
   border: 1px solid #AAAAAA;
   -webkit-box-shadow: none;
@@ -3340,31 +3362,40 @@ fieldset[disabled] .btn-neutral.active {
 }
 
 .has-success .form-control,
+.has-success .el-input__inner,
 .has-error .form-control,
+.has-error .el-input__inner,
 .has-success .form-control:focus,
-.has-error .form-control:focus {
+.has-success .el-input__inner:focus,
+.has-error .form-control:focus,
+.has-error .el-input__inner:focus {
   border-color: #E3E3E3;
   -webkit-box-shadow: none;
   box-shadow: none;
 }
 
-.has-success .form-control {
+.has-success .form-control,
+.has-success .el-input__inner {
   color: #87CB16;
 }
 
-.has-success .form-control:focus {
+.has-success .form-control:focus,
+.has-success .el-input__inner:focus {
   border-color: #87CB16;
 }
 
-.has-error .form-control {
+.has-error .form-control,
+.has-error .el-input__inner {
   color: #FF4A55;
 }
 
-.has-error .form-control:focus {
+.has-error .form-control:focus,
+.has-error .el-input__inner:focus {
   border-color: #FF4A55;
 }
 
-.form-control + .form-control-feedback {
+.form-control + .form-control-feedback,
+.el-input__inner + .form-control-feedback {
   border-radius: 6px;
   font-size: 14px;
   margin-top: -7px;
@@ -3374,7 +3405,8 @@ fieldset[disabled] .btn-neutral.active {
   vertical-align: middle;
 }
 
-.open .form-control {
+.open .form-control,
+.open .el-input__inner {
   border-radius: 4px 4px 0 0;
   border-bottom-color: transparent;
 }
@@ -3404,23 +3436,28 @@ fieldset[disabled] .btn-neutral.active {
   border: 1px solid #E3E3E3;
 }
 
-.has-error .form-control:focus + .input-group-addon {
+.has-error .form-control:focus + .input-group-addon,
+.has-error .el-input__inner:focus + .input-group-addon {
   border-color: #FF4A55;
   color: #FF4A55;
 }
 
-.has-success .form-control:focus + .input-group-addon {
+.has-success .form-control:focus + .input-group-addon,
+.has-success .el-input__inner:focus + .input-group-addon {
   border-color: #87CB16;
   color: #87CB16;
 }
 
 .form-control:focus + .input-group-addon,
-.form-control:focus ~ .input-group-addon {
+.el-input__inner:focus + .input-group-addon,
+.form-control:focus ~ .input-group-addon,
+.el-input__inner:focus ~ .input-group-addon {
   background-color: #FFFFFF;
   border-color: #9A9A9A;
 }
 
 .input-group .form-control:first-child,
+.input-group .el-input__inner:first-child,
 .input-group-addon:first-child,
 .input-group-btn:first-child > .dropdown-toggle,
 .input-group-btn:last-child > .btn:not(:last-child):not(.dropdown-toggle) {
@@ -3428,6 +3465,7 @@ fieldset[disabled] .btn-neutral.active {
 }
 
 .input-group .form-control:last-child,
+.input-group .el-input__inner:last-child,
 .input-group-addon:last-child,
 .input-group-btn:last-child > .dropdown-toggle,
 .input-group-btn:first-child > .btn:not(:first-child) {
@@ -3435,8 +3473,11 @@ fieldset[disabled] .btn-neutral.active {
 }
 
 .form-control[disabled],
+[disabled].el-input__inner,
 .form-control[readonly],
-fieldset[disabled] .form-control {
+[readonly].el-input__inner,
+fieldset[disabled] .form-control,
+fieldset[disabled] .el-input__inner {
   background-color: #F5F5F5;
   color: #888888;
   cursor: not-allowed;
@@ -4001,7 +4042,8 @@ fieldset[disabled] .form-control {
   box-shadow: none;
 }
 
-.navbar-form .form-control {
+.navbar-form .form-control,
+.navbar-form .el-input__inner {
   border-radius: 0;
   border: 0;
   padding: 0;
@@ -4013,7 +4055,9 @@ fieldset[disabled] .form-control {
 }
 
 .navbar-transparent .navbar-form .form-control,
-[class*="navbar-ct"] .navbar-form .form-control {
+.navbar-transparent .navbar-form .el-input__inner,
+[class*="navbar-ct"] .navbar-form .form-control,
+[class*="navbar-ct"] .navbar-form .el-input__inner {
   color: #FFFFFF;
   border: 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.6);
@@ -5932,7 +5976,8 @@ fieldset[disabled] .form-control {
     margin: 0 0 10px 0;
   }
 
-  .subscribe-line .form-control {
+  .subscribe-line .form-control,
+  .subscribe-line .el-input__inner {
     margin: 0 0 10px 0;
   }
 
@@ -5952,7 +5997,8 @@ fieldset[disabled] .form-control {
     float: none !important;
   }
 
-  .form-control + .form-control-feedback {
+  .form-control + .form-control-feedback,
+  .el-input__inner + .form-control-feedback {
     margin-top: -8px;
   }
 

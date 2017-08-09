@@ -3,10 +3,15 @@
 <template>
     <div class="row lastar-phone">
         <div class="col-xs-3 select-phone">
-            <i class="fa fa-caret-down" aria-hidden="true" @click="caretClick"></i>
-            <select ref="select" class="form-control" v-model="activeCountry" name="phone_country">
-                <option class="text-center" v-for="country in countries" :value="country"><span :class="'flag-icon flag-icon-'+country"></span>{{country}}</option>
-            </select>
+            <el-select v-model="activeCountry" name="phone_country">
+                <el-option
+                        class="text-center"
+                        v-for="country in countries"
+                        :key="country"
+                        :label="country"
+                        :value="country">
+                </el-option>
+            </el-select>
         </div>
         <div class="col-xs-9 input-phone">
             <cleave type="text"

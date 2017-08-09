@@ -13,9 +13,19 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+import ElementUI from 'element-ui';
+import locale from 'element-ui/lib/locale/lang/en';
+import 'element-ui/lib/theme-default/index.css';
+
+Vue.use(ElementUI, { locale });
 Vue.component('cleave', require('vue-cleave'));
+Vue.component('vue-select', require('vue-select'));
 Vue.component('datepicker', require('vuejs-datepicker'));
 Vue.component('phone', require('./components/Phone.vue'));
+Vue.component('timepicker', require('./components/Timepicker.vue'));
+Vue.component('stationpicker', require('./components/Stationpicker.vue'));
+
+
 
 /**
  *
@@ -23,12 +33,9 @@ Vue.component('phone', require('./components/Phone.vue'));
  *
  */
 
-const swal = require('sweetalert2')
-
+import swal from 'sweetalert2'
 
 $( document ).ready(function() {
-
-    $swal = swal;
 
     // Navbar mobile logo color change
     $('#nav').click(function(){

@@ -55,6 +55,16 @@ class Train extends Model
         ],
     ];
 
+    public static $rules = [
+        'number' => 'required|numeric',
+        'departure_date' => 'required|date',
+        'departure_time' => 'required|time',
+        'arrival_date'  => 'required|date',
+        'arrival_time' => 'required|time',
+        'departure_city' => 'required|exists:station',
+        'arrival_city'  => 'required|exists:station'
+    ];
+
     public function tickets()
     {
         return $this->hasMany( 'App\Ticket' );

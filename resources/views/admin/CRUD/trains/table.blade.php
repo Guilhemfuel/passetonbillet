@@ -36,12 +36,3 @@
         </div>
 
     @endif
-
-
-    @else
-
-        <div class="content">
-            0 entity found!
-        </div>
-
-    @endif

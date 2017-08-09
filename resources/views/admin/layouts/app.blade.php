@@ -93,7 +93,7 @@
 @if(Session::has('eurostar_error'))
     <script type="text/javascript">
         $(document).ready(function () {
-            $swal({
+            swal({
                 title: 'Error!',
                 text: "{!! Session::get('eurostar_error') !!}",
                 type: 'error',
