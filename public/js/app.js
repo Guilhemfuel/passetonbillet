@@ -85259,8 +85259,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             placeholderInput: this.placeholder || "Station",
             sourceUrl: this.url || '/api/stations',
             options: this.defaultOptions || [],
-            value: this.defaultValue,
-            loading: true
+            value: null,
+            loading: true,
+            selectedItem: this.defaultValue
         };
     },
     created: function created() {
@@ -85269,6 +85270,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         axios.get(this.sourceUrl).then(function (response) {
             var stations = [];
             for (var key in response.data) {
+
+                if (_this.selectedItem == response.data[key]) {
+                    _this.selectedItem = {
+                        value: response.data[key],
+                        label: key
+                    };
+                }
                 stations.push({
                     value: response.data[key],
                     label: key
@@ -85276,6 +85284,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
             _this.options = stations;
             _this.loading = false;
+            _this.value = _this.selectedItem.value;
         });
     }
 });

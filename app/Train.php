@@ -65,6 +65,20 @@ class Train extends Model
         'arrival_city'  => 'required|exists:stations,id|different:departure_city'
     ];
 
+    // Mutators
+
+    public function setAttributeDepartureTime(\DateTime $attribute )
+    {
+        $this->attributes['departure_time'] = $attribute->format('hh:mm:ss');
+    }
+
+    public function setAttributeArrivalTime(\DateTime $attribute )
+    {
+        $this->attributes['arrival_time'] = $attribute->format('hh:mm:ss');
+    }
+
+    // Relationships
+
     public function tickets()
     {
         return $this->hasMany( 'App\Ticket' );

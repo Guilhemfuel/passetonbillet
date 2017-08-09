@@ -32,8 +32,9 @@
                 placeholderInput: this.placeholder || "Station",
                 sourceUrl: this.url || '/api/stations',
                 options: this.defaultOptions || [],
-                value: this.defaultValue,
+                value: null,
                 loading: true,
+                selectedItem: this.defaultValue
             }
         },
         created() {
@@ -41,6 +42,13 @@
                 .then(response => {
                     let stations = [];
                     for(var key in response.data){
+
+                        if (this.selectedItem == response.data[key]){
+                            this.selectedItem = {
+                                value: response.data[key],
+                                    label: key
+                            }
+                        }
                         stations.push(
                             {
                                 value: response.data[key],
@@ -50,7 +58,10 @@
                     }
                     this.options = stations;
                     this.loading = false;
+                    this.value = this.selectedItem.value;
+
                 })
+
         }
     }
 </script>

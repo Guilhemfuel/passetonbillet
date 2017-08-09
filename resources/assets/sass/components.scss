@@ -63,8 +63,17 @@
   width:100% !important;
 }
 
-.el-select-dropdown__item.selected, .el-select-dropdown__item.selected.hover{
+.el-select-dropdown__item.selected, .el-select-dropdown__item.selected.hover,
+  .el-time-spinner__item.active{
   background-color: $new-purple !important;
+}
+
+.el-time-spinner__item{
+  background-color: $white !important;
+  border:none;
+}
+.el-time-panel__btn.confirm {
+  color: $new-purple !important;
 }
 
 .el-time-panel {

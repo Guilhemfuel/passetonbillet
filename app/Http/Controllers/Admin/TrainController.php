@@ -25,6 +25,8 @@ class TrainController extends BaseController
     public function store(TrainRequest $request)
     {
         $train = new Train($request->all());
+        dd($train);die;
+
         $train->save();
 
         \Session::flash('success',$this->CRUDsingularEntityName.' created!');

@@ -2133,8 +2133,18 @@
 }
 
 .el-select-dropdown__item.selected,
-.el-select-dropdown__item.selected.hover {
+.el-select-dropdown__item.selected.hover,
+.el-time-spinner__item.active {
   background-color: #9368E9 !important;
+}
+
+.el-time-spinner__item {
+  background-color: white !important;
+  border: none;
+}
+
+.el-time-panel__btn.confirm {
+  color: #9368E9 !important;
 }
 
 .el-time-panel {

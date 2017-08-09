@@ -11,13 +11,15 @@
     <div class="col-md-6">
         <div class="form-group">
             <label>Departure city</label>
-            <stationpicker :name="'departure_city'"></stationpicker>
+            <stationpicker :name="'departure_city'"
+                           :default-value="'1'"></stationpicker>
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group">
             <label>Arrival city</label>
-            <stationpicker :name="'arrival_city'"></stationpicker>
+            <stationpicker :name="'arrival_city'"
+                           :default-value="'{{isset($entity)?$entity->arrival_city:(old('arrival_city'))}}'"></stationpicker>
         </div>
     </div>
 </div>
@@ -29,7 +31,7 @@
                         :wrapper-class="'lastar-calendar'"
                         :placeholder="'Departure Date'"
                         :name="'departure_date'"
-                        :value="'{{isset($entity)?$entity->departure_date:(old('departure_date'))}}'"
+                        :selected-item="'{{isset($entity)?$entity->departure_date:(old('departure_date'))}}'"
             ></datepicker>
         </div>
     </div>
@@ -40,7 +42,7 @@
                         :wrapper-class="'lastar-calendar'"
                         :placeholder="'Departure Date'"
                         :name="'arrival_date'"
-                        :value="'{{isset($entity)?$entity->arrival_date:(old('arrival_date'))}}'"
+                        :selected-item="'{{isset($entity)?$entity->arrival_date:(old('arrival_date'))}}'"
             ></datepicker>
         </div>
     </div>
