@@ -1,9 +1,8 @@
 
 <template>
     <div>
-        <el-select v-model="value" placeholder="Select" >
+        <el-select v-model="value" placeholder="Select" filterable>
             <el-option
-                    filterable
                     v-for="item in options"
                     :key="item.value"
                     :label="item.label"

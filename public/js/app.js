@@ -85242,7 +85242,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -85296,7 +85295,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_c('el-select', {
     attrs: {
-      "placeholder": "Select"
+      "placeholder": "Select",
+      "filterable": ""
     },
     model: {
       value: (_vm.value),
@@ -85309,7 +85309,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     return _c('el-option', {
       key: item.value,
       attrs: {
-        "filterable": "",
         "label": item.label,
         "value": item.value,
         "loading": _vm.loading
