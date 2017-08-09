@@ -1,4 +1,6 @@
 
+    @if(count($entities)>0)
+
     {{--TODO: add links to station--}}
     <table class="table table-hover table-striped">
         <thead>
@@ -18,7 +20,7 @@
                 <td>{{$entity->departure_date?$entity->departure_date:'-'}}</td>
                 <td>{{$entity->departure_time?$entity->departure_time:'-'}}</td>
                 <td>
-                    <a class="btn btn-sm btn-info btn-fill" href="{{route('trains.index',$entity->id)}}">
+                    <a class="btn btn-sm btn-info btn-fill" href="{{route('trains.show',$entity->id)}}">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
                     </a>
                 </td>
@@ -26,3 +28,20 @@
         @endforeach
         </tbody>
     </table>
+
+    @else
+
+        <div class="content">
+            0 entity found!
+        </div>
+
+    @endif
+
+
+    @else
+
+        <div class="content">
+            0 entity found!
+        </div>
+
+    @endif

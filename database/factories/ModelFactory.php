@@ -19,6 +19,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'first_name' => $faker->firstName,
         'last_name' => $faker->lastName,
         'gender' => $faker->numberBetween(0,1),
+        'phone_country' => $faker->numberBetween(0,1)?'FR':'EN',
         'phone' => $faker->phoneNumber,
         'birthdate' => $faker->dateTimeThisCentury->format(\App\EurostarAPI\Eurostar::DATE_FORMAT_DB),
         'language' => str_random(2),

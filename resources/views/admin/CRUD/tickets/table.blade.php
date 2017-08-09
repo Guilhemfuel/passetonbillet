@@ -1,4 +1,6 @@
 
+    @if(count($entities)>0)
+
     {{-- TODO: links to trains and users--}}
 
     <table class="table table-hover table-striped">
@@ -19,7 +21,7 @@
                 <td>{{$entity->price}}</td>
                 <td>{{$entity->currency}}</td>
                 <td>
-                    <a class="btn btn-sm btn-info btn-fill" href="{{route('tickets.edit',$entity->id)}}">
+                    <a class="btn btn-sm btn-info btn-fill" href="{{route('tickets.show',$entity->id)}}">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
                     </a>
                 </td>
@@ -27,3 +29,11 @@
         @endforeach
         </tbody>
     </table>
+
+    @else
+
+        <div class="content">
+            0 entity found!
+        </div>
+
+    @endif

@@ -1,4 +1,5 @@
 
+    @if(count($entities)>0)
 
     <table class="table table-hover table-striped">
         <thead>
@@ -16,7 +17,7 @@
                 <td class="text-center">{{$entity->eurostar_id}}</td>
                 <td class="text-center">{!!$entity->flag!!}</td>
                 <td>
-                    <a class="btn btn-sm btn-info btn-fill" href="{{route('stations.edit',$entity->id)}}">
+                    <a class="btn btn-sm btn-info btn-fill" href="{{route('stations.show',$entity->id)}}">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
                     </a>
                 </td>
@@ -24,3 +25,11 @@
         @endforeach
         </tbody>
     </table>
+
+    @else
+
+        <div class="content">
+            0 entity found!
+        </div>
+
+    @endif

@@ -4,7 +4,7 @@
     <div class="row lastar-phone">
         <div class="col-xs-3 select-phone">
             <i class="fa fa-caret-down" aria-hidden="true" @click="caretClick"></i>
-            <select ref="select" class="form-control" v-model="activeCountry">
+            <select ref="select" class="form-control" v-model="activeCountry" name="phone_country">
                 <option class="text-center" v-for="country in countries" :value="country"><span :class="'flag-icon flag-icon-'+country"></span>{{country}}</option>
             </select>
         </div>
@@ -29,11 +29,12 @@
         props:  {
             countriesDefault: null,
             value: null,
+            countryValue: null,
         },
         data(){
             return {
                 countries: this.countriesDefault || ['FR', 'GB', 'BE'],
-                activeCountry: this.countries ? this.countries[0] : 'FR',
+                activeCountry: this.countryValue ? this.countryValue : (this.countries ? this.countries[0] : 'FR'),
                 actualValue: this.value
             }
         },

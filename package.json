@@ -15,10 +15,16 @@
     "jquery": "^3.1.1",
     "laravel-mix": "^1.0",
     "lodash": "^4.17.4",
-    "vue": "^2.1.10"
+    "vue": "^2.1.10",
+    "babel-plugin-transform-runtime": "^6.0.0"
   },
   "dependencies": {
+    "babel-plugin-transform-es2015-shorthand-properties": "^6.24.1",
+    "bootstrap-validator": "^0.11.9",
+    "element-ui": "^1.4.2",
+    "flag-icon-css": "^2.8.0",
     "sweetalert2": "^6.6.5",
+    "tether": "^1.4.0",
     "vue-cleave": "^1.2.2",
     "vuejs-datepicker": "^0.9.7"
   }

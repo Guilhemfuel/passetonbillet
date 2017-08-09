@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\User;
+use Illuminate\Hashing\BcryptHasher;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\UserRequest;
@@ -25,31 +26,13 @@ class UserController extends BaseController
      */
     public function store( UserRequest $request )
     {
-        return $this->lastarView( 'admin.CRUD.' . $this->CRUDmodelName . '.index' );
-    }
+        $user = new User($request->all());
+        $user->password = bcrypt(str_random(25));
+        $user->status = -1;
+        $user->save();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show( $id )
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function edit( $id )
-    {
-        //
+        \Session::flash('success',$this->CRUDsingularEntityName.' created!');
+        return redirect()->route($this->CRUDmodelName.'.show',$user->id);
     }
 
     /**
@@ -62,18 +45,14 @@ class UserController extends BaseController
      */
     public function update( Request $request, $id )
     {
-        //
+        $user = User::find($id);
+        if (!$user){
+            \Session::flash('danger','Entity not found!');
+        }
+        $user->update($request->all());
+        $user->save();
+        \Session::flash('success',$this->CRUDsingularEntityName.' updated!');
+        return redirect()->route($this->CRUDmodelName.'.show',$user->id);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy( $id )
-    {
-        //
-    }
 }

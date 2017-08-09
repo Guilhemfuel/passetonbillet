@@ -20,13 +20,14 @@ class CreateUsersTable extends Migration
             $table->string( 'first_name' );
             $table->string( 'last_name' );
             $table->smallInteger( 'gender' )->nullable();
+            $table->string( 'phone_country' )->nullable();
             $table->string( 'phone' )->nullable();
             $table->date('birthdate')->nullable();
             $table->string('language')->nullable();
             $table->string('facebook_id')->nullable();
             $table->string('linkedin_id')->nullable();
             $table->boolean('identity_confirmed')->nullable();
-            $table->integer('status');
+            $table->integer('status')->default(0);
 
             $table->rememberToken();
             $table->timestamps();

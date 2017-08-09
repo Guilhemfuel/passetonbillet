@@ -26,7 +26,7 @@ class User extends Authenticatable
      */
 
     protected $fillable = [
-        'first_name','last_name','gender','phone','birthdate','language',
+        'first_name','last_name','gender','phone','phone_country','birthdate','language',
         'email', 'password',
         'facebook_id','linkedin_id','identity_confirmed', //TODO: create a model profile linked to user where is this data
         'status',
@@ -56,9 +56,10 @@ class User extends Authenticatable
         'last_name' => 'required',
         'gender' => 'required|numeric',
         'phone' => 'required|numeric',
+        'phone_country' => 'required',
         'birthdate' => 'required|date',
         'language' => 'required',
-        'email' => 'required|email',
+        'email' => 'required|email|unique:users',
     ];
 
     /**
@@ -67,7 +68,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',''
+        'password', 'remember_token'
     ];
 
     public function tickets()
@@ -100,5 +101,18 @@ class User extends Authenticatable
     public function getFullNameAttribute(  )
     {
         return ucfirst($this->first_name).' '.ucfirst($this->last_name);
+    }
+
+    public function getRoleAttribute(){
+        switch ($this->status){
+            case 100:
+                return 'Admin';
+            case 1:
+                return 'User';
+            case 0:
+                return 'Unconfirmed User';
+            case -1:
+                return 'Uninvited User';
+        }
     }
 }

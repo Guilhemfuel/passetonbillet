@@ -9694,3 +9694,8 @@ body {
   border-radius: 0px 4px 4px 0px !important;
 }
 
+.btn-margin {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+

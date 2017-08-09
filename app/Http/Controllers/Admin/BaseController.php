@@ -38,10 +38,10 @@ abstract class BaseController extends Controller
     public function index( Request $request )
     {
         if ( $request->has( 'search' ) ) {
-            $entities = $this->model::search( $request->input( 'search' ) )->paginate( 30 );
+            $entities = $this->model::search( $request->input( 'search' ) )->orderBy('updated_at','desc')->paginate( 30 );
             $data = [ 'entities' => $entities, 'search' => $request->input( 'search' ) ];
         } else {
-            $entities = $this->model::paginate( 30 );
+            $entities = $this->model::orderBy('updated_at','desc')->paginate( 30 );
             $data = [ 'entities' => $entities ];
         }
 
@@ -58,5 +58,38 @@ abstract class BaseController extends Controller
         return $this->lastarView( 'admin.CRUD.create' );
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  int $id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show( $id )
+    {
+        $entity = $this->model::find($id);
+        if (!$entity){
+            \Session::flash('danger','Entity not found!');
+        }
+        return $this->lastarView( 'admin.CRUD.edit', ['entity'=>$entity] );
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int $id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy( $id )
+    {
+        $entity = $this->model::find($id);
+        if (!$entity){
+            \Session::flash('danger','Entity not found!');
+        }
+        $entity->delete();
+        return redirect()->route($this->CRUDmodelName.'.index');
+
+    }
 
 }
