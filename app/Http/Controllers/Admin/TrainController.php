@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\Admin\TrainRequest;
 use App\Train;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -21,9 +22,13 @@ class TrainController extends BaseController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TrainRequest $request)
     {
-        //
+        $train = new Train($request->all());
+        $train->save();
+
+        \Session::flash('success',$this->CRUDsingularEntityName.' created!');
+        return redirect()->route($this->CRUDmodelName.'.show',$train->id);
     }
 
     /**

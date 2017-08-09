@@ -58,11 +58,11 @@ class Train extends Model
     public static $rules = [
         'number' => 'required|numeric',
         'departure_date' => 'required|date',
-        'departure_time' => 'required|time',
+        'departure_time' => 'required|date',
         'arrival_date'  => 'required|date',
-        'arrival_time' => 'required|time',
-        'departure_city' => 'required|exists:station',
-        'arrival_city'  => 'required|exists:station'
+        'arrival_time' => 'required|date',
+        'departure_city' => 'required|exists:stations,id|different:arrival_city',
+        'arrival_city'  => 'required|exists:stations,id|different:departure_city'
     ];
 
     public function tickets()

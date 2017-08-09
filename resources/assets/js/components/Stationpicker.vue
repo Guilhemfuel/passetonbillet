@@ -1,16 +1,19 @@
 
 <template>
-    <el-select v-model="value" placeholder="Select"  :name="nameInput">
-        <el-option
-                filterable
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-                :loading="loading"
-               >
-        </el-option>
-    </el-select>
+    <div>
+        <el-select v-model="value" placeholder="Select" >
+            <el-option
+                    filterable
+                    v-for="item in options"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"
+                    :loading="loading"
+                   >
+            </el-option>
+        </el-select>
+        <input type="hidden" :name="nameInput" :value="value"/>
+    </div>
 </template>
 
 <script>

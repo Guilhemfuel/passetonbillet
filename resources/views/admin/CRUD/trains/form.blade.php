@@ -10,6 +10,20 @@
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
+            <label>Departure city</label>
+            <stationpicker :name="'departure_city'"></stationpicker>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Arrival city</label>
+            <stationpicker :name="'arrival_city'"></stationpicker>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
             <label>Departure Date</label>
             <datepicker :input-class="inputClass"
                         :wrapper-class="'lastar-calendar'"
@@ -21,16 +35,6 @@
     </div>
     <div class="col-md-6">
         <div class="form-group">
-            <label>Departure Time</label>
-            <timepicker :name="'departure_time'"
-                        :value="'{{isset($entity)?$entity->departure_time:(old('departure_time'))}}'"
-                        :placeholder="'Departure time'"></timepicker>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-6">
-        <div class="form-group">
             <label>Arrival Date</label>
             <datepicker :input-class="inputClass"
                         :wrapper-class="'lastar-calendar'"
@@ -40,6 +44,16 @@
             ></datepicker>
         </div>
     </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Departure Time</label>
+            <timepicker :name="'departure_time'"
+                        :value="'{{isset($entity)?$entity->departure_time:(old('departure_time'))}}'"
+                        :placeholder="'Departure time'"></timepicker>
+        </div>
+    </div>
     <div class="col-md-6">
         <div class="form-group">
             <label>Arrival Time</label>
@@ -47,14 +61,6 @@
                         :value="'{{isset($entity)?$entity->arrival_time:(old('arrival_time'))}}'"
                         :placeholder="'Arrival time'"
             ></timepicker>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-6">
-        <div class="form-group">
-            <label>Email</label>
-            <stationpicker></stationpicker>
         </div>
     </div>
 </div>

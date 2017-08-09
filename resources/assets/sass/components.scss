@@ -63,6 +63,10 @@
   width:100% !important;
 }
 
+.el-select-dropdown__item.selected, .el-select-dropdown__item.selected.hover{
+  background-color: $new-purple !important;
+}
+
 .el-time-panel {
   max-width:200px;
 }
