@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Foundation\AliasLoader;
+use Laravel\Dusk\DuskServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,6 +28,9 @@ class AppServiceProvider extends ServiceProvider
         if ( env( 'APP_DEBUGBAR', false ) ) {
             $this->app->register( 'Barryvdh\Debugbar\ServiceProvider' );
             AliasLoader::getInstance()->alias( 'Debugbar', 'Barryvdh\Debugbar\Facade' );
+        }
+        if ($this->app->environment('local', 'testing')) {
+            $this->app->register(DuskServiceProvider::class);
         }
     }
 }

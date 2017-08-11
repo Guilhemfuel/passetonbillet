@@ -933,10 +933,10 @@ class EurostarTest extends TestCase
         /* @var Train $secundTrain */
         $secundTrain = $trains[1];
 
-        $this->assertEquals( $firstTrain->departure_time, '08:13', 'Departure time match' );
-        $this->assertEquals( $firstTrain->arrival_time, '09:30', 'Arrival time match' );
-        $this->assertEquals( $secundTrain->departure_time, '09:13', 'Departure time match' );
-        $this->assertEquals( $secundTrain->arrival_time, '10:39', 'Arrival time match' );
+        $this->assertEquals( $firstTrain->departure_time, '08:13:00', 'Departure time match' );
+        $this->assertEquals( $firstTrain->arrival_time, '09:30:00', 'Arrival time match' );
+        $this->assertEquals( $secundTrain->departure_time, '09:13:00', 'Departure time match' );
+        $this->assertEquals( $secundTrain->arrival_time, '10:39:00', 'Arrival time match' );
     }
 
     /**
