@@ -15,7 +15,7 @@
                     <td>{{$entity->last_name}}</td>
                     <td>{{$entity->role}}</td>
                     <td>
-                        <a class="btn btn-sm btn-info btn-fill" href="{{route('users.show',$entity->id)}}">
+                        <a class="btn btn-sm btn-info btn-fill" href="{{route('users.edit',$entity->id)}}">
                             <i class="fa fa-pencil" aria-hidden="true"></i>
                         </a>
                     </td>

@@ -45,7 +45,7 @@
                         if (this.selectedItem == response.data[key]){
                             this.selectedItem = {
                                 value: response.data[key],
-                                    label: key
+                                label: key
                             }
                         }
                         stations.push(

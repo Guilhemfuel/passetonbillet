@@ -56,4 +56,6 @@ Route::group( [ 'prefix' => 'api' ], function () {
         Route::post('retrieve','TicketController@retrieve')->name('ticket.retrieve');
     } );
     Route::get( 'stations', 'Admin\StationController@stations' )->name( 'api.stations.list' );
+    Route::get( 'users/{name}', 'Admin\UserController@searchAPI' )->name( 'api.users.search' );
+
 } );

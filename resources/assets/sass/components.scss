@@ -1,4 +1,11 @@
 
+// Sweet alert
+
+.btn-margin {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
 // Datepicker
 
 .lastar-calendar {
@@ -63,15 +70,10 @@
   width:100% !important;
 }
 
-.el-select-dropdown__item.selected, .el-select-dropdown__item.selected.hover,
-  .el-time-spinner__item.active{
+.el-select-dropdown__item.selected, .el-select-dropdown__item.selected.hover{
   background-color: $new-purple !important;
 }
 
-.el-time-spinner__item{
-  background-color: $white !important;
-  border:none;
-}
 .el-time-panel__btn.confirm {
   color: $new-purple !important;
 }
@@ -85,4 +87,21 @@
   height:40px !important;
   background-color: $white !important;
   border: 1px solid $light-gray !important;
+  &:focus {
+    border: 1px solid #AAAAAA !important;
+  }
+
+  /* Placeholder */
+  &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: #DDDDDD !important;
+  }
+  &::-moz-placeholder { /* Firefox 19+ */
+    color: #DDDDDD !important;
+  }
+  &:-ms-input-placeholder { /* IE 10+ */
+    color: #DDDDDD !important;
+  }
+  &:-moz-placeholder { /* Firefox 18- */
+    color: #DDDDDD !important;
+  }
 }

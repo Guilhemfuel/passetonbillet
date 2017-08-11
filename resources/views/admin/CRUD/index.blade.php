@@ -20,9 +20,12 @@
         @section('card-body')
 
             <div class="crud-actions">
-                <a href="{{route($model.'.create')}}" class="btn btn-success btn-fill btn-sm"><i class="fa fa-plus"></i> Add new</a>
+                @if($creatable)
+                    <a href="{{route($model.'.create')}}" class="btn btn-success btn-fill btn-sm"><i class="fa fa-plus"></i> Add new</a>
+                @endif
             </div>
 
+            @if($searchable)
             <div class="crud-search">
                 <form method="get">
                     <div class="input-group input-group-sm">
@@ -38,8 +41,10 @@
                         </span>
                     </div>
                 </form>
-
             </div>
+            @else
+                <div class="no-crud-search"></div>
+            @endif
 
             <div class="top-pagination">
                 @if(isset($search))

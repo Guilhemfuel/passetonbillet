@@ -36,7 +36,7 @@
                 @include('admin.CRUD.'.$model.'.form')
 
                 <div class="crud-form-bottom">
-                    <button class="btn btn-success btn-fill" type="submit">
+                    <button class="btn btn-success btn-fill btn-sm" type="submit">
                         <i class="fa fa-floppy-o"></i> Update entity
                     </button>
                 </div>

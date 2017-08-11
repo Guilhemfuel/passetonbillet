@@ -32,7 +32,7 @@ class UserController extends BaseController
         $user->save();
 
         \Session::flash('success',$this->CRUDsingularEntityName.' created!');
-        return redirect()->route($this->CRUDmodelName.'.show',$user->id);
+        return redirect()->route($this->CRUDmodelName.'.edit',$user->id);
     }
 
     /**
@@ -48,11 +48,24 @@ class UserController extends BaseController
         $user = User::find($id);
         if (!$user){
             \Session::flash('danger','Entity not found!');
+            return redirect()->back();
         }
         $user->update($request->all());
         $user->save();
         \Session::flash('success',$this->CRUDsingularEntityName.' updated!');
-        return redirect()->route($this->CRUDmodelName.'.show',$user->id);
+        return redirect()->route($this->CRUDmodelName.'.edit',$user->id);
+    }
+
+    // ---------- API --------------
+
+    public function searchAPI(Request $request, $name )
+    {
+        $users = User::search($name)->take(10)->get();
+        $response = [];
+        foreach ($users as $user){
+            array_push($response,['label'=>$user->full_name,'value'=>$user->id]);
+        }
+        return \GuzzleHttp\json_encode($response);
     }
 
 }

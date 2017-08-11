@@ -55,9 +55,21 @@ class Ticket extends Model
          */
         'columns' => [
             'tickets.eurostar_code' => 10,
-            'tickets.buyer_name' => 5,
-            'tickets.buyer_email' => 5,
+            'tickets.buyer_name'    => 5,
+            'tickets.buyer_email'   => 5,
         ]
+    ];
+
+    public static $rules = [
+        'user_id'         => 'required|exists:users,id',
+        'price'           => 'required|numeric',
+        'bought_price'    => 'required|numeric',
+        'currency'        => 'required',
+        'bought_currency' => 'required',
+        'inbound'         => 'required|boolean',
+        'eurostar_code'   => 'required',
+        'buyer_email'     => 'required|email',
+        'buyer_name'      => 'required|max:6'
     ];
 
     public function user()
@@ -77,7 +89,7 @@ class Ticket extends Model
 
     public function getClassAttribute( $value )
     {
-        //TODO: use JSON below to make string from class
+        //TODO: use JSON below to make string from class + add that to admin form attributes
         return $value;
     }
 

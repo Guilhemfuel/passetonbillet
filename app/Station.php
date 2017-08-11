@@ -54,10 +54,10 @@ class Station extends Model
 
     public function getNameAttribute()
     {
-        if ( App::isLocale( 'en' ) ) {
+        if ( \App::isLocale( 'en' ) ) {
             return $this->name_en;
         }
-        else if ( App::isLocale( 'fr' ) ) {
+        else if ( \App::isLocale( 'fr' ) ) {
             return $this->name_fr;
         }
     }

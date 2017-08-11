@@ -9708,6 +9708,11 @@ body {
   font-weight: 200;
 }
 
+.btn-margin {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
 .lastar-calendar .form-control[disabled],
 .lastar-calendar [disabled].el-input__inner,
 .lastar-calendar .form-control[readonly],
@@ -9774,14 +9779,8 @@ body {
 }
 
 .el-select-dropdown__item.selected,
-.el-select-dropdown__item.selected.hover,
-.el-time-spinner__item.active {
+.el-select-dropdown__item.selected.hover {
   background-color: #9368E9 !important;
-}
-
-.el-time-spinner__item {
-  background-color: white !important;
-  border: none;
 }
 
 .el-time-panel__btn.confirm {
@@ -9796,5 +9795,30 @@ body {
   height: 40px !important;
   background-color: white !important;
   border: 1px solid #E3E3E3 !important;
+  /* Placeholder */
+}
+
+.el-input__inner:focus {
+  border: 1px solid #AAAAAA !important;
+}
+
+.el-input__inner::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  color: #DDDDDD !important;
+}
+
+.el-input__inner::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #DDDDDD !important;
+}
+
+.el-input__inner:-ms-input-placeholder {
+  /* IE 10+ */
+  color: #DDDDDD !important;
+}
+
+.el-input__inner:-moz-placeholder {
+  /* Firefox 18- */
+  color: #DDDDDD !important;
 }
 

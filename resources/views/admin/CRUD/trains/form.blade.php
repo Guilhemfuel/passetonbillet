@@ -31,7 +31,7 @@
                         :wrapper-class="'lastar-calendar'"
                         :placeholder="'Departure Date'"
                         :name="'departure_date'"
-                        :selected-item="'{{isset($entity)?$entity->departure_date:(old('departure_date'))}}'"
+                        :value="'{{isset($entity)?$entity->departure_date:(old('departure_date'))}}'"
             ></datepicker>
         </div>
     </div>
@@ -42,7 +42,7 @@
                         :wrapper-class="'lastar-calendar'"
                         :placeholder="'Departure Date'"
                         :name="'arrival_date'"
-                        :selected-item="'{{isset($entity)?$entity->arrival_date:(old('arrival_date'))}}'"
+                        :value="'{{isset($entity)?$entity->arrival_date:(old('arrival_date'))}}'"
             ></datepicker>
         </div>
     </div>
@@ -52,7 +52,7 @@
         <div class="form-group">
             <label>Departure Time</label>
             <timepicker :name="'departure_time'"
-                        :value="'{{isset($entity)?$entity->departure_time:(old('departure_time'))}}'"
+                        :value="'{{isset($entity)?$entity->departure_time_js:(old('departure_time'))}}'"
                         :placeholder="'Departure time'"></timepicker>
         </div>
     </div>
@@ -60,7 +60,7 @@
         <div class="form-group">
             <label>Arrival Time</label>
             <timepicker :name="'arrival_time'"
-                        :value="'{{isset($entity)?$entity->arrival_time:(old('arrival_time'))}}'"
+                        :value="'{{isset($entity)?$entity->arrival_time_js:(old('arrival_time'))}}'"
                         :placeholder="'Arrival time'"
             ></timepicker>
         </div>

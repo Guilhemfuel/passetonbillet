@@ -17,7 +17,7 @@
                 <td class="text-center">{{$entity->eurostar_id}}</td>
                 <td class="text-center">{!!$entity->flag!!}</td>
                 <td>
-                    <a class="btn btn-sm btn-info btn-fill" href="{{route('stations.show',$entity->id)}}">
+                    <a class="btn btn-sm btn-info btn-fill" href="{{route('stations.edit',$entity->id)}}">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
                     </a>
                 </td>

@@ -14,6 +14,8 @@ abstract class BaseController extends Controller
     protected $CRUDmodelName;
     protected $CRUDsingularEntityName;
     protected $model;
+    protected $searchable = true;
+    protected $creatable = true;
 
     public function __construct()
     {
@@ -37,12 +39,15 @@ abstract class BaseController extends Controller
 
     public function index( Request $request )
     {
-        if ( $request->has( 'search' ) ) {
-            $entities = $this->model::search( $request->input( 'search' ) )->orderBy('updated_at','desc')->paginate( 30 );
-            $data = [ 'entities' => $entities, 'search' => $request->input( 'search' ) ];
+
+        if ( $this->searchable && $request->has( 'search' ) ) {
+            $entities = $this->model::search( $request->input( 'search' ) )
+                                    ->orderBy('updated_at','desc')->paginate( 30 );
+            $data = [ 'entities' => $entities, 'searchable' => $this->searchable,
+                      'search' => $request->input( 'search' ), 'creatable' => $this->creatable ];
         } else {
             $entities = $this->model::orderBy('updated_at','desc')->paginate( 30 );
-            $data = [ 'entities' => $entities ];
+            $data = [ 'entities' => $entities, 'searchable' => $this->searchable, 'creatable' => $this->creatable ];
         }
 
         return $this->lastarView( 'admin.CRUD.index', $data );
@@ -61,11 +66,22 @@ abstract class BaseController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        return redirect()->route($this->CRUDmodelName.'.edit',$id);
+    }
+
+    /**
+     * Display the specified resource.
+     *
      * @param  int $id
      *
      * @return \Illuminate\Http\Response
      */
-    public function show( $id )
+    public function edit( $id )
     {
         $entity = $this->model::find($id);
         if (!$entity){
@@ -88,8 +104,8 @@ abstract class BaseController extends Controller
             \Session::flash('danger','Entity not found!');
         }
         $entity->delete();
+        \Session::flash('success','Entity deleted!');
         return redirect()->route($this->CRUDmodelName.'.index');
-
     }
 
 }

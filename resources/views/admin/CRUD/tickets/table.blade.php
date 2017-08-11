@@ -21,7 +21,7 @@
                 <td>{{$entity->price}}</td>
                 <td>{{$entity->currency}}</td>
                 <td>
-                    <a class="btn btn-sm btn-info btn-fill" href="{{route('tickets.show',$entity->id)}}">
+                    <a class="btn btn-sm btn-info btn-fill" href="{{route('tickets.edit',$entity->id)}}">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
                     </a>
                 </td>
