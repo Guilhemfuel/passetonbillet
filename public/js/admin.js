@@ -2668,7 +2668,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 // Phone formatter
-// TODO: do not include all countries + Fix issue when click on carret doesn't open select
+// TODO: do not include all countries (reduce file size)
 __webpack_require__(116);
 
 /* harmony default export */ __webpack_exports__["default"] = ({

@@ -1,12 +1,9 @@
 
     @if(count($entities)>0)
 
-    {{-- TODO: links to trains and users--}}
-
     <table class="table table-hover table-striped">
         <thead>
-        <th>Buyer Name</th>
-        <th>Buyer Email</th>
+        <th>Seller Email</th>
         <th>Train ID</th>
         <th>Price</th>
         <th>Currency</th>
@@ -15,9 +12,16 @@
         <tbody>
         @foreach($entities as $entity)
             <tr>
-                <td>{{$entity->buyer_name}}</td>
-                <td>{{$entity->buyer_email}}</td>
-                <td>{{$entity->train->number}}</td>
+                <td>
+                    <el-tooltip class="item" effect="dark" content="{{$entity->user->full_name}}'s profile" placement="top-start">
+                        <a href="{{route('users.edit',$entity->user->id)}}">{{$entity->user->email}}</a>
+                    </el-tooltip>
+                </td>
+                <td>
+                    <el-tooltip class="item" effect="dark" content="Train details" placement="top-start">
+                        <a href="{{route('trains.edit',$entity->train->id)}}">{{$entity->train->number}}</a>
+                    </el-tooltip>
+                </td>
                 <td>{{$entity->price}}</td>
                 <td>{{$entity->currency}}</td>
                 <td>

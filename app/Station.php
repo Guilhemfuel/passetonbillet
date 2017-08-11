@@ -52,6 +52,14 @@ class Station extends Model
         ]
     ];
 
+    public static $rules = [
+        'eurostar_id' => 'required|numeric',
+        'name_fr' => 'required',
+        'name_en' => 'required',
+        'short_name' => 'required',
+        'country' => 'required|max:2'
+    ];
+
     public function getNameAttribute()
     {
         if ( \App::isLocale( 'en' ) ) {

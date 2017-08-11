@@ -7,7 +7,7 @@
 
 @section('content')
 
-    <div class="crud-table">
+    <div class="crud-table" id="crud-table">
     @component('admin.components.card')
         @section('card-title')
             {{ucfirst($model)}}
@@ -73,3 +73,12 @@
     </div>
 
 @endsection
+
+
+@push('scripts')
+    <script type="application/javascript">
+        const tableIndex = new Vue({
+            el: '#crud-table'
+        });
+    </script>
+@endpush

@@ -2419,7 +2419,7 @@ input:focus {
 }
 
 .fa {
-  width: 18px;
+  width: auto;
   text-align: center;
 }
 
@@ -6236,5 +6236,11 @@ fieldset[disabled] .el-input__inner {
 .table > tbody > tr:hover .td-actions .btn {
   opacity: 1;
   filter: alpha(opacity=100);
+}
+
+.stat-link {
+  color: black;
+  -webkit-transition: color 0.2s ease;
+  transition: color 0.2s ease;
 }
 

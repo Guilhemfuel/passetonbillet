@@ -27,7 +27,7 @@
 <script>
 
     // Phone formatter
-    // TODO: do not include all countries + Fix issue when click on carret doesn't open select
+    // TODO: do not include all countries (reduce file size)
     require('cleave.js/dist/addons/cleave-phone.i18n');
 
     export default {

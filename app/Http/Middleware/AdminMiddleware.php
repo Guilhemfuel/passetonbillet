@@ -19,7 +19,7 @@ class AdminMiddleware
     public function handle( $request, Closure $next )
     {
         if ( ! Auth::check() || ! Auth::user()->isAdmin() ) {
-            // TODO: add flash message
+            \Session::flash('error','You can not be there.');
             return redirect()->route( 'home' );
         }
 

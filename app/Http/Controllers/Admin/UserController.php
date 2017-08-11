@@ -58,6 +58,14 @@ class UserController extends BaseController
 
     // ---------- API --------------
 
+    /**
+     * Return Json of 10 users matching search request
+     *
+     * @param Request $request
+     * @param         $name
+     *
+     * @return string
+     */
     public function searchAPI(Request $request, $name )
     {
         $users = User::search($name)->take(10)->get();
