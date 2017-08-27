@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Backpack\Base\app\Notifications\ResetPasswordNotification as ResetPasswordNotification;
+use Nicolaslopezj\Searchable\SearchableTrait;
 
 
 /**
@@ -16,7 +17,7 @@ use Backpack\Base\app\Notifications\ResetPasswordNotification as ResetPasswordNo
  */
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, SearchableTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -25,10 +26,39 @@ class User extends Authenticatable
      */
 
     protected $fillable = [
-        'first_name','last_name','gender','phone','birthdate',
-        'email', 'password',
-        'facebook_id','linkedin_id','identity_confirmed',
-        'status',
+        'first_name','last_name','gender','phone','phone_country','birthdate','language',
+        'email',
+        'facebook_id','linkedin_id','identity_confirmed', //TODO: create a model profile linked to user where is this data
+    ];
+
+    /**
+     * Searchable rules.
+     *
+     * @var array
+     */
+    protected $searchable = [
+        /**
+         * Columns and their priority in search results.
+         * Columns with higher values are more important.
+         * Columns with equal values have equal importance.
+         *
+         * @var array
+         */
+        'columns' => [
+            'users.first_name' => 10,
+            'users.last_name' => 10,
+        ]
+    ];
+
+    public static $rules = [
+        'first_name' => 'required',
+        'last_name' => 'required',
+        'gender' => 'required|numeric',
+        'phone' => 'required',
+        'phone_country' => 'required',
+        'birthdate' => 'required|date',
+        'language' => 'required',
+        'email' => 'required|email|unique:users',
     ];
 
     /**
@@ -37,7 +67,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',''
+        'password', 'remember_token', 'status'
     ];
 
     public function tickets()
@@ -65,5 +95,23 @@ class User extends Authenticatable
      */
     public function isAdmin(){
         return $this->status == 100;
+    }
+
+    public function getFullNameAttribute()
+    {
+        return ucfirst($this->first_name).' '.ucfirst($this->last_name);
+    }
+
+    public function getRoleAttribute(){
+        switch ($this->status){
+            case 100:
+                return 'Admin';
+            case 1:
+                return 'User';
+            case 0:
+                return 'Unconfirmed User';
+            case -1:
+                return 'Uninvited User';
+        }
     }
 }

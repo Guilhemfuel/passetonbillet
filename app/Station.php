@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Nicolaslopezj\Searchable\SearchableTrait;
 
 /**
  * App\Station
@@ -17,6 +18,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Station extends Model
 {
+    use SearchableTrait;
+
     public $timestamps = false;
 
     protected $fillable = [
@@ -29,14 +32,47 @@ class Station extends Model
         'timezone'
     ];
 
+    /**
+     * Searchable rules.
+     *
+     * @var array
+     */
+    protected $searchable = [
+        /**
+         * Columns and their priority in search results.
+         * Columns with higher values are more important.
+         * Columns with equal values have equal importance.
+         *
+         * @var array
+         */
+        'columns' => [
+            'stations.name_fr' => 10,
+            'stations.name_en' => 10,
+            'stations.short_name' => 8,
+        ]
+    ];
+
+    public static $rules = [
+        'eurostar_id' => 'required|numeric',
+        'name_fr' => 'required',
+        'name_en' => 'required',
+        'short_name' => 'required',
+        'country' => 'required|max:2'
+    ];
+
     public function getNameAttribute()
     {
-        if ( App::isLocale( 'en' ) ) {
+        if ( \App::isLocale( 'en' ) ) {
             return $this->name_en;
         }
-        else if ( App::isLocale( 'fr' ) ) {
+        else if ( \App::isLocale( 'fr' ) ) {
             return $this->name_fr;
         }
+    }
+
+    public function getFlagAttribute()
+    {
+        return "<span class=\"flag-icon flag-icon-".$this->country."\"></span>";
     }
 
 }

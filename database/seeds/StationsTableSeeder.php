@@ -19,7 +19,7 @@ class StationsTableSeeder extends Seeder
         $station->name_en = "London St Pancras Int";
         $station->short_name = "GBLON";
         $station->country = "gb";
-        $station->timezone_txt = "Europe\/London";
+        $station->timezone_txt = "Europe/London";
         $station->timezone = "+01:00";
         $station->save();
 
@@ -30,7 +30,7 @@ class StationsTableSeeder extends Seeder
         $station->name_en = "Ebbsfleet";
         $station->short_name = "GBEBF";
         $station->country = "gb";
-        $station->timezone_txt = "Europe\/London";
+        $station->timezone_txt = "Europe/London";
         $station->timezone = "+01:00";
         $station->save();
 
@@ -41,18 +41,18 @@ class StationsTableSeeder extends Seeder
         $station->name_en = "Ashford";
         $station->short_name = "GBASD";
         $station->country = "gb";
-        $station->timezone_txt = "Europe\/London";
+        $station->timezone_txt = "Europe/London";
         $station->timezone = "+01:00";
         $station->save();
 
         // Disney
         $station = new Station();
         $station->eurostar_id = 8711184;
-        $station->name_fr = "Disneyland Resort (Marne-la-Vall\u00e9e\/Chessy)";
-        $station->name_en = "Disneyland Resort (Marne-la-Vall\u00e9e\/Chessy), France";
+        $station->name_fr = "Disneyland Resort (Marne-la-Vallée/Chessy)";
+        $station->name_en = "Disneyland Resort (Marne-la-Vallée/Chessy), France";
         $station->short_name = "FRMVL";
         $station->country = "fr";
-        $station->timezone_txt = "Europe\/Paris";
+        $station->timezone_txt = "Europe/Paris";
         $station->timezone = "+02:00";
         $station->save();
 
@@ -63,7 +63,7 @@ class StationsTableSeeder extends Seeder
         $station->name_en = "Lille Europe";
         $station->short_name = "FRLIL";
         $station->country = "fr";
-        $station->timezone_txt = "Europe\/Paris";
+        $station->timezone_txt = "Europe/Paris";
         $station->timezone = "+02:00";
         $station->save();
 
@@ -74,7 +74,7 @@ class StationsTableSeeder extends Seeder
         $station->name_en = "Paris Gare Du Nord";
         $station->short_name = "FRPAR";
         $station->country = "fr";
-        $station->timezone_txt = "Europe\/Paris";
+        $station->timezone_txt = "Europe/Paris";
         $station->timezone = "+02:00";
         $station->save();
 
@@ -85,7 +85,7 @@ class StationsTableSeeder extends Seeder
         $station->name_en = "Calais Frethun";
         $station->short_name = "FRCQF";
         $station->country = "fr";
-        $station->timezone_txt = "Europe\/Paris";
+        $station->timezone_txt = "Europe/Paris";
         $station->timezone = "+02:00";
         $station->save();
 
@@ -96,7 +96,7 @@ class StationsTableSeeder extends Seeder
         $station->name_en = "Avignon TGV";
         $station->short_name = "FRAVN";
         $station->country = "fr";
-        $station->timezone_txt = "Europe\/Paris";
+        $station->timezone_txt = "Europe/Paris";
         $station->timezone = "+02:00";
         $station->save();
 
@@ -107,7 +107,7 @@ class StationsTableSeeder extends Seeder
         $station->name_en = "Lyon Part-Dieu";
         $station->short_name = "FRLYS";
         $station->country = "fr";
-        $station->timezone_txt = "Europe\/Paris";
+        $station->timezone_txt = "Europe/Paris";
         $station->timezone = "+02:00";
         $station->save();
 
@@ -118,7 +118,7 @@ class StationsTableSeeder extends Seeder
         $station->name_en = "Moutiers Salins Brides Les Bains";
         $station->short_name = "FRQMU";
         $station->country = "fr";
-        $station->timezone_txt = "Europe\/Paris";
+        $station->timezone_txt = "Europe/Paris";
         $station->timezone = "+02:00";
         $station->save();
 
@@ -129,7 +129,7 @@ class StationsTableSeeder extends Seeder
         $station->name_en = "Bourg St Maurice";
         $station->short_name = "FRQBM";
         $station->country = "fr";
-        $station->timezone_txt = "Europe\/Paris";
+        $station->timezone_txt = "Europe/Paris";
         $station->timezone = "+02:00";
         $station->save();
 
@@ -140,7 +140,7 @@ class StationsTableSeeder extends Seeder
         $station->name_en = "Marseille Saint Charles";
         $station->short_name = "FRMRS";
         $station->country = "fr";
-        $station->timezone_txt = "Europe\/Paris";
+        $station->timezone_txt = "Europe/Paris";
         $station->timezone = "+02:00";
         $station->save();
 
@@ -151,7 +151,7 @@ class StationsTableSeeder extends Seeder
         $station->name_en = "Brussels Midi";
         $station->short_name = "BEBRU";
         $station->country = "be";
-        $station->timezone_txt = "Europe\/Brussels";
+        $station->timezone_txt = "Europe/Brussels";
         $station->timezone = "+02:00";
         $station->save();
 

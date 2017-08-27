@@ -15,7 +15,7 @@ class UpdateTrains extends Command
      *
      * @var string
      */
-    protected $signature = 'trains:update';
+    protected $signature = 'lastar:update';
 
     /**
      * The console command description.
@@ -53,6 +53,11 @@ class UpdateTrains extends Command
         $this->info("Retrieving data from Eurostar API");
         $bar = $this->output->createProgressBar(count($stations)*count($stations));
 
+        if (count($stations ) === 0 ){
+            $this->info('No Stations found !');
+            return;
+        }
+
         //Loop through all possible journey combination to retrieve all trains
         foreach ($stations as $departure_station){
             foreach ($stations as $arrival_station) {
@@ -69,6 +74,11 @@ class UpdateTrains extends Command
                 }
                 $bar->advance();
             }
+        }
+
+        if (count($trains) === 0){
+            $this->info('No trains found !');
+            return;
         }
 
         //Display information to terminal

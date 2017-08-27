@@ -1,0 +1,56 @@
+
+.crud-table {
+  position: relative;
+
+  .crud-search {
+    top: -7px;
+    position: relative;
+    margin-right: 490px;
+  }
+
+  .no-crud-search{
+    height: 30px;
+  }
+
+  .top-pagination {
+    .pagination {
+      margin-top: -37px;
+    }
+  }
+
+  .bottom-pagination {
+    margin-right: -15px;
+  }
+
+  .pagination {
+    font-size: 12px;
+    float: right !important;
+
+    li > a, li > span {
+      padding: 5px 14px 4px;
+    }
+
+    li > a, .pagination > li > span {
+      color: $new-purple;
+    }
+
+    li.active span {
+      background-color: $new-purple;
+      border-color: $purple-color-bottom;
+    }
+
+  }
+}
+
+.crud-actions {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  a {
+    margin-left: 10px;
+  }
+}
+
+.null{
+
+}

@@ -26,7 +26,10 @@ window.Vue = require('vue');
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-window.axios = require('axios');
+// window.axios = require('axios'); // Issue is npm run watch, so temporarly we import the full axios dist file
+// the full axios dist file
+window.axios = require('axios/dist/axios.js');
+
 
 window.axios.defaults.headers.common = {
     'X-CSRF-TOKEN': window.Laravel.csrfToken,
@@ -51,5 +54,7 @@ window.axios.defaults.headers.common = {
  * Custom Import
  *
  */
+
+window.swal = require('sweetalert2');
 
 require('bootstrap-validator');

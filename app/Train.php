@@ -7,14 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Train
  *
- * @property-read                                                        $number
- * @property-read                                                        $departure_date
- * @property-read                                                        $departure_time
- * @property-read                                                        $departure_city
- * @property-read                                                        $arrival_date
- * @property-read                                                        $arrival_time
- * @property-read                                                        $arrival_city
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Ticket[] $tickets
+ * @property                                                        $number
+ * @property                                                        $departure_date
+ * @property                                                        $departure_time
+ * @property                                                        $departure_city
+ * @property                                                        $arrival_date
+ * @property                                                        $arrival_time
+ * @property                                                        $arrival_city
+ * @property \Illuminate\Database\Eloquent\Collection|\App\Ticket[] $tickets
  * @mixin \Eloquent
  */
 class Train extends Model
@@ -29,6 +29,42 @@ class Train extends Model
         'departure_city',
         'arrival_city'
     ];
+
+    public static $rules = [
+        'number'         => 'required|numeric',
+        'departure_date' => 'required|date',
+        'departure_time' => 'required|date',
+        'arrival_date'   => 'required|date',
+        'arrival_time'   => 'required|date',
+        'departure_city' => 'required|exists:stations,id|different:arrival_city',
+        'arrival_city'   => 'required|exists:stations,id|different:departure_city'
+    ];
+
+    // Mutators
+
+    public function setDepartureTimeAttribute($value)
+    {
+        $time = new \DateTime($value);
+        $this->attributes['departure_time'] = $time->format("h:i:s");
+    }
+
+    public function setArrivalTimeAttribute($value)
+    {
+        $time = new \DateTime($value);
+        $this->attributes['arrival_time'] = $time->format("h:i:s");
+    }
+
+    public function getDepartureTimeJsAttribute()
+    {
+        return date( 'D M d Y H:i:s O', strtotime( $this->departure_time ) );
+    }
+
+    public function getArrivalTimeJsAttribute()
+    {
+        return date( 'D M d Y H:i:s O', strtotime( $this->arrival_time ) );
+    }
+
+    // Relationships
 
     public function tickets()
     {

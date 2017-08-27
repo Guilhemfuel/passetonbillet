@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Nicolaslopezj\Searchable\SearchableTrait;
 
 /**
  * App\Ticket
@@ -13,6 +14,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Ticket extends Model
 {
+
+    use SearchableTrait;
 
     protected $fillable = [
         // Train info
@@ -37,6 +40,38 @@ class Ticket extends Model
         'buyer_name',
     ];
 
+    /**
+     * Searchable rules.
+     *
+     * @var array
+     */
+    protected $searchable = [
+        /**
+         * Columns and their priority in search results.
+         * Columns with higher values are more important.
+         * Columns with equal values have equal importance.
+         *
+         * @var array
+         */
+        'columns' => [
+            'tickets.eurostar_code' => 10,
+            'tickets.buyer_name'    => 5,
+            'tickets.buyer_email'   => 5,
+        ]
+    ];
+
+    public static $rules = [
+        'user_id'         => 'required|exists:users,id',
+        'price'           => 'required|numeric',
+        'bought_price'    => 'required|numeric',
+        'currency'        => 'required',
+        'bought_currency' => 'required',
+        'inbound'         => 'required|boolean',
+        'eurostar_code'   => 'required',
+        'buyer_email'     => 'required|email',
+        'buyer_name'      => 'required|max:6'
+    ];
+
     public function user()
     {
         return $this->belongsTo( 'App\User' );
@@ -47,14 +82,14 @@ class Ticket extends Model
         return $this->belongsTo( 'App\Train' );
     }
 
-    public function getFlexibilityAttribute( $value )
-    {
-        return trans( 'common.ticket.flexibility.' . $value );
-    }
+//    public function getFlexibilityAttribute( $value )
+//    {
+//        return trans( 'common.ticket.flexibility.' . $value );
+//    }
 
     public function getClassAttribute( $value )
     {
-        //TODO: use JSON below to make string from class
+        //TODO: use JSON below to make string from class + add that to admin form attributes
         return $value;
     }
 

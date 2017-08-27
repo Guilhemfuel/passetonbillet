@@ -23,6 +23,12 @@
                             <a class="nav-link" href="{{route('register.page')}}">@lang('nav.register')</a>
                         </li>
                     @else
+                        @if(Auth::user()->isAdmin())
+                            <li>
+                                <a class="nav-link" href="{{route('admin.home')}}">Admin</a>
+                            </li>
+                        @endif
+
                         <li>
                             <a class="nav-link" href="{{route('logout')}}">@lang('nav.logout')</a>
                         </li>
