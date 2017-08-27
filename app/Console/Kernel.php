@@ -13,7 +13,9 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\UpdateTrains::class
+        Commands\UpdateTrains::class,
+        Commands\Empower::class
+
     ];
 
     /**

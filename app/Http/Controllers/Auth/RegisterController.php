@@ -30,7 +30,6 @@ class RegisterController extends Controller
      */
     protected $redirectTo = '/';
 
-    //TODO: register, then connect with socials
 
     public function fb_redirect(){
         return Socialite::driver('facebook')->fields([
@@ -44,8 +43,6 @@ class RegisterController extends Controller
     {
         $providerUser = \Socialite::driver('facebook')->user();
         print_r($providerUser);
-
-
     }
 
     /**
