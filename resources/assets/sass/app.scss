@@ -7,13 +7,13 @@
 }
 
 // JS Components css
-@import "node_modules/sweetalert2/src/sweetalert2.scss";
+@import "~sweetalert2/src/sweetalert2.scss";
 
 // Variables
 @import "variables";
 
 // Bootstrap
-@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "~bootstrap-sass/assets/stylesheets/bootstrap";
 
 // Our custom CSS
 @import "general";

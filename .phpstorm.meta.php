@@ -3,7 +3,7 @@ namespace PHPSTORM_META {
 
    /**
     * PhpStorm Meta file, to provide autocomplete information for PhpStorm
-    * Generated on 2017-08-11.
+    * Generated on 2017-08-27.
     *
     * @author Barry vd. Heuvel <barryvdh@gmail.com>
     * @see https://github.com/barryvdh/laravel-ide-helper
@@ -38,8 +38,6 @@ namespace PHPSTORM_META {
         'view' => \Illuminate\View\Factory::class,
         'view.finder' => \Illuminate\View\FileViewFinder::class,
         'view.engine.resolver' => \Illuminate\View\Engines\EngineResolver::class,
-        'debugbar' => \Barryvdh\Debugbar\LaravelDebugbar::class,
-        'command.debugbar.clear' => \Barryvdh\Debugbar\Console\ClearCommand::class,
         'eurostar' => \App\EurostarAPI\Eurostar::class,
         'blade.compiler' => \Illuminate\View\Compilers\BladeCompiler::class,
         'cache' => \Illuminate\Cache\CacheManager::class,
@@ -162,8 +160,6 @@ namespace PHPSTORM_META {
         'view' => \Illuminate\View\Factory::class,
         'view.finder' => \Illuminate\View\FileViewFinder::class,
         'view.engine.resolver' => \Illuminate\View\Engines\EngineResolver::class,
-        'debugbar' => \Barryvdh\Debugbar\LaravelDebugbar::class,
-        'command.debugbar.clear' => \Barryvdh\Debugbar\Console\ClearCommand::class,
         'eurostar' => \App\EurostarAPI\Eurostar::class,
         'blade.compiler' => \Illuminate\View\Compilers\BladeCompiler::class,
         'cache' => \Illuminate\Cache\CacheManager::class,
@@ -286,8 +282,6 @@ namespace PHPSTORM_META {
         'view' => \Illuminate\View\Factory::class,
         'view.finder' => \Illuminate\View\FileViewFinder::class,
         'view.engine.resolver' => \Illuminate\View\Engines\EngineResolver::class,
-        'debugbar' => \Barryvdh\Debugbar\LaravelDebugbar::class,
-        'command.debugbar.clear' => \Barryvdh\Debugbar\Console\ClearCommand::class,
         'eurostar' => \App\EurostarAPI\Eurostar::class,
         'blade.compiler' => \Illuminate\View\Compilers\BladeCompiler::class,
         'cache' => \Illuminate\Cache\CacheManager::class,
@@ -410,8 +404,6 @@ namespace PHPSTORM_META {
         'view' => \Illuminate\View\Factory::class,
         'view.finder' => \Illuminate\View\FileViewFinder::class,
         'view.engine.resolver' => \Illuminate\View\Engines\EngineResolver::class,
-        'debugbar' => \Barryvdh\Debugbar\LaravelDebugbar::class,
-        'command.debugbar.clear' => \Barryvdh\Debugbar\Console\ClearCommand::class,
         'eurostar' => \App\EurostarAPI\Eurostar::class,
         'blade.compiler' => \Illuminate\View\Compilers\BladeCompiler::class,
         'cache' => \Illuminate\Cache\CacheManager::class,
@@ -534,8 +526,6 @@ namespace PHPSTORM_META {
         'view' => \Illuminate\View\Factory::class,
         'view.finder' => \Illuminate\View\FileViewFinder::class,
         'view.engine.resolver' => \Illuminate\View\Engines\EngineResolver::class,
-        'debugbar' => \Barryvdh\Debugbar\LaravelDebugbar::class,
-        'command.debugbar.clear' => \Barryvdh\Debugbar\Console\ClearCommand::class,
         'eurostar' => \App\EurostarAPI\Eurostar::class,
         'blade.compiler' => \Illuminate\View\Compilers\BladeCompiler::class,
         'cache' => \Illuminate\Cache\CacheManager::class,
@@ -658,8 +648,6 @@ namespace PHPSTORM_META {
         'view' => \Illuminate\View\Factory::class,
         'view.finder' => \Illuminate\View\FileViewFinder::class,
         'view.engine.resolver' => \Illuminate\View\Engines\EngineResolver::class,
-        'debugbar' => \Barryvdh\Debugbar\LaravelDebugbar::class,
-        'command.debugbar.clear' => \Barryvdh\Debugbar\Console\ClearCommand::class,
         'eurostar' => \App\EurostarAPI\Eurostar::class,
         'blade.compiler' => \Illuminate\View\Compilers\BladeCompiler::class,
         'cache' => \Illuminate\Cache\CacheManager::class,
@@ -782,8 +770,6 @@ namespace PHPSTORM_META {
         'view' => \Illuminate\View\Factory::class,
         'view.finder' => \Illuminate\View\FileViewFinder::class,
         'view.engine.resolver' => \Illuminate\View\Engines\EngineResolver::class,
-        'debugbar' => \Barryvdh\Debugbar\LaravelDebugbar::class,
-        'command.debugbar.clear' => \Barryvdh\Debugbar\Console\ClearCommand::class,
         'eurostar' => \App\EurostarAPI\Eurostar::class,
         'blade.compiler' => \Illuminate\View\Compilers\BladeCompiler::class,
         'cache' => \Illuminate\Cache\CacheManager::class,
