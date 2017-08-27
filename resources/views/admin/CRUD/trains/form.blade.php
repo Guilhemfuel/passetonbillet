@@ -12,7 +12,7 @@
         <div class="form-group">
             <label>Departure city</label>
             <stationpicker :name="'departure_city'"
-                           :default-value="'1'"></stationpicker>
+                           :default-value="'{{isset($entity)?$entity->departure_city:(old('departure_city'))}}'"></stationpicker>
         </div>
     </div>
     <div class="col-md-6">

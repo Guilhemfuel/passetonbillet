@@ -36,7 +36,7 @@ $factory->define(App\Station::class, function (Faker\Generator $faker) {
         'name_fr' => $faker->word,
         'name_en' => $faker->word,
         'short_name' => str_random(2),
-        'country' => $faker->country,
+        'country' => $faker->randomElement(['fr','gb','be']),
         'timezone_txt' => $faker->timezone,
         'timezone' => "+01:00"
     ];

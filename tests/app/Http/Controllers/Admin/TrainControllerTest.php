@@ -2,9 +2,10 @@
 
 namespace Tests\app\Http\Controllers\Admin;
 
+use App\Train;
 use Faker\Factory;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
-use App\Train;
+
 
 class TrainControllerTest extends BaseControllerTest
 {
@@ -57,7 +58,7 @@ class TrainControllerTest extends BaseControllerTest
         $response->assertStatus( 302 );
         $response->assertRedirect( $this->basePath . '/' . $insertedId . '/edit' );
 
-        // Train datetime is converted to time only, to keep it simple we just don't search time
+        // Train datetime is converted to time only, to keep it simple we just don't search
         unset($trainArray['arrival_time']);
         unset($trainArray['departure_time']);
 
