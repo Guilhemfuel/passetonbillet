@@ -1,17 +1,20 @@
 <?php
 
-namespace Tests;
+namespace Tests\app\Http\Controllers\Admin;
 
 use App\User;
+use Tests\TestCase;
 
-abstract class BaseControllerTest extends DuskTestCase
+abstract class BaseControllerTest extends TestCase
 {
-    protected $basePath = 'lastadmin/';
 
-    protected function logAsAdmin(&$browser){
+    protected $basePath = '/lastadmin/';
+
+    public function beAnAdmin(){
         $user = factory(User::class)->make();
         $user->status = 100;
         $user->save();
-        $browser->loginAs($user);
+        $this->actingAs($user);
     }
+
 }

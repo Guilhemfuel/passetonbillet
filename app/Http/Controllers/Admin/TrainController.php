@@ -28,7 +28,7 @@ class TrainController extends BaseController
         $train->save();
 
         \Session::flash('success',$this->CRUDsingularEntityName.' created!');
-        return redirect()->route($this->CRUDmodelName.'.show',$train->id);
+        return redirect()->route($this->CRUDmodelName.'.edit',$train->id);
     }
 
     /**
@@ -48,7 +48,7 @@ class TrainController extends BaseController
         $train->update($request->all());
         $train->save();
         \Session::flash('success',$this->CRUDsingularEntityName.' updated!');
-        return redirect()->route($this->CRUDmodelName.'.show',$train->id);
+        return redirect()->route($this->CRUDmodelName.'.edit',$train->id);
     }
 
 }

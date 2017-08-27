@@ -10,6 +10,17 @@ abstract class DuskTestCase extends BaseTestCase
 {
     use CreatesApplication;
 
+    public function setUp()
+    {
+        parent::setUp();
+
+        if (!env('BROWSER_TESTING')) {
+            $this->markTestSkipped(
+                'Browser testing not turned on (see PhpUnit.xml).'
+            );
+        }
+    }
+
     /**
      * Prepare for Dusk test execution.
      *

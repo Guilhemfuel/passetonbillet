@@ -22,7 +22,7 @@
             return {
                 nameInput: this.name || 'time',
                 placeholderInput: this.placeholder,
-                timeValue: this.value,
+                timeValue: this.value ? new Date(this.value) : null,
             }
         }
     }

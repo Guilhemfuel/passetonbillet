@@ -188,16 +188,18 @@ class Eurostar
                 continue;
             }
 
+
+
             // Create train
             $train = Train::firstOrCreate(
                 [
                     'number'         => $trainNumber,
                     'departure_date' => $trainDepartureDate,
                     'departure_time' => $trainDepartureTime,
-                    'departure_city' => $trainDepartureStation,
+                    'departure_city' => Station::where('eurostar_id', $trainDepartureStation)->first()->id,
                     'arrival_date'   => $trainArrivalDate,
                     'arrival_time'   => $trainArrivalTime,
-                    'arrival_city'   => $trainArrivalStation
+                    'arrival_city'   => Station::where('eurostar_id', $trainArrivalStation)->first()->id
                 ]
             );
 

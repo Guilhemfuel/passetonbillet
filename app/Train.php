@@ -57,12 +57,12 @@ class Train extends Model
 
     public function getDepartureTimeJsAttribute()
     {
-        return date( 'd-m-Y H:i:s', strtotime( $this->departure_time ) );
+        return date( 'D M d Y H:i:s O', strtotime( $this->departure_time ) );
     }
 
     public function getArrivalTimeJsAttribute()
     {
-        return date( 'd-m-Y H:i:s', strtotime( $this->arrival_time ) );
+        return date( 'D M d Y H:i:s O', strtotime( $this->arrival_time ) );
     }
 
     // Relationships
