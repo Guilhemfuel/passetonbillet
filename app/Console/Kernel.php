@@ -15,7 +15,6 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         Commands\UpdateTrains::class,
         Commands\Empower::class
-
     ];
 
     /**
