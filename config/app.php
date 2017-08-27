@@ -168,7 +168,6 @@ return [
          * Package Service Providers...
          */
         Laravel\Tinker\TinkerServiceProvider::class,
-        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class, //Ide-Helper
         Laravel\Socialite\SocialiteServiceProvider::class,  //Socialite, linkedin and facebook connect
 
 
