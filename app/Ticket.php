@@ -82,10 +82,10 @@ class Ticket extends Model
         return $this->belongsTo( 'App\Train' );
     }
 
-    public function getFlexibilityAttribute( $value )
-    {
-        return trans( 'common.ticket.flexibility.' . $value );
-    }
+//    public function getFlexibilityAttribute( $value )
+//    {
+//        return trans( 'common.ticket.flexibility.' . $value );
+//    }
 
     public function getClassAttribute( $value )
     {

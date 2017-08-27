@@ -3,7 +3,6 @@
 namespace Tests\app\Http\Controllers\Admin;
 
 use Faker\Factory;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
 use App\Station;
 
 class StationControllerTest extends BaseControllerTest

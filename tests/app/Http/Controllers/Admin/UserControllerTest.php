@@ -2,7 +2,6 @@
 
 namespace Tests\app\Http\Controllers\Admin;
 
-use Illuminate\Foundation\Testing\WithoutMiddleware;
 use App\User;
 
 class UserControllerTest extends BaseControllerTest

@@ -4,7 +4,6 @@ namespace Tests\app\Http\Controllers\Admin;
 
 use App\Train;
 use Faker\Factory;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
 
 
 class TrainControllerTest extends BaseControllerTest
