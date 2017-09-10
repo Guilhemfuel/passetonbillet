@@ -1,5 +1,4 @@
-
-    @if(count($entities)>0)
+@if(count($entities)>0)
 
     <table class="table table-hover table-striped">
         <thead>
@@ -15,14 +14,10 @@
             <tr>
                 <td>{{$entity->number?$entity->number:'-'}}</td>
                 <td>
-                    <el-tooltip class="item" effect="dark" content="Station details" placement="top-start">
-                        <a href="{{route('stations.edit',$entity->departureCity->id)}}">{{$entity->departureCity->name_en?$entity->departureCity->name_en:'-'}}</a>
-                    </el-tooltip>
+                    <a href="{{route('stations.edit',$entity->departureCity->id)}}">{{$entity->departureCity->name_en?$entity->departureCity->name_en:'-'}}</a>
                 </td>
                 <td>
-                    <el-tooltip class="item" effect="dark" content="Station details" placement="top-start">
-                        <a href="{{route('stations.edit',$entity->arrivalCity->id)}}">{{$entity->arrivalCity->name_en?$entity->arrivalCity->name_en:'-'}}</a>
-                    </el-tooltip>
+                    <a href="{{route('stations.edit',$entity->arrivalCity->id)}}">{{$entity->arrivalCity->name_en?$entity->arrivalCity->name_en:'-'}}</a>
                 </td>
                 <td>{{$entity->departure_date?$entity->departure_date:'-'}}</td>
                 <td>{{$entity->departure_time?$entity->departure_time:'-'}}</td>
@@ -36,10 +31,10 @@
         </tbody>
     </table>
 
-    @else
+@else
 
-        <div class="content">
-            0 entity found!
-        </div>
+    <div class="content">
+        0 entity found!
+    </div>
 
-    @endif
+@endif

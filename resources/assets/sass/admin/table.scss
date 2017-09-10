@@ -31,14 +31,25 @@
     }
 
     li > a, .pagination > li > span {
-      color: $new-purple;
+      color: $color-purple;
     }
 
     li.active span {
-      background-color: $new-purple;
-      border-color: $purple-color-bottom;
+      background-color: $color-purple;
+      border-color: $color-purple;
     }
 
+  }
+
+  .table-full-width {
+    margin: 0px -20px;
+  }
+
+  .card {
+    .card-header {
+      border-bottom: 0px;
+      background-color: transparent;
+    }
   }
 }
 

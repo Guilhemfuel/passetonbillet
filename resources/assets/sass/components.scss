@@ -11,7 +11,7 @@
 .lastar-calendar {
 
   .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control{
-    background-color: $white;
+    background-color: $color-white;
   }
 
   .vdp-datepicker__calendar{
@@ -23,14 +23,14 @@
       &:not(.blank):not(.disabled).month,
       &:not(.blank):not(.disabled).year {
         &:hover{
-          border: 1px solid $new-purple;
+          border: 1px solid $color-purple;
         }
       }
       &.selected{
-        background-color: $new-purple;
-        color: $white;
+        background-color: $color-purple;
+        color: $color-white;
         &:hover, &.highlighted{
-          background-color: $purple-color-bottom;
+          background-color: $color-purple;
           border: 0px;
         }
       }
@@ -71,11 +71,11 @@
 }
 
 .el-select-dropdown__item.selected, .el-select-dropdown__item.selected.hover{
-  background-color: $new-purple !important;
+  background-color: $color-purple !important;
 }
 
 .el-time-panel__btn.confirm {
-  color: $new-purple !important;
+  color: $color-purple !important;
 }
 
 .el-time-panel {
@@ -85,8 +85,8 @@
 .el-input__inner {
   @extend .form-control;
   height:40px !important;
-  background-color: $white !important;
-  border: 1px solid $light-gray !important;
+  background-color: $color-white !important;
+  border: 1px solid $color-border !important;
   &:focus {
     border: 1px solid #AAAAAA !important;
   }

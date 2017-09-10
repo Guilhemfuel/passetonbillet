@@ -13,14 +13,10 @@
         @foreach($entities as $entity)
             <tr>
                 <td>
-                    <el-tooltip class="item" effect="dark" content="{{$entity->user->full_name}}'s profile" placement="top-start">
-                        <a href="{{route('users.edit',$entity->user->id)}}">{{$entity->user->email}}</a>
-                    </el-tooltip>
+                    <a href="{{route('users.edit',$entity->user->id)}}">{{$entity->user->email}}</a>
                 </td>
                 <td>
-                    <el-tooltip class="item" effect="dark" content="Train details" placement="top-start">
-                        <a href="{{route('trains.edit',$entity->train->id)}}">{{$entity->train->number}}</a>
-                    </el-tooltip>
+                    <a href="{{route('trains.edit',$entity->train->id)}}">{{$entity->train->number}}</a>
                 </td>
                 <td>{{$entity->price}}</td>
                 <td>{{$entity->currency}}</td>

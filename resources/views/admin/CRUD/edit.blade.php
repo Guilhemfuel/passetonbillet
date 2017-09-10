@@ -8,42 +8,40 @@
 @section('content')
 
     <div class="crud-table">
-    @component('admin.components.card')
-        @section('card-title')
-            Edit {{$entitySingleName}}
-        @endsection
 
-        @section('card-category')
-            {!!'<a href='.route($model.'.index').'>Back to '.$model.' list</a>'!!}
-        @endsection
+        <div class="card">
 
-        @section('card-body')
+            <div class="card-header">
+                Edit {{$entitySingleName}} - {!!'<a href='.route($model.'.index').'>Back to '.$model.' list</a>'!!}
+            </div>
 
-            @if(isset($entity))
-                <div class="crud-actions">
-                    <form id="deleteForm" method="POST" action="{{route($model.'.destroy',$entity->id)}}">
+            <div class="card-body">
+                @if(isset($entity))
+                    <div class="crud-actions">
+                        <form id="deleteForm" method="POST" action="{{route($model.'.destroy',$entity->id)}}">
+                            {{csrf_field()}}
+                            {{ method_field('DELETE') }}
+                        </form>
+                        <button class="btn btn-danger btn-fill btn-sm" id="btn-delete"><i class="fa fa-trash" data-toggle="modal" data-target="#deleteModal"></i> Delete entity</button>
+                    </div>
+                @endif
+
+                    <form id="editForm" method="POST" action="{{route($model.'.update',$entity->id)}}">
                         {{csrf_field()}}
-                        {{ method_field('DELETE') }}
+                        {{ method_field('PUT') }}
+
+                        @include('admin.CRUD.'.$model.'.form')
+
+                        <div class="crud-form-bottom">
+                            <button class="btn btn-success btn-fill btn-sm" type="submit">
+                                <i class="fa fa-floppy-o"></i> Update entity
+                            </button>
+                        </div>
                     </form>
-                    <button class="btn btn-danger btn-fill btn-sm" id="btn-delete"><i class="fa fa-trash" data-toggle="modal" data-target="#deleteModal"></i> Delete entity</button>
-                </div>
-            @endif
+            </div>
 
-            <form id="editForm" method="POST" action="{{route($model.'.update',$entity->id)}}">
-                {{csrf_field()}}
-                {{ method_field('PUT') }}
+        </div>
 
-                @include('admin.CRUD.'.$model.'.form')
-
-                <div class="crud-form-bottom">
-                    <button class="btn btn-success btn-fill btn-sm" type="submit">
-                        <i class="fa fa-floppy-o"></i> Update entity
-                    </button>
-                </div>
-            </form>
-
-        @endsection
-    @endcomponent
     </div>
 
 @endsection

@@ -1,0 +1,14 @@
+
+// -- Bootstrap Overrides --
+
+// BUTTONS
+
+.btn-primary, .btn-success, .btn-info {
+  color: $color-white !important;
+}
+
+// LINKS
+
+a:hover {
+  text-decoration: none !important;
+}
