@@ -1,8 +1,8 @@
 
 
 <template>
-    <div class="row lastar-phone">
-        <div class="col-xs-3 select-phone">
+    <div class="row lastar-phone mx-0">
+        <div class="col-sm-3 p-0">
             <el-select v-model="activeCountry" name="phone_country">
                 <el-option
                         class="text-center"
@@ -13,7 +13,7 @@
                 </el-option>
             </el-select>
         </div>
-        <div class="col-xs-9 input-phone">
+        <div class="col p-0 input-phone">
             <cleave type="text"
                     class="form-control"
                     placeholder="Phone Number"

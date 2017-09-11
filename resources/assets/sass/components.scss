@@ -1,12 +1,12 @@
 
-// Sweet alert
+// --- Sweet alert ----
 
 .btn-margin {
   margin-left: 10px;
   margin-right: 10px;
 }
 
-// Datepicker
+// --- Datepicker ---
 
 .lastar-calendar {
 
@@ -38,10 +38,10 @@
   }
 }
 
-// Phone
+// --- Phone ---
 
 .lastar-phone {
-  .select-phone {
+  .el-select {
     position: relative;
     margin-right: -1px;
     padding-right:0px !important;
@@ -61,11 +61,13 @@
     padding-top: 0px !important;
     input.form-control {
       border-radius: 0px 4px 4px 0px !important;
+      border-left: 0px;
     }
   }
 }
 
-// Input ui-elem.io
+// ------- Input ui-elem.io Ovverride -------
+
 .el-select, .el-input, .el-date-editor.el-input {
   width:100% !important;
 }
@@ -84,11 +86,11 @@
 
 .el-input__inner {
   @extend .form-control;
-  height:40px !important;
+  height:38px !important;
   background-color: $color-white !important;
   border: 1px solid $color-border !important;
   &:focus {
-    border: 1px solid #AAAAAA !important;
+    border: 1px solid #e3d7f9 !important;
   }
 
   /* Placeholder */

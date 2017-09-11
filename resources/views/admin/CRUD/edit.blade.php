@@ -12,7 +12,8 @@
         <div class="card">
 
             <div class="card-header">
-                Edit {{$entitySingleName}} - {!!'<a href='.route($model.'.index').'>Back to '.$model.' list</a>'!!}
+                <h5>Edit {{$entitySingleName}}</h5>
+                {!!'<a href='.route($model.'.index').'>Back to '.$model.' list</a>'!!}
             </div>
 
             <div class="card-body">

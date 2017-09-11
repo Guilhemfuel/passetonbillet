@@ -37,16 +37,3 @@ Vue.component('userpicker', require('./components/Userpicker.vue'));
  *
  */
 
-$( document ).ready(function() {
-
-    // Navbar mobile logo color change
-    $('#nav').click(function(){
-        $toggler = $('#nav').find("#toggle-nav");
-        if($toggler.attr('aria-expanded') === "false"){
-            $('#nav').find('.navbar-brand').addClass('mobile');
-        } else {
-            $('#nav').find('.navbar-brand').removeClass('mobile');
-        }
-    });
-
-});

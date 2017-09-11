@@ -24,9 +24,9 @@ window.Vue = require('vue');
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-// window.axios = require('axios'); // Issue is npm run watch, so temporarly we import the full axios dist file
+window.axios = require('axios'); // Issue is npm run watch, so temporarly we import the full axios dist file
 // the full axios dist file
-window.axios = require('axios/dist/axios.js');
+// window.axios = require('axios/dist/axios.js');
 
 
 window.axios.defaults.headers.common = {
@@ -35,24 +35,9 @@ window.axios.defaults.headers.common = {
 };
 
 /**
- * Echo exposes an expressive API for subscribing to channels and listening
- * for events that are broadcast by Laravel. Echo and event broadcasting
- * allows your team to easily build robust real-time web applications.
- */
-
-// import Echo from "laravel-echo"
-
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: 'your-pusher-key'
-// });
-
-/**
  *
  * Custom Import
  *
  */
+require('bootstrap');
 
-window.swal = require('sweetalert2');
-
-require('bootstrap-validator');

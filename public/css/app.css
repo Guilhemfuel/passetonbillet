@@ -10266,19 +10266,19 @@ body {
   border: 0px;
 }
 
-.lastar-phone .select-phone {
+.lastar-phone .el-select {
   position: relative;
   margin-right: -1px;
   padding-right: 0px !important;
   padding-top: 0px !important;
 }
 
-.lastar-phone .select-phone input {
+.lastar-phone .el-select input {
   border-radius: 4px 0px 0px 4px !important;
   -webkit-appearance: none;
 }
 
-.lastar-phone .select-phone .fa-caret-down {
+.lastar-phone .el-select .fa-caret-down {
   position: absolute;
   right: 6px;
   top: 12px;
@@ -10292,6 +10292,7 @@ body {
 .lastar-phone .input-phone input.form-control,
 .lastar-phone .input-phone input.el-input__inner {
   border-radius: 0px 4px 4px 0px !important;
+  border-left: 0px;
 }
 
 .el-select,
@@ -10314,14 +10315,14 @@ body {
 }
 
 .el-input__inner {
-  height: 40px !important;
+  height: 38px !important;
   background-color: white !important;
-  border: 1px solid #e3e3e3 !important;
+  border: 1px solid rgba(0, 0, 0, 0.15) !important;
   /* Placeholder */
 }
 
 .el-input__inner:focus {
-  border: 1px solid #AAAAAA !important;
+  border: 1px solid #e3d7f9 !important;
 }
 
 .el-input__inner::-webkit-input-placeholder {

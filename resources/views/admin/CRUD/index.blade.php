@@ -11,8 +11,8 @@
 
         <div class="card">
             <div class="card-header">
-                {{ucfirst($model)}}  {!!isset($search)?'- <a href='.route($model.'.index').'>Cancel search</a>':''!!}
-                <span class="pull-right"></span>
+                <h5>{{ucfirst($model)}}</h5>
+                {!!isset($search)?'<a href='.route($model.'.index').'>Cancel search</a>':''!!}
             </div>
 
             <div class="card-body">
@@ -35,8 +35,8 @@
 
                                 >
                                 <span class="input-group-btn">
-                            <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
-                        </span>
+                                    <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
+                                </span>
                             </div>
                         </form>
                     </div>
