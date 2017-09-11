@@ -40,7 +40,14 @@ class Train extends Model
         'arrival_city'   => 'required|exists:stations,id|different:departure_city'
     ];
 
-    // Mutators
+    /**
+     * Relationships of the model (used for eager loading)
+     */
+    public static $relationships = ['tickets','departureCity','arrivalCity'];
+
+    /**
+     * Mutators
+     */
 
     public function setDepartureTimeAttribute($value)
     {
@@ -64,7 +71,9 @@ class Train extends Model
         return date( 'D M d Y H:i:s O', strtotime( $this->arrival_time ) );
     }
 
-    // Relationships
+    /**
+     * Relationships
+     */
 
     public function tickets()
     {

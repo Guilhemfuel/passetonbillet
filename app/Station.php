@@ -33,6 +33,11 @@ class Station extends Model
     ];
 
     /**
+     * Relationships of the model (used for eager loading)
+     */
+    public static $relationships = [];
+
+    /**
      * Searchable rules.
      *
      * @var array
@@ -59,6 +64,10 @@ class Station extends Model
         'short_name' => 'required',
         'country' => 'required|max:2'
     ];
+
+    /**
+     * MUTATORS
+     */
 
     public function getNameAttribute()
     {

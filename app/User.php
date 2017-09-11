@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Backpack\Base\app\Notifications\ResetPasswordNotification as ResetPasswordNotification;
@@ -70,22 +71,14 @@ class User extends Authenticatable
         'password', 'remember_token', 'status'
     ];
 
-    public function tickets()
-    {
-        return $this->hasMany('App\Ticket');
-    }
+    /**
+     * Relationships of the model (used for eager loading)
+     */
+    public static $relationships = ['tickets'];
 
     /**
-     * Send the password reset notification.
-     *
-     * @param  string  $token
-     * @return void
+     *   MUTATORS
      */
-    public function sendPasswordResetNotification($token)
-    {
-        $this->notify(new ResetPasswordNotification($token));
-    }
-
 
     /**
      *
@@ -113,5 +106,13 @@ class User extends Authenticatable
             case -1:
                 return 'Uninvited User';
         }
+    }
+
+    /**
+     * RELATIONSHIPS
+     */
+    public function tickets()
+    {
+        return $this->hasMany('App\Ticket');
     }
 }

@@ -1,35 +1,35 @@
 
-<li {{ $model == "" ? 'class=active' : '' }}>
+<li class="{{ $model == "" ? ' active' : '' }}">
     <a href="{{route('admin.home')}}">
         <i class="fa fa-home"></i>
-        <p>Dashboard</p>
+        Dashboard
     </a>
 </li>
 
-<li {{ $model == "users" ? 'class=active' : '' }}>
+<li  class="{{ $model == "users" ? ' active' : '' }}">
     <a href="{{route('users.index')}}">
         <i class="fa fa-user-circle-o"></i>
-        <p>Users</p>
+        Users
     </a>
 </li>
 
-<li {{ $model == "tickets" ? 'class=active' : '' }}>
+<li  class="{{ $model == "tickets" ? ' active' : '' }}">
     <a href="{{route('tickets.index')}}">
         <i class="fa fa-ticket"></i>
-        <p>Tickets</p>
+        Tickets
     </a>
 </li>
 
-<li {{ $model == "stations" ? 'class=active' : '' }}>
+<li  class="{{ $model == "stations" ? ' active' : '' }}">
     <a href="{{route('stations.index')}}">
         <i class="fa fa-globe"></i>
-        <p>Stations</p>
+        Stations
     </a>
 </li>
 
-<li {{ $model == "trains" ? 'class=active' : '' }}>
+<li  class="{{ $model == "trains" ? ' active' : '' }}">
     <a href="{{route('trains.index')}}">
         <i class="fa fa-train"></i>
-        <p>Trains</p>
+        Trains
     </a>
 </li>

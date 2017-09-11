@@ -31,14 +31,38 @@
     }
 
     li > a, .pagination > li > span {
-      color: $new-purple;
+      color: $color-purple;
     }
 
     li.active span {
-      background-color: $new-purple;
-      border-color: $purple-color-bottom;
+      background-color: $color-purple;
+      border-color: $color-purple;
     }
 
+  }
+
+  .table-full-width {
+    margin: 0px -20px;
+  }
+
+  .table {
+    thead th {
+      font-size: 12px;
+      text-transform: uppercase;
+      font-weight: 300;
+    }
+
+    tbody td {
+      padding: 0.5rem;
+      vertical-align: inherit;
+    }
+  }
+
+  .card {
+    .card-header {
+      border-bottom: 0px;
+      background-color: transparent;
+    }
   }
 }
 

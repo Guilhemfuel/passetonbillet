@@ -14,7 +14,6 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
           integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
     <link rel="stylesheet" href="{{ mix('/css/admin.css') }}">
 
     <script>
@@ -26,23 +25,23 @@
 
 <body>
 
-    <div class="wrapper" id="app">
-            <div class="sidebar" data-color="purple" data-image="/img/bg-admin.png">
+    <div class="row m-0" id="app">
+            <div class="sidebar col-md-3 col-sm-4 p-0">
 
-                <div class="sidebar-wrapper">
-                    <div class="logo">
-                        <a href="{{route('admin.home')}}" class="simple-text">
-                            Lastar
-                        </a>
-                    </div>
+                <div class="navbar mb-3">
+                    <a href="{{route('admin.home')}}" class="navbar-brand mx-auto">
+                        Lastar
+                    </a>
+                </div>
 
+                <div class="side-menu">
                     <ul class="nav">
-                       @include('admin.components.menu')
+                        @include('admin.components.menu')
                     </ul>
                 </div>
             </div>
 
-            <div class="main-panel">
+            <div class="main-panel col-sm-8 col-md-9 p-0">
 
                 @include('admin.components.nav')
 

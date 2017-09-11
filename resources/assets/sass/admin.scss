@@ -13,34 +13,16 @@
 
 // Import app variables and components
 @import "variables";
+@import "overrides";
 @import "components";
 
-@import "admin/variables";
-@import "admin/mixins";
-
-@import "admin/typography";
-
-// Core CSS
-@import "admin/misc";
-@import "admin/sidebar-and-main-panel";
-@import "admin/buttons";
-@import "admin/inputs";
-@import "admin/checkbox-radio-switch";
-@import "admin/navbars";
-@import "admin/footers";
-@import "admin/alerts";
-
-
-// Fancy Stuff
-@import "admin/dropdown";
-@import "admin/cards";
-@import "admin/chartist";
-@import "admin/responsive";
-@import "admin/table";
-
 // Custom
-@import "admin/tables";
+@import "admin/table";
 @import "admin/dashboard";
+
+// Bootstrap
+@import "~bootstrap/scss/bootstrap.scss";
+
 
 
 

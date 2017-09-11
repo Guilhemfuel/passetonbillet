@@ -9,17 +9,14 @@
 // JS Components css
 @import "~sweetalert2/src/sweetalert2.scss";
 
+// Bootstrap
+@import "~bootstrap/scss/bootstrap.scss";
+
 // Variables
 @import "variables";
 
-// Bootstrap
-@import "~bootstrap-sass/assets/stylesheets/bootstrap";
-
 // Our custom CSS
 @import "general";
-@import "home";
-@import "register";
-@import "login";
 @import "components";
 
 

@@ -1,17 +1,17 @@
 
-// Sweet alert
+// --- Sweet alert ----
 
 .btn-margin {
   margin-left: 10px;
   margin-right: 10px;
 }
 
-// Datepicker
+// --- Datepicker ---
 
 .lastar-calendar {
 
   .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control{
-    background-color: $white;
+    background-color: $color-white;
   }
 
   .vdp-datepicker__calendar{
@@ -23,14 +23,14 @@
       &:not(.blank):not(.disabled).month,
       &:not(.blank):not(.disabled).year {
         &:hover{
-          border: 1px solid $new-purple;
+          border: 1px solid $color-purple;
         }
       }
       &.selected{
-        background-color: $new-purple;
-        color: $white;
+        background-color: $color-purple;
+        color: $color-white;
         &:hover, &.highlighted{
-          background-color: $purple-color-bottom;
+          background-color: $color-purple;
           border: 0px;
         }
       }
@@ -38,10 +38,10 @@
   }
 }
 
-// Phone
+// --- Phone ---
 
 .lastar-phone {
-  .select-phone {
+  .el-select {
     position: relative;
     margin-right: -1px;
     padding-right:0px !important;
@@ -61,21 +61,23 @@
     padding-top: 0px !important;
     input.form-control {
       border-radius: 0px 4px 4px 0px !important;
+      border-left: 0px;
     }
   }
 }
 
-// Input ui-elem.io
+// ------- Input ui-elem.io Ovverride -------
+
 .el-select, .el-input, .el-date-editor.el-input {
   width:100% !important;
 }
 
 .el-select-dropdown__item.selected, .el-select-dropdown__item.selected.hover{
-  background-color: $new-purple !important;
+  background-color: $color-purple !important;
 }
 
 .el-time-panel__btn.confirm {
-  color: $new-purple !important;
+  color: $color-purple !important;
 }
 
 .el-time-panel {
@@ -84,11 +86,11 @@
 
 .el-input__inner {
   @extend .form-control;
-  height:40px !important;
-  background-color: $white !important;
-  border: 1px solid $light-gray !important;
+  height:38px !important;
+  background-color: $color-white !important;
+  border: 1px solid $color-border !important;
   &:focus {
-    border: 1px solid #AAAAAA !important;
+    border: 1px solid #e3d7f9 !important;
   }
 
   /* Placeholder */
