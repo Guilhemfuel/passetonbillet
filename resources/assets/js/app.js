@@ -23,17 +23,13 @@ Vue.use(ElementUI, { locale });
 Vue.component('cleave', require('vue-cleave'));
 Vue.component('vue-select', require('vue-select'));
 Vue.component('datepicker', require('vuejs-datepicker'));
-Vue.component('phone', require('./components/Phone.vue'));
-Vue.component('timepicker', require('./components/Timepicker.vue'));
-Vue.component('stationpicker', require('./components/Stationpicker.vue'));
-Vue.component('userpicker', require('./components/Userpicker.vue'));
+
+// Inputs
+Vue.component('phone', require('./components/Inputs/Phone.vue'));
+Vue.component('timepicker', require('./components/Inputs/Timepicker.vue'));
+Vue.component('stationpicker', require('./components/Inputs/Stationpicker.vue'));
+Vue.component('userpicker', require('./components/Inputs/Userpicker.vue'));
 
 
-
-
-/**
- *
- * Common JS to all pages
- *
- */
-
+// Shared
+Vue.component('modal', require('./components/Shared/Modal.vue'));

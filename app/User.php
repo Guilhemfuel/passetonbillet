@@ -2,10 +2,8 @@
 
 namespace App;
 
-use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Backpack\Base\app\Notifications\ResetPasswordNotification as ResetPasswordNotification;
 use Nicolaslopezj\Searchable\SearchableTrait;
 
 

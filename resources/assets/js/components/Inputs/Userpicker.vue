@@ -54,7 +54,7 @@
                 if (query !== '') {
                     this.loading = true;
                     setTimeout(() => {
-                        axios.get(this.sourceUrl+query)
+                        this.$http.get(this.sourceUrl+query)
                             .then(response => {
                                 this.options = response.data;
                             })

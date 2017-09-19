@@ -14,6 +14,8 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
           integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css" />
+
     <link rel="stylesheet" href="{{ mix('/css/admin.css') }}">
 
     <script>
@@ -26,7 +28,7 @@
 <body>
 
     <div class="row m-0" id="app">
-            <div class="sidebar col-md-3 col-sm-4 p-0">
+            <div class="sidebar purple-gradient col-md-3 col-sm-4 p-0">
 
                 <div class="navbar mb-3">
                     <a href="{{route('admin.home')}}" class="navbar-brand mx-auto">
@@ -89,18 +91,6 @@
 
 <!-- Scripts -->
 <script src="/js/admin.js"></script>
-@if(Session::has('eurostar_error'))
-    <script type="text/javascript">
-        $(document).ready(function () {
-            swal({
-                title: 'Error!',
-                text: "{!! Session::get('eurostar_error') !!}",
-                type: 'error',
-                confirmButtonClass: 'btn btn-primary'
-            });
-        });
-    </script>
-@endif
 @stack('scripts')
 </body>
 </html>

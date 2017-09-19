@@ -33,18 +33,6 @@
 
 <!-- Scripts -->
 <script src="/js/app.js"></script>
-@if(Session::has('eurostar_error'))
-    <script type="text/javascript">
-        $(document).ready(function () {
-            swal({
-                title: 'Eurostar Error!',
-                text: "{!! Session::get('eurostar_error') !!}",
-                type: 'error',
-                confirmButtonClass: 'btn btn-primary'
-            });
-        });
-    </script>
-@endif
 @stack('scripts')
 </body>
 </html>

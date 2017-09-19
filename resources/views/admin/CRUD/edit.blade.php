@@ -16,17 +16,27 @@
                 {!!'<a href='.route($model.'.index').'>Back to '.$model.' list</a>'!!}
             </div>
 
-            <div class="card-body">
+            <div class="card-body" id="editPage">
+
                 @if(isset($entity))
                     <div class="crud-actions">
-                        <form id="deleteForm" method="POST" action="{{route($model.'.destroy',$entity->id)}}">
-                            {{csrf_field()}}
-                            {{ method_field('DELETE') }}
-                        </form>
-                        <button class="btn btn-danger btn-fill btn-sm" id="btn-delete"><i class="fa fa-trash" data-toggle="modal" data-target="#deleteModal"></i> Delete entity</button>
+                        <button class="btn btn-danger btn-fill btn-sm" id="btn-delete" @click="deleteModalOpened = true">
+                            <i class="fa fa-trash" data-toggle="modal" data-target="#deleteModal"></i> Delete entity
+                        </button>
                     </div>
-                @endif
 
+                    <modal :is-open="deleteModalOpened" v-on:close-modal="deleteModalOpened = false">
+                        Do you really wish to delete this item ?
+                        <div>
+                            <button class="btn btn-default" @click="deleteModalOpened = false">Cancel</button>
+                            <form id="deleteForm" method="POST" action="{{route($model.'.destroy',$entity->id)}}">
+                                {{ csrf_field() }}
+                                {{ method_field('DELETE') }}
+                                <button class="btn btn-danger" type="submit">Delete</button>
+                            </form>
+                        </div>
+                    </modal>
+                @endif
                     <form id="editForm" method="POST" action="{{route($model.'.update',$entity->id)}}">
                         {{csrf_field()}}
                         {{ method_field('PUT') }}
@@ -50,28 +60,12 @@
 @push('scripts')
     <script type="application/javascript">
         const editForm = new Vue({
-            el: '#editForm',
+            el: '#editPage',
+            name: 'EditPage',
             data: {
-                inputClass: 'form-control'
+                inputClass: 'form-control',
+                deleteModalOpened: false,
             }
-        });
-
-        $(document).ready(function(){
-            $('#btn-delete').click(function(){
-                swal({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    type: 'warning',
-                    showCancelButton: true,
-                    confirmButtonText: 'Yes, delete it!',
-                    confirmButtonClass: 'btn btn-danger btn-fill btn-margin',
-                    cancelButtonClass: 'btn btn-default btn-fill btn-margin',
-                    buttonsStyling: false
-
-                }).then(function () {
-                    $('#deleteForm').submit();
-                }).catch(swal.noop);
-            });
         });
     </script>
 @endpush

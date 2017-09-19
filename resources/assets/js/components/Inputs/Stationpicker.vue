@@ -37,7 +37,7 @@
             }
         },
         created() {
-            axios.get(this.sourceUrl)
+            this.$http.get(this.sourceUrl)
                 .then(response => {
                     let stations = [];
                     for(var key in response.data){
