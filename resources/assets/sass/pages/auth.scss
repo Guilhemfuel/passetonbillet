@@ -1,0 +1,52 @@
+.auth {
+
+  min-height: 100%;
+  flex: 1;
+  margin: 0px;
+
+  .left-panel, .right-panel {
+    display: flex;
+    vertical-align: middle;
+    align-items: center;
+    justify-content: center;
+    padding: 0px 60px;
+
+    .content {
+      flex:1;
+    }
+  }
+  .right-panel {
+
+  }
+  .left-panel {
+
+  }
+
+  // Transitions
+  $animation-duration: 0.3s;
+
+  .fadeInUpBig {
+    @include fadeInUpBig(
+            $duration: $animation-duration,
+            $delay: $animation-duration,
+            $function: 'ease'
+    );
+  }
+  .fadeOutDownBig {
+    @include fadeOutDownBig(
+    $duration: $animation-duration
+    );
+  }
+  .fadeOutUpBig {
+    @include fadeOutUpBig(
+            $duration: $animation-duration
+    );
+  }
+  .fadeInDownBig {
+    @include fadeInDownBig(
+            $duration: $animation-duration,
+            $delay: $animation-duration,
+            $function: 'ease'
+    );
+  }
+}

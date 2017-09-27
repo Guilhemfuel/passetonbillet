@@ -21,13 +21,16 @@ return [
         'last_name'        => 'Last Name',
         'email'            => 'E-Mail Address',
         'password'         => 'Password',
-        'password_confirm' => 'Confirm password'
+        'password_confirm' => 'Confirm password',
+        'already_registered'=> 'Already registered ? Click here to login.'
     ],
     'auth'     => [
         'title'       => 'Login',
         'email'       => 'E-Mail Address',
         'password'    => 'Password',
-        'remember_me' => 'Remember Me'
+        'remember_me' => 'Remember Me',
+        'not_registered_yet'=> 'Not registered yet? Click here to register.'
+
     ]
 
 ];

@@ -2,6 +2,9 @@
 
 @section('content')
 
+    @component('components.nav')
+    @endcomponent
+
     <div id="dashboard">
         @yield('dashboard-content')
     </div>

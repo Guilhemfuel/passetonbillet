@@ -21,13 +21,15 @@ return [
         'last_name'        => 'Nom',
         'email'            => 'Adresse e-mail',
         'password'         => 'Mot de passe',
-        'password_confirm' => 'Confirmation mot de passe'
+        'password_confirm' => 'Confirmation mot de passe',
+        'already_registered'=> 'Déjà inscrit ? Cliquez-ici pour vous connecter.'
     ],
     'auth'     => [
         'title'       => 'Connexion',
         'email'       => 'Adresse e-mail',
         'password'    => 'Mot de passe',
-        'remember_me' => 'Se rappeler de moi'
+        'remember_me' => 'Se rappeler de moi',
+        'not_registered_yet'=> 'Pas encore inscrit? Cliquez pour vous inscrire.'
     ]
 
 ];

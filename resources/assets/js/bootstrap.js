@@ -8,7 +8,26 @@ window._ = require('lodash');
  */
 
 window.Vue = require('vue');
-window.Vue.use(require('vue-resource'))
+window.Vue.use(require('vue-resource'));
+
+/**
+ * We use VeeValidator, and therefore need to set the language.
+ */
+import VeeValidate from 'vee-validate';
+import localeFr from './validator/fr.js';
+let lang = document.head.querySelector('meta[name="lang"]');
+
+if (lang.content === 'fr') {
+    console.log('ok');
+    window.Vue.use(VeeValidate, {
+        locale: 'fr',
+        dictionary: {
+            fr: localeFr,
+        }
+    });
+} else {
+    window.Vue.use(VeeValidate);
+}
 
 /**
  * We'll load the vue HTTP library which allows us to easily issue requests

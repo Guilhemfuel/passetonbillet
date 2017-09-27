@@ -9,6 +9,7 @@ html, body {
 
 #app {
   min-height: 100%;
+  display: flex;
 }
 
 ////// Colors //////
@@ -18,4 +19,64 @@ html, body {
   background: -o-linear-gradient(bottom right, $color-purple, $color-pink); /* For Opera 11.1 to 12.0 */
   background: -moz-linear-gradient(bottom right, $color-purple, $color-pink); /* For Firefox 3.6 to 15 */
   background: linear-gradient(to bottom right, $color-purple, $color-pink); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+////// Buttons /////
+.btn-white {
+  background-color: white;
+  color: $color-purple;
+
+  &:hover {
+    background-color: rgba(256,256,256,0.7);
+  }
+}
+
+.btn-lastar {
+  @extend .purple-gradient;
+  color: white;
+
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.btn-outline-white {
+  background-color: transparent;
+  color: white;
+  border: 1px solid white !important;
+  &:hover {
+    background-color: white;
+    color: $color-purple;
+  }
+}
+
+.btn-outline-purple {
+  background-color: transparent;
+  color: $color-purple;
+  border: 1px solid $color-purple !important;
+  &:hover {
+    @extend .purple-gradient;
+    color: white;
+  }
+}
+
+
+// All buttons in button rack are aligned and take all width
+.btn-rack {
+  display: flex;
+  align-items: center;
+  .btn {
+    flex: 1;
+    margin-right: 15px;
+    margin-left: 15px;
+  }
+
+  .btn:first-child{
+    margin-left: 0px;
+  }
+
+  .btn:last-child{
+    margin-right: 0px;
+  }
 }

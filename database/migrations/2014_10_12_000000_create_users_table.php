@@ -24,9 +24,7 @@ class CreateUsersTable extends Migration
             $table->string( 'phone' )->nullable();
             $table->date('birthdate')->nullable();
             $table->string('language')->nullable();
-            $table->string('facebook_id')->nullable();
-            $table->string('linkedin_id')->nullable();
-            $table->boolean('identity_confirmed')->nullable();
+            $table->string('picture')->nullable();
             $table->integer('status')->default(0);
 
             $table->rememberToken();

@@ -25,9 +25,8 @@ class User extends Authenticatable
      */
 
     protected $fillable = [
-        'first_name','last_name','gender','phone','phone_country','birthdate','language',
+        'first_name','last_name','gender','phone','phone_country','birthdate','language','picture',
         'email', 'password',
-        'facebook_id','linkedin_id','identity_confirmed', //TODO: create a model profile linked to user where is this data
     ];
 
     /**

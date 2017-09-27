@@ -14,6 +14,8 @@ $color-red:             #FB404B;
 $color-green:           #87CB16;
 $color-orange:          #FFA534;
 $color-dark-blue:       #1F77D0;
+$color-facebook:        #3B5998;
+
 $color-gray:            #5e5e5e;
 $color-light-gray:      #F7F7F8;
 $color-border:          rgba(0, 0, 0, 0.15);
@@ -28,7 +30,8 @@ $theme-colors: (
         warning: $color-orange,
         danger: $color-red,
         light: $color-border,
-        dark: $color-gray
+        dark: $color-gray,
+        facebook: $color-facebook
 );
 
 

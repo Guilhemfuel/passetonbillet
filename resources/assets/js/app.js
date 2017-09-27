@@ -30,6 +30,9 @@ Vue.component('timepicker', require('./components/Inputs/Timepicker.vue'));
 Vue.component('stationpicker', require('./components/Inputs/Stationpicker.vue'));
 Vue.component('userpicker', require('./components/Inputs/Userpicker.vue'));
 
-
 // Shared
 Vue.component('modal', require('./components/Shared/Modal.vue'));
+
+// Pages
+Vue.component('auth', require('./components/Pages/Auth.vue'));
+

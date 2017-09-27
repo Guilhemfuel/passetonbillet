@@ -6,18 +6,20 @@
   src: url("/../fonts/KeepCalm.ttf") format("truetype");
 }
 
-// JS Components css
-@import "~sweetalert2/src/sweetalert2.scss";
+// Import app variables and components
+@import "variables";
+@import "overrides";
+@import "general";
+@import "components";
 
 // Bootstrap
 @import "~bootstrap/scss/bootstrap.scss";
 
-// Variables
-@import "variables";
+// Animate Sass
+@import "~animatewithsass";
 
-// Our custom CSS
-@import "general";
-@import "components";
+// Page Custom CSS
+@import "pages/auth.scss";
 
 
 

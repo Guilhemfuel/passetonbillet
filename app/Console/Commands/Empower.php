@@ -44,7 +44,7 @@ class Empower extends Command
             return;
         }
 
-        $choice = $this->ask('Do you really want to make this user an admin (y/n)?');
+        $choice = $this->ask('Do you really want to make '.$user->full_name.' an admin (y/n)?');
         if ( !($choice=='y' || $choice=='Y') ){
             $this->line('Exit without empowering user.');
             return;

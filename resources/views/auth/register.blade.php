@@ -68,7 +68,7 @@
 
                                     <div class="col-xs-12 form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                                         <label for="password" class="control-label">@lang('auth.register.password')
-                                            <span class="help-label">(8 char. min)</span></label>
+                                            <small class="text-muted">(8 char. min)</small></label>
 
                                         <input id="password" type="password" class="form-control" name="password"
                                                required placeholder="@lang('auth.register.password')">
@@ -82,8 +82,7 @@
 
                                     <div class="col-xs-12 form-group">
                                         <label for="password-confirm"
-                                               class="control-label">@lang('auth.register.password_confirm') <span
-                                                    class="help-label">(8 char. min)</span></label>
+                                               class="control-label">@lang('auth.register.password_confirm')</label>
 
                                         <input id="password-confirm" type="password" class="form-control"
                                                name="password_confirmation" required placeholder="@lang('auth.register.password')">

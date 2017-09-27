@@ -30,20 +30,29 @@ class RegisterController extends Controller
      */
     protected $redirectTo = '/';
 
-
-    public function fb_redirect(){
-        return Socialite::driver('facebook')->fields([
-            'first_name', 'last_name', 'email', 'gender', 'birthday'
-        ])->scopes([
-            'email', 'user_birthday'
-        ])->redirect();
-    }
-
-    public function fb_callback()
+    /**
+     * Show the application registration form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showRegistrationForm()
     {
-        $providerUser = \Socialite::driver('facebook')->user();
-        print_r($providerUser);
+        return view('auth.auth',['type'=>'register']);
     }
+
+//    public function fb_redirect(){
+//        return Socialite::driver('facebook')->fields([
+//            'first_name', 'last_name', 'email', 'gender', 'birthday'
+//        ])->scopes([
+//            'email', 'user_birthday'
+//        ])->redirect();
+//    }
+//
+//    public function fb_callback()
+//    {
+//        $providerUser = \Socialite::driver('facebook')->user();
+//        print_r($providerUser);
+//    }
 
     /**
      * Create a new controller instance.
