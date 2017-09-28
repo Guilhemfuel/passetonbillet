@@ -19,6 +19,16 @@ return [
         'title'            => 'Inscription',
         'first_name'       => 'Prénom',
         'last_name'        => 'Nom',
+        'birthdate'        => 'Date de naissance',
+        'gender'           => [
+            'title' => 'Genre',
+            'male'  => 'Homme',
+            'female'=> 'Femme'
+        ],
+        'location'           => [
+            'title'       => 'Lieu de résidence',
+            'placeholder' => 'Ex: Paris'
+        ],
         'email'            => 'Adresse e-mail',
         'password'         => 'Mot de passe',
         'password_confirm' => 'Confirmation mot de passe',

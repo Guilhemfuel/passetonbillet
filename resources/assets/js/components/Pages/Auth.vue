@@ -95,32 +95,74 @@
                         <label for="last_name"
                                class="control-label">{{lang.register.last_name}}</label>
 
-                        <input id="last_name" type="text" class="form-control" name="last_name"
-                               required autofocus
+                        <input id="last_name" type="text" :class="{'form-control': true, 'is-invalid': errors.has('last_name') }"
+                               name="last_name" required autofocus v-validate="'required'"
                                :placeholder="lang.register.last_name">
+                        <span v-if="errors.has('last_name')" class="invalid-feedback">{{ errors.first('last_name') }}</span>
+
+                    </div>
+
+                    <div class="col-xs-12 form-group">
+                        <label for="birthdate" class="control-label">{{lang.register.birthdate}}</label>
+
+                        <datepicker id="birthdate" type="date"
+                               name="birthdate" :placeholder="lang.register.birthdate"></datepicker>
+                    </div>
+
+                    <div class="col-xs-12 form-group">
+                        <label for="gender" class="control-label">{{lang.register.gender.title}}</label>
+
+                        <select id="gender" class="form-control"
+                                    name="gender" :placeholder="lang.register.gender.title">
+                            <option selected>
+                                {{lang.register.gender.male}}
+                            </option>
+                            <option>
+                                {{lang.register.gender.female}}
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="col-xs-12 form-group">
+                        <label for="location" class="control-label">{{lang.register.location.title}}</label>
+                        <input id="location" type="text" class="form-control" name="location"
+                               :placeholder="lang.register.location.placeholder">
+                    </div>
+
+                    <div class="col-xs-12 form-group">
+                        <label for="phone" class="control-label">{{lang.register.phone}}</label>
+                        <phone id="phone" type="text" class="form-control" name="phone"
+                               :placeholder="lang.register.phone"></phone>
                     </div>
 
                     <div class="col-xs-12 form-group">
                         <label for="email" class="control-label">{{lang.register.email}}</label>
 
-                        <input id="email" type="email" class="form-control" name="email"
+                        <input id="email" type="email" :class="{'form-control': true, 'is-invalid': errors.has('email') }"
+                               name="email" v-validate="'required|email'"
                                required :placeholder="lang.register.email">
+                        <span v-if="errors.has('email')" class="invalid-feedback">{{ errors.first('email') }}</span>
+
                     </div>
 
                     <div class="col-xs-12 form-group">
                         <label for="password" class="control-label">{{lang.register.password}}
                             <small class="text-muted">(8 char. min)</small></label>
-
-                        <input id="password" type="password" class="form-control" name="password"
+                        <input id="password" type="password" :class="{'form-control': true, 'is-invalid': errors.has('password') }"
+                               name="password" v-validate="'required|min:8'"
                                required :placeholder="lang.register.password">
+                        <span v-if="errors.has('password')" class="invalid-feedback">{{ errors.first('password') }}</span>
                     </div>
 
                     <div class="col-xs-12 form-group">
                         <label for="password-confirm"
                                class="control-label">{{lang.register.password_confirm}}</label>
 
-                        <input id="password-confirm" type="password" class="form-control"
-                               name="password_confirmation" required :placeholder="lang.register.password">
+                        <input id="password-confirm" type="password" :class="{'form-control': true, 'is-invalid': errors.has('password_confirmation') }"
+                               name="password_confirmation" v-validate="'required|confirmed:password|min:8'"
+                               required :placeholder="lang.register.password">
+                        <span v-if="errors.has('password_confirmation')" class="invalid-feedback">{{ errors.first('password_confirmation') }}</span>
+
                     </div>
 
                     <!--TODO: Accept rules checkbox + Captcha -->
@@ -162,9 +204,11 @@
         },
         methods: {
             openRegister(){
+                this.errors.clear();
                 this.type = 'register';
             },
             openLogin(){
+                this.errors.clear();
                 this.type = 'login';
             }
         }

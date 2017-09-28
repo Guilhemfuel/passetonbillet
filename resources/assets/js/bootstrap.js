@@ -15,10 +15,9 @@ window.Vue.use(require('vue-resource'));
  */
 import VeeValidate from 'vee-validate';
 import localeFr from './validator/fr.js';
-let lang = document.head.querySelector('meta[name="lang"]');
+var lang = document.head.querySelector('meta[name="lang"]').content;
 
-if (lang.content === 'fr') {
-    console.log('ok');
+if (lang === 'fr') {
     window.Vue.use(VeeValidate, {
         locale: 'fr',
         dictionary: {
@@ -28,6 +27,24 @@ if (lang.content === 'fr') {
 } else {
     window.Vue.use(VeeValidate);
 }
+
+/**
+ * We use the front-end framework elem-io, and therefire need to set the language.
+ */
+import '../css/element-lastar/index.css';
+import ElementUI from 'element-ui';
+import langEn from 'element-ui/lib/locale/lang/en';
+import langFr from 'element-ui/lib/locale/lang/fr';
+import locale from 'element-ui/lib/locale';
+
+if (lang === 'fr') {
+    locale.use(langFr)
+} else {
+    locale.use(langEn)
+}
+
+window.Vue.use(ElementUI, { locale });
+
 
 /**
  * We'll load the vue HTTP library which allows us to easily issue requests

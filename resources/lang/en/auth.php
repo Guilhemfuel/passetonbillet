@@ -16,21 +16,30 @@ return [
     'failed'   => 'These credentials do not match our records.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
     'register' => [
-        'title'            => 'Register',
-        'first_name'       => 'First Name',
-        'last_name'        => 'Last Name',
-        'email'            => 'E-Mail Address',
-        'password'         => 'Password',
-        'password_confirm' => 'Confirm password',
-        'already_registered'=> 'Already registered ? Click here to login.'
+        'title'              => 'Register',
+        'first_name'         => 'First Name',
+        'last_name'          => 'Last Name',
+        'birthdate'          => 'Birthdate',
+        'gender'             => [
+            'title'  => 'Gender',
+            'male'   => 'Male',
+            'female' => 'Female'
+        ],
+        'location'           => [
+            'title'       => 'Location',
+            'placeholder' => 'Eg: London'
+        ],
+        'email'              => 'E-Mail Address',
+        'password'           => 'Password',
+        'password_confirm'   => 'Confirm password',
+        'already_registered' => 'Already registered ? Click here to login.'
     ],
     'auth'     => [
-        'title'       => 'Login',
-        'email'       => 'E-Mail Address',
-        'password'    => 'Password',
-        'remember_me' => 'Remember Me',
-        'not_registered_yet'=> 'Not registered yet? Click here to register.'
-
+        'title'              => 'Login',
+        'email'              => 'E-Mail Address',
+        'password'           => 'Password',
+        'remember_me'        => 'Remember Me',
+        'not_registered_yet' => 'Not registered yet? Click here to register.'
     ]
 
 ];
