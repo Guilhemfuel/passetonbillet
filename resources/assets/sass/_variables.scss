@@ -7,7 +7,8 @@ $font-assistant: "Assistant", sans-serif;
 $font-family-sans-serif:  $font-assistant;
 
 // Colors
-$color-blue:            #1DC7EA;
+$color-blue:            #50D5E3;
+$color-neon:            #50E3C2;
 $color-purple:          #9368E9;
 $color-pink:            #E100FF;
 $color-red:             #FB404B;
@@ -33,6 +34,9 @@ $theme-colors: (
         dark: $color-gray,
         facebook: $color-facebook
 );
+
+// Borders
+$alert-border-width: 0px;
 
 
 

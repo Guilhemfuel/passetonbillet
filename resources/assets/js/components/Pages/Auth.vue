@@ -1,11 +1,13 @@
-
 <template>
     <div style="display-block">
         <transition enter-class="pre-animated"
                     enter-active-class="animated fadeInUpBig"
                     leave-active-class="animated fadeOutDownBig">
-            <div v-if="type=='login'"  class="content">
-                <h1 class="text-primary mb-4">{{lang.auth.title}}</h1>
+            <div v-if="type=='login'" class="content">
+                <h1 class="text-primary">{{lang.auth.title}}</h1>
+                <p>
+                    <a href="#" class="mb-4" @click.prevent="openRegister()">{{lang.auth.not_registered_yet}}</a>
+                </p>
                 <form role="form"
                       method="POST"
                       :action="routes.login"
@@ -16,8 +18,10 @@
                     <div class="col-xs-12 form-group">
                         <label for="email" class="control-label">{{lang.auth.email}}</label>
 
-                        <input id="email" type="email" :class="'form-control' + (errors.has('email')?' is-invalid':'')" name="email"
-                               required autofocus v-validate="'required|email'">
+                        <input id="email" type="email" :class="'form-control' + (errors.has('email')?' is-invalid':'')"
+                               name="email"
+                               required autofocus v-validate="'required|email'"
+                        >
                         <span v-if="errors.has('email')" class="invalid-feedback">{{ errors.first('email') }}</span>
                     </div>
 
@@ -27,24 +31,23 @@
                         <input id="password" type="password" class="form-control" name="password"
                                required>
                     </div>
-                    <a href="#" @click.prevent="openRegister()">{{lang.auth.not_registered_yet}}</a>
 
                     <!-- TODO: add remind me feature -->
-                    <!--<div class="form-group">-->
-                        <!--<div class="col-xs-12">-->
-                            <!--<div class="checkbox">-->
-                                <!--<label>-->
-                                    <!--<input type="checkbox"-->
-                                           <!--name="remember" {{ old('remember') ? 'checked' : '' }}>-->
-                                    <!--@lang('auth.auth.remember_me')-->
-                                <!--</label>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox"
+                                           name="remember">
+                                    {{lang.auth.remember_me}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="form-group mt-4">
                         <div class="col-xs-12">
-                            <button type="submit" class="btn btn-lastar btn-block">
+                            <button type="submit" class="btn btn-lastar-blue btn-block">
                                 {{lang.auth.title}}
                             </button>
                             <!--{{&#45;&#45;TODO: Password reset&#45;&#45;}}-->
@@ -73,6 +76,10 @@
                 <p>
                     <a href="#" @click.prevent="openLogin()">{{lang.register.already_registered}}</a>
                 </p>
+                <div class="text-danger" v-if="customErrors.length > 0">
+                    <p>Whoops!</p>
+                    <p v-for="error in customErrors">{{error}}</p>
+                </div>
                 <form role="form"
                       method="POST"
                       :action="routes.register"
@@ -84,10 +91,12 @@
                         <label for="first_name"
                                class="control-label">{{lang.register.first_name}}</label>
 
-                        <input id="first_name" type="text" :class="{'form-control': true, 'is-invalid': errors.has('first_name') }"
+                        <input id="first_name" type="text"
+                               :class="{'form-control': true, 'is-invalid': errors.has('first_name') }"
                                name="first_name" required autofocus v-validate="'required'"
-                               :placeholder="lang.register.first_name">
-                        <span v-if="errors.has('first_name')" class="invalid-feedback">{{ errors.first('first_name') }}</span>
+                               :placeholder="lang.register.first_name"  :value="old.first_name">
+                        <span v-if="errors.has('first_name')" class="invalid-feedback">{{ errors.first('first_name')
+                            }}</span>
 
                     </div>
 
@@ -95,29 +104,45 @@
                         <label for="last_name"
                                class="control-label">{{lang.register.last_name}}</label>
 
-                        <input id="last_name" type="text" :class="{'form-control': true, 'is-invalid': errors.has('last_name') }"
+                        <input id="last_name" type="text"
+                               :class="{'form-control': true, 'is-invalid': errors.has('last_name') }"
                                name="last_name" required autofocus v-validate="'required'"
-                               :placeholder="lang.register.last_name">
-                        <span v-if="errors.has('last_name')" class="invalid-feedback">{{ errors.first('last_name') }}</span>
+                               :placeholder="lang.register.last_name"  :value="old.last_name">
+                        <span v-if="errors.has('last_name')" class="invalid-feedback">{{ errors.first('last_name')
+                            }}</span>
 
+                    </div>
+
+                    <div class="col-xs-12 form-group">
+                        <label for="gender" class="control-label">{{lang.register.language}}</label>
+
+                        <select id="language" class="form-control"
+                                name="language" :placeholder="lang.register.language">
+                            <option :selected="old.language=='FR'" value="FR">
+                                Français
+                            </option>
+                            <option :selected="old.language=='EN'" value="EN">
+                                English
+                            </option>
+                        </select>
                     </div>
 
                     <div class="col-xs-12 form-group">
                         <label for="birthdate" class="control-label">{{lang.register.birthdate}}</label>
 
                         <datepicker id="birthdate" type="date"
-                               name="birthdate" :placeholder="lang.register.birthdate"></datepicker>
+                                    name="birthdate" :placeholder="lang.register.birthdate" :value="old.birthdate"></datepicker>
                     </div>
 
                     <div class="col-xs-12 form-group">
                         <label for="gender" class="control-label">{{lang.register.gender.title}}</label>
 
                         <select id="gender" class="form-control"
-                                    name="gender" :placeholder="lang.register.gender.title">
-                            <option selected>
+                                name="gender" :placeholder="lang.register.gender.title">
+                            <option :selected="old.gender=='1'" value="1">
                                 {{lang.register.gender.male}}
                             </option>
-                            <option>
+                            <option :selected="old.gender=='0'" value="0">
                                 {{lang.register.gender.female}}
                             </option>
                         </select>
@@ -126,19 +151,20 @@
                     <div class="col-xs-12 form-group">
                         <label for="location" class="control-label">{{lang.register.location.title}}</label>
                         <input id="location" type="text" class="form-control" name="location"
-                               :placeholder="lang.register.location.placeholder">
+                               :placeholder="lang.register.location.placeholder" :value="old.location">
                     </div>
 
                     <div class="col-xs-12 form-group">
                         <label for="phone" class="control-label">{{lang.register.phone}}</label>
-                        <phone id="phone" type="text" class="form-control" name="phone"
-                               :placeholder="lang.register.phone"></phone>
+                        <phone id="phone" type="text" name="phone" :required="true"
+                               :placeholder="lang.register.phone" :value="old.phone" :country-value="old.phone_country"></phone>
                     </div>
 
                     <div class="col-xs-12 form-group">
                         <label for="email" class="control-label">{{lang.register.email}}</label>
 
-                        <input id="email" type="email" :class="{'form-control': true, 'is-invalid': errors.has('email') }"
+                        <input id="email" type="email"
+                               :class="{'form-control': true, 'is-invalid': errors.has('email') }"
                                name="email" v-validate="'required|email'"
                                required :placeholder="lang.register.email">
                         <span v-if="errors.has('email')" class="invalid-feedback">{{ errors.first('email') }}</span>
@@ -147,27 +173,32 @@
 
                     <div class="col-xs-12 form-group">
                         <label for="password" class="control-label">{{lang.register.password}}
-                            <small class="text-muted">(8 char. min)</small></label>
-                        <input id="password" type="password" :class="{'form-control': true, 'is-invalid': errors.has('password') }"
+                            <small class="text-muted">(8 char. min)</small>
+                        </label>
+                        <input id="password" type="password"
+                               :class="{'form-control': true, 'is-invalid': errors.has('password') }"
                                name="password" v-validate="'required|min:8'"
                                required :placeholder="lang.register.password">
-                        <span v-if="errors.has('password')" class="invalid-feedback">{{ errors.first('password') }}</span>
+                        <span v-if="errors.has('password')" class="invalid-feedback">{{ errors.first('password')
+                            }}</span>
                     </div>
 
                     <div class="col-xs-12 form-group">
                         <label for="password-confirm"
                                class="control-label">{{lang.register.password_confirm}}</label>
 
-                        <input id="password-confirm" type="password" :class="{'form-control': true, 'is-invalid': errors.has('password_confirmation') }"
+                        <input id="password-confirm" type="password"
+                               :class="{'form-control': true, 'is-invalid': errors.has('password_confirmation') }"
                                name="password_confirmation" v-validate="'required|confirmed:password|min:8'"
                                required :placeholder="lang.register.password">
-                        <span v-if="errors.has('password_confirmation')" class="invalid-feedback">{{ errors.first('password_confirmation') }}</span>
+                        <span v-if="errors.has('password_confirmation')"
+                              class="invalid-feedback">{{ errors.first('password_confirmation') }}</span>
 
                     </div>
 
                     <!--TODO: Accept rules checkbox + Captcha -->
 
-                    <button type="submit" class="btn btn-lastar btn-block mt-4">
+                    <button type="submit" class="btn btn-lastar-blue btn-block mt-4">
                         {{lang.register.title}}
                     </button>
 
@@ -189,28 +220,47 @@
 <script>
     export default {
         props: {
-            authType: {type:String,required:true},
-            csrf: {type:String,required:true},
-            lang: {type:Object,required:true},
-            routes: {type:Object,required:true}
+            authType: {type: String, required: true},
+            csrf: {type: String, required: true},
+            lang: {type: Object, required: true},
+            routes: {type: Object, required: true},
+            old: {type: Object, required: false, default: () => {}},
+            backErrors: {type: Array, required: false, default: () => []}
         },
         data() {
             return {
                 type: this.authType,
+                customErrors: this.backErrors,
             }
-        },
-        created() {
-
         },
         methods: {
-            openRegister(){
+            openRegister() {
+                // Clear errors
                 this.errors.clear();
+                this.customErrors = [];
+
                 this.type = 'register';
             },
-            openLogin(){
+            openLogin() {
+                // Scroll to top for smoother animation
+                this.scrollToTop(100);
+
+                // Clear errors
                 this.errors.clear();
+                this.customErrors = [];
+
                 this.type = 'login';
+            },
+            scrollToTop(scrollDuration) {
+                var scrollStep = -window.scrollY / (scrollDuration / 15),
+                    scrollInterval = setInterval(function () {
+                        if (window.scrollY != 0) {
+                            window.scrollBy(0, scrollStep);
+                        }
+                        else clearInterval(scrollInterval);
+                    }, 15);
             }
+
         }
     }
 </script>

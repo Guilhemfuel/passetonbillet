@@ -21,6 +21,14 @@ html, body {
   background: linear-gradient(to bottom right, $color-purple, $color-pink); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
+.blue-gradient {
+  background: $color-blue; /* fallback for old browsers */
+  background: -webkit-linear-gradient(left top, $color-blue, $color-neon); /* Chrome 10-25, Safari 5.1-6 */
+  background: -o-linear-gradient(bottom right, $color-blue, $color-neon); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(bottom right, $color-blue, $color-neon); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to bottom right, $color-blue, $color-neon); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
 ////// Buttons /////
 .btn-white {
   background-color: white;
@@ -35,6 +43,14 @@ html, body {
   @extend .purple-gradient;
   color: white;
 
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.btn-lastar-blue {
+  @extend .blue-gradient;
+  color: white;
 
   &:hover {
     opacity: 0.8;
@@ -48,6 +64,7 @@ html, body {
   &:hover {
     background-color: white;
     color: $color-purple;
+    border: 0px;
   }
 }
 
@@ -58,6 +75,7 @@ html, body {
   &:hover {
     @extend .purple-gradient;
     color: white;
+    border: 0px;
   }
 }
 

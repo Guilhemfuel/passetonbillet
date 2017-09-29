@@ -29,6 +29,8 @@ Vue.component('datepicker', require('./components/Inputs/Datepicker.vue'));
 
 // Shared
 Vue.component('modal', require('./components/Shared/Modal.vue'));
+Vue.component('flash', require('./components/Shared/Flash.vue'));
+
 
 // Pages
 Vue.component('auth', require('./components/Pages/Auth.vue'));

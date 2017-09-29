@@ -15,7 +15,6 @@ class PageController extends Controller
     {
         if ( \Auth::check() ) {
             return view( 'home' );
-
         } else {
             return view( 'welcome' );
         }

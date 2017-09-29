@@ -169,7 +169,7 @@ return [
          */
         Laravel\Tinker\TinkerServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,  //Socialite, linkedin and facebook connect
-
+        Laracasts\Flash\FlashServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -233,6 +233,7 @@ return [
 
         //Custom
         'Eurostar' => \App\Facades\Eurostar::class,
+        'AppHelper' => \App\Facades\AppHelper::class,
 
         //Added
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,

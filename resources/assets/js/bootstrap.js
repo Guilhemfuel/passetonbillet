@@ -29,7 +29,7 @@ if (lang === 'fr') {
 }
 
 /**
- * We use the front-end framework elem-io, and therefire need to set the language.
+ * We use the front-end framework elem-io, and therefore need to set the language.
  */
 import '../css/element-lastar/index.css';
 import ElementUI from 'element-ui';
@@ -43,7 +43,7 @@ if (lang === 'fr') {
     locale.use(langEn)
 }
 
-window.Vue.use(ElementUI, { locale });
+window.Vue.use(ElementUI);
 
 
 /**

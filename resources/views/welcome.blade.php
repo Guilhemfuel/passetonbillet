@@ -1,7 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.dashboard')
 
-
-@section('content')
+@section('dashboard-content')
 
     <section id="section_header">
 

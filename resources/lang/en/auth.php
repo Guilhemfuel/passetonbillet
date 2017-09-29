@@ -29,10 +29,14 @@ return [
             'title'       => 'Location',
             'placeholder' => 'Eg: London'
         ],
+        'phone'            => 'Phone Number',
+        'language'         => 'Prefered language',
         'email'              => 'E-Mail Address',
         'password'           => 'Password',
         'password_confirm'   => 'Confirm password',
-        'already_registered' => 'Already registered ? Click here to login.'
+        'already_registered' => 'Already registered ? Click here to login.',
+        'success_email_redirect' => 'Welcome! One more little step: we sent you an email to confirm your registration. Click on the link contained in the message to activate your account. 
+                                     <br>If you don\'t find the email please check your junk mail folder.'
     ],
     'auth'     => [
         'title'              => 'Login',
