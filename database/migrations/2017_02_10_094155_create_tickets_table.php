@@ -15,7 +15,21 @@ class CreateTicketsTable extends Migration
     {
         Schema::create('tickets', function (Blueprint $table) {
             $table->increments('id');
+            $table->bigInteger( 'train_id' );
+            $table->bigInteger( 'user_id' );
+            $table->string('user_notes', 140)->nullable();
+            $table->integer('price')->nullable();
+            $table->string('currency')->nullable();
+            $table->integer('flexibility');
+            $table->string('class');
+            $table->integer('bought_price');
+            $table->string('bought_currency');
+            $table->boolean('inbound');
+            $table->string('eurostar_code',6);
+            $table->string('buyer_email');
+            $table->string('buyer_name');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

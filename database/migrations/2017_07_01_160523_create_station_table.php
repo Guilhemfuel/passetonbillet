@@ -23,6 +23,7 @@ class CreateStationTable extends Migration
             $table->string('timezone_txt');
             $table->string('timezone');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
