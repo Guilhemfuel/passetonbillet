@@ -25,7 +25,8 @@ class MailResetPassword extends LastarMail
      */
     public function build()
     {
-        return $this->subject(trans('email.password_reset'))
+        return $this->to($this->user->email,$this->user->full_name)
+                    ->subject(trans('email.password_reset'))
                     ->lastarMarkdown('password_reset',
                         [
                             'user' => $this->user,

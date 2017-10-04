@@ -51,6 +51,11 @@ return [
     'reset' => [
         'title' => 'Reset password',
         'question' => 'Password forgotten? Click here',
+        'submit' => 'Reset password'
+    ],
+    'new_password' => [
+        'title' => 'New Password',
+        'submit' => 'Save new password'
     ]
 
 ];

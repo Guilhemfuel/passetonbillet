@@ -12,15 +12,6 @@
 |
 */
 
-Route::get('/mailable', function () {
-    $user = \App\User::first();
-    return new App\Mail\MailResetPassword($user,'dede');
-});
-Route::get('/mail', function () {
-    $user = \App\User::first();
-    return new App\Mail\EmailVerification($user);
-});
-
 // Home Page
 Route::get( '/', 'PageController@home' )->name( 'home' );
 

@@ -52,6 +52,11 @@ return [
     'reset'    => [
         'title'    => 'Mot de passe oublié',
         'question' => 'Mot de passe oublié? Cliquez-ici',
+        'submit' => 'Re-initialiser le mot de passe'
+    ],
+    'new_password' => [
+        'title' => 'Nouveau mot de passe',
+        'submit' => 'Sauver le mot de passe'
     ]
 
 ];

@@ -47,6 +47,7 @@
                           :routes="routes"
                           :old="old"
                           :back-errors="backErrors"
+                          :token="token"
                     ></auth>
                 </div>
             </div>
@@ -57,7 +58,8 @@
     $routes = [
         'login'    => route( 'login' ),
         'register' => route( 'register' ),
-        'password_reset' => route('password.post_email')
+        'reset_for_email' => route('password.post_email'),
+        'reset_password'    => route('password.reset.post_new_password')
     ];
     $lang = Lang::get( 'auth' );
     $old = session()->getOldInput();
@@ -74,6 +76,7 @@
                     routes: {!! json_encode($routes)!!},
                     old: {!! $old?json_encode($old):'{}' !!},
                     backErrors: {!! $errors?json_encode($errors->all()):'{}' !!},
+                    token: {!! isset($token)?"'".$token."'":'null' !!}
                 }
             });
         </script>
@@ -85,7 +88,7 @@
                     el: '#flash-container',
                     data: {
                         messages: {!! json_encode(session('flash_notification', collect())->toArray()?:[]) !!},
-                        validationErrors: {!! isset($errors)?json_encode($errors->all()):'[]' !!}
+                        validationErrors: {!! isset($errors)?json_encode($errors->all()):'[]' !!},
                     }
                 });
             </script>

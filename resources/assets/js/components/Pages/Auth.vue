@@ -221,10 +221,13 @@
 
                 <form role="form"
                       method="POST"
-                      :action="routes.password_reset"
+                      :action="routes.reset_for_email"
                       data-toggle="validator">
 
                     <input type="hidden" name="_token" :value="csrf">
+
+                    <input type="hidden" name="token" value="token">
+
 
                     <div class="col-xs-12 form-group">
                         <label for="email" class="control-label">{{lang.auth.email}}</label>
@@ -240,7 +243,78 @@
                     <div class="form-group mt-4">
                         <div class="col-xs-12">
                             <button type="submit" class="btn btn-lastar-blue btn-block">
-                                {{lang.reset.title}}
+                                {{lang.reset.submit}}
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <div class="btn-rack mt-4">
+                    <button class="btn btn-outline-purple" @click.prevent="openRegister()">
+                        {{lang.register.title}}
+                    </button>
+                    <button class="btn btn-outline-purple" @click.prevent="openLogin()">
+                        {{lang.auth.title}}
+                    </button>
+                </div>
+            </div>
+
+        </transition>
+        <transition enter-class="pre-animated"
+                    enter-active-class="animated fadeInUpBig"
+                    leave-active-class="animated fadeOutDownBig">
+            <div v-if="type=='change_password'" class="content">
+                <h1 class="text-primary">{{lang.new_password.title}}</h1>
+
+                <form role="form"
+                      method="POST"
+                      :action="routes.reset_password"
+                      data-toggle="validator">
+
+                    <input type="hidden" name="_token" :value="csrf">
+
+                    <input type="hidden" name="token" :value="token">
+
+
+                    <div class="col-xs-12 form-group">
+                        <label for="email" class="control-label">{{lang.auth.email}}</label>
+
+                        <input id="email" type="email" :class="'form-control' + (errors.has('email')?' is-invalid':'')"
+                               name="email"
+                               required v-validate="'required|email'"
+                               :placeholder="lang.auth.email"
+                        >
+                        <span v-if="errors.has('email')" class="invalid-feedback">{{ errors.first('email') }}</span>
+                    </div>
+
+                    <div class="col-xs-12 form-group">
+                        <label for="password" class="control-label">{{lang.register.password}}
+                            <small class="text-muted">(8 char. min)</small>
+                        </label>
+                        <input id="password" type="password"
+                               :class="{'form-control': true, 'is-invalid': errors.has('password') }"
+                               name="password" v-validate="'required|min:8'"
+                               required :placeholder="lang.register.password">
+                        <span v-if="errors.has('password')" class="invalid-feedback">{{ errors.first('password')
+                            }}</span>
+                    </div>
+
+                    <div class="col-xs-12 form-group">
+                        <label for="password-confirm"
+                               class="control-label">{{lang.register.password_confirm}}</label>
+
+                        <input id="password-confirm" type="password"
+                               :class="{'form-control': true, 'is-invalid': errors.has('password_confirmation') }"
+                               name="password_confirmation" v-validate="'required|confirmed:password|min:8'"
+                               required :placeholder="lang.register.password">
+                        <span v-if="errors.has('password_confirmation')"
+                              class="invalid-feedback">{{ errors.first('password_confirmation') }}</span>
+
+                    </div>
+
+                    <div class="form-group mt-4">
+                        <div class="col-xs-12">
+                            <button type="submit" class="btn btn-lastar-blue btn-block">
+                                {{lang.new_password.submit}}
                             </button>
                         </div>
                     </div>
@@ -262,6 +336,7 @@
 <script>
     export default {
         props: {
+            token: {required:false},
             authType: {type: String, required: true},
             csrf: {type: String, required: true},
             lang: {type: Object, required: true},
