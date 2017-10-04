@@ -12,8 +12,15 @@
 |
 */
 
+
 // Home Page
 Route::get( '/', 'PageController@home' )->name( 'home' );
+
+Route::get('/mail', function () {
+    $user = App\User::first();
+
+    return new App\Mail\EmailVerification($user);
+});
 
 // Lang
 Route::get( 'lang/{lang}', 'LanguageController@switchLang' )->name( 'lang' );
