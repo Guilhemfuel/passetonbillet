@@ -47,6 +47,10 @@ return [
         'remember_me'        => 'Remember Me',
         'not_registered_yet' => 'Not registered yet? Click here to register.',
         'not_confirmed'      => 'Your account is not confirmed yet. Check your emails and click the link to activate it.',
+    ],
+    'reset' => [
+        'title' => 'Reset password',
+        'question' => 'Password forgotten? Click here',
     ]
 
 ];

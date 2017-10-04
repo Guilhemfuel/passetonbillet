@@ -16,6 +16,10 @@ class EmailVerification extends LastarMail
      */
     public function build()
     {
-        return $this->lastarMarkdown('email_verification');
+        return $this->subject(trans('email.account_activation'))
+                    ->lastarMarkdown('email_verification',
+                        [
+                            'user' =>$this->user
+                        ]);
     }
 }

@@ -1,5 +1,5 @@
 <template>
-    <div style="display-block">
+    <div>
         <transition enter-class="pre-animated"
                     enter-active-class="animated fadeInUpBig"
                     leave-active-class="animated fadeOutDownBig">
@@ -20,7 +20,8 @@
 
                         <input id="email" type="email" :class="'form-control' + (errors.has('email')?' is-invalid':'')"
                                name="email"
-                               required autofocus v-validate="'required|email'"
+                               required  v-validate="'required|email'"
+                               :placeholder="lang.auth.email"
                         >
                         <span v-if="errors.has('email')" class="invalid-feedback">{{ errors.first('email') }}</span>
                     </div>
@@ -32,7 +33,6 @@
                                required>
                     </div>
 
-                    <!-- TODO: add remind me feature -->
                     <div class="form-group">
                         <div class="col-xs-12">
                             <div class="checkbox">
@@ -50,13 +50,12 @@
                             <button type="submit" class="btn btn-lastar-blue btn-block">
                                 {{lang.auth.title}}
                             </button>
-                            <!--{{&#45;&#45;TODO: Password reset&#45;&#45;}}-->
-                            <!--{{&#45;&#45;<a class="btn btn-link" href="{{ route('password.page') }}">&#45;&#45;}}-->
-                            <!--{{&#45;&#45;Forgot Your Password?&#45;&#45;}}-->
-                            <!--{{&#45;&#45;</a>&#45;&#45;}}-->
                         </div>
                     </div>
                 </form>
+                <a href="#" class="mb-4" @click.prevent="openResetPssword()">
+                    {{lang.reset.question}}
+                </a>
                 <div class="actions btn-rack mt-4">
                     <button class="btn btn-facebook">
                         <i class="fa fa-facebook"></i> Facebook Connect
@@ -214,6 +213,49 @@
                 </form>
             </div>
         </transition>
+        <transition enter-class="pre-animated"
+                    enter-active-class="animated fadeInUpBig"
+                    leave-active-class="animated fadeOutDownBig">
+            <div v-if="type=='password_reset'" class="content">
+                <h1 class="text-primary">{{lang.reset.title}}</h1>
+
+                <form role="form"
+                      method="POST"
+                      :action="routes.password_reset"
+                      data-toggle="validator">
+
+                    <input type="hidden" name="_token" :value="csrf">
+
+                    <div class="col-xs-12 form-group">
+                        <label for="email" class="control-label">{{lang.auth.email}}</label>
+
+                        <input id="email" type="email" :class="'form-control' + (errors.has('email')?' is-invalid':'')"
+                               name="email"
+                               required v-validate="'required|email'"
+                               :placeholder="lang.auth.email"
+                        >
+                        <span v-if="errors.has('email')" class="invalid-feedback">{{ errors.first('email') }}</span>
+                    </div>
+
+                    <div class="form-group mt-4">
+                        <div class="col-xs-12">
+                            <button type="submit" class="btn btn-lastar-blue btn-block">
+                                {{lang.reset.title}}
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <div class="btn-rack mt-4">
+                    <button class="btn btn-outline-purple" @click.prevent="openRegister()">
+                        {{lang.register.title}}
+                    </button>
+                    <button class="btn btn-outline-purple" @click.prevent="openLogin()">
+                        {{lang.auth.title}}
+                    </button>
+                </div>
+            </div>
+
+        </transition>
     </div>
 </template>
 
@@ -235,6 +277,16 @@
             }
         },
         methods: {
+            openResetPssword() {
+                // Scroll to top for smoother animation
+                this.scrollToTop(100);
+
+                // Clear errors
+                this.errors.clear();
+                this.customErrors = [];
+
+                this.type = 'password_reset';
+            },
             openRegister() {
                 // Clear errors
                 this.errors.clear();

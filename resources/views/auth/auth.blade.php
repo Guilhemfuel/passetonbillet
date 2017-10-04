@@ -56,7 +56,8 @@
     <?php
     $routes = [
         'login'    => route( 'login' ),
-        'register' => route( 'register' )
+        'register' => route( 'register' ),
+        'password_reset' => route('password.post_email')
     ];
     $lang = Lang::get( 'auth' );
     $old = session()->getOldInput();

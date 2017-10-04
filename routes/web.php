@@ -12,6 +12,15 @@
 |
 */
 
+Route::get('/mailable', function () {
+    $user = \App\User::first();
+    return new App\Mail\MailResetPassword($user,'dede');
+});
+Route::get('/mail', function () {
+    $user = \App\User::first();
+    return new App\Mail\EmailVerifiacation($user);
+});
+
 // Home Page
 Route::get( '/', 'PageController@home' )->name( 'home' );
 
@@ -29,9 +38,10 @@ Route::post( 'login', 'Auth\LoginController@login' )->name( 'login' );
 Route::get( 'logout', 'Auth\LoginController@logout' )->name( 'logout' );
 
 // Password Routes...
-//Route::get('password/reset/{token?}', 'Auth\ResetPasswordController@showResetForm')->name('password.token');
-//Route::post('password/email', 'Auth\ResetPasswordController@sendResetLinkEmail')->name('password.email');
-//Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.page');
+Route::get('password/reset/', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.email_page');
+Route::get('password/reset/{token?}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset.page');
+Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.post_email');
+Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.reset.post_new_password');
 
 // Register Social
 //Route::get( '/redirect/fb', 'Auth\RegisterController@fb_redirect' )->name( 'fb_redirect' );

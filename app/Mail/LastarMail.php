@@ -5,16 +5,11 @@ namespace App\Mail;
 use App\Models\EmailSent;
 use App\Ticket;
 use App\User;
-use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Contracts\Mail\Mailer as MailerContract;
 
 abstract class LastarMail extends Mailable
 {
-    use Queueable, SerializesModels;
-
     const DESCRIPTION = 'La description n\'est pas définie!';
 
     public $user, $ticket;
@@ -70,7 +65,7 @@ abstract class LastarMail extends Mailable
         } else {
             $view = 'emails.en.'.$view;
         }
-        return $this->from(env('MAIL_FROM_ADDRESS'),env('MAIL_FROM_NAME'))
-            ->markdown($view,$data);
+
+        return $this->markdown($view,$data);
     }
 }

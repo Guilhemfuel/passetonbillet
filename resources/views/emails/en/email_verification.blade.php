@@ -4,7 +4,7 @@
 Just one more step...
 
 @component('mail::button', ['url' => route('register.verify-email',['token'=>$user->email_token]),'color'=>'green'])
-   Activate your account
+Activate your account
 @endcomponent
 
 @endcomponent
