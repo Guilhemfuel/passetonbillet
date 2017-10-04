@@ -18,9 +18,12 @@ Route::get( '/', 'PageController@home' )->name( 'home' );
 // Lang
 Route::get( 'lang/{lang}', 'LanguageController@switchLang' )->name( 'lang' );
 
-// Registration & Auth Routes...
+// Registration & Email verification
 Route::get( 'register', 'Auth\RegisterController@showRegistrationForm' )->name( 'register.page' );
 Route::post( 'register', 'Auth\RegisterController@register' )->name( 'register' );
+Route::get('/verify-email/{token}', 'Auth\RegisterController@verify')->name('register.verify-email');
+
+// Login & logout
 Route::get( 'login', 'Auth\LoginController@showLoginForm' )->name( 'login.page' );
 Route::post( 'login', 'Auth\LoginController@login' )->name( 'login' );
 Route::get( 'logout', 'Auth\LoginController@logout' )->name( 'logout' );
@@ -31,13 +34,12 @@ Route::get( 'logout', 'Auth\LoginController@logout' )->name( 'logout' );
 //Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.page');
 
 // Register Social
-Route::get( '/redirect/fb', 'Auth\RegisterController@fb_redirect' )->name( 'fb_redirect' );
-Route::get( '/callback/fb', 'Auth\RegisterController@fb_callback' )->name( 'fb_callback' );
+//Route::get( '/redirect/fb', 'Auth\RegisterController@fb_redirect' )->name( 'fb_redirect' );
+//Route::get( '/callback/fb', 'Auth\RegisterController@fb_callback' )->name( 'fb_callback' );
 
 // Test ticket
 Route::get( '/testRetrieve', 'TicketController@test' )->name( 'test.billet' );
 Route::get( '/test', 'PageController@test' )->name( 'test.trains' );
-
 
 // Admin Routes...
 Route::group( [ 'prefix' => 'lastadmin', 'middleware' => 'auth.admin' ], function () {

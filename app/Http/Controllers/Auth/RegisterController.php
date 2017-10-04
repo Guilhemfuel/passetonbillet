@@ -35,6 +35,16 @@ class RegisterController extends Controller
     protected $redirectTo = '/';
 
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware( 'guest' );
+    }
+
+    /**
      * Show the application registration form.
      *
      * @return \Illuminate\Http\Response
@@ -59,16 +69,6 @@ class RegisterController extends Controller
 //    }
 
     /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware( 'guest' );
-    }
-
-    /**
      * Get a validator for an incoming registration request.
      *
      * @param  array $data
@@ -81,7 +81,7 @@ class RegisterController extends Controller
             'first_name'    => 'required|max:255',
             'last_name'     => 'required|max:255',
             'birthdate'     => 'date',
-            'language'      => 'in:FR,EN',
+            'language'      => 'required|in:FR,EN',
             'gender'        => 'int',
             'location'      => 'string|nullable',
             'phone_country' => 'in:EN,BE,FR|required',
@@ -101,51 +101,85 @@ class RegisterController extends Controller
      */
     protected function create( array $data )
     {
-        return User::create( [
-            'first_name'    => $data['first_name'],
-            'last_name'     => $data['last_name'],
-            'birthdate'     => \AppHelper::dbDate($data['birthdate']),
-            'language'      => $data['language'],
-            'gender'        => $data['gender'],
-            'location'      => $data['location'],
-            'phone_country' => $data['phone_country'],
-            'phone'         => $data['phone'],
-            'email'         => $data['email'],
-            'password'      => bcrypt( $data['password'] ),
-            'status'        => 0,
-            'email_verified'=> false,
-            'email_token'   => bcrypt( str_random(random_int(1,100) ).$data['email'].str_random(random_int(1,100) ) )
+        $user = User::create( [
+            'first_name'     => $data['first_name'],
+            'last_name'      => $data['last_name'],
+            'birthdate'      => isset($data['birthdate']) ? \AppHelper::dbDate( $data['birthdate'] ):null,
+            'language'       => $data['language'],
+            'gender'         => isset($data['gender'])?:null,
+            'location'       => isset($data['location'])?:null,
+            'phone_country'  => $data['phone_country'],
+            'phone'          => $data['phone'],
+            'email'          => $data['email'],
+            'password'       => bcrypt( $data['password'] ),
         ] );
+        // Create email verify token and set default status
+        $user->status = 0;
+        $user->email_token = str_random( random_int( 40, 100 ) );
+        $user->save();
+        return $user;
     }
 
     /**
      * Handle a registration request for the application.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
-    public function register(Request $request)
+    public function register( Request $request )
     {
-        $this->validator($request->all())->validate();
+        $this->validator( $request->all() )->validate();
+        $user = $this->create( $request->all() );
 
         // Registered event triggered (used for email verification...)
-        event(new RegisteredEvent($user = $this->create($request->all())));
+        event( new RegisteredEvent( $user ) );
 
-        return $this->registered($request, $user);
+        return $this->registered( $request, $user );
     }
 
     /**
      * The user has been registered.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  mixed  $user
+     * @param  \Illuminate\Http\Request $request
+     * @param  mixed                    $user
+     *
      * @return mixed
      */
-    protected function registered(Request $request, $user)
+    protected function registered( Request $request, $user )
     {
-        \Session::put('applocale', strtolower($user->language));
+        \Session::put( 'applocale', strtolower( $user->language ) );
 
-        flash( __('auth.register.success_email_redirect') )->success()->important();
-        return redirect()->route('home');
+        flash( __( 'auth.register.success_email_redirect' ) )->success()->important();
+
+        return redirect()->route( 'home' );
+    }
+
+    /**
+     * Handle a email verification request.
+     *
+     * @param $token
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function verify( $token )
+    {
+        $user = User::where( 'email_token', $token )->first();
+        // Case not user match
+        if ( ! $user ) {
+            flash( __( 'auth.register.token_no_user' ) )->error()->important();
+            return redirect()->route( 'home' );
+        }
+
+        $user->email_verified = true;
+        $user->status = 1;
+        $user->email_token = null;
+        if ( $user->save() ) {
+            flash( __( 'auth.register.account_confirmed' ) )->success()->important();
+            return redirect()->route('home');
+        } else {
+            flash( __( 'common.error' ) )->error()->important();
+            return redirect()->route('home');
+        }
     }
 }

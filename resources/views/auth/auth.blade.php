@@ -24,28 +24,31 @@
             </div>
         </div>
         <div class="col-sm-6 right-panel">
-            @if(count(session('flash_notification'))>0 || (isset($errors) && count($errors)>0))
-            <!-- Alert Container -->
-                <div class="alert-sticky container" id="flash-container">
-                    <flash v-for="message in messages"
-                           v-if="!message.overlay"
-                           :type="message.level"
-                           :content="message.message"
-                           :important="message.important"></flash>
-                    <flash v-for="error in validationErrors"
-                           type="danger"
-                           :content="error"
-                           :important="true"></flash>
+            <div class="content">
+                @if(count(session('flash_notification'))>0 || (isset($errors) && count($errors)>0))
+                    <!-- Alert Container -->
+                        <div class="alert-sticky container" id="flash-container">
+                            <flash v-for="message in messages"
+                                   v-if="!message.overlay"
+                                   :type="message.level"
+                                   :content="message.message"
+                                   :important="message.important"></flash>
+                            <flash v-for="error in validationErrors"
+                                   type="danger"
+                                   :content="error"
+                                   :important="true"></flash>
+                        </div>
+                @endif
+
+                <div id="authComponent">
+                    <auth :auth-type="authType"
+                          :csrf="csrf"
+                          :lang="lang"
+                          :routes="routes"
+                          :old="old"
+                          :back-errors="backErrors"
+                    ></auth>
                 </div>
-            @endif
-            <div class="content" id="authComponent">
-                <auth :auth-type="authType"
-                      :csrf="csrf"
-                      :lang="lang"
-                      :routes="routes"
-                      :old="old"
-                      :back-errors="backErrors"
-                ></auth>
             </div>
         </div>
     </div>
@@ -55,7 +58,7 @@
         'login'    => route( 'login' ),
         'register' => route( 'register' )
     ];
-    $lang = Lang::get('auth');
+    $lang = Lang::get( 'auth' );
     $old = session()->getOldInput();
     ?>
 

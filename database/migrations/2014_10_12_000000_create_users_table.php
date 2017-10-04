@@ -24,12 +24,14 @@ class CreateUsersTable extends Migration
             $table->string( 'phone' )->nullable();
             $table->date('birthdate')->nullable();
             $table->string('language')->nullable();
+            $table->string('location')->nullable();
             $table->string('picture')->nullable();
             $table->integer('status')->default(0);
             $table->boolean('email_verified')->default('false');
             $table->string('email_token')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

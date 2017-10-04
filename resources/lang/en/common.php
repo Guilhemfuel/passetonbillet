@@ -7,5 +7,6 @@ return [
         'buy' => 'buy',
         'sell'=> 'sell'
     ],
+    'error' => 'Whoops! Something went wrong... Please try again !'
 
 ];

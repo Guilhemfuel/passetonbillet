@@ -24,7 +24,11 @@ abstract class LastarMail extends Mailable
      *
      * @return void
      */
-    abstract public function __construct(User $user, Ticket $ticket = null);
+    public function __construct(User $user, Ticket $ticket = null)
+    {
+        $this->user = $user;
+        $this->ticket = $ticket;
+    }
 
     /**
      * Build the message.
@@ -55,5 +59,18 @@ abstract class LastarMail extends Mailable
             ]);
             $emailSent->save();
         }
+    }
+
+    /**
+     * Depending on user's language send the translated email
+     */
+    public function lastarMarkdown($view,$data=[]){
+        if(strtolower( $this->user->language ) == 'fr'){
+            $view = 'emails.fr.'.$view;
+        } else {
+            $view = 'emails.en.'.$view;
+        }
+        return $this->from(env('MAIL_FROM_ADDRESS'),env('MAIL_FROM_NAME'))
+            ->markdown($view,$data);
     }
 }

@@ -93,8 +93,8 @@
 
                         <input id="first_name" type="text"
                                :class="{'form-control': true, 'is-invalid': errors.has('first_name') }"
-                               name="first_name" required autofocus v-validate="'required'"
-                               :placeholder="lang.register.first_name"  :value="old.first_name">
+                               name="first_name" required v-validate="'required'"
+                               :placeholder="lang.register.first_name"  :value="old.first_name" v-model="form.first_name">
                         <span v-if="errors.has('first_name')" class="invalid-feedback">{{ errors.first('first_name')
                             }}</span>
 
@@ -106,8 +106,8 @@
 
                         <input id="last_name" type="text"
                                :class="{'form-control': true, 'is-invalid': errors.has('last_name') }"
-                               name="last_name" required autofocus v-validate="'required'"
-                               :placeholder="lang.register.last_name"  :value="old.last_name">
+                               name="last_name" required v-validate="'required'"
+                               :placeholder="lang.register.last_name"  :value="old.last_name" v-model="form.last_name">
                         <span v-if="errors.has('last_name')" class="invalid-feedback">{{ errors.first('last_name')
                             }}</span>
 
@@ -118,7 +118,7 @@
 
                         <select id="language" class="form-control"
                                 name="language" :placeholder="lang.register.language">
-                            <option :selected="old.language=='FR'" value="FR">
+                            <option :selected="!(old.hasOwnProperty('language')) || old.language=='FR'" value="FR">
                                 Français
                             </option>
                             <option :selected="old.language=='EN'" value="EN">
@@ -131,7 +131,7 @@
                         <label for="birthdate" class="control-label">{{lang.register.birthdate}}</label>
 
                         <datepicker id="birthdate" type="date"
-                                    name="birthdate" :placeholder="lang.register.birthdate" :value="old.birthdate"></datepicker>
+                                    name="birthdate" :placeholder="lang.register.birthdate" :value="old.birthdate" v-model="form.birthdate"></datepicker>
                     </div>
 
                     <div class="col-xs-12 form-group">
@@ -139,7 +139,7 @@
 
                         <select id="gender" class="form-control"
                                 name="gender" :placeholder="lang.register.gender.title">
-                            <option :selected="old.gender=='1'" value="1">
+                            <option :selected="!(old.hasOwnProperty('gender')) || old.gender=='1'" value="1">
                                 {{lang.register.gender.male}}
                             </option>
                             <option :selected="old.gender=='0'" value="0">
@@ -151,7 +151,7 @@
                     <div class="col-xs-12 form-group">
                         <label for="location" class="control-label">{{lang.register.location.title}}</label>
                         <input id="location" type="text" class="form-control" name="location"
-                               :placeholder="lang.register.location.placeholder" :value="old.location">
+                               :placeholder="lang.register.location.placeholder" :value="old.location" v-model="form.location">
                     </div>
 
                     <div class="col-xs-12 form-group">
@@ -231,6 +231,7 @@
             return {
                 type: this.authType,
                 customErrors: this.backErrors,
+                form: {}
             }
         },
         methods: {

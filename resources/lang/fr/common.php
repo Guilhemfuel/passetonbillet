@@ -16,6 +16,7 @@ return [
             '8' => 'Pro',
             '9' => 'À tout moment'
         ]
-    ]
+    ],
+    'error' => 'Whoops! Une petite erreur est apparue... Merci d\'essayer à nouveau !'
 
 ];

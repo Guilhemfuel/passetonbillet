@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Nicolaslopezj\Searchable\SearchableTrait;
 
 /**
@@ -15,7 +16,9 @@ use Nicolaslopezj\Searchable\SearchableTrait;
 class Ticket extends Model
 {
 
-    use SearchableTrait;
+    use SearchableTrait, SoftDeletes;
+
+    protected $dates = ['deleted_at'];
 
     protected $fillable = [
         // Train info

@@ -36,14 +36,18 @@ return [
         'password_confirm'       => 'Confirmation mot de passe',
         'already_registered'     => 'Déjà inscrit ? Cliquez-ici pour vous connecter.',
         'success_email_redirect' => 'Bienvenue parmi nous! Une dernière petite étape: nous vous avons envoyé un email de confirmation d\'inscription. Cliquez sur le lien contenu dans ce message pour activer votre compte. 
-                                     <br>Pensez à vérifier dans vos spams!'
+                                     <br>Pensez à vérifier dans vos spams!',
+        'token_no_user'          => 'Whoops! Nous n\'avons trouvé aucun utilisateur correspondant à ce lien... Si le problème persiste, contactez-nous.',
+        'account_confirmed'      => 'Félicitations, votre compte est maintenant activé. Vous pouvez à présent vous connecter en cliquant <a href="'.route('login.page').'">ici</a> !',
+
     ],
     'auth'     => [
         'title'              => 'Connexion',
         'email'              => 'Adresse e-mail',
         'password'           => 'Mot de passe',
         'remember_me'        => 'Se rappeler de moi',
-        'not_registered_yet' => 'Pas encore inscrit? Cliquez pour vous inscrire.'
+        'not_registered_yet' => 'Pas encore inscrit? Cliquez pour vous inscrire.',
+        'not_confirmed'      => 'Votre compte n\'est pas encore activé. Vérifiez vos emails et cliquez sur le lien d\'activation.',
     ]
 
 ];

@@ -11,11 +11,6 @@ class CreateEmailsSentTable extends Migration
      *
      * @return void
      */
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('emails_sent', function (Blueprint $table) {

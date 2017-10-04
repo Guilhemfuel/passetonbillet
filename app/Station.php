@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Nicolaslopezj\Searchable\SearchableTrait;
 
 /**
@@ -18,7 +19,9 @@ use Nicolaslopezj\Searchable\SearchableTrait;
  */
 class Station extends Model
 {
-    use SearchableTrait;
+    use SearchableTrait, SoftDeletes;
+
+    protected $dates = ['deleted_at'];
 
     public $timestamps = false;
 

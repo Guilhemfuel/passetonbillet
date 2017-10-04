@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Nicolaslopezj\Searchable\SearchableTrait;
@@ -16,7 +17,9 @@ use Nicolaslopezj\Searchable\SearchableTrait;
  */
 class User extends Authenticatable
 {
-    use Notifiable, SearchableTrait;
+    use Notifiable, SearchableTrait, SoftDeletes;
+
+    protected $dates = ['deleted_at'];
 
     /**
      * The attributes that are mass assignable.
