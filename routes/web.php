@@ -18,7 +18,7 @@ Route::get('/mailable', function () {
 });
 Route::get('/mail', function () {
     $user = \App\User::first();
-    return new App\Mail\EmailVerifiacation($user);
+    return new App\Mail\EmailVerification($user);
 });
 
 // Home Page
