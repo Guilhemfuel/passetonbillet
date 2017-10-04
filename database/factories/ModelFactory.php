@@ -26,13 +26,14 @@ $factory->define( App\User::class, function ( Faker\Generator $faker ) {
         'location'       => str_random( 10 ),
         'status'         => 1,
         'email'          => $faker->unique()->safeEmail,
-        'password'       => $password ?: $password = bcrypt( '0000' ),
+        'email_verified' => true,
+        'password'       => $password ?: $password = bcrypt( 'password' ),
         'remember_token' => str_random( 10 ),
     ];
 } );
 
 // Admin user
-$factory->state( App\User::class, 'not_confirmed', function ( \Faker\Generator $faker ) {
+$factory->state( App\User::class, 'admin', function ( \Faker\Generator $faker ) {
     return [
         'status' => 100,
     ];
@@ -41,16 +42,18 @@ $factory->state( App\User::class, 'not_confirmed', function ( \Faker\Generator $
 // User registered but not confirmed
 $factory->state( App\User::class, 'not_confirmed', function ( \Faker\Generator $faker ) {
     return [
-        'email_token' => str_random( 40 ),
-        'status'      => 0,
+        'email_token'    => str_random( 40 ),
+        'email_verified' => false,
+        'status'         => 0,
     ];
 } );
 
-// User registered not registered
+// User not registered
 $factory->state( App\User::class, 'not_registered', function ( \Faker\Generator $faker ) {
     return [
         'status'                => null,
         'remember_token'        => null,
+        'email_verified'        => false,
         'password'              => 'password',
         'password_confirmation' => 'password'
     ];

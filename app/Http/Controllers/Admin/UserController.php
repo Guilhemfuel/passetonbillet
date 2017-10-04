@@ -28,6 +28,7 @@ class UserController extends BaseController
     {
         $user = new User($request->all());
         $user->password = bcrypt(str_random(25));
+        $user->email_verified=false;
         $user->status = -1;
         $user->save();
 

@@ -44,18 +44,20 @@ class UserControllerTest extends BaseControllerTest
      */
     public function testCreateUser()
     {
-        $user = factory( User::class )->make();
+        $userArray = factory( User::class )->states('not_registered')->make()->toArray();
+        $userArray['password'] = 'password';
 
         // Create user
-        print_r($user->toArray());
-        $response = $this->post( $this->basePath, $user->toArray() );
+        $response = $this->postWithCsrf( $this->basePath, $userArray );
 
         $insertedId = User::orderBy( 'id', 'DESC' )->first()->id;
 
         $response->assertStatus( 302 );
         $response->assertRedirect( $this->basePath . '/' . $insertedId . '/edit' );
 
-        $this->assertDatabaseHas( 'users', $user->toArray() );
+        unset($userArray['password'],$userArray['password_confirmation']);
+
+        $this->assertDatabaseHas( 'users', $userArray );
     }
 
     /**
@@ -63,12 +65,11 @@ class UserControllerTest extends BaseControllerTest
      */
     public function testUpdateUser()
     {
-        $user = factory( User::class )->make();
-        $user->save();
+        $user = factory( User::class )->create();
         $newUserData = factory( User::class )->make();
 
         // Update user
-        $response = $this->put( $this->basePath . '/' . $user->id, $newUserData->toArray() );
+        $response = $this->putWithCsrf( $this->basePath . '/' . $user->id, $newUserData->toArray() );
 
         $response->assertStatus( 302 );
         $response->assertRedirect( $this->basePath . '/' . $user->id . '/edit' );
@@ -88,13 +89,13 @@ class UserControllerTest extends BaseControllerTest
         $user->save();
 
         // Delete user
-        $response = $this->delete( $this->basePath . '/' . $user->id );
+        $response = $this->deleteWithCsrf( $this->basePath . '/' . $user->id );
 
         $response->assertStatus( 302 );
         $response->assertRedirect( $this->basePath );
 
         $user = $user->fresh();
-        $this->assertNull( $user );
+        $this->assertNotNull( $user->deleted_at );
     }
 
 

@@ -72,7 +72,6 @@ class RegisterControllerTest extends LastarTestCase
         $userData['password'] = 'password';
 
         $response = $this->postWithCsrf( route( 'register' ), $userData );
-        print_r($response->getContent());
         $response->assertRedirect( route( 'home' ) );
 
         // Crypt password
@@ -83,6 +82,100 @@ class RegisterControllerTest extends LastarTestCase
             return $e->user->email === $userData['email'];
         } );
 
+    }
+
+    /**
+     * Gives data supposed to fail to create a new user
+     */
+    public function registerFailDataProvider()
+    {
+
+        $firstNameMissing = factory( User::class )->states( 'not_registered' )->make()->toArray();
+        unset( $firstNameMissing['first_name'] );
+        $lastNameMissing = factory( User::class )->states( 'not_registered' )->make()->toArray();
+        unset( $lastNameMissing['last_name'] );
+        $languageMissing = factory( User::class )->states( 'not_registered' )->make()->toArray();
+        unset( $languageMissing['language'] );
+        $phoneCountryMissing = factory( User::class )->states( 'not_registered' )->make()->toArray();
+        unset( $phoneCountryMissing['phone_country'] );
+        $phoneMissing = factory( User::class )->states( 'not_registered' )->make()->toArray();
+        unset( $phoneMissing['phone'] );
+        $emailMissing = factory( User::class )->states( 'not_registered' )->make()->toArray();
+        unset( $emailMissing['email'] );
+        $passwordMissing = factory( User::class )->states( 'not_registered' )->make()->toArray();
+        unset( $passwordMissing['password_confirmation'] );
+
+        $allMissing = factory( User::class )->states( 'not_registered' )->make()->toArray();
+        unset( $allMissing['first_name'] );
+        unset( $allMissing['last_name'] );
+        unset( $allMissing['language'] );
+        unset( $allMissing['phone_country'] );
+        unset( $allMissing['phone'] );
+        unset( $allMissing['email'] );
+        unset( $allMissing['password'] );
+
+        return [
+            'first_name missing'    => [ $firstNameMissing ],
+            'last_name missing'     => [ $lastNameMissing ],
+            'language missing'      => [ $languageMissing ],
+            'phone country missing' => [ $phoneCountryMissing ],
+            'phone missing'         => [ $phoneMissing ],
+            'email missing'         => [ $emailMissing ],
+            'password missing'      => [ $passwordMissing ],
+            'All missing'           => [ $allMissing ],
+        ];
+    }
+
+    /**
+     * Make sure registration fails when it needs to
+     * @dataProvider registerFailDataProvider
+     */
+    public function testFailRegister( $userData )
+    {
+        Event::fake();
+
+        // Set a password to user
+        $userData['password'] = 'password';
+
+        $response = $this->postWithCsrf( route( 'register' ), $userData );
+        $response->assertSessionHasErrors();
+
+        if ( isset( $userData['email'] ) ) {
+            $this->assertDatabaseMissing( 'users', [ 'email' => $userData['email'] ] );
+        }
+        Event::assertNotDispatched( RegisteredEvent::class );
+    }
+
+    /**
+     * Test that the verify link works for a user
+     */
+    public function testVerify()
+    {
+        $unconfirmedUser = factory( User::class )->states( 'not_confirmed' )->create();
+
+        $this->get(route('register.verify-email',['token'=>$unconfirmedUser->email_token]))
+        ->assertRedirect(route('home'));
+
+        $unconfirmedUser = $unconfirmedUser->fresh();
+        $this->assertTrue($unconfirmedUser->email_verified);
+        $this->assertEquals(1,$unconfirmedUser->status);
+        $this->assertNull($unconfirmedUser->email_token);
+    }
+
+    /**
+     * Test random string doesn't verify user
+     */
+    public function testFailVerify()
+    {
+        $unconfirmedUser = factory( User::class )->states( 'not_confirmed' )->create();
+
+        $this->get(route('register.verify-email',['token'=>str_random(40)]))
+             ->assertRedirect(route('home'));
+
+        $unconfirmedUser = $unconfirmedUser->fresh();
+        $this->assertFalse($unconfirmedUser->email_verified);
+        $this->assertEquals(0,$unconfirmedUser->status);
+        $this->assertNotNull($unconfirmedUser->email_token);
     }
 
 

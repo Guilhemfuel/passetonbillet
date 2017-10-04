@@ -87,13 +87,13 @@ class TicketControllerTest extends BaseControllerTest
         $ticket->save();
 
         // Delete ticket
-        $response = $this->delete( $this->basePath . '/' . $ticket->id );
+        $response = $this->deleteWithCsrf( $this->basePath . '/' . $ticket->id );
 
         $response->assertStatus( 302 );
         $response->assertRedirect( $this->basePath );
 
         $ticket = $ticket->fresh();
-        $this->assertNull( $ticket );
+        $this->assertNotNull( $ticket->deleted_at );
     }
 
 }

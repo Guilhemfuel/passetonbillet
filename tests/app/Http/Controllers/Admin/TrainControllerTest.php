@@ -94,13 +94,13 @@ class TrainControllerTest extends BaseControllerTest
         $train->save();
 
         // Delete train
-        $response = $this->delete( $this->basePath . '/' . $train->id );
+        $response = $this->deleteWithCsrf( $this->basePath . '/' . $train->id );
 
         $response->assertStatus( 302 );
         $response->assertRedirect( $this->basePath );
 
         $train = $train->fresh();
-        $this->assertNull( $train );
+        $this->assertNotNull( $train->deleted_at );
     }
 
     // Controller expect arrival time and departure time to be datetime when receiving request

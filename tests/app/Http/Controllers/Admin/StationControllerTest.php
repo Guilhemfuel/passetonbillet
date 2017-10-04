@@ -88,13 +88,13 @@ class StationControllerTest extends BaseControllerTest
         $station->save();
 
         // Delete station
-        $response = $this->delete( $this->basePath . '/' . $station->id );
+        $response = $this->deleteWithCsrf( $this->basePath . '/' . $station->id );
 
         $response->assertStatus( 302 );
         $response->assertRedirect( $this->basePath );
 
         $station = $station->fresh();
-        $this->assertNull( $station );
+        $this->assertNotNull( $station->deleted_at );
     }
 
     // At the moment timezone isn't in form

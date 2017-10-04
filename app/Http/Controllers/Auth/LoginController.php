@@ -81,7 +81,7 @@ class LoginController extends Controller
         $user = User::where($this->username(), $request->{$this->username()})->first();
         // Check if user was successfully loaded, that the password matches
         // and active is not 1. If so, override the default error message.
-        if ($user && \Hash::check($request->password, $user->password) && ($user->active != 1 || $user->email_token!=null)) {
+        if ($user && \Hash::check($request->password, $user->password) && ($user->active != 1 || !$user->email_verified || $user->email_token!=null)) {
             $errors = [$this->username() => trans('auth.auth.not_confirmed')];
         }
 
