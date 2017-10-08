@@ -45,6 +45,19 @@ if (lang === 'fr') {
 
 window.Vue.use(ElementUI);
 
+/**
+ * We use moment.js to handle date on the front-end, we set language here
+ */
+
+var moment = require('moment');
+
+if (lang === 'fr') {
+    moment.locale('fr');
+} else {
+    moment.locale('en');
+}
+
+window.moment = moment;
 
 /**
  * We'll load the vue HTTP library which allows us to easily issue requests

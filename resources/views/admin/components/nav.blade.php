@@ -1,4 +1,4 @@
-<nav class="navbar navbar-light navbar-expand-lg">
+<nav class="navbar navbar-light navbar-expand">
     <div class="container-fluid">
         <div class="navbar-header">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarAdmin" aria-controls="navbarAdmin" aria-expanded="false" aria-label="Toggle navigation">

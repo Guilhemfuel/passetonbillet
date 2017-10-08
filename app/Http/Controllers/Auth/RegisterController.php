@@ -54,20 +54,6 @@ class RegisterController extends Controller
         return view( 'auth.auth', [ 'type' => 'register' ] );
     }
 
-//    public function fb_redirect(){
-//        return Socialite::driver('facebook')->fields([
-//            'first_name', 'last_name', 'email', 'gender', 'birthday'
-//        ])->scopes([
-//            'email', 'user_birthday'
-//        ])->redirect();
-//    }
-//
-//    public function fb_callback()
-//    {
-//        $providerUser = \Socialite::driver('facebook')->user();
-//        print_r($providerUser);
-//    }
-
     /**
      * Get a validator for an incoming registration request.
      *
@@ -182,4 +168,20 @@ class RegisterController extends Controller
             return redirect()->route('home');
         }
     }
+
+    // Social Media Connect
+//
+//    public function fb_redirect(){
+//        return Socialite::driver('facebook')->fields([
+//            'first_name', 'last_name', 'email', 'gender', 'birthday'
+//        ])->scopes([
+//            'email', 'user_birthday'
+//        ])->redirect();
+//    }
+//
+//    public function fb_callback()
+//    {
+//        $providerUser = \Socialite::driver('facebook')->user();
+//        print_r($providerUser);
+//    }
 }

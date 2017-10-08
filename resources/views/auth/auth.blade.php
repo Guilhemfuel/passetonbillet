@@ -7,37 +7,35 @@
 @section('content')
 
     <div class="row auth">
-        <div class="col-sm-6 purple-gradient left-panel">
+        <div class="col-12 col-sm-6 purple-gradient left-panel">
             {{--TODO: full sticky only visible on large screens, remains to do mobile version--}}
-            <div class="full-sticky">
-                <div class="content">
-                    <a href="{{route('home')}}"><img class="lastar-logo mx-auto" src="{{asset('img/logo.png')}}"></a>
-                    <div class="actions btn-rack mt-4">
-                        <button class="btn btn-white">
-                            Find a ticket
-                        </button>
-                        <button class="btn btn-outline-white">
-                            Contact us
-                        </button>
-                    </div>
+            <div class="content">
+                <a href="{{route('home')}}"><img class="lastar-logo mx-auto" src="{{asset('img/logo.png')}}"></a>
+                <div class="actions btn-rack mt-4">
+                    <button class="btn btn-white">
+                        Find a ticket
+                    </button>
+                    <button class="btn btn-outline-white">
+                        Contact us
+                    </button>
                 </div>
             </div>
         </div>
-        <div class="col-sm-6 right-panel">
+        <div class="col-12 col-sm-6 right-panel">
             <div class="content">
-                @if(count(session('flash_notification'))>0 || (isset($errors) && count($errors)>0))
-                    <!-- Alert Container -->
-                        <div class="alert-sticky container" id="flash-container">
-                            <flash v-for="message in messages"
-                                   v-if="!message.overlay"
-                                   :type="message.level"
-                                   :content="message.message"
-                                   :important="message.important"></flash>
-                            <flash v-for="error in validationErrors"
-                                   type="danger"
-                                   :content="error"
-                                   :important="true"></flash>
-                        </div>
+            @if(count(session('flash_notification'))>0 || (isset($errors) && count($errors)>0))
+                <!-- Alert Container -->
+                    <div class="alert-sticky container" id="flash-container">
+                        <flash v-for="message in messages"
+                               v-if="!message.overlay"
+                               :type="message.level"
+                               :content="message.message"
+                               :important="message.important"></flash>
+                        <flash v-for="error in validationErrors"
+                               type="danger"
+                               :content="error"
+                               :important="true"></flash>
+                    </div>
                 @endif
 
                 <div id="authComponent">
@@ -56,10 +54,10 @@
 
     <?php
     $routes = [
-        'login'    => route( 'login' ),
-        'register' => route( 'register' ),
-        'reset_for_email' => route('password.post_email'),
-        'reset_password'    => route('password.reset.post_new_password')
+        'login'           => route( 'login' ),
+        'register'        => route( 'register' ),
+        'reset_for_email' => route( 'password.post_email' ),
+        'reset_password'  => route( 'password.reset.post_new_password' ),
     ];
     $lang = Lang::get( 'auth' );
     $old = session()->getOldInput();

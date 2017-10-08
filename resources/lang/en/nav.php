@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Julien
- * Date: 14/05/2017
- * Time: 23:03
- */
+
 return [
 
     /*
@@ -17,5 +12,10 @@ return [
     'logout' => 'Logout',
     'register' => 'Register',
     'home'    => 'Home',
+    'messages'    => 'Messages',
+    'my_tickets'    => 'My tickets',
+    'sell_ticket'    => 'Sell a ticket',
+    'buy_ticket '    => 'Buy a ticket',
+    'my_profile '    => 'My Profile',
 
 ];

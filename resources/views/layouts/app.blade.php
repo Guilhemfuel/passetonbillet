@@ -25,6 +25,11 @@
 <body>
 <div id="app">
 
+
+    @if(session('login'))
+        {{-- Wateber that needs to be done on login--}}
+    @endif
+
     @yield('content')
 
 </div>

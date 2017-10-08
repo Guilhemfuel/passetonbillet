@@ -16,12 +16,6 @@
 // Home Page
 Route::get( '/', 'PageController@home' )->name( 'home' );
 
-Route::get('/mail', function () {
-    $user = App\User::first();
-
-    return new App\Mail\EmailVerification($user);
-});
-
 // Lang
 Route::get( 'lang/{lang}', 'LanguageController@switchLang' )->name( 'lang' );
 
@@ -41,13 +35,25 @@ Route::get('password/reset/{token?}', 'Auth\ResetPasswordController@showResetFor
 Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.post_email');
 Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.reset.post_new_password');
 
-// Register Social
-//Route::get( '/redirect/fb', 'Auth\RegisterController@fb_redirect' )->name( 'fb_redirect' );
-//Route::get( '/callback/fb', 'Auth\RegisterController@fb_callback' )->name( 'fb_callback' );
+//// Register Social
+//Route::get( '/redirect/fb', 'Auth\RegisterController@fb_redirect' )->name( 'fb.connect' );
+//Route::get( '/callback/fb', 'Auth\RegisterController@fb_callback' )->name( 'fb.callback' );
 
 // Test ticket
 Route::get( '/testRetrieve', 'TicketController@test' )->name( 'test.billet' );
 Route::get( '/test', 'PageController@test' )->name( 'test.trains' );
+
+// Auth Routes
+Route::group( [ 'middleware' => 'auth', 'as'=>'public.' ], function () {
+
+    // Ticket routes
+    Route::group( [ 'prefix' => 'ticket', 'as' => 'ticket.' ], function () {
+
+        Route::get('sell','TicketController@sellPage')->name('sell.page');
+
+    } );
+
+} );
 
 // Admin Routes...
 Route::group( [ 'prefix' => 'lastadmin', 'middleware' => 'auth.admin' ], function () {
@@ -62,10 +68,12 @@ Route::group( [ 'prefix' => 'lastadmin', 'middleware' => 'auth.admin' ], functio
 
 // API routes...
 Route::group( [ 'prefix' => 'api' ], function () {
-    Route::group( [ 'ticket' => 'api' ], function () {
-        Route::post('retrieve','TicketController@retrieve')->name('ticket.retrieve');
+    Route::group( [ 'middleware' => 'auth.admin' ], function () {
+        Route::get( 'stations', 'Admin\StationController@stations' )->name( 'api.stations.list' );
+        Route::get( 'users/{name}', 'Admin\UserController@searchAPI' )->name( 'api.users.search' );
     } );
-    Route::get( 'stations', 'Admin\StationController@stations' )->name( 'api.stations.list' );
-    Route::get( 'users/{name}', 'Admin\UserController@searchAPI' )->name( 'api.users.search' );
 
+    Route::group( [ 'middleware' => 'auth' ], function () {
+        Route::post('ticket/search','TicketController@searchTickets')->name('api.tickets.search');
+    } );
 } );

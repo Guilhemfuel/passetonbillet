@@ -144,7 +144,7 @@ class Eurostar
      * @return array
      * @throws LastarException
      */
-    public function retrieveTicket( $lastName, $referenceNumber )
+    public function retrieveTicket( $lastName, $referenceNumber, $past = false )
     {
         $response = $this->client->request(
             'POST',
@@ -154,6 +154,10 @@ class Eurostar
                 'body'        => '{"travellers": [{"ln": "' . $lastName . '","pnr": "' . $referenceNumber . '"}]}'
             ]
         );
+
+        if(!isset(json_decode( (string) $response->getBody(), true )[ $referenceNumber . '-' . $lastName ])) {
+            throw new LastarException( 'Nothing found with this name/code combination.' );
+        }
 
         $decoded = json_decode( (string) $response->getBody(), true )[ $referenceNumber . '-' . $lastName ]['LoadTravelOutput'];
 
@@ -180,15 +184,20 @@ class Eurostar
             $trainDepartureTime = $ticketInfo['departureDate']['time'];
             $trainArrivalDate = \DateTime::createFromFormat(static::DATE_FORMAT_JSON, $ticketInfo['arrivalDate']['date']);
             $trainArrivalTime = $ticketInfo['arrivalDate']['time'];
-            $trainDepartureStation = $ticketInfo['originCode'];
-            $trainArrivalStation = $ticketInfo['destinationCode'];
+            $trainDepartureStation = Station::where('eurostar_id', $ticketInfo['originCode'])->first();
+            $trainArrivalStation = Station::where('eurostar_id', $ticketInfo['destinationCode'])->first();
 
-            if($trainDepartureDate < new \DateTime()){
+            if(!$past && $trainDepartureDate < new \DateTime()){
                 // We don't consider past tickets
                 continue;
             }
 
-
+            if(!$trainDepartureStation) {
+                throw new LastarException( 'Station with code '.$trainDepartureStation.' not found.' );
+            }
+            if(!$trainArrivalStation) {
+                throw new LastarException( 'Station with code '.$trainArrivalStation.' not found.' );
+            }
 
             // Create train
             $train = Train::firstOrCreate(
@@ -196,10 +205,10 @@ class Eurostar
                     'number'         => $trainNumber,
                     'departure_date' => $trainDepartureDate,
                     'departure_time' => $trainDepartureTime,
-                    'departure_city' => Station::where('eurostar_id', $trainDepartureStation)->first()->id,
+                    'departure_city' => $trainDepartureStation->id,
                     'arrival_date'   => $trainArrivalDate,
                     'arrival_time'   => $trainArrivalTime,
-                    'arrival_city'   => Station::where('eurostar_id', $trainArrivalStation)->first()->id
+                    'arrival_city'   => $trainArrivalStation->id
                 ]
             );
 

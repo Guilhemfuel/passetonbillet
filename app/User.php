@@ -122,6 +122,12 @@ class User extends Authenticatable
         }
     }
 
+    public function getPictureAttribute( $picture )
+    {
+        if ($picture) return $picture;
+        return asset('img/picture-default.jpg');
+    }
+
     /**
      * RELATIONSHIPS
      */

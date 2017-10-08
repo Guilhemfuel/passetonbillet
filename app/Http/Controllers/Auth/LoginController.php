@@ -93,4 +93,17 @@ class LoginController extends Controller
                          ->withInput($request->only($this->username(), 'remember'))
                          ->withErrors($errors);
     }
+
+    /**
+     * The user has been authenticated.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return mixed
+     */
+    protected function authenticated(Request $request, $user)
+    {
+        \Session::put( 'applocale', strtolower( $user->language ) );
+        return redirect()->route('home');
+    }
 }

@@ -57,9 +57,9 @@
                     {{lang.reset.question}}
                 </a>
                 <div class="actions btn-rack mt-4">
-                    <button class="btn btn-facebook">
+                    <a class="btn btn-facebook text-white" :href="routes.fb_connect">
                         <i class="fa fa-facebook"></i> Facebook Connect
-                    </button>
+                    </a>
                     <button class="btn btn-outline-purple" @click.prevent="openRegister()">
                         {{lang.register.title}}
                     </button>

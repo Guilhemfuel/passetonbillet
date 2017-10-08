@@ -26,12 +26,18 @@ Vue.component('stationpicker', require('./components/Inputs/Stationpicker.vue'))
 Vue.component('userpicker', require('./components/Inputs/Userpicker.vue'));
 Vue.component('datepicker', require('./components/Inputs/Datepicker.vue'));
 
-
 // Shared
+Vue.component('sandwich', require('./components/Shared/Sandwich.vue'));
+Vue.component('loader', require('./components/Shared/Loader.vue'));
 Vue.component('modal', require('./components/Shared/Modal.vue'));
 Vue.component('flash', require('./components/Shared/Flash.vue'));
+Vue.component('sidebar', require('./components/Shared/Sidebar.vue'));
 
+// Lastar
+Vue.component('ticket', require('./components/Lastar/Ticket.vue'));
 
 // Pages
 Vue.component('auth', require('./components/Pages/Auth.vue'));
+Vue.component('sell-ticket', require('./components/Pages/Tickets/Sell.vue'));
+
 

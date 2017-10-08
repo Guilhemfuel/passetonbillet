@@ -25,6 +25,7 @@ $color-white:           white;
 
 $theme-colors: (
         primary: $color-purple,
+        pink: $color-pink,
         secondary: $color-dark-blue,
         success: $color-green,
         info: $color-blue,
@@ -32,11 +33,14 @@ $theme-colors: (
         danger: $color-red,
         light: $color-border,
         dark: $color-gray,
-        facebook: $color-facebook
+        facebook: $color-facebook,
+        light-gray: $color-light-gray
 );
 
-// Borders
+// Alerts
 $alert-border-width: 0px;
+
+// Cards
 
 
 

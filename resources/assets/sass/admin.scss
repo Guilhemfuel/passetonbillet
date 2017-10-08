@@ -14,8 +14,6 @@
 // Import app variables and components
 @import "variables";
 @import "overrides";
-@import "general";
-@import "components";
 
 // Custom
 @import "admin/table";
@@ -23,6 +21,10 @@
 
 // Bootstrap
 @import "~bootstrap/scss/bootstrap.scss";
+
+// App and components
+@import "general";
+@import "components";
 
 
 

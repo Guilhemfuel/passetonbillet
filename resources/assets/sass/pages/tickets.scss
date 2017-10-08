@@ -1,0 +1,38 @@
+
+
+// Sell component
+
+#sell-ticket {
+  padding: 20px 0px;
+
+  .bg-ticket-sell {
+    background-image: url('/img/tickets.sell.png');
+    background-size: cover;
+    background-position: center center;
+    border-radius: 0px $card-border-radius $card-border-radius 0px;
+  }
+
+  .card {
+    .card-body {
+      padding: 30px;
+    }
+  }
+
+  // Transitions
+  $animation-duration: 0.5s;
+
+  .fadeIn {
+    @include fadeIn(
+            $duration: $animation-duration,
+            $delay: $animation-duration,
+            $function: 'ease'
+    );
+  }
+  .fadeOut {
+    @include fadeOut(
+            $duration: $animation-duration,
+            $function: 'ease'
+    );
+  }
+
+}
