@@ -25,16 +25,6 @@ class TicketController extends Controller
         return view('home');
     }
 
-    /**
-     *
-     * Display page to sell a ticket
-     *
-     */
-    public function sellPage() {
-        return view('tickets.sell');
-    }
-
-
     /////////////////////////
     /// API
     /////////////////////////
@@ -48,8 +38,8 @@ class TicketController extends Controller
      */
     public function searchTickets(SearchTicketsRequest $request) {
 
-        // Todo: disable past tickets
         $tickets = collect(Eurostar::retrieveTicket($request->last_name,$request->booking_code));
+        session(['tickets'=>$tickets]);
         return TicketRessource::collection($tickets);
 
     }

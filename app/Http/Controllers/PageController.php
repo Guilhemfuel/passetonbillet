@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\EurostarAPI\Eurostar as EurostarSrc;
 use App\Facades\Eurostar;
+use App\Http\Resources\UserRessource;
 use App\Station;
 use Illuminate\Http\Request;
 
@@ -18,6 +19,15 @@ class PageController extends Controller
         } else {
             return view( 'welcome' );
         }
+    }
+
+    /**
+     *
+     * Display page to sell a ticket
+     *
+     */
+    public function sellPage() {
+        return view('tickets.sell')->with('user',new UserRessource(\Auth::user()));
     }
 
     public function test()

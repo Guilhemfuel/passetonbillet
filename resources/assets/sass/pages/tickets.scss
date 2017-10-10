@@ -1,4 +1,103 @@
 
+// Ticket Component
+
+.card-ticket {
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+
+  .card-travel-info {
+    @extend .blue-gradient;
+    border-radius: 10px 10px 0px 0px;
+    padding-bottom: 20px;
+
+    .day {
+      width: 60px;
+      height: 60px;
+      margin: auto;
+      background-color: white;
+      border-radius: 100%;
+      margin-top: 30px;
+      text-align: center;
+
+      span {
+        color: $color-purple;
+        font-size: 38px;
+        font-weight: 400;
+      }
+    }
+
+    .month {
+      text-align: center;
+      text-transform: uppercase;
+      color: white;
+      font-size: 20px;
+      font-weight: 400;
+      margin-top: 10px;
+    }
+
+    .cities {
+      text-align:center;
+      margin: 0px;
+      margin-top: 10px;
+
+      .departure, .arrival {
+        color: white;
+        padding: 0px 10px;
+        .city {
+          text-transform: uppercase;
+          font-size: 14px;
+          font-weight: 400;
+        }
+      }
+
+      .arrow {
+        padding-top: 30px;
+        color: $color-pink;
+        padding: 0px;
+      }
+
+      .departure, .arrival, .arrow {
+        margin: 0px;
+      }
+
+      .time {
+        color: $color-purple;
+        font-weight: 400;
+      }
+    }
+
+  }
+
+  .card-seller-info {
+    padding: 20px;
+    position: relative;
+
+    .price {
+      color: $color-purple;
+      text-align: center;
+      font-size: 25px;
+      font-weight: 400;
+    }
+
+    .seller {
+      text-align: center;
+      color: $color-pink;
+      font-size: 14px;
+      b {
+        font-weight: 600;
+      }
+    }
+
+    .btn-buy {
+      padding: 2px 20px;
+      text-transform: uppercase;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: -15px;
+    }
+  }
+}
 
 // Sell component
 
@@ -20,6 +119,13 @@
 
   // Transitions
   $animation-duration: 0.5s;
+
+  .fadeInUpBig {
+    @include fadeInUpBig(
+            $duration: $animation-duration,
+            $function: 'ease'
+    );
+  }
 
   .fadeIn {
     @include fadeIn(

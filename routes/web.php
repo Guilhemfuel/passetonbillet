@@ -49,7 +49,7 @@ Route::group( [ 'middleware' => 'auth', 'as'=>'public.' ], function () {
     // Ticket routes
     Route::group( [ 'prefix' => 'ticket', 'as' => 'ticket.' ], function () {
 
-        Route::get('sell','TicketController@sellPage')->name('sell.page');
+        Route::get('sell','PageController@sellPage')->name('sell.page');
 
     } );
 

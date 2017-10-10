@@ -3,14 +3,14 @@
 @section('dashboard-content')
     <div class="container-fluid">
         <div class="row" id="sell-ticket">
-            <sell-ticket :api="api" :lang="lang"></sell-ticket>
+            <sell-ticket :api="api" :lang="lang" :user="user"></sell-ticket>
         </div>
     </div>
 @endsection
 
 @push('scripts')
     <?php
-    $lang = Lang::get( 'tickets.sell' );
+    $lang = Lang::get( 'tickets' );
     ?>
 
     <script type="text/javascript">
@@ -23,6 +23,7 @@
                     }
                 },
                 lang: {!!json_encode($lang)!!},
+                user: {!! json_encode($user) !!}
             }
         });
     </script>
