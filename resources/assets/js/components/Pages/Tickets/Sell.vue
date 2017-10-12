@@ -16,6 +16,10 @@
                                     {{lang.sell.description}}
                                 </p>
 
+                                <p class="card-text text-justify text-danger" v-if="searchError">
+                                    {{lang.sell.errors.search}}
+                                </p>
+
                                 <form>
                                     <div class="col-xs-12 form-group">
                                         <input id="last_name" type="text"
@@ -36,7 +40,7 @@
 
                                     </div>
                                     <button type="submit" class="btn btn-lastar-blue btn-block" @click.prevent="search">
-                                        Search Ticket
+                                        {{lang.sell.search}}
                                     </button>
                                 </form>
                             </div>
@@ -47,7 +51,7 @@
                                     enter-active-class="animated fadeIn"
                                     leave-active-class="animated fadeOut">
                             <div v-if="state=='searching'">
-                                <h4 class="card-title">Searching for your ticket(s)</h4>
+                                <h4 class="card-title">{{lang.sell.searching}}</h4>
                                 <div class="p-5">
                                     <loader :class-name="'mx-auto'"></loader>
                                 </div>
@@ -58,10 +62,9 @@
                                     enter-active-class="animated fadeIn"
                                     leave-active-class="animated fadeOut">
                             <div v-if="state=='select'">
-                                <h4 class="card-title">Your tickets</h4>
+                                <h4 class="card-title">{{lang.sell.your_tickets}}</h4>
                                 <p class="card-text text-justify">
-                                    Hooray ! We find your tickets. <br>
-                                    Select the ticket you want to sell.
+                                    {{lang.sell.select}}
                                 </p>
                             </div>
                         </transition>
@@ -73,7 +76,7 @@
         </div>
         <template v-if="state=='select' && tickets.length>1">
             <div class="row mt-4">
-                <div v-for="(ticket,index) in tickets" class="col-12 col-sm-6 col-lg-4" :key="index">
+                <div v-for="(ticket,index) in tickets" class="col-12 col-sm-6 col-lg-6 col-xl-4" :key="index">
                     <ticket :ticket="ticket" :lang="lang.component" :selecting="true"
                             v-on:sell="sell(ticket.id)"></ticket>
                 </div>
@@ -82,27 +85,40 @@
 
         <!-- selling details and confirm sale -->
         <div class="row" v-if="state=='selling_details'">
-            <div class="col-12 col-sm-6">
+            <div class="col-sm-12 col-md-6">
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">
-                            Ticket details
+                            {{lang.sell.details_title}}
                         </h4>
                         <p class="card-text text-justify">
-                            We're almost done! Just setup a price, and add notes if you want to. You can preview your changes directly on the ticket.
+                            {{lang.sell.details}}
                         </p>
-                        <form>
+                        <form method="post" :action="routes.tickets.sell" ref="sell_form">
+                            <input type="hidden" name="_token" :value="csrf">
+                            <input type="hidden" name="index" :value="selectedTicket.id">
+
                             <div class="input-group">
+                                <!-- Todo: ajouter l'option de la currency-->
                                 <span class="input-group-addon">{{selectedTicket.bought_currency=='GBP'?'£':'€'}}</span>
-                                <input type="text" class="form-control" aria-label="Selling price" v-model="selectedTicket.price">
+                                <input type="text" :class="'form-control' + (errors.has('price')?' is-invalid':'')"
+                                       :aria-label="lang.sell.inputs.price"
+                                       :placeholder="lang.sell.inputs.price"
+                                       v-model="selectedTicket.price"
+                                       name="price"
+                                       v-validate="'required|max_value:'+selectedTicket.bought_price">
                             </div>
+                            <span v-if="errors.has('price')" class="invalid-feedback">{{ errors.first('price') }}</span>
+
+                            <textarea class="form-control mt-4" :placeholder="lang.sell.inputs.notes" name="notes"></textarea>
+                            <button type="submit" class="btn btn-pink btn-block mt-4" @click.prevent="sellTicket">{{lang.sell.submit}}</button>
                         </form>
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-sm-6">
+            <div class="col-sm-12 col-md-6">
                 <ticket :ticket="selectedTicket" :lang="lang.component" class-name="mb-0"></ticket>
-                <p class="text-center">Ticket Preview</p>
+                <p class="text-center">{{lang.sell.preview}}</p>
             </div>
         </div>
     </div>
@@ -112,14 +128,15 @@
     export default {
         props: {
             api: {type: Object, required: true},
+            routes: {type: Object, required: true},
             lang: {type: Object, required: true},
-            user: {type: Object, required: true}
-
+            user: {type: Object, required: true},
+            csrf: {type: String, required:true}
         },
         data() {
             return {
                 state: 'input',
-                form: {last_name: this.user.last_name},
+                form: {last_name: this.user.last_name, _token: this.csrf},
                 tickets: [],
                 selectedTicket: {},
                 searchError: false
@@ -148,6 +165,7 @@
                                     this.state = 'selling_details';
                                     this.tickets = response.data.data;
                                     this.tickets[0].user = this.user;
+                                    this.tickets[0].id = 0;
                                     this.tickets[0].currency = this.tickets[0].bought_currency;
                                     this.tickets[0].price = this.tickets[0].bought_price;
                                     this.selectedTicket = this.tickets[0];
@@ -175,6 +193,13 @@
                 this.selectedTicket.currency = this.selectedTicket.bought_currency;
                 this.selectedTicket.price = this.selectedTicket.bought_price;
                 this.state = 'selling_details';
+            },
+            sellTicket(scope) {
+                this.$validator.validateAll(scope).then((result) => {
+                    if (result) {
+                        this.$refs.sell_form.submit();
+                    }
+                });
             }
         }
     }

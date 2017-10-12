@@ -16,16 +16,16 @@
 </li>
 
 
-<li  class="">
-    <a href="#">
+<li  class="{{ Route::current()->getName() == 'public.ticket.owned.page' ? ' active' : '' }}">
+    <a href="{{route('public.ticket.owned.page')}}">
         {{--<span class="badge badge-pill">2</span>--}}
         <i class="fa fa-ticket" aria-hidden="true"></i>
         <span class="d-sm-inline d-none label">{{__('nav.my_tickets')}}</span>
     </a>
 </li>
 
-<li  class="">
-    <a href="#">
+<li  class="{{ Route::current()->getName() == 'public.ticket.buy.page' ? ' active' : '' }}">
+    <a href="{{route('public.ticket.buy.page')}}">
         {{--<span class="badge badge-pill">2</span>--}}
         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
         <span class="d-sm-inline d-none label">{{__('nav.buy_ticket ')}}</span>

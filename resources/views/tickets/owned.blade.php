@@ -2,8 +2,8 @@
 
 @section('dashboard-content')
     <div class="container-fluid">
-        <div class="row" id="sell-ticket">
-            <sell-ticket :api="api" :lang="lang" :user="user" :csrf="csrf" :routes="routes"></sell-ticket>
+        <div class="row" id="owned-tickets">
+            <my-tickets :lang="lang" :user="user" :tickets="tickets" :csrf="csrf" :routes="routes"></my-tickets>
         </div>
     </div>
 @endsection
@@ -19,19 +19,14 @@
     ?>
 
     <script type="text/javascript">
-        var sellTicket = new Vue({
-            el: '#sell-ticket',
+        var ownedTicket = new Vue({
+            el: '#owned-tickets',
             data: {
-                api: {
-                    tickets: {
-                        search: '{!! route('api.tickets.search') !!}'
-                    }
-                },
                 lang: {!!json_encode($lang)!!},
                 user: {!! json_encode($user) !!},
+                tickets: {!! json_encode($tickets) !!},
                 csrf: '{!! csrf_token() !!}',
                 routes: {!! json_encode($routes) !!}
-
             }
         });
     </script>

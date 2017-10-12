@@ -2,8 +2,8 @@
 
 @section('dashboard-content')
     <div class="container-fluid">
-        <div class="row" id="sell-ticket">
-            <sell-ticket :api="api" :lang="lang" :user="user" :csrf="csrf" :routes="routes"></sell-ticket>
+        <div class="row" id="buy-ticket">
+            <buy-ticket :lang="lang" :user="user" :csrf="csrf" :routes="routes" :api="api" :stations="stations"></buy-ticket>
         </div>
     </div>
 @endsection
@@ -13,25 +13,26 @@
         $lang = Lang::get( 'tickets' );
         $routes = [
             'tickets' => [
-                'sell' => route('public.ticket.sell.post')
+
             ]
-        ]
+        ];
+        $api = [
+            'tickets' => [
+
+            ]
+        ];
     ?>
 
     <script type="text/javascript">
-        var sellTicket = new Vue({
-            el: '#sell-ticket',
+        var buyTicket = new Vue({
+            el: '#buy-ticket',
             data: {
-                api: {
-                    tickets: {
-                        search: '{!! route('api.tickets.search') !!}'
-                    }
-                },
                 lang: {!!json_encode($lang)!!},
                 user: {!! json_encode($user) !!},
                 csrf: '{!! csrf_token() !!}',
-                routes: {!! json_encode($routes) !!}
-
+                routes: {!! json_encode($routes) !!},
+                api: {!! json_encode($api) !!},
+                stations: {!! json_encode($stations) !!}
             }
         });
     </script>

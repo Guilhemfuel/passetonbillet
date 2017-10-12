@@ -84,20 +84,4 @@ class StationController extends BaseController
         return redirect()->route($this->CRUDmodelName.'.edit',$station->id);
     }
 
-
-    // ----- API -----
-
-    /**
-     * Returns a list of stations
-     *
-     * @return string
-     */
-    public function stations(){
-        if (\App::isLocale('fr')) {
-            return \GuzzleHttp\json_encode( Station::orderBy('name_fr')->pluck('id','name_fr'));
-        } else {
-            return \GuzzleHttp\json_encode( Station::orderBy('name_en')->pluck('id','name_en'));
-        }
-    }
-
 }

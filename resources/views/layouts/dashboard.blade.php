@@ -28,7 +28,7 @@
 
             @if(count(session('flash_notification'))>0 || (isset($errors) && count($errors)>0))
             <!-- Alert Container -->
-                <div class="alert-sticky container" id="flash-container">
+                <div class="alert-sticky container mt-4" id="flash-container">
                     <flash v-for="message in messages"
                            v-if="!message.overlay"
                            :type="message.level"

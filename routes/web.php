@@ -49,7 +49,15 @@ Route::group( [ 'middleware' => 'auth', 'as'=>'public.' ], function () {
     // Ticket routes
     Route::group( [ 'prefix' => 'ticket', 'as' => 'ticket.' ], function () {
 
+        // Sell ticket
         Route::get('sell','PageController@sellPage')->name('sell.page');
+        Route::post('sell','TicketController@sellTicket')->name('sell.post');
+
+        // See my tickets
+        Route::get('owned','PageController@myTicketsPage')->name('owned.page');
+
+        // Buy a ticket
+        Route::get('buy','PageController@buyPage')->name('buy.page');
 
     } );
 
@@ -69,11 +77,13 @@ Route::group( [ 'prefix' => 'lastadmin', 'middleware' => 'auth.admin' ], functio
 // API routes...
 Route::group( [ 'prefix' => 'api' ], function () {
     Route::group( [ 'middleware' => 'auth.admin' ], function () {
-        Route::get( 'stations', 'Admin\StationController@stations' )->name( 'api.stations.list' );
         Route::get( 'users/{name}', 'Admin\UserController@searchAPI' )->name( 'api.users.search' );
     } );
 
     Route::group( [ 'middleware' => 'auth' ], function () {
+        Route::get( 'stations', 'StationController@stations' )->name( 'api.stations.list' );
         Route::post('ticket/search','TicketController@searchTickets')->name('api.tickets.search');
     } );
+
+    Route::post('tickets/buy','TicketController@buyTickets')->name('api.tickets.buy');
 } );

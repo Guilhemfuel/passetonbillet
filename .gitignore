@@ -14,3 +14,4 @@ Homestead.yaml
 /_ide_helper_models.php
 /phpunit.xml
 /tests/Browser
+/report/

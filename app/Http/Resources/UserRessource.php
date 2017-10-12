@@ -22,6 +22,7 @@ class UserRessource extends Resource
             'location' => $this->location,
             'picture' => $this->picture,
             'email' => $this->email,
+            'language' => $this->language
         ];
     }
 }

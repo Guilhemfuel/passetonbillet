@@ -15,8 +15,8 @@ class TicketRessource extends Resource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'user' => new UserRessource($this->user),
+            'id' => $this->id?:null,
+            'user' => $this->user_id?new UserRessource($this->user):null,
             'train' => new TrainRessource($this->train),
             'price' => $this->price,
             'currency' => $this->currency,

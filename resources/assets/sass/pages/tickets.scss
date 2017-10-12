@@ -99,22 +99,31 @@
   }
 }
 
-// Sell component
+// Page component
 
-#sell-ticket {
+#sell-ticket, #owned-tickets, #buy-ticket {
   padding: 20px 0px;
-
-  .bg-ticket-sell {
-    background-image: url('/img/tickets.sell.png');
-    background-size: cover;
-    background-position: center center;
-    border-radius: 0px $card-border-radius $card-border-radius 0px;
-  }
 
   .card {
     .card-body {
       padding: 30px;
     }
+  }
+
+  .invalid-feedback {
+    display: inherit;
+  }
+
+}
+
+// Sell component
+
+#sell-ticket {
+  .bg-ticket-sell {
+    background-image: url('/img/tickets.sell.png');
+    background-size: cover;
+    background-position: center center;
+    border-radius: 0px $card-border-radius $card-border-radius 0px;
   }
 
   // Transitions
@@ -141,4 +150,23 @@
     );
   }
 
+}
+
+// Buy component
+
+#buy-ticket {
+
+  // Stations picker
+  .departure {
+    .el-input__inner{
+      border-radius: 4px 4px 0px 0px;
+    }
+  }
+  .arrival {
+    .el-input__inner{
+      border-top: 0px;
+      border-radius: 0px 0px 4px 4px;
+      border-top-width: 0px !important;
+    }
+  }
 }

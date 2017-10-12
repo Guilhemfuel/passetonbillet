@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\EurostarException;
+use App\Http\Requests\BuyTicketsRequest;
 use App\Http\Requests\SearchTicketsRequest;
+use App\Http\Requests\SellTicketRequest;
 use App\Http\Resources\StationRessource;
 use App\Http\Resources\TicketRessource;
 use App\Http\Resources\TrainRessource;
+use App\Ticket;
 use App\Train;
 use Illuminate\Http\Request;
 use App\Facades\Eurostar;
@@ -14,15 +17,56 @@ use App\Facades\Eurostar;
 class TicketController extends Controller
 {
 
-    public function test(){
+//    public function test(){
+//
+//        $name = "nahum";
+//        $code = "REMHAF";
+//
+//        $tickets = Eurostar::retrieveTicket($name,$code,true);
+//        \Debugbar::info($tickets);
+//
+//        return view('home');
+//    }
 
-        $name = "nahum";
-        $code = "REMHAF";
+    /**
+     * @param SellTicketRequest $request
+     * 
+     * Save ticket and make it available to buy
+     */
+    public function sellTicket(SellTicketRequest $request) {
+        $tickets = $request->session()->get('tickets');
+        $request->session()->forget('tickets');
+        // Make sure we find ticket in session
+        if (!$tickets || !(isset($tickets[$request->index])) ) {
+            flash(__('common.error'))->error()->important();
+            return redirect()->route('public.ticket.sell.page');
+        }
 
-        $tickets = Eurostar::retrieveTicket($name,$code,true);
-        \Debugbar::info($tickets);
+        $ticket = $tickets[$request->index];
 
-        return view('home');
+        // Make sure price doesn't over exceed original price
+        if ($ticket->bought_price < $request->price){
+            flash(__('tickets.sell.errors.max_value'))->error()->important();
+            return redirect()->route('public.ticket.sell.page');
+        }
+
+        // Make sure we don't have such a ticket yet
+        $oldTicket = Ticket::where('eurostar_code',$ticket->eurostar_code)
+                            ->where('buyer_name', $ticket->buyer_name)
+                            ->first();
+        if ($oldTicket && $oldTicket->train_id == $ticket->train_id){
+            flash(__('tickets.sell.errors.duplicate'))->error()->important();
+            return redirect()->route('public.ticket.sell.page');
+        }
+
+        $ticket->user_id = \Auth::id();
+        $ticket->price = $request->price;
+        $ticket->currency = $ticket->bought_currency;
+        $ticket->user_notes = $request->notes;
+        $ticket->save();
+
+        flash(__('tickets.sell.success'))->success()->important();
+        return redirect()->route('home');
     }
 
     /////////////////////////
@@ -37,10 +81,13 @@ class TicketController extends Controller
      * @return mixed
      */
     public function searchTickets(SearchTicketsRequest $request) {
-
         $tickets = collect(Eurostar::retrieveTicket($request->last_name,$request->booking_code));
         session(['tickets'=>$tickets]);
         return TicketRessource::collection($tickets);
+    }
 
+    public function buyTickets( BuyTicketsRequest $request )
+    {
+        
     }
 }

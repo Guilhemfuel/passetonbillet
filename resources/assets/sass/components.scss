@@ -264,3 +264,77 @@
     color: #DDDDDD !important;
   }
 }
+
+// Trip picker
+.trip-picker {
+  position: relative;
+
+  .swap {
+    border: 1px solid $color-border;
+    position: absolute;
+    z-index: 2010;
+    padding: 10px;
+    background-color: white;
+    border-radius: 100%;
+    width: 45px;
+    height: 45px;
+    text-align: center;
+    left: -21px;
+    top: 15px;
+    cursor: pointer;
+    transition: 0.5s ease-in-out;
+
+    .fa {
+      color: $color-purple;
+      font-size: 22px;
+      transform: rotate(90deg);
+      transition: 0.5s ease-in-out;
+    }
+
+    &:hover {
+      background-color: #D9D9D9;
+      .fa {
+        transform: rotate(-90deg);
+      }
+    }
+  }
+
+  .departure {
+    .el-input__inner{
+      border-radius: 4px 4px 0px 0px;
+      padding-left: 35px;
+    }
+  }
+  .arrival {
+    .el-input__inner{
+      border-top: 0px;
+      border-radius: 0px 0px 4px 4px;
+      border-top-width: 0px !important;
+      padding-left: 35px;
+    }
+  }
+}
+.trip-picker-dropdown {
+  .station {
+    padding-left: 20px;
+    .flag-icon {
+      margin-right: 5px;
+    }
+  }
+}
+
+// Datetime picker
+.datetime-picker {
+  .date {
+    .el-input__inner{
+      border-radius: 4px 4px 0px 0px;
+    }
+  }
+  .time {
+    .el-input__inner{
+      border-top: 0px;
+      border-radius: 0px 0px 4px 4px;
+      border-top-width: 0px !important;
+    }
+  }
+}

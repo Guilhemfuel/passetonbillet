@@ -109,3 +109,11 @@ $factory->define( App\Ticket::class, function ( Faker\Generator $faker ) {
     ];
 } );
 
+// Admin user
+$factory->state( App\Ticket::class, 'new', function ( \Faker\Generator $faker ) {
+    return [
+        'user_id' => null,
+        'price' => null,
+        'currency' => null,
+    ];
+} );

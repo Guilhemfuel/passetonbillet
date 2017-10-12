@@ -25,6 +25,9 @@ Vue.component('timepicker', require('./components/Inputs/Timepicker.vue'));
 Vue.component('stationpicker', require('./components/Inputs/Stationpicker.vue'));
 Vue.component('userpicker', require('./components/Inputs/Userpicker.vue'));
 Vue.component('datepicker', require('./components/Inputs/Datepicker.vue'));
+Vue.component('trippicker', require('./components/Inputs/Trippicker.vue'));
+Vue.component('datetimepicker', require('./components/Inputs/Datetimepicker.vue'));
+
 
 // Shared
 Vue.component('sandwich', require('./components/Shared/Sandwich.vue'));
@@ -39,5 +42,8 @@ Vue.component('ticket', require('./components/Lastar/Ticket.vue'));
 // Pages
 Vue.component('auth', require('./components/Pages/Auth.vue'));
 Vue.component('sell-ticket', require('./components/Pages/Tickets/Sell.vue'));
+Vue.component('buy-ticket', require('./components/Pages/Tickets/Buy.vue'));
+Vue.component('my-tickets', require('./components/Pages/Tickets/Mytickets.vue'));
+
 
 

@@ -34,6 +34,7 @@ class CreateTicketsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('train_id')->references('id')->on('trains');
 
+            $table->unique(array('eurostar_code', 'buyer_name','train_id'));
 
         });
     }

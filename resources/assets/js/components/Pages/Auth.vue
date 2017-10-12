@@ -274,7 +274,6 @@
 
                     <input type="hidden" name="token" :value="token">
 
-
                     <div class="col-xs-12 form-group">
                         <label for="email" class="control-label">{{lang.auth.email}}</label>
 
