@@ -8,6 +8,7 @@ use App\Http\Resources\StationRessource;
 use App\Http\Resources\TicketRessource;
 use App\Http\Resources\UserRessource;
 use App\Station;
+use App\Ticket;
 use Illuminate\Http\Request;
 
 
@@ -57,10 +58,8 @@ class PageController extends Controller
 
     public function test()
     {
-        $departure_station = Station::find( 1 );
-        $arrival_station = Station::find( 6 );
-        $my_date = new \DateTime();
-        \Debugbar::info( Eurostar::singles( $departure_station, $arrival_station, $my_date ) );
+
+        \Debugbar::info( Ticket::applyFilters(1,6,'2017-10-12','17:00:00') );
 
         return view( 'home' );
     }

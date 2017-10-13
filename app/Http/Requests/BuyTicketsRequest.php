@@ -27,7 +27,6 @@ class BuyTicketsRequest extends FormRequest
             'departure_station' => 'required|integer',
             'arrival_station' => 'required|integer',
             'trip_date' => 'required|date|after:yesterday',
-            'trip_time' => 'time'
         ];
     }
 }

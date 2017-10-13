@@ -21,24 +21,30 @@
                         <datetimepicker
                                 :lang="lang.buy.inputs.datetimepicker"
                                 v-on:change-date="changeDate($event)"
-                                v-on:change-time="changeTime($event)">
+                                v-on:change-time="changeTime($event)"
+                                :default-date="search.trip_date">
                                     <!--:default-depart="search.departure_station"-->
                                     <!--:default-arrival="search.arrival_station"-->
                         </datetimepicker>
                     </div>
                     <div class="col-12">
-                        <button class="btn btn-lastar-blue btn-block d-block d-md-none">{{lang.buy.research}}</button>
-                        <button class="btn btn-lastar-blue d-none d-md-block mt-4 px-4 pull-right">{{lang.buy.research}}</button>
+                        <button class="btn btn-lastar-blue btn-block d-block d-md-none" @click.prevent="searchTickets">{{lang.buy.research}}</button>
+                        <button class="btn btn-lastar-blue d-none d-md-block mt-4 px-4 pull-right" @click.prevent="searchTickets">{{lang.buy.research}}</button>
+                        <p v-if="state=='result'" class="card-text mt-4"><span class="text-pink">{{tickets.length}}</span> billet(s) corresponde(nt) à votre recherche.</p>
                     </div>
                 </form>
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-12 col-sm-6 col-md-6 col-lg-4" v-for="ticket in tickets">
-                <ticket :ticket="ticket" :lang="lang.component"></ticket>
+        <transition enter-class="pre-animated"
+                    enter-active-class="animated fadeInUpBig"
+                    leave-active-class="animated fadeOut">
+            <div class="row" v-if="tickets.length > 0">
+                <div class="col-12 col-sm-6 col-md-6 col-lg-4" v-for="ticket in tickets">
+                    <ticket :ticket="ticket" :lang="lang.component" class-name="mt-4"></ticket>
+                </div>
             </div>
-        </div>
+        </transition>
 
     </div>
 </template>
@@ -60,18 +66,19 @@
         data() {
             return {
                 state: 'default',
-                tickets: null,
+                tickets: [],
                 search: {
                     departure_station: null,
                     arrival_station: null,
                     trip_date: null,
                     trip_time: null,
-                }
+                },
             }
         },
         created() {
             this.search.departure_station = this.user.language == 'FR'?this.getParisId:this.getLondonId;
             this.search.arrival_station = this.user.language == 'FR'?this.getLondonId:this.getParisId;
+            this.search.trip_date = moment().format('YYYY-MM-DD');
         },
         computed: {
             getLondonId(){
@@ -99,11 +106,23 @@
                 this.search.arrival_station = station;
             },
             changeDate(date){
-                this.search.trip_date = date;
+                this.search.trip_date = moment(date).format('YYYY-MM-DD');
             },
             changeTime(time){
                 this.search.trip_time = time;
             },
+            searchTickets(){
+
+                this.searchError = false;
+
+                this.state = 'searching';
+                this.$http.post(this.api.tickets.buy, this.search)
+                    .then(response => {
+                        this.state='result';
+                        this.tickets = response.data.data;
+                    })
+
+            }
         }
     }
 </script>

@@ -17,17 +17,6 @@ use App\Facades\Eurostar;
 class TicketController extends Controller
 {
 
-//    public function test(){
-//
-//        $name = "nahum";
-//        $code = "REMHAF";
-//
-//        $tickets = Eurostar::retrieveTicket($name,$code,true);
-//        \Debugbar::info($tickets);
-//
-//        return view('home');
-//    }
-
     /**
      * @param SellTicketRequest $request
      * 
@@ -86,8 +75,22 @@ class TicketController extends Controller
         return TicketRessource::collection($tickets);
     }
 
+    /**
+     * Given a departure and arrival station and a date returns a list of tickets
+     *
+     * @param BuyTicketsRequest $request
+     *
+     * @return mixed
+     */
     public function buyTickets( BuyTicketsRequest $request )
     {
-        
+        $tickets = Ticket::applyFilters(
+            $request->get('departure_station'),
+            $request->get('arrival_station'),
+            $request->get('trip_date'),
+            $request->get('trip_time',null)
+        );
+
+        return TicketRessource::collection($tickets);
     }
 }

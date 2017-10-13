@@ -169,4 +169,23 @@
       border-top-width: 0px !important;
     }
   }
+
+  // Transitions
+  $animation-duration: 0.5s;
+
+  .fadeInUpBig {
+    @include fadeInUpBig(
+            $duration: $animation-duration,
+            $delay: $animation-duration,
+            $function: 'ease'
+    );
+  }
+
+  .fadeOut {
+    @include fadeOut(
+            $duration: $animation-duration,
+            $function: 'ease'
+    );
+  }
+
 }

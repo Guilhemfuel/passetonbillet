@@ -200,14 +200,16 @@ class Eurostar
             }
 
             // Create train
+//            dd(date("H:i:s", strtotime( $trainDepartureTime)));
+
             $train = Train::firstOrCreate(
                 [
                     'number'         => $trainNumber,
                     'departure_date' => $trainDepartureDate,
-                    'departure_time' => $trainDepartureTime,
+                    'departure_time' => date("H:i:s", strtotime( $trainDepartureTime)),
                     'departure_city' => $trainDepartureStation->id,
                     'arrival_date'   => $trainArrivalDate,
-                    'arrival_time'   => $trainArrivalTime,
+                    'arrival_time'   => date("H:i:s", strtotime($trainArrivalTime)),
                     'arrival_city'   => $trainArrivalStation->id
                 ]
             );

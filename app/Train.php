@@ -56,13 +56,13 @@ class Train extends Model
     public function setDepartureTimeAttribute($value)
     {
         $time = new \DateTime($value);
-        $this->attributes['departure_time'] = $time->format("h:i:s");
+        $this->attributes['departure_time'] = $time->format("H:i:s");
     }
 
     public function setArrivalTimeAttribute($value)
     {
         $time = new \DateTime($value);
-        $this->attributes['arrival_time'] = $time->format("h:i:s");
+        $this->attributes['arrival_time'] = $time->format("H:i:s");
     }
 
     public function getDepartureTimeJsAttribute()

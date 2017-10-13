@@ -18,7 +18,7 @@ class Ticket extends Model
 
     use SearchableTrait, SoftDeletes;
 
-    protected $dates = ['deleted_at'];
+    protected $dates = [ 'deleted_at' ];
 
     protected $fillable = [
         // Train info
@@ -46,7 +46,7 @@ class Ticket extends Model
     /**
      * Relationships of the model (used for eager loading)
      */
-    public static $relationships = ['user','train'];
+    public static $relationships = [ 'user', 'train' ];
 
     /**
      * Searchable rules.
@@ -79,6 +79,41 @@ class Ticket extends Model
         'buyer_email'     => 'required|email',
         'buyer_name'      => 'required|max:6'
     ];
+
+    /**
+     * Search tickets for a specific journey
+     *
+     * @param      $departureStationId
+     * @param      $arrivalStationId
+     * @param      $date
+     * @param null $time
+     */
+    public static function applyFilters( $departureStationId, $arrivalStationId, $date, $time = null )
+    {
+        $request = Train::where( 'departure_city', $departureStationId )
+                        ->where( 'arrival_city', $arrivalStationId )
+                        ->where( 'departure_date', $date )
+                        ->with( 'tickets' );
+
+        if ( $time ) {
+            $request = $request->where( 'departure_time', '>=', $time );
+        }
+
+        $trains = $request->orderBy( 'departure_time' )->get();
+
+        $tickets = collect();
+        foreach ( $trains as $train ) {
+            if ( $train->tickets ) {
+                if ( $tickets->isEmpty() ) {
+                    $tickets = $train->tickets;
+                } else {
+                    $tickets->merge( $train->tickets );
+                }
+            }
+        }
+
+        return $tickets;
+    }
 
     /**
      * MUTATORS

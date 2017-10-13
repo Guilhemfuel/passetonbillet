@@ -18,7 +18,7 @@
         ];
         $api = [
             'tickets' => [
-
+                'buy' => route('api.tickets.buy')
             ]
         ];
     ?>
