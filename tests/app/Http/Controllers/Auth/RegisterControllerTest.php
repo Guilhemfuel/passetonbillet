@@ -55,7 +55,6 @@ class RegisterControllerTest extends LastarTestCase
             'Gender missing'    => [ $genderMissing ],
             'Location missing'  => [ $locationMissing ],
             'All missing'       => [ $allMissing ],
-
         ];
     }
 
@@ -117,9 +116,6 @@ class RegisterControllerTest extends LastarTestCase
         return [
             'first_name missing'    => [ $firstNameMissing ],
             'last_name missing'     => [ $lastNameMissing ],
-            'language missing'      => [ $languageMissing ],
-            'phone country missing' => [ $phoneCountryMissing ],
-            'phone missing'         => [ $phoneMissing ],
             'email missing'         => [ $emailMissing ],
             'password missing'      => [ $passwordMissing ],
             'All missing'           => [ $allMissing ],

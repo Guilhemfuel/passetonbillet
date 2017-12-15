@@ -34,10 +34,26 @@
     }
   }
   .right-panel {
-
+    .lang {
+      position: absolute;
+      top: 20px;
+    }
   }
   .left-panel {
 
+  }
+
+  // Inputs
+  .gender-input .el-radio-group{
+    display: block;
+
+    .el-radio-button{
+      width: 50%;
+
+      .el-radio-button__inner {
+        width: 100%;
+      }
+    }
   }
 
   // Transitions

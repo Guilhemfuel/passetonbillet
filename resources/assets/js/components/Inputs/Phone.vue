@@ -3,7 +3,7 @@
 <template>
     <div class="row lastar-phone mx-0">
         <template v-if="required">
-            <div class="col-sm-3 p-0">
+            <div class="col-country p-0">
                 <el-select v-model="activeCountry" name="phone_country">
                     <el-option
                             class="text-center"
@@ -14,11 +14,14 @@
                     </el-option>
                 </el-select>
             </div>
+            <div class="col-prefix p-0">
+                <input class="form-control prefix" disabled :value="prefix"/>
+            </div>
             <!-- TODO: fix phone validation if required (manually using error bag)-->
             <div class="col p-0 input-phone">
                 <cleave type="text"
                         class="form-control"
-                        placeholder="Phone Number"
+                        :placeholder="placeholder"
                         :options="cleaveOptions"
                         v-model="actualValue"
                         required
@@ -30,7 +33,7 @@
             <span v-if="errors.has('phone')" class="invalid-feedback">{{ errors.first('phone') }}</span>
         </template>
         <template v-else>
-            <div class="col-sm-3 p-0">
+            <div class="col-country p-0">
                 <el-select v-model="activeCountry" name="phone_country">
                     <el-option
                             class="text-center"
@@ -41,10 +44,13 @@
                     </el-option>
                 </el-select>
             </div>
+            <div class="col-prefix p-0">
+                <input class="form-control prefix" disabled :value="prefix"/>
+            </div>
             <div class="col p-0 input-phone">
                 <cleave type="text"
                         class="form-control"
-                        placeholder="Phone Number"
+                        :placeholder="placeholder"
                         :options="cleaveOptions"
                         v-model="actualValue"></cleave>
             </div>
@@ -81,7 +87,33 @@
             resultNumber: function() {
                 if (!this.actualValue) return null;
                 return this.actualValue.replace(/ /g,'');
-            }
+            },
+            placeholder: function(){
+                switch (this.activeCountry){
+                    case 'FR':
+                        return '06 12 34 56 56'
+                        break;
+                    case 'GB':
+                        return '07123 456789'
+                        break;
+                    case 'BE':
+                        return '01 234 56 78'
+                        break;
+                }
+            },
+            prefix: function(){
+                switch (this.activeCountry){
+                    case 'FR':
+                        return '+33'
+                        break;
+                    case 'GB':
+                        return '+44'
+                        break;
+                    case 'BE':
+                        return '+32'
+                        break;
+                }
+            },
         },
         methods: {
             caretClick : function () {

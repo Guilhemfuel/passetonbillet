@@ -105,6 +105,12 @@
   padding: 20px 0px;
 
   .card {
+    .card-header {
+      @extend .purple-gradient;
+      color: white;
+      text-transform: uppercase;
+    }
+
     .card-body {
       padding: 30px;
     }
@@ -112,6 +118,10 @@
 
   .invalid-feedback {
     display: inherit;
+  }
+
+  [v-cloak] {
+    display: none;
   }
 
 }
@@ -175,6 +185,14 @@
 
   .fadeInUpBig {
     @include fadeInUpBig(
+            $duration: $animation-duration,
+            $delay: $animation-duration,
+            $function: 'ease'
+    );
+  }
+
+  .fadeIn {
+    @include fadeIn(
             $duration: $animation-duration,
             $delay: $animation-duration,
             $function: 'ease'

@@ -24,6 +24,15 @@ html, body {
   background: -o-linear-gradient(bottom right, $color-purple, $color-pink); /* For Opera 11.1 to 12.0 */
   background: -moz-linear-gradient(bottom right, $color-purple, $color-pink); /* For Firefox 3.6 to 15 */
   background: linear-gradient(to bottom right, $color-purple, $color-pink); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  &.reverse {
+    background: $color-pink; /* fallback for old browsers */
+    background: -webkit-linear-gradient(left top, $color-pink, $color-purple); /* Chrome 10-25, Safari 5.1-6 */
+    background: -o-linear-gradient(bottom right, $color-pink, $color-purple); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(bottom right, $color-pink, $color-purple); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(to bottom right, $color-pink, $color-purple); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  }
 }
 
 .blue-gradient {

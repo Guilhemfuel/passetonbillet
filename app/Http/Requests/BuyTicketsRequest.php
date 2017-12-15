@@ -24,8 +24,8 @@ class BuyTicketsRequest extends FormRequest
     public function rules()
     {
         return [
-            'departure_station' => 'required|integer',
-            'arrival_station' => 'required|integer',
+            'departure_station' => 'required|integer|exists:stations,id',
+            'arrival_station' => 'required|integer|exists:stations,id',
             'trip_date' => 'required|date|after:yesterday',
         ];
     }

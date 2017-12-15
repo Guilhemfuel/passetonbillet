@@ -128,6 +128,17 @@ class User extends Authenticatable
         return asset('img/picture-default.jpg');
     }
 
+    public function getPhoneVerifiedAttribute()
+    {
+        if ($this->phone==null || $this->phone_country==null) return false;
+        return true;
+    }
+
+    public function getPhoneVerificationSentAttribute()
+    {
+        return $this->phoneVerification != null;
+    }
+
     /**
      * RELATIONSHIPS
      */
@@ -141,4 +152,10 @@ class User extends Authenticatable
     {
         return $this->hasMany( 'App\Ticket' );
     }
+
+    public function phoneVerification()
+    {
+        return $this->hasOne('App\Models\Verification\PhoneVerification');
+    }
+
 }

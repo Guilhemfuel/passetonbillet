@@ -90,6 +90,7 @@ class Ticket extends Model
      */
     public static function applyFilters( $departureStationId, $arrivalStationId, $date, $time = null )
     {
+        // Find matching trains
         $request = Train::where( 'departure_city', $departureStationId )
                         ->where( 'arrival_city', $arrivalStationId )
                         ->where( 'departure_date', $date )
@@ -101,14 +102,11 @@ class Ticket extends Model
 
         $trains = $request->orderBy( 'departure_time' )->get();
 
+        // Collect tickets for each of the trains
         $tickets = collect();
         foreach ( $trains as $train ) {
             if ( $train->tickets ) {
-                if ( $tickets->isEmpty() ) {
-                    $tickets = $train->tickets;
-                } else {
-                    $tickets->merge( $train->tickets );
-                }
+                foreach ($train->tickets as $ticket) $tickets->push($ticket);
             }
         }
 

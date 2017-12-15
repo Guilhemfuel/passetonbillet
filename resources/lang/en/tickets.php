@@ -35,7 +35,26 @@ return [
             'duplicate' => 'Whoops! This ticket is already on sale...',
             'search'    => 'Whoops ! No tickets were found... Try again and if the issue persists please contact us.'
         ],
-        'success'       => 'Hooray! Your ticket is now on the market ! Thank you for your trust !'
+        'success'       => 'Hooray! Your ticket is now on the market ! Thank you for your trust !',
+
+        'confirm_number' => [
+            'last_step'  => 'One last step! Because safety is our mission number one, we need to verify your phone number. We will send you a code via a text message, and you\'ll then be able to sell your ticket!',
+            'code_check' => 'Type the code you received in the text message we sent you. You\'ll then be able to start selling tickets!',
+            'CTA'        => 'Verify my phone number',
+            'no_code_received' => 'You didn\'t receive a code? Click here',
+
+            'errors' => [
+                'phone_already_used' => 'Phone number already used by another user. Please contact an admin.',
+                'phone_already_verified' => 'Your phone number was already verified! Contact an admin to change it.',
+                'verify_max_retry' => 'You already tried to verify your number 3 times. Please contact an admin.',
+                'no_verification_found' => 'We didn\'t find any phone number to validate with this code...',
+
+            ],
+            'success' => [
+                'code_sent' => 'A text message with a validation code was sent to your number.',
+                'number_confirmed' => 'Success! Your phone number is confirmed. You can now sell tickets!'
+            ]
+        ]
     ],
     'buy'   => [
         'inputs' => [

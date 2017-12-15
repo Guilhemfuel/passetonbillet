@@ -106,7 +106,7 @@
                                        :placeholder="lang.sell.inputs.price"
                                        v-model="selectedTicket.price"
                                        name="price"
-                                       v-validate="'required|max_value:'+selectedTicket.bought_price">
+                                       v-validate="'required|numeric|max_value:'+selectedTicket.bought_price">
                             </div>
                             <span v-if="errors.has('price')" class="invalid-feedback">{{ errors.first('price') }}</span>
 
@@ -167,7 +167,7 @@
                                     this.tickets[0].user = this.user;
                                     this.tickets[0].id = 0;
                                     this.tickets[0].currency = this.tickets[0].bought_currency;
-                                    this.tickets[0].price = this.tickets[0].bought_price;
+                                    this.tickets[0].price = Math.floor(this.tickets[0].bought_price);
                                     this.selectedTicket = this.tickets[0];
                                 } else {
                                     this.state = 'select';
@@ -191,7 +191,7 @@
                 this.selectedTicket = this.tickets[id];
                 this.selectedTicket.user = this.user;
                 this.selectedTicket.currency = this.selectedTicket.bought_currency;
-                this.selectedTicket.price = this.selectedTicket.bought_price;
+                this.selectedTicket.price = Math.floor(this.selectedTicket.bought_price);
                 this.state = 'selling_details';
             },
             sellTicket(scope) {
