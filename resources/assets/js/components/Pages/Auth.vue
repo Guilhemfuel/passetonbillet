@@ -86,44 +86,44 @@
 
                     <input type="hidden" name="_token" :value="csrf">
 
-                    <div class="col-xs-12 form-group">
-                        <label for="first_name"
-                               class="control-label">{{lang.register.first_name}}</label>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 form-group">
+                            <label for="first_name"
+                                   class="control-label">{{lang.register.first_name}}</label>
 
-                        <input id="first_name" type="text"
-                               :class="{'form-control': true, 'is-invalid': errors.has('first_name') }"
-                               name="first_name" required v-validate="'required'"
-                               :placeholder="lang.register.first_name"  :value="old.first_name" v-model="form.first_name">
-                        <span v-if="errors.has('first_name')" class="invalid-feedback">{{ errors.first('first_name')
-                            }}</span>
+                            <input id="first_name" type="text"
+                                   :class="{'form-control': true, 'is-invalid': errors.has('first_name') }"
+                                   name="first_name" required v-validate="'required'"
+                                   :placeholder="lang.register.first_name"  :value="old.first_name" v-model="form.first_name">
+                            <span v-if="errors.has('first_name')" class="invalid-feedback">{{ errors.first('first_name')
+                                }}</span>
 
+                        </div>
+
+                        <div class="col-xs-12 col-sm-6 form-group">
+                            <label for="last_name"
+                                   class="control-label">{{lang.register.last_name}}</label>
+
+                            <input id="last_name" type="text"
+                                   :class="{'form-control': true, 'is-invalid': errors.has('last_name') }"
+                                   name="last_name" required v-validate="'required'"
+                                   :placeholder="lang.register.last_name"  :value="old.last_name" v-model="form.last_name">
+                            <span v-if="errors.has('last_name')" class="invalid-feedback">{{ errors.first('last_name')
+                                }}</span>
+
+                        </div>
                     </div>
 
                     <div class="col-xs-12 form-group">
-                        <label for="last_name"
-                               class="control-label">{{lang.register.last_name}}</label>
+                        <label for="gender" class="control-label">{{lang.register.gender.title}}</label>
 
-                        <input id="last_name" type="text"
-                               :class="{'form-control': true, 'is-invalid': errors.has('last_name') }"
-                               name="last_name" required v-validate="'required'"
-                               :placeholder="lang.register.last_name"  :value="old.last_name" v-model="form.last_name">
-                        <span v-if="errors.has('last_name')" class="invalid-feedback">{{ errors.first('last_name')
-                            }}</span>
-
-                    </div>
-
-                    <div class="col-xs-12 form-group">
-                        <label for="gender" class="control-label">{{lang.register.language}}</label>
-
-                        <select id="language" class="form-control"
-                                name="language" :placeholder="lang.register.language">
-                            <option :selected="!(old.hasOwnProperty('language')) || old.language=='FR'" value="FR">
-                                Français
-                            </option>
-                            <option :selected="old.language=='EN'" value="EN">
-                                English
-                            </option>
-                        </select>
+                        <div class="gender-input">
+                            <el-radio-group v-model="form.gender">
+                                <el-radio-button :label="1">{{lang.register.gender.male}}</el-radio-button>
+                                <el-radio-button :label="0">{{lang.register.gender.female}}</el-radio-button>
+                            </el-radio-group>
+                            <input name="gender" type="hidden" :value="form.gender"/>
+                        </div>
                     </div>
 
                     <div class="col-xs-12 form-group">
@@ -134,29 +134,9 @@
                     </div>
 
                     <div class="col-xs-12 form-group">
-                        <label for="gender" class="control-label">{{lang.register.gender.title}}</label>
-
-                        <select id="gender" class="form-control"
-                                name="gender" :placeholder="lang.register.gender.title">
-                            <option :selected="!(old.hasOwnProperty('gender')) || old.gender=='1'" value="1">
-                                {{lang.register.gender.male}}
-                            </option>
-                            <option :selected="old.gender=='0'" value="0">
-                                {{lang.register.gender.female}}
-                            </option>
-                        </select>
-                    </div>
-
-                    <div class="col-xs-12 form-group">
                         <label for="location" class="control-label">{{lang.register.location.title}}</label>
                         <input id="location" type="text" class="form-control" name="location"
                                :placeholder="lang.register.location.placeholder" :value="old.location" v-model="form.location">
-                    </div>
-
-                    <div class="col-xs-12 form-group">
-                        <label for="phone" class="control-label">{{lang.register.phone}}</label>
-                        <phone id="phone" type="text" name="phone" :required="true"
-                               :placeholder="lang.register.phone" :value="old.phone" :country-value="old.phone_country"></phone>
                     </div>
 
                     <div class="col-xs-12 form-group">
@@ -347,7 +327,7 @@
             return {
                 type: this.authType,
                 customErrors: this.backErrors,
-                form: {}
+                form: { gender: 1 }
             }
         },
         methods: {

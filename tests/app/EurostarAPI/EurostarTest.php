@@ -1029,6 +1029,46 @@ class EurostarTest extends TestCase
         $this->assertEquals( $this->bookingCode, $ticket->eurostar_code );
     }
 
+
+    /**
+     *
+     * Test that retrieved tickets have a proper 24-time format saved
+     *
+     */
+
+    public function testRetrieveTicketAllDay()
+    {
+        // Set only one ticket
+        $customTicketsList = &$this->bookingInfo[ $this->bookingCode . '-' . $this->familyName ]['LoadTravelOutput']['JourneyRetrievePnrOutputs'];
+        while ( count( $customTicketsList ) > 1 ) {
+            unset( $customTicketsList[count( $customTicketsList )-1] );
+        }
+        // Give the ticket a proper date and info
+        $tomorrow = new \DateTime( 'tomorrow' );
+        $tomorrow->setTime(14, 55);
+        $customTicketsList[0]['departureDate']['date'] = $tomorrow->format(Eurostar::DATE_FORMAT_JSON);
+        $customTicketsList[0]['departureDate']['time'] = $tomorrow->format(Eurostar::TIME_FORMAT_JSON);
+        $customTicketsList[0]['arrivalDate']['date'] = $tomorrow->format(Eurostar::DATE_FORMAT_JSON);
+        $customTicketsList[0]['FareAllocations'][0]['fareInformation']['classOfService'] = 'BJ';
+
+        // Mock client
+        $mock = new MockHandler( [
+            new Response( 200, [], \GuzzleHttp\json_encode( $this->bookingInfo ) ),
+        ] );
+        $handler = HandlerStack::create( $mock );
+        $client = new Client( [ 'handler' => $handler ] );
+
+        $eurostarApi = new Eurostar( $client );
+        $tickets = $eurostarApi->retrieveTicket( $this->familyName, $this->bookingCode );
+
+        /* @var Ticket $ticket */
+        $ticket = $tickets[0];
+        $this->assertEquals( 1, count( $tickets ) );
+        $this->assertEquals( 'BJ', $ticket->class );
+        $this->assertEquals( $this->bookingCode, $ticket->eurostar_code );
+        $this->assertEquals(  $tomorrow->format('H:i:s'), $ticket->train->departure_time);
+    }
+
     /**
      *
      * If on ticket is passed it is returned

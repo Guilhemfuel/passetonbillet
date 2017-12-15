@@ -51,13 +51,21 @@ Route::group( [ 'middleware' => 'auth', 'as'=>'public.' ], function () {
 
         // Sell ticket
         Route::get('sell','PageController@sellPage')->name('sell.page');
-        Route::post('sell','TicketController@sellTicket')->name('sell.post');
+        Route::post('sell','TicketController@sellTicket')->name('sell.post')->middleware('auth.verified.phone');
 
         // See my tickets
         Route::get('owned','PageController@myTicketsPage')->name('owned.page');
 
         // Buy a ticket
         Route::get('buy','PageController@buyPage')->name('buy.page');
+
+    } );
+
+    // Profile routes
+    Route::group( [ 'prefix' => 'profile', 'as' => 'profile.' ], function () {
+
+        Route::post('phone/add','UserController@addPhone')->name('phone.add');
+        Route::post('phone/verify','UserController@verifyPhone')->name('phone.verify');
 
     } );
 

@@ -2,8 +2,10 @@
     <div class="col-12">
 
         <div class="card">
+            <div class="card-header reverse">
+                <h4 class="card-title mb-0">{{lang.buy.title}}</h4>
+            </div>
             <div class="card-body">
-                <h4 class="card-title">{{lang.buy.title}}</h4>
                 <p class="card-text">
                     {{lang.buy.catchline}}
                 </p>
@@ -23,24 +25,32 @@
                                 v-on:change-date="changeDate($event)"
                                 v-on:change-time="changeTime($event)"
                                 :default-date="search.trip_date">
-                                    <!--:default-depart="search.departure_station"-->
-                                    <!--:default-arrival="search.arrival_station"-->
                         </datetimepicker>
                     </div>
                     <div class="col-12">
-                        <button class="btn btn-lastar-blue btn-block d-block d-md-none" @click.prevent="searchTickets">{{lang.buy.research}}</button>
-                        <button class="btn btn-lastar-blue d-none d-md-block mt-4 px-4 pull-right" @click.prevent="searchTickets">{{lang.buy.research}}</button>
-                        <p v-if="state=='result'" class="card-text mt-4"><span class="text-pink">{{tickets.length}}</span> billet(s) corresponde(nt) à votre recherche.</p>
+                        <button class="btn btn-lastar-blue btn-block d-block d-md-none" @click.prevent="searchTickets">
+                            <span v-if="state!='searching'">{{lang.buy.research}}</span>
+                            <loader v-else class-name="loader-btn"></loader>
+                        </button>
+                        <button class="btn btn-lastar-blue d-none d-md-block mt-4 px-4 mx-auto" @click.prevent="searchTickets">
+                            <span v-if="state!='searching'">{{lang.buy.research}}</span>
+                            <loader v-else class-name="loader-btn"></loader>
+                        </button>
                     </div>
                 </form>
             </div>
         </div>
+        <transition enter-class="pre-animated"
+                    enter-active-class="animated fadeIn"
+                    leave-active-class="animated fadeOut">
+            <p v-if="state=='result'" class="text-center mt-4 mb-0"><span class="text-pink">{{tickets.length}}</span> billet(s) corresponde(nt) à votre recherche.</p>
+        </transition>
 
         <transition enter-class="pre-animated"
                     enter-active-class="animated fadeInUpBig"
                     leave-active-class="animated fadeOut">
             <div class="row" v-if="tickets.length > 0">
-                <div class="col-12 col-sm-6 col-md-6 col-lg-4" v-for="ticket in tickets">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4" v-for="ticket in tickets">
                     <ticket :ticket="ticket" :lang="lang.component" class-name="mt-4"></ticket>
                 </div>
             </div>
@@ -112,7 +122,7 @@
                 this.search.trip_time = time;
             },
             searchTickets(){
-
+                if (this.state!='default' && this.state!='result') return null;
                 this.searchError = false;
 
                 this.state = 'searching';

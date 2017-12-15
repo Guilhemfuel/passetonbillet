@@ -26,6 +26,7 @@ class Eurostar
     private $client;
 
     const DATE_FORMAT_JSON = 'd/m/Y';
+    const TIME_FORMAT_JSON = 'H:i';
     const DATE_FORMAT_DB = 'Y-m-d';
 
     public function __construct(Client $customClient = null)

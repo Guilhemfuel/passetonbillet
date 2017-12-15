@@ -35,22 +35,31 @@ return [
             'duplicate' => 'Whoops ! Ce billet a déjà été mis en vente...',
             'search'    => 'Whoops ! Aucun billet trouvé... Essayez à nouveau, et si le problème persiste, contactez-nous.'
         ],
-        'success'       => 'Hooray! Votre billet est maintenant disponible à l\'achat ! Merci de votre confiance !'
+        'success'       => 'Hooray! Votre billet est maintenant disponible à l\'achat ! Merci de votre confiance !',
+
+        'confirm_number' => [
+            'last_step'  => 'Une dernière petite étape! Parce que la sécurité est notre mission numéro une, vous
+                                    devez renseigner votre numéro de téléphone avant de pouvoir vendre un billet. Nous
+                                    vous enverrons un sms de confirmation. Et vous pourrez vendre votre billet!',
+            'code_check' => ' Renseignez le code que nous vous avons envoyé par sms pour confirmer votre numéro de téléphone. Vous pourrez ensuite commencer à vendre des billets.',
+            'CTA'        => 'Vérifier mon numéro',
+            'no_code_received' => 'Vous n\'avez pas reçu de code? Cliquez-ici'
+        ]
     ],
-    'buy'   => [
-        'inputs' => [
-            'trippicker' => [
+    'buy'       => [
+        'inputs'    => [
+            'trippicker'     => [
                 'departure_station' => 'Gare de départ',
-                'arrival_satation' => 'Gare d\'arrivée',
+                'arrival_satation'  => 'Gare d\'arrivée',
             ],
             'datetimepicker' => [
                 'trip_date' => 'Date du voyage',
                 'trip_time' => '(Optionnel) À partir de'
             ]
         ],
-        'title' => 'Acheter un billet',
+        'title'     => 'Acheter un billet',
         'catchline' => 'Quel est votre trajet?',
-        'research' => 'Rechercher'
+        'research'  => 'Rechercher'
 
     ]
 

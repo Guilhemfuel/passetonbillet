@@ -59,6 +59,14 @@ $factory->state( App\User::class, 'not_registered', function ( \Faker\Generator 
     ];
 } );
 
+// User without phone
+$factory->state( App\User::class, 'phone_less', function ( \Faker\Generator $faker ) {
+    return [
+        'phone_country'                => null,
+        'phone'        => null,
+    ];
+} );
+
 $factory->define( App\Station::class, function ( Faker\Generator $faker ) {
     return [
         'eurostar_id'  => $faker->randomNumber( 8 ),

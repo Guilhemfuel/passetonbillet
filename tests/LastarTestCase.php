@@ -7,8 +7,12 @@ use App\User;
 abstract class LastarTestCase extends TestCase
 {
 
-    public function beAUser(){
-        $user = factory(User::class)->create();
+    public function beAUser($state = ''){
+        if ($state == '') {
+            $user = factory(User::class)->create();
+        } else {
+            $user = factory(User::class)->states($state)->create();
+        }
         $this->actingAs($user);
         return $this;
     }

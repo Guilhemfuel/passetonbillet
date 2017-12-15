@@ -22,6 +22,17 @@
             </div>
         </div>
         <div class="col-12 col-sm-6 right-panel">
+            <div class="lang">
+                @if (App::isLocale('fr'))
+                    <a  href="{{route('lang','en')}}">
+                        <span class="flag-icon flag-icon-fr"></span>
+                    </a>
+                @else
+                    <a href="{{route('lang','fr')}}">
+                        <span class="flag-icon flag-icon-gb"></span>
+                    </a>
+                @endif
+            </div>
             <div class="content">
             @if(count(session('flash_notification'))>0 || (isset($errors) && count($errors)>0))
                 <!-- Alert Container -->
