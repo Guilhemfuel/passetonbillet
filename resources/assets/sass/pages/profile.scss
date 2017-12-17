@@ -1,0 +1,19 @@
+
+#profile-home {
+  padding: 20px 0px;
+
+  .profile-picture {
+    width: 100%;
+    max-width: 150px;
+    display: block;
+    margin-bottom: 20px;
+  }
+
+  .card-stats {
+    margin-top: 20px;
+  }
+
+  [v-cloak] {
+    display: none;
+  }
+}

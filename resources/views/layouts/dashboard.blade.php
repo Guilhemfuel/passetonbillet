@@ -11,10 +11,10 @@
                 <img class="mx-auto d-sm-block d-none" src="{{asset('img/logo.png')}}" alt="logo lastar"/>
             </div>
             <div class="profile">
-                <a class="text-white" href="#">
+                <a class="text-white" href="{{route('public.profile.home')}}">
                     <img class="mx-auto rounded-circle" src="{{Auth::user()->picture}}" alt="profile_picture"/>
                     <p class="text-center mt-2 d-none d-sm-block">
-                        {{__('nav.my_profile ')}}
+                        {{Auth::user()->full_name}}
                     </p>
                 </a>
             </div>

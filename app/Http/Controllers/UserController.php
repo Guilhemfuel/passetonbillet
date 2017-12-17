@@ -10,6 +10,7 @@ use Nexmo\Laravel\Facade\Nexmo;
 class UserController extends Controller
 {
 
+
     /**
      * Send user a verification code via SMS
      *
@@ -77,6 +78,14 @@ class UserController extends Controller
 
     }
 
+    /**
+     * Post sms verification code to make sure of the number
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     *
+     */
     public function verifyPhone(Request $request){
 
         $request->validate( [

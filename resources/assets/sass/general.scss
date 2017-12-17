@@ -93,6 +93,20 @@ html, body {
   }
 }
 
+// Cards
+
+.card {
+  .card-header-lastar {
+    @extend .purple-gradient;
+    color: white;
+    text-transform: uppercase;
+  }
+
+  .card-body {
+    padding: 30px;
+  }
+}
+
 
 // All buttons in button rack are aligned and take all width
 .btn-rack {
