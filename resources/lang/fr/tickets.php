@@ -12,6 +12,8 @@ return [
         'buy'     => 'Acheter',
         'sell'    => 'Vendre ce billet',
         'sold_by' => 'Vendu par',
+        'edit'    => 'Modifier',
+        'edit_ticket' => 'Modifier le billet'
     ],
     'sell'      => [
         'title'         => 'Vendre un billet',
