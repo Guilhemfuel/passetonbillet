@@ -28,7 +28,6 @@ Vue.component('datepicker', require('./components/Inputs/Datepicker.vue'));
 Vue.component('trippicker', require('./components/Inputs/Trippicker.vue'));
 Vue.component('datetimepicker', require('./components/Inputs/Datetimepicker.vue'));
 
-
 // Shared
 Vue.component('sandwich', require('./components/Shared/Sandwich.vue'));
 Vue.component('loader', require('./components/Shared/Loader.vue'));
@@ -44,6 +43,10 @@ Vue.component('auth', require('./components/Pages/Auth.vue'));
 Vue.component('sell-ticket', require('./components/Pages/Tickets/Sell.vue'));
 Vue.component('buy-ticket', require('./components/Pages/Tickets/Buy.vue'));
 Vue.component('my-tickets', require('./components/Pages/Tickets/Mytickets.vue'));
+
+// Unique components (used in one place only)
+Vue.component('change-password', require('./components/Pages/Profile/ChangePassword.vue'));
+
 
 
 

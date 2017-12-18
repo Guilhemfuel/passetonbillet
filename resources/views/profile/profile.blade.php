@@ -6,12 +6,12 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header card-header-lastar reverse">
-                        <h4 class="card-title mb-0">Mon profile</h4>
+                        <h4 class="card-title mb-0">@lang('profile.title')</h4>
                     </div>
                     <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col-md-2 col-lg-4 col-sm-12">
-                                <img class="profile-picture mx-auto rounded-circle img-responsive"
+                                <img @click.prevent="modalPictureUploadOpen=true" class="profile-picture mx-auto rounded-circle img-responsive"
                                      src="{{Auth::user()->picture}}" alt="profile_picture"/>
                             </div>
                             <div class="col-md-5 col-lg-4 col-sm-12">
@@ -25,12 +25,12 @@
                                 </div>
                             </div>
                             <div class="col-md-5 col-lg-4 col-sm-12">
-                                <button class="btn btn-block btn-lastar-blue">Vérifier compte <i
+                                <button class="btn btn-block btn-lastar-blue">@lang('profile.account_verify') <i
                                             class="fa fa-check-circle text-warning" aria-hidden="true"></i>
                                 </button>
-                                <button class="btn btn-block btn-lastar-blue" @click.prevent="modalPasswordOpen=true">Changer le mot de passe
+                                <button class="btn btn-block btn-lastar-blue" @click.prevent="modalPasswordOpen=true">@lang('profile.change_password')
                                 </button>
-                                <button class="btn btn-block btn-lastar-blue" @click.prevent="modalInfoOpen=true">Modifier les informations
+                                <button class="btn btn-block btn-lastar-blue" @click.prevent="modalInfoOpen=true">@lang('profile.edit_profile')
                                 </button>
                             </div>
                         </div>
@@ -38,27 +38,41 @@
                 </div>
                 <div class="card card-stats">
                     <div class="card-header card-header-lastar reverse">
-                        <h4 class="card-title mb-0">Statistiques</h4>
+                        <h4 class="card-title mb-0">@lang('profile.stats_title')</h4>
                     </div>
                     <div class="card-body">
 
                     </div>
                 </div>
 
-                <modal v-cloak :is-open="modalInfoOpen" @close-modal="modalInfoOpen=false" title="Modifier le profil">
-                    <div class="modal-body">
-                        <p>Pour corriger ou mettre à jour une information de votre profil, contactez un membre de l'équipe Lastar. Pour cela, cliquez sur le chat en bas à droite de votre écran, ou sur le bouton ci-dessous.</p>
-                        <button onclick="$crisp.push(['do', 'chat:open'])" class="btn btn-block btn-lastar-blue">Contactez-nous!</button>
+                {{-- Modals --}}
+
+                <modal v-cloak :is-open="modalInfoOpen" @close-modal="modalInfoOpen=false" title="@lang('profile.modal.edit_profile.title')">
+                    <div class="modal-body text-justify">
+                        <p>@lang('profile.modal.edit_profile.content')</p>
+                        <button onclick="$crisp.push(['do', 'chat:open'])" class="btn btn-block btn-lastar-blue">@lang('profile.modal.edit_profile.cta')</button>
                     </div>
                 </modal>
 
-                <modal v-cloak :is-open="modalPasswordOpen" @close-modal="modalPasswordOpen=false" title="Modifier le mot de passe">
+                <modal v-cloak :is-open="modalPasswordOpen" @close-modal="modalPasswordOpen=false" title="@lang('profile.modal.change_password.title')">
                     <div class="modal-body">
-                        <form method="post">
-                            Ancien Mot de passe
-                            Nouveau mot de passe
-                            Confirmer nouveau mot de passe
-                            <button onclick="$crisp.push(['do', 'chat:open'])" class="btn btn-block btn-lastar-blue">Sauver le mot de passe</button>
+                        <form method="post" action="{{route('public.profile.password.change')}}">
+                            {{csrf_field()}}
+                            <change-password :lang="langChangePassword"></change-password>
+                            <button type="submit" class="btn btn-block btn-lastar-blue">@lang('profile.modal.change_password.cta')</button>
+                        </form>
+                    </div>
+                </modal>
+
+                <modal v-cloak :is-open="modalPictureUploadOpen" @close-modal="modalPictureUploadOpen=false" title="{{__('profile.modal.change_picture.title')}}">
+                    <div class="modal-body text-justify">
+                        <form method="post" action="{{route('public.profile.picture.upload')}}" enctype="multipart/form-data">
+                            {{csrf_field()}}
+                            <p>@lang('profile.modal.change_picture.text')</p>
+                            <div class="form-group">
+                                <input class="form-control" type="file" name="picture">
+                            </div>
+                            <button type="submit" class="btn btn-block btn-lastar-blue">@lang('profile.modal.change_picture.cta')</button>
                         </form>
                     </div>
                 </modal>
@@ -67,12 +81,17 @@
 
 
 @push('scripts')
+    <?php
+        $langPasswordModal = Lang::get( 'profile.modal.change_password.component' );
+    ?>
     <script type="text/javascript">
         var profile = new Vue({
             el: '#profile-home',
             data: {
                 modalInfoOpen: false,
-                modalPasswordOpen: false
+                modalPasswordOpen: false,
+                modalPictureUploadOpen: false,
+                langChangePassword: {!! json_encode($langPasswordModal) !!},
             }
         });
     </script>

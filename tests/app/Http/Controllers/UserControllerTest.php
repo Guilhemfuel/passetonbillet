@@ -18,6 +18,62 @@ use Tests\TestCase;
 class UserControllerTest extends LastarTestCase
 {
 
+    // Make sure that you can't change a password if you give a false password for the actual one
+    public function testChangePasswordWrongOldPassword()
+    {
+        $user = factory( User::class )->create();
+        $actualPassword = str_random(8);
+        $newPassword = str_random(8);
+
+        $user->password = \Hash::make($actualPassword);
+        $user->save();
+
+        $this->be($user);
+        $response = $this->postWithCsrf( route( 'public.profile.password.change' ), [
+            'old_password'  => str_random(8),
+            'password' => $newPassword,
+            'password_confirmation' => $newPassword
+        ] );
+
+        // Building flash message
+        $flashMesage = new Message();
+        $flashMesage->important = false;
+        $flashMesage->message = __( 'profile.modal.change_password.flash.wrong_old_password' );
+        $flashMesage->level = 'danger';
+
+        $response->assertRedirect()
+                 ->assertSessionHas( [ 'flash_notification' => collect( [ $flashMesage ] ) ] );
+
+    }
+
+    // Make sur you can change your password
+    public function testChangePassword()
+    {
+        $user = factory( User::class )->create();
+        $actualPassword = str_random(8);
+        $newPassword = str_random(8);
+
+        $user->password = \Hash::make($actualPassword);
+        $user->save();
+
+        $this->be($user);
+        $response = $this->postWithCsrf( route( 'public.profile.password.change' ), [
+            'old_password'  => $actualPassword,
+            'password' => $newPassword,
+            'password_confirmation' => $newPassword
+        ] );
+
+        // Building flash message
+        $flashMesage = new Message();
+        $flashMesage->important = false;
+        $flashMesage->message = __( 'profile.modal.change_password.flash.success' );
+        $flashMesage->level = 'success';
+
+        $response->assertRedirect()
+                 ->assertSessionHas( [ 'flash_notification' => collect( [ $flashMesage ] ) ] );
+
+    }
+
     // Adding a phone number that another user has should not work
     public function testAddPhoneWithUsedNumber()
     {
