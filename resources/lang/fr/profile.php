@@ -40,6 +40,18 @@ return [
             'cta' => 'Enregistrer la photo',
             'error' => 'Il y a une erreur lors de l\'upload de la photo. Si le problème persiste, contactez-nous!',
             'success' => 'Magnifique! Votre photo de profil a été mise à jour.'
+        ],
+        'verify_identity' => [
+            'title' => 'Vérification d\'identité',
+            'text' => 'Afin d’assurer une sécurité maximum pour nos utilisateurs, nous offrons la possibilité de vérifier la conformité de votre profil en nous envoyant un scan d’une de vos pièces d’identité.',
+            'list_title' => 'Pièces d\'identité acceptées',
+            'list_id' => [
+                'passport' => 'Passeport',
+                'id_card' => 'Carte d\'identité',
+                'driving_license' => 'Permis de conduire'
+            ],
+            'cta' => 'Vérifier mon identité',
+            'delay' => 'La verification se fait généralement sous 24 heures.'
         ]
     ]
 ];

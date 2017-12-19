@@ -25,7 +25,7 @@
                                 </div>
                             </div>
                             <div class="col-md-5 col-lg-4 col-sm-12">
-                                <button class="btn btn-block btn-lastar-blue">@lang('profile.account_verify') <i
+                                <button class="btn btn-block btn-lastar-blue" @click.prevent="modalVerifyIdentity=true">@lang('profile.account_verify') <i
                                             class="fa fa-check-circle text-warning" aria-hidden="true"></i>
                                 </button>
                                 <button class="btn btn-block btn-lastar-blue" @click.prevent="modalPasswordOpen=true">@lang('profile.change_password')
@@ -46,6 +46,28 @@
                 </div>
 
                 {{-- Modals --}}
+
+                <modal v-cloak :is-open="modalVerifyIdentity" @close-modal="modalVerifyIdentity=false" title="@lang('profile.modal.verify_identity.title')">
+                    <div class="modal-body text-justify">
+                        <p>@lang('profile.modal.verify_identity.text')</p>
+                        <p>@lang('profile.modal.verify_identity.list_title'):</p>
+                        <ul>
+                            @foreach( __('profile.modal.verify_identity.list_id') as $item)
+                                <li>{{$item}}</li>
+                            @endforeach
+                        </ul>
+                        <form method="post" action="{{route('public.profile.picture.upload')}}" enctype="multipart/form-data">
+                            {{csrf_field()}}
+                            <p>@lang('profile.modal.change_picture.text')</p>
+                            <div class="form-group">
+                                <input class="form-control" type="file" name="picture">
+                            </div>
+                            <button type="submit" class="btn btn-block btn-lastar-blue">@lang('profile.modal.change_picture.cta')</button>
+                        </form>
+                        <br>
+                        <p class="text-center">@lang('profile.modal.verify_identity.delay')</p>
+                    </div>
+                </modal>
 
                 <modal v-cloak :is-open="modalInfoOpen" @close-modal="modalInfoOpen=false" title="@lang('profile.modal.edit_profile.title')">
                     <div class="modal-body text-justify">
@@ -91,6 +113,7 @@
                 modalInfoOpen: false,
                 modalPasswordOpen: false,
                 modalPictureUploadOpen: false,
+                modalVerifyIdentity: false,
                 langChangePassword: {!! json_encode($langPasswordModal) !!},
             }
         });

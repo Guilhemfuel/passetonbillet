@@ -2,12 +2,15 @@
 
 namespace Tests\app\Http\Controllers;
 
+use App\Helper\ImageHelper;
 use App\Http\Resources\TicketRessource;
 use App\Models\Verification\PhoneVerification;
 use App\Ticket;
 use App\Station;
 use App\User;
 use Carbon\Carbon;
+use Faker\Factory;
+use Illuminate\Http\UploadedFile;
 use Laracasts\Flash\Flash;
 use Laracasts\Flash\Message;
 use Nexmo\Laravel\Facade\Nexmo;
@@ -46,7 +49,7 @@ class UserControllerTest extends LastarTestCase
 
     }
 
-    // Make sur you can change your password
+    // Make sure you can change your password
     public function testChangePassword()
     {
         $user = factory( User::class )->create();
@@ -72,6 +75,34 @@ class UserControllerTest extends LastarTestCase
         $response->assertRedirect()
                  ->assertSessionHas( [ 'flash_notification' => collect( [ $flashMesage ] ) ] );
 
+        $this->assertTrue(\Hash::check( $newPassword, $user->password));
+
+    }
+
+    public function testChangeProfilePicture()
+    {
+        $user = factory( User::class )->create();
+        $fakeUrl = 'http://fakeurl.com';
+
+        \App\Facades\ImageHelper::shouldReceive( 'fitImageAndUploadToS3' )->once()->andReturn( $fakeUrl );
+
+        $this->be($user);
+        $response = $this->postWithCsrf( route( 'public.profile.picture.upload' ), [
+            'picture'         => UploadedFile::fake()->image('avatar.jpg')
+        ] );
+
+
+        // Building flash message
+        $flashMesage = new Message();
+        $flashMesage->important = false;
+        $flashMesage->message = __( 'profile.modal.change_picture.success' );
+        $flashMesage->level = 'success';
+
+        $response->assertRedirect()
+                 ->assertSessionHas( [ 'flash_notification' => collect( [ $flashMesage ] ) ] );
+
+        $user = $user->fresh();
+        $this->assertEquals($user->picture,$fakeUrl);
     }
 
     // Adding a phone number that another user has should not work

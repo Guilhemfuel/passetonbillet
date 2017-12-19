@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Facades\AppHelper;
+use App\Facades\ImageHelper;
 use App\Models\Verification\PhoneVerification;
 use App\User;
 use Illuminate\Http\Request;
@@ -40,8 +41,6 @@ class UserController extends Controller
     }
 
     /**
-     * Store user's profile picture
-     *
      * @param Request $request
      */
     public function changeProfilePicture( Request $request )
@@ -51,18 +50,17 @@ class UserController extends Controller
         ]);
 
         $user = \Auth::user();
-        $user->picture = \ImageHelper::fitImageAndUploadToS3(200,$request->picture,'avatar');
+        $user->picture = ImageHelper::fitImageAndUploadToS3(200,$request->picture,'avatar');
+        echo $user->picture;
 
         if(!filter_var($user->picture, FILTER_VALIDATE_URL)) {
-            flash( __( 'profile.modal.change_picture.error' ) )->success();
-
+            flash( __( 'profile.modal.change_picture.error' ) )->error();
             return redirect()->back();
         }
 
         $user->save();
 
         flash( __( 'profile.modal.change_picture.success' ) )->success();
-
         return redirect()->back();
     }
 
