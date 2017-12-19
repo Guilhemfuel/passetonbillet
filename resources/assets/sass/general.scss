@@ -47,6 +47,7 @@ html, body {
 .btn-white {
   background-color: white;
   color: $color-purple;
+  cursor: pointer;
 
   &:hover {
     background-color: rgba(256,256,256,0.7);
@@ -56,6 +57,7 @@ html, body {
 .btn-lastar {
   @extend .purple-gradient;
   color: white;
+  cursor: pointer;
 
   &:hover {
     opacity: 0.8;
@@ -65,6 +67,7 @@ html, body {
 .btn-lastar-blue {
   @extend .blue-gradient;
   color: white;
+  cursor: pointer;
 
   &:hover {
     opacity: 0.8;
@@ -75,6 +78,8 @@ html, body {
   background-color: transparent;
   color: white;
   border: 1px solid white !important;
+  cursor: pointer;
+
   &:hover {
     background-color: white;
     color: $color-purple;
@@ -86,10 +91,26 @@ html, body {
   background-color: transparent;
   color: $color-purple;
   border: 1px solid $color-purple !important;
+  cursor: pointer;
+
   &:hover {
     @extend .purple-gradient;
     color: white;
     border: 0px;
+  }
+}
+
+// Cards
+
+.card {
+  .card-header-lastar {
+    @extend .purple-gradient;
+    color: white;
+    text-transform: uppercase;
+  }
+
+  .card-body {
+    padding: 30px;
   }
 }
 

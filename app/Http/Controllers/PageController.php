@@ -56,12 +56,14 @@ class PageController extends Controller
                                       ->with( 'tickets', TicketRessource::collection( \Auth::user()->tickets ) );
     }
 
-    public function test()
+    /**
+     *
+     * Display the profile page
+     *
+     */
+    public function profile(  )
     {
-
-        \Debugbar::info( Ticket::applyFilters(1,6,'2017-10-12','17:00:00') );
-
-        return view( 'home' );
+        return view( 'profile.profile' )->with( 'user', new UserRessource( \Auth::user() ) );
     }
 
 }

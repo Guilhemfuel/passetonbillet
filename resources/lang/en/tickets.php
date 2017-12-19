@@ -11,7 +11,10 @@ return [
     'component' => [
         'buy'     => 'Buy',
         'sell'    => 'Sell this ticket',
-        'sold_by' => 'Sold by'
+        'sold_by' => 'Sold by',
+        'edit'    => 'Edit',
+        'edit_ticket' => 'Edit ticket'
+
     ],
     'sell'      => [
         'title'         => 'Sell a ticket',

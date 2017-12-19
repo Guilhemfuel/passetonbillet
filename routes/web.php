@@ -64,8 +64,12 @@ Route::group( [ 'middleware' => 'auth', 'as'=>'public.' ], function () {
     // Profile routes
     Route::group( [ 'prefix' => 'profile', 'as' => 'profile.' ], function () {
 
+        Route::get('/','PageController@profile')->name('home');
+
         Route::post('phone/add','UserController@addPhone')->name('phone.add');
         Route::post('phone/verify','UserController@verifyPhone')->name('phone.verify');
+        Route::post('password/change','UserController@changePassword')->name('password.change');
+        Route::post('picture/upload','UserController@changeProfilePicture')->name('picture.upload');
 
     } );
 

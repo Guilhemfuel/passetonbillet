@@ -15,6 +15,8 @@ export default Object.assign({}, localeFr,
             'phone' : 'le numéro de téléphone',
             'password': "le mot de passe",
             'password_confirmation': 'la confirmation du mot de passe',
+            'old_password': 'le mot de passe actuel',
+
             'booking_code': 'la référence de réservation',
             'price': 'le prix'
         },

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Helper\ImageHelper;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Foundation\AliasLoader;
 use Laravel\Dusk\DuskServiceProvider;
@@ -37,6 +38,9 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind('appHelper', function($app) {
             return app()->make(AppHelper::class);
+        });
+        $this->app->bind('imageHelper', function($app) {
+            return app()->make(ImageHelper::class);
         });
     }
 }

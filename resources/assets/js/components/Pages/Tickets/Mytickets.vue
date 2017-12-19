@@ -12,7 +12,7 @@
 
         <div class="row">
             <div class="col-12 col-sm-6 col-md-6 col-lg-4" v-for="ticket in tickets">
-                <ticket :ticket="ticket" :lang="lang.component"></ticket>
+                <ticket :ticket="ticket" :lang="lang.component" :user="user"></ticket>
             </div>
         </div>
 
