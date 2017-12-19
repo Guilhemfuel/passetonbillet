@@ -21,6 +21,33 @@ use Tests\TestCase;
 class UserControllerTest extends LastarTestCase
 {
 
+    // Make sure user can upload id
+    public function testUploadId()
+    {
+        $user = factory( User::class )->create();
+        $fakeUrl = 'http://fakeurl.com';
+
+        \App\Facades\ImageHelper::shouldReceive( 'resizeImageAndUploadToS3' )->once()->andReturn( $fakeUrl );
+
+        $this->be($user);
+        $response = $this->postWithCsrf( route( 'public.profile.id.upload' ), [
+            'scan'         => UploadedFile::fake()->image('id.jpg')
+        ] );
+
+
+        // Building flash message
+        $flashMesage = new Message();
+        $flashMesage->important = false;
+        $flashMesage->message = __( 'profile.modal.verify_identity.success' );
+        $flashMesage->level = 'success';
+
+        $response->assertRedirect(route('public.profile.home'))
+                 ->assertSessionHas( [ 'flash_notification' => collect( [ $flashMesage ] ) ] );
+
+        $user = $user->fresh();
+        $this->assertEquals($user->idVerification->scan,$fakeUrl);
+    }
+
     // Make sure that you can't change a password if you give a false password for the actual one
     public function testChangePasswordWrongOldPassword()
     {

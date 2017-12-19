@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Verification\IdVerification;
 use App\User;
 use Illuminate\Hashing\BcryptHasher;
 use Illuminate\Http\Request;
@@ -55,6 +56,15 @@ class UserController extends BaseController
         $user->save();
         \Session::flash('success',$this->CRUDsingularEntityName.' updated!');
         return redirect()->route($this->CRUDmodelName.'.edit',$user->id);
+    }
+
+    /**
+     * Get the oldest id check request
+     */
+    public function getOldestIdCheck()
+    {
+        $idCheck = IdVerification::oldest()->first();
+        return redirect()->route('users.show',$idCheck->user_id);
     }
 
     // ---------- API --------------

@@ -33,3 +33,15 @@
         Trains
     </a>
 </li>
+
+<?php
+    $awaitingIdCheck = \App\Models\Verification\IdVerification::awaitingCount();
+?>
+
+
+<li  class="{{ $model == "trains" ? ' active' : '' }}">
+    <a href="{{route('id_check.oldest')}}">
+        <i class="fa fa-id-card-o"></i>
+        ID Check @if($awaitingIdCheck>0)<span class="badge badge-pill badge-light">{{$awaitingIdCheck}}</span>@endif
+    </a>
+</li>

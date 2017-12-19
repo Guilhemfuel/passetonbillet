@@ -25,9 +25,11 @@
                                 </div>
                             </div>
                             <div class="col-md-5 col-lg-4 col-sm-12">
+                                @if(!Auth::user()->id_verified && Auth::user()->idVerification == null)
                                 <button class="btn btn-block btn-lastar-blue" @click.prevent="modalVerifyIdentity=true">@lang('profile.account_verify') <i
                                             class="fa fa-check-circle text-warning" aria-hidden="true"></i>
                                 </button>
+                                @endif
                                 <button class="btn btn-block btn-lastar-blue" @click.prevent="modalPasswordOpen=true">@lang('profile.change_password')
                                 </button>
                                 <button class="btn btn-block btn-lastar-blue" @click.prevent="modalInfoOpen=true">@lang('profile.edit_profile')
@@ -46,6 +48,7 @@
                 </div>
 
                 {{-- Modals --}}
+                @if(!Auth::user()->id_verified && Auth::user()->idVerification == null)
 
                 <modal v-cloak :is-open="modalVerifyIdentity" @close-modal="modalVerifyIdentity=false" title="@lang('profile.modal.verify_identity.title')">
                     <div class="modal-body text-justify">
@@ -56,11 +59,11 @@
                                 <li>{{$item}}</li>
                             @endforeach
                         </ul>
-                        <form method="post" action="{{route('public.profile.picture.upload')}}" enctype="multipart/form-data">
+                        <form method="post" action="{{route('public.profile.id.upload')}}" enctype="multipart/form-data">
                             {{csrf_field()}}
                             <p>@lang('profile.modal.change_picture.text')</p>
                             <div class="form-group">
-                                <input class="form-control" type="file" name="picture">
+                                <input class="form-control" type="file" name="scan">
                             </div>
                             <button type="submit" class="btn btn-block btn-lastar-blue">@lang('profile.modal.change_picture.cta')</button>
                         </form>
@@ -68,6 +71,8 @@
                         <p class="text-center">@lang('profile.modal.verify_identity.delay')</p>
                     </div>
                 </modal>
+
+                @endif
 
                 <modal v-cloak :is-open="modalInfoOpen" @close-modal="modalInfoOpen=false" title="@lang('profile.modal.edit_profile.title')">
                     <div class="modal-body text-justify">
@@ -105,6 +110,7 @@
 @push('scripts')
     <?php
         $langPasswordModal = Lang::get( 'profile.modal.change_password.component' );
+
     ?>
     <script type="text/javascript">
         var profile = new Vue({
@@ -114,6 +120,7 @@
                 modalPasswordOpen: false,
                 modalPictureUploadOpen: false,
                 modalVerifyIdentity: false,
+                user: {!! json_encode($user) !!},
                 langChangePassword: {!! json_encode($langPasswordModal) !!},
             }
         });

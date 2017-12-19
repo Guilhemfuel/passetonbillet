@@ -12,9 +12,8 @@ class ImageHelper
     /**
      * Get the image as a string, fit it to the desired size and compress it in jpeg, upload it to S3.
      *
-     * @param $width
-     * @param $height
-     * @param $imageString
+     * @param $fitSize
+     * @param $image
      * @param $destinationPath : filename to use to save the image on S3
      *
      * @return string: path of the uploaded file
@@ -22,6 +21,46 @@ class ImageHelper
     public function fitImageAndUploadToS3( $fitSize, $image, $destinationPath )
     {
         $image = Image::make($image)->fit($fitSize);
+
+        return $this->savePictureToS3( $image->stream('jpg'), $destinationPath );
+    }
+
+    /**
+     * Get the image as a string, resize it and compress it in jpeg, upload it to S3.
+     *
+     * @param $width
+     * @param $height
+     * @param $aspectRatio
+     * @param $imageString
+     * @param $destinationPath : filename to use to save the image on S3
+     *
+     * @return string: path of the uploaded file
+     */
+    public function resizeImageAndUploadToS3( $width, $height, $aspectRatio, $image, $destinationPath )
+    {
+        $image = Image::make($image);
+
+        if ($width && $height) {
+            $image->resize($width, $height);
+        } elseif ($width && !$height) {
+            if($aspectRatio){
+                $image->resize($width, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
+            } else {
+                $image->resize($width, null);
+
+            }
+        } else {
+            if($aspectRatio){
+                $image->resize($height, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
+            } else {
+                $image->resize($height, null);
+
+            }
+        }
 
         return $this->savePictureToS3( $image->stream('jpg'), $destinationPath );
     }

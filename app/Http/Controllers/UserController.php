@@ -4,13 +4,46 @@ namespace App\Http\Controllers;
 
 use App\Facades\AppHelper;
 use App\Facades\ImageHelper;
+use App\Models\Verification\IdVerification;
 use App\Models\Verification\PhoneVerification;
+use App\Notifications\Verification\IdConfirmed;
 use App\User;
 use Illuminate\Http\Request;
 use Nexmo\Laravel\Facade\Nexmo;
 
 class UserController extends Controller
 {
+
+    /**
+     * Upload
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function uploadId( Request $request )
+    {
+        $request->validate( [
+            'scan' => 'required|image'
+        ] );
+
+        $idVerif = new IdVerification( [
+            'user_id' => \Auth::user()->id,
+            'scan'    => ImageHelper::resizeImageAndUploadToS3( 700, null, true, $request->scan, 'id_verification' )
+        ] );
+
+
+        if ( ! filter_var( $idVerif->scan, FILTER_VALIDATE_URL ) ) {
+            flash( __( 'profile.modal.verify_identity.error' ) )->error();
+
+            return redirect()->route( 'public.profile.home' );
+        }
+
+        $idVerif->save();
+
+        flash( __( 'profile.modal.verify_identity.success' ) )->success();
+        return redirect()->route( 'public.profile.home' );
+    }
 
     /**
      * Change a user pwd
@@ -25,19 +58,19 @@ class UserController extends Controller
         ] );
 
         // Make sure current account password with right one
-        if (!\Hash::check( $request->old_password, \Auth::user()->password)){
+        if ( ! \Hash::check( $request->old_password, \Auth::user()->password ) ) {
             flash( __( 'profile.modal.change_password.flash.wrong_old_password' ) )->error();
 
-            return redirect()->back();
+            return redirect()->route( 'public.profile.home' );
         }
 
-        $request->user()->fill([
-            'password' => \Hash::make($request->password)
-        ])->save();
+        $request->user()->fill( [
+            'password' => \Hash::make( $request->password )
+        ] )->save();
 
         flash( __( 'profile.modal.change_password.flash.success' ) )->success();
 
-        return redirect()->back();
+        return redirect()->route( 'public.profile.home' );
     }
 
     /**
@@ -45,23 +78,24 @@ class UserController extends Controller
      */
     public function changeProfilePicture( Request $request )
     {
-        $request->validate([
+        $request->validate( [
             'picture' => 'required|image'
-        ]);
+        ] );
 
         $user = \Auth::user();
-        $user->picture = ImageHelper::fitImageAndUploadToS3(200,$request->picture,'avatar');
-        echo $user->picture;
+        $user->picture = ImageHelper::fitImageAndUploadToS3( 200, $request->picture, 'avatar' );
 
-        if(!filter_var($user->picture, FILTER_VALIDATE_URL)) {
+        if ( ! filter_var( $user->picture, FILTER_VALIDATE_URL ) ) {
             flash( __( 'profile.modal.change_picture.error' ) )->error();
-            return redirect()->back();
+
+            return redirect()->route( 'public.profile.home' );
         }
 
         $user->save();
 
         flash( __( 'profile.modal.change_picture.success' ) )->success();
-        return redirect()->back();
+
+        return redirect()->route( 'public.profile.home' );
     }
 
     /**

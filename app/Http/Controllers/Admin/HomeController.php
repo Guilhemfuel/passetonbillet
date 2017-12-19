@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Verification\IdVerification;
 use App\Station;
 use App\Ticket;
 use App\Train;
@@ -21,7 +22,8 @@ class HomeController extends BaseController
             'ticketCount'  => Ticket::all()->count(),
             'trainCount'   => Train::all()->count(),
             'userCount'    => User::all()->count(),
-            'stationCount' => Station::all()->count()
+            'stationCount' => Station::all()->count(),
+            'idVerificationCount' => IdVerification::awaitingCount()
         ];
 
         return $this->lastarView( 'admin.dashboard', $data );

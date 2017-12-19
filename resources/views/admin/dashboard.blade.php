@@ -65,6 +65,20 @@
                 </div>
             </div>
         </div>
+        <div class="col-sm-3 col-xs-6 pt-4">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="title text-center">{{$idVerificationCount}}<br>
+                        <a href="{{route('id_check.oldest')}}" class="stat-link">
+                            <i class="fa fa-id-card-o fa-2x"></i>
+                        </a>
+                    </h4>
+                </div>
+                <div class="card-body text-center">
+                    Awaiting Check
+                </div>
+            </div>
+        </div>
 
     </div>
 

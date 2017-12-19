@@ -51,7 +51,9 @@ return [
                 'driving_license' => 'Permis de conduire'
             ],
             'cta' => 'Vérifier mon identité',
-            'delay' => 'La verification se fait généralement sous 24 heures.'
+            'delay' => 'La verification se fait généralement sous 24 heures.',
+            'error' => 'Il y a une erreur lors de l\'upload de votre piẻce d\'identité. Si le problème persiste, contactez-nous!',
+            'success' => 'Votre pièce d\'identité a bien été uploadé. Votre compte devrait être mis à jour sous 24h!'
         ]
     ]
 ];

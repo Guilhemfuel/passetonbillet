@@ -139,6 +139,10 @@ class User extends Authenticatable
         return $this->phoneVerification != null;
     }
 
+    public function getIdVerifiedAttribute(){
+        return $this->idVerification->accepted ?:false;
+    }
+
     /**
      * RELATIONSHIPS
      */
@@ -156,6 +160,11 @@ class User extends Authenticatable
     public function phoneVerification()
     {
         return $this->hasOne('App\Models\Verification\PhoneVerification');
+    }
+
+    public function idVerification()
+    {
+        return $this->hasOne('App\Models\Verification\IdVerification');
     }
 
 }

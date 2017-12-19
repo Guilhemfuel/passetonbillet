@@ -70,6 +70,8 @@ Route::group( [ 'middleware' => 'auth', 'as'=>'public.' ], function () {
         Route::post('phone/verify','UserController@verifyPhone')->name('phone.verify');
         Route::post('password/change','UserController@changePassword')->name('password.change');
         Route::post('picture/upload','UserController@changeProfilePicture')->name('picture.upload');
+        Route::post('identity/upload','UserController@uploadId')->name('id.upload');
+
 
     } );
 
@@ -79,12 +81,16 @@ Route::group( [ 'middleware' => 'auth', 'as'=>'public.' ], function () {
 Route::group( [ 'prefix' => 'lastadmin', 'middleware' => 'auth.admin' ], function () {
     Route::get( '/', 'Admin\HomeController@home' )->name( 'admin.home' );
 
-    Route::resource('users', 'Admin\UserController');
-    Route::resource('tickets', 'Admin\TicketController');
-    Route::resource('stations', 'Admin\StationController');
-    Route::resource('trains', 'Admin\TrainController');
+    Route::resource( 'users', 'Admin\UserController' );
+    Route::resource( 'tickets', 'Admin\TicketController' );
+    Route::resource( 'stations', 'Admin\StationController' );
+    Route::resource( 'trains', 'Admin\TrainController' );
 
-} );
+    Route::group( [ 'prefix' => 'id_check' ], function () {
+        Route::get( '/', 'Admin\UserController@getOldestIdCheck' )->name( 'id_check.oldest' );
+    } );
+
+});
 
 // API routes...
 Route::group( [ 'prefix' => 'api' ], function () {
