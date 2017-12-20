@@ -17,7 +17,8 @@
         "laravel/tinker": "~1.0",
         "league/flysystem-aws-s3-v3": "^1.0",
         "nexmo/laravel": "^1.0",
-        "nicolaslopezj/searchable": "1.*"
+        "nicolaslopezj/searchable": "1.*",
+        "ext-gd": "*"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.2",
