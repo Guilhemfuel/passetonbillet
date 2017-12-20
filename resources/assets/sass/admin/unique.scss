@@ -1,0 +1,28 @@
+#unique-admin {
+
+  [v-cloak] {
+    display: none;
+  }
+
+  // Id verification page
+  &.id-verification{
+
+    .user-info {
+      position: sticky;
+      top: 0px;
+      background: white;
+      padding: 20px;
+    }
+
+    .id-scan {
+      max-width: 100%;
+    }
+
+    .action-buttons {
+      position: sticky;
+      bottom: 0px;
+      padding: 20px;
+    }
+  }
+
+}

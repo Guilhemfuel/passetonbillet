@@ -27,6 +27,13 @@ class UserController extends Controller
             'scan' => 'required|image'
         ] );
 
+        // Make sure user isn't verified or does not have a pending verification
+        if($request->user->id_verified || $request->user->idVerification!=null){
+            flash( __( 'profile.modal.verify_identity.error' ) )->error();
+
+            return redirect()->route( 'public.profile.home' );
+        }
+
         $idVerif = new IdVerification( [
             'user_id' => \Auth::user()->id,
             'scan'    => ImageHelper::resizeImageAndUploadToS3( 700, null, true, $request->scan, 'id_verification' )

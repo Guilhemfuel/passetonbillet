@@ -12,9 +12,17 @@
             </div>
             <div class="profile">
                 <a class="text-white" href="{{route('public.profile.home')}}">
-                    <img class="mx-auto rounded-circle" src="{{Auth::user()->picture}}" alt="profile_picture"/>
+                    <div class="mx-auto text-center">
+                        <img class="mx-auto rounded-circle" src="{{Auth::user()->picture}}" alt="profile_picture"/>
+                    </div>
                     <p class="text-center mt-2 d-none d-sm-block">
                         {{Auth::user()->full_name}}
+                        @if(Auth::user()->id_verified)
+                            <span class="fa-stack fa-lg label-verified d-none d-sm-inline-block">
+                              <i class="fa fa-circle fa-stack-1x text-warning"></i>
+                              <i class="fa fa-check fa-inverse fa-stack-1x"></i>
+                            </span>
+                        @endif
                     </p>
                 </a>
             </div>
@@ -24,9 +32,9 @@
         </div>
         <div class="col-sm-8 col-md-9 col bg-light-gray">
 
-            @include('components.nav')
+        @include('components.nav')
 
-            @if(count(session('flash_notification'))>0 || (isset($errors) && count($errors)>0))
+        @if(count(session('flash_notification'))>0 || (isset($errors) && count($errors)>0))
             <!-- Alert Container -->
                 <div class="alert-sticky container mt-4" id="flash-container">
                     <flash v-for="message in messages"

@@ -88,6 +88,9 @@ Route::group( [ 'prefix' => 'lastadmin', 'middleware' => 'auth.admin' ], functio
 
     Route::group( [ 'prefix' => 'id_check' ], function () {
         Route::get( '/', 'Admin\UserController@getOldestIdCheck' )->name( 'id_check.oldest' );
+        Route::post( '/confirm', 'Admin\UserController@acceptIdVerification' )->name( 'id_check.accept' );
+        Route::post( '/deny', 'Admin\UserController@denyIdVerification' )->name( 'id_check.deny' );
+
     } );
 
 });

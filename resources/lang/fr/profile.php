@@ -10,8 +10,10 @@ return [
 
     'title' => 'Mon profil',
     'account_verify' => 'Vérifier compte',
+    'account_verified' => 'Identité confirmée',
     'change_password' => 'Changer le mot de passe',
     'edit_profile' => 'Modifier les informations',
+
 
     'stats_title' => 'Statistiques',
 
