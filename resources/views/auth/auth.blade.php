@@ -34,7 +34,7 @@
                 @endif
             </div>
             <div class="content">
-            @if(count(session('flash_notification'))>0 || (isset($errors) && count($errors)>0))
+            @if( (null !==(session('flash_notification')) && count(session('flash_notification'))>0) || (isset($errors) && count($errors)>0))
                 <!-- Alert Container -->
                     <div class="alert-sticky container" id="flash-container">
                         <flash v-for="message in messages"
@@ -90,7 +90,7 @@
             });
         </script>
     @endpush
-    @if(count(session('flash_notification'))>0 || (isset($errors) && count($errors)>0))
+    @if((null !==(session('flash_notification')) && count(session('flash_notification'))>0) || (isset($errors) && count($errors)>0))
         @push('scripts')
             <script type="application/javascript">
                 var flashContainer = new Vue({
