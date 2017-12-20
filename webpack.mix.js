@@ -1,5 +1,8 @@
 const { mix } = require('laravel-mix');
-var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
+if(process.env.NODE_ENV != 'production'){
+    var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+}
 
 /*
  |--------------------------------------------------------------------------
