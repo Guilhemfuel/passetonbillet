@@ -40,8 +40,8 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('passw
 //Route::get( '/callback/fb', 'Auth\RegisterController@fb_callback' )->name( 'fb.callback' );
 
 // Test ticket
-Route::get( '/testRetrieve', 'TicketController@test' )->name( 'test.billet' );
-Route::get( '/test', 'PageController@test' )->name( 'test.trains' );
+//Route::get( '/testRetrieve', 'TicketController@test' )->name( 'test.billet' );
+//Route::get( '/test', 'PageController@test' )->name( 'test.trains' );
 
 // Auth Routes
 Route::group( [ 'middleware' => 'auth', 'as'=>'public.' ], function () {

@@ -140,7 +140,7 @@ class User extends Authenticatable
     }
 
     public function getIdVerifiedAttribute(){
-        return $this->idVerification->accepted ?:false;
+        return ($this->idVerification!==null&&$this->idVerification->accepted) ?:false;
     }
 
     /**
