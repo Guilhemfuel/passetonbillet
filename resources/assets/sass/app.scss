@@ -16,17 +16,20 @@
 // Bootstrap
 @import "~bootstrap/scss/bootstrap.scss";
 
+// Animate Sass
+@import "~animatewithsass";
+
 // App and components
 @import "general";
 @import "components";
 
-// Animate Sass
-@import "~animatewithsass";
 
 // Page Custom CSS
 @import "pages/auth.scss";
 @import "pages/tickets.scss";
 @import "pages/profile";
+
+
 
 
 

@@ -79,6 +79,8 @@ class UserController extends BaseController
         return view( 'admin.unique.verification.id' )->with( [ 'user' => $idCheck->user ] );
     }
 
+    // ----------- ID Verification -----------
+
     /**
      * Accept an Id Verification
      */
@@ -89,6 +91,13 @@ class UserController extends BaseController
         ] );
 
         $idVerif = IdVerification::find( $request->verification_id );
+
+        if ($idVerif->accepted!=null){
+            \Session::flash( 'danger', 'ID confirmation already done!' );
+
+            return redirect()->route( 'id_check.oldest' );
+        }
+
         $idVerif->accepted = true;
         $idVerif->save();
 
@@ -98,8 +107,6 @@ class UserController extends BaseController
 
         return redirect()->route( 'id_check.oldest' );
     }
-
-    // ----------- ID Verification -----------
 
     /**
      * Deny an Id Verification
@@ -112,6 +119,13 @@ class UserController extends BaseController
         ] );
 
         $idVerif = IdVerification::find( $request->verification_id );
+
+        if ($idVerif->accepted!=null){
+            \Session::flash( 'danger', 'ID confirmation already done!' );
+
+            return redirect()->route( 'id_check.oldest' );
+        }
+
         $idVerif->accepted = false;
         $idVerif->comment = $request->comment;
         $idVerif->save();

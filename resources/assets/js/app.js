@@ -36,6 +36,8 @@ Vue.component('flash', require('./components/Shared/Flash.vue'));
 Vue.component('sidebar', require('./components/Shared/Sidebar.vue'));
 
 // Lastar
+Vue.component('notifications', require('./components/Lastar/Notifications.vue'));
+Vue.component('settings', require('./components/Lastar/Settings.vue'));
 Vue.component('ticket', require('./components/Lastar/Ticket.vue'));
 
 // Pages

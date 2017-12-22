@@ -3,17 +3,23 @@
     <div>
         <el-date-picker
                 v-if="isRequired"
-                v-model="dateValue"
+                v-model="inputValue"
+                @change="changeDate"
                 :placeholder="placeholderInput"
                 v-validate="'required'"
                 type="date"
+                format="dd/MM/yyyy"
+                value-format="yyyy-MM-dd"
             >
         </el-date-picker>
         <el-date-picker
                 v-else
-                v-model="dateValue"
+                v-model="inputValue"
+                @change="changeDate"
                 :placeholder="placeholderInput"
                 type="date"
+                format="dd/MM/yyyy"
+                value-format="yyyy-MM-dd"
         >
         </el-date-picker>
         <input type="hidden" :name="nameInput" :value="dateValue"/>
@@ -33,7 +39,14 @@
             return {
                 nameInput: this.name || 'date',
                 placeholderInput: this.placeholder,
-                dateValue: this.value ? new Date(this.value) : null,
+                dateValue: this.value ? this.value : null,
+                inputValue:  this.value
+            }
+        },
+        methods: {
+            changeDate: function () {
+                let date = new moment(this.inputValue);
+                this.dateValue = date.format('YYYY-MM-DD');
             }
         }
     }

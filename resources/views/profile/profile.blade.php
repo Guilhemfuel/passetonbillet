@@ -18,7 +18,9 @@
                                 <div class="align-middle">
                                     <h4 class="text-uppercase text-center">{{Auth::user()->full_name}}</h4>
                                     <h5 class="text-uppercase text-center">{{Auth::user()->birthdate}}</h5>
-                                    <h5 class="text-uppercase text-center">{{Auth::user()->location}}</h5>
+                                    @if(Auth::user()->location)
+                                        <h5 class="text-uppercase text-center">{{Auth::user()->location}}</h5>
+                                    @endif
                                     @if(Auth::user()->id_verified)
                                         <h5 class="text-center">@lang('profile.account_verified') <i class="fa fa-check-circle text-warning" aria-hidden="true"></i></h5>
                                     @endif

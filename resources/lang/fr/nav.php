@@ -18,6 +18,17 @@ return [
     'buy_ticket '    => 'Acheter un billet',
     'my_profile '    => 'Mon Profile',
 
+    'dropdowns' => [
+        'settings' => [
+            'title' => 'Paramètres',
+            'items' => [
+                'profile' => 'Modifier mon profil',
+                'admin' => 'Admin',
+                'logout' => 'Déconnexion'
+            ]
+        ]
+    ]
+
 
 
 ];

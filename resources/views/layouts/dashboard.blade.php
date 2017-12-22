@@ -56,11 +56,40 @@
 @endsection
 
 @push('scripts')
+
+    <?php
+
+    $user = \Auth::user();
+    $jsonUser = new \App\Http\Resources\UserRessource( $user );
+    $settingsLang = Lang::get( 'nav.dropdowns.settings' );
+    $settingsRoutes = [
+        'lang_fr' => route( 'lang', 'fr' ),
+        'lang_en' => route( 'lang', 'en' ),
+        'profile' => route( 'public.profile.home' ),
+        'logout'  => route( 'logout' )
+    ];
+    if ( $user->isAdmin() ) {
+        $settingsRoutes['admin'] = route( 'admin.home' );
+    }
+
+    $activeLang = App::getLocale();
+
+    ?>
+
     <script type="application/javascript">
         const sidebar = new Vue({
             el: '#side-bar',
             data: {
                 important: false
+            }
+        });
+        const navbar = new Vue({
+            el: '#nav-bar',
+            data: {
+                activeLang: "{{$activeLang}}",
+                lang: {!! json_encode($settingsLang) !!},
+                routes: {!! json_encode( $settingsRoutes ) !!},
+                user: {!! json_encode($jsonUser) !!}
             }
         });
     </script>

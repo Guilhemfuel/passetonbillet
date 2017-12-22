@@ -259,4 +259,16 @@ html, body {
     background-color: white;
     border-bottom: 1px solid $color-border;
   }
+
+  .navbar {
+    .nav-link {
+      color: $color-neon;
+      font-size: 20px;
+      padding: 5px 10px;
+
+      &:hover {
+        color: darken($color-neon, 15%);
+      }
+    }
+  }
 }

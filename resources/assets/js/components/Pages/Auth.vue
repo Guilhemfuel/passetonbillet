@@ -94,7 +94,7 @@
                             <input id="first_name" type="text"
                                    :class="{'form-control': true, 'is-invalid': errors.has('first_name') }"
                                    name="first_name" required v-validate="'required'"
-                                   :placeholder="lang.register.first_name"  :value="old.first_name" v-model="form.first_name">
+                                   :placeholder="lang.register.first_name"  v-model="form.first_name">
                             <span v-if="errors.has('first_name')" class="invalid-feedback">{{ errors.first('first_name')
                                 }}</span>
 
@@ -107,7 +107,7 @@
                             <input id="last_name" type="text"
                                    :class="{'form-control': true, 'is-invalid': errors.has('last_name') }"
                                    name="last_name" required v-validate="'required'"
-                                   :placeholder="lang.register.last_name"  :value="old.last_name" v-model="form.last_name">
+                                   :placeholder="lang.register.last_name" v-model="form.last_name">
                             <span v-if="errors.has('last_name')" class="invalid-feedback">{{ errors.first('last_name')
                                 }}</span>
 
@@ -130,13 +130,13 @@
                         <label for="birthdate" class="control-label">{{lang.register.birthdate}}</label>
 
                         <datepicker id="birthdate" type="date"
-                                    name="birthdate" :placeholder="lang.register.birthdate" :value="old.birthdate" v-model="form.birthdate"></datepicker>
+                                    name="birthdate" :placeholder="lang.register.birthdate" v-model="form.birthdate"></datepicker>
                     </div>
 
                     <div class="col-xs-12 form-group">
                         <label for="location" class="control-label">{{lang.register.location.title}}</label>
                         <input id="location" type="text" class="form-control" name="location"
-                               :placeholder="lang.register.location.placeholder" :value="old.location" v-model="form.location">
+                               :placeholder="lang.register.location.placeholder" v-model="form.location">
                     </div>
 
                     <div class="col-xs-12 form-group">
@@ -327,7 +327,11 @@
             return {
                 type: this.authType,
                 customErrors: this.backErrors,
-                form: { gender: 1 }
+                form: { gender: 1,
+                    first_name: this.old ? (this.old.first_name ? this.old.first_name : null) : null,
+                    last_name: this.old ? (this.old.last_name ? this.old.last_name : null) : null,
+                    location: this.old ? (this.old.location ? this.old.location : null) : null,
+                }
             }
         },
         methods: {

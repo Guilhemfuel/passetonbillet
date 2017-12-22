@@ -11,7 +11,7 @@ class IdDenied extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    private $comment;
+    public $comment;
 
     /**
      * Create a new notification instance.

@@ -24,7 +24,8 @@ class UserRessource extends Resource
             'picture'    => $this->picture,
             'email'      => $this->email,
             'language'   => $this->language,
-            'verified'   => $this->id_verified
+            'verified'   => $this->id_verified,
+            'admin'      => $this->isAdmin()
         ];
     }
 }

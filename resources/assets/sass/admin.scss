@@ -23,9 +23,13 @@
 // Bootstrap
 @import "~bootstrap/scss/bootstrap.scss";
 
+// Animate Sass
+@import "~animatewithsass";
+
 // App and components
 @import "general";
 @import "components";
+
 
 
 

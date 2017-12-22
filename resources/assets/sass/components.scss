@@ -1,6 +1,98 @@
 // This sass file is used for all vue or js componens not directly related to Lastar.
 // Ie: the folders Shared and Inputs
 
+
+////////////////
+// Settings
+///////////////
+
+$animation-duration: 0.3s;
+
+.nav-settings, .nav-notifications {
+  position: relative;
+
+  &[v-cloak] {
+    display: none;
+  }
+
+  .dropdown {
+    position: absolute;
+    display: block;
+    float: none;
+    top: 44px;
+    right: -20px;
+    background-color: white;
+    border-radius: 0px 0px 5px 5px;
+    box-shadow: 0px 3px 5px rgba(0,0,0,0.2);
+    font-size: 16px;
+  }
+
+  .dropdown-header {
+    background: $color-neon;
+    color: $color-white;
+    text-align: center;
+    font-size: 16px;
+  }
+
+  .dropdown-body {
+
+    .item {
+      padding: 10px;
+      text-align: center;
+    }
+
+    .item:not(:first-child) {
+      border-top: 1px solid $color-neon;
+    }
+
+  }
+
+  .fadeInDown {
+    @include fadeInDown(
+            $duration: $animation-duration,
+            $function: 'ease'
+    );
+  }
+
+  .fadeOutUp {
+    @include fadeOutUp(
+            $duration: $animation-duration,
+            $function: 'ease'
+    );
+  }
+}
+
+.nav-notifications {
+  .dropdown {
+    width: 250px;
+  }
+}
+
+.nav-settings {
+
+  .dropdown {
+    width: 180px;
+
+    .dropdown-body {
+
+      .item-option {
+        display: flex;
+        justify-content: space-evenly;
+
+        .option {
+          padding: 5px 10px;
+          border-radius: 5px;
+          border: 1px solid $color-neon;
+
+          &.active, &:hover{
+            background-color: $color-neon;
+          }
+        }
+      }
+    }
+  }
+}
+
 ///////////////////
 ///// Shared
 //////////////////

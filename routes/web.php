@@ -72,7 +72,6 @@ Route::group( [ 'middleware' => 'auth', 'as'=>'public.' ], function () {
         Route::post('picture/upload','UserController@changeProfilePicture')->name('picture.upload');
         Route::post('identity/upload','UserController@uploadId')->name('id.upload');
 
-
     } );
 
 } );
