@@ -8,6 +8,8 @@ return [
     |--------------------------------------------------------------------------
     */
 
+    'no_new' => 'Aucune nouvelle notification',
+
     'verification' => [
         'id' => [
             'success' => 'Félicitations! Votre compte est maintenant confirmé!',

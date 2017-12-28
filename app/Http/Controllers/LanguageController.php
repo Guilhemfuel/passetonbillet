@@ -11,6 +11,12 @@ class LanguageController extends Controller
     {
         if (array_key_exists($lang, config('app.locales'))) {
             Session::put('applocale', $lang);
+
+            $user = \Auth::user();
+            if($user) {
+                $user->language = strtoupper($lang);
+                $user->save();
+            }
         }
         return back();
     }

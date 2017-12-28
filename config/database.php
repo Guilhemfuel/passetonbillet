@@ -58,8 +58,8 @@ return [
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '5432'),
             'database' => env('DB_DATABASE', 'lastar'),
-            'username' => env('DB_USERNAME', env('DB_USERNAME', '')),
-            'password' => env('DB_PASSWORD', env('DB_USERNAME', '')),
+            'username' => env('DB_USERNAME', ''),
+            'password' => env('DB_PASSWORD', ''),
             'charset' => 'utf8',
             'prefix' => '',
             'schema' => 'public',
@@ -68,7 +68,7 @@ return [
 
         'testing' => [
             'driver' => 'pgsql',
-            'host' => env('DB_HOST_TEST', 'localhost'),
+            'host' => env('DB_HOST_TEST', '127.0.0.1'),
             'port' => env('DB_PORT_TEST', '5432'),
             'database' => env('DB_DATABASE_TEST', 'lastar_test'),
             'username' => env('DB_USERNAME_TEST', env('DB_USERNAME', '')),

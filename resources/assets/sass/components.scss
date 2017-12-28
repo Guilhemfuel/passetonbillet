@@ -38,11 +38,10 @@ $animation-duration: 0.3s;
 
     .item {
       padding: 10px;
-      text-align: center;
     }
 
     .item:not(:first-child) {
-      border-top: 1px solid $color-neon;
+      border-top: 1px solid transparentize($color-neon,0.5);
     }
 
   }
@@ -65,6 +64,37 @@ $animation-duration: 0.3s;
 .nav-notifications {
   .dropdown {
     width: 250px;
+    max-height: 280px;
+    overflow: scroll;
+
+    .item {
+      width: 100%;
+      display: flex;
+      align-items: center;
+
+      &.item-notification {
+        .icon {
+          margin-right: 12px;
+          margin-left: 5px;
+          color: $color-neon;
+        }
+
+        p {
+          color: black;
+          font-size: 14px;
+          margin-bottom: 0px;
+          text-align: justify;
+        }
+      }
+    }
+  }
+
+  .badge {
+    font-size: 12px;
+    color: white;
+    position: absolute;
+    left: 12px;
+    top: -3px;
   }
 }
 
@@ -74,6 +104,10 @@ $animation-duration: 0.3s;
     width: 180px;
 
     .dropdown-body {
+
+      .item {
+        text-align: center;
+      }
 
       .item-option {
         display: flex;
@@ -210,6 +244,11 @@ $animation-duration: 0.3s;
   height: 40px;
 
   position: relative;
+
+  &.spinner-sm {
+    width: 20px;
+    height: 20px;
+  }
 
   &.loader-btn {
     width: 20px;

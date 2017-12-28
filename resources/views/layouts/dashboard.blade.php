@@ -1,5 +1,31 @@
 @extends('layouts.app')
 
+<?php
+
+$user = \Auth::user();
+$jsonUser = new \App\Http\Resources\UserRessource( $user );
+$settingsLang = Lang::get( 'nav.dropdowns.settings' );
+$settingsRoutes = [
+    'lang_fr' => route( 'lang', 'fr' ),
+    'lang_en' => route( 'lang', 'en' ),
+    'profile' => route( 'public.profile.home' ),
+    'logout'  => route( 'logout' )
+];
+if ( $user->isAdmin() ) {
+    $settingsRoutes['admin'] = route( 'admin.home' );
+}
+
+$notificationsRoutes = [
+    'api' => [
+        'notifications' => route('api.notifications')
+    ]
+];
+$notificationsLang = Lang::get('notifications');
+
+$activeLang = App::getLocale();
+
+?>
+
 @section('content')
 
     {{--@component('components.nav')--}}
@@ -13,11 +39,11 @@
             <div class="profile">
                 <a class="text-white" href="{{route('public.profile.home')}}">
                     <div class="mx-auto text-center">
-                        <img class="mx-auto rounded-circle" src="{{Auth::user()->picture}}" alt="profile_picture"/>
+                        <img class="mx-auto rounded-circle" src="{{$user->picture}}" alt="profile_picture"/>
                     </div>
                     <p class="text-center mt-2 d-none d-sm-block">
-                        {{Auth::user()->full_name}}
-                        @if(Auth::user()->id_verified)
+                        {{$user->full_name}}
+                        @if($user->id_verified)
                             <span class="fa-stack fa-lg label-verified d-none d-sm-inline-block">
                               <i class="fa fa-circle fa-stack-1x text-warning"></i>
                               <i class="fa fa-check fa-inverse fa-stack-1x"></i>
@@ -57,25 +83,6 @@
 
 @push('scripts')
 
-    <?php
-
-    $user = \Auth::user();
-    $jsonUser = new \App\Http\Resources\UserRessource( $user );
-    $settingsLang = Lang::get( 'nav.dropdowns.settings' );
-    $settingsRoutes = [
-        'lang_fr' => route( 'lang', 'fr' ),
-        'lang_en' => route( 'lang', 'en' ),
-        'profile' => route( 'public.profile.home' ),
-        'logout'  => route( 'logout' )
-    ];
-    if ( $user->isAdmin() ) {
-        $settingsRoutes['admin'] = route( 'admin.home' );
-    }
-
-    $activeLang = App::getLocale();
-
-    ?>
-
     <script type="application/javascript">
         const sidebar = new Vue({
             el: '#side-bar',
@@ -87,9 +94,11 @@
             el: '#nav-bar',
             data: {
                 activeLang: "{{$activeLang}}",
-                lang: {!! json_encode($settingsLang) !!},
-                routes: {!! json_encode( $settingsRoutes ) !!},
-                user: {!! json_encode($jsonUser) !!}
+                settingsLang: {!! json_encode($settingsLang) !!},
+                notificationsLang: {!! json_encode($notificationsLang) !!},
+                settingsRoutes: {!! json_encode( $settingsRoutes ) !!},
+                notificationsRoutes: {!! json_encode($notificationsRoutes) !!},
+                user: {!! json_encode($jsonUser) !!},
             }
         });
     </script>

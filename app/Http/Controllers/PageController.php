@@ -7,6 +7,7 @@ use App\Facades\Eurostar;
 use App\Http\Resources\StationRessource;
 use App\Http\Resources\TicketRessource;
 use App\Http\Resources\UserRessource;
+use App\Notifications\Verification\IdConfirmed;
 use App\Station;
 use App\Ticket;
 use Illuminate\Http\Request;

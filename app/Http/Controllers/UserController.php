@@ -229,4 +229,29 @@ class UserController extends Controller
 
     }
 
+    //////////////////////////
+    /// API
+    /// /////////////////
+
+    /**
+     * Return unread notifications and mark them as read
+     *
+     * @param Request $request
+     *
+     * @return string
+     */
+    public function getNotifications( Request $request )
+    {
+        $unread_notifications = \Auth::user()->unreadNotifications;
+        $jsonNotificationContent = [];
+
+        foreach ($unread_notifications as $notification) {
+            array_push( $jsonNotificationContent , $notification->data );
+            $unread_notifications->markAsRead();
+        }
+
+        return \GuzzleHttp\json_encode($jsonNotificationContent);
+
+    }
+
 }

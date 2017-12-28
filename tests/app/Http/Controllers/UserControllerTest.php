@@ -5,6 +5,8 @@ namespace Tests\app\Http\Controllers;
 use App\Helper\ImageHelper;
 use App\Http\Resources\TicketRessource;
 use App\Models\Verification\PhoneVerification;
+use App\Notifications\Verification\IdConfirmed;
+use App\Notifications\Verification\IdDenied;
 use App\Ticket;
 use App\Station;
 use App\User;
@@ -263,6 +265,54 @@ class UserControllerTest extends LastarTestCase
             'phone' => $userData->phone,
             'phone_country' => $userData->phone_country,
         ]);
+    }
+
+    /**
+     * Assert that a notif received is equal to a notif retrieved in db
+     *
+     * @param $received
+     * @param $dbRetrieved
+     */
+    private function assertReceivedNotificationEqual($received,$dbRetrieved){
+        $this->assertEquals( (array) $received,(array) $dbRetrieved->data);
+    }
+
+    /**
+     * Provde an array of all notifications to be tested
+     * @return array
+     */
+    public function notificationsProvider(){
+        return [
+            [IdConfirmed::class,null],
+            [IdDenied::class,str_random(30)]
+        ];
+    }
+
+    /**
+     * @dataProvider notificationsProvider
+     */
+    public function testGetNotifications($notificationClass,$argument1){
+        \Mail::fake();
+
+        $user = factory( User::class )->create();
+        if ($argument1){
+            $user->notify(new $notificationClass($argument1));
+        } else {
+            $user->notify(new $notificationClass());
+        }
+        
+        $this->assertEquals(1,count($user->unreadNotifications));
+
+        $this->be($user);
+
+        $unreadNotifications = $user->unreadNotifications;
+        $response = $this->get(route('api.notifications'));
+
+        $notificationsReceived = \GuzzleHttp\json_decode( $response->getContent() );
+
+        $user = $user->fresh();
+        $this->assertEquals(0,count($user->unreadNotifications));
+        $this->assertReceivedNotificationEqual( $notificationsReceived[0],$unreadNotifications->first());
     }
 
 }

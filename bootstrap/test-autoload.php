@@ -23,13 +23,13 @@ $config = require( __DIR__ . "/../config/database.php" );
 extract( $config['connections'][ $config['default'] ] );
 
 // Override config default with actual db credentials (phpunit.xml value)
-$username = env( 'DB_USERNAME_TEST' );
-$password = env( 'DB_PASSWORD_TEST' );
-$database = env( 'DB_NAME' );
+$username = env( 'DB_USERNAME_TEST', '' );
+$password = env( 'DB_PASSWORD_TEST', '' );
+$database = env( 'DB_DATABASE_TEST','lastar_test' );
 
 // Drop and recreate database
 try {
-    echo "Dropping and recreating database...\n";
+    echo "Dropping and recreating database {$database}...\n";
     // Drop and recreate database
     $connection = new PDO( "{$driver}:host={$host};dbname={$database}", $username, $password );
     $connection->query( "DROP DATABASE IF EXISTS " . $database );
