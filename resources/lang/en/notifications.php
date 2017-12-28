@@ -10,8 +10,8 @@ return [
 
     'verification' => [
         'id' => [
-            'success' => 'Félicitations! Votre compte est maintenant vérifié!',
-            'failure' => 'Oups... Nous n\'avons pas pu vérifer votre identité. Consultez vos emails pour voir plus d\'informations et réesayez. Contactez nous si vous avez des questions.'
+            'success' => 'Congratulation! Your account is now verified!',
+            'failure' => 'Oops... We couldn\'t verified your identity. Please check your emails for additional information and try again! Contact us if you need some help.'
         ]
     ]
 

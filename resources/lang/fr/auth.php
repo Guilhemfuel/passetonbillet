@@ -38,7 +38,7 @@ return [
         'success_email_redirect' => 'Bienvenue parmi nous! Une dernière petite étape: nous vous avons envoyé un email de confirmation d\'inscription. Cliquez sur le lien contenu dans ce message pour activer votre compte. 
                                      <br>Pensez à vérifier dans vos spams!',
         'token_no_user'          => 'Whoops! Nous n\'avons trouvé aucun utilisateur correspondant à ce lien... Si le problème persiste, contactez-nous.',
-        'account_confirmed'      => 'Félicitations, votre compte est maintenant activé. Vous pouvez à présent vous connecter en cliquant <a href="' . route( 'login.page' ) . '">ici</a> !',
+        'account_confirmed'      => 'Félicitations! Votre compte est maintenant activé. Vous pouvez à présent vous connecter en cliquant <a href="' . route( 'login.page' ) . '">ici</a> !',
 
     ],
     'auth'     => [

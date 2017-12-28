@@ -18,7 +18,7 @@ return [
     ],
     'sell'      => [
         'title'         => 'Sell a ticket',
-        'description'   => 'Selling a ticket is super simple and super fast. All we need is your name and your eurostar booking code. We will search for tickets corresponding with this reservation, and we will only save the one you will select.',
+        'description'   => 'Selling a ticket is very easy and super quick. All we need to do is to enter your name and your Eurostar booking code. All the tickets corresponding to your specific booking will appear and you only have to select those that you want to sell.',
         'inputs'        => [
             'last_name'    => 'Last name of any passenger',
             'booking_code' => 'Booking code, eg: QNUSHT',
@@ -28,34 +28,34 @@ return [
         'search'        => 'Search for ticket(s)',
         'searching'     => 'Searching for your tickets...',
         'your_tickets'  => 'Your tickets',
-        'select'        => 'Hooray ! We find your tickets. Select the ticket you want to sell.',
+        'select'        => 'Hooray ! We found your tickets. Select the ticket you want to sell.',
         'details_title' => 'Ticket details',
-        'details'       => 'We\'re almost done! Just put your price price, and if needed add notes. Note that selling price can\'t exceed original price. You can preview your changes directly on the ticket.',
+        'details'       => 'We\'re almost done! Just enter your selling price, and if needed add notes. Note that selling price can\'t exceed original price. You can preview your changes directly on the ticket.',
         'submit'        => 'Sell ticket',
         'preview'       => 'Ticket Preview',
         'errors'        => [
-            'max_value' => 'Whoops! Selling price can\'t exceed original price.',
+            'max_value' => 'Whoops! Selling price can\'t exceed original price ! Try again with a lower price.',
             'duplicate' => 'Whoops! This ticket is already on sale...',
             'search'    => 'Whoops ! No tickets were found... Try again and if the issue persists please contact us.'
         ],
         'success'       => 'Hooray! Your ticket is now on the market ! Thank you for your trust !',
 
         'confirm_number' => [
-            'last_step'  => 'One last step! Because safety is our mission number one, we need to verify your phone number. We will send you a code via a text message, and you\'ll then be able to sell your ticket!',
+            'last_step'  => 'One last step! Because safety is our number one mission, we need to verify your phone number. We will send you a verificcode via a text message, and you\'ll then be able to sell your ticket!',
             'code_check' => 'Type the code you received in the text message we sent you. You\'ll then be able to start selling tickets!',
             'CTA'        => 'Verify my phone number',
-            'no_code_received' => 'You didn\'t receive a code? Click here',
+            'no_code_received' => 'You didn\'t receive a verification code? Click here',
 
             'errors' => [
-                'phone_already_used' => 'Phone number already used by another user. Please contact an admin.',
-                'phone_already_verified' => 'Your phone number was already verified! Contact an admin to change it.',
-                'verify_max_retry' => 'You already tried to verify your number 3 times. Please contact an admin.',
-                'no_verification_found' => 'We didn\'t find any phone number to validate with this code...',
+                'phone_already_used' => 'Phone number already used by another user. Please contact us.',
+                'phone_already_verified' => 'Your phone number was already verified! Please contact us to change it.',
+                'verify_max_retry' => 'You already tried to verify your number 3 times. Please contact us to solve the problem.',
+                'no_verification_found' => 'We didn\'t find any phone number to validate with this code... Please contact us to solve the problem.',
 
             ],
             'success' => [
                 'code_sent' => 'A text message with a validation code was sent to your number.',
-                'number_confirmed' => 'Success! Your phone number is confirmed. You can now sell tickets!'
+                'number_confirmed' => 'Success! Your phone number is confirmed. You can now sell your tickets!'
             ]
         ]
     ],

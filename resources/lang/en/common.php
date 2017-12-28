@@ -7,6 +7,17 @@ return [
         'buy' => 'buy',
         'sell'=> 'sell'
     ],
-    'error' => 'Whoops! Something went wrong... Please try again !'
+    'ticket' => [
+        'flexibility' => [
+            '1' => 'Non Flexible',
+            '2' => 'Semi Flexible',
+            '3' => 'Flexible',
+            '7' => 'Off-peak',
+            '8' => 'Professional',
+            '9' => 'Anytime'
+        ]
+    ],
+    'error' => 'Whoops! Something went wrong... Please try again! Contact us if the '
+
 
 ];

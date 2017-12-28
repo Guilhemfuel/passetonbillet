@@ -17,6 +17,6 @@ return [
             '9' => 'À tout moment'
         ]
     ],
-    'error' => 'Whoops! Une petite erreur est apparue... Merci d\'essayer à nouveau !',
+    'error' => 'Whoops! Une petite erreur est apparue... Merci de reesayer! Contactez-nous si le problème persiste.',
 
 ];

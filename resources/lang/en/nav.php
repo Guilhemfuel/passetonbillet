@@ -18,4 +18,15 @@ return [
     'buy_ticket '    => 'Buy a ticket',
     'my_profile '    => 'My Profile',
 
+      'dropdowns' => [
+        'settings' => [
+            'title' => 'Settings',
+            'items' => [
+                'profile' => 'Edit my profil',
+                'admin' => 'Admin',
+                'logout' => 'Logout'
+            ]
+        ]
+    ]
+
 ];
