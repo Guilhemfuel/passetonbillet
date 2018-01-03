@@ -17,7 +17,7 @@ $color-orange:          #F5A623;
 $color-dark-blue:       #1F77D0;
 $color-facebook:        #3B5998;
 
-$color-gray:            #5e5e5e;
+$color-gray:            #444B51;
 $color-light-gray:      #F7F7F8;
 $color-border:          rgba(0, 0, 0, 0.15);
 $color-black:           #000000;
@@ -35,7 +35,7 @@ $theme-colors: (
         dark: $color-gray,
         facebook: $color-facebook,
         light-gray: $color-light-gray,
-        neo: $color-neon
+        neon: $color-neon
 );
 
 // Alerts

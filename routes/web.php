@@ -41,7 +41,6 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('passw
 
 // Test ticket
 //Route::get( '/testRetrieve', 'TicketController@test' )->name( 'test.billet' );
-//Route::get( '/test', 'PageController@test' )->name( 'test.trains' );
 
 // Auth Routes
 Route::group( [ 'middleware' => 'auth', 'as'=>'public.' ], function () {

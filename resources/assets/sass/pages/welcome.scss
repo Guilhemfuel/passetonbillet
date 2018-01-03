@@ -1,0 +1,199 @@
+
+.welcome-page {
+  width: 100%;
+  min-height: 100%;
+
+  .section-header {
+    @extend .purple-gradient;
+    min-height: 100vh;
+    width: 100%;
+
+    .navbar-brand {
+      img {
+        width: 100px;
+      }
+    }
+
+    .nav-link {
+      text-transform: uppercase;
+      color: white;
+      font-weight: 400;
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+
+    h1 {
+      font-weight: 600;
+      letter-spacing: 4px;
+    }
+
+    .action-buttons {
+      display: flex;
+      justify-content: center;
+      margin-top: 30px;
+      .btn {
+        min-width: 150px;
+        text-transform: uppercase;
+        margin: 0px 10px;
+      }
+    }
+
+    .tickets {
+      margin-top: 40px;
+      position: relative;
+      width: 760px;
+
+      .first-ticket {
+        position: absolute;
+        z-index: 1;
+        width: 250px;
+      }
+
+      .third-ticket {
+        width: 250px;
+        position: absolute;
+        left: 510px;
+        top: 0px;
+      }
+
+      .secund-ticket {
+        width: 300px;
+        position: relative;
+        left: 230px;
+        top: -10px;
+        z-index: 3;
+        .card-travel-info {
+          padding-top: 40px;
+          padding-bottom: 30px;
+        }
+        .card-ticket .card-travel-info .day {
+          margin-top: 0px;
+        }
+      }
+
+      .card-ticket {
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.4);
+        border-width: 0px;
+      }
+    }
+
+    .tickets-sm {
+      justify-content: center;
+      .card-ticket {
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.4);
+        border-width: 0px;
+      }
+
+      .first-ticket, .secund-ticket {
+        width: 250px;
+        margin: 20px;
+      }
+    }
+
+    .tickets-xs {
+      justify-content: center;
+
+      .card-ticket {
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.4);
+        border-width: 0px;
+      }
+
+      .first-ticket {
+        width: 250px;
+        margin: 20px;
+      }
+    }
+
+    #scroll-to-search {
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .section-search {
+    background-color: white;
+    width: 100%;
+
+    .card-buy-sell-welcome {
+      border:none;
+    }
+
+    .buttons-search {
+      display: flex;
+      justify-content: center;
+
+      button {
+        width: 150px;
+        margin: 0px 20px;
+      }
+    }
+
+    .btn-search-submit{
+      min-width: 150px;
+    }
+
+    // Transitions
+    $animation-duration: 0.3s;
+
+    .fadeIn {
+      @include fadeIn(
+              $duration: $animation-duration
+      );
+    }
+    .fadeOut {
+      @include fadeOut(
+              $duration: $animation-duration
+      );
+    }
+  }
+
+  .section-advantages {
+    @extend .purple-gradient.reverse;
+    width: 100%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    border-bottom: 2px solid white;
+
+    .svg-icon {
+      width: 150px;
+      margin: 0px auto;
+      display: block;
+    }
+
+    .advantage-title {
+      text-align: center;
+      color: white;
+      margin-top: 15PX;
+    }
+
+    .advantage-text {
+      width: 150px;
+      text-align: center;
+      display: block;
+      margin: 0px auto;
+      color: white;
+    }
+  }
+
+  .section-footer {
+    @extend .bg-dark;
+    width: 100%;
+    padding-bottom: 50px;
+
+    .footer-content{
+      display: flex;
+      justify-content: space-between;
+
+      ul {
+        list-style: none;
+      }
+
+      i {
+        margin: 10px;
+        font-size: 1em;
+      }
+    }
+  }
+
+}

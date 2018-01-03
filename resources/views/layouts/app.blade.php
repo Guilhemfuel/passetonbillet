@@ -29,7 +29,7 @@
 
 
     @if(session('login'))
-        {{-- Wateber that needs to be done on login--}}
+        {{-- Watever that needs to be done on login--}}
     @endif
 
     @yield('content')

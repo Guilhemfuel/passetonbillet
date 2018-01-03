@@ -43,7 +43,7 @@ return [
             'last_step'  => 'Une dernière petite étape! Parce que la sécurité est notre mission numéro une, vous devez renseigner votre numéro de téléphone avant de pouvoir vendre un billet. Vous allez recevoir un SMS de confirmation dans les prochaines secondes. Et vous pourrez vendre votre billet!',
             'code_check' => ' Renseignez le code que nous vous avons envoyé par sms pour confirmer votre numéro de téléphone. Vous pourrez ensuite commencer à vendre des billets.',
             'CTA'        => 'Vérifier mon numéro',
-            'no_code_received' => 'Vous n\'avez pas reçu de code de vérificaiton? Cliquez-ici'
+            'no_code_received' => 'Vous n\'avez pas reçu de code de vérificaiton? Cliquez-ici',
 
             'errors' => [
                 'phone_already_used' => 'Numéro déjà enregistré par un autre utilisateur. Merci de nous contacter si le problème persiste.',

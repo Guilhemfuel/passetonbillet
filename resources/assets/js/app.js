@@ -46,6 +46,12 @@ Vue.component('sell-ticket', require('./components/Pages/Tickets/Sell.vue'));
 Vue.component('buy-ticket', require('./components/Pages/Tickets/Buy.vue'));
 Vue.component('my-tickets', require('./components/Pages/Tickets/Mytickets.vue'));
 
+Vue.component('buy-sell', require('./components/Pages/Welcome/BuyAndSell.vue'));
+Vue.component('buy-ticket-welcome', require('./components/Pages/Welcome/Buy.vue'));
+Vue.component('sell-ticket-welcome', require('./components/Pages/Welcome/Sell.vue'));
+
+
+
 // Unique components (used in one place only)
 Vue.component('change-password', require('./components/Pages/Profile/ChangePassword.vue'));
 

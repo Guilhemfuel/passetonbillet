@@ -120,6 +120,7 @@ $animation-duration: 0.5s;
     position: relative;
 
     .price {
+      width: 100%;
       color: $color-purple;
       text-align: center;
       font-size: 25px;
@@ -127,6 +128,7 @@ $animation-duration: 0.5s;
     }
 
     .seller {
+      width: 100%;
       text-align: center;
       color: $color-pink;
       font-size: 14px;

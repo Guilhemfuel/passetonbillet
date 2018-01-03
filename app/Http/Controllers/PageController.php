@@ -21,7 +21,10 @@ class PageController extends Controller
         if ( \Auth::check() ) {
             return view( 'home' );
         } else {
-            return view( 'welcome' );
+            //TODO: change tickets to only show the latest or the previously searched etc..
+            $tickets = Ticket::latest()->take(3)->get();
+            return view( 'welcome' )->with('tickets', TicketRessource::collection($tickets))
+                ->with( 'stations', StationRessource::collection( Station::all() ) );
         }
     }
 
