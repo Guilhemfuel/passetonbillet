@@ -26,8 +26,8 @@
                     </div>
                 </div>
                 <div class="card-seller-info">
-                    <template v-if="!pastTicket && (user && ticket.user.id != user.id)">
-                        <button class="btn btn-pink btn-buy btn-sm" v-if="!selecting">{{lang.buy}}</button>
+                    <template v-if="!pastTicket">
+                        <button class="btn btn-pink btn-buy btn-sm" v-if="!selecting && !user">{{lang.buy}}</button>
                         <button class="btn btn-pink btn-buy btn-sm" v-if="selecting" @click.prevent="sell">
                             {{lang.sell}}
                         </button>
