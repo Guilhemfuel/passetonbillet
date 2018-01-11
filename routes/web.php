@@ -40,7 +40,11 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('passw
 //Route::get( '/callback/fb', 'Auth\RegisterController@fb_callback' )->name( 'fb.callback' );
 
 // Test ticket
-//Route::get( '/testRetrieve', 'TicketController@test' )->name( 'test.billet' );
+Route::get( '/testRetrieve', function(){
+    Debugbar::info(\App\Facades\Eurostar::retrieveTicket('nahum','RTXYUS'));
+
+    return view('dummy');
+} )->name( 'test.billet' );
 
 // Auth Routes
 Route::group( [ 'middleware' => 'auth', 'as'=>'public.' ], function () {
