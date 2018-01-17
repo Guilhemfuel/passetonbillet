@@ -83,13 +83,16 @@ $factory->define( App\Train::class, function ( Faker\Generator $faker ) {
     $station1 = \App\Station::inRandomOrder()->first();
     $station2 = \App\Station::where( 'id', '!=', $station1->id )->inRandomOrder()->first();
 
-    $date = $faker->dateTimeThisMonth()->format( \App\EurostarAPI\Eurostar::DATE_FORMAT_DB );
+    $date = new \Carbon\Carbon();
+    $date->addDays(random_int(0,30));
+    $date->addMonths(random_int(0,12));
+    $date->addYears(random_int(0,10));
 
     return [
         'number'         => $faker->randomNumber( 4 ),
-        'departure_date' => $date,
+        'departure_date' => $date->format(\App\EurostarAPI\Eurostar::DATE_FORMAT_DB),
         'departure_time' => $faker->time(),
-        'arrival_date'   => $date,
+        'arrival_date'   => $date->format(\App\EurostarAPI\Eurostar::DATE_FORMAT_DB),
         'arrival_time'   => $faker->time(),
         'departure_city' => $station1->id,
         'arrival_city'   => $station2->id

@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\EurostarAPI\Eurostar;
 use App\Exceptions\LastarException;
 use App\Station;
+use App\Ticket;
 use App\Train;
 use Faker\Factory;
 use GuzzleHttp\Client;
@@ -22,346 +23,355 @@ class EurostarTest extends TestCase
 
     private $familyName = 'nahum';
 
-    private $bookingCode = 'ROCLRR';
+    private $bookingCode = 'RTXYUS';
+
+    private $ticketData = array(
+        'info'      =>
+            array(
+                'origin'               =>
+                    array(
+                        'code'           => '8727100',
+                        'description'    => 'Paris Gare Du Nord',
+                        'latitude'       => '48.880783',
+                        'longitude'      => '2.354497',
+                        'marketingGroup' => null,
+                        'abs'            => false,
+                        'ags'            => false,
+                        'ads'            => false,
+                    ),
+                'destination'          =>
+                    array(
+                        'code'           => '7015400',
+                        'description'    => 'Londres St Pancras Int\'l',
+                        'latitude'       => '51.53079647',
+                        'longitude'      => '-0.125557924',
+                        'marketingGroup' => null,
+                        'abs'            => false,
+                        'ags'            => false,
+                        'ads'            => false,
+                    ),
+                'departureDate'        => '2018-02-09',
+                'departureTime'        => '20:01',
+                'arrivalDate'          => '2018-02-09',
+                'arrivalTime'          => '21:39',
+                'duration'             => 158,
+                'trainNumber'          => '9059',
+                'equipmentType'        => 'TGR',
+                'carrierCode'          => 'ES',
+                'classOfAccommodation' =>
+                    array(
+                        'code'        => 'B',
+                        'description' => 'Standard',
+                    ),
+                'printingOptions'      =>
+                    array(
+                        0 => 'MTK',
+                        1 => 'PAH',
+                        2 => 'TOD',
+                    ),
+                'impactedByDisruption' => false,
+            ),
+        'seat'      =>
+            array(
+                'coachNumber' => '011',
+                'seatNumber'  => '052',
+                'meal'        => null,
+            ),
+        'checkedIn' => false,
+        'fare'      =>
+            array(
+                'fareCode'                  => 'BIPEXARB',
+                'classOfService'            => 'BI',
+                'passengerTypeCode'         => 'PT01AD',
+                'eligibilityChangeMeal'     => false,
+                'eligibilityChangeSeat'     => true,
+                'eligibilityExchange'       => true,
+                'eligibilityForcedExchange' => false,
+                'eligibilityForcedRefund'   => false,
+                'eligibilityRefund'         => false,
+                'eligibilityUpgrade'        => true,
+                'flexibilityLevel'          => '2',
+                'maskedPrice'               => false,
+                'totalFarePrice'            => '34.0',
+                'tcn'                       => '382007242',
+            ),
+        'transfer'  => null,
+    );
 
     private $bookingInfo = array(
-        'ROCLRR-nahum' =>
+        'booking' =>
             array(
-                'LoadTravelOutput' =>
+                'pnr'                 => 'RTXYUS',
+                'splitPnrs'           =>
                     array(
-                        'contact'                     =>
+                        0 => 'RTXYUS',
+                    ),
+                'pos'                 => 'GBZXB',
+                'totalPrice'          => '68.0',
+                'currency'            => 'EUR',
+                'payment'             =>
+                    array(
+                        'transactionDate' => '2018-01-03',
+                        'transactionTime' => '11:19',
+                        'card'            =>
                             array(
-                                'title'       => 'Mr',
-                                'firstName'   => 'JULIEN',
-                                'lastName'    => 'NAHUM',
-                                'email'       => 'TRAVEL@NAHUM.NET',
-                                'phoneNumber' => '447397515743',
-                                'address'     =>
-                                    array(
-                                        'address'  => 'FLAT 13 STANHOPE APARTMENT 70 STANHOPESTREET',
-                                        'city'     => 'LONDON',
-                                        'country'  => 'GB',
-                                        'postCode' => 'NW1 3EX',
-                                    ),
+                                'cardType'            => 'Mastercard',
+                                'dataCashReferenceId' => '3900107684148944',
+                                'expiryDate'          => '1120',
+                                'token'               => '9713163804383316350',
+                                'totalPayment'        => '68.0',
+                                'fee'                 => '0.0',
                             ),
-                        'currency'                    => 'GBP',
-                        'JourneyRetrievePnrOutputs'   =>
+                        'vouchers'        => null,
+                    ),
+                'ancillaries'         => null,
+                'contact'             =>
+                    array(
+                        'address'     =>
+                            array(
+                                'address'  => 'WITLEY COURT, CORAM STREET, FLAT 17 WITLEY COURT, CORAM STREET, FLAT 17',
+                                'city'     => 'LONDON',
+                                'country'  => 'GB',
+                                'postcode' => 'WC1N 1HD',
+                            ),
+                        'email'       => 'ACHAT335@NAHUM.NET',
+                        'emailHash'   => '501675298ffd1ff54ee701d3008bb2e3a6be7404358e4957e7e9a3e6d20f8b27',
+                        'firstName'   => 'JULIEN',
+                        'lastName'    => 'NAHUM',
+                        'phoneNumber' => '33447397515743',
+                        'title'       => 'Mr',
+                    ),
+                'passengers'          =>
+                    array(
+                        0 =>
+                            array(
+                                'id'                               => 'RTXYUS.1.1',
+                                'firstName'                        => 'Julien',
+                                'lastName'                         => 'Nahum',
+                                'passengerType'                    => 'ADULT',
+                                'wheelchair'                       => false,
+                                'notAllowedToTravelAlonePassenger' => false,
+                                'eftNumber'                        => '30838110033480460',
+                                'outbound'                         => null,
+                                'outboundDuration'                 => 158,
+                                'inbound'                          => null,
+                                'inboundDuration'                  => 136,
+                                'ctrReference'                     => null,
+                            ),
+                    ),
+                'isReturn'            => false,
+                'pastDeparture'       => false,
+                'manageBookingOnline' => true,
+                'cid'                 => 'mobile-cid',
+                'language'            => 'fr-fr',
+                'paymentHistory'      =>
+                    array(
+                        0 =>
+                            array(
+                                'transactionDate' => '03/01/2018',
+                                'transactionTime' => '11:19',
+                                'card'            =>
+                                    array(
+                                        'cardType'            => 'Mastercard',
+                                        'dataCashReferenceId' => '3900107684148944',
+                                        'expiryDate'          => '1120',
+                                        'token'               => '9713163804383316350',
+                                        'totalPayment'        => '68.0',
+                                        'fee'                 => '0.0',
+                                    ),
+                                'vouchers'        =>
+                                    array(),
+                            ),
+                    ),
+                'etapDetailsCaptured' => 'CAPTURED',
+                'etapBooking'         =>
+                    array(
+                        'pnr'                 => 'RTXYUS',
+                        'detailsCaptured'     => 'CAPTURED',
+                        'passengers'          =>
                             array(
                                 0 =>
                                     array(
-                                        'id'                => 1,
-                                        'destinationCode'   => 7015400,
-                                        'originCode'        => 8727100,
-                                        'arrivalDate'       =>
+                                        'id'              => 'd31675eb36da8f6e0c38a9b92416c8f9',
+                                        'type'            => 'ADULT',
+                                        'firstName'       => 'Julien',
+                                        'lastName'        => 'Nahum',
+                                        'email'           => 'ACHAT335@NAHUM.NET',
+                                        'phone'           =>
                                             array(
-                                                'date' => '11/07/2017',
-                                                'time' => '10:00',
+                                                'countryCode' => '33',
+                                                'number'      => '447397515743',
                                             ),
-                                        'departureDate'     =>
-                                            array(
-                                                'date' => '11/07/2017',
-                                                'time' => '08:43',
-                                            ),
-                                        'FareAllocations'   =>
-                                            array(
-                                                0 =>
-                                                    array(
-                                                        'fareInformation'   =>
-                                                            array(
-                                                                'classOfService'            => 'BF',
-                                                                'eligibilityChangeMeal'     => false,
-                                                                'eligibilityChangeSeat'     => false,
-                                                                'eligibilityExchange'       => false,
-                                                                'eligibilityForcedExchange' => false,
-                                                                'eligibilityForcedRefund'   => false,
-                                                                'eligibilityRefund'         => false,
-                                                                'eligibilityUpgrade'        => false,
-                                                                'fareCode'                  => 'BFPESARB',
-                                                                'flexibilityLevel'          => 2,
-                                                                'maskedPrice'               => false,
-                                                                'totalAmount'               => 160,
-                                                                'cm'                        => '',
-                                                            ),
-                                                        'CheckedInTickets'  =>
-                                                            array(
-                                                                0 =>
-                                                                    array(
-                                                                        'checkedIn'   => true,
-                                                                        'passengerId' => 'ROCLRR.1.1',
-                                                                        'segmentId'   => 1,
-                                                                    ),
-                                                            ),
-                                                        'PassengerIds'      =>
-                                                            array(
-                                                                0 => 'ROCLRR.1.1',
-                                                            ),
-                                                        'passengerTypeCode' => 'PT01AD',
-                                                        'SegmentIds'        =>
-                                                            array(
-                                                                0 => '1',
-                                                            ),
-                                                        'tcn'               => '506326063',
-                                                    ),
-                                            ),
-                                        'outboundIndicator' => true,
-                                        'TravelSegments'    =>
-                                            array(
-                                                0 =>
-                                                    array(
-                                                        'id'                    => 1,
-                                                        'duration'              => 137,
-                                                        'startDate'             =>
-                                                            array(
-                                                                'date' => '11/07/2017',
-                                                                'time' => '08:43',
-                                                            ),
-                                                        'endDate'               =>
-                                                            array(
-                                                                'date' => '11/07/2017',
-                                                                'time' => '10:00',
-                                                            ),
-                                                        'marketingCarrierCode'  => 'ES',
-                                                        'marketingTrainNumber'  => '9013',
-                                                        'classOfAccommodation'  => 'B',
-                                                        'disruptionInformation' =>
-                                                            array(
-                                                                'impactedByDisruption' => false,
-                                                            ),
-                                                        'MealAvailables'        => null,
-                                                        'MethodOfDeliverys'     =>
-                                                            array(
-                                                                0 =>
-                                                                    array(
-                                                                        'codeMethod' => 'MTK',
-                                                                    ),
-                                                                1 =>
-                                                                    array(
-                                                                        'codeMethod' => 'PAH',
-                                                                    ),
-                                                                2 =>
-                                                                    array(
-                                                                        'codeMethod' => 'TOD',
-                                                                    ),
-                                                            ),
-                                                        'od'                    =>
-                                                            array(
-                                                                'originCode'      => '8727100',
-                                                                'destinationCode' => '7015400',
-                                                            ),
-                                                    ),
-                                            ),
-                                    ),
-                                1 =>
-                                    array(
-                                        'id'                => 2,
-                                        'destinationCode'   => 8727100,
-                                        'originCode'        => 7015400,
-                                        'arrivalDate'       =>
-                                            array(
-                                                'date' => '07/09/2017',
-                                                'time' => '19:47',
-                                            ),
-                                        'departureDate'     =>
-                                            array(
-                                                'date' => '07/09/2017',
-                                                'time' => '16:31',
-                                            ),
-                                        'FareAllocations'   =>
-                                            array(
-                                                0 =>
-                                                    array(
-                                                        'fareInformation'   =>
-                                                            array(
-                                                                'classOfService'            => 'BJ',
-                                                                'eligibilityChangeMeal'     => false,
-                                                                'eligibilityChangeSeat'     => true,
-                                                                'eligibilityExchange'       => false,
-                                                                'eligibilityForcedExchange' => false,
-                                                                'eligibilityForcedRefund'   => false,
-                                                                'eligibilityRefund'         => false,
-                                                                'eligibilityUpgrade'        => true,
-                                                                'fareCode'                  => 'BJPEXARB',
-                                                                'flexibilityLevel'          => 2,
-                                                                'maskedPrice'               => false,
-                                                                'totalAmount'               => 34,
-                                                                'cm'                        => '',
-                                                            ),
-                                                        'CheckedInTickets'  =>
-                                                            array(
-                                                                0 =>
-                                                                    array(
-                                                                        'checkedIn'   => false,
-                                                                        'passengerId' => 'ROCLRR.1.1',
-                                                                        'segmentId'   => 2,
-                                                                    ),
-                                                            ),
-                                                        'PassengerIds'      =>
-                                                            array(
-                                                                0 => 'ROCLRR.1.1',
-                                                            ),
-                                                        'passengerTypeCode' => 'PT01AD',
-                                                        'SegmentIds'        =>
-                                                            array(
-                                                                0 => '2',
-                                                            ),
-                                                        'tcn'               => '506326074',
-                                                    ),
-                                            ),
-                                        'outboundIndicator' => false,
-                                        'TravelSegments'    =>
-                                            array(
-                                                0 =>
-                                                    array(
-                                                        'id'                    => 2,
-                                                        'duration'              => 136,
-                                                        'startDate'             =>
-                                                            array(
-                                                                'date' => '07/09/2017',
-                                                                'time' => '16:31',
-                                                            ),
-                                                        'endDate'               =>
-                                                            array(
-                                                                'date' => '07/09/2017',
-                                                                'time' => '19:47',
-                                                            ),
-                                                        'marketingCarrierCode'  => 'ES',
-                                                        'marketingTrainNumber'  => '9040',
-                                                        'classOfAccommodation'  => 'B',
-                                                        'disruptionInformation' =>
-                                                            array(
-                                                                'impactedByDisruption' => false,
-                                                            ),
-                                                        'MealAvailables'        =>
-                                                            array(
-                                                                0 =>
-                                                                    array(
-                                                                        'mealCode' => 'CHML',
-                                                                    ),
-                                                                1 =>
-                                                                    array(
-                                                                        'mealCode' => 'DBML',
-                                                                    ),
-                                                                2 =>
-                                                                    array(
-                                                                        'mealCode' => 'DFML',
-                                                                    ),
-                                                                3 =>
-                                                                    array(
-                                                                        'mealCode' => 'GFML',
-                                                                    ),
-                                                                4 =>
-                                                                    array(
-                                                                        'mealCode' => 'KSML',
-                                                                    ),
-                                                                5 =>
-                                                                    array(
-                                                                        'mealCode' => 'LFML',
-                                                                    ),
-                                                                6 =>
-                                                                    array(
-                                                                        'mealCode' => 'LSML',
-                                                                    ),
-                                                                7 =>
-                                                                    array(
-                                                                        'mealCode' => 'MOML',
-                                                                    ),
-                                                                8 =>
-                                                                    array(
-                                                                        'mealCode' => 'VGML',
-                                                                    ),
-                                                                9 =>
-                                                                    array(
-                                                                        'mealCode' => 'VLML',
-                                                                    ),
-                                                            ),
-                                                        'MethodOfDeliverys'     =>
-                                                            array(
-                                                                0 =>
-                                                                    array(
-                                                                        'codeMethod' => 'MTK',
-                                                                    ),
-                                                                1 =>
-                                                                    array(
-                                                                        'codeMethod' => 'PAH',
-                                                                    ),
-                                                                2 =>
-                                                                    array(
-                                                                        'codeMethod' => 'TOD',
-                                                                    ),
-                                                            ),
-                                                        'od'                    =>
-                                                            array(
-                                                                'originCode'      => '7015400',
-                                                                'destinationCode' => '8727100',
-                                                            ),
-                                                    ),
-                                            ),
+                                        'cin'             => null,
+                                        'optIn'           => false,
+                                        'detailsCaptured' => 'CAPTURED',
+                                        'groupDetails'    => null,
+                                        'infant'          => null,
                                     ),
                             ),
-                        'Pnrs'                        =>
-                            array(
-                                0 => 'ROCLRR',
-                            ),
-                        'LinkedPnrs'                  =>
+                        'infants'             =>
                             array(),
-                        'PassengerRetrievePnrOutputs' =>
+                        'eligibleTicketTypes' =>
                             array(
-                                0 =>
-                                    array(
-                                        'eftNumber'                        => null,
-                                        'id'                               => 'ROCLRR.1.1',
-                                        'notAllowedToTravelAlonePassenger' => false,
-                                        'passengerType'                    => 'ADULT',
-                                        'pnrReference'                     => 'ROCLRR',
-                                        'SeatRetrievePnrOutputs'           =>
-                                            array(
-                                                0 =>
-                                                    array(
-                                                        'coachNumber' => 7,
-                                                        'seatNumber'  => 33,
-                                                        'segmentId'   => 2,
-                                                    ),
-                                            ),
-                                        'trueName'                         =>
-                                            array(
-                                                'firstName' => 'Julien',
-                                                'lastName'  => 'Nahum',
-                                            ),
-                                        'wheelchair'                       => false,
-                                    ),
+                                0 => 'MOBILE',
+                                1 => 'PAH',
+                                2 => 'TOD',
+                                3 => 'PASSBOOK',
+                                4 => 'PDF417',
                             ),
-                        'paymentInformation'          =>
+                        'splitPNRs'           =>
+                            array(),
+                        'linkedPNRs'          =>
+                            array(),
+                        'splitBookings'       =>
+                            array(),
+                        'linkedBookings'      =>
+                            array(),
+                        'groupName'           => null,
+                        'accessToken'         => '618f2e22-765d-4664-bde7-5dcd35363448',
+                        'ticketsData'         =>
                             array(
-                                'CreditCardTransactions' =>
+                                'tickets'  =>
                                     array(
-                                        'CreditCardTransaction' =>
+                                        0 =>
                                             array(
-                                                0 =>
-                                                    array(
-                                                        'actionDate'          =>
-                                                            array(
-                                                                'date' => '10/07/2017',
-                                                                'time' => '12:23',
-                                                            ),
-                                                        'amount'              => 194,
-                                                        'cardScheme'          => 'VISA Debit',
-                                                        'creditCardSurcharge' => 0,
-                                                        'expiryDate'          =>
-                                                            array(
-                                                                'date' => '10/07/2017',
-                                                                'time' => '12:23',
-                                                            ),
-                                                        'pspTransactionId'    => '3300106980330184',
-                                                        'tokenCreditCard'     => '9014711767570989141',
-                                                    ),
+                                                'passengerId'   => 'd31675eb36da8f6e0c38a9b92416c8f9',
+                                                'firstName'     => 'Julien',
+                                                'lastName'      => 'Nahum',
+                                                'direction'     => 'OUTBOUND',
+                                                'url'           => 'https://tickets.eurostar.com/tickets/RTXYUS/83e30c53-4404-459e-ad24-7633d4bce2cb.png?response-content-type=image%2Fpng&AWSAccessKeyId=AKIAIS4OAMU4IZGEPEAQ&Expires=1519242420&Signature=Uh0B2VFoBZBPrmwQC61izqvMu4k%3D',
+                                                'type'          => 'PDF417',
+                                                'language'      => 'en',
+                                                'barcodeString' => 'eRIVRTXYUS382007242111130019000011001008003040221FRPNOGBSPX09059 90590400110522    BIAAIWHGBASFCUJRJACFDCUSHJTVTTGWVCFDBJREJRWUBSFJTJFRIICHUVSTSWSJCIBAGUDREFHJFHTGHBWH',
+                                                'barcodeImage'  => 'iVBORw0KGgoAAAANSUhEUgAAAd4AAABgAQAAAACbUi7fAAABjUlEQVR42u3XMaooMQgFUMFWcCsBW8GtC7aBbEWwFXx5r/38BQSmmOYmp3PuOACwj++0PDU024IzOFpO9eq2ILuRnYyu0b9zFqtxODvhw29huadzUDGX8LLjtC2hlt4rhkvNN3MetAZZBnKDD7+HQxqKw1UWDgqwk8+SBf0bkCqEOKco6E4eMf/wi3g7wR0BaPY9ZscO6SRSktoehKh9+gbixLYZNT/8Io5lVZTQx5mBDv6VgWA0So0Asc++olhxTMh7Pvwg9g2VEZcMjOG2o261Gm5H4FlctVGnxK0LHWFDfPhBvFO5bgl0DyLyiROYhWnKEbcCmsPYk0yJ7g4grvjhB7Gjenba7saj647Aill4d3esiL+tru6kYPld3dHozsmH38QkqUsjG9d9QvLeHKJWRSiofb/pGcc1GAbEz4cfxLstS9WatO+/dtbJ1mpjHY7zTyBJ+OEHcdzOL6BoxzUL7kSA8P8DSp0PP4h3K2T/vvKghXdb35Cr0p3G5YALnCvkEPRiNbgd8eG38A8GDytGiudm6gAAAABJRU5ErkJggg==',
+                                                'ticketNumber'  => '382007242',
+                                            ),
+                                        1 =>
+                                            array(
+                                                'passengerId'   => 'd31675eb36da8f6e0c38a9b92416c8f9',
+                                                'firstName'     => 'Julien',
+                                                'lastName'      => 'Nahum',
+                                                'direction'     => 'INBOUND',
+                                                'url'           => 'https://tickets.eurostar.com/tickets/RTXYUS/a304c905-d5b9-4649-9fe2-138205646e7b.png?response-content-type=image%2Fpng&AWSAccessKeyId=AKIAIS4OAMU4IZGEPEAQ&Expires=1519242420&Signature=xH6Iz6NOO7S05xUDVf2ggWJIHmI%3D',
+                                                'type'          => 'PDF417',
+                                                'language'      => 'en',
+                                                'barcodeString' => 'eRIVRTXYUS382007253111130019000011001008003050231GBSPXFRPNO09040 90400500040322    BIAAIWWHGBFDJBWJAEVTWVWUHTJEUJTSDRDAWWTTCIITHWTGIBVCCCRRVGJAVVBSGRAUEHICRBWFWUWWBDGW',
+                                                'barcodeImage'  => 'iVBORw0KGgoAAAANSUhEUgAAAd4AAABgAQAAAACbUi7fAAABjUlEQVR42u3XMaogMQgAUMFW8CqBtIJXF2yFXEWwFfz5u+WyBwhMEYaYvM6oAwBxLFLz1NCEOqez9z7Vq1ud9Ib0pHeN/DnnrTUGJxI+/Bbe93QOCubavPQYhSbUkmOquEQtmPOgNuylsG/gw+9h3w3FbrIXDm5gI5u1F/RvgETAt3Ht5I7k2WoffhGHEeTxFLaj+4w64t2ZEZ9goj1xepIONFkiSn74RexLqyihDzBC9PwtBpFy12wgtokrigVHN1nPhx/EFlDpfsnACKJZGSWZynFjKuNQhoqFvfg4BPiHH8Q3G7jSlsxqvY3bXTvzznCSzUzM6mvdG3la1G8DEPzwg9hQ7Nb4dfMDC9vS9uwMbAm4M9vRdodO1CIIRTKED7+JafduSlmqJzDu1L4k71ewfouBuUBO/JaIHth2PvwgjtYsReu8Vj3rZEu1sgz7+Sewk/DDD2K/Nb+AvA3XrPveAzb/P3BzaT78II6+T/3+f4eClHCnK1CB32unGW478Egs96TiRKCWD7+FfwBZQGCGufekXgAAAABJRU5ErkJggg==',
+                                                'ticketNumber'  => '382007253',
                                             ),
                                     ),
+                                'passbook' =>
+                                    array(
+                                        382007242 => 'https://passbook.eurostar.com/pass/2018-01-10/fe9894f3-c659-4590-945c-9de8fe9bef77.pkpass?response-content-type=application%2Fvnd.apple.pkpass&AWSAccessKeyId=AKIAJOBZJPTO6OSKQKXA&Expires=1547137928&Signature=rKBb5u2ZN%2Br6bzo5UonYANEhQkU%3D',
+                                        382007253 => 'https://passbook.eurostar.com/pass/2018-01-10/61ef7957-eea6-4ac0-b95a-912bfbbac153.pkpass?response-content-type=application%2Fvnd.apple.pkpass&AWSAccessKeyId=AKIAJOBZJPTO6OSKQKXA&Expires=1547137928&Signature=CkCot5%2BAoEhMa8CG9p7lzFX9u88%3D',
+                                    ),
                             ),
-                        'pointOfSale'                 => null,
-                        'totalPrice'                  => 194,
                     ),
             ),
     );
+
+    private function createTicketDataset( $train, $ticket )
+    {
+        $dataSet1 = $this->ticketData;
+        $dataSet1['info']['trainNumber'] = $train->number;
+        $dataSet1['info']['departureDate'] = $train->departure_date;
+        $dataSet1['info']['departureTime'] = $train->departure_time;
+        $dataSet1['info']['arrivalDate'] = $train->arrival_date;
+        $dataSet1['info']['arrivalTime'] = $train->arrival_time;
+        $dataSet1['info']['origin']['code'] = $train->departureCity->eurostar_id;
+        $dataSet1['info']['destination']['code'] = $train->arrivalCity->eurostar_id;
+        $dataSet1['fare']['flexibilityLevel'] = $ticket->flexibility;
+        $dataSet1['fare']['classOfService'] = $ticket->class;
+        $dataSet1['fare']['totalFarePrice'] = $ticket->bought_price;
+
+        return $dataSet1;
+    }
+
+    public function ticketDataProvider()
+    {
+        $this->setUp();
+
+        $tests = [];
+
+        for ( $i = 0; $i < 5; $i ++ ) {
+            $train = factory( Train::class )->make();
+            $ticket = factory( Ticket::class )->make();
+            $dataSet1 = $this->createTicketDataset( $train, $ticket );
+            $tests[ $i ] = [
+                $train,
+                $ticket,
+                $dataSet1,
+                $ticket->currency,
+                $ticket->buyer_name,
+                $ticket->eurostar_code,
+                $ticket->buyer_email,
+                $ticket->inbound
+            ];
+        }
+
+        return $tests;
+    }
+
+    /**
+     *
+     * Test the function createTrainAndReturnTicket
+     *
+     * @dataProvider ticketDataProvider
+     *
+     */
+    public function testCreateTrainAndReturnTicket( $train, $ticket, $data, $currency, $lastName, $referenceNumber, $buyerEmail, $outbound, $past = false )
+    {
+        $oldCount = Train::count();
+
+        $foundTicket = \App\Facades\Eurostar::createTrainAndReturnTicket( $data, $currency, $lastName, $referenceNumber, $buyerEmail, $outbound, $past );
+
+        $this->assertGreaterThan( $oldCount, Train::count() );
+
+        $this->assertDatabaseHas( 'trains', [
+            'number'         => $train->number,
+            'departure_city' => $train->departure_city,
+            'arrival_city'   => $train->arrival_city,
+            'departure_date' => $train->departure_date,
+            'arrival_date'   => $train->arrival_date,
+            'departure_time' => $train->departure_time,
+            'arrival_time'   => $train->arrival_time,
+        ] );
+
+        $ticketArray = $ticket->toArray();
+        $ticketArray['bought_currency'] = $currency;
+        $ticketArray['inbound'] = ! $outbound;
+        unset( $ticketArray['train_id'] );
+        unset( $ticketArray['user_id'] );
+        unset( $ticketArray['user_notes'] );
+        unset( $ticketArray['price'] );
+        unset( $ticketArray['currency'] );
+
+        foreach ( $ticketArray as $key => $value ) {
+            $this->assertEquals( $value, $foundTicket->toArray()[ $key ] );
+        }
+
+    }
+
+    /**
+     *
+     * Test the function createTrainAndReturnTicket and make sure no past ticket are found
+     *
+     */
+    public function testCreateTrainAndReturnNoPastTicket()
+    {
+
+        $train = factory( Train::class )->make();
+        $ticket = factory( Ticket::class )->make();
+
+        $dataSet1 = $this->createTicketDataset( $train, $ticket );
+        $dataSet1['info']['departureDate'] = '1996-08-01';
+        $dataSet1['info']['arrivalDate'] = '1996-08-01';
+
+        $foundTicket = \App\Facades\Eurostar::createTrainAndReturnTicket( $dataSet1, $ticket->currency, $ticket->buyer_name, $ticket->eurostar_code, $ticket->buyer_email, $ticket->inbound, false );
+
+        $this->assertNull( $foundTicket );
+    }
+
 
     /**
      *
@@ -373,19 +383,23 @@ class EurostarTest extends TestCase
     public function testRetrieveTicket()
     {
         // Set only one ticket
-        $customTicketsList = &$this->bookingInfo[ $this->bookingCode . '-' . $this->familyName ]['LoadTravelOutput']['JourneyRetrievePnrOutputs'];
-        while ( count( $customTicketsList ) > 1 ) {
-            unset( $customTicketsList[count( $customTicketsList )-1] );
-        }
-        // Give the ticket a proper date and info
+        $customTicketsList = $this->bookingInfo;
+
+        // Create a train for tomorrow
+        $train = factory( Train::class )->make();
         $tomorrow = new \DateTime( 'tomorrow' );
-        $customTicketsList[0]['departureDate']['date'] = $tomorrow->format(Eurostar::DATE_FORMAT_JSON);
-        $customTicketsList[0]['arrivalDate']['date'] = $tomorrow->format(Eurostar::DATE_FORMAT_JSON);
-        $customTicketsList[0]['FareAllocations'][0]['fareInformation']['classOfService'] = 'BJ';
+        $train->departure_date = $tomorrow->format(Eurostar::DATE_FORMAT_DB);
+        $train->arrival_date = $tomorrow->format(Eurostar::DATE_FORMAT_DB);
+
+        $ticket = factory( Ticket::class )->make();
+
+        $ticketData1 = $this->createTicketDataset( $train, $ticket );
+
+        $customTicketsList['booking']['passengers'][0]['outbound']['legs'] = [$ticketData1];
 
         // Mock client
         $mock = new MockHandler( [
-            new Response( 200, [], \GuzzleHttp\json_encode( $this->bookingInfo ) ),
+            new Response( 200, [], \GuzzleHttp\json_encode( $customTicketsList ) ),
         ] );
         $handler = HandlerStack::create( $mock );
         $client = new Client( [ 'handler' => $handler ] );
@@ -396,8 +410,22 @@ class EurostarTest extends TestCase
         /* @var Ticket $ticket */
         $ticket = $tickets[0];
         $this->assertEquals( 1, count( $tickets ) );
-        $this->assertEquals( 'BJ', $ticket->class );
         $this->assertEquals( $this->bookingCode, $ticket->eurostar_code );
+
+        $train = Train::where(
+            [
+                'number'         => $train->number,
+                'departure_date' => $train->departure_date,
+                'departure_time' => date( "H:i:s", strtotime( $train->departure_time ) ),
+                'departure_city' => $train->departure_city,
+                'arrival_date'   => $train->arrival_date,
+                'arrival_time'   => date( "H:i:s", strtotime( $train->arrival_time ) ),
+                'arrival_city'   => $train->arrival_city
+            ]
+        )->firstOrFail();
+
+        // Make sure same train for ticket
+        $this->assertEquals($train, $ticket->train);
     }
 
 
@@ -410,21 +438,24 @@ class EurostarTest extends TestCase
     public function testRetrieveTicketAllDay()
     {
         // Set only one ticket
-        $customTicketsList = &$this->bookingInfo[ $this->bookingCode . '-' . $this->familyName ]['LoadTravelOutput']['JourneyRetrievePnrOutputs'];
-        while ( count( $customTicketsList ) > 1 ) {
-            unset( $customTicketsList[count( $customTicketsList )-1] );
-        }
-        // Give the ticket a proper date and info
+        $customTicketsList = $this->bookingInfo;
+
+        // Create a train for tomorrow
+        $train = factory( Train::class )->make();
         $tomorrow = new \DateTime( 'tomorrow' );
-        $tomorrow->setTime(14, 55);
-        $customTicketsList[0]['departureDate']['date'] = $tomorrow->format(Eurostar::DATE_FORMAT_JSON);
-        $customTicketsList[0]['departureDate']['time'] = $tomorrow->format(Eurostar::TIME_FORMAT_JSON);
-        $customTicketsList[0]['arrivalDate']['date'] = $tomorrow->format(Eurostar::DATE_FORMAT_JSON);
-        $customTicketsList[0]['FareAllocations'][0]['fareInformation']['classOfService'] = 'BJ';
+        $tomorrow->setTime( 14, 55 );
+        $train->departure_date = $tomorrow->format(Eurostar::DATE_FORMAT_DB);
+        $train->arrival_date = $tomorrow->format(Eurostar::DATE_FORMAT_DB);
+
+        $ticket = factory( Ticket::class )->make();
+
+        $ticketData1 = $this->createTicketDataset( $train, $ticket );
+
+        $customTicketsList['booking']['passengers'][0]['outbound']['legs'] = [$ticketData1];
 
         // Mock client
         $mock = new MockHandler( [
-            new Response( 200, [], \GuzzleHttp\json_encode( $this->bookingInfo ) ),
+            new Response( 200, [], \GuzzleHttp\json_encode( $customTicketsList ) ),
         ] );
         $handler = HandlerStack::create( $mock );
         $client = new Client( [ 'handler' => $handler ] );
@@ -435,9 +466,22 @@ class EurostarTest extends TestCase
         /* @var Ticket $ticket */
         $ticket = $tickets[0];
         $this->assertEquals( 1, count( $tickets ) );
-        $this->assertEquals( 'BJ', $ticket->class );
         $this->assertEquals( $this->bookingCode, $ticket->eurostar_code );
-        $this->assertEquals(  $tomorrow->format('H:i:s'), $ticket->train->departure_time);
+
+        $train = Train::where(
+            [
+                'number'         => $train->number,
+                'departure_date' => $train->departure_date,
+                'departure_time' => date( "H:i:s", strtotime( $train->departure_time ) ),
+                'departure_city' => $train->departure_city,
+                'arrival_date'   => $train->arrival_date,
+                'arrival_time'   => date( "H:i:s", strtotime( $train->arrival_time ) ),
+                'arrival_city'   => $train->arrival_city
+            ]
+        )->firstOrFail();
+
+        // Make sure same train for ticket
+        $this->assertEquals($train, $ticket->train);
     }
 
     /**
@@ -450,26 +494,30 @@ class EurostarTest extends TestCase
     public function testRetrieveTicketPassed()
     {
         // Set only one ticket
-        $customTicketsList = &$this->bookingInfo[ $this->bookingCode . '-' . $this->familyName ]['LoadTravelOutput']['JourneyRetrievePnrOutputs'];
-        while ( count( $customTicketsList ) > 1 ) {
-            unset( $customTicketsList[count( $customTicketsList )-1] );
-        }
-        // Give the ticket a proper date
-        $tomorrow = new \DateTime( 'tomorrow' );
-        $yesterday = new \DateTime( 'yesterday' );
-        $customTicketsList[0]['departureDate']['date'] = $tomorrow->format(Eurostar::DATE_FORMAT_JSON);
-        $customTicketsList[0]['arrivalDate']['date'] = $tomorrow->format(Eurostar::DATE_FORMAT_JSON);
-        $customTicketsList[0]['FareAllocations'][0]['fareInformation']['classOfService'] = 'BJ';
-        // Add a past ticket
-        array_push( $customTicketsList, $customTicketsList[0]);
-        $customTicketsList[0]['departureDate']['date'] = $yesterday->format(Eurostar::DATE_FORMAT_JSON);
-        $customTicketsList[0]['arrivalDate']['date'] = $yesterday->format(Eurostar::DATE_FORMAT_JSON);
-        $customTicketsList[0]['FareAllocations'][0]['fareInformation']['classOfService'] = 'BJ';
+        $customTicketsList = $this->bookingInfo;
 
+        // Create a train for tomorrow
+        $train1 = factory( Train::class )->make();
+        $train2 = factory( Train::class )->make();
+        $yesterday = new \DateTime( 'yesterday' );
+        $tomorrow = new \DateTime( 'tomorrow' );
+        $train1->departure_date = $yesterday->format(Eurostar::DATE_FORMAT_DB);
+        $train1->arrival_date = $yesterday->format(Eurostar::DATE_FORMAT_DB);
+        $train2->departure_date = $tomorrow->format(Eurostar::DATE_FORMAT_DB);
+        $train2->arrival_date = $tomorrow->format(Eurostar::DATE_FORMAT_DB);
+
+        $ticket = factory( Ticket::class )->make();
+
+        $ticketData1 = $this->createTicketDataset( $train1, $ticket );
+        $ticketData2 = $this->createTicketDataset( $train2, $ticket );
+
+        $customTicketsList['booking']['passengers'][0]['outbound']['legs'] = [$ticketData1];
+        $customTicketsList['booking']['passengers'][0]['inbound']['legs'] = [$ticketData2];
+        $customTicketsList['booking']['isReturn'] =  true;
 
         // Mock client
         $mock = new MockHandler( [
-            new Response( 200, [], \GuzzleHttp\json_encode( $this->bookingInfo ) ),
+            new Response( 200, [], \GuzzleHttp\json_encode( $customTicketsList ) ),
         ] );
         $handler = HandlerStack::create( $mock );
         $client = new Client( [ 'handler' => $handler ] );
@@ -479,8 +527,24 @@ class EurostarTest extends TestCase
 
         /* @var Ticket $ticket */
         $ticket = $tickets[0];
-        $this->assertEquals( 1, count( $tickets ) ,'Two tickets were retrieved instead of one');
+        $this->assertEquals( 1, count( $tickets ), 'Two tickets were retrieved instead of one' );
         $this->assertEquals( $this->bookingCode, $ticket->eurostar_code );
+
+        $train = Train::where(
+            [
+                'number'         => $train2->number,
+                'departure_date' => $train2->departure_date,
+                'departure_time' => date( "H:i:s", strtotime( $train2->departure_time ) ),
+                'departure_city' => $train2->departure_city,
+                'arrival_date'   => $train2->arrival_date,
+                'arrival_time'   => date( "H:i:s", strtotime( $train2->arrival_time ) ),
+                'arrival_city'   => $train2->arrival_city
+            ]
+        )->firstOrFail();
+
+        // Make sure same train for ticket
+        $this->assertEquals($train, $ticket->train);
+
     }
 
 
@@ -492,19 +556,23 @@ class EurostarTest extends TestCase
     public function testRetrieveTicketNoTicket()
     {
         // Set only one ticket
-        $customTicketsList = &$this->bookingInfo[ $this->bookingCode . '-' . $this->familyName ]['LoadTravelOutput']['JourneyRetrievePnrOutputs'];
-        while ( count( $customTicketsList ) > 1 ) {
-            unset( $customTicketsList[count( $customTicketsList )-1] );
-        }
-        // Give the ticket a proper date and info
+        $customTicketsList = $this->bookingInfo;
+
+        // Create a train for tomorrow
+        $train = factory( Train::class )->make();
         $yesterday = new \DateTime( 'yesterday' );
-        $customTicketsList[0]['departureDate']['date'] = $yesterday->format(Eurostar::DATE_FORMAT_JSON);
-        $customTicketsList[0]['arrivalDate']['date'] = $yesterday->format(Eurostar::DATE_FORMAT_JSON);
-        $customTicketsList[0]['FareAllocations'][0]['fareInformation']['classOfService'] = 'BJ';
+        $train->departure_date = $yesterday->format(Eurostar::DATE_FORMAT_DB);
+        $train->arrival_date = $yesterday->format(Eurostar::DATE_FORMAT_DB);
+
+        $ticket = factory( Ticket::class )->make();
+
+        $ticketData1 = $this->createTicketDataset( $train, $ticket );
+
+        $customTicketsList['booking']['passengers'][0]['outbound']['legs'] = [$ticketData1];
 
         // Mock client
         $mock = new MockHandler( [
-            new Response( 200, [], \GuzzleHttp\json_encode( $this->bookingInfo ) ),
+            new Response( 200, [], \GuzzleHttp\json_encode( $customTicketsList ) ),
         ] );
         $handler = HandlerStack::create( $mock );
         $client = new Client( [ 'handler' => $handler ] );
@@ -514,6 +582,7 @@ class EurostarTest extends TestCase
 
         /* @var Ticket $ticket */
         $this->assertEquals( 0, count( $tickets ) );
+
     }
 
     /**

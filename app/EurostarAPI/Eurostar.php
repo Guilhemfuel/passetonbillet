@@ -24,6 +24,10 @@ class Eurostar
     private $retrieveURL;
     private $client;
 
+    const DATE_FORMAT_JSON = 'd/m/Y';
+    const TIME_FORMAT_JSON = 'H:i';
+    const DATE_FORMAT_DB = 'Y-m-d';
+
     public function __construct( Client $customClient = null )
     {
         $this->retrieveURL = config( 'eurostar.booking_url' );
@@ -122,24 +126,30 @@ class Eurostar
         return $tickets;
     }
 
-    private function createTrainAndReturnTicket($data, $currency, $lastName, $referenceNumber, $buyerEmail, $outbound = true, $past = false){
+    public function createTrainAndReturnTicket($data, $currency, $lastName, $referenceNumber, $buyerEmail, $outbound = true, $past = false){
+
+
 
         $trainNumber = $data['info']['trainNumber'];
         $trainDepartureDate = $data['info']['departureDate'];
         $trainDepartureTime = $data['info']['departureTime'];
         $trainArrivalDate = $data['info']['arrivalDate'];
         $trainArrivalTime = $data['info']['arrivalTime'];
+
+        $trainDepartureStation = null;
+        $trainArrivalStation = null;
+
         $trainDepartureStation = Station::where( 'eurostar_id', $data['info']['origin']['code'] )->first();
         $trainArrivalStation = Station::where( 'eurostar_id', $data['info']['destination']['code'] )->first();
 
-        if ( ! $trainDepartureStation ) {
-            throw new LastarException( 'Station with code ' . $trainDepartureStation . ' not found.' );
+        if ( $trainDepartureStation == null ) {
+            throw new LastarException( 'Departure station with code ' . $data['info']['origin']['code'] . ' not found.' );
         }
-        if ( ! $trainArrivalStation ) {
-            throw new LastarException( 'Station with code ' . $trainArrivalStation . ' not found.' );
+        if ( $trainArrivalStation == null) {
+            throw new LastarException( 'Arrival station with code ' . $data['info']['destination']['code'] . ' not found.' );
         }
 
-        if ( $past || $trainDepartureDate < new \DateTime() ) {
+        if ( $past || (new \DateTime($trainDepartureDate) >= new \DateTime()) ) {
             // We don't consider past tickets
 
             // Create train
@@ -165,7 +175,7 @@ class Eurostar
             $ticket->train_id = $train->id;
             $ticket->flexibility = $flexibility;
             $ticket->class = $class;
-            $ticket->bought_price = $boughtPrice;
+            $ticket->bought_price = intval($boughtPrice);
             $ticket->bought_currency = $currency;
             $ticket->inbound = ! $outbound;
             $ticket->buyer_name = $lastName;
