@@ -81,19 +81,19 @@ class Ticket extends Model
     ];
 
     /**
-     * Search tickets for a specific journey
+     * Search tickets for a specific journey (from date)
      *
      * @param      $departureStationId
      * @param      $arrivalStationId
      * @param      $date
      * @param null $time
      */
-    public static function applyFilters( $departureStationId, $arrivalStationId, $date, $time = null )
+    public static function applyFilters( $departureStationId, $arrivalStationId, $date, $time = null, $exactDay = false )
     {
         // Find matching trains
         $request = Train::where( 'departure_city', $departureStationId )
                         ->where( 'arrival_city', $arrivalStationId )
-                        ->where( 'departure_date', $date )
+                        ->where( 'departure_date',$exactDay?'=':'>=', $date )
                         ->with( 'tickets' );
 
         if ( $time ) {

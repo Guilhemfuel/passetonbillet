@@ -155,30 +155,29 @@
                         this.state = 'searching';
                         this.$http.post(this.api.tickets.search, this.form)
                             .then(response => {
-                                if (!response.data.data.length > 0) {
-                                    this.searchError = true;
-                                    this.state = 'input';
-                                    return;
-                                }
-
-                                if (response.data.data.length == 1) {
-                                    this.state = 'selling_details';
-                                    this.tickets = response.data.data;
-                                    this.tickets[0].user = this.user;
-                                    this.tickets[0].id = 0;
-                                    this.tickets[0].currency = this.tickets[0].bought_currency;
-                                    this.tickets[0].price = Math.floor(this.tickets[0].bought_price);
-                                    this.selectedTicket = this.tickets[0];
-                                } else {
-                                    this.state = 'select';
-                                    for (var i = 0; i < response.data.data.length; i++) {
-                                        response.data.data[i].id = i;
-                                        this.tickets.push(response.data.data[i]);
+                                if (response.ok) {
+                                    if (response.data.data.length == 1) {
+                                        this.state = 'selling_details';
+                                        this.tickets = response.data.data;
+                                        this.tickets[0].user = this.user;
+                                        this.tickets[0].id = 0;
+                                        this.tickets[0].currency = this.tickets[0].bought_currency;
+                                        this.tickets[0].price = Math.floor(this.tickets[0].bought_price);
+                                        this.selectedTicket = this.tickets[0];
+                                    } else {
+                                        this.state = 'select';
+                                        for (var i = 0; i < response.data.data.length; i++) {
+                                            response.data.data[i].id = i;
+                                            this.tickets.push(response.data.data[i]);
+                                        }
                                     }
                                 }
-
+                            }, response => {
+                                this.searchError = true;
+                                this.state = 'input';
+                                console.log('oups');
                                 return;
-                            })
+                            });
                         this.loading = false;
 
                     }

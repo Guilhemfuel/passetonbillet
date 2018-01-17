@@ -34,11 +34,12 @@ class TicketTest extends LastarTestCase
     public function testApplyFiltersOneTicket()
     {
         $ticket = factory( Ticket::class )->create();
+        $ticketDate = new \DateTime();
 
         $retrievedTickets = Ticket::applyFilters(
             $ticket->train->departure_city,
             $ticket->train->arrival_city,
-            $ticket->train->departure_date );
+            $ticket->train->departure_date , null, true);
 
         $this->assertEquals( 1, count( $retrievedTickets ) );
         $this->assertEquals( $ticket->id, $retrievedTickets->first()->id );
@@ -61,7 +62,7 @@ class TicketTest extends LastarTestCase
         $retrievedTickets = Ticket::applyFilters(
             $ticket->train->departure_city,
             $ticket->train->arrival_city,
-            $ticket->train->departure_date );
+            $ticket->train->departure_date  , null, true);
 
         $this->assertEquals( 3, count( $retrievedTickets ) );
 
@@ -183,7 +184,7 @@ class TicketTest extends LastarTestCase
         $retrievedTickets = Ticket::applyFilters(
             $ticket->train->departure_city,
             $ticket->train->arrival_city,
-            $ticket->train->departure_date );
+            $ticket->train->departure_date  , null, true);
 
         $this->assertEquals( 1, count( $retrievedTickets ) );
         $this->assertEquals( $ticket->id, $retrievedTickets->first()->id );
@@ -225,7 +226,7 @@ class TicketTest extends LastarTestCase
             $ticket->train->departure_city,
             $ticket->train->arrival_city,
             $ticket->train->departure_date,
-            '11:00');
+            '11:00'  , true);
         $this->assertEquals( 1, count( $retrievedTickets ) );
         $this->assertEquals( $ticket2->id, $retrievedTickets->first()->id );
 
@@ -234,7 +235,7 @@ class TicketTest extends LastarTestCase
             $ticket->train->departure_city,
             $ticket->train->arrival_city,
             $ticket->train->departure_date,
-            '13:00');
+            '13:00', true);
         $this->assertEquals( 0, count( $retrievedTickets ) );
 
     }
