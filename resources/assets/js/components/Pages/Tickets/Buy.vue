@@ -49,9 +49,9 @@
         <transition enter-class="pre-animated"
                     enter-active-class="animated fadeInUpBig"
                     leave-active-class="animated fadeOut">
-            <div class="row" v-if="tickets.length > 0">
+            <div class="row mt-4" v-if="tickets.length > 0">
                 <div class="col-12 col-sm-12 col-md-6 col-lg-4" v-for="ticket in tickets">
-                    <ticket :ticket="ticket" :lang="lang.component" class-name="mt-4"></ticket>
+                    <ticket :ticket="ticket" :api="api" :lang="lang.component" :user="user" :buying="true" class-name="mt-4"></ticket>
                 </div>
             </div>
         </transition>

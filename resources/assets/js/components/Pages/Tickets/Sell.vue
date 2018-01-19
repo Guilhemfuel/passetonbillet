@@ -145,7 +145,7 @@
         computed: {
             startCardVisible: function () {
                 return ['input', 'searching', 'select'].includes(this.state);
-            }
+            },
         },
         methods: {
             search() {
@@ -175,7 +175,6 @@
                             }, response => {
                                 this.searchError = true;
                                 this.state = 'input';
-                                console.log('oups');
                                 return;
                             });
                         this.loading = false;

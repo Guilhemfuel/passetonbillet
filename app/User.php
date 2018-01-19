@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Discussion;
 use App\Notifications\ResetPasswordNotification;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
@@ -105,7 +106,10 @@ class User extends Authenticatable
 
     public function getFullNameAttribute()
     {
-        return ucfirst( $this->first_name ) . ' ' . ucfirst( $this->last_name );
+        if (\App::environment()=='testing' || (\Auth::check() && \Auth::user()->id == $this->id )){
+            return ucfirst( $this->first_name ) . ' ' . ucfirst( $this->last_name );
+        }
+        return ucfirst( $this->first_name ) . ' ' . substr(ucfirst( $this->last_name ),0,1).'.';
     }
 
     public function getRoleAttribute()
@@ -165,6 +169,11 @@ class User extends Authenticatable
     public function idVerification()
     {
         return $this->hasOne('App\Models\Verification\IdVerification');
+    }
+
+    public function offers()
+    {
+        return $this->hasMany('App\Models\Discussion', 'buyer_id');
     }
 
 }

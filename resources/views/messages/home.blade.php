@@ -2,26 +2,21 @@
 
 @section('dashboard-content')
     <div class="container-fluid">
-        <div class="row" id="buy-ticket">
-            <buy-ticket :lang="lang" :user="user" :csrf="csrf" :routes="routes" :api="api" :stations="stations"></buy-ticket>
+        <div class="row" id="messages">
+
         </div>
     </div>
 @endsection
 
 @push('scripts')
     <?php
-        $lang = Lang::get( 'tickets' );
-        $routes = [
-            'tickets' => [
+    $lang = Lang::get( 'tickets' );
+    $routes = [
 
-            ]
-        ];
-        $api = [
-            'tickets' => [
-                'buy' => route('api.tickets.buy'),
-                'offer' => route('api.tickets.offer')
-            ]
-        ];
+    ];
+    $api = [
+
+    ];
     ?>
 
     <script type="text/javascript">

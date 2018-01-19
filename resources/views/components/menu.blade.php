@@ -7,8 +7,8 @@
     </a>
 </li>
 
-<li  class="">
-    <a href="#">
+<li class="{{ Route::current()->getName() == 'public.message.home.page' ? ' active' : '' }}">
+    <a href="{{route('public.message.home.page')}}">
         <span class="badge badge-pill">2</span>
         <i class="fa fa-envelope-o" aria-hidden="true"></i>
         <span class="d-sm-inline d-none label">{{__('nav.messages')}}</span>

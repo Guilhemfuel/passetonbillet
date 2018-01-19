@@ -3,6 +3,7 @@
 namespace Tests\app\Http\Controllers;
 
 use App\Http\Resources\TicketRessource;
+use App\Notifications\OfferNotification;
 use App\Ticket;
 use App\Station;
 use App\User;
@@ -42,20 +43,20 @@ class TicketControllerTest extends LastarTestCase
         $response->assertSessionHas( 'tickets', collect( $tickets ) );
     }
 
-    public function testSellTicketWithoutPhoneVerified(  )
+    public function testSellTicketWithoutPhoneVerified()
     {
         $tickets = factory( Ticket::class, 2 )->states( 'new' )->make();
         $ticketIndex = random_int( 0, 1 );
         $newPrice = $tickets[ $ticketIndex ]->bought_price - random_int( 0, ( $tickets[ $ticketIndex ]->bought_price - 1 ) ); // Price between original price and 1
         $newNotes = str_random( 20 );
 
-        $response = $this->beAUser('phone_less')->postWithCsrf( route( 'public.ticket.sell.post' ), [
+        $response = $this->beAUser( 'phone_less' )->postWithCsrf( route( 'public.ticket.sell.post' ), [
             'index' => $ticketIndex,
             'price' => $newPrice,
             'notes' => $newNotes
         ], [ 'tickets' => $tickets ] );
 
-        $response->assertStatus(302);
+        $response->assertStatus( 302 );
     }
 
     /**
@@ -190,5 +191,209 @@ class TicketControllerTest extends LastarTestCase
 
         $response = $this->postWithCsrf( route( 'api.tickets.buy' ), $data );
         $response->assertSuccessful();
+    }
+
+    /**
+     * Make sure you can make an offer to a ticket
+     */
+    public function testMakeAnOffer()
+    {
+        \Notification::fake();
+
+        $ticket = factory( Ticket::class )->create();
+        $buyer = factory( User::class )->create();
+        $price = rand( 1, $ticket->price );
+
+        $this->be( $buyer );
+        $response = $this->postWithCsrf( route( 'api.tickets.offer' ), [
+            'price'     => $price,
+            'ticket_id' => $ticket->id
+        ] );
+
+        $response->assertSuccessful();
+        $this->assertDatabaseHas( 'discussions', [
+            'ticket_id' => $ticket->id,
+            'buyer_id'  => $buyer->id,
+            'price'     => $price,
+            'status'    => 0
+        ] );
+
+        \Notification::assertSentTo(
+            $ticket->user,
+            OfferNotification::class,
+            function ($notification) use ($ticket) {
+                return $notification->ticket->id === $ticket->id;
+            }
+        );
+
+    }
+
+    /**
+     * Make sure you can't make an offer without price or ticket id
+     */
+    public function testMakeAnOfferWithMissingFields()
+    {
+        \Notification::fake();
+
+        $ticket = factory( Ticket::class )->create();
+        $buyer = factory( User::class )->create();
+        $price = rand( 1, $ticket->price );
+
+        $this->be( $buyer );
+
+        $response = $this->postWithCsrf( route( 'api.tickets.offer' ), [
+            'price'     => $price,
+        ] );
+        $response->assertStatus(302);
+
+        $response = $this->postWithCsrf( route( 'api.tickets.offer' ), [
+            'ticket_id'     => $ticket->id,
+        ] );
+        $response->assertStatus(302);
+
+        $response = $this->postWithCsrf( route( 'api.tickets.offer' ));
+        $response->assertStatus(302);
+
+        $this->assertDatabaseMissing( 'discussions', [
+            'ticket_id' => $ticket->id,
+            'buyer_id'  => $buyer->id,
+            'price'     => $price,
+            'status'    => 0
+        ] );
+
+        \Notification::assertNotSentTo(
+            [$buyer], OfferNotification::class
+        );
+    }
+
+    public function testMakeAnOfferTicketNotFound(){
+        \Notification::fake();
+
+        $buyer = factory( User::class )->create();
+        $price = rand( 1, 100 );
+
+        // Find a random ticket and delete it (to make sure id is wrong)
+        $ticket = factory( Ticket::class )->create();
+        $ticket_id = $ticket->id;
+        $ticket->delete();
+
+        $this->be( $buyer );
+
+        $response = $this->postWithCsrf( route( 'api.tickets.offer' ), [
+            'price'     => $price,
+            'ticket_id' => $ticket_id
+        ] );
+        $response->assertStatus(500);
+
+        $this->assertDatabaseMissing( 'discussions', [
+            'ticket_id' => $ticket->id,
+            'buyer_id'  => $buyer->id,
+            'price'     => $price,
+            'status'    => 0
+        ] );
+
+        \Notification::assertNotSentTo(
+            [$buyer], OfferNotification::class
+        );
+    }
+
+    public function testMakeAnOfferWrongPrice(){
+        \Notification::fake();
+
+        $ticket = factory( Ticket::class )->create();
+        $buyer = factory( User::class )->create();
+
+        $this->be( $buyer );
+
+        $response = $this->postWithCsrf( route( 'api.tickets.offer' ), [
+            'price'     => 0,
+            'ticket_id' => $ticket->id
+        ] );
+        $response->assertStatus(500);
+
+        $response = $this->postWithCsrf( route( 'api.tickets.offer' ), [
+            'price'     => $ticket->price+1,
+            'ticket_id' => $ticket->id
+        ] );
+        $response->assertStatus(500);
+
+        $this->assertDatabaseMissing( 'discussions', [
+            'ticket_id' => $ticket->id,
+            'buyer_id'  => $buyer->id,
+            'status'    => 0
+        ] );
+
+        \Notification::assertNotSentTo(
+            [$buyer], OfferNotification::class
+        );
+    }
+
+    /**
+     * Make sure you can't make an offer to one of your tickets
+     */
+    public function testMakeAnOfferForOwnTicket(){
+        \Notification::fake();
+
+        $ticket = factory( Ticket::class )->create();
+        $buyer = $ticket->user;
+        $price = rand( 1, $ticket->price );
+
+        $this->be( $buyer );
+
+        $response = $this->postWithCsrf( route( 'api.tickets.offer' ), [
+            'price'     => $price,
+            'ticket_id' => $ticket->id
+        ] );
+        $response->assertStatus(500);
+
+        $this->assertDatabaseMissing( 'discussions', [
+            'ticket_id' => $ticket->id,
+            'buyer_id'  => $buyer->id,
+            'price'     => $price,
+            'status'    => 0
+        ] );
+
+        \Notification::assertNotSentTo(
+            [$buyer], OfferNotification::class
+        );
+    }
+
+    /**
+     * Make sure you can't make an offer twice for the same ticket
+     */
+    public function testMakeAnOfferTwice(){
+        \Notification::fake();
+
+        $ticket = factory( Ticket::class )->create();
+        $buyer = factory( User::class )->create();
+        $price = rand( 1, $ticket->price );
+
+        $this->be( $buyer );
+
+        $response = $this->postWithCsrf( route( 'api.tickets.offer' ), [
+            'price'     => $price,
+            'ticket_id' => $ticket->id
+        ] );
+        $response->assertSuccessful();
+        $this->assertDatabaseHas( 'discussions', [
+            'ticket_id' => $ticket->id,
+            'buyer_id'  => $buyer->id,
+            'price'     => $price,
+            'status'    => 0
+        ] );
+
+        \Notification::assertSentTo(
+            $ticket->user,
+            OfferNotification::class,
+            function ($notification) use ($ticket) {
+                return $notification->ticket->id === $ticket->id;
+            }
+        );
+
+        $response = $this->postWithCsrf( route( 'api.tickets.offer' ), [
+            'price'     => $price,
+            'ticket_id' => $ticket->id
+        ] );
+        $response->assertStatus(500);
     }
 }

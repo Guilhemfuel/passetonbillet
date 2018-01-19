@@ -64,6 +64,13 @@ Route::group( [ 'middleware' => 'auth', 'as'=>'public.' ], function () {
 
     } );
 
+    // Messages routes
+    Route::group( [ 'prefix' => 'message', 'as' => 'message.' ], function () {
+
+        Route::get('/','PageController@messagePage')->name('home.page');
+
+    } );
+
     // Profile routes
     Route::group( [ 'prefix' => 'profile', 'as' => 'profile.' ], function () {
 
@@ -107,6 +114,7 @@ Route::group( [ 'prefix' => 'api' ], function () {
         Route::get( 'stations', 'StationController@stations' )->name( 'api.stations.list' );
         Route::get('notifications','UserController@getNotifications')->name('api.notifications');
         Route::post('ticket/search','TicketController@searchTickets')->name('api.tickets.search');
+        Route::post('ticket/offer','TicketController@makeAnOffer')->name('api.tickets.offer');
     } );
 
     Route::post('tickets/buy','TicketController@buyTickets')->name('api.tickets.buy');

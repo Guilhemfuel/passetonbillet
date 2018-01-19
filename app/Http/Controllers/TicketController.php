@@ -3,12 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\EurostarException;
+use App\Exceptions\LastarException;
 use App\Http\Requests\BuyTicketsRequest;
+use App\Http\Requests\OfferRequest;
 use App\Http\Requests\SearchTicketsRequest;
 use App\Http\Requests\SellTicketRequest;
+use App\Http\Resources\DiscussionResource;
 use App\Http\Resources\StationRessource;
 use App\Http\Resources\TicketRessource;
 use App\Http\Resources\TrainRessource;
+use App\Mail\OfferEmail;
+use App\Models\Discussion;
+use App\Notifications\OfferNotification;
 use App\Ticket;
 use App\Train;
 use Illuminate\Http\Request;
@@ -92,5 +98,52 @@ class TicketController extends Controller
         );
 
         return TicketRessource::collection($tickets);
+    }
+
+    /**
+     * Make an offer for a ticket
+     */
+
+    public function makeAnOffer(OfferRequest $request) {
+
+        $ticket = Ticket::find($request->ticket_id);
+        $price = $request->price;
+
+        if (!$ticket) {
+            throw new LastarException(__('offer.errors.ticket_not_found'));
+        }
+
+        // Price verification
+        if($price <=0){
+            throw new LastarException(__('offer.errors.price_null'));
+        }
+
+        if($price > $ticket->price){
+            throw new LastarException(__('offer.errors.over_price'));
+        }
+
+        // User verification (not owner)
+        if(\Auth::user()->id == $ticket->user->id){
+            throw new LastarException(__('offer.errors.ticket_owned'));
+        }
+
+        // User verification (no existing offer)
+        $discussion = Discussion::where('ticket_id',$ticket->id)
+                                ->where('buyer_id',\Auth::user()->id)->first();
+        if($discussion){
+            throw new LastarException(__('offer.errors.offer_already_done'));
+        }
+
+        $discussion = new Discussion([
+            'buyer_id' => \Auth::user()->id,
+            'ticket_id'=> $ticket->id,
+            'price'    => $price
+        ]);
+        $discussion->save();
+
+        $discussion->seller->notify( new OfferNotification($discussion->ticket) );
+
+        return new DiscussionResource($discussion);
+
     }
 }

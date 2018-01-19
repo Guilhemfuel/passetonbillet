@@ -106,7 +106,11 @@ class Ticket extends Model
         $tickets = collect();
         foreach ( $trains as $train ) {
             if ( $train->tickets ) {
-                foreach ($train->tickets as $ticket) $tickets->push($ticket);
+                foreach ($train->tickets as $ticket) {
+                    if ( (!\Auth::check() ) || \Auth::user()->id != $ticket->user_id){
+                        $tickets->push($ticket);
+                    }
+                }
             }
         }
 

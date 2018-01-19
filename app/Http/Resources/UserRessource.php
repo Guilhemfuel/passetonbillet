@@ -6,6 +6,24 @@ use Illuminate\Http\Resources\Json\Resource;
 
 class UserRessource extends Resource
 {
+    private $offersDone = [];
+
+    /**
+     * Create a new resource instance.
+     *
+     * @param  mixed $resource
+     *
+     * @return void
+     */
+    public function __construct( $ressource, $includeOffers = false )
+    {
+        parent::__construct( $ressource );
+
+        if ( $includeOffers ) {
+            $this->offersDone = $this->offers->where('status','>=',0)->pluck( 'ticket_id' );
+        }
+    }
+
     /**
      * Transform the resource into an array.
      *
@@ -26,7 +44,8 @@ class UserRessource extends Resource
             'language'             => $this->language,
             'verified'             => $this->id_verified,
             'admin'                => $this->isAdmin(),
-            'unread_notifications' => count( $this->unreadNotifications )
+            'unread_notifications' => count( $this->unreadNotifications ),
+            'offers_sent'          => $this->when( $this->offersDone != [], $this->offersDone ),
         ];
     }
 }

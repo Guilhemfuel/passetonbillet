@@ -9,11 +9,16 @@ return [
     */
 
     'component' => [
-        'buy'     => 'Buy',
-        'sell'    => 'Sell this ticket',
-        'sold_by' => 'Sold by',
-        'edit'    => 'Edit',
-        'edit_ticket' => 'Edit ticket'
+        'buy'           => 'Buy',
+        'sell'          => 'Sell this ticket',
+        'sold_by'       => 'Sold by',
+        'edit'          => 'Edit',
+        'edit_ticket'   => 'Edit ticket',
+        'buy_ticket'    => 'Buy ticket',
+        'your_offer'    => 'Your offer',
+        'price'         => 'Price',
+        'send_offer'    => 'Send offer',
+        'if_interested' => 'The seller will contact you soon if interested.'
 
     ],
     'sell'      => [
@@ -41,38 +46,38 @@ return [
         'success'       => 'Hooray! Your ticket is now on the market ! Thank you for your trust !',
 
         'confirm_number' => [
-            'last_step'  => 'One last step! Because safety is our number one mission, we need to verify your phone number. We will send you a verificcode via a text message, and you\'ll then be able to sell your ticket!',
-            'code_check' => 'Type the code you received in the text message we sent you. You\'ll then be able to start selling tickets!',
-            'CTA'        => 'Verify my phone number',
+            'last_step'        => 'One last step! Because safety is our number one mission, we need to verify your phone number. We will send you a verificcode via a text message, and you\'ll then be able to sell your ticket!',
+            'code_check'       => 'Type the code you received in the text message we sent you. You\'ll then be able to start selling tickets!',
+            'CTA'              => 'Verify my phone number',
             'no_code_received' => 'You didn\'t receive a verification code? Click here',
 
-            'errors' => [
-                'phone_already_used' => 'Phone number already used by another user. Please contact us.',
+            'errors'  => [
+                'phone_already_used'     => 'Phone number already used by another user. Please contact us.',
                 'phone_already_verified' => 'Your phone number was already verified! Please contact us to change it.',
-                'verify_max_retry' => 'You already tried to verify your number 3 times. Please contact us to solve the problem.',
-                'no_verification_found' => 'We didn\'t find any phone number to validate with this code... Please contact us to solve the problem.',
+                'verify_max_retry'       => 'You already tried to verify your number 3 times. Please contact us to solve the problem.',
+                'no_verification_found'  => 'We didn\'t find any phone number to validate with this code... Please contact us to solve the problem.',
 
             ],
             'success' => [
-                'code_sent' => 'A text message with a validation code was sent to your number.',
+                'code_sent'        => 'A text message with a validation code was sent to your number.',
                 'number_confirmed' => 'Success! Your phone number is confirmed. You can now sell your tickets!'
             ]
         ]
     ],
-    'buy'   => [
-        'inputs' => [
-            'trippicker' => [
+    'buy'       => [
+        'inputs'    => [
+            'trippicker'     => [
                 'departure_station' => 'Departure station',
-                'arrival_satation' => 'Arrival station',
+                'arrival_satation'  => 'Arrival station',
             ],
             'datetimepicker' => [
                 'trip_date' => 'Travel date',
                 'trip_time' => '(Optional) From'
             ]
         ],
-        'title' => 'Buy a ticket',
+        'title'     => 'Buy a ticket',
         'catchline' => 'What is your journey?',
-        'research' => 'Research'
+        'research'  => 'Research'
     ]
 
 

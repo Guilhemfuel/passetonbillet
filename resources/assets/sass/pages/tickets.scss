@@ -145,6 +145,12 @@ $animation-duration: 0.5s;
       transform: translateX(-50%);
       top: -15px;
     }
+
+    &.card-buying {
+      p {
+        margin-bottom: 5px;
+      }
+    }
   }
 }
 
