@@ -2,26 +2,26 @@
 
 namespace App\Notifications;
 
-use App\Mail\OfferEmail;
-use App\Ticket;
+use App\Mail\MessageEmail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Notifications\Messages\MailMessage;
 
-class OfferNotification extends Notification implements ShouldQueue
+class MessageNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public $ticket;
+    public $discussion;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($ticket)
+    public function __construct($discussion)
     {
-        $this->ticket = $ticket;
+        $this->discussion = $discussion;
     }
 
     /**
@@ -37,13 +37,10 @@ class OfferNotification extends Notification implements ShouldQueue
 
     /**
      * Get the mail representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return OfferEmail
      */
     public function toMail($notifiable)
     {
-        return new OfferEmail( $notifiable, $this->ticket );
+        return new MessageEmail( $notifiable, $this->discussion->ticket, $this->discussion );
     }
 
     /**
@@ -55,9 +52,9 @@ class OfferNotification extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
-            'icon' => 'ticket',
-            'text' => __('notifications.offer'),
-            'link' => route('public.message.home.page')
+            'icon' => 'comment',
+            'text' => __('notifications.new_message'),
+            'link' => route('public.message.discussion.page',[$this->discussion->ticket_id,$this->discussion->id])
         ];
     }
 }

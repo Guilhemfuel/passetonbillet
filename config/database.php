@@ -69,7 +69,7 @@ return [
         'testing' => [
             'driver' => 'pgsql',
             'host' => env('DB_HOST_TEST', '127.0.0.1'),
-            'port' => env('DB_PORT_TEST', '5432'),
+            'port' => env('DB_PORT_TEST', env('DB_PORT', '5432')),
             'database' => env('DB_DATABASE_TEST', 'lastar_test'),
             'username' => env('DB_USERNAME_TEST', env('DB_USERNAME', '')),
             'password' => env('DB_PASSWORD_TEST', env('DB_PASSWORD', '')),

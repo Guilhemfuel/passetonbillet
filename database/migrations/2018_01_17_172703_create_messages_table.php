@@ -18,6 +18,7 @@ class CreateMessagesTable extends Migration
             $table->bigInteger( 'discussion_id' )->unsigned();
             $table->bigInteger( 'sender_id' )->unsigned();
             $table->text('message');
+            $table->dateTime('read_at')->nullable();
 
             $table->foreign('discussion_id')->references('id')->on('discussions');
             $table->foreign('sender_id')->references('id')->on('users');

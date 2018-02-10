@@ -26,19 +26,21 @@ extract( $config['connections'][ $config['default'] ] );
 $username = env( 'DB_USERNAME_TEST', '' );
 $password = env( 'DB_PASSWORD_TEST', '' );
 $database = env( 'DB_DATABASE_TEST','lastar_test' );
+$port = env('DB_PORT_TEST', env('DB_PORT', '5432'));
 
 // Drop and recreate database
 try {
     echo "Dropping and recreating database {$database}...\n";
     // Drop and recreate database
-    $connection = new PDO( "{$driver}:host={$host};dbname={$database}", $username, $password );
+    $connectionString = "{$driver}:host={$host};port={$port};dbname={$database}";
+    $connection = new PDO( $connectionString, $username, $password );
     $connection->query( "DROP DATABASE IF EXISTS " . $database );
     $connection->query( "CREATE DATABASE " . $database );
     $connection = null;
 
-    echo "Adding unaccent extension...\n";
+    echo "\nAdding unaccent extension...\n";
     // Create extension unaccent
-    $connection = new PDO( "{$driver}:host={$host};dbname={$database}", $username, $password );
+    $connection = new PDO( $connectionString, $username, $password );
     $connection->query( "CREATE EXTENSION unaccent;" );
     $connection = null;
 } catch ( PDOException $Exception ) {

@@ -71,6 +71,9 @@ if (token) {
     window.Vue.http.interceptors.push(function (request, next) {
         // modify headers
         request.headers.set('X-CSRF-TOKEN', token.content);
+        request.headers.set('Content-Type', 'application/json');
+        request.headers.set('Accept', 'application/json');
+
         request.credentials = true;
         // continue to next interceptor
         next();

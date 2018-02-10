@@ -19,6 +19,7 @@ class CreateDiscussionsTable extends Migration
             $table->bigInteger( 'buyer_id' )->unsigned();
             $table->integer('status')->default(0);
             $table->integer('price');
+            $table->string('currency');
 
 
             $table->foreign('ticket_id')->references('id')->on('tickets');

@@ -8,7 +8,7 @@ use App\Http\Requests\BuyTicketsRequest;
 use App\Http\Requests\OfferRequest;
 use App\Http\Requests\SearchTicketsRequest;
 use App\Http\Requests\SellTicketRequest;
-use App\Http\Resources\DiscussionResource;
+use App\Http\Resources\DiscussionLastMessageResource;
 use App\Http\Resources\StationRessource;
 use App\Http\Resources\TicketRessource;
 use App\Http\Resources\TrainRessource;
@@ -137,13 +137,14 @@ class TicketController extends Controller
         $discussion = new Discussion([
             'buyer_id' => \Auth::user()->id,
             'ticket_id'=> $ticket->id,
-            'price'    => $price
+            'price'    => $price,
+            'currency' => $ticket->currency
         ]);
         $discussion->save();
 
         $discussion->seller->notify( new OfferNotification($discussion->ticket) );
 
-        return new DiscussionResource($discussion);
+        return new DiscussionLastMessageResource($discussion);
 
     }
 }

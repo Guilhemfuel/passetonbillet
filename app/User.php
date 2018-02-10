@@ -171,6 +171,9 @@ class User extends Authenticatable
         return $this->hasOne('App\Models\Verification\IdVerification');
     }
 
+    /**
+     * Offers made by user
+     */
     public function offers()
     {
         return $this->hasMany('App\Models\Discussion', 'buyer_id');

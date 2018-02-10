@@ -6,13 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Discussion extends Model
 {
+    CONST DENIED = - 1;
+    CONST AWAITING = 0;
+    CONST ACCEPTED = 1;
+
     public $table = 'discussions';
 
     public $fillable = [
         'ticket_id',
         'buyer_id',
         'status',
-        'price'
+        'price',
+        'currency'
     ];
 
     /**
@@ -24,7 +29,9 @@ class Discussion extends Model
         'ticket_id' => 'integer',
         'buyer_id'  => 'integer',
         'status'    => 'integer',
-        'price'     => 'integer'
+        'price'     => 'integer',
+        'currency'  => 'string',
+
     ];
 
     /**
@@ -35,27 +42,34 @@ class Discussion extends Model
     public static $rules = [
         'buyer_id'  => 'required|exists:users,id',
         'ticket_id' => 'required|exists:tickets,id',
-        'price'     => 'required|integer'
+        'price'     => 'required|integer',
+        'currency'  => 'required',
     ];
 
     /**
      * Mutators
      */
 
-    public function getStatusAttibute( $value )
+    public function getStatusTextAttibute( $value )
     {
-        switch ($value){
-            case -1:
+        switch ( $value ) {
+            case $value == static::DENIED :
                 return 'denied';
-            case 0:
+            case $value == static::AWAITING:
                 return 'awaiting';
-            case 1:
+            case $value == static::ACCEPTED:
                 return 'accepted';
         }
     }
 
-    public function getSellerAttribute(){
+    public function getSellerAttribute()
+    {
         return $this->ticket->user;
+    }
+
+    public function getLastMessageAttribute()
+    {
+        return $this->messages()->orderBy('created_at','desc')->first();
     }
 
     /**
@@ -70,6 +84,11 @@ class Discussion extends Model
     public function ticket()
     {
         return $this->belongsTo( 'App\Ticket' );
+    }
+
+    public function messages()
+    {
+        return $this->hasMany('App\Models\Message', 'discussion_id');
     }
 
 }

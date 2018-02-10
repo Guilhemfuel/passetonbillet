@@ -1,7 +1,7 @@
 <template>
     <div class="flip-container">
         <div :class="{'flipper':true, 'flipped':editing}">
-            <div :class="{'card':true, 'card-ticket':true, 'front':true, className:className, 'past-ticket':pastTicket}">
+            <div :class="[className,{'card':true, 'card-ticket':true, 'front':true, 'past-ticket':pastTicket}]">
                 <div class="card-travel-info">
                     <div class="day">
                         <span>{{date.format('D')}}</span>
@@ -26,7 +26,7 @@
                     </div>
                 </div>
                 <div class="card-seller-info">
-                    <template v-if="!pastTicket">
+                    <template v-if="!pastTicket && !display">
                         <button class="btn btn-pink btn-buy btn-sm" v-if="!selecting && buying" @click="editing=true">
                             {{lang.buy}}
                         </button>
@@ -34,7 +34,7 @@
                             {{lang.sell}}
                         </button>
                     </template>
-                    <template v-if="!pastTicket && (user && ticket.user.id == user.id)">
+                    <template v-if="!pastTicket && (user && ticket.user.id == user.id) && !display">
                         <button class="btn btn-pink btn-buy btn-sm" @click="editing=true">{{lang.edit}}</button>
                     </template>
 
@@ -129,6 +129,9 @@
             selecting: {type: Boolean, default: false},
             // If the ticket is dislayed on the buying page
             buying: {type: Boolean, default: false},
+            // Display only Mode
+            display: {type: Boolean, default: false},
+
             className: '',
         },
         data() {
@@ -158,7 +161,10 @@
                 return now.isAfter(departure)
             },
             offerDone: function () {
-                return this.user.offers_sent.includes(this.ticket.id);
+                if (this.buying){
+                    return this.user.offers_sent.includes(this.ticket.id);
+                }
+                return false;
             }
         },
         methods: {

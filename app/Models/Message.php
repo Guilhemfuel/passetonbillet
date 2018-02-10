@@ -11,7 +11,8 @@ class Message extends Model
     public $fillable = [
         'discussion_id',
         'sender_id',
-        'message'
+        'message',
+        'read_at'
     ];
 
     /**
@@ -21,8 +22,9 @@ class Message extends Model
      */
     protected $casts = [
         'discussion_id' => 'integer',
-        'sender_id'  => 'integer',
-        'message'    => 'string'
+        'sender_id'     => 'integer',
+        'message'       => 'string',
+        'read_at'       => 'date'
     ];
 
     /**
@@ -31,10 +33,24 @@ class Message extends Model
      * @var array
      */
     public static $rules = [
-        'discussion_id'  => 'required|exists:discussions,id',
-        'sender_id' => 'required|exists:users,id',
-        'message'    => 'required|string'
+        'discussion_id' => 'required|exists:discussions,id',
+        'sender_id'     => 'required|exists:users,id',
+        'message'       => 'required|string',
+        'read'          => 'date'
     ];
+
+    /**
+     * Mutator
+     */
+
+    public function getReceiverAttribute()
+    {
+        if ( $this->discussion->seller->id == $this->sender_id ) {
+            return $this->discussion->buyer;
+        } else {
+            return $this->discussion->seller;
+        }
+    }
 
     /**
      * Relationships
@@ -42,11 +58,12 @@ class Message extends Model
 
     public function discussion()
     {
-        return $this->belongsTo( 'App\Model\Discussion' );
+        return $this->belongsTo( 'App\Models\Discussion' );
     }
 
     public function sender()
     {
         return $this->belongsTo( 'App\User' );
     }
+
 }

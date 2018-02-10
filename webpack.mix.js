@@ -1,8 +1,5 @@
 const { mix } = require('laravel-mix');
 
-if(process.env.NODE_ENV != 'production'){
-    var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-}
 
 /*
  |--------------------------------------------------------------------------
@@ -23,4 +20,10 @@ mix.js('resources/assets/js/app.js', 'public/js').version()
     .js('resources/assets/js/admin.js', 'public/js').version()
     .sass('resources/assets/sass/app.scss', 'public/css').version()
     .sass('resources/assets/sass/admin.scss', 'public/css').version()
-    .copyDirectory('resources/assets/img', 'public/img');
+    .copyDirectory('resources/assets/img', 'public/img')
+    .copyDirectory('resources/assets/audio', 'public/audio');
+
+if(!mix.inProduction()){
+    mix.browserSync();
+    var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+}

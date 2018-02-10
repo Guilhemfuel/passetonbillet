@@ -50,6 +50,8 @@ Vue.component('buy-sell', require('./components/Pages/Welcome/BuyAndSell.vue'));
 Vue.component('buy-ticket-welcome', require('./components/Pages/Welcome/Buy.vue'));
 Vue.component('sell-ticket-welcome', require('./components/Pages/Welcome/Sell.vue'));
 
+Vue.component('messages-home', require('./components/Pages/Message/Home.vue'));
+Vue.component('discussion', require('./components/Pages/Message/Discussion.vue'));
 
 
 // Unique components (used in one place only)

@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\EurostarAPI\Eurostar as EurostarSrc;
 use App\Facades\Eurostar;
+use App\Http\Resources\DiscussionCollectionResource;
+use App\Http\Resources\DiscussionLastMessageResource;
 use App\Http\Resources\StationRessource;
 use App\Http\Resources\TicketRessource;
 use App\Http\Resources\UserRessource;
+use App\Models\Discussion;
 use App\Notifications\Verification\IdConfirmed;
 use App\Station;
 use App\Ticket;
@@ -66,7 +69,23 @@ class PageController extends Controller
      */
     public function messagePage()
     {
-        return view( 'messages.home' )->with( 'user', new UserRessource( \Auth::user() ) );
+        // Offers done by user
+        $buyingDiscussions = \Auth::user()->offers()->where('status',Discussion::ACCEPTED)->get();
+
+        // For each ticket the user have, we find corresponding discussions
+        $tickets = \Auth::user()->tickets;
+        $sellingDiscussions = collect();
+        $offersAwaiting = collect();
+        foreach ($tickets as $ticket) {
+            $discussions = $ticket->discussions;
+            $sellingDiscussions = $sellingDiscussions->merge($discussions->where('status',Discussion::ACCEPTED));
+            $offersAwaiting = $offersAwaiting->merge($discussions->where('status',Discussion::AWAITING));
+        }
+
+        return view( 'messages.home' )->with( 'user', new UserRessource( \Auth::user() ) )
+            ->with('offersAwaiting', DiscussionLastMessageResource::collection( $offersAwaiting ) )
+            ->with('buyingDiscussions',  DiscussionLastMessageResource::collection( $buyingDiscussions ) )
+            ->with('sellingDiscussions',  DiscussionLastMessageResource::collection( $sellingDiscussions ) );
     }
 
     /**

@@ -148,5 +148,9 @@ class Ticket extends Model
         return $this->belongsTo( 'App\Train' );
     }
 
+    public function discussions()
+    {
+        return $this->hasMany('App\Models\Discussion');
+    }
 
 }

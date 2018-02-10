@@ -79,7 +79,6 @@
                 this.getNotifications();
             },
             getNotifications(){
-
                 this.$http.get(this.routes.api.notifications)
                     .then(response => {
                         this.state='default';

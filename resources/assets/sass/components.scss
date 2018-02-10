@@ -260,6 +260,12 @@ $animation-duration: 0.3s;
     }
   }
 
+  &.white {
+    .double-bounce1, .double-bounce2 {
+      background-color: $color-white !important;
+    }
+  }
+
   .double-bounce1, .double-bounce2 {
     width: 100%;
     height: 100%;
