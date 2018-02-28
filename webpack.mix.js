@@ -24,6 +24,16 @@ mix.js('resources/assets/js/app.js', 'public/js').version()
     .copyDirectory('resources/assets/audio', 'public/audio');
 
 if(!mix.inProduction()){
-    mix.browserSync();
-    var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
+    mix.browserSync({
+        open: false,
+        files: [
+            'app/**/*',
+            'public/**/*',
+            'resources/views/**/*',
+            'routes/**/*'
+        ],
+        proxy: 'https://lastar.nahum',
+        port: 8000,
+    });
 }

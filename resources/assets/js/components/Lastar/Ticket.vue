@@ -106,8 +106,11 @@
                         <div v-else-if="state=='offering'">
                             <loader class-name="mx-auto mt-4"></loader>
                         </div>
-                        <template v-else-if="state='offered'">
+                        <template v-else-if="state=='offered'">
                             <p>Le vendeur a bien reçu votre offre! Il vous recontactera si il est interessé.</p>
+                        </template>
+                        <template v-else-if="state=='register'" >
+                            <p class="text-center">La sécurité est notre premier soucis. Ainsi, vous devez etre inscrit pour commnuniquer avec les autres membres. <br><br> <a :href="routes.register">Inscrivez-vous pour envoyer votre offre!</a></p>
                         </template>
                     </div>
 
@@ -123,8 +126,9 @@
         props: {
             ticket: {type: Object, required: true},
             api: {type: Object, required: false},
+            routes: {type: Object, required: false},
             lang: {type: Object, required: true},
-            user: {type: Object, required: false},
+            user: {type: Object, required: false, default:null},
             // Selecting when user is selling a ticket (no in db yet, no user)
             selecting: {type: Boolean, default: false},
             // If the ticket is dislayed on the buying page
@@ -145,7 +149,7 @@
         },
         mounted(){
             if (this.offerDone){
-                this.state='offered';
+                this.state=='offered';
             }
         },
         computed: {
@@ -161,7 +165,7 @@
                 return now.isAfter(departure)
             },
             offerDone: function () {
-                if (this.buying){
+                if (this.buying && this.user){
                     return this.user.offers_sent.includes(this.ticket.id);
                 }
                 return false;
@@ -173,6 +177,15 @@
                 this.$emit('sell', this.ticket.id);
             },
             makeOffer() {
+
+
+                if (this.user == undefined || this.user == null){
+                    this.state = 'register';
+                    console.log(this.state);
+                    return;
+                }
+                console.log(this.user);
+
                 this.$validator.validateAll().then((result) => {
                     this.state = 'offering';
                     this.errorMessage = '';

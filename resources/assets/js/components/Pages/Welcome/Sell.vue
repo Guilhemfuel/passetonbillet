@@ -19,7 +19,6 @@
                   class="invalid-feedback">{{ errors.first('booking_code')}}</span>
 
         </div>
-        <button class="btn btn-lastar-blue mx-auto mt-4 btn-search-submit">{{lang.sell.search}}</button>
     </form>
 
 </template>

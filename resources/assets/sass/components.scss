@@ -11,6 +11,11 @@ $animation-duration: 0.3s;
 .nav-settings, .nav-notifications {
   position: relative;
 
+  .fa:hover {
+      cursor: pointer;
+      color: #20c7a1 !important;
+  }
+
   &[v-cloak] {
     display: none;
   }

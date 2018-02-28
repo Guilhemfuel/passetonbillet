@@ -25,6 +25,7 @@ class TicketRessource extends Resource
             'bought_price' => $this->bought_price,
             'bought_currency' => $this->bought_currency,
             'inbound' => $this->inbound,
+            'buyer' => $this->sold_to_id?new UserRessource($this->buyer):null,
         ];
     }
 }

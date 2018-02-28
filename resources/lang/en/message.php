@@ -18,6 +18,10 @@ return [
         'title' => 'Discussions'
     ],
 
+    'success' => [
+        'sold'=>'Your ticket was successfully sold! Thank you for your trust.'
+    ],
+
     'errors' => [
         'not_found' => 'Discussion not found.',
         'ticket_not_found' => 'Ticket not found',
@@ -25,7 +29,8 @@ return [
         'not_active'=> 'This conversation is not active',
         'wrong_user' => 'This discusssion is not yours!',
         'wrong_ticket_discussion' => 'The match ticket-discussion failed.',
-        'something' => 'Something went wrong.'
+        'something' => 'Something went wrong.',
+        'already_sold' => 'Ticket is already sold by seller!'
     ]
 
 

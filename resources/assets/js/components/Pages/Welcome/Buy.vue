@@ -6,8 +6,7 @@
                         :lang="lang.buy.inputs.trippicker"
                         v-on:change-departure="changeDeparture($event)"
                         v-on:change-arrival="changeArrival($event)"
-                        :default-depart="search.departure_station"
-                        :default-arrival="search.arrival_station"
+
             ></trippicker>
         </div>
         <div class="col-12 col-sm-12 col-md-6 mb-4 mb-md-0">
@@ -15,10 +14,9 @@
                     :lang="lang.buy.inputs.datetimepicker"
                     v-on:change-date="changeDate($event)"
                     v-on:change-time="changeTime($event)"
-                    :default-date="search.trip_date">
+                    >
             </datetimepicker>
         </div>
-        <button class="btn btn-lastar-blue mx-auto mt-4 btn-search-submit">{{lang.sell.search}}</button>
     </form>
 
 </template>
@@ -74,16 +72,17 @@
         },
         methods: {
             changeDeparture(station){
-                this.search.departure_station = station;
+                this.$emit('change-departure',station);
             },
             changeArrival(station){
-                this.search.arrival_station = station;
+                this.$emit('change-arrival',station);
+
             },
             changeDate(date){
-                this.search.trip_date = moment(date).format('YYYY-MM-DD');
+                this.$emit('change-date',moment(date).format('YYYY-MM-DD'));
             },
             changeTime(time){
-                this.search.trip_time = time;
+                this.$emit('change-time',time);
             },
             searchTickets(){
 //                if (this.state!='default' && this.state!='result') return null;

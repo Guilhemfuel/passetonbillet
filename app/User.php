@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Models\Discussion;
+use App\Models\Message;
 use App\Notifications\ResetPasswordNotification;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
@@ -147,6 +148,15 @@ class User extends Authenticatable
         return ($this->idVerification!==null&&$this->idVerification->accepted) ?:false;
     }
 
+    public function getCountUnreadMessagesAttribute()
+    {
+        return \DB::table('notifications')
+                  ->where('notifiable_id',$this->id)
+                  ->whereIn('type',['App\Notifications\MessageNotification','App\Notifications\OfferNotification'])
+                  ->whereNull('read_at')
+                  ->count();
+    }
+
     /**
      * RELATIONSHIPS
      */
@@ -159,6 +169,11 @@ class User extends Authenticatable
     public function tickets()
     {
         return $this->hasMany( 'App\Ticket' );
+    }
+
+    public function boughtTickets()
+    {
+        return $this->hasMany( 'App\Ticket','sold_to_id' );
     }
 
     public function phoneVerification()

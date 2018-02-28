@@ -155,7 +155,8 @@
     $routes = [
         'tickets' => [
 
-        ]
+        ],
+        'register' => route('register.page')
     ];
     $api = [
         'tickets' => [

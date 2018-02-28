@@ -9,6 +9,7 @@ class Discussion extends Model
     CONST DENIED = - 1;
     CONST AWAITING = 0;
     CONST ACCEPTED = 1;
+    const SOLD = 2;
 
     public $table = 'discussions';
 

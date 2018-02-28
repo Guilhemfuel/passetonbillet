@@ -18,12 +18,11 @@
     $lang = Lang::get( 'message' );
     $ticketLang = Lang::get( 'tickets.component' );
     $routes = [
-
+        'sell' => route('public.message.discussion.sell',[$discussion->ticket->id,$discussion->id])
     ];
     $api = [
         'send' => route('api.discussion.send',['ticket_id','discussion_id']),
         'refresh' => route('api.discussion.refresh',['ticket_id','discussion_id'])
-
     ];
     ?>
 

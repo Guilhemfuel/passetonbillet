@@ -70,7 +70,7 @@ class PageController extends Controller
     public function messagePage()
     {
         // Offers done by user
-        $buyingDiscussions = \Auth::user()->offers()->where('status',Discussion::ACCEPTED)->get();
+        $buyingDiscussions = \Auth::user()->offers()->where('status','>=',Discussion::ACCEPTED)->get();
 
         // For each ticket the user have, we find corresponding discussions
         $tickets = \Auth::user()->tickets;
@@ -78,7 +78,7 @@ class PageController extends Controller
         $offersAwaiting = collect();
         foreach ($tickets as $ticket) {
             $discussions = $ticket->discussions;
-            $sellingDiscussions = $sellingDiscussions->merge($discussions->where('status',Discussion::ACCEPTED));
+            $sellingDiscussions = $sellingDiscussions->merge($discussions->where('status','>=',Discussion::ACCEPTED));
             $offersAwaiting = $offersAwaiting->merge($discussions->where('status',Discussion::AWAITING));
         }
 

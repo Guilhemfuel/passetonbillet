@@ -357,6 +357,134 @@ class DiscussionControllerTest extends LastarTestCase
         );
     }
 
+    public function testSendMessageDiscussionSoldToSomeoneElse()
+    {
+        \Notification::fake();
+
+        $message = str_random(100);
+        $discussion = factory( Discussion::class )->create([
+            'status' => Discussion::ACCEPTED
+        ]);
+
+        // We create another discussion with the same ticket and accept the sell
+        $secundDiscussion = factory( Discussion::class )->create([
+            'ticket_id' => $discussion->ticket->id,
+            'status' => Discussion::ACCEPTED
+        ]);
+        $this->be($secundDiscussion->ticket->user);
+        $response = $this->postWithCsrf(route('public.message.discussion.sell',[
+            $secundDiscussion->ticket_id,
+            $secundDiscussion
+        ]));
+        $response->assertRedirect(route('public.message.discussion.page',[
+            $secundDiscussion->ticket_id,
+            $secundDiscussion->id
+        ]));
+
+        $this->be($discussion->seller);
+        $response = $this->postWithCsrf(route('api.discussion.send',[
+            $discussion->ticket_id,
+            $discussion->id]),[
+            'message' => $message
+        ]);
+        $response->assertStatus(400);
+
+        $this->assertDatabaseMissing('messages',[
+            'sender_id' =>  $discussion->seller->id,
+            'message' => $message,
+            'discussion_id' => $discussion->id
+        ]);
+
+        \Notification::assertNotSentTo(
+            $discussion->buyer,
+            MessageNotification::class
+        );
+
+        $this->be($discussion->buyer);
+        $response = $this->postWithCsrf(route('api.discussion.send',[
+            $discussion->ticket_id,
+            $discussion->id]),[
+            'message' => $message
+        ]);
+        $response->assertStatus(400);
+        $this->assertDatabaseMissing('messages',[
+            'sender_id' =>  $discussion->buyer->id,
+            'message' => $message,
+            'discussion_id' => $discussion->id
+        ]);
+
+        \Notification::assertNotSentTo(
+            $discussion->seller,
+            MessageNotification::class
+        );
+
+    }
+
+    public function testSendMessageDiscussionSold()
+    {
+        \Notification::fake();
+
+        $message = str_random(100);
+        $discussion = factory( Discussion::class )->create([
+            'status' => Discussion::ACCEPTED
+        ]);
+
+        // Now we mark as sold the ticket
+        $this->be($discussion->ticket->user);
+        $response2 = $this->postWithCsrf(route('public.message.discussion.sell',[
+            $discussion->ticket_id,
+            $discussion
+        ]));
+        $response2->assertRedirect(route('public.message.discussion.page',[
+            $discussion->ticket_id,
+            $discussion->id
+        ]));
+
+        $this->be($discussion->seller);
+        $response = $this->postWithCsrf(route('api.discussion.send',[
+            $discussion->ticket_id,
+            $discussion->id]),[
+            'message' => $message
+        ]);
+        $response->assertSuccessful();
+
+        $this->assertDatabaseHas('messages',[
+            'sender_id' =>  $discussion->seller->id,
+            'message' => $message,
+            'discussion_id' => $discussion->id
+        ]);
+
+        \Notification::assertSentTo(
+            $discussion->buyer,
+            MessageNotification::class,
+            function ($notification) use ($discussion) {
+                return $notification->discussion->id === $discussion->id;
+            }
+        );
+
+        $this->be($discussion->buyer);
+        $response = $this->postWithCsrf(route('api.discussion.send',[
+            $discussion->ticket_id,
+            $discussion->id]),[
+            'message' => $message
+        ]);
+        $response->assertSuccessful();
+
+        $this->assertDatabaseHas('messages',[
+            'sender_id' =>  $discussion->buyer->id,
+            'message' => $message,
+            'discussion_id' => $discussion->id
+        ]);
+
+        \Notification::assertSentTo(
+            $discussion->seller,
+            MessageNotification::class,
+            function ($notification) use ($discussion) {
+                return $notification->discussion->id === $discussion->id;
+            }
+        );
+    }
+
     public function testRefreshDiscussion(){
         $discussion = factory( Discussion::class )->create([
             'status' => Discussion::ACCEPTED
@@ -412,6 +540,185 @@ class DiscussionControllerTest extends LastarTestCase
         $refreshMessage = \GuzzleHttp\json_decode($response->content())->data[0];
 
         $this->assertEquals($refreshMessage->id, $message->id);
+    }
+
+    public function testRefreshDiscussionSoldToSomeoneElse()
+    {
+        $discussion = factory( Discussion::class )->create([
+            'status' => Discussion::ACCEPTED
+        ]);
+        $randomBuyer = factory( User::class )->create();
+
+        // Fill a bit the discussion
+        for ($i=0;$i<5;$i++) {
+            $this->be($discussion->seller);
+            $this->postWithCsrf( route( 'api.discussion.send', [
+                $discussion->ticket_id,
+                $discussion->id
+            ] ), [
+                'message' => str_random()
+            ] );
+            $this->be($discussion->buyer);
+            $this->postWithCsrf( route( 'api.discussion.send', [
+                $discussion->ticket_id,
+                $discussion->id
+            ] ), [
+                'message' => str_random()
+            ] );
+        }
+
+        // We create another discussion with the same ticket and accept the sell
+        $secundDiscussion = factory( Discussion::class )->create([
+            'ticket_id' => $discussion->ticket->id,
+            'status' => Discussion::ACCEPTED
+        ]);
+        $this->be($secundDiscussion->ticket->user);
+        $response = $this->postWithCsrf(route('public.message.discussion.sell',[
+            $secundDiscussion->ticket_id,
+            $secundDiscussion
+        ]));
+        $response->assertRedirect(route('public.message.discussion.page',[
+            $secundDiscussion->ticket_id,
+            $secundDiscussion->id
+        ]));
+
+        // Now we send two messages, and ask for a refresh after the first one
+        $this->be($discussion->seller);
+        $response = $this->postWithCsrf( route( 'api.discussion.send', [
+            $discussion->ticket_id,
+            $discussion->id
+        ] ), [
+            'message' => str_random()
+        ] );
+
+        $response->assertStatus(400);
+
+        // Now we make sure buyer can't refresh either
+        $message = $discussion->last_message;
+        $messageTime = new Carbon($message->created_at);
+        $this->be($discussion->buyer);
+        $url = route( 'api.discussion.refresh', [
+                $discussion->ticket_id,
+                $discussion->id
+            ] ).'?date='.urlencode($messageTime->format('Y-m-d H:i:s'));
+        $response = $this->get( $url);
+        $response->assertStatus(400);
+    }
+
+    public function testRefreshDiscussionSold()
+    {
+        $discussion = factory( Discussion::class )->create([
+            'status' => Discussion::ACCEPTED
+        ]);
+
+        // Fill a bit the discussion
+        for ($i=0;$i<5;$i++) {
+            $this->be($discussion->seller);
+            $this->postWithCsrf( route( 'api.discussion.send', [
+                $discussion->ticket_id,
+                $discussion->id
+            ] ), [
+                'message' => str_random()
+            ] );
+            $this->be($discussion->buyer);
+            $this->postWithCsrf( route( 'api.discussion.send', [
+                $discussion->ticket_id,
+                $discussion->id
+            ] ), [
+                'message' => str_random()
+            ] );
+        }
+
+        // Now we send two messages, and ask for a refresh after the first one
+        $this->be($discussion->seller);
+        $response = $this->postWithCsrf( route( 'api.discussion.send', [
+            $discussion->ticket_id,
+            $discussion->id
+        ] ), [
+            'message' => str_random()
+        ] );
+
+
+        // Now we mark as sold the ticket
+        $this->be($discussion->ticket->user);
+        $response2 = $this->postWithCsrf(route('public.message.discussion.sell',[
+            $discussion->ticket_id,
+            $discussion
+        ]));
+        $response2->assertRedirect(route('public.message.discussion.page',[
+            $discussion->ticket_id,
+            $discussion->id
+        ]));
+
+        $messageTime = \GuzzleHttp\json_decode($response->content())->data->created_at->date;
+        $messageTime = new Carbon($messageTime);
+
+        $response = $this->postWithCsrf( route( 'api.discussion.send', [
+            $discussion->ticket_id,
+            $discussion->id
+        ] ), [
+            'message' => str_random()
+        ] );
+
+        $message = \GuzzleHttp\json_decode( $response->content() )->data;
+
+        // Now we make sure buyer can refresh
+        $this->be($discussion->buyer);
+        $url = route( 'api.discussion.refresh', [
+                $discussion->ticket_id,
+                $discussion->id
+            ] ).'?date='.urlencode($messageTime->format('Y-m-d H:i:s'));
+        $response = $this->get( $url);
+
+        $refreshMessage = \GuzzleHttp\json_decode($response->content())->data[0];
+
+        $this->assertEquals($refreshMessage->id, $message->id);
+    }
+
+    /**
+     * Make sure seller can sell ticket to current conversation
+     */
+    public function testSell()
+    {
+        $discussion = factory( Discussion::class )->create([
+            'status' => Discussion::ACCEPTED
+        ]);
+        // Now we mark as sold the ticket
+        $this->be($discussion->ticket->user);
+        $response = $this->postWithCsrf(route('public.message.discussion.sell',[
+            $discussion->ticket_id,
+            $discussion
+        ]));
+        $response->assertRedirect(route('public.message.discussion.page',[
+            $discussion->ticket_id,
+            $discussion->id
+        ]));
+
+        $discussion = $discussion->fresh();
+        $this->assertEquals($discussion->status,Discussion::SOLD);
+        $this->assertEquals($discussion->ticket->sold_to_id,$discussion->buyer->id);
+
+    }
+
+    /**
+     * Make sure seller can sell ticket to current conversation
+     */
+    public function testSellAsBuyer()
+    {
+        $discussion = factory( Discussion::class )->create([
+            'status' => Discussion::ACCEPTED
+        ]);
+        // Now we mark as sold the ticket
+        $this->be($discussion->buyer);
+        $response = $this->postWithCsrf(route('public.message.discussion.sell',[
+            $discussion->ticket_id,
+            $discussion
+        ]));
+        $response->assertRedirect(route('public.message.home.page'));
+
+        $discussion = $discussion->fresh();
+        $this->assertEquals($discussion->status,Discussion::ACCEPTED);
+        $this->assertEquals($discussion->ticket->sold_to_id,null);
 
     }
 }

@@ -68,8 +68,11 @@ Route::group( [ 'middleware' => 'auth', 'as' => 'public.' ], function () {
         Route::get( '/', 'PageController@messagePage' )->name( 'home.page' );
         Route::post( '/deny', 'DiscussionController@denyOffer' )->name( 'offer.deny' );
         Route::post( '/accept', 'DiscussionController@acceptOffer' )->name( 'offer.accept' );
-
+        // Sow conversation oage
         Route::get( '/{ticket_id}/{discussion_id}', 'DiscussionController@getDiscussion' )->name('discussion.page');
+
+        // Confirm sell to this user
+        Route::post( '/{ticket_id}/{discussion_id}/sell', 'DiscussionController@sell' )->name('discussion.sell');
 
     } );
 

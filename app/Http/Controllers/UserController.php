@@ -157,6 +157,7 @@ class UserController extends Controller
                 'user_id'       => $request->user()->id
             ] );
 
+
         $phoneVerification->save();
 
         if ( \App::environment( 'production', 'staging' ) ) {

@@ -30,6 +30,9 @@ class Ticket extends Model
         'price',
         'currency',
 
+        // Id of user who bought ticket
+        'sold_to_id',
+
         // Ticket info
         'flexibility',
         'class',
@@ -70,6 +73,7 @@ class Ticket extends Model
 
     public static $rules = [
         'user_id'         => 'required|exists:users,id',
+        'sold_to_id'      => 'exists:users,id',
         'price'           => 'required|numeric',
         'bought_price'    => 'required|numeric',
         'currency'        => 'required',
@@ -108,7 +112,7 @@ class Ticket extends Model
             if ( $train->tickets ) {
                 foreach ($train->tickets as $ticket) {
                     if ( (!\Auth::check() ) || \Auth::user()->id != $ticket->user_id){
-                        $tickets->push($ticket);
+                        if ($ticket->sold_to_id == null) $tickets->push($ticket);
                     }
                 }
             }
@@ -152,5 +156,11 @@ class Ticket extends Model
     {
         return $this->hasMany('App\Models\Discussion');
     }
+
+    public function buyer()
+    {
+        return $this->belongsTo( 'App\User' ,'sold_to_id');
+    }
+
 
 }

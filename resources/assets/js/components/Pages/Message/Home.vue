@@ -87,7 +87,7 @@
                                     <a style="d-none" :href="discussionPageUrl(offer.ticket.id,offer.id)" :id="'discussion-link-'+offer.id"></a>
                                     {{offer.buyer.id == user.id ? offer.seller.full_name : offer.buyer.full_name}}
                                 </th>
-                                <th @click="openDiscussion(offer.id)">{{offer.last_message.message}}</th>
+                                <th @click="openDiscussion(offer.id)">{{offer.last_message?offer.last_message.message:'-'}}</th>
                             </tr>
                             </tbody>
                         </table>

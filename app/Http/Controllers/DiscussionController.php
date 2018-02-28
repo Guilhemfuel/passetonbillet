@@ -99,7 +99,7 @@ class DiscussionController extends Controller
         }
 
         // Make sure that conversation is accepted
-        if ($discussion->status != Discussion::ACCEPTED){
+        if ($discussion->status < Discussion::ACCEPTED){
             if (!($request->expectsJson() || $request->acceptsJson())){
                 flash(__('message.errors.not_active'))->error()->important();
             }
@@ -109,6 +109,9 @@ class DiscussionController extends Controller
         return true;
     }
 
+    /**
+     * Display the discussion
+     */
     public function getDiscussion(Request $request, $ticket_id, $discussion_id) {
 
         $discussion = Discussion::find($discussion_id);
@@ -133,6 +136,44 @@ class DiscussionController extends Controller
     }
 
     /**
+     * Seller sells ticket to the user of this conversation
+     */
+    public function sell(Request $request, $ticket_id, $discussion_id){
+
+        $discussion = Discussion::find($discussion_id);
+        if (!$discussion) {
+            flash(__('message.errors.not_found'))->error()->important();
+            return redirect()->route('public.message.home.page');
+        }
+        $ticket = Ticket::find($ticket_id);
+        if (!$ticket) {
+            flash(__('message.errors.ticket_not_found'))->error()->important();
+            return redirect()->route('public.message.home.page');
+        }
+
+        if (!$this->checkIfDiscussionActive($request,$ticket,$discussion)){
+            return redirect()->route('public.message.home.page');
+        }
+
+        // Make sure user is ticket seller
+        if (\Auth::user()->id != $ticket->user->id){
+            flash(__('message.errors.something'))->error()->important();
+            return redirect()->route('public.message.home.page');
+        }
+
+        $discussion->status = Discussion::SOLD;
+        $ticket->sold_to_id = $discussion->buyer->id;
+        $ticket->save();
+        $discussion->save();
+
+        flash(__('message.success.sold'))->success()->important();
+        return redirect()->route('public.message.discussion.page',[
+            $ticket_id,
+            $discussion_id
+        ]);
+    }
+
+    /**
      *
      * =======  API  =========
      *
@@ -152,6 +193,14 @@ class DiscussionController extends Controller
             return response([
             'status' => 'error',
             'message' =>__('message.errors.something')
+            ],400);
+        }
+
+        // Now make sure that ticket isn't sold yet
+        if ($ticket->sold_to_id!=null && $discussion->status != Discussion::SOLD){
+            return response([
+                'status' => 'error',
+                'message' =>__('message.errors.already_sold')
             ],400);
         }
 
@@ -191,6 +240,14 @@ class DiscussionController extends Controller
                 'message' =>__('message.errors.something')
             ],400);
         }
+        // Now make sure that ticket isn't sold yet
+        if ($ticket->sold_to_id!=null && $discussion->status != Discussion::SOLD){
+            return response([
+                'status' => 'error',
+                'message' =>__('message.errors.already_sold')
+            ],400);
+        }
+
         $date = new Carbon($request->date);
         return MessageResource::collection( $discussion->messages()->where('created_at','>',$date)
                                                                    ->where('sender_id','!=',\Auth::user()->id)->get());
