@@ -86,6 +86,14 @@
       }
     }
 
+    &.sold-here {
+      .messages {
+        @include media-breakpoint-up(xs) {  top: 207px !important; }
+        @include media-breakpoint-up(sm) {  top: 231px !important; }
+        @include media-breakpoint-up(md) {  top: 129px !important; }
+      }
+    }
+
     .messages {
       width: calc(100% + 30px);
       margin-left: -15px;

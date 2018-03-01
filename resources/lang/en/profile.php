@@ -13,7 +13,7 @@ return [
     'account_verified' => 'Identity verified',
     'change_password' => 'Change password',
     'edit_profile' => 'Edit your informations',
-
+    'member_since' => 'Member since ',
 
     'stats_title' => 'Statistics',
 

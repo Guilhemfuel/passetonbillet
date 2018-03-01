@@ -18,7 +18,11 @@ return [
         'your_offer'    => 'Your offer',
         'price'         => 'Price',
         'send_offer'    => 'Send offer',
-        'if_interested' => 'The seller will contact you soon if interested.'
+        'if_interested' => 'The seller will contact you soon if interested.',
+        'infos' => 'Infos',
+        'booking_code' => 'Booking code',
+        'booking_name' => 'Booking name',
+        'delete'       => 'You don\'t want to sell this ticket anymore?'
 
     ],
     'sell'      => [
@@ -78,6 +82,15 @@ return [
         'title'     => 'Buy a ticket',
         'catchline' => 'What is your journey?',
         'research'  => 'Research'
+    ],
+    'owned' => [
+        'no_bought_tickets' => 'You have not bought any tickets yet!',
+        'no_sold_tickets' => 'You have not sold any tickets yet!',
+        'bought' => 'Bought',
+        'sold' => 'Sold'
+    ],
+    'delete' => [
+        'success' => 'Your ticket was successfully deleted.'
     ]
 
 

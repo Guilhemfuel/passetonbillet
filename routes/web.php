@@ -60,6 +60,8 @@ Route::group( [ 'middleware' => 'auth', 'as' => 'public.' ], function () {
         // Buy a ticket
         Route::get( 'buy', 'PageController@buyPage' )->name( 'buy.page' );
 
+        // Remove a non-sold ticket
+        Route::delete('/','TicketController@delete')->name('delete');
     } );
 
     // Messages routes
@@ -79,6 +81,7 @@ Route::group( [ 'middleware' => 'auth', 'as' => 'public.' ], function () {
     // Profile routes
     Route::group( [ 'prefix' => 'profile', 'as' => 'profile.' ], function () {
 
+        Route::get( '/user/{user}', 'PageController@profileStranger' )->name( 'stanger' );
         Route::get( '/', 'PageController@profile' )->name( 'home' );
 
         Route::post( 'phone/add', 'UserController@addPhone' )->name( 'phone.add' );

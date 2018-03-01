@@ -1,6 +1,6 @@
 <template>
 
-    <div :class="{'col-12':true, 'discussion':true, 'p-0':true, 'sold':sold}">
+    <div :class="{'col-12':true, 'discussion':true, 'p-0':true, 'sold':sold, 'sold-here':sold_here}">
         <modal :is-open="modalSellOpen"  :title="'Vendre ce billet à '+correspondant.full_name" @close-modal="modalSellOpen=false" v-if="!sold">
             <p>
                 You are about to mark this ticket as sold to {{correspondant.full_name}}. Make sure to click there, only once you received the payment. {{correspondant.full_name}} will then automatically receive your ticket.
@@ -16,6 +16,7 @@
         <div class="info-header">
             <div class="row">
                 <div class="col-md-4 col-6">
+                    <a :href="profileUrl">
                     <img class="mx-auto rounded-circle" :src="correspondant.picture" alt="profile_picture"/>
                     <p class="text-center mt-2 d-none d-sm-block">
                         {{correspondant.full_name}}
@@ -26,6 +27,7 @@
                                   <i class="fa fa-check fa-inverse fa-stack-1x"></i>
                         </span>
                     </p>
+                    </a>
                 </div>
                 <div class="col-md-4 d-sm-none d-none d-md-flex" v-if="!sold">
                     <div class="pt-5">
@@ -33,23 +35,25 @@
                     </div>
                 </div>
 
-                <div class="col-md-4 d-sm-none d-none d-md-block" v-if="sold_here">
-                    <h3 class="text-center">Deal! </h3>
-                    <p class="text-center" v-if="user == discussion.ticket.user.id">
-                        You already sold this ticket to {{correspondant.full_name}}!<br> Congratulations!
-                    </p>
-                    <p class="text-center" v-else>
-                        You already bought this ticket from {{correspondant.full_name}}!<br> Congratulations!
-                    </p>
-                </div>
-                <div class="col-md-4 d-sm-none d-none d-md-block pt-5" v-else>
-                    <p class="text-center" v-if="user == discussion.ticket.user.id">
-                        Ticket already sold to someone else!
-                    </p>
-                    <p class="text-center" v-else>
-                        Ticket already sold to someone else!
-                    </p>
-                </div>
+                <template v-if="sold">
+                    <div class="col-md-4 d-sm-none d-none d-md-block" v-if="sold_here">
+                        <h3 class="text-center">Deal! </h3>
+                        <p class="text-center" v-if="user == discussion.ticket.user.id">
+                            You already sold this ticket to {{correspondant.full_name}}!<br> Congratulations!
+                        </p>
+                        <p class="text-center" v-else>
+                            You already bought this ticket from {{correspondant.full_name}}!<br> Congratulations!
+                        </p>
+                    </div>
+                    <div class="col-md-4 d-sm-none d-none d-md-block pt-5" v-else>
+                        <p class="text-center" v-if="user == discussion.ticket.user.id">
+                            Ticket already sold to someone else!
+                        </p>
+                        <p class="text-center" v-else>
+                            Ticket already sold to someone else!
+                        </p>
+                    </div>
+                </template>
 
 
                 <div class="col-md-4 col-6">
@@ -131,6 +135,9 @@
         computed: {
             sendUrl: function () {
                 return this.api.send.replace('ticket_id', this.discussion.ticket.id).replace('discussion_id', this.discussion.id);
+            },
+            profileUrl: function () {
+                return this.routes.profile.replace('user_id', this.correspondant.id);
             },
             refreshUrl: function () {
                 var formatted_date = new moment(this.lastMessageReceived.created_at.date);

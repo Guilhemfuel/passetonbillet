@@ -3,9 +3,16 @@
 namespace Tests;
 
 use App\User;
+use Laracasts\Flash\Message;
 
 abstract class LastarTestCase extends TestCase
 {
+
+    /**
+     * =========
+     * ---- Shortcut to be a specific user
+     * =========
+     */
 
     public function beAUser($state = ''){
         if ($state == '') {
@@ -22,6 +29,12 @@ abstract class LastarTestCase extends TestCase
         $this->actingAs($user);
         return $this;
     }
+
+    /**
+     * ==========
+     * ---- Http requests helper to deal with csrf
+     * ==========
+     */
 
     public function postWithCsrf( $url, $data = [], $session = [] )
     {
@@ -42,6 +55,25 @@ abstract class LastarTestCase extends TestCase
         $data['_token']='token';
         return $this->withSession(['_token'=>'token'])
                     ->delete($url,$data);
+    }
+
+    /**
+     * ==========
+     * ---- Custom assertions
+     * ==========
+     */
+
+    public function assertResponseHasFlashMsg($response, $level, $message, $important, $sessionContent = [])
+    {
+        // Building flash message
+        $flashMesage = new Message();
+        $flashMesage->important = $important;
+        $flashMesage->message = $message;
+        $flashMesage->level = $level;
+
+        $response->assertSessionHas(
+            array_merge([ 'flash_notification' => collect( [ $flashMesage ] ) ], $sessionContent)
+        );
     }
 
 }

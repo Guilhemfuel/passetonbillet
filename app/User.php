@@ -5,6 +5,7 @@ namespace App;
 use App\Models\Discussion;
 use App\Models\Message;
 use App\Notifications\ResetPasswordNotification;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -157,6 +158,13 @@ class User extends Authenticatable
                   ->count();
     }
 
+    public function getMemberSinceAttribute()
+    {
+        $date = new Carbon($this->created_at);
+        return __('profile.member_since').$date->toFormattedDateString();
+    }
+
+
     /**
      * RELATIONSHIPS
      */
@@ -194,4 +202,8 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Discussion', 'buyer_id');
     }
 
+    /**
+     * Tickets bought by user
+     */
+    public function ticketsBought(){}
 }

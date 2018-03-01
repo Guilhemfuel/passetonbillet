@@ -33,6 +33,9 @@
                         <button class="btn btn-pink btn-buy btn-sm" v-if="selecting" @click.prevent="sell">
                             {{lang.sell}}
                         </button>
+                        <button class="btn btn-pink btn-buy btn-sm" v-if="bought" @click="editing=true">
+                            {{lang.infos}}
+                        </button>
                     </template>
                     <template v-if="!pastTicket && (user && ticket.user.id == user.id) && !display">
                         <button class="btn btn-pink btn-buy btn-sm" @click="editing=true">{{lang.edit}}</button>
@@ -54,15 +57,38 @@
             <div :class="{'card':true, 'card-ticket':true, 'back':true, className:className, 'past-ticket':pastTicket}">
                 <!-- User modifying his ticket-->
                 <template v-if="!buying">
-                    <div class="card-travel-info">
-                        <a href="#" class="float-left" @click.prevent="editing=false"><i
-                                class="fa fa-chevron-circle-left"
-                                aria-hidden="true"></i></a>
-                        <p class="float-center text-center mb-0 edit-title">{{lang.edit_ticket}}</p>
-                    </div>
+                    <template v-if="bought">
+                        <div class="card-travel-info">
+                            <a href="#" class="float-left" @click.prevent="editing=false"><i
+                                    class="fa fa-chevron-circle-left"
+                                    aria-hidden="true"></i></a>
+                            <p class="float-center text-center mb-0 edit-title">{{lang.infos}}</p>
+                        </div>
+                        <div class="card-seller-info card-buying">
+                            <p >{{lang.booking_name}}: <span class="text-primary">{{ticket.buyer_name}}</span></p>
+                            <p >{{lang.booking_code}}: <span class="text-primary">{{ticket.eurostar_code}}</span></p>
+                        </div>
+                    </template>
+                    <template v-else>
+                        <div class="card-travel-info">
+                            <a href="#" class="float-left" @click.prevent="editing=false"><i
+                                    class="fa fa-chevron-circle-left"
+                                    aria-hidden="true"></i></a>
+                            <p class="float-center text-center mb-0 edit-title">{{lang.edit_ticket}}</p>
+                        </div>
+                        <div class="card-seller-info card-buying" v-if="(user && ticket.user.id == user.id)">
+                            <p>{{lang.delete}}</p>
+                            <form method="POST" :action="deleteUrl(ticket.id)">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="_token" :value="csrf">
+                                <input type="hidden" name="ticket_id" :value="ticket.id">
+                                <button class="btn btn-danger mx-auto d-block mt-3">Delete ticket</button>
+                            </form>
+                        </div>
+                    </template>
                 </template>
+                <!-- User buying the ticket-->
                 <template v-else>
-                    <!-- User buying a ticket -->
                     <div class="card-travel-info">
                         <a href="#" class="float-left" @click.prevent="editing=false"><i
                                 class="fa fa-chevron-circle-left"
@@ -99,6 +125,7 @@
                                     <button class="btn btn-pink btn-block mt-2" @click.prevent="makeOffer">
                                         {{lang.send_offer}}
                                     </button>
+
                                 </div>
                                 <p class="text-center mt-2">{{lang.if_interested}}</p>
                             </form>
@@ -136,6 +163,10 @@
             // Display only Mode
             display: {type: Boolean, default: false},
 
+            bought: {type: Boolean, default: false},
+            csrf: {type: String, required:false},
+
+
             className: '',
         },
         data() {
@@ -169,12 +200,16 @@
                     return this.user.offers_sent.includes(this.ticket.id);
                 }
                 return false;
-            }
+            },
         },
         methods: {
             sell() {
                 if (!this.selecting) return;
                 this.$emit('sell', this.ticket.id);
+            },
+            deleteUrl(ticket_id) {
+                if (!this.routes.tickets || !this.routes.tickets.delete) return null;
+                return this.routes.tickets.delete.replace('ticket_id',ticket_id)
             },
             makeOffer() {
 

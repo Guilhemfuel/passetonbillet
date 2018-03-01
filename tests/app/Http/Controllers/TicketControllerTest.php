@@ -81,7 +81,7 @@ class TicketControllerTest extends LastarTestCase
         $flashMesage->message = __( 'tickets.sell.success' );
         $flashMesage->level = 'success';
 
-        $response->assertRedirect( route( 'home' ) )
+        $response->assertRedirect( route( 'public.ticket.owned.page' ) )
                  ->assertSessionHas( [ 'flash_notification' => collect( [ $flashMesage ] ) ] )
                  ->assertSessionMissing( 'tickets' );
 
@@ -221,7 +221,7 @@ class TicketControllerTest extends LastarTestCase
         \Notification::assertSentTo(
             $ticket->user,
             OfferNotification::class,
-            function ($notification) use ($ticket) {
+            function ( $notification ) use ( $ticket ) {
                 return $notification->ticket->id === $ticket->id;
             }
         );
@@ -242,17 +242,17 @@ class TicketControllerTest extends LastarTestCase
         $this->be( $buyer );
 
         $response = $this->postWithCsrf( route( 'api.tickets.offer' ), [
-            'price'     => $price,
+            'price' => $price,
         ] );
-        $response->assertStatus(302);
+        $response->assertStatus( 302 );
 
         $response = $this->postWithCsrf( route( 'api.tickets.offer' ), [
-            'ticket_id'     => $ticket->id,
+            'ticket_id' => $ticket->id,
         ] );
-        $response->assertStatus(302);
+        $response->assertStatus( 302 );
 
-        $response = $this->postWithCsrf( route( 'api.tickets.offer' ));
-        $response->assertStatus(302);
+        $response = $this->postWithCsrf( route( 'api.tickets.offer' ) );
+        $response->assertStatus( 302 );
 
         $this->assertDatabaseMissing( 'discussions', [
             'ticket_id' => $ticket->id,
@@ -262,11 +262,12 @@ class TicketControllerTest extends LastarTestCase
         ] );
 
         \Notification::assertNotSentTo(
-            [$buyer], OfferNotification::class
+            [ $buyer ], OfferNotification::class
         );
     }
 
-    public function testMakeAnOfferTicketNotFound(){
+    public function testMakeAnOfferTicketNotFound()
+    {
         \Notification::fake();
 
         $buyer = factory( User::class )->create();
@@ -283,7 +284,7 @@ class TicketControllerTest extends LastarTestCase
             'price'     => $price,
             'ticket_id' => $ticket_id
         ] );
-        $response->assertStatus(500);
+        $response->assertStatus( 500 );
 
         $this->assertDatabaseMissing( 'discussions', [
             'ticket_id' => $ticket->id,
@@ -293,11 +294,12 @@ class TicketControllerTest extends LastarTestCase
         ] );
 
         \Notification::assertNotSentTo(
-            [$buyer], OfferNotification::class
+            [ $buyer ], OfferNotification::class
         );
     }
 
-    public function testMakeAnOfferWrongPrice(){
+    public function testMakeAnOfferWrongPrice()
+    {
         \Notification::fake();
 
         $ticket = factory( Ticket::class )->create();
@@ -309,13 +311,13 @@ class TicketControllerTest extends LastarTestCase
             'price'     => 0,
             'ticket_id' => $ticket->id
         ] );
-        $response->assertStatus(500);
+        $response->assertStatus( 500 );
 
         $response = $this->postWithCsrf( route( 'api.tickets.offer' ), [
-            'price'     => $ticket->price+1,
+            'price'     => $ticket->price + 1,
             'ticket_id' => $ticket->id
         ] );
-        $response->assertStatus(500);
+        $response->assertStatus( 500 );
 
         $this->assertDatabaseMissing( 'discussions', [
             'ticket_id' => $ticket->id,
@@ -324,14 +326,15 @@ class TicketControllerTest extends LastarTestCase
         ] );
 
         \Notification::assertNotSentTo(
-            [$buyer], OfferNotification::class
+            [ $buyer ], OfferNotification::class
         );
     }
 
     /**
      * Make sure you can't make an offer to one of your tickets
      */
-    public function testMakeAnOfferForOwnTicket(){
+    public function testMakeAnOfferForOwnTicket()
+    {
         \Notification::fake();
 
         $ticket = factory( Ticket::class )->create();
@@ -344,7 +347,7 @@ class TicketControllerTest extends LastarTestCase
             'price'     => $price,
             'ticket_id' => $ticket->id
         ] );
-        $response->assertStatus(500);
+        $response->assertStatus( 500 );
 
         $this->assertDatabaseMissing( 'discussions', [
             'ticket_id' => $ticket->id,
@@ -354,14 +357,15 @@ class TicketControllerTest extends LastarTestCase
         ] );
 
         \Notification::assertNotSentTo(
-            [$buyer], OfferNotification::class
+            [ $buyer ], OfferNotification::class
         );
     }
 
     /**
      * Make sure you can't make an offer twice for the same ticket
      */
-    public function testMakeAnOfferTwice(){
+    public function testMakeAnOfferTwice()
+    {
         \Notification::fake();
 
         $ticket = factory( Ticket::class )->create();
@@ -385,7 +389,7 @@ class TicketControllerTest extends LastarTestCase
         \Notification::assertSentTo(
             $ticket->user,
             OfferNotification::class,
-            function ($notification) use ($ticket) {
+            function ( $notification ) use ( $ticket ) {
                 return $notification->ticket->id === $ticket->id;
             }
         );
@@ -394,6 +398,70 @@ class TicketControllerTest extends LastarTestCase
             'price'     => $price,
             'ticket_id' => $ticket->id
         ] );
-        $response->assertStatus(500);
+        $response->assertStatus( 500 );
+    }
+
+    /**
+     * Make sure a ticket owner can delete a ticket not sold yet
+     */
+    public function testDeleteTicket()
+    {
+        $ticket = factory( Ticket::class )->create();
+        $this->be( $ticket->user );
+        $reponse = $this->deleteWithCsrf( route( 'public.ticket.delete' ), [
+            'ticket_id' => $ticket->id
+        ] );
+        $reponse->assertRedirect( route( 'public.ticket.owned.page' ) );
+        $this->assertDatabaseMissing( 'tickets', [
+            'id'         => $ticket->id,
+            'deleted_at' => null
+        ] );
+    }
+
+    /**
+     * Make sure ticket deletion fails when needed
+     */
+    public function testFailDeleteFakeTicket()
+    {
+        // First we make sure that if ticket isn't found it fails
+        $ticket = factory( Ticket::class )->create();
+        $ticket_id = $ticket->id;
+        $user = $ticket->user;
+        $ticket->delete();
+
+        $this->be( $user );
+        $response = $this->deleteWithCsrf( route( 'public.ticket.delete' ), [
+            'ticket_id' => $ticket->id
+        ] );
+        $response->assertRedirect( route( 'public.ticket.owned.page' ) );
+        $this->assertResponseHasFlashMsg( $response, 'danger', __( 'common.error' ), true );
+    }
+
+    public function testFailDeleteSoldTicket()
+    {
+        // Now we make sure that a sold ticket can't be deleted
+        $user = factory( User::class )->create();
+        $ticket = factory( Ticket::class )->create( [
+            'sold_to_id' => $user->id,
+        ] );
+        $this->be( $ticket->user );
+        $response = $this->deleteWithCsrf( route( 'public.ticket.delete' ), [
+            'ticket_id' => $ticket->id
+        ] );
+        $response->assertRedirect( route( 'public.ticket.owned.page' ) );
+        $this->assertResponseHasFlashMsg( $response, 'danger', __( 'common.error' ), true );
+    }
+
+    public function testFailDeleteStrangersTicket()
+    {
+        // Now we make sure that only the owner of the ticket can delete a ticket
+        $user = factory( User::class )->create();
+        $this->be( $user );
+        $ticket = factory( Ticket::class )->create();
+        $response = $this->deleteWithCsrf( route( 'public.ticket.delete' ), [
+            'ticket_id' => $ticket->id
+        ] );
+        $response->assertRedirect( route( 'public.ticket.owned.page' ) );
+        $this->assertResponseHasFlashMsg( $response, 'danger', __( 'common.error' ), true );
     }
 }

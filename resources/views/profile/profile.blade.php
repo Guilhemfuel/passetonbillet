@@ -8,29 +8,30 @@
                     <div class="card-header card-header-lastar reverse">
                         <h4 class="card-title mb-0">@lang('profile.title')</h4>
                     </div>
+                    @if(\Auth::user()->id == $user->id)
                     <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col-md-2 col-lg-4 col-sm-12">
                                 <img @click.prevent="modalPictureUploadOpen=true" class="profile-picture mx-auto rounded-circle img-responsive"
-                                     src="{{Auth::user()->picture}}" alt="profile_picture"/>
+                                     src="{{$user->picture}}" alt="profile_picture"/>
                             </div>
-                            <div class="col-md-5 col-lg-4 col-sm-12">
+                            <div class="col-sm-12 col-md-5 col-lg-4">
                                 <div class="align-middle">
-                                    <h4 class="text-uppercase text-center">{{Auth::user()->full_name}}</h4>
-                                    <h5 class="text-uppercase text-center">{{Auth::user()->birthdate}}</h5>
-                                    @if(Auth::user()->location)
-                                        <h5 class="text-uppercase text-center">{{Auth::user()->location}}</h5>
+                                    <h4 class="text-uppercase text-center">{{$user->full_name}}</h4>
+                                    <h5 class="text-center">{{$user->member_since}}</h5>
+                                    @if($user->location)
+                                        <h5 class="text-uppercase text-center">{{$user->location}}</h5>
                                     @endif
-                                    @if(Auth::user()->id_verified)
+                                    @if($user->id_verified)
                                         <h5 class="text-center">@lang('profile.account_verified') <i class="fa fa-check-circle text-warning" aria-hidden="true"></i></h5>
                                     @endif
                                     <br>
-                                    <h5 class="text-center">{{Auth::user()->phone}}</h5>
-                                    <h5 class="text-center">{{Auth::user()->email}}</h5>
+                                    <h5 class="text-center">{{$user->phone}}</h5>
+                                    <h5 class="text-center">{{$user->email}}</h5>
                                 </div>
                             </div>
-                            <div class="col-md-5 col-lg-4 col-sm-12">
-                                @if(!Auth::user()->id_verified && Auth::user()->idVerification == null)
+                            <div class="col-md-5 col-lg-4 col-sm-12 mt-xs-4">
+                                @if(!$user->id_verified && $user->idVerification == null)
                                 <button class="btn btn-block btn-lastar-blue" @click.prevent="modalVerifyIdentity=true">@lang('profile.account_verify') <i
                                             class="fa fa-check-circle text-warning" aria-hidden="true"></i>
                                 </button>
@@ -42,15 +43,47 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="card card-stats">
-                    <div class="card-header card-header-lastar reverse">
-                        <h4 class="card-title mb-0">@lang('profile.stats_title')</h4>
-                    </div>
-                    <div class="card-body">
+                    @else
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-md-4 col-sm-12 col-12">
+                                    <img @click.prevent="modalPictureUploadOpen=true" class="profile-picture mx-auto rounded-circle img-responsive"
+                                         src="{{$user->picture}}" alt="profile_picture"/>
+                                </div>
+                                <div class="col-sm-12 col-12 col-md-4">
+                                    <div class="align-middle">
+                                        <h4 class="text-uppercase text-center">{{$user->full_name}}</h4>
+                                        @if($user->location)
+                                            <h5 class="text-uppercase text-center">{{$user->location}}</h5>
+                                        @endif
+                                        @if($user->id_verified)
+                                            <h5 class="text-center">@lang('profile.account_verified') <i class="fa fa-check-circle text-warning" aria-hidden="true"></i></h5>
+                                        @endif
+                                        <h5 class="text-center">{{$user->member_since}}</h5>
 
-                    </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-12">
+                                    <div class="align-middle mt-3">
+                                        <h5 class="text-center text-primary">0</h5>
+                                        <h5 class="text-center">Tickets sold successfully<br>by {{$user->full_name}}</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
                 </div>
+
+                {{--@if(\Auth::user()->id == $user->id)--}}
+                {{--<div class="card card-stats">--}}
+                    {{--<div class="card-header card-header-lastar reverse">--}}
+                        {{--<h4 class="card-title mb-0">@lang('profile.stats_title')</h4>--}}
+                    {{--</div>--}}
+                    {{--<div class="card-body">--}}
+
+                    {{--</div>--}}
+                {{--</div>--}}
+                {{--@endif--}}
 
                 {{-- Modals --}}
                 @if(!Auth::user()->id_verified && Auth::user()->idVerification == null)
@@ -125,7 +158,7 @@
                 modalPasswordOpen: false,
                 modalPictureUploadOpen: false,
                 modalVerifyIdentity: false,
-                user: {!! json_encode($user) !!},
+                user: {!! json_encode($userData) !!},
                 langChangePassword: {!! json_encode($langPasswordModal) !!},
             }
         });
