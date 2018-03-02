@@ -1,7 +1,7 @@
 <li  class="{{ Route::current()->getName() == 'public.ticket.buy.page' ? ' active' : '' }}">
     <a href="{{route('public.ticket.buy.page')}}">
         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-        <span class="d-sm-inline d-none label">{{__('nav.buy_ticket ')}}</span>
+        <span class="d-sm-inline d-none label">{{__('nav.buy_ticket')}}</span>
     </a>
 </li>
 
@@ -28,6 +28,13 @@
     <a href="{{route('public.ticket.owned.page')}}">
         <i class="fa fa-ticket" aria-hidden="true"></i>
         <span class="d-sm-inline d-none label">{{__('nav.my_tickets')}}</span>
+    </a>
+</li>
+
+<li  class="{{ Route::current()->getName() == 'public.profile.home' ? ' active' : '' }}">
+    <a href="{{route('public.profile.home')}}">
+        <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+        <span class="d-sm-inline d-none label">{{__('nav.my_profile')}}</span>
     </a>
 </li>
 

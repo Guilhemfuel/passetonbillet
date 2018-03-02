@@ -4,9 +4,19 @@
   min-height: 100%;
 
   .section-header {
-    @extend .purple-gradient;
     min-height: 100vh;
     width: 100%;
+
+    .first-section{
+      background-position: center center;
+      background-size: cover;
+
+      .fixed-content{
+        //@extend .purple-gradient;
+        @include purple-gradient-reverse(.9);
+
+      }
+    }
 
     .navbar-brand {
       img {

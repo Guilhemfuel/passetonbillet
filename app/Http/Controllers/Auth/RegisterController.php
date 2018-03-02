@@ -32,7 +32,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectRoute = 'login.page';
 
     /**
      * Create a new controller instance.
@@ -133,7 +133,7 @@ class RegisterController extends Controller
 
         flash( __( 'auth.register.success_email_redirect' ) )->success()->important();
 
-        return redirect()->route( 'home' );
+        return redirect()->route( $this->redirectRoute );
     }
 
     /**

@@ -1,7 +1,7 @@
 <template>
     <div class="flip-container">
         <div :class="{'flipper':true, 'flipped':editing}">
-            <div :class="[className,{'card':true, 'card-ticket':true, 'front':true, 'past-ticket':pastTicket}]">
+            <div :class="[className,{'card':true, 'card-ticket':true, 'front':true}]">
                 <div class="card-travel-info">
                     <div class="day">
                         <span>{{date.format('D')}}</span>

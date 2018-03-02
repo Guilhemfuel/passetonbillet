@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use App\Mail\MessageEmail;
+use App\Models\EmailSent;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -24,7 +25,8 @@ class MessageNotification extends Notification implements ShouldQueue
         $this->discussion = $discussion;
     }
 
-    /**
+    /**quit
+     *
      * Get the notification's delivery channels.
      *
      * @param  mixed  $notifiable
@@ -32,11 +34,25 @@ class MessageNotification extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail','database'];
+        // Can't receive email notification about messages more than once per hour
+        $class = 'App\Mail\MessageEmail';
+        $count = EmailSent::where('user_id',$notifiable->id)
+                          ->where('email_class', $class)
+                          ->where('created_at', '>=', \Carbon\Carbon::now()->subHour())
+                          ->count();
+
+        if ($count == 0) {
+            return ['mail','database'];
+        } else {
+            return ['database'];
+        }
+
     }
 
     /**
      * Get the mail representation of the notification.
+     *
+     * We don't notify users about messages more than once per hour
      */
     public function toMail($notifiable)
     {

@@ -15,8 +15,8 @@ return [
     'messages'    => 'Messages',
     'my_tickets'    => 'My tickets',
     'sell_ticket'    => 'Sell a ticket',
-    'buy_ticket '    => 'Buy a ticket',
-    'my_profile '    => 'My Profile',
+    'buy_ticket'    => 'Buy a ticket',
+    'my_profile'    => 'My Profile',
 
       'dropdowns' => [
         'settings' => [
