@@ -26,6 +26,7 @@ class PageController extends Controller
         if ( \Auth::check() ) {
             return redirect()->route('public.ticket.buy.page');
         } else {
+            // TODO: default les trois prochains en date
             //TODO: change tickets to only show the latest or the previously searched etc..
             $tickets = Ticket::latest()->take( 3 )->get();
 

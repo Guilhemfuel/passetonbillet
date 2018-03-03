@@ -11,20 +11,23 @@
       background-position: center center;
       background-size: cover;
       min-height: 100vh;
+      display: flex;
 
       .fixed-content{
         //@extend .purple-gradient;
         @include purple-gradient-reverse(.9);
         top: 0;
         bottom: 0;
-        position: absolute;
+        flex: 1;
+        position: relative;
         width: 100%;
+        padding-bottom: 20px;
       }
     }
 
     .navbar-brand {
       img {
-        width: 100px;
+        width: 130px;
       }
     }
 
@@ -34,11 +37,22 @@
       font-weight: 400;
       padding-left: 10px;
       padding-right: 10px;
+      font-size: 20px;
+    }
+
+    .flag-icon {
+      border-radius: 18px;
+      width: 18px;
+      height: 18px;
+      background-size: cover;
+      background-position: center center;
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
     }
 
     h1 {
       font-weight: 600;
       letter-spacing: 4px;
+      font-size: 58px;
     }
 
     .action-buttons {

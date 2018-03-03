@@ -68,6 +68,9 @@
                     }
                 }
                 return null;
+            },
+            sortedStations(){
+
             }
         },
         methods: {

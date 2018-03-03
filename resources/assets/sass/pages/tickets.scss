@@ -106,6 +106,10 @@ $animation-duration: 0.5s;
         padding-top: 30px;
         color: $color-pink;
         padding: 0px;
+
+        i {
+          margin-top: 40px;
+        }
       }
 
       .departure, .arrival, .arrow {
@@ -113,8 +117,8 @@ $animation-duration: 0.5s;
       }
 
       .time {
-        color: $color-purple;
-        font-weight: 400;
+        color: $color-pink;
+        font-weight: 600;
       }
     }
 

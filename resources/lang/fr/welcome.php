@@ -14,7 +14,7 @@ return [
             'text' => 'L\'achat et la vente de billet est plus rapide que jamais.'
         ],
         'cheaper' => [
-            'title' => 'Moins Cher',
+            'title' => 'Moins cher',
             'text' => 'Voyager en Eurostar et moins cher que jamais.'
         ],
         'safer' => [
