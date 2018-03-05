@@ -28,7 +28,8 @@ class PageController extends Controller
         } else {
             // TODO: default les trois prochains en date
             //TODO: change tickets to only show the latest or the previously searched etc..
-            $tickets = Ticket::latest()->take( 3 )->get();
+            $tickets = Ticket::join('trains', 'trains.id', '=', 'tickets.train_id')
+                             ->orderByDesc('trains.departure_date')->take( 3 )->get();
 
             return view( 'welcome' )->with( 'tickets', TicketRessource::collection( $tickets ) )
                                     ->with( 'stations', StationRessource::collection( Station::all() ) );

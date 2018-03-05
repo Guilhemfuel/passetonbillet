@@ -24,18 +24,18 @@
                                 </a>
                             </li>
                             @if (App::isLocale('fr'))
-                                <a class="nav-link" href="{{route('lang','en')}}">
-                                    <span class="flag-icon flag-icon-fr"></span>
-                                </a>
-                            @else
                                 <a class="nav-link" href="{{route('lang','fr')}}">
                                     <span class="flag-icon flag-icon-gb"></span>
+                                </a>
+                            @else
+                                <a class="nav-link" href="{{route('lang','en')}}">
+                                    <span class="flag-icon flag-icon-fr"></span>
                                 </a>
                             @endif
                         </ul>
                     </nav>
                     <div class="content">
-                        <div>
+                        <div class="center">
                             <h1 class="text-center text-white">LASTAR</h1>
                             <div class="action-buttons">
                                 <button class="btn btn-lastar-blue" id="btn-buy"
