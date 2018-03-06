@@ -56,6 +56,11 @@ return [
     'new_password' => [
         'title' => 'New Password',
         'submit' => 'Save new password'
+    ],
+    'social' => [
+        'last_step_pwd' => 'One last step before you can access your account: set a password!',
+        'email_used'    => 'A user is already using this email address. If it\'s you please login using your email and password.',
+        'success'       => 'Welcome! You can now buy or sell tickets!'
     ]
 
 ];

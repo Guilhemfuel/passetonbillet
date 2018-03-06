@@ -76,7 +76,8 @@ class User extends Authenticatable
         'password',
         'remember_token',
         'status',
-        'email_token'
+        'email_token',
+        'fb_id'
     ];
 
     /**

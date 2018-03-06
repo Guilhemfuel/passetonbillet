@@ -57,6 +57,11 @@ return [
     'new_password' => [
         'title' => 'Nouveau mot de passe',
         'submit' => 'Sauver le mot de passe'
+    ],
+    'social' => [
+        'last_step_pwd' => 'Une dernière petite étape: créer votre mot de passe pour confirmer votre inscription.',
+        'email_used'    => 'Cette addresse email est déjà utilisée. Si c\'est vous, utilisez votre email et votre mot de passe pour vous connecter..',
+        'success'       => 'Bienvenue parmi nous! Vous pouvez désormais acheter ou vendre des billets!'
     ]
 
 ];

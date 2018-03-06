@@ -49,48 +49,52 @@
                     </div>
                 @endif
 
-                <div id="authComponent">
-                    <auth :auth-type="authType"
-                          :csrf="csrf"
-                          :lang="lang"
-                          :routes="routes"
-                          :old="old"
-                          :back-errors="backErrors"
-                          :token="token"
-                    ></auth>
+                <div id="socialRegister">
+                    <img class="profile-picture rounded-circle mx-auto" src="{{$user->avatar}}">
+                    <h2 class="text-center txt-primary mt-2">Hello {{$user->user['first_name']}}!</h2>
+                    <p class="mt-3">@lang('auth.social.last_step_pwd')</p>
+                    <form role="form"
+                          method="POST"
+                          id="pwd-form"
+                          action="{{route('fb.confirm')}}"
+                    >
+                        {{csrf_field()}}
+
+                        <div class="col-xs-12 form-group">
+                            <label for="password" class="control-label">@lang('profile.modal.change_password.component.password')
+                                <small class="text-muted">(8 char. min)</small>
+                            </label>
+                            <input id="password" type="password"
+                                   class="form-control"
+                                   name="password"
+                                   required placeholder="@lang('profile.modal.change_password.component.password')">
+
+                        </div>
+
+                        <div class="col-xs-12 form-group">
+                            <label for="password-confirm"
+                                   class="control-label">@lang('profile.modal.change_password.component.password_confirm')</label>
+
+                            <input id="password-confirm" type="password"
+                                   class="form-control"
+                                   name="password_confirmation"
+                                   required placeholder="@lang('profile.modal.change_password.component.password_confirm')">
+                        </div>
+
+                        <div class="form-group mt-4">
+                            <div class="col-xs-12">
+                                <button type="submit" class="btn btn-lastar-blue btn-block">
+                                    @lang('auth.register.title')
+                                </button>
+                            </div>
+                        </div>
+
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 
-    <?php
-    $routes = [
-        'login'           => route( 'login' ),
-        'register'        => route( 'register' ),
-        'reset_for_email' => route( 'password.post_email' ),
-        'reset_password'  => route( 'password.reset.post_new_password' ),
-        'facebook'        => route( 'fb.connect')
-    ];
-    $lang = Lang::get( 'auth' );
-    $old = session()->getOldInput();
-    ?>
-
-    @push('scripts')
-        <script type="text/javascript">
-            var authComponent = new Vue({
-                el: '#authComponent',
-                data: {
-                    authType: '{{$type}}',
-                    csrf: '{{csrf_token()}}',
-                    lang: {!!json_encode($lang)!!},
-                    routes: {!! json_encode($routes)!!},
-                    old: {!! $old?json_encode($old):'{}' !!},
-                    backErrors: {!! $errors?json_encode($errors->all()):'{}' !!},
-                    token: {!! isset($token)?"'".$token."'":'null' !!}
-                }
-            });
-        </script>
-    @endpush
     @if((null !==(session('flash_notification')) && count(session('flash_notification'))>0) || (isset($errors) && count($errors)>0))
         @push('scripts')
             <script type="application/javascript">

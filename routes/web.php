@@ -36,13 +36,10 @@ Route::post( 'password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail
 Route::post( 'password/reset', 'Auth\ResetPasswordController@reset' )->name( 'password.reset.post_new_password' );
 
 //// Register Social
-//Route::get( '/redirect/fb', 'Auth\RegisterController@fb_redirect' )->name( 'fb.connect' );
-//Route::get( '/callback/fb', 'Auth\RegisterController@fb_callback' )->name( 'fb.callback' );
+Route::get( '/register/fb', 'Auth\RegisterController@fb_redirect' )->name( 'fb.connect' );
+Route::get( '/register/fb/callback', 'Auth\RegisterController@fb_callback' )->name( 'fb.callback' );
+Route::post( '/register/fb/confirm', 'Auth\RegisterController@fb_confirm_inscription' )->name( 'fb.confirm' );
 
-//// Test ticket
-//Route::get( '/test', function () {
-//    return new \App\Http\Resources\DiscussionResource(\App\Models\Discussion::first(), true);
-//} );
 
 // Auth Routes
 Route::group( [ 'middleware' => 'auth', 'as' => 'public.' ], function () {
