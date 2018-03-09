@@ -3,8 +3,8 @@
         <div class="card card-buy-sell-welcome">
             <div class="card-body">
                 <div class="buttons-search">
-                    <button :class="{'btn':true, 'btn-lastar':state=='buy','btn-outline-purple':state!='buy'} " @click="switchState('buy')">{{lang.buy.title}}</button>
-                    <button :class="{'btn':true, 'btn-lastar':state=='sell','btn-outline-purple':state!='sell'} " @click="switchState('sell')">{{lang.sell.title}}</button>
+                    <button :class="{'btn':true, 'btn-success':state=='buy'} " @click="switchState('buy')">{{lang.buy.title}}</button>
+                    <button :class="{'btn':true, 'btn-danger':true} " @click="switchState('sell')">{{lang.sell.title}}</button>
                 </div>
                 <div id="action-content">
 
@@ -18,10 +18,12 @@
                                                 v-on:change-date="changeDate($event)"
                                                 v-on:change-time="changeTime($event)"
                             ></buy-ticket-welcome>
-                            <button class="btn btn-lastar-blue mt-3 mr-auto" @click.prevent="searchTickets">
-                                <span v-if="sellState!='searching'">{{lang.buy.research}}</span>
-                                <loader v-else class-name="loader-btn"></loader>
-                            </button>
+                            <div class="row">
+                                <button class="btn btn-lastar-blue mt-3 mx-auto btn-action-submit" @click.prevent="searchTickets">
+                                    <span v-if="sellState!='searching'">{{lang.buy.research}}</span>
+                                    <loader v-else class-name="loader-btn"></loader>
+                                </button>
+                            </div>
                             <transition enter-class="pre-animated"
                                         enter-active-class="animated fadeIn"
                                         leave-active-class="animated fadeOut">
@@ -44,7 +46,7 @@
                                 leave-active-class="animated fadeOut">
                         <div v-if="state=='sell'">
                             <sell-ticket-welcome :lang="lang" :csrf="csrf" :routes="routes" ></sell-ticket-welcome>
-                            <button v-if="buyingState=='default'" class="btn btn-lastar-blue mt-3 mr-auto" @click.prevent="sellTicket">
+                            <button v-if="buyingState=='default'" class="btn btn-lastar mt-3 mx-auto btn-action-submit" @click.prevent="sellTicket">
                                 <span>{{lang.sell.title}}</span>
                             </button>
                             <p v-else class="text-center mt-3">
@@ -101,11 +103,18 @@
                 this.$emit('change-state', newState);
             },
             searchTickets(){
-                if (this.sellState!='default' && this.sellState!='result') return null;
+                if (this.sellState!='default' && this.sellState!='result'){
+                    this.searchError = true;
+                    return null;
+                }
+
 
                 if(this.search.departure_station == null
                     || this.search.arrival_station == null
-                    || this.search.trip_date == null) return;
+                    || this.search.trip_date == null) {
+                    this.searchError = true;
+                    return null;
+                }
 
                 this.searchError = false;
 

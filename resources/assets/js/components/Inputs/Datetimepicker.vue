@@ -6,7 +6,8 @@
                     type="date"
                     :picker-options="datePickerOptions"
                     @change="changeDate"
-                    :placeholder="lang.trip_date">
+                    :placeholder="lang.trip_date"
+            >
             </el-date-picker>
         </div>
         <div class="time">
@@ -40,8 +41,10 @@
                     disabledDate: function (myDate) {
                         // Disable all date before today
                         return moment(myDate).isBefore(moment().startOf('day'));
-                    }
+                    },
+                    firstDayOfWeek: 1
                 },
+
             }
         },
         methods: {

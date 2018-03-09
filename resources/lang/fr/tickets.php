@@ -74,7 +74,7 @@ return [
             ],
             'datetimepicker' => [
                 'trip_date' => 'Date du voyage',
-                'trip_time' => '(Optionnel) À partir de'
+                'trip_time' => 'À partir de (Optionnel)'
             ]
         ],
         'title'     => 'Acheter un billet',

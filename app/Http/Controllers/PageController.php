@@ -32,7 +32,7 @@ class PageController extends Controller
                              ->orderByDesc('trains.departure_date')->take( 3 )->get();
 
             return view( 'welcome' )->with( 'tickets', TicketRessource::collection( $tickets ) )
-                                    ->with( 'stations', StationRessource::collection( Station::all() ) );
+                                    ->with( 'stations', StationRessource::collection( Station::sortedStations() ) );
         }
     }
 

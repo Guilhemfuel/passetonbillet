@@ -19,6 +19,11 @@ use Nicolaslopezj\Searchable\SearchableTrait;
  */
 class Station extends Model
 {
+
+    CONST LONDON_ID = 1;
+    CONST PARIS_ID = 6;
+    CONST BXL_ID = 13;
+
     use SearchableTrait, SoftDeletes;
 
     protected $dates = ['deleted_at'];
@@ -87,4 +92,26 @@ class Station extends Model
         return "<span class=\"flag-icon flag-icon-".$this->country."\"></span>";
     }
 
+    /**
+     * Methods
+     */
+
+    public static function sortedStations()
+    {
+
+        $stations = Station::all();
+        $sortedCollection = collect([]);
+        if (\App::isLocale( 'fr' )){
+            $sortedCollection->push( $stations->firstWhere('id',self::PARIS_ID) );
+            $sortedCollection->push( $stations->firstWhere('id',self::LONDON_ID) );
+        } else {
+            $sortedCollection->push( $stations->firstWhere('id',self::LONDON_ID) );
+            $sortedCollection->push( $stations->firstWhere('id',self::PARIS_ID) );
+        }
+
+        $sortedCollection->push( $stations->firstWhere('id',self::BXL_ID) );
+        return $sortedCollection->merge(
+            $stations->whereNotIn('id',[self::PARIS_ID,self::LONDON_ID,self::BXL_ID])
+        );
+    }
 }

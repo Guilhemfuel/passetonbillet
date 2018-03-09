@@ -24,12 +24,12 @@
                                 </a>
                             </li>
                             @if (App::isLocale('fr'))
-                                <a class="nav-link" href="{{route('lang','fr')}}">
-                                    <span class="flag-icon flag-icon-gb"></span>
-                                </a>
-                            @else
                                 <a class="nav-link" href="{{route('lang','en')}}">
                                     <span class="flag-icon flag-icon-fr"></span>
+                                </a>
+                            @else
+                                <a class="nav-link" href="{{route('lang','fr')}}">
+                                    <span class="flag-icon flag-icon-gb"></span>
                                 </a>
                             @endif
                         </ul>
@@ -92,28 +92,28 @@
             <div class="section-advantages" id="section-advantages">
                 <div class="container">
                     <div class="row">
-                        <div class="col-xs-12 col-md-4">
+                        <div class="col-12 col-sm-4 mt-4">
                             <img class="svg-icon"
                                  src="{{asset('img/icon-quick.svg')}}"
                                  alt="Icon quicker"
                             />
-                            <h3 class="advantage-title">@lang('welcome.advantages.quicker.title')</h3>
+                            <h3 class="advantage-title mt-0">@lang('welcome.advantages.quicker.title')</h3>
                             <p class="advantage-text">@lang('welcome.advantages.quicker.text')</p>
                         </div>
-                        <div class="col-xs-12 col-md-4">
+                        <div class="col-12 col-sm-4 mt-4">
                             <img class="svg-icon"
                                  src="{{asset('img/icon-cheaper.svg')}}"
                                  alt="Icon Cheaper"
                             />
-                            <h3 class="advantage-title">@lang('welcome.advantages.cheaper.title')</h3>
+                            <h3 class="advantage-title mt-0">@lang('welcome.advantages.cheaper.title')</h3>
                             <p class="advantage-text">@lang('welcome.advantages.cheaper.text')</p>
                         </div>
-                        <div class="col-xs-12 col-md-4">
+                        <div class="col-12 col-sm-4 mt-4">
                             <img class="svg-icon"
                                  src="{{asset('img/icon-safe.svg')}}"
                                  alt="Icon Safer"
                             />
-                            <h3 class="advantage-title">@lang('welcome.advantages.safer.title')</h3>
+                            <h3 class="advantage-title  pt-1">@lang('welcome.advantages.safer.title')</h3>
                             <p class="advantage-text">@lang('welcome.advantages.safer.text')</p>
                         </div>
                     </div>
@@ -124,26 +124,29 @@
                     <p class="text-center text-white pt-4">Lastar ©</p>
                     <div class="footer-content">
                         <div class="text-white">
-                            <ul>
-                                <li>
-                                    <a>@lang('welcome.footer.about')</a>
-                                </li>
-                                <li>
-                                    <a onclick="$crisp.push(['do', 'chat:open'])">@lang('welcome.footer.help')</a>
-                                </li>
-                                <li>
-                                    <a onclick="$crisp.push(['do', 'chat:open'])">@lang('welcome.footer.contact')</a>
-                                </li>
-                                <li>
-                                    <a>@lang('welcome.footer.conditions')</a>
-                                </li>
-                            </ul>
+                            <div class="row">
+                                <div class="col-sm-6 col-12">
+                                    <a class="text-white" href="#">@lang('welcome.footer.about')</a>
+                                </div>
+                                <div class="col-sm-6 col-12">
+                                    <a class="text-white" href="#" onclick="e.preventDefault();$crisp.push(['do', 'chat:open'])">@lang('welcome.footer.help')</a>
+                                </div>
+                                <div class="col-sm-6 col-12">
+                                    <a href="#" class="text-white" onclick="e.preventDefault();$crisp.push(['do', 'chat:open'])">@lang('welcome.footer.contact')</a>
+                                </div>
+                                <div class="col-sm-6 col-12">
+                                    <a class="text-white" href="#">@lang('welcome.footer.conditions')</a>
+                                </div>
+                            </div>
                         </div>
                         <div class="text-white">
                             <p>
-                                <i class="fa fa-facebook" aria-hidden="true"></i>
-                                <i class="fa fa-twitter" aria-hidden="true"></i>
-                                <i class="fa fa-instagram" aria-hidden="true"></i>
+                                <a href="https://www.facebook.com/Lastar-166045200683624/">
+                                    <i class="fa fa-2x fa-facebook text-white" aria-hidden="true"></i>
+                                </a>
+                                <a href="https://twitter.com/lastarofficial">
+                                    <i class="fa fa-2x fa-twitter text-white" aria-hidden="true"></i>
+                                </a>
                             </p>
                         </div>
 
@@ -152,6 +155,7 @@
             </div>
         </div>
 
+    </div>
 
         @endsection
 

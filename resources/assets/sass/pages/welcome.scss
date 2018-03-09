@@ -75,6 +75,7 @@
         min-width: 150px;
         text-transform: uppercase;
         margin: 0px 10px;
+        font-weight: 600;
       }
     }
 
@@ -169,7 +170,7 @@
       }
     }
 
-    .btn-search-submit{
+    .btn-action-submit{
       min-width: 150px;
     }
 
@@ -231,9 +232,16 @@
 
       i {
         margin: 10px;
-        font-size: 1em;
+        font-size: 1.5em;
       }
     }
   }
 
+}
+
+.el-date-picker__header
+{
+  .el-icon-d-arrow-right, .el-icon-d-arrow-left {
+    display: none;
+  }
 }

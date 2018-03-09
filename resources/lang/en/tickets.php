@@ -76,12 +76,12 @@ return [
             ],
             'datetimepicker' => [
                 'trip_date' => 'Travel date',
-                'trip_time' => '(Optional) From'
+                'trip_time' => 'From (Optional)'
             ]
         ],
         'title'     => 'Buy a ticket',
         'catchline' => 'What is your journey?',
-        'research'  => 'Research'
+        'research'  => 'Search'
     ],
     'owned' => [
         'no_bought_tickets' => 'You have not bought any tickets yet!',

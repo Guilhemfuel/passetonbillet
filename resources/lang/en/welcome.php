@@ -10,15 +10,15 @@ return [
 
     'advantages' => [
         'quicker' => [
-            'title' => 'Quicker',
+            'title' => 'So Quick',
             'text'  => 'It has never been quicker to connect buyers and sellers.'
         ],
         'cheaper' => [
-            'title' => 'Cheaper',
+            'title' => 'So Cheap',
             'text'  => 'It has never been cheaper to take the Eurostar.'
         ],
         'safer'   => [
-            'title' => 'Safer',
+            'title' => 'So Safe',
             'text'  => 'It has never been safer to get your tickets.'
         ]
     ],
