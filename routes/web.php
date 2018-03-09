@@ -15,6 +15,7 @@
 
 // Home Page
 Route::get( '/', 'PageController@home' )->name( 'home' );
+Route::get( '/home', 'PageController@home' )->name( 'home' );
 
 // Lang
 Route::get( 'lang/{lang}', 'LanguageController@switchLang' )->name( 'lang' );
@@ -41,8 +42,12 @@ Route::get( '/register/fb/callback', 'Auth\RegisterController@fb_callback' )->na
 Route::post( '/register/fb/confirm', 'Auth\RegisterController@fb_confirm_inscription' )->name( 'fb.confirm' );
 
 // Contact page
-Route::get('/contact','PageController@contact')->name('contact.page');
-Route::post('/contact','HelpController@contact')->name('contact');
+Route::group( [ 'middleware' => 'guest' ],function ()
+{
+    Route::get( '/contact', 'PageController@contact' )->name( 'contact.page' );
+    Route::post( '/contact', 'HelpController@contact' )->name( 'contact' );
+
+});
 
 
 // Auth Routes
@@ -62,7 +67,7 @@ Route::group( [ 'middleware' => 'auth', 'as' => 'public.' ], function () {
         Route::get( 'buy', 'PageController@buyPage' )->name( 'buy.page' );
 
         // Remove a non-sold ticket
-        Route::delete('/','TicketController@delete')->name('delete');
+        Route::delete( '/', 'TicketController@delete' )->name( 'delete' );
     } );
 
     // Messages routes
@@ -72,10 +77,10 @@ Route::group( [ 'middleware' => 'auth', 'as' => 'public.' ], function () {
         Route::post( '/deny', 'DiscussionController@denyOffer' )->name( 'offer.deny' );
         Route::post( '/accept', 'DiscussionController@acceptOffer' )->name( 'offer.accept' );
         // Sow conversation oage
-        Route::get( '/{ticket_id}/{discussion_id}', 'DiscussionController@getDiscussion' )->name('discussion.page');
+        Route::get( '/{ticket_id}/{discussion_id}', 'DiscussionController@getDiscussion' )->name( 'discussion.page' );
 
         // Confirm sell to this user
-        Route::post( '/{ticket_id}/{discussion_id}/sell', 'DiscussionController@sell' )->name('discussion.sell');
+        Route::post( '/{ticket_id}/{discussion_id}/sell', 'DiscussionController@sell' )->name( 'discussion.sell' );
 
     } );
 
@@ -126,8 +131,8 @@ Route::group( [ 'prefix' => 'api' ], function () {
         Route::post( 'ticket/offer', 'TicketController@makeAnOffer' )->name( 'api.tickets.offer' );
 
         // Discussion api routes
-        Route::post( 'messages/{ticket}/{discussion}', 'DiscussionController@sendMessage' )->name('api.discussion.send');
-        Route::get( 'messages/{ticket}/{discussion}/refresh', 'DiscussionController@refreshDiscussion' )->name('api.discussion.refresh');
+        Route::post( 'messages/{ticket}/{discussion}', 'DiscussionController@sendMessage' )->name( 'api.discussion.send' );
+        Route::get( 'messages/{ticket}/{discussion}/refresh', 'DiscussionController@refreshDiscussion' )->name( 'api.discussion.refresh' );
     } );
 
     Route::post( 'tickets/buy', 'TicketController@buyTickets' )->name( 'api.tickets.buy' );

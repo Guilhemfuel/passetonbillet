@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="contact-page">
+    <div class="contact-page" id="contact-page">
 
         <div class="section-header">
             <div class="first-section" style="background-image: url('{{asset('img/bg/3.jpg')}}');">
@@ -93,7 +93,6 @@
 @endsection
 
 @push('scripts')
-    <!-- Here is the thing -->
     {!! \Anhskohbo\NoCaptcha\Facades\NoCaptcha::renderJs(App::getLocale()) !!}
 
 @endpush

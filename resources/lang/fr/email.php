@@ -13,7 +13,8 @@ return [
     'id_verification_success' => 'Vérification d\'identité',
     'id_verification_fail' => 'Échec de la vérification d\'identité',
     'offer' => 'Nouvelle offre pour un de vos billets',
-    'message' => 'Vous avez reçu un nouveau message'
+    'message' => 'Vous avez reçu un nouveau message',
 
+    'contact_success' => 'Message envoyé! Nous vous recontacterons dès que possible!',
 
 ];

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ContactEmail;
+use App\User;
 use Illuminate\Http\Request;
 
 class HelpController extends Controller
@@ -11,6 +13,7 @@ class HelpController extends Controller
      */
     public function contact( Request $request )
     {
+
         $this->validate( $request, [
             'g-recaptcha-response' => 'required|captcha',
             'name'                 => 'required',
@@ -18,6 +21,9 @@ class HelpController extends Controller
             'message'              => 'required'
         ] );
 
-        dd($request->getContent());
+        \Mail::to(User::first())->send(new ContactEmail($request->name,$request->email,$request->message));
+
+        flash()->success(__('email.contact_success'));
+        return redirect()->route('home');
     }
 }

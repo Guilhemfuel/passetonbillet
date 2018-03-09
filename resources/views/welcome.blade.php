@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="welcome-page">
+    <div class="welcome-page" id="welcome-page">
 
         <div class="section-header">
             <div class="first-section" style="background-image: url('{{asset('img/bg/5.jpg')}}');">
@@ -169,8 +169,8 @@
 
 
 
-                const app = new Vue({
-                    el: '#app',
+                const welcome = new Vue({
+                    el: '#welcome-page',
                     data: {
                         tickets: {!! json_encode($tickets) !!},
                         ticketLang: {!! json_encode($langTickets) !!},
@@ -179,21 +179,12 @@
                         api: {!! json_encode($api) !!},
                         stations: {!! json_encode($stations) !!},
                         stateBuySell: 'buy',
-                        messages: {!!  (session('flash_notification')!==null?json_encode(session('flash_notification')):[]) !!}
                     },
                     methods: {
                         changeState($event) {
                             this.stateBuySell = $event;
                         }
                     },
-                    mounted() {
-                        for (var i = 0; i < this.messages.length; i++) {
-                            this.$message({
-                                message: this.messages[i].message,
-                                type: this.messages[i].message
-                            });
-                        }
-                    }
                 });
             </script>
     @endpush

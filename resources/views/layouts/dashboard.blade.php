@@ -60,21 +60,6 @@ $activeLang = App::getLocale();
 
         @include('components.nav')
 
-        @if( (session('flash_notification')!==null && count(session('flash_notification'))>0) || (isset($errors) && count($errors)>0))
-        <!-- Alert Container -->
-            <div class="alert-sticky container mt-4" id="flash-container">
-                <flash v-for="message in messages"
-                       v-if="!message.overlay"
-                       :type="message.level"
-                       :content="message.message"
-                       :important="message.important"></flash>
-                <flash v-for="error in validationErrors"
-                       type="danger"
-                       :content="error"
-                       :important="true"></flash>
-            </div>
-        @endif
-
             @yield('dashboard-content')
         </div>
     </div>

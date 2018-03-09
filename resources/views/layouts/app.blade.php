@@ -37,7 +37,7 @@
 
 <body>
 <div id="app">
-
+    <div id="root"></div>
 
     @if(session('login'))
         {{-- Watever that needs to be done on login--}}
@@ -60,14 +60,44 @@
 
 <!-- Scripts -->
 <script src="/js/app.js"></script>
-@stack('scripts')
+<script>
+    const root = new Vue({
+        el: '#root',
+        data: {
+            messages: {!! ( session()->has('flash_notification') && session('flash_notification')!==null?json_encode(session('flash_notification')):'[]') !!},
+            custom_errors: {!!  ($errors->any()?json_encode($errors->all()):'[]') !!}
+        },
+        mounted() {
+            for (var i = 0; i < this.messages.length; i++) {
+                this.$message({
+                    message: this.messages[i].message,
+                    type: this.messages[i].level=='danger'?'error':this.messages[i].level,
+                    showClose: true,
+                    duration: this.messages[i].important?0:10000,
+                    dangerouslyUseHTMLString: true
+                });
+            }
 
-{{--@if (getenv('APP_ENV') === 'local')--}}
-    {{--<script id="__bs_script__">//<![CDATA[--}}
-        {{--document.write("<script async src='https://HOST:3000/browser-sync/browser-sync-client.js?v=2.18.12'><\/script>".replace("HOST", location.hostname));--}}
-        {{--//]]>--}}
-    {{--</script>--}}
-{{--@endif--}}
+            var errorsMessage = '<ul style="margin-bottom: 0px!important;">';
+            for (var i = 0; i < this.custom_errors.length; i++) {
+                errorsMessage += '<li>' + this.custom_errors[i] + '</li>'
+            }
+            errorsMessage += '</ul>';
+
+            if ( this.custom_errors.length>0) {
+                console.log(errorsMessage);
+                this.$message({
+                    dangerouslyUseHTMLString: true,
+                    message: errorsMessage,
+                    type: 'error',
+                    showClose: true,
+                    duration: 0
+                });
+            }
+        }
+    });
+</script>
+@stack('scripts')
 
 </body>
 </html>

@@ -31,11 +31,14 @@ if (lang === 'fr') {
 /**
  * We use the front-end framework elem-io, and therefore need to set the language.
  */
-import '../css/element-lastar/index.css';
+
+
 import ElementUI from 'element-ui';
 import langEn from 'element-ui/lib/locale/lang/en';
 import langFr from 'element-ui/lib/locale/lang/fr';
 import locale from 'element-ui/lib/locale';
+
+import '../sass/element-variables.scss'
 
 if (lang === 'fr') {
     locale.use(langFr)

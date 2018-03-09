@@ -31,8 +31,6 @@ class PageController extends Controller
             $tickets = Ticket::join('trains', 'trains.id', '=', 'tickets.train_id')
                              ->orderByDesc('trains.departure_date')->take( 3 )->get();
 
-            flash()->success('ok');
-
             return view( 'welcome' )->with( 'tickets', TicketRessource::collection( $tickets ) )
                                     ->with( 'stations', StationRessource::collection( Station::sortedStations() ) );
         }
@@ -66,6 +64,7 @@ class PageController extends Controller
      */
     public function myTicketsPage()
     {
+
         return view( 'tickets.owned' )->with( 'user', new UserRessource( \Auth::user() ) )
                                       ->with( 'tickets', TicketRessource::collection( \Auth::user()->tickets ) )
                                       ->with( 'boughtTickets', TicketFullRessource::collection( \Auth::user()->boughtTickets ) );
