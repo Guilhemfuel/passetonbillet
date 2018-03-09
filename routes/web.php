@@ -40,6 +40,10 @@ Route::get( '/register/fb', 'Auth\RegisterController@fb_redirect' )->name( 'fb.c
 Route::get( '/register/fb/callback', 'Auth\RegisterController@fb_callback' )->name( 'fb.callback' );
 Route::post( '/register/fb/confirm', 'Auth\RegisterController@fb_confirm_inscription' )->name( 'fb.confirm' );
 
+// Contact page
+Route::get('/contact','PageController@contact')->name('contact.page');
+Route::post('/contact','HelpController@contact')->name('contact');
+
 
 // Auth Routes
 Route::group( [ 'middleware' => 'auth', 'as' => 'public.' ], function () {

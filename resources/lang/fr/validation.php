@@ -99,9 +99,10 @@ return [
     |
     */
 
-    'custom'               => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+    'custom' => [
+        'g-recaptcha-response' => [
+            'required' => 'Merci de vérifier que vous n\'etes pas un robot.',
+            'captcha' => 'Erreur captcha! Essayez plus tard, ou contactez-nous via le chat!',
         ],
     ],
 

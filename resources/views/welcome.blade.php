@@ -8,7 +8,7 @@
             <div class="first-section" style="background-image: url('{{asset('img/bg/5.jpg')}}');">
                 <div class="fixed-content">
                     <nav class="navbar">
-                        <a class="navbar-brand" href="#">
+                        <a class="navbar-brand" href="{{route('home')}}">
                             <img src="{{asset('img/logo.png')}}" class="d-inline-block align-top" alt="logo lastar">
                         </a>
                         <ul class="navbar-nav navbar-expand">
@@ -119,40 +119,9 @@
                     </div>
                 </div>
             </div>
-            <div class="section-footer">
-                <div class="container">
-                    <p class="text-center text-white pt-4">Lastar ©</p>
-                    <div class="footer-content">
-                        <div class="text-white">
-                            <div class="row">
-                                <div class="col-sm-6 col-12">
-                                    <a class="text-white" href="#">@lang('welcome.footer.about')</a>
-                                </div>
-                                <div class="col-sm-6 col-12">
-                                    <a class="text-white" href="#" onclick="e.preventDefault();$crisp.push(['do', 'chat:open'])">@lang('welcome.footer.help')</a>
-                                </div>
-                                <div class="col-sm-6 col-12">
-                                    <a href="#" class="text-white" onclick="e.preventDefault();$crisp.push(['do', 'chat:open'])">@lang('welcome.footer.contact')</a>
-                                </div>
-                                <div class="col-sm-6 col-12">
-                                    <a class="text-white" href="#">@lang('welcome.footer.conditions')</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="text-white">
-                            <p>
-                                <a href="https://www.facebook.com/Lastar-166045200683624/">
-                                    <i class="fa fa-2x fa-facebook text-white" aria-hidden="true"></i>
-                                </a>
-                                <a href="https://twitter.com/lastarofficial">
-                                    <i class="fa fa-2x fa-twitter text-white" aria-hidden="true"></i>
-                                </a>
-                            </p>
-                        </div>
 
-                    </div>
-                </div>
-            </div>
+            @include('components.footer')
+
         </div>
 
     </div>
@@ -198,6 +167,8 @@
                     });
                 }
 
+
+
                 const app = new Vue({
                     el: '#app',
                     data: {
@@ -207,11 +178,20 @@
                         routes: {!! json_encode($routes) !!},
                         api: {!! json_encode($api) !!},
                         stations: {!! json_encode($stations) !!},
-                        stateBuySell: 'buy'
+                        stateBuySell: 'buy',
+                        messages: {!!  (session('flash_notification')!==null?json_encode(session('flash_notification')):[]) !!}
                     },
                     methods: {
                         changeState($event) {
                             this.stateBuySell = $event;
+                        }
+                    },
+                    mounted() {
+                        for (var i = 0; i < this.messages.length; i++) {
+                            this.$message({
+                                message: this.messages[i].message,
+                                type: this.messages[i].message
+                            });
                         }
                     }
                 });

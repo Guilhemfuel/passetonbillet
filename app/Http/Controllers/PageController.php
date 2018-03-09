@@ -31,6 +31,8 @@ class PageController extends Controller
             $tickets = Ticket::join('trains', 'trains.id', '=', 'tickets.train_id')
                              ->orderByDesc('trains.departure_date')->take( 3 )->get();
 
+            flash()->success('ok');
+
             return view( 'welcome' )->with( 'tickets', TicketRessource::collection( $tickets ) )
                                     ->with( 'stations', StationRessource::collection( Station::sortedStations() ) );
         }
@@ -121,6 +123,13 @@ class PageController extends Controller
             'userData' => new UserRessource( $user ),
             'user'     => $user
         ] );
+    }
+
+    /**
+     * Display the contact page
+     */
+    public function contact(){
+        return view('help.contact');
     }
 
 }
