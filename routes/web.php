@@ -45,6 +45,10 @@ Route::post( '/register/fb/confirm', 'Auth\RegisterController@fb_confirm_inscrip
 Route::get('/cgu','PageController@cgu')->name('cgu.page');
 Route::get('/privacy','PageController@privacy')->name('privacy.page');
 
+// About page
+Route::get('/about','PageController@about')->name('about.page');
+
+
 // Contact page
 Route::group( [ 'middleware' => 'guest' ],function ()
 {

@@ -43,6 +43,7 @@
                                 <button class="btn btn-danger" id="btn-sell"
                                         @click="stateBuySell='sell'">@lang('common.button.sell')</button>
                             </div>
+                            @if(count($tickets)>0)
                             <div class="tickets mx-auto d-none d-sm-none d-md-block">
                                 <div class="first-ticket">
                                     <ticket :ticket="tickets[0]" :lang="ticketLang.component"></ticket>
@@ -67,6 +68,7 @@
                                     <ticket :ticket="tickets[1]" :lang="ticketLang.component"></ticket>
                                 </div>
                             </div>
+                            @endif
                             <div class="text-center text-white">
                                 <i id="scroll-to-search" class="fa fa-angle-down fa-3x mx-auto" aria-hidden="true"></i>
                             </div>

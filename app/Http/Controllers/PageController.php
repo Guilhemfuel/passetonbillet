@@ -132,6 +132,13 @@ class PageController extends Controller
     }
 
     /**
+     * Display the about page
+     */
+    public function about(){
+        return view('help.about');
+    }
+
+    /**
      * Display the Terms page
      */
     public function cgu(){
