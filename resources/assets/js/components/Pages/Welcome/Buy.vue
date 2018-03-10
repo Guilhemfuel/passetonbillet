@@ -76,6 +76,11 @@
 
             }
         },
+        mounted(){
+          this.changeDeparture(this.search.departure_station);
+          this.changeArrival(this.search.arrival_station);
+          this.changeDate(this.search.trip_date);
+        },
         methods: {
             changeDeparture(station) {
                 this.$emit('change-departure', station);

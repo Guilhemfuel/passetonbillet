@@ -134,10 +134,10 @@
                             <loader class-name="mx-auto mt-4"></loader>
                         </div>
                         <template v-else-if="state=='offered'">
-                            <p>Le vendeur a bien reçu votre offre! Il vous recontactera si il est interessé.</p>
+                            <p>{{lang.offer_sent}}</p>
                         </template>
                         <template v-else-if="state=='register'" >
-                            <p class="text-center">La sécurité est notre premier soucis. Ainsi, vous devez etre inscrit pour commnuniquer avec les autres membres. <br><br> <a :href="routes.register">Inscrivez-vous pour envoyer votre offre!</a></p>
+                            <p class="text-center">{{lang.register}} <br><br> <a :href="routes.register">{{lang.register_cta}}</a></p>
                         </template>
                     </div>
 

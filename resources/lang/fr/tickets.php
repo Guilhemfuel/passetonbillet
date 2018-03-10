@@ -9,19 +9,22 @@ return [
     */
 
     'component' => [
-        'buy'          => 'Acheter',
-        'sell'         => 'Vendre ce billet',
-        'sold_by'      => 'Vendu par',
-        'edit'         => 'Modifier',
-        'edit_ticket'  => 'Modifier le billet',
+        'buy'           => 'Acheter',
+        'sell'          => 'Vendre ce billet',
+        'sold_by'       => 'Vendu par',
+        'edit'          => 'Modifier',
+        'edit_ticket'   => 'Modifier le billet',
         'your_offer'    => 'Votre offre',
         'price'         => 'Prix',
         'send_offer'    => 'Envoyer l\'offre',
         'if_interested' => 'Le vendeur vous contactera s\'il est interessé.',
-        'infos'        => 'Infos',
-        'booking_code' => 'Numéro de réservation',
-        'booking_name' => 'Now de réservation',
-        'delete'       => 'Vous ne voulez plus vendre ce billet?'
+        'infos'         => 'Infos',
+        'booking_code'  => 'Numéro de réservation',
+        'booking_name'  => 'Now de réservation',
+        'delete'        => 'Vous ne voulez plus vendre ce billet?',
+        'offer_sent'    => 'Le vendeur a bien reçu votre offre! Il vous recontactera si il est interessé.',
+        'register'      => 'La sécurité est notre premier soucis. Ainsi, vous devez etre inscrit pour commnuniquer avec les autres membres.',
+        'register_cta'  => 'Inscrivez-vous pour envoyer votre offre!'
 
     ],
     'sell'      => [
@@ -87,10 +90,9 @@ return [
         'bought'            => 'Acheté(s)',
         'sold'              => 'Vendu(s)'
     ],
-    'delete' => [
+    'delete'    => [
         'success' => 'Votre ticket a bien été supprimé.'
     ]
-
 
 
 ];

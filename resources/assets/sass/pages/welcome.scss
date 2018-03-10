@@ -174,6 +174,10 @@
       min-width: 150px;
     }
 
+    .no-space .row{
+      position: absolute;
+    }
+
     // Transitions
     $animation-duration: 0.3s;
 

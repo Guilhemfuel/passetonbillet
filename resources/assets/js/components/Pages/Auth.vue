@@ -130,7 +130,7 @@
                         <label for="birthdate" class="control-label">{{lang.register.birthdate}}</label>
 
                         <datepicker id="birthdate" type="date"
-                                    name="birthdate" :placeholder="lang.register.birthdate" v-model="form.birthdate"></datepicker>
+                                    name="birthdate" placeholder="DD/MM/YYYY" v-model="form.birthdate"></datepicker>
                     </div>
 
                     <div class="col-xs-12 form-group">
@@ -321,12 +321,11 @@
             lang: {type: Object, required: true},
             routes: {type: Object, required: true},
             old: {type: Object, required: false, default: () => {}},
-            backErrors: {type: Array, required: false, default: () => []}
         },
         data() {
             return {
                 type: this.authType,
-                customErrors: this.backErrors,
+                customErrors: [],
                 form: { gender: 1,
                     first_name: this.old ? (this.old.first_name ? this.old.first_name : null) : null,
                     last_name: this.old ? (this.old.last_name ? this.old.last_name : null) : null,

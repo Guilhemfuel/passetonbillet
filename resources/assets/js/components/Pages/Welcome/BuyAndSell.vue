@@ -3,7 +3,7 @@
         <div class="card card-buy-sell-welcome">
             <div class="card-body">
                 <div class="buttons-search">
-                    <button :class="{'btn':true, 'btn-success':state=='buy'} " @click="switchState('buy')">{{lang.buy.title}}</button>
+                    <button :class="{'btn':true, 'btn-success':true} " @click="switchState('buy')">{{lang.buy.title}}</button>
                     <button :class="{'btn':true, 'btn-danger':true} " @click="switchState('sell')">{{lang.sell.title}}</button>
                 </div>
                 <div id="action-content">
@@ -25,14 +25,14 @@
                                 </button>
                             </div>
                             <transition enter-class="pre-animated"
-                                        enter-active-class="animated fadeIn"
-                                        leave-active-class="animated fadeOut">
+                                        enter-active-class="animated fadeIn no-space"
+                                        leave-active-class="animated fadeOut no-space">
                                 <p v-if="sellState=='result'" class="text-center mt-4 mb-0"><span class="text-pink">{{sellingTickets.length}}</span> billet(s) corresponde(nt) à votre recherche.</p>
                             </transition>
 
                             <transition enter-class="pre-animated"
-                                        enter-active-class="animated fadeInUpBig"
-                                        leave-active-class="animated fadeOut">
+                                        enter-active-class="animated fadeInUpBig no-space"
+                                        leave-active-class="animated fadeOut no-space">
                                 <div class="row mt-4" v-if="sellingTickets.length > 0">
                                     <div class="col-12 col-sm-12 col-md-6 col-lg-4" v-for="ticket in sellingTickets">
                                         <ticket :ticket="ticket" :routes="routes" :api="api" :lang="lang.component" :buying="true" class-name="mt-4"></ticket>
@@ -44,9 +44,9 @@
                     <transition enter-class="pre-animated"
                                 enter-active-class="animated fadeIn"
                                 leave-active-class="animated fadeOut">
-                        <div v-if="state=='sell'">
+                        <div v-if="state=='sell'" class="text-center">
                             <sell-ticket-welcome :lang="lang" :csrf="csrf" :routes="routes" ></sell-ticket-welcome>
-                            <button v-if="buyingState=='default'" class="btn btn-lastar mt-3 mx-auto btn-action-submit" @click.prevent="sellTicket">
+                            <button v-if="buyingState=='default'" class="btn btn-lastar-blue mt-3 mx-auto btn-action-submit" @click.prevent="sellTicket">
                                 <span>{{lang.sell.title}}</span>
                             </button>
                             <p v-else class="text-center mt-3">
@@ -103,10 +103,13 @@
                 this.$emit('change-state', newState);
             },
             searchTickets(){
+
+                console.log('in');
                 if (this.sellState!='default' && this.sellState!='result'){
                     this.searchError = true;
                     return null;
                 }
+                console.log('iwn');
 
 
                 if(this.search.departure_station == null
