@@ -102,6 +102,9 @@ return [
             'required' => 'Please verify that you are not a robot.',
             'captcha' => 'Captcha error! Try again later or contact us via the chat!',
         ],
+        'email' => [
+            'unique' => 'This email is already registered. Login or reset your password on this page.',
+        ],
     ],
 
     /*

@@ -1,4 +1,4 @@
-.contact-page {
+.cgu-page, .privacy-page {
   width: 100%;
   min-height: 100%;
 
@@ -14,7 +14,7 @@
 
       .fixed-content {
         //@extend .purple-gradient;
-        @include purple-gradient-reverse(.9);
+        @include purple-gradient-reverse(.95);
         top: 0;
         bottom: 0;
         flex: 1;
@@ -85,6 +85,18 @@
 
   .section-footer{
     border-top: 2px solid white;
+  }
+
+  .container-over-bg {
+    background-color: white;
+    border-radius: 3px;
+    box-shadow: 0px 3px 5px rgba(0,0,0,0.4);
+    margin-bottom: 50px;
+
+
+    .grayText {
+      font-weight: 600;
+    }
   }
 
 }

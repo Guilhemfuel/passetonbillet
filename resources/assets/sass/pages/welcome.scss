@@ -1,5 +1,5 @@
 
-.welcome-page, .contact-page {
+.welcome-page {
   width: 100%;
   min-height: 100%;
 
@@ -221,31 +221,5 @@
     }
   }
 
-  .section-footer {
-    @extend .bg-dark;
-    width: 100%;
-    padding-bottom: 50px;
-
-    .footer-content{
-      display: flex;
-      justify-content: space-between;
-
-      ul {
-        list-style: none;
-      }
-
-      i {
-        margin: 10px;
-        font-size: 1.5em;
-      }
-    }
-  }
-
 }
 
-.el-date-picker__header
-{
-  .el-icon-d-arrow-right, .el-icon-d-arrow-left {
-    display: none;
-  }
-}

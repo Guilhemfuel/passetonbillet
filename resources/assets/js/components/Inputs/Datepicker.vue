@@ -20,6 +20,7 @@
                 type="date"
                 format="dd/MM/yyyy"
                 value-format="yyyy-MM-dd"
+                :popper-class="popperClass"
         >
         </el-date-picker>
         <input type="hidden" :name="nameInput" :value="dateValue"/>
@@ -33,6 +34,7 @@
             name: null,
             value: null,
             placeholder: null,
+            popperClass: null,
             isRequired: {type: Boolean, default: false}
         },
         data(){

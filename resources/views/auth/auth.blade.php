@@ -1,7 +1,26 @@
 @extends('layouts.app')
 
+@php
+    // display the correct page name
+    $pageName = '';
+    switch ($type){
+        case 'password_reset':
+            $pageName = 'auth.reset.title';
+            break;
+
+        case 'login':
+            $pageName = 'auth.auth.title';
+            break;
+
+        case 'register':
+            $pageName = 'auth.register.title';
+            break;
+
+    }
+@endphp
+
 @section('title')
-    - @lang('auth.auth.title')
+    - @lang($pageName)
 @endsection
 
 @section('content')
@@ -11,10 +30,10 @@
             <div class="content">
                 <a href="{{route('home')}}"><img class="lastar-logo mx-auto" src="{{asset('img/logo.png')}}"></a>
                 <div class="actions btn-rack mt-4">
-                    <button class="btn btn-white">
-                        Find a ticket
+                    <button class="btn btn-outline-white">
+                        About us
                     </button>
-                    <button class="btn btn-outline-white" onclick="$crisp.push(['do', 'chat:open'])">
+                    <button class="btn btn-white" onclick="$crisp.push(['do', 'chat:open'])">
                         Contact us
                     </button>
                 </div>
@@ -23,7 +42,7 @@
         <div class="col-12 col-sm-6 right-panel">
             <div class="lang">
                 @if (App::isLocale('fr'))
-                    <a  href="{{route('lang','en')}}">
+                    <a href="{{route('lang','en')}}">
                         <span class="flag-icon flag-icon-fr"></span>
                     </a>
                 @else
@@ -52,7 +71,7 @@
         'register'        => route( 'register' ),
         'reset_for_email' => route( 'password.post_email' ),
         'reset_password'  => route( 'password.reset.post_new_password' ),
-        'facebook'        => route( 'fb.connect')
+        'facebook'        => route( 'fb.connect' )
     ];
     $lang = Lang::get( 'auth' );
     $old = session()->getOldInput();

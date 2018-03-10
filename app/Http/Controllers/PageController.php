@@ -131,4 +131,26 @@ class PageController extends Controller
         return view('help.contact');
     }
 
+    /**
+     * Display the Terms page
+     */
+    public function cgu(){
+
+        if(\App::getLocale()=='fr'){
+            return view('help.cgu-privacy.fr.cgu');
+        }
+        return view('help.cgu-privacy.en.cgu');
+
+    }
+
+    /**
+     * Display the privacy policy
+     */
+    public function privacy(){
+        if(\App::getLocale()=='fr'){
+            return view('help.cgu-privacy.fr.privacy');
+        }
+        return view('help.cgu-privacy.en.privacy');
+    }
+
 }

@@ -41,12 +41,15 @@ Route::get( '/register/fb', 'Auth\RegisterController@fb_redirect' )->name( 'fb.c
 Route::get( '/register/fb/callback', 'Auth\RegisterController@fb_callback' )->name( 'fb.callback' );
 Route::post( '/register/fb/confirm', 'Auth\RegisterController@fb_confirm_inscription' )->name( 'fb.confirm' );
 
+// Conditions
+Route::get('/cgu','PageController@cgu')->name('cgu.page');
+Route::get('/privacy','PageController@privacy')->name('privacy.page');
+
 // Contact page
 Route::group( [ 'middleware' => 'guest' ],function ()
 {
     Route::get( '/contact', 'PageController@contact' )->name( 'contact.page' );
     Route::post( '/contact', 'HelpController@contact' )->name( 'contact' );
-
 });
 
 

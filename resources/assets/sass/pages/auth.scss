@@ -48,6 +48,7 @@
     .lang {
       position: absolute;
       top: 20px;
+      right: 60px;
     }
     .profile-picture{
       box-shadow: 1px 3px 5px rgba(0,0,0,0.3);
@@ -68,6 +69,19 @@
 
       .el-radio-button__inner {
         width: 100%;
+      }
+    }
+  }
+
+  #birthdate {
+    .el-input__prefix {
+      display: none;
+    }
+
+    .el-input__inner {
+      padding: 0.5rem 0.75rem;
+      @include placeholder {
+        color: $color-placeholder !important;
       }
     }
   }
@@ -98,5 +112,16 @@
             $delay: $animation-duration,
             $function: 'ease'
     );
+  }
+
+}
+
+.birthdate {
+  // Display year for date picker
+  .el-date-picker__header
+  {
+    .el-icon-d-arrow-right, .el-icon-d-arrow-left {
+      display: block !important;
+    }
   }
 }

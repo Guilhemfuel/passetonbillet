@@ -97,7 +97,7 @@
                                  src="{{asset('img/icon-quick.svg')}}"
                                  alt="Icon quicker"
                             />
-                            <h3 class="advantage-title mt-0">@lang('welcome.advantages.quicker.title')</h3>
+                            <h3 class="advantage-title pt-1">@lang('welcome.advantages.quicker.title')</h3>
                             <p class="advantage-text">@lang('welcome.advantages.quicker.text')</p>
                         </div>
                         <div class="col-12 col-sm-4 mt-4">
@@ -105,7 +105,7 @@
                                  src="{{asset('img/icon-cheaper.svg')}}"
                                  alt="Icon Cheaper"
                             />
-                            <h3 class="advantage-title mt-0">@lang('welcome.advantages.cheaper.title')</h3>
+                            <h3 class="advantage-title pt-1">@lang('welcome.advantages.cheaper.title')</h3>
                             <p class="advantage-text">@lang('welcome.advantages.cheaper.text')</p>
                         </div>
                         <div class="col-12 col-sm-4 mt-4">

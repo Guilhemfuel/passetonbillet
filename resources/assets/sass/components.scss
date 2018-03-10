@@ -396,6 +396,33 @@ $animation-duration: 0.3s;
 
 }
 
+// Footer
+
+
+.section-footer {
+  @extend .bg-dark;
+  width: 100%;
+  padding-bottom: 50px;
+
+  .footer-content{
+    display: flex;
+    justify-content: space-between;
+
+    ul {
+      list-style: none;
+    }
+
+    i {
+      margin: 10px;
+      font-size: 1.5em;
+    }
+
+    a:hover{
+      border-bottom: 1px solid;
+    }
+  }
+}
+
 // ------- Input ui-elem.io Ovverride -------
 
 .el-select, .el-input, .el-date-editor.el-input {
@@ -518,6 +545,12 @@ $animation-duration: 0.3s;
       border-radius: 0px 0px 4px 4px;
       border-top-width: 0px !important;
     }
+  }
+}
+.el-date-picker__header
+{
+  .el-icon-d-arrow-right, .el-icon-d-arrow-left {
+    display: none;
   }
 }
 

@@ -26,7 +26,8 @@ return [
         'about' => 'À Propos de Lastar',
         'help' => 'Aide',
         'contact' => 'Contact',
-        'conditions' => 'Conditions d\'utilisation'
+        'conditions' => 'Conditions d\'utilisation',
+        'privacy'    => 'Politique de Confidentialité'
     ]
 
 

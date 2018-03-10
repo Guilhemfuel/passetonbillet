@@ -130,7 +130,7 @@
                         <label for="birthdate" class="control-label">{{lang.register.birthdate}}</label>
 
                         <datepicker id="birthdate" type="date"
-                                    name="birthdate" placeholder="DD/MM/YYYY" v-model="form.birthdate"></datepicker>
+                                    name="birthdate" placeholder="DD/MM/YYYY" v-model="form.birthdate" popper-class="birthdate"></datepicker>
                     </div>
 
                     <div class="col-xs-12 form-group">
@@ -313,6 +313,7 @@
 </template>
 
 <script>
+    var defaultPageTitle = 'Lastar - ';
     export default {
         props: {
             token: {required:false},
@@ -343,6 +344,9 @@
                 this.customErrors = [];
 
                 this.type = 'password_reset';
+                document.title = defaultPageTitle + 'Reset Password';
+                window.history.pushState('Register', 'Reset Password', '/password/reset');
+
             },
             openRegister() {
                 // Clear errors
@@ -350,6 +354,9 @@
                 this.customErrors = [];
 
                 this.type = 'register';
+                document.title = defaultPageTitle + 'Register';
+                window.history.pushState('Register', 'Register', '/register');
+
             },
             openLogin() {
                 // Scroll to top for smoother animation
@@ -360,6 +367,11 @@
                 this.customErrors = [];
 
                 this.type = 'login';
+
+                // Update browser info
+                document.title = defaultPageTitle + 'Login';
+                window.history.pushState('Login', 'Login', '/login');
+
             },
             scrollToTop(scrollDuration) {
                 var scrollStep = -window.scrollY / (scrollDuration / 15),

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    - @lang('auth.auth.title')
+    - Facebook Connect
 @endsection
 
 @section('content')
