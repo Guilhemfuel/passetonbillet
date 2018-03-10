@@ -213,9 +213,15 @@ class RegisterController extends Controller
      */
     public function fb_confirm_inscription(Request $request)
     {
-        $this->validate($request,[
+        // If validation error redirect to register page
+        $validator = Validator::make($request->all(), [
             'password'      => 'required|min:8|confirmed',
         ]);
+        if ($validator->fails()) {
+            return redirect()
+                ->route('register.page')
+                ->withErrors($validator);
+        }
 
         $userData = session()->pull('fb_user');
         // We make sure data was retrieved from facebook less than 10 minutes ago
