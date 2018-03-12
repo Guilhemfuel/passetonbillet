@@ -5,7 +5,7 @@
             <div class="text-white">
                 <div class="row">
                     <div class="col-sm-4 col-12">
-                        <a class="text-white" href="#">@lang('welcome.footer.about')</a>
+                        <a class="text-white" href="{{route("about.page")}}">@lang('welcome.footer.about')</a>
                     </div>
                     <div class="col-sm-4 col-12">
                         <a class="text-white" href="#" onclick="e.preventDefault();$crisp.push(['do', 'chat:open'])">@lang('welcome.footer.help')</a>

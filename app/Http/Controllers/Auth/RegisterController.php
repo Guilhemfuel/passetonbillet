@@ -90,8 +90,8 @@ class RegisterController extends Controller
             'last_name'      => $data['last_name'],
             'birthdate'      => isset($data['birthdate']) ? \AppHelper::dbDate( $data['birthdate'] ):null,
             'language'       => strtoupper(session('applocale')),
-            'gender'         => isset($data['gender'])?:null,
-            'location'       => isset($data['location'])?:null,
+            'gender'         => isset($data['gender'])?$data['gender']:null,
+            'location'       => isset($data['location'])?$data['location']:null,
             'email'          => $data['email'],
             'password'       => bcrypt( $data['password'] ),
         ] );

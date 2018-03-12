@@ -39,8 +39,12 @@
       min-width: 280px;
 
       .lastar-logo {
-        width: 150px;
+        width: 250px;
         display: block;
+
+        @include media-breakpoint-down(sm) {
+          width: 200px;
+        }
       }
     }
   }

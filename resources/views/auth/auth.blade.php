@@ -30,9 +30,9 @@
             <div class="content">
                 <a href="{{route('home')}}"><img class="lastar-logo mx-auto" src="{{asset('img/logo.png')}}"></a>
                 <div class="actions btn-rack mt-4">
-                    <button class="btn btn-outline-white">
+                    <a href="{{route('about.page')}}" class="btn btn-outline-white">
                         About us
-                    </button>
+                    </a>
                     <button class="btn btn-white" onclick="$crisp.push(['do', 'chat:open'])">
                         Contact us
                     </button>

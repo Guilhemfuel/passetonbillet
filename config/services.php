@@ -36,9 +36,9 @@ return [
     ],
 
     'facebook' => [
-        'client_id' => '253093131783325',
-        'client_secret' => '88c69e2f2b3f3e0b2db09c6c7d8275ae',
-        'redirect' => env('FB_REDIRECT','http://lastar.nahum/register/fb/callback'),
+        'client_id' => env('FB_CLIENT_ID'),
+        'client_secret' => env('FB_CLIENT_SECRET'),
+        'redirect' => env('FB_REDIRECT',env('APP_URL').'/register/fb/callback'),
     ],
 
 ];
