@@ -10,6 +10,7 @@
     "postinstall": "npm run production"
   },
   "dependencies": {
+    "ajv": "^6.3.0",
     "animatewithsass": "^3.2.1",
     "axios": "^0.15.3",
     "babel-loader": "^7.1.2",

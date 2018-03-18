@@ -35,5 +35,12 @@ if(!mix.inProduction()){
         ],
         proxy: 'https://lastar.nahum',
         port: 8000,
+        node: {
+            fs: 'empty',
+            child_process: 'empty',
+        },
+        externals: [
+            {pg: true}
+        ]
     });
 }
