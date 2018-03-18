@@ -14,7 +14,7 @@
         </div>
 
         <div class="col-xs-12 form-group">
-            <label for="password" class="control-label">{{lang.password}}
+            <label for="password" class="control-label">{{lang.new_password}}
                 <small class="text-muted">(8 char. min)</small>
             </label>
             <input id="password" type="password"

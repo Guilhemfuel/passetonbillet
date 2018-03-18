@@ -23,6 +23,7 @@ return [
         'booking_code'  => 'Booking code',
         'booking_name'  => 'Booking name',
         'delete'        => 'You don\'t want to sell this ticket anymore?',
+        'delete_cta'    => 'Remove ticket',
         'offer_sent'    => 'Seller received your offer! If interested, he\'ll contact you.',
         'register'      => 'Safety is our number one concern. Therefore, you must create an account before sending offers.',
         'register_cta'  => 'Create an account and send your offer!'
@@ -91,7 +92,8 @@ return [
         'no_bought_tickets' => 'You have not bought any tickets yet!',
         'no_sold_tickets'   => 'You have not sold any tickets yet!',
         'bought'            => 'Bought',
-        'sold'              => 'Sold'
+        'sold'              => 'Sold',
+        'selling'           => 'Selling'
     ],
     'delete'    => [
         'success' => 'Your ticket was successfully deleted.'

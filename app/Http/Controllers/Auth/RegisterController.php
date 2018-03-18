@@ -165,7 +165,7 @@ class RegisterController extends Controller
         }
     }
 
-//     Social Media Connect
+//     ======== Social Media Connect ===========
 
     /**
      * Ask facebook for authorization
@@ -193,9 +193,8 @@ class RegisterController extends Controller
             return redirect()->route('home');
         }
 
-
         // If fb id doesn't exist in db, we are going to create it, so we make sure that email isn't used
-        $user = User::where('email', $providerUser['email'])->first();
+        $user = User::withTrashed()->where('email', $providerUser->user['email'])->first();
         if ($user){
             flash()->error(__('auth.social.email_used'))->important();
             return redirect()->route('login.page');
@@ -233,7 +232,7 @@ class RegisterController extends Controller
         }
 
         // Make sure email isn't already used
-        $user = User::where('email', $userData->user['email'])->first();
+        $user = User::withTrashed()->where('email', $userData->user['email'])->first();
         if ($user){
             flash()->error(__('auth.social.email_used'))->important();
             return redirect()->route('login.page');
@@ -243,7 +242,7 @@ class RegisterController extends Controller
         $user = User::make( [
             'first_name'     => $userData->user['first_name'],
             'last_name'      => $userData->user['last_name'],
-            'birthdate'      => isset($userData->user['birthdate']) ? \AppHelper::dbDate( $userData->user['birthdate'] ):null,
+            'birthdate'      => isset($userData->user['birthday']) ? \AppHelper::dbDate( $userData->user['birthday'] ):null,
             'language'       => strtoupper(session('applocale')),
             'gender'         => isset($userData->user['gender'])?($userData->user['gender']=='male'?1:0):null,
             'location'       => null,

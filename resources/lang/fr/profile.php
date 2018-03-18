@@ -12,6 +12,7 @@ return [
     'account_verify' => 'Vérifier votre compte',
     'account_verified' => 'Identité vérifée',
     'change_password' => 'Changer le mot de passe',
+    'change_picture' => 'Changer la photo de profil',
     'edit_profile' => 'Modifier les informations',
     'member_since' => 'Membre depuis le ',
 
@@ -27,6 +28,7 @@ return [
             'title' => 'Modifier le mot de passe',
             'component' => [
                 'password' => 'Mot de passe',
+                'new_password' => 'Nouveau mot de passe',
                 'old_password' => 'Mot de passe actuel',
                 'password_confirm' => 'Confirmation du mot de passe'
             ],

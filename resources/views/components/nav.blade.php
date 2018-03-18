@@ -26,28 +26,17 @@
                         <i class="fa fa-question-circle" aria-hidden="true"></i>
                     </a>
                 </li>
-
-            {{--@if(Auth::user()->isAdmin())--}}
-                {{--<li class="nav-item">--}}
-                    {{--<a class="nav-link" href="{{route('admin.home')}}">--}}
-                        {{--Admin--}}
-                    {{--</a>--}}
-                {{--</li>--}}
-                {{--@endif--}}
-                {{--<li  class="nav-item">--}}
-                    {{--<a class="nav-link" href="{{route('logout')}}">--}}
-                        {{--{{__('nav.logout')}}--}}
-                    {{--</a>--}}
-                {{--</li>--}}
-                {{--@if (App::isLocale('fr'))--}}
-                    {{--<a class="nav-link"href="{{route('lang','en')}}">--}}
-                        {{--<span class="flag-icon flag-icon-fr"></span>--}}
-                    {{--</a>--}}
-                {{--@else--}}
-                    {{--<a class="nav-link"href="{{route('lang','fr')}}">--}}
-                        {{--<span class="flag-icon flag-icon-gb"></span>--}}
-                    {{--</a>--}}
-                {{--@endif--}}
+                <li class="nav-item">
+                @if (App::isLocale('fr'))
+                    <a class="nav-link" href="{{route('lang','en')}}">
+                        <span class="flag-icon flag-icon-fr"></span>
+                    </a>
+                @else
+                    <a class="nav-link" href="{{route('lang','fr')}}">
+                        <span class="flag-icon flag-icon-gb"></span>
+                    </a>
+                @endif
+                </li>
             </ul>
         </div>
     </div>

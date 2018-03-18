@@ -17,10 +17,10 @@
                             </div>
                             <div class="col-sm-12 col-md-5 col-lg-4">
                                 <div class="align-middle">
-                                    <h4 class="text-uppercase text-center">{{$user->full_name}}</h4>
+                                    <h4 class="text-center text-full-name">{{$user->full_name}}</h4>
                                     <h5 class="text-center">{{$user->member_since}}</h5>
                                     @if($user->location)
-                                        <h5 class="text-uppercase text-center">{{$user->location}}</h5>
+                                        <h5 class="text-center">{{$user->location}}</h5>
                                     @endif
                                     @if($user->id_verified)
                                         <h5 class="text-center">@lang('profile.account_verified') <i class="fa fa-check-circle text-warning" aria-hidden="true"></i></h5>
@@ -33,12 +33,14 @@
                             <div class="col-md-5 col-lg-4 col-sm-12 mt-xs-4">
                                 @if(!$user->id_verified && $user->idVerification == null)
                                 <button class="btn btn-block btn-lastar-blue" @click.prevent="modalVerifyIdentity=true">@lang('profile.account_verify') <i
-                                            class="fa fa-check-circle text-warning" aria-hidden="true"></i>
+                                            class="fa fa-check-circle pl-2" aria-hidden="true"></i>
                                 </button>
                                 @endif
                                 <button class="btn btn-block btn-lastar-blue" @click.prevent="modalPasswordOpen=true">@lang('profile.change_password')
                                 </button>
-                                <button class="btn btn-block btn-lastar-blue" @click.prevent="modalInfoOpen=true">@lang('profile.edit_profile')
+                                <button class="btn btn-block btn-lastar-blue" @click.prevent="modalInfoOpen=true">Change Profile Picture
+                                </button>
+                                <button class="btn btn-block btn-lastar-blue" @click.prevent="modalPictureUploadOpen=true">@lang('profile.change_picture')
                                 </button>
                             </div>
                         </div>
@@ -89,7 +91,8 @@
                 @if(!Auth::user()->id_verified && Auth::user()->idVerification == null)
 
                 <modal v-cloak :is-open="modalVerifyIdentity" @close-modal="modalVerifyIdentity=false" title="@lang('profile.modal.verify_identity.title')">
-                    <div class="modal-body text-justify">
+                    <div class="modal-body text-justify pt-0">
+                        <img class="mx-auto d-block mb-3 lastar-icon" src="{{asset('img/icones/lastar-icon-id.png')}}">
                         <p>@lang('profile.modal.verify_identity.text')</p>
                         <p>@lang('profile.modal.verify_identity.list_title'):</p>
                         <ul>

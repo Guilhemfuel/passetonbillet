@@ -17,6 +17,7 @@ return [
     'throttle' => 'Trop de tentatives de connexion. Veuillez essayer de nouveau dans :seconds secondes.',
     'register' => [
         'title'                  => 'Inscription',
+        'manually'               => 'Inscription Traditionnelle',
         'first_name'             => 'Prénom',
         'last_name'              => 'Nom',
         'birthdate'              => 'Date de naissance',

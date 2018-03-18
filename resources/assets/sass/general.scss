@@ -188,12 +188,13 @@ html, body {
     @include media-breakpoint-down(sm) {
       width: 60px;
     }
+    font-size: 18px;
 
     .logo {
       padding: 20px;
 
       img {
-        width:100px;
+        width:140px;
         display: block;
       }
     }
@@ -215,7 +216,7 @@ html, body {
 
       img {
         box-shadow: 1px 3px 5px rgba(0,0,0,0.3);
-        width: 80px;
+        width: 120px;
         display: block;
 
         @include media-breakpoint-down(xs) {
@@ -286,9 +287,9 @@ html, body {
           padding-left: 4px;
 
           &:hover{
-            padding-left: 0px;
+            padding-left: 4px;
             background-color: rgba(0,0,0,0.1);
-            border-left: 4px solid $color-blue;
+            //border-left: 4px solid $color-blue;
             border-bottom: 1px solid rgba(0,0,0,0.05);
           }
         }

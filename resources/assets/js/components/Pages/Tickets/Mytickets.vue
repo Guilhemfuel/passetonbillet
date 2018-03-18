@@ -4,6 +4,7 @@
         <div class="row">
             <div class="col-12 text-center py-3">
                 <el-radio-group v-model="state" class="mx-auto">
+                    <el-radio-button :label="stateValues.selling">{{lang.owned.selling}}</el-radio-button>
                     <el-radio-button :label="stateValues.sold">{{lang.owned.sold}}</el-radio-button>
                     <el-radio-button :label="stateValues.bought">{{lang.owned.bought}}</el-radio-button>
                 </el-radio-group>
@@ -12,7 +13,10 @@
                 <template v-if="state==stateValues.bought">
                     <ticket :ticket="ticket" :lang="lang.component" :user="user" :bought="true" :routes="routes" :csrf="csrf"></ticket>
                 </template>
-                <template v-else>
+                <template v-else-if="state==stateValues.sold">
+                    <ticket :ticket="ticket" :lang="lang.component" :user="user" :routes="routes" :csrf="csrf"></ticket>
+                </template>
+                <template v-else-if="state==stateValues.selling">
                     <ticket :ticket="ticket" :lang="lang.component" :user="user" :routes="routes" :csrf="csrf"></ticket>
                 </template>
             </div>
@@ -40,23 +44,53 @@
             user: {type: Object, required: true},
             csrf: {type: String, required:true},
 
-            stateValues: {type: Object, default:{
-                sold: 1,
-                bought: 2
-            }}
+            stateValues: {
+                type: Object, default: () => {
+                    return {
+                        sold: 1,
+                        bought: 2,
+                        selling: 3
+                    }
+                }
+            },
         },
         data() {
             return {
-                state: 1,
+                state: this.stateValues.selling,
             }
         },
         computed: {
+            sellingTickets: function () {
+                var ticketsToReturn = [];
+                for (var i=0;i<this.tickets.length;i++){
+                    var now = moment();
+                    var departure = moment(this.tickets[i].train.departure_date, 'YYYY-MM-DD');
+                    if(!now.isAfter(departure)){
+                        ticketsToReturn.push(this.tickets[i])
+                    }
+                }
+                return ticketsToReturn;
+            },
+            soldTickets: function () {
+                var ticketsToReturn = [];
+                for (var i=0;i<this.tickets.length;i++){
+                    var now = moment();
+                    var departure = moment(this.tickets[i].train.departure_date, 'YYYY-MM-DD');
+                    if(now.isAfter(departure)){
+                        ticketsToReturn.push(this.tickets[i])
+                    }
+                }
+                return ticketsToReturn;
+            },
             currentTickets: function(){
                 var actualTickets = null;
                 if (this.state == this.stateValues.sold) {
-                    actualTickets = this.tickets;
-                } else {
+                    actualTickets = this.soldTickets;
+                } else if(this.state == this.stateValues.bought) {
                     actualTickets = this.boughtTickets;
+                }
+                else if(this.state == this.stateValues.selling) {
+                    actualTickets = this.sellingTickets;
                 }
 
                 function compare(a, b) {

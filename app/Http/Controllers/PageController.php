@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\EurostarAPI\Eurostar as EurostarSrc;
+use App\Exceptions\LastarException;
 use App\Facades\Eurostar;
 use App\Http\Resources\DiscussionCollectionResource;
 use App\Http\Resources\DiscussionLastMessageResource;
@@ -16,6 +17,7 @@ use App\Station;
 use App\Ticket;
 use App\User;
 use Illuminate\Http\Request;
+use Mockery\Exception;
 
 
 class PageController extends Controller

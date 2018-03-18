@@ -9,18 +9,6 @@
                     {{lang.title}}
                 </div>
                 <div class="dropdown-body">
-                    <div class="item item-option">
-                        <div :class="{'option':true,'active':activeLang=='fr'}">
-                            <a :href="routes.lang_fr">
-                                <span class="flag-icon flag-icon-fr"></span>
-                            </a>
-                        </div>
-                        <div :class="{'option':true,'active':activeLang=='en'}">
-                            <a :href="routes.lang_en">
-                                <span class="flag-icon flag-icon-gb"></span>
-                            </a>
-                        </div>
-                    </div>
                     <div class="item">
                         <a :href="routes.profile">{{lang.items.profile}}</a>
                     </div>

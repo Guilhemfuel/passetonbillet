@@ -22,6 +22,7 @@ return [
         'booking_code'  => 'Numéro de réservation',
         'booking_name'  => 'Now de réservation',
         'delete'        => 'Vous ne voulez plus vendre ce billet?',
+        'delete_cta'    => 'Retirer le billet',
         'offer_sent'    => 'Le vendeur a bien reçu votre offre! Il vous recontactera si il est interessé.',
         'register'      => 'La sécurité est notre premier soucis. Ainsi, vous devez etre inscrit pour commnuniquer avec les autres membres.',
         'register_cta'  => 'Inscrivez-vous pour envoyer votre offre!'
@@ -88,7 +89,9 @@ return [
         'no_bought_tickets' => 'Vous n\'avez pas encore acheté de billet!',
         'no_sold_tickets'   => 'Vous n\'avez pas encore vendu de billet!',
         'bought'            => 'Acheté(s)',
-        'sold'              => 'Vendu(s)'
+        'sold'              => 'Vendu(s)',
+        'selling'           => 'En vente'
+
     ],
     'delete'    => [
         'success' => 'Votre ticket a bien été supprimé.'

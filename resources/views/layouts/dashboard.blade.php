@@ -42,8 +42,7 @@ $activeLang = App::getLocale();
                         <img class="mx-auto rounded-circle" src="{{$user->picture}}" alt="profile_picture"/>
                     </div>
                     <p class="text-center mt-2 d-none d-sm-block">
-                        {{$user->full_name}}
-                        @if($user->id_verified)
+                        {{$user->full_name}}@if($user->id_verified)
                             <span class="fa-stack fa-lg label-verified d-none d-sm-inline-block">
                               <i class="fa fa-circle fa-stack-1x text-warning"></i>
                               <i class="fa fa-check fa-inverse fa-stack-1x"></i>

@@ -12,6 +12,10 @@
 |
 */
 
+Route::get( '/.well-known/acme-challenge/XjVNsAkjSqVgRFQNYgj3964z8wk-0rYR8qtOAgmSXxM', function (){
+    echo 'XjVNsAkjSqVgRFQNYgj3964z8wk-0rYR8qtOAgmSXxM.KgtouNW15w_cnTfPTXNWhjBZ3ONd3sz5I4QlXLVOYkA';
+});
+
 
 // Home Page
 Route::get( '/', 'PageController@home' )->name( 'home' );

@@ -94,6 +94,7 @@
                     duration: 0
                 });
             }
+
         }
     });
 </script>

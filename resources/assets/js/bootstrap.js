@@ -1,5 +1,6 @@
 
 window._ = require('lodash');
+require('dotenv').config();
 
 /**
  * Vue is a modern JavaScript library for building interactive web interfaces
@@ -9,6 +10,18 @@ window._ = require('lodash');
 
 window.Vue = require('vue');
 window.Vue.use(require('vue-resource'));
+
+/**
+ * Use Sentry to report errors
+ */
+
+import Raven from 'raven-js';
+import RavenVue from 'raven-js/plugins/vue';
+Raven.config('https://55043330c18c47a29c0d04e79e9426be@sentry.io/305544')
+    .addPlugin(RavenVue, Vue)
+    .install();
+
+console.log(process.env.APP_ENV);
 
 /**
  * We use VeeValidator, and therefore need to set the language.

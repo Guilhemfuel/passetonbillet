@@ -77,12 +77,12 @@
                             <p class="float-center text-center mb-0 edit-title">{{lang.edit_ticket}}</p>
                         </div>
                         <div class="card-seller-info card-buying" v-if="(user && ticket.user.id == user.id)">
-                            <p>{{lang.delete}}</p>
+                            <p class="text-center">{{lang.delete}}</p>
                             <form method="POST" :action="deleteUrl(ticket.id)">
                                 <input type="hidden" name="_method" value="DELETE">
                                 <input type="hidden" name="_token" :value="csrf">
                                 <input type="hidden" name="ticket_id" :value="ticket.id">
-                                <button class="btn btn-danger mx-auto d-block mt-3">Delete ticket</button>
+                                <button class="btn btn-danger mx-auto d-block mt-3">{{lang.delete_cta}}</button>
                             </form>
                         </div>
                     </template>

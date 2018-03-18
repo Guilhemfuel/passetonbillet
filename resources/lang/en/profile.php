@@ -13,6 +13,7 @@ return [
     'account_verified' => 'Identity verified',
     'change_password' => 'Change password',
     'edit_profile' => 'Edit your informations',
+    'change_picture' => 'Change profile picture',
     'member_since' => 'Member since ',
 
     'stats_title' => 'Statistics',
@@ -27,6 +28,7 @@ return [
             'title' => 'Change password',
             'component' => [
                 'password' => 'Password',
+                'new_password' => 'Nouveau mot de passe',
                 'old_password' => 'Current password',
                 'password_confirm' => 'Confirm password '
             ],

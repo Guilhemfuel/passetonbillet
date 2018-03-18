@@ -121,7 +121,7 @@ class UserController extends Controller
         ] );
 
         // Make sure no user already have the same phone
-        if ( User::where( 'phone', $request->phone )
+        if ( User::withTrashed()->where( 'phone', $request->phone )
                  ->where( 'phone_country', $request->phone_country )
                  ->count() > 0 ) {
             flash( __( 'tickets.sell.confirm_number.errors.phone_already_used' ) )->error();

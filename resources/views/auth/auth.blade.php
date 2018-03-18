@@ -59,6 +59,7 @@
                           :routes="routes"
                           :old="old"
                           :token="token"
+                          :default-email="defaultEmail"
                     ></auth>
                 </div>
             </div>
@@ -87,7 +88,8 @@
                     lang: {!!json_encode($lang)!!},
                     routes: {!! json_encode($routes)!!},
                     old: {!! $old?json_encode($old):'{}' !!},
-                    token: {!! isset($token)?"'".$token."'":'null' !!}
+                    token: {!! isset($token)?"'".$token."'":'null' !!},
+                    defaultEmail: '{{isset($email)?$email:''}}'
                 }
             });
         </script>
