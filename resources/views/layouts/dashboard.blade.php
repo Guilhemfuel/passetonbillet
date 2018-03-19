@@ -34,7 +34,7 @@ $activeLang = App::getLocale();
     <div id="dashboard" class="row">
         <div id="side-bar" class="col-sm-4 col-md-3 purple-gradient">
             <div class="logo">
-                <img class="mx-auto d-sm-block d-none" src="{{asset('img/logo.png')}}" alt="logo lastar"/>
+                <img class="mx-auto d-sm-block d-none" src="{{secure_asset('img/logo.png')}}" alt="logo lastar"/>
             </div>
             <div class="profile">
                 <a class="text-white" href="{{route('public.profile.home')}}">

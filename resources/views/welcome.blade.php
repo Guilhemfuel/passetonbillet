@@ -5,11 +5,11 @@
     <div class="welcome-page" id="welcome-page">
 
         <div class="section-header">
-            <div class="first-section" style="background-image: url('{{asset('img/bg/5.jpg')}}');">
+            <div class="first-section" style="background-image: url('{{secure_asset('img/bg/5.jpg')}}');">
                 <div class="fixed-content">
                     <nav class="navbar">
                         <a class="navbar-brand" href="{{route('home')}}">
-                            <img src="{{asset('img/logo.png')}}" class="d-inline-block align-top" alt="logo lastar">
+                            <img src="{{secure_asset('img/logo.png')}}" class="d-inline-block align-top" alt="logo lastar">
                         </a>
                         <ul class="navbar-nav navbar-expand">
                             <li class="nav-item">
@@ -96,7 +96,7 @@
                     <div class="row">
                         <div class="col-12 col-sm-4 mt-4">
                             <img class="svg-icon"
-                                 src="{{asset('img/icon-quick.svg')}}"
+                                 src="{{secure_asset('img/icon-quick.svg')}}"
                                  alt="Icon quicker"
                             />
                             <h3 class="advantage-title pt-1">@lang('welcome.advantages.quicker.title')</h3>
@@ -104,7 +104,7 @@
                         </div>
                         <div class="col-12 col-sm-4 mt-4">
                             <img class="svg-icon"
-                                 src="{{asset('img/icon-cheaper.svg')}}"
+                                 src="{{secure_asset('img/icon-cheaper.svg')}}"
                                  alt="Icon Cheaper"
                             />
                             <h3 class="advantage-title pt-1">@lang('welcome.advantages.cheaper.title')</h3>
@@ -112,7 +112,7 @@
                         </div>
                         <div class="col-12 col-sm-4 mt-4">
                             <img class="svg-icon"
-                                 src="{{asset('img/icon-safe.svg')}}"
+                                 src="{{secure_asset('img/icon-safe.svg')}}"
                                  alt="Icon Safer"
                             />
                             <h3 class="advantage-title  pt-1">@lang('welcome.advantages.safer.title')</h3>

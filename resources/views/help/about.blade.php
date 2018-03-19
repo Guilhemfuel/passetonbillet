@@ -5,11 +5,11 @@
     <div class="cgu-page">
 
         <div class="section-header">
-            <div class="first-section" style="background-image: url('{{asset('img/bg/3.jpg')}}');">
+            <div class="first-section" style="background-image: url('{{secure_asset('img/bg/3.jpg')}}');">
                 <div class="fixed-content">
                     <nav class="navbar">
                         <a class="navbar-brand" href="{{route('home')}}">
-                            <img src="{{asset('img/logo.png')}}" class="d-inline-block align-top" alt="logo lastar">
+                            <img src="{{secure_asset('img/logo.png')}}" class="d-inline-block align-top" alt="logo lastar">
                         </a>
                         <ul class="navbar-nav navbar-expand">
                             <li class="nav-item">

@@ -92,7 +92,7 @@
 
                 <modal v-cloak :is-open="modalVerifyIdentity" @close-modal="modalVerifyIdentity=false" title="@lang('profile.modal.verify_identity.title')">
                     <div class="modal-body text-justify pt-0">
-                        <img class="mx-auto d-block mb-3 lastar-icon" src="{{asset('img/icones/lastar-icon-id.png')}}">
+                        <img class="mx-auto d-block mb-3 lastar-icon" src="{{secure_asset('img/icones/lastar-icon-id.png')}}">
                         <p>@lang('profile.modal.verify_identity.text')</p>
                         <p>@lang('profile.modal.verify_identity.list_title'):</p>
                         <ul>
