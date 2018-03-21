@@ -23,6 +23,12 @@ $animation-duration: 0.5s;
 
   backface-visibility: hidden;
 
+  &.max-sized {
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   &.fixed-width {
     width: 250px;
   }
@@ -47,9 +53,14 @@ $animation-duration: 0.5s;
 
     .edit-title {
       text-transform: uppercase;
-      font-size: 14px;
+      font-size: 1em;
       font-weight: 400;
       color: white;
+    }
+
+    .train-time{
+      color: $color-purple;
+      font-weight: 600;
     }
   }
 

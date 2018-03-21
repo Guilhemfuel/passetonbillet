@@ -104,13 +104,10 @@
             },
             searchTickets(){
 
-                console.log('in');
                 if (this.sellState!='default' && this.sellState!='result'){
                     this.searchError = true;
                     return null;
                 }
-                console.log('iwn');
-
 
                 if(this.search.departure_station == null
                     || this.search.arrival_station == null

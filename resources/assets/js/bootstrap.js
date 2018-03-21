@@ -20,8 +20,6 @@ Raven.config('https://55043330c18c47a29c0d04e79e9426be@sentry.io/305544')
     .addPlugin(RavenVue, Vue)
     .install();
 
-console.log(process.env.APP_ENV);
-
 /**
  * We use VeeValidator, and therefore need to set the language.
  */

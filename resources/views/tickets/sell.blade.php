@@ -10,10 +10,10 @@
                 @if(!Auth::user()->phone_verification_sent)
                     <div class="col-sm-12">
                         <div class="card">
+                            <div class="card-header reverse">
+                                <h4 class="card-title mb-0">@lang('tickets.sell.title')</h4>
+                            </div>
                             <div class="card-body">
-                                <h4 class="card-title">
-                                    @lang('tickets.sell.title')
-                                </h4>
                                 <p class="card-text text-justify">
                                    @lang('tickets.sell.confirm_number.last_step')
                                 </p>
@@ -24,7 +24,7 @@
                                         <div class="col-sm-12 col-md-6">
 
                                             <div class="form-group">
-                                                <phone></phone>
+                                                <phone country-value="{{App::isLocale('fr')?'FR':'GB'}}"></phone>
                                             </div>
 
                                         </div>
@@ -44,10 +44,10 @@
                 @else
                     <div class="col-sm-12">
                         <div class="card">
+                            <div class="card-header reverse">
+                                <h4 class="card-title mb-0">@lang('tickets.sell.title')</h4>
+                            </div>
                             <div class="card-body">
-                                <h4 class="card-title">
-                                    @lang('tickets.sell.title')
-                                </h4>
                                 <p class="card-text text-justify">
                                     @lang('tickets.sell.confirm_number.code_check')
                                 </p>
@@ -87,7 +87,7 @@
                                                 <div class="col-md-12">
 
                                                     <div class="form-group">
-                                                        <phone></phone>
+                                                        <phone country-value="{{App::isLocale('fr')?'FR':'GB'}}"></phone>
                                                     </div>
 
                                                 </div>

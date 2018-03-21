@@ -26,7 +26,8 @@ return [
         'delete_cta'    => 'Remove ticket',
         'offer_sent'    => 'Seller received your offer! If interested, he\'ll contact you.',
         'register'      => 'Safety is our number one concern. Therefore, you must create an account before sending offers.',
-        'register_cta'  => 'Create an account and send your offer!'
+        'register_cta'  => 'Create an account and send your offer!',
+        'user_verified' => 'We verified the identity of this user.'
 
 
     ],
@@ -44,7 +45,7 @@ return [
         'your_tickets'  => 'Your tickets',
         'select'        => 'Hooray ! We found your tickets. Select the ticket you want to sell.',
         'details_title' => 'Ticket details',
-        'details'       => 'We\'re almost done! Just enter your selling price, and if needed add notes. Note that selling price can\'t exceed original price. You can preview your changes directly on the ticket.',
+        'details'       => 'We\'re almost done! Just enter your selling price. Note that selling price can\'t exceed original price. You can preview your changes directly on the ticket.',
         'submit'        => 'Sell ticket',
         'preview'       => 'Ticket Preview',
         'errors'        => [

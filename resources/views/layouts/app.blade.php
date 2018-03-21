@@ -18,6 +18,9 @@
     <meta name="msapplication-config" content="{{secure_asset('img/favicon/browserconfig.xml')}}">
     <meta name="theme-color" content="#ffffff">
 
+    <!-- Facebook MetaTags -->
+    <meta property="fb:app_id" content="{{env('FB_APP_ID')}}"/>
+
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="lang" content="{{ config('app.locale') }}">
@@ -85,7 +88,6 @@
             errorsMessage += '</ul>';
 
             if ( this.custom_errors.length>0) {
-                console.log(errorsMessage);
                 this.$message({
                     dangerouslyUseHTMLString: true,
                     message: errorsMessage,

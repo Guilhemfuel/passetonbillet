@@ -120,8 +120,14 @@ class UserController extends Controller
             'phone_country' => 'required',
         ] );
 
+        // Clean phone
+        $phone = $request->phone;
+        if ($phone[0]!='0'){
+            $phone = '0'.$phone;
+        }
+
         // Make sure no user already have the same phone
-        if ( User::withTrashed()->where( 'phone', $request->phone )
+        if ( User::withTrashed()->where( 'phone', $phone )
                  ->where( 'phone_country', $request->phone_country )
                  ->count() > 0 ) {
             flash( __( 'tickets.sell.confirm_number.errors.phone_already_used' ) )->error();
@@ -151,7 +157,7 @@ class UserController extends Controller
 
         $phoneVerification = new PhoneVerification(
             [
-                'phone'         => $request->phone,
+                'phone'         => $phone,
                 'phone_country' => $request->phone_country,
                 'code'          => rand( 100000, 999999 ),
                 'user_id'       => $request->user()->id

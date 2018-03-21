@@ -3,76 +3,76 @@
         <!-- Input and ticket selecting -->
 
         <div class="card" v-if="startCardVisible">
-            <div class="row mr-0">
-                <div class="col-sm-12 col-md-8">
-                    <div class="card-body">
-                        <transition enter-class="pre-animated"
-                                    enter-active-class="animated fadeIn"
-                                    leave-active-class="animated fadeOut">
-                            <div v-if="state=='input'">
-                                <h4 class="card-title">{{lang.sell.title}}</h4>
+            <div class="card-header reverse">
+                <h4 class="card-title mb-0" v-if="state=='input'">{{lang.sell.title}}</h4>
+                <h4 class="card-title mb-0" v-else-if="state=='select'">{{lang.sell.your_tickets}}</h4>
+                <h4 class="card-title mb-0" v-else-if="state=='searching'">{{lang.sell.searching}}</h4>
 
-                                <p class="card-text text-justify">
-                                    {{lang.sell.description}}
-                                </p>
-
-                                <p class="card-text text-justify text-danger" v-if="searchError">
-                                    {{lang.sell.errors.search}}
-                                </p>
-
-                                <form>
-                                    <div class="col-xs-12 form-group">
-                                        <input id="last_name" type="text"
-                                               :class="{'form-control': true, 'is-invalid': errors.has('last_name') }"
-                                               name="last_name" required v-validate="'required'"
-                                               :placeholder="lang.sell.inputs.last_name" v-model="form.last_name">
-                                        <span v-if="errors.has('last_name')"
-                                              class="invalid-feedback">{{ errors.first('last_name')}}</span>
-
-                                    </div>
-                                    <div class="col-xs-12 form-group">
-                                        <input id="booking_code" type="text"
-                                               :class="{'form-control': true, 'is-invalid': errors.has('booking_code') }"
-                                               name="booking_code" required v-validate="'required|max:6|min:6'"
-                                               :placeholder="lang.sell.inputs.booking_code" v-model="form.booking_code">
-                                        <span v-if="errors.has('booking_code')"
-                                              class="invalid-feedback">{{ errors.first('booking_code')}}</span>
-
-                                    </div>
-                                    <button type="submit" class="btn btn-lastar-blue btn-block" @click.prevent="search">
-                                        {{lang.sell.search}}
-                                    </button>
-                                </form>
-                            </div>
-
-                        </transition>
-
-                        <transition enter-class="pre-animated"
-                                    enter-active-class="animated fadeIn"
-                                    leave-active-class="animated fadeOut">
-                            <div v-if="state=='searching'">
-                                <h4 class="card-title">{{lang.sell.searching}}</h4>
-                                <div class="p-5">
-                                    <loader :class-name="'mx-auto'"></loader>
-                                </div>
-                            </div>
-                        </transition>
-
-                        <transition enter-class="pre-animated"
-                                    enter-active-class="animated fadeIn"
-                                    leave-active-class="animated fadeOut">
-                            <div v-if="state=='select'">
-                                <h4 class="card-title">{{lang.sell.your_tickets}}</h4>
-                                <p class="card-text text-justify">
-                                    {{lang.sell.select}}
-                                </p>
-                            </div>
-                        </transition>
-
-                    </div>
-                </div>
-                <div class="d-none d-sm-none d-md-block col-md-4 bg-ticket-sell"></div>
             </div>
+            <div class="card-body">
+                <transition enter-class="pre-animated"
+                            enter-active-class="animated fadeIn"
+                            leave-active-class="animated fadeOut">
+                    <div v-if="state=='input'">
+                        <p class="card-text text-justify">
+                            {{lang.sell.description}}
+                        </p>
+
+                        <p class="card-text text-justify text-danger" v-if="searchError">
+                            {{lang.sell.errors.search}}
+                        </p>
+
+                        <div class="row justify-content-center">
+                            <form class="col-sm-12 col-md-10 col-lg-6">
+                                <div class="col-xs-12 form-group">
+                                    <input id="last_name" type="text"
+                                           :class="{'form-control': true, 'is-invalid': errors.has('last_name') }"
+                                           name="last_name" required v-validate="'required'"
+                                           :placeholder="lang.sell.inputs.last_name" v-model="form.last_name">
+                                    <span v-if="errors.has('last_name')"
+                                          class="invalid-feedback">{{ errors.first('last_name')}}</span>
+
+                                </div>
+                                <div class="col-xs-12 form-group">
+                                    <input id="booking_code" type="text"
+                                           :class="{'form-control': true, 'is-invalid': errors.has('booking_code') }"
+                                           name="booking_code" required v-validate="'required|max:6|min:6'"
+                                           :placeholder="lang.sell.inputs.booking_code" v-model="form.booking_code">
+                                    <span v-if="errors.has('booking_code')"
+                                          class="invalid-feedback">{{ errors.first('booking_code')}}</span>
+
+                                </div>
+                                <button type="submit" class="btn btn-lastar-blue btn-block" @click.prevent="search">
+                                    {{lang.sell.search}}
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                </transition>
+
+                <transition enter-class="pre-animated"
+                            enter-active-class="animated fadeIn"
+                            leave-active-class="animated fadeOut">
+                    <div v-if="state=='searching'">
+                        <div class="p-5">
+                            <loader :class-name="'mx-auto'"></loader>
+                        </div>
+                    </div>
+                </transition>
+
+                <transition enter-class="pre-animated"
+                            enter-active-class="animated fadeIn"
+                            leave-active-class="animated fadeOut">
+                    <div v-if="state=='select'">
+                        <p class="card-text text-justify">
+                            {{lang.sell.select}}
+                        </p>
+                    </div>
+                </transition>
+
+            </div>
+
         </div>
         <template v-if="state=='select' && tickets.length>1">
             <div class="row mt-4">
@@ -87,10 +87,12 @@
         <div class="row" v-if="state=='selling_details'">
             <div class="col-sm-12 col-md-6">
                 <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">
+                    <div class="card-header reverse">
+                        <h4 class="card-title mb-0">
                             {{lang.sell.details_title}}
                         </h4>
+                    </div>
+                    <div class="card-body">
                         <p class="card-text text-justify">
                             {{lang.sell.details}}
                         </p>
@@ -100,7 +102,7 @@
 
                             <div class="input-group">
                                 <!-- Todo: ajouter l'option de la currency-->
-                                <span class="input-group-addon">{{selectedTicket.bought_currency=='GBP'?'£':'€'}}</span>
+                                <span class="input-group-addon">{{selectedTicket.bought_currency == 'GBP' ? '£' : '€'}}</span>
                                 <input type="text" :class="'form-control' + (errors.has('price')?' is-invalid':'')"
                                        :aria-label="lang.sell.inputs.price"
                                        :placeholder="lang.sell.inputs.price"
@@ -110,14 +112,17 @@
                             </div>
                             <span v-if="errors.has('price')" class="invalid-feedback">{{ errors.first('price') }}</span>
 
-                            <textarea class="form-control mt-4" :placeholder="lang.sell.inputs.notes" name="notes"></textarea>
-                            <button type="submit" class="btn btn-pink btn-block mt-4" @click.prevent="sellTicket">{{lang.sell.submit}}</button>
+                            <!--<textarea class="form-control mt-4" :placeholder="lang.sell.inputs.notes"-->
+                                      <!--name="notes"></textarea>-->
+                            <button type="submit" class="btn btn-pink btn-block mt-4" @click.prevent="sellTicket">
+                                {{lang.sell.submit}}
+                            </button>
                         </form>
                     </div>
                 </div>
             </div>
             <div class="col-sm-12 col-md-6">
-                <ticket :ticket="selectedTicket" :lang="lang.component" class-name="mb-0 mt-sm-4 mt-md-0"></ticket>
+                <ticket :ticket="selectedTicket" :lang="lang.component" class-name="mb-0 mt-sm-4 mt-md-0 max-sized"></ticket>
                 <p class="text-center">{{lang.sell.preview}}</p>
             </div>
         </div>
@@ -131,7 +136,7 @@
             routes: {type: Object, required: true},
             lang: {type: Object, required: true},
             user: {type: Object, required: true},
-            csrf: {type: String, required:true}
+            csrf: {type: String, required: true}
         },
         data() {
             return {

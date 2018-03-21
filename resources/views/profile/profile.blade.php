@@ -38,7 +38,7 @@
                                 @endif
                                 <button class="btn btn-block btn-lastar-blue" @click.prevent="modalPasswordOpen=true">@lang('profile.change_password')
                                 </button>
-                                <button class="btn btn-block btn-lastar-blue" @click.prevent="modalInfoOpen=true">Change Profile Picture
+                                <button class="btn btn-block btn-lastar-blue" @click.prevent="modalInfoOpen=true">@lang('profile.edit_profile')
                                 </button>
                                 <button class="btn btn-block btn-lastar-blue" @click.prevent="modalPictureUploadOpen=true">@lang('profile.change_picture')
                                 </button>

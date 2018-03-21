@@ -50,12 +50,25 @@
                         <span v-if="ticket.bought_currency == 'EUR'">€{{ticket.bought_price}}</span>
                     </div>
                     <div class="seller" v-if="!selecting">
-                        {{lang.sold_by}} <b>{{ticket.user.full_name}}</b>
+                        <template v-if="user">
+                            <a target="_blank" :href="'/profile/user/'+ticket.user.id">{{lang.sold_by}} <b>{{ticket.user.full_name}}</b>
+                                <el-tooltip class="item" effect="dark" :content="lang.user_verified" placement="bottom-end">
+                                    <i v-if="ticket.user.verified" aria-hidden="true" class="fa fa-check-circle text-warning"></i>
+                                </el-tooltip>
+                            </a>
+                        </template>
+                        <template v-else>
+                            {{lang.sold_by}} <b>{{ticket.user.full_name}}</b> <i v-if="ticket.user.verified" aria-hidden="true" class="fa fa-check-circle text-warning"></i>
+                        </template>
                     </div>
                 </div>
             </div>
             <div :class="{'card':true, 'card-ticket':true, 'back':true, className:className, 'past-ticket':pastTicket}">
-                <!-- User modifying his ticket-->
+                <!--
+
+                =============== User modifying his ticket ===============
+
+                -->
                 <template v-if="!buying">
                     <template v-if="bought">
                         <div class="card-travel-info">
@@ -87,10 +100,14 @@
                         </div>
                     </template>
                 </template>
-                <!-- User buying the ticket-->
+                <!--
+
+                =============== User buying the ticket ===============
+
+                -->
                 <template v-else>
                     <div class="card-travel-info">
-                        <a href="#" class="float-left" @click.prevent="editing=false"><i
+                        <a href="#" class="float-left text-white" @click.prevent="editing=false"><i
                                 class="fa fa-chevron-circle-left"
                                 aria-hidden="true"></i></a>
                         <p class="float-center text-center mb-0 edit-title">{{lang.buy_ticket}}</p>
@@ -99,8 +116,8 @@
                         <template v-if="state=='default'">
 
                             <p class="text-center"><b>{{date.format('dddd, MMMM Do YYYY')}}</b></p>
-                            <p class="text-center"><b>{{departure_time}}</b> {{ticket.train.departure_city.name}}</p>
-                            <p class="text-center"><b>{{arrival_time}}</b> {{ticket.train.arrival_city.name}}</p>
+                            <p class="text-center"><span class="train-time">{{departure_time}}</span> {{ticket.train.departure_city.name}}</p>
+                            <p class="text-center"><span class="train-time">{{arrival_time}}</span> {{ticket.train.arrival_city.name}}</p>
                             <p class="text-center">{{lang.sold_by}} <b
                                     class="text-primary">{{ticket.user.full_name}}</b>
                             </p>
@@ -134,7 +151,7 @@
                             <loader class-name="mx-auto mt-4"></loader>
                         </div>
                         <template v-else-if="state=='offered'">
-                            <p>{{lang.offer_sent}}</p>
+                            <p class="text-center">{{lang.offer_sent}}</p>
                         </template>
                         <template v-else-if="state=='register'" >
                             <p class="text-center">{{lang.register}} <br><br> <a :href="routes.register">{{lang.register_cta}}</a></p>
@@ -216,10 +233,8 @@
 
                 if (this.user == undefined || this.user == null){
                     this.state = 'register';
-                    console.log(this.state);
                     return;
                 }
-                console.log(this.user);
 
                 this.$validator.validateAll().then((result) => {
                     this.state = 'offering';

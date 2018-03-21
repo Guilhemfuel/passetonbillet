@@ -14,6 +14,7 @@ return [
         'sold_by'       => 'Vendu par',
         'edit'          => 'Modifier',
         'edit_ticket'   => 'Modifier le billet',
+        'buy_ticket'    => 'Acheter le billet',
         'your_offer'    => 'Votre offre',
         'price'         => 'Prix',
         'send_offer'    => 'Envoyer l\'offre',
@@ -25,7 +26,9 @@ return [
         'delete_cta'    => 'Retirer le billet',
         'offer_sent'    => 'Le vendeur a bien reçu votre offre! Il vous recontactera si il est interessé.',
         'register'      => 'La sécurité est notre premier soucis. Ainsi, vous devez etre inscrit pour commnuniquer avec les autres membres.',
-        'register_cta'  => 'Inscrivez-vous pour envoyer votre offre!'
+        'register_cta'  => 'Inscrivez-vous pour envoyer votre offre!',
+        'user_verified' => 'Nous avons vérifié l\'identité de cet utilisateur.'
+
 
     ],
     'sell'      => [
@@ -42,7 +45,7 @@ return [
         'your_tickets'  => 'Vos billets',
         'select'        => 'Hooray ! Nous avons trouvé vos billets. Selectionnez le billet que vous souhaitez vendre.',
         'details_title' => 'Information du billet',
-        'details'       => 'Nous avons presque terminé! Entrez votre prix, et si besoin, laissez une note attachée au billet. Le prix de vente ne peut pas excéder le prix originel d\'achat. Vous pouvez prévisualiser vos changement directement sur le billet.',
+        'details'       => 'Nous avons presque terminé! Il ne vous reste qu\'à indiquer votre prix. Le prix de vente ne peut pas excéder le prix originel d\'achat. Vous pouvez prévisualiser vos changement directement sur le billet.',
         'submit'        => 'Vendre le billet',
         'preview'       => 'Prévisualisation du billet',
         'errors'        => [
