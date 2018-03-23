@@ -370,9 +370,6 @@
                                 <p>If there are any questions regarding this privacy policy, you may
                                     contact us using the information below.</p>
                                 <p>Lastar.io</p>
-                                <p>Flat 17 - Witley Court - Coram Street</p>
-                                London, WC1N 1HD
-                                <p>United Kingdom</p>
                                 <p>contact@lastar.io</p>
                             </div>
 

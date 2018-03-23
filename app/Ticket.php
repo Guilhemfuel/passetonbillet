@@ -2,8 +2,10 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Collection;
 use Nicolaslopezj\Searchable\SearchableTrait;
 
 /**
@@ -91,6 +93,8 @@ class Ticket extends Model
      * @param      $arrivalStationId
      * @param      $date
      * @param null $time
+     *
+     * @return Collection
      */
     public static function applyFilters( $departureStationId, $arrivalStationId, $date, $time = null, $exactDay = false )
     {
@@ -124,6 +128,11 @@ class Ticket extends Model
     /**
      * MUTATORS
      */
+
+    public function getPassedAttribute(){
+        $now = new Carbon();
+        return $this->train->carbon_departure_date->lt($now);
+    }
 
 //    public function getFlexibilityAttribute( $value )
 //    {

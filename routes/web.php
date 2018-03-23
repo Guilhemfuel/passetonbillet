@@ -19,7 +19,9 @@ Route::get( '/home', 'PageController@home' )->name( 'home' );
 // Lang
 Route::get( 'lang/{lang}', 'LanguageController@switchLang' )->name( 'lang' );
 
-// Registration & Email verification
+/**
+ * Auth - login, register routes
+ **/
 Route::get( 'register', 'Auth\RegisterController@showRegistrationForm' )->name( 'register.page' );
 Route::post( 'register', 'Auth\RegisterController@register' )->name( 'register' );
 Route::get( '/verify-email/{token}', 'Auth\RegisterController@verify' )->name( 'register.verify-email' );
@@ -40,6 +42,10 @@ Route::get( '/register/fb', 'Auth\RegisterController@fb_redirect' )->name( 'fb.c
 Route::get( '/register/fb/callback', 'Auth\RegisterController@fb_callback' )->name( 'fb.callback' );
 Route::post( '/register/fb/confirm', 'Auth\RegisterController@fb_confirm_inscription' )->name( 'fb.confirm' );
 
+
+/**
+ * Condtions, privacy, contact...
+ **/
 // Conditions
 Route::get('/cgu','PageController@cgu')->name('cgu.page');
 Route::get('/privacy','PageController@privacy')->name('privacy.page');
@@ -55,11 +61,22 @@ Route::group( [ 'middleware' => 'guest' ],function ()
     Route::post( '/contact', 'HelpController@contact' )->name( 'contact' );
 });
 
+/**
+ *
+ * Ticket unique - Register for guests, offer for members
+ *
+ */
+
+Route::get( '/{ticket_id}', 'PageController@ticketUnique' )->name( 'unique.page' );
+
 
 // Auth Routes
 Route::group( [ 'middleware' => 'auth', 'as' => 'public.' ], function () {
 
-    // Ticket routes
+    /**
+     * Ticket routes
+     **/
+
     Route::group( [ 'prefix' => 'ticket', 'as' => 'ticket.' ], function () {
 
         // Sell ticket
@@ -76,7 +93,9 @@ Route::group( [ 'middleware' => 'auth', 'as' => 'public.' ], function () {
         Route::delete( '/', 'TicketController@delete' )->name( 'delete' );
     } );
 
-    // Messages routes
+    /**
+     * Messages routes
+     **/
     Route::group( [ 'prefix' => 'messages', 'as' => 'message.' ], function () {
 
         Route::get( '/', 'PageController@messagePage' )->name( 'home.page' );
@@ -90,10 +109,12 @@ Route::group( [ 'middleware' => 'auth', 'as' => 'public.' ], function () {
 
     } );
 
-    // Profile routes
+    /**
+     * Profile routes
+     **/
     Route::group( [ 'prefix' => 'profile', 'as' => 'profile.' ], function () {
 
-        Route::get( '/user/{user}', 'PageController@profileStranger' )->name( 'stanger' );
+        Route::get( '/user/{user_id}', 'PageController@profileStranger' )->name( 'stanger' );
         Route::get( '/', 'PageController@profile' )->name( 'home' );
 
         Route::post( 'phone/add', 'UserController@addPhone' )->name( 'phone.add' );
@@ -106,7 +127,9 @@ Route::group( [ 'middleware' => 'auth', 'as' => 'public.' ], function () {
 
 } );
 
-// Admin Routes...
+/**
+ * Admin routes
+ **/
 Route::group( [ 'prefix' => 'lastadmin', 'middleware' => 'auth.admin' ], function () {
     Route::get( '/', 'Admin\HomeController@home' )->name( 'admin.home' );
 
@@ -124,7 +147,12 @@ Route::group( [ 'prefix' => 'lastadmin', 'middleware' => 'auth.admin' ], functio
 
 } );
 
-// API routes...
+
+/**
+ *
+ *   Api routes
+ *
+ **/
 Route::group( [ 'prefix' => 'api' ], function () {
     Route::group( [ 'middleware' => 'auth.admin' ], function () {
         Route::get( 'users/{name}', 'Admin\UserController@searchAPI' )->name( 'api.users.search' );

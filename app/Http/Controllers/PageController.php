@@ -16,6 +16,7 @@ use App\Notifications\Verification\IdConfirmed;
 use App\Station;
 use App\Ticket;
 use App\User;
+use Hashids\Hashids;
 use Illuminate\Http\Request;
 use Mockery\Exception;
 
@@ -37,6 +38,16 @@ class PageController extends Controller
                                     ->with( 'stations', StationRessource::collection( Station::sortedStations() ) );
         }
     }
+
+    /**
+     * ======= Tickets Pages =======
+     * Sell
+     * Buy
+     * My tickets
+     * Messages
+     * Ticket Unique
+     *
+     */
 
     /**
      *
@@ -97,9 +108,42 @@ class PageController extends Controller
     }
 
     /**
+     * Display the unique ticket page
      *
+     * Shows a different page if a user is connected or not
+     */
+    public function ticketUnique(Request $request, $ticket_id)
+    {
+        $ticket = Ticket::findOrFail(
+            \Vinkla\Hashids\Facades\Hashids::decode($ticket_id)[0]
+        );
+
+        // We don't display past tickets
+        if ($ticket->passed) {
+            flash(__("tickets.errors.passed"))->error();
+            return redirect('home');
+        }
+
+        if (\Auth::check()){
+
+        } else {
+            return view('auth.auth_ticket',  [
+                'type' => 'register',
+                'ticket' => new TicketRessource($ticket)
+            ]);
+        }
+    }
+
+
+    /**
+     * ======= Profile Pages =======
+     * Profile
+     * Profile Stranger
+     *
+     */
+
+    /**
      * Display the profile page
-     *
      */
     public function profile()
     {
@@ -110,12 +154,14 @@ class PageController extends Controller
     }
 
     /**
-     *
      * Display the profile page of another user
-     *
      */
-    public function profileStranger( Request $request, User $user )
+    public function profileStranger( Request $request, $user_id )
     {
+        $user = User::findOrFail(
+            \Vinkla\Hashids\Facades\Hashids::decode($user_id)[0]
+        );
+
         if ( \Auth::user()->id == $user->id ) {
             return redirect()->route( 'public.profile.home' );
         }
@@ -125,6 +171,15 @@ class PageController extends Controller
             'user'     => $user
         ] );
     }
+
+    /**
+     * ======== Infos static pages ========
+     * Contact
+     * About
+     * CGU
+     * Privacy
+     *
+     */
 
     /**
      * Display the contact page

@@ -51,7 +51,7 @@
                     </div>
                     <div class="seller" v-if="!selecting">
                         <template v-if="user">
-                            <a target="_blank" :href="'/profile/user/'+ticket.user.id">{{lang.sold_by}} <b>{{ticket.user.full_name}}</b>
+                            <a target="_blank" :href="'/profile/user/'+ticket.user.hashid">{{lang.sold_by}} <b>{{ticket.user.full_name}}</b>
                                 <el-tooltip class="item" effect="dark" :content="lang.user_verified" placement="bottom-end">
                                     <i v-if="ticket.user.verified" aria-hidden="true" class="fa fa-check-circle text-warning"></i>
                                 </el-tooltip>

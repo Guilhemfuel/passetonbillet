@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -73,6 +74,14 @@ class Train extends Model
     public function getArrivalTimeJsAttribute()
     {
         return date( 'D M d Y H:i:s O', strtotime( $this->arrival_time ) );
+    }
+
+    public function getCarbonDepartureDateAttribute(){
+        return Carbon::createFromFormat('Y-m-d H:i:s', $this->departure_date.' '.$this->departure_time);
+    }
+
+    public function getCarbonArrivalDateAttribute(){
+        return Carbon::createFromFormat('Y-m-d H:i:s', $this->arrival_date.' '.$this->arrival_time);
     }
 
     /**

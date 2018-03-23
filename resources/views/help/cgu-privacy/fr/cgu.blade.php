@@ -55,8 +55,7 @@
                                 </p>
 
                                 <p class="ml-5">
-                                    Axel Amer & Julien Nahum, domicilié(e) à l'adresse suivante : <br> Flat 17 - Witley
-                                    Court, Coram Street, WC1N 1HD Londres, Royaume-Uni
+                                    Axel Amer & Julien Nahum
                                     <br>Téléphone : +447507418244 & +44 7397 515743
                                     <br>Adresse e-mail : contact@lastar.io
 
@@ -93,10 +92,7 @@
                                 <p>
                                     Pour toute question ou demande d'information concernant le site, ou tout signalement
                                     de contenu ou d'activités illicites, l'utilisateur peut contacter l'éditeur à
-                                    l'adresse e-mail suivante: contact@lastar.io ou adresser un courrier recommandé avec
-                                    accusé de réception à :</p>
-                                <p class="ml-5">Axel Amer & Julien Nahum - Flat 17 - Witley Court, Coram Street, WC1N
-                                    1HD Londres, Royaume-Uni
+                                    l'adresse e-mail suivante: contact@lastar.io.
                                 </p>
 
                                 <h4 class="pt-1 pb-3">

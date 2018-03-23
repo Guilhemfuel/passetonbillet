@@ -98,6 +98,9 @@ return [
     ],
     'delete'    => [
         'success' => 'Votre ticket a bien été supprimé.'
+    ],
+    'errors' => [
+        'passed' => 'Ce ticket est déjà passé.'
     ]
 
 

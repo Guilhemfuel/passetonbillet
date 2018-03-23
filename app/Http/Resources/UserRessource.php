@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\Resource;
+use Vinkla\Hashids\Facades\Hashids;
 
 class UserRessource extends Resource
 {
@@ -35,6 +36,7 @@ class UserRessource extends Resource
     {
         return [
             'id'                   => $this->id,
+            'hashid'               => Hashids::encode($this->id),
             'first_name'           => $this->first_name,
             'last_name'            => $this->last_name,
             'full_name'            => $this->full_name,

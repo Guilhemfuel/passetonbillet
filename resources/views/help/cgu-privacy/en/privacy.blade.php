@@ -300,14 +300,14 @@
                                     <div class="ml-5">
                                         <p>We will notify you via email</p>
                                         <ul>
-                                        <li>Within
-                                            7 business days
-                                        </li></ul>
+                                            <li>Within
+                                                7 business days
+                                            </li></ul>
                                         <p>We will notify the users via in-site notification</p>
                                         <ul>
-                                        <li>Within
-                                            7 business days
-                                        </li></ul>
+                                            <li>Within
+                                                7 business days
+                                            </li></ul>
                                     </div>
                                     <p>We also agree to the Individual Redress Principle which
                                         requires that individuals have the right to legally pursue enforceable rights
@@ -325,41 +325,41 @@
                                     <p><strong>We collect your email address in order to:</strong>
                                     </p>
                                     <ul>
-                                    <li>Send
-                                        information, respond to inquiries, and/or other requests or questions
-                                    </li>
-                                    <li>
-                                        Process orders and to send information and updates pertaining to orders.
-                                    </li>
-                                    <li>Send
-                                        you additional information related to your product and/or service
-                                    </li>
-                                    <li>Market
-                                        to our mailing list or continue to send emails to our clients after the original
-                                        transaction has occurred.
-                                    </li>
+                                        <li>Send
+                                            information, respond to inquiries, and/or other requests or questions
+                                        </li>
+                                        <li>
+                                            Process orders and to send information and updates pertaining to orders.
+                                        </li>
+                                        <li>Send
+                                            you additional information related to your product and/or service
+                                        </li>
+                                        <li>Market
+                                            to our mailing list or continue to send emails to our clients after the original
+                                            transaction has occurred.
+                                        </li>
                                     </ul>
                                     <p><strong>To be in accordance with CANSPAM, we agree to the
                                             following:</strong></p>
                                     <ul>
-                                    <li>Not
-                                        use false or misleading subjects or email addresses.
-                                    </li>
-                                    <li>
-                                        Identify the message as an advertisement in some reasonable way.
-                                    </li>
-                                    <li>
-                                        Include the physical address of our business or site headquarters.
-                                    </li>
-                                    <li>
-                                        Monitor third-party email marketing services for compliance, if one is used.
-                                    </li>
-                                    <li>Honor
-                                        opt-out/unsubscribe requests quickly.
-                                    </li>
-                                    <li>Allow
-                                        users to unsubscribe by using the link at the bottom of each email.
-                                    </li>
+                                        <li>Not
+                                            use false or misleading subjects or email addresses.
+                                        </li>
+                                        <li>
+                                            Identify the message as an advertisement in some reasonable way.
+                                        </li>
+                                        <li>
+                                            Include the physical address of our business or site headquarters.
+                                        </li>
+                                        <li>
+                                            Monitor third-party email marketing services for compliance, if one is used.
+                                        </li>
+                                        <li>Honor
+                                            opt-out/unsubscribe requests quickly.
+                                        </li>
+                                        <li>Allow
+                                            users to unsubscribe by using the link at the bottom of each email.
+                                        </li>
                                     </ul>
                                     <p><strong>If at any time you would like to unsubscribe from
                                             receiving future emails, you can email us at</strong> <a href="mailto:contact@lastar.io">contact@lastar.io</a> and we will promptly remove you from <strong>ALL</strong> correspondence.</p>
@@ -370,9 +370,6 @@
                                 <p>If there are any questions regarding this privacy policy, you may
                                     contact us using the information below.</p>
                                 <p>Lastar.io</p>
-                                <p>Flat 17 - Witley Court - Coram Street</p>
-                                London, WC1N 1HD
-                                <p>United Kingdom</p>
                                 <p>contact@lastar.io</p>
                             </div>
 
