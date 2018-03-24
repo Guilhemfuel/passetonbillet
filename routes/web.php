@@ -14,7 +14,6 @@
 
 // Home Page
 Route::get( '/', 'PageController@home' )->name( 'home' );
-Route::get( '/home', 'PageController@home' )->name( 'home' );
 
 // Lang
 Route::get( 'lang/{lang}', 'LanguageController@switchLang' )->name( 'lang' );
@@ -60,14 +59,6 @@ Route::group( [ 'middleware' => 'guest' ],function ()
     Route::get( '/contact', 'PageController@contact' )->name( 'contact.page' );
     Route::post( '/contact', 'HelpController@contact' )->name( 'contact' );
 });
-
-/**
- *
- * Ticket unique - Register for guests, offer for members
- *
- */
-
-Route::get( '/{ticket_id}', 'PageController@ticketUnique' )->name( 'unique.page' );
 
 
 // Auth Routes
@@ -126,6 +117,17 @@ Route::group( [ 'middleware' => 'auth', 'as' => 'public.' ], function () {
     } );
 
 } );
+
+/**
+ *
+ * Ticket unique - Register for guests, offer for members
+ *
+ */
+
+Route::group( [ 'prefix' => 'ticket', 'as' => 'ticket.' ], function () {
+    Route::get( '/{ticket_id}', 'PageController@ticketUnique' )->name( 'unique.page' );
+} );
+
 
 /**
  * Admin routes

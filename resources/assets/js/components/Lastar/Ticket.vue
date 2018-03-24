@@ -1,6 +1,9 @@
 <template>
     <div class="flip-container">
         <div :class="{'flipper':true, 'flipped':editing}">
+
+            <!-- Front of ticket -->
+
             <div :class="[className,{'card':true, 'card-ticket':true, 'front':true}]">
                 <div class="card-travel-info">
                     <div class="day">
@@ -51,18 +54,26 @@
                     </div>
                     <div class="seller" v-if="!selecting">
                         <template v-if="user">
-                            <a target="_blank" :href="'/profile/user/'+ticket.user.hashid">{{lang.sold_by}} <b>{{ticket.user.full_name}}</b>
-                                <el-tooltip class="item" effect="dark" :content="lang.user_verified" placement="bottom-end">
-                                    <i v-if="ticket.user.verified" aria-hidden="true" class="fa fa-check-circle text-warning"></i>
+                            <a target="_blank"
+                               :href="'/profile/user/'+ticket.user.hashid">{{lang.sold_by}} <b>{{ticket.user.full_name}}</b>
+                                <el-tooltip class="item" effect="dark" :content="lang.user_verified"
+                                            placement="bottom-end">
+                                    <i v-if="ticket.user.verified" aria-hidden="true"
+                                       class="fa fa-check-circle text-warning"></i>
                                 </el-tooltip>
                             </a>
                         </template>
                         <template v-else>
-                            {{lang.sold_by}} <b>{{ticket.user.full_name}}</b> <i v-if="ticket.user.verified" aria-hidden="true" class="fa fa-check-circle text-warning"></i>
+                            {{lang.sold_by}} <b>{{ticket.user.full_name}}</b> <i v-if="ticket.user.verified"
+                                                                                 aria-hidden="true"
+                                                                                 class="fa fa-check-circle text-warning"></i>
                         </template>
                     </div>
                 </div>
             </div>
+
+            <!-- Back of ticket -->
+
             <div :class="{'card':true, 'card-ticket':true, 'back':true, className:className, 'past-ticket':pastTicket}">
                 <!--
 
@@ -78,8 +89,8 @@
                             <p class="float-center text-center mb-0 edit-title">{{lang.infos}}</p>
                         </div>
                         <div class="card-seller-info card-buying">
-                            <p >{{lang.booking_name}}: <span class="text-primary">{{ticket.buyer_name}}</span></p>
-                            <p >{{lang.booking_code}}: <span class="text-primary">{{ticket.eurostar_code}}</span></p>
+                            <p>{{lang.booking_name}}: <span class="text-primary">{{ticket.buyer_name}}</span></p>
+                            <p>{{lang.booking_code}}: <span class="text-primary">{{ticket.eurostar_code}}</span></p>
                         </div>
                     </template>
                     <template v-else>
@@ -90,13 +101,33 @@
                             <p class="float-center text-center mb-0 edit-title">{{lang.edit_ticket}}</p>
                         </div>
                         <div class="card-seller-info card-buying" v-if="(user && ticket.user.id == user.id)">
-                            <p class="text-center">{{lang.delete}}</p>
-                            <form method="POST" :action="deleteUrl(ticket.id)">
-                                <input type="hidden" name="_method" value="DELETE">
-                                <input type="hidden" name="_token" :value="csrf">
-                                <input type="hidden" name="ticket_id" :value="ticket.id">
-                                <button class="btn btn-danger mx-auto d-block mt-3">{{lang.delete_cta}}</button>
-                            </form>
+                            <div class="share">
+                                <p class="text-center">{{lang.share}}:</p>
+                                    <div class="input-group">
+                                        <el-popover
+                                                ref="sharebtn"
+                                                placement="bottom"
+                                                width="200"
+                                                trigger="click"
+                                                :content="lang.copied">
+                                        </el-popover>
+                                        <input ref="sharelink" readonly type="text" class="form-control"  :value="shareUrl(ticket.hashid)" aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                            <button v-popover:sharebtn class="btn btn-outline-primary" type="button" @click.prevent="share()">
+                                                <i class="fa fa-clipboard" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                            </div>
+                            <div class="delete mt-4">
+                                <p class="text-center">{{lang.delete}}</p>
+                                <form method="POST" :action="deleteUrl(ticket.id)">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <input type="hidden" name="_token" :value="csrf">
+                                    <input type="hidden" name="ticket_id" :value="ticket.id">
+                                    <button class="btn btn-danger mx-auto d-block mt-3">{{lang.delete_cta}}</button>
+                                </form>
+                            </div>
                         </div>
                     </template>
                 </template>
@@ -116,14 +147,32 @@
                         <template v-if="state=='default'">
 
                             <p class="text-center"><b>{{date.format('dddd, MMMM Do YYYY')}}</b></p>
-                            <p class="text-center"><span class="train-time">{{departure_time}}</span> {{ticket.train.departure_city.name}}</p>
-                            <p class="text-center"><span class="train-time">{{arrival_time}}</span> {{ticket.train.arrival_city.name}}</p>
-                            <p class="text-center">{{lang.sold_by}} <b
-                                    class="text-primary">{{ticket.user.full_name}}</b>
-                            </p>
+                            <p class="text-center"><span class="train-time">{{departure_time}}</span>
+                                {{ticket.train.departure_city.name}}</p>
+                            <p class="text-center"><span class="train-time">{{arrival_time}}</span>
+                                {{ticket.train.arrival_city.name}}</p>
+                            <template v-if="user">
+                                <p class="text-center">{{lang.sold_by}}
+                                    <a target="_blank" :href="'/profile/user/'+ticket.user.hashid"></atarget>
+                                        <b>{{ticket.user.full_name}}</b>
+                                        <el-tooltip class="item" effect="dark" :content="lang.user_verified"
+                                                    placement="bottom-end">
+                                            <i v-if="ticket.user.verified" aria-hidden="true"
+                                               class="fa fa-check-circle text-warning"></i>
+                                        </el-tooltip>
+                                    </a>
+                                </p>
+                            </template>
+                            <template v-else>
+                                <p class="text-center">{{lang.sold_by}} <b
+                                        class="text-primary">{{ticket.user.full_name}}  <i v-if="ticket.user.verified"
+                                                                                           aria-hidden="true"
+                                                                                           class="fa fa-check-circle text-warning"></i></b>
+                                </p>
+                            </template>
                             <form class="row mt-2" v-if="state=='default'">
                                 <div class="col-12 text-center">
-                                 <span v-if="errors.has('price')||errorMessage!=''" class="invalid-feedback">
+                                 <span v-if="errors.has('price')||errorMessage!=''" class="invalid-feedback d-inline">
                                     {{errors.has('price') ? errors.first('price') : errorMessage}}
                                 </span>
                                 </div>
@@ -153,8 +202,9 @@
                         <template v-else-if="state=='offered'">
                             <p class="text-center">{{lang.offer_sent}}</p>
                         </template>
-                        <template v-else-if="state=='register'" >
-                            <p class="text-center">{{lang.register}} <br><br> <a :href="routes.register">{{lang.register_cta}}</a></p>
+                        <template v-else-if="state=='register'">
+                            <p class="text-center">{{lang.register}} <br><br> <a
+                                    :href="routes.register">{{lang.register_cta}}</a></p>
                         </template>
                     </div>
 
@@ -172,7 +222,7 @@
             api: {type: Object, required: false},
             routes: {type: Object, required: false},
             lang: {type: Object, required: true},
-            user: {type: Object, required: false, default:null},
+            user: {type: Object, required: false, default: null},
             // Selecting when user is selling a ticket (no in db yet, no user)
             selecting: {type: Boolean, default: false},
             // If the ticket is dislayed on the buying page
@@ -181,7 +231,7 @@
             display: {type: Boolean, default: false},
 
             bought: {type: Boolean, default: false},
-            csrf: {type: String, required:false},
+            csrf: {type: String, required: false},
 
 
             className: '',
@@ -195,9 +245,9 @@
                 errorMessage: ''
             }
         },
-        mounted(){
-            if (this.offerDone){
-                this.state=='offered';
+        mounted() {
+            if (this.offerDone) {
+                this.state == 'offered';
             }
         },
         computed: {
@@ -213,7 +263,7 @@
                 return now.isAfter(departure)
             },
             offerDone: function () {
-                if (this.buying && this.user){
+                if (this.buying && this.user) {
                     return this.user.offers_sent.includes(this.ticket.id);
                 }
                 return false;
@@ -224,14 +274,29 @@
                 if (!this.selecting) return;
                 this.$emit('sell', this.ticket.id);
             },
+            share() {
+                console.log('in');
+                var url = this.shareUrl(this.ticket.hashid)
+                this.$emit('share', url);
+
+                this.$refs.sharelink.select();
+                this.$refs.sharelink.setSelectionRange(0, this.$refs.sharelink.value.length);
+
+                document.execCommand("Copy");
+
+            },
+            shareUrl(ticket_id) {
+                if (!this.routes.tickets || !this.routes.tickets.share) return null;
+                return this.routes.tickets.share.replace('ticket_id', ticket_id)
+            },
             deleteUrl(ticket_id) {
                 if (!this.routes.tickets || !this.routes.tickets.delete) return null;
-                return this.routes.tickets.delete.replace('ticket_id',ticket_id)
+                return this.routes.tickets.delete.replace('ticket_id', ticket_id)
             },
             makeOffer() {
 
 
-                if (this.user == undefined || this.user == null){
+                if (this.user == undefined || this.user == null) {
                     this.state = 'register';
                     return;
                 }
@@ -247,6 +312,9 @@
                         if (response.ok) {
                             this.state = 'offered';
                             return;
+                        } else {
+                            this.state = 'default';
+                            this.errorMessage = response.body.message;
                         }
                     }, response => {
                         if (!response.ok) {

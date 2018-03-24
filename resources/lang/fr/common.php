@@ -8,6 +8,7 @@ return [
         'sell'=> 'vendre'
     ],
     'ticket' => [
+        'name' => 'Billet',
         'flexibility' => [
             '1' => 'Non Flexible',
             '2' => 'Semi Flexible',

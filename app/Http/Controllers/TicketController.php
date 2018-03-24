@@ -80,7 +80,7 @@ class TicketController extends Controller
 
         // Make sure that ticket is valid, and that user is the owner of the ticket
         $ticket = Ticket::find( $request->ticket_id );
-        if ( ! $ticket || $ticket->sold_to_id != null || \Auth::user()->id != $ticket->user_id) {
+        if ( ! $ticket ||  $ticket->passed || $ticket->sold_to_id != null || \Auth::user()->id != $ticket->user_id) {
             flash( __( 'common.error' ) )->error()->important();
             return redirect()->route( 'public.ticket.owned.page' );
         }

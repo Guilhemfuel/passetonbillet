@@ -537,9 +537,10 @@ class DiscussionControllerTest extends LastarTestCase
             ] ).'?date='.urlencode($messageTime->format('Y-m-d H:i:s'));
         $response = $this->get( $url);
 
-        $refreshMessage = \GuzzleHttp\json_decode($response->content())->data[0];
+        $refreshMessages = \GuzzleHttp\json_decode($response->content())->data;
+        $this->assertEquals(1,count($refreshMessages));
 
-        $this->assertEquals($refreshMessage->id, $message->id);
+        $this->assertEquals($refreshMessages[0]->id, $message->id);
     }
 
     public function testRefreshDiscussionSoldToSomeoneElse()
@@ -670,9 +671,10 @@ class DiscussionControllerTest extends LastarTestCase
             ] ).'?date='.urlencode($messageTime->format('Y-m-d H:i:s'));
         $response = $this->get( $url);
 
-        $refreshMessage = \GuzzleHttp\json_decode($response->content())->data[0];
+        $refreshMessages = \GuzzleHttp\json_decode($response->content())->data;
+        $this->assertEquals(1,count($refreshMessages));
 
-        $this->assertEquals($refreshMessage->id, $message->id);
+        $this->assertEquals($refreshMessages[0]->id, $message->id);
     }
 
     /**

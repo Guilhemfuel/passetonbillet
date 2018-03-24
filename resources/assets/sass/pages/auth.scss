@@ -45,6 +45,10 @@
         @include media-breakpoint-down(sm) {
           width: 200px;
         }
+
+        &.lastar-logo-sm {
+          width: 180px !important;
+        }
       }
     }
   }

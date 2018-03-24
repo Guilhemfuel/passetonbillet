@@ -14,7 +14,8 @@
         $routes = [
             'tickets' => [
                 'sell' => route('public.ticket.sell.post'),
-                'delete' => route('public.ticket.delete')
+                'delete' => route('public.ticket.delete'),
+                'share' => route('ticket.unique.page',['ticket_id'=>'ticket_id'])
             ]
         ]
     ?>

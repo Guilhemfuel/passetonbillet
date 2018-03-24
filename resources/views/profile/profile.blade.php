@@ -73,19 +73,9 @@
                                 </div>
                             </div>
                         </div>
+
                     @endif
                 </div>
-
-                {{--@if(\Auth::user()->id == $user->id)--}}
-                {{--<div class="card card-stats">--}}
-                    {{--<div class="card-header card-header-lastar reverse">--}}
-                        {{--<h4 class="card-title mb-0">@lang('profile.stats_title')</h4>--}}
-                    {{--</div>--}}
-                    {{--<div class="card-body">--}}
-
-                    {{--</div>--}}
-                {{--</div>--}}
-                {{--@endif--}}
 
                 {{-- Modals --}}
                 @if(!Auth::user()->id_verified && Auth::user()->idVerification == null)
@@ -144,6 +134,15 @@
                         </form>
                     </div>
                 </modal>
+
+                @if(\Auth::user()->id != $user->id && isset($tickets))
+                    <h3 class="mt-4 mb-0 text-center">@lang('common.ticket.name')s</h3>
+                    <div class="tickets row">
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-4" v-for="ticket in tickets">
+                            <ticket :ticket="ticket" :api="ticketsAPI" :lang="langTickets" :user="user" :buying="true" class-name="mt-4"></ticket>
+                        </div>
+                    </div>
+                @endif
             </div>
 @endsection
 
@@ -151,7 +150,13 @@
 @push('scripts')
     <?php
         $langPasswordModal = Lang::get( 'profile.modal.change_password.component' );
-
+        $langTickets = Lang::get( 'tickets.component' );
+        $api = [
+            'tickets' => [
+                'buy' => route('api.tickets.buy'),
+                'offer' => route('api.tickets.offer')
+            ]
+        ];
     ?>
     <script type="text/javascript">
         var profile = new Vue({
@@ -163,6 +168,9 @@
                 modalVerifyIdentity: false,
                 user: {!! json_encode($userData) !!},
                 langChangePassword: {!! json_encode($langPasswordModal) !!},
+                tickets: {!! isset($tickets)?json_encode($tickets):"null" !!},
+                ticketsAPI: {!! json_encode($api) !!},
+                langTickets: {!! json_encode($langTickets) !!}
             }
         });
     </script>

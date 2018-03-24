@@ -25,10 +25,10 @@
 
 @section('content')
 
-    <div class="row auth">
+    <div class="row auth" id="authComponent">
         <div class="col-12 col-sm-6 purple-gradient left-panel">
             <div class="content">
-                <a href="{{route('home')}}"><img class="lastar-logo mx-auto" src="{{secure_asset('img/logo.png')}}"></a>
+                <a href="{{route('home')}}"><img class="lastar-logo lastar-logo-sm mx-auto" src="{{secure_asset('img/logo.png')}}"></a>
                 <div class="actions btn-rack mt-4">
                     <a href="{{route('about.page')}}" class="btn btn-outline-white">
                         About us
@@ -36,6 +36,9 @@
                     <button class="btn btn-white" onclick="$crisp.push(['do', 'chat:open'])">
                         Contact us
                     </button>
+                </div>
+                <div>
+                    <ticket :ticket="ticket" :lang="langTickets.component" class-name="mb-0 mt-4 max-sized no-border"></ticket>
                 </div>
             </div>
         </div>
@@ -52,7 +55,7 @@
                 @endif
             </div>
             <div class="content">
-                <div id="authComponent">
+                <div>
                     <auth :auth-type="authType"
                           :csrf="csrf"
                           :lang="lang"
@@ -75,6 +78,7 @@
         'facebook'        => route( 'fb.connect' )
     ];
     $lang = Lang::get( 'auth' );
+    $langTicket = Lang::get( 'tickets' );
     $old = session()->getOldInput();
     ?>
 
@@ -89,7 +93,9 @@
                     routes: {!! json_encode($routes)!!},
                     old: {!! $old?json_encode($old):'{}' !!},
                     token: {!! isset($token)?"'".$token."'":'null' !!},
-                    defaultEmail: '{{isset($email)?$email:''}}'
+                    defaultEmail: '{{isset($email)?$email:''}}',
+                    ticket: {!! json_encode($ticket)!!},
+                    langTickets: {!! json_encode( $langTicket) !!}
                 }
             });
         </script>

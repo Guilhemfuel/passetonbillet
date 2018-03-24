@@ -137,11 +137,13 @@ class UserControllerTest extends LastarTestCase
     // Adding a phone number that another user has should not work
     public function testAddPhoneWithUsedNumber()
     {
-        $user = factory( User::class )->create();
+        $userData = factory( User::class )->create();
+        $user = factory( User::class )->states('phone_less')->create();
 
-        $response = $this->beAUser( 'phone_less' )->postWithCsrf( route( 'public.profile.phone.add' ), [
-            'phone'         => $user->phone,
-            'phone_country' => $user->phone_country
+        $this->be($user);
+        $response = $this->postWithCsrf( route( 'public.profile.phone.add' ), [
+            'phone'         => $userData->phone,
+            'phone_country' => $userData->phone_country
         ] );
 
         // Building flash message

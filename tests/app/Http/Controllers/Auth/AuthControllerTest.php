@@ -18,7 +18,7 @@ class LoginControllerTest extends LastarTestCase
 
         $user = factory( User::class )->create();
         $response = $this->postWithCsrf(route('login'),['email'=>$user->email,'password'=>'password']);
-        $response->assertRedirect(route('home'));
+        $response->assertRedirect(route('public.ticket.buy.page'));
 
         $this->assertEquals(\Auth::user()->id, $user->id);
 

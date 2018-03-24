@@ -23,6 +23,8 @@ return [
         'booking_code'  => 'Numéro de réservation',
         'booking_name'  => 'Now de réservation',
         'delete'        => 'Vous ne voulez plus vendre ce billet?',
+        'share'         => 'Lien de partage du billet',
+        'copied'        => 'Lien copié dans le presse-papier.',
         'delete_cta'    => 'Retirer le billet',
         'offer_sent'    => 'Le vendeur a bien reçu votre offre! Il vous recontactera si il est interessé.',
         'register'      => 'La sécurité est notre premier soucis. Ainsi, vous devez etre inscrit pour commnuniquer avec les autres membres.',
@@ -100,7 +102,7 @@ return [
         'success' => 'Votre ticket a bien été supprimé.'
     ],
     'errors' => [
-        'passed' => 'Ce ticket est déjà passé.'
+        'passed' => 'Ce ticket est déjà passé! Cherchews'
     ]
 
 

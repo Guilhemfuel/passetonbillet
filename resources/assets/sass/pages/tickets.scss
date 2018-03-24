@@ -33,6 +33,10 @@ $animation-duration: 0.5s;
     width: 250px;
   }
 
+  &.no-border {
+    border: none;
+  }
+
   &.front {
     z-index: 2;
     /* for firefox 31 */
@@ -61,6 +65,13 @@ $animation-duration: 0.5s;
     .train-time{
       color: $color-purple;
       font-weight: 600;
+    }
+
+    .share {
+      .btn {
+        border-bottom-left-radius: 0px;
+        border-top-left-radius: 0px;
+      }
     }
   }
 

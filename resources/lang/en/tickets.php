@@ -23,6 +23,8 @@ return [
         'booking_code'  => 'Booking code',
         'booking_name'  => 'Booking name',
         'delete'        => 'You don\'t want to sell this ticket anymore?',
+        'share'         => 'Link to share this ticket',
+        'copied'        => 'Link copied to clipboard.',
         'delete_cta'    => 'Remove ticket',
         'offer_sent'    => 'Seller received your offer! If interested, he\'ll contact you.',
         'register'      => 'Safety is our number one concern. Therefore, you must create an account before sending offers.',

@@ -71,7 +71,7 @@ class RegisterControllerTest extends LastarTestCase
         $userData['password'] = 'password';
 
         $response = $this->postWithCsrf( route( 'register' ), $userData );
-        $response->assertRedirect( route( 'home' ) );
+        $response->assertRedirect( route( 'login.page' ) );
 
         // Crypt password
         $userData['password'] = bcrypt( 'password' );

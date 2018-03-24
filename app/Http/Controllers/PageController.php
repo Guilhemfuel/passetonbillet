@@ -125,7 +125,10 @@ class PageController extends Controller
         }
 
         if (\Auth::check()){
-
+            // If the user is connected, we redirect him to the seller's page
+            return redirect()->route('public.profile.stanger',[
+                'user_id'=> \Vinkla\Hashids\Facades\Hashids::encode($ticket->user_id)
+            ]);
         } else {
             return view('auth.auth_ticket',  [
                 'type' => 'register',
@@ -167,8 +170,9 @@ class PageController extends Controller
         }
 
         return view( 'profile.profile' )->with( [
-            'userData' => new UserRessource( $user ),
-            'user'     => $user
+            'userData' => new UserRessource( \Auth::user(),true ),
+            'user'     => $user,
+            'tickets'  => TicketRessource::collection($user->tickets->where('passed',false))
         ] );
     }
 
