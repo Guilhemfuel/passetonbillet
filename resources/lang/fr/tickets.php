@@ -29,8 +29,13 @@ return [
         'offer_sent'    => 'Le vendeur a bien reçu votre offre! Il vous recontactera si il est interessé.',
         'register'      => 'La sécurité est notre premier soucis. Ainsi, vous devez etre inscrit pour commnuniquer avec les autres membres.',
         'register_cta'  => 'Inscrivez-vous pour envoyer votre offre!',
-        'user_verified' => 'Nous avons vérifié l\'identité de cet utilisateur.'
+        'user_verified' => 'Nous avons vérifié l\'identité de cet utilisateur.',
 
+        'status' => [
+            'awaiting' => 'En Attente',
+            'accepted' => 'Acceptée',
+            'refused'  => 'Refusée'
+        ],
 
     ],
     'sell'      => [
@@ -43,6 +48,7 @@ return [
             'notes'        => 'Vous pouvez écrire ici une description pour ce billet...'
         ],
         'search'        => 'Chercher le(s) billet(s)',
+        'other_name'    => 'Contactez-nous pour vendre un billet associé à un autre nom.',
         'searching'     => 'Recherche de vos billets...',
         'your_tickets'  => 'Vos billets',
         'select'        => 'Hooray ! Nous avons trouvé vos billets. Selectionnez le billet que vous souhaitez vendre.',
@@ -91,17 +97,24 @@ return [
         'research'  => 'Rechercher'
     ],
     'owned'     => [
-        'no_bought_tickets' => 'Vous n\'avez pas encore acheté de billet!',
-        'no_sold_tickets'   => 'Vous n\'avez pas encore vendu de billet!',
-        'bought'            => 'Acheté(s)',
-        'sold'              => 'Vendu(s)',
-        'selling'           => 'En vente'
+        'no_bought_tickets'      => 'Vous n\'avez pas encore acheté de billet!',
+        'no_bought_tickets_cta'  => 'Cliquez-ici pour acheter un billet.',
+        'no_sold_tickets'        => 'Vous n\'avez pas encore vendu de billet!',
+        'no_sold_tickets_cta'    => 'Cliquez-ici pour mettre un billet en vente.',
+        'no_selling_tickets'     => 'Vous n\'avez pas encore de billet en vente!',
+        'no_selling_tickets_cta' => 'Cliquez-ici pour mettre un billet en vente.',
+        'no_offered_tickets'     => 'Vous n\'avez pas encore envoyé d\'offres!',
+        'no_offered_tickets_cta' => 'Cliquez-ici pour acheter un billet.',
+        'bought'                 => 'Acheté(s)',
+        'sold'                   => 'Vendu(s)',
+        'selling'                => 'En vente',
+        'offers_sent'            => 'Offres envoyées',
 
     ],
     'delete'    => [
         'success' => 'Votre ticket a bien été supprimé.'
     ],
-    'errors' => [
+    'errors'    => [
         'passed' => 'Ce ticket est déjà passé! Cherchews'
     ]
 

@@ -3,21 +3,29 @@
 @section('dashboard-content')
     <div class="container-fluid">
         <div class="row" id="owned-tickets">
-            <my-tickets :lang="lang" :user="user" :tickets="tickets" :bought-tickets="boughtTickets" :csrf="csrf" :routes="routes"></my-tickets>
+            <my-tickets :lang="lang" :user="user" :tickets="tickets" :bought-tickets="boughtTickets"
+                        :offer-sent="offerSent" :csrf="csrf"
+                        :routes="routes"></my-tickets>
         </div>
     </div>
 @endsection
 
 @push('scripts')
     <?php
-        $lang = Lang::get( 'tickets' );
-        $routes = [
-            'tickets' => [
-                'sell' => route('public.ticket.sell.post'),
-                'delete' => route('public.ticket.delete'),
-                'share' => route('ticket.unique.page',['ticket_id'=>'ticket_id'])
-            ]
+    $lang = Lang::get( 'tickets' );
+    $routes = [
+        'tickets' => [
+            'sell'         => route( 'public.ticket.sell.post' ),
+            'delete'       => route( 'public.ticket.delete' ),
+            'share'        => route( 'ticket.unique.page', [ 'ticket_id' => 'ticket_id' ] ),
+            'sell_page'    => route( 'public.ticket.sell.page' ),
+            'buy_page'     => route( 'public.ticket.buy.page' ),
+            'discuss_page' => route( 'public.message.discussion.page', [
+                'ticket_id'     => 'ticket_id',
+                'discussion_id' => 'discussion_id'
+            ] )
         ]
+    ]
     ?>
 
     <script type="text/javascript">
@@ -29,7 +37,8 @@
                 tickets: {!! json_encode($tickets) !!},
                 boughtTickets:  {!! json_encode($boughtTickets) !!},
                 csrf: '{!! csrf_token() !!}',
-                routes: {!! json_encode($routes) !!}
+                routes: {!! json_encode($routes) !!},
+                offerSent: {!! json_encode($offerSent) !!}
             }
         });
     </script>

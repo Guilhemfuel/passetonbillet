@@ -27,12 +27,12 @@ class PageController extends Controller
     public function home()
     {
         if ( \Auth::check() ) {
-            return redirect()->route('public.ticket.buy.page');
+            return redirect()->route( 'public.ticket.buy.page' );
         } else {
             // TODO: default les trois prochains en date
             //TODO: change tickets to only show the latest or the previously searched etc..
-            $tickets = Ticket::join('trains', 'trains.id', '=', 'tickets.train_id')
-                             ->orderByDesc('trains.departure_date')->take( 3 )->get();
+            $tickets = Ticket::join( 'trains', 'trains.id', '=', 'tickets.train_id' )
+                             ->orderByDesc( 'trains.departure_date' )->take( 3 )->get();
 
             return view( 'welcome' )->with( 'tickets', TicketRessource::collection( $tickets ) )
                                     ->with( 'stations', StationRessource::collection( Station::sortedStations() ) );
@@ -40,7 +40,7 @@ class PageController extends Controller
     }
 
     /**
-     * ======= Tickets Pages =======
+     * ============================ Tickets Pages ============================
      * Sell
      * Buy
      * My tickets
@@ -80,7 +80,15 @@ class PageController extends Controller
 
         return view( 'tickets.owned' )->with( 'user', new UserRessource( \Auth::user() ) )
                                       ->with( 'tickets', TicketRessource::collection( \Auth::user()->tickets ) )
-                                      ->with( 'boughtTickets', TicketFullRessource::collection( \Auth::user()->boughtTickets ) );
+                                      ->with( 'boughtTickets', TicketFullRessource::collection( \Auth::user()->boughtTickets ) )
+                                      ->with( 'offerSent', DiscussionLastMessageResource::collection( \Auth::user()->offers
+                                          ->whereIn( 'status', [
+                                              Discussion::AWAITING,
+                                              Discussion::DENIED,
+                                              Discussion::ACCEPTED
+                                          ] )
+                                      ) );
+
     }
 
     /**
@@ -112,34 +120,35 @@ class PageController extends Controller
      *
      * Shows a different page if a user is connected or not
      */
-    public function ticketUnique(Request $request, $ticket_id)
+    public function ticketUnique( Request $request, $ticket_id )
     {
         $ticket = Ticket::findOrFail(
-            \Vinkla\Hashids\Facades\Hashids::decode($ticket_id)[0]
+            \Vinkla\Hashids\Facades\Hashids::decode( $ticket_id )[0]
         );
 
         // We don't display past tickets
-        if ($ticket->passed) {
-            flash(__("tickets.errors.passed"))->error();
-            return redirect('home');
+        if ( $ticket->passed ) {
+            flash( __( "tickets.errors.passed" ) )->error();
+
+            return redirect( 'home' );
         }
 
-        if (\Auth::check()){
+        if ( \Auth::check() ) {
             // If the user is connected, we redirect him to the seller's page
-            return redirect()->route('public.profile.stanger',[
-                'user_id'=> \Vinkla\Hashids\Facades\Hashids::encode($ticket->user_id)
-            ]);
+            return redirect()->route( 'public.profile.stanger', [
+                'user_id' => \Vinkla\Hashids\Facades\Hashids::encode( $ticket->user_id )
+            ] );
         } else {
-            return view('auth.auth_ticket',  [
+            return view( 'auth.auth_ticket', [
                 'type' => 'register',
-                'ticket' => new TicketRessource($ticket)
-            ]);
+                'ticket' => new TicketRessource( $ticket )
+            ] );
         }
     }
 
 
     /**
-     * ======= Profile Pages =======
+     * ============================ Profile Pages ============================
      * Profile
      * Profile Stranger
      *
@@ -162,7 +171,7 @@ class PageController extends Controller
     public function profileStranger( Request $request, $user_id )
     {
         $user = User::findOrFail(
-            \Vinkla\Hashids\Facades\Hashids::decode($user_id)[0]
+            \Vinkla\Hashids\Facades\Hashids::decode( $user_id )[0]
         );
 
         if ( \Auth::user()->id == $user->id ) {
@@ -170,14 +179,14 @@ class PageController extends Controller
         }
 
         return view( 'profile.profile' )->with( [
-            'userData' => new UserRessource( \Auth::user(),true ),
+            'userData' => new UserRessource( \Auth::user(), true ),
             'user'     => $user,
-            'tickets'  => TicketRessource::collection($user->tickets->where('passed',false))
+            'tickets'  => TicketRessource::collection( $user->tickets->where( 'passed', false ) )
         ] );
     }
 
     /**
-     * ======== Infos static pages ========
+     * ============================= Infos static pages =============================
      * Contact
      * About
      * CGU
@@ -188,37 +197,43 @@ class PageController extends Controller
     /**
      * Display the contact page
      */
-    public function contact(){
-        return view('help.contact');
+    public function contact()
+    {
+        return view( 'help.contact' );
     }
 
     /**
      * Display the about page
      */
-    public function about(){
-        return view('help.about');
+    public function about()
+    {
+        return view( 'help.about' );
     }
 
     /**
      * Display the Terms page
      */
-    public function cgu(){
+    public function cgu()
+    {
 
-        if(\App::getLocale()=='fr'){
-            return view('help.cgu-privacy.fr.cgu');
+        if ( \App::getLocale() == 'fr' ) {
+            return view( 'help.cgu-privacy.fr.cgu' );
         }
-        return view('help.cgu-privacy.en.cgu');
+
+        return view( 'help.cgu-privacy.en.cgu' );
 
     }
 
     /**
      * Display the privacy policy
      */
-    public function privacy(){
-        if(\App::getLocale()=='fr'){
-            return view('help.cgu-privacy.fr.privacy');
+    public function privacy()
+    {
+        if ( \App::getLocale() == 'fr' ) {
+            return view( 'help.cgu-privacy.fr.privacy' );
         }
-        return view('help.cgu-privacy.en.privacy');
+
+        return view( 'help.cgu-privacy.en.privacy' );
     }
 
 }

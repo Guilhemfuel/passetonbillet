@@ -6,6 +6,23 @@
 
             <div :class="[className,{'card':true, 'card-ticket':true, 'front':true}]">
                 <div class="card-travel-info">
+                    <div :class="{'corner-ribbon':true,
+                            'corner-ribbon-success':ticket.offerStatus==1,
+                            'corner-ribbon-danger':ticket.offerStatus==-1}"
+                         v-if="$lodash.has(ticket, 'offerStatus')">
+                        <template v-if="ticket.offerStatus == 0">
+                            <i class="fa fa-clock-o text-white" aria-hidden="true"></i><br>
+                            <p>{{lang.status.awaiting}}</p>
+                        </template>
+                        <template v-else-if="ticket.offerStatus == 1">
+                            <i class="fa fa-check text-white" aria-hidden="true"></i><br>
+                            <p>{{lang.status.accepted}}</p>
+                        </template>
+                        <template v-else-if="ticket.offerStatus == -1">
+                            <i class="fa fa-times text-white" aria-hidden="true"></i><br>
+                            <p>{{lang.status.refused}}</p>
+                        </template>
+                    </div>
                     <div class="day">
                         <span>{{date.format('D')}}</span>
                     </div>
@@ -42,6 +59,12 @@
                     </template>
                     <template v-if="!pastTicket && (user && ticket.user.id == user.id) && !display">
                         <button class="btn btn-pink btn-buy btn-sm" @click="editing=true">{{lang.edit}}</button>
+                    </template>
+                    <template v-if="!pastTicket && !display
+                        && $lodash.has(ticket, 'discussionId')
+                        && $lodash.has(ticket, 'offerStatus')
+                        && ticket.offerStatus == 1" >
+                        <a :href="discussPageUrl(ticket.id, ticket.discussionId)" class="btn btn-pink btn-buy btn-sm">{{lang.discuss}}</a>
                     </template>
 
                     <div class="price" v-if="!selecting">
@@ -103,21 +126,23 @@
                         <div class="card-seller-info card-buying" v-if="(user && ticket.user.id == user.id)">
                             <div class="share">
                                 <p class="text-center">{{lang.share}}:</p>
-                                    <div class="input-group">
-                                        <el-popover
-                                                ref="sharebtn"
-                                                placement="bottom"
-                                                width="200"
-                                                trigger="click"
-                                                :content="lang.copied">
-                                        </el-popover>
-                                        <input ref="sharelink" readonly type="text" class="form-control"  :value="shareUrl(ticket.hashid)" aria-describedby="basic-addon2">
-                                        <div class="input-group-append">
-                                            <button v-popover:sharebtn class="btn btn-outline-primary" type="button" @click.prevent="share()">
-                                                <i class="fa fa-clipboard" aria-hidden="true"></i>
-                                            </button>
-                                        </div>
+                                <div class="input-group">
+                                    <el-popover
+                                            ref="sharebtn"
+                                            placement="bottom"
+                                            width="200"
+                                            trigger="click"
+                                            :content="lang.copied">
+                                    </el-popover>
+                                    <input ref="sharelink" readonly type="text" class="form-control"
+                                           :value="shareUrl(ticket.hashid)" aria-describedby="basic-addon2">
+                                    <div class="input-group-append">
+                                        <button v-popover:sharebtn class="btn btn-outline-primary" type="button"
+                                                @click.prevent="share()">
+                                            <i class="fa fa-clipboard" aria-hidden="true"></i>
+                                        </button>
                                     </div>
+                                </div>
                             </div>
                             <div class="delete mt-4">
                                 <p class="text-center">{{lang.delete}}</p>
@@ -292,6 +317,10 @@
             deleteUrl(ticket_id) {
                 if (!this.routes.tickets || !this.routes.tickets.delete) return null;
                 return this.routes.tickets.delete.replace('ticket_id', ticket_id)
+            },
+            discussPageUrl(ticket_id,discussion_id) {
+                if (!this.routes.tickets || !this.routes.tickets.delete) return null;
+                return this.routes.tickets.discuss_page.replace('ticket_id', ticket_id).replace('discussion_id', discussion_id);
             },
             makeOffer() {
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Discussion;
 use Illuminate\Http\Resources\Json\Resource;
 use Vinkla\Hashids\Facades\Hashids;
 
@@ -21,7 +22,9 @@ class UserRessource extends Resource
         parent::__construct( $ressource );
 
         if ( $includeOffers ) {
-            $this->offersDone = $this->offers->where('status','>=',0)->pluck( 'ticket_id' );
+            $this->offersDone = $this->offers
+                ->whereIn('status',[Discussion::AWAITING,Discussion::DENIED,Discussion::ACCEPTED])
+                ->pluck( 'ticket_id' );
         }
     }
 

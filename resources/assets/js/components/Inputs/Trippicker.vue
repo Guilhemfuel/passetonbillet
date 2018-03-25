@@ -58,6 +58,8 @@
                 var temp = this.arrivalStation;
                 this.arrivalStation = this.departStation;
                 this.departStation = temp;
+                this.$emit('change-departure',this.departStation);
+                this.$emit('change-arrival',this.arrivalStation);
             }
         }
     }

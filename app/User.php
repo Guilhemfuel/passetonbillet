@@ -206,5 +206,8 @@ class User extends Authenticatable
     /**
      * Tickets bought by user
      */
-    public function ticketsBought(){}
+    public function ticketsBought(){
+        return $this->hasMany('App\Models\Discussion', 'buyer_id')
+            ->where('status',Discussion::SOLD);
+    }
 }

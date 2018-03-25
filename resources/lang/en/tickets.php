@@ -29,7 +29,13 @@ return [
         'offer_sent'    => 'Seller received your offer! If interested, he\'ll contact you.',
         'register'      => 'Safety is our number one concern. Therefore, you must create an account before sending offers.',
         'register_cta'  => 'Create an account and send your offer!',
-        'user_verified' => 'We verified the identity of this user.'
+        'user_verified' => 'We verified the identity of this user.',
+
+        'status' => [
+            'awaiting' => 'Awaiting',
+            'accepted' => 'Accepted',
+            'refused'  => 'Refused'
+        ],
 
 
     ],
@@ -43,6 +49,7 @@ return [
             'notes'        => 'Your can write notes here about this ticket...'
         ],
         'search'        => 'Search for ticket(s)',
+        'other_name'    => 'Contact us to sell a ticket with another name.',
         'searching'     => 'Searching for your tickets...',
         'your_tickets'  => 'Your tickets',
         'select'        => 'Hooray ! We found your tickets. Select the ticket you want to sell.',
@@ -92,11 +99,18 @@ return [
         'research'  => 'Search'
     ],
     'owned'     => [
-        'no_bought_tickets' => 'You have not bought any tickets yet!',
-        'no_sold_tickets'   => 'You have not sold any tickets yet!',
+        'no_bought_tickets'      => 'You have not bought any tickets yet!',
+        'no_bought_tickets_cta'  => 'Click here to buy a ticket.',
+        'no_sold_tickets'        => 'You have not sold any tickets yet!',
+        'no_sold_tickets_cta'    => 'Click here to sell a ticket.',
+        'no_selling_tickets'     => 'You are not selling any ticket yet!',
+        'no_selling_tickets_cta' => 'Click here to sell a ticket.',
+        'no_offered_tickets'     => 'You have not sent any offer yet!',
+        'no_offered_tickets_cta' => 'Click here to buy a ticket.',
         'bought'            => 'Bought',
         'sold'              => 'Sold',
-        'selling'           => 'Selling'
+        'selling'           => 'Selling',
+        'offers_sent'       => 'Offers Sent',
     ],
     'delete'    => [
         'success' => 'Your ticket was successfully deleted.'

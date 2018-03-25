@@ -41,6 +41,10 @@ $animation-duration: 0.5s;
     z-index: 2;
     /* for firefox 31 */
     transform: rotateY(0deg);
+
+    .card-travel-info {
+      overflow: hidden;
+    }
   }
 
   &.back {
@@ -53,6 +57,11 @@ $animation-duration: 0.5s;
 
     .card-travel-info {
       padding: 10px;
+    }
+
+    .card-seller-info {
+      padding: 15px;
+      padding-bottom: 25px;
     }
 
     .edit-title {
@@ -81,8 +90,44 @@ $animation-duration: 0.5s;
 
   .card-travel-info {
     @extend .blue-gradient;
-    border-radius: 10px 10px 0px 0px;
+    border-radius: 9px 9px 0px 0px;
     padding-bottom: 20px;
+    position: relative;
+
+    .corner-ribbon {
+      width: 250px;
+      height: 70px;
+
+      position: absolute;
+      top: -10px;
+      left: -100px;
+      transform: rotate(-45deg);
+      -webkit-transform: rotate(-45deg);
+
+      text-align: center;
+      letter-spacing: 1px;
+      color: #f0f0f0;
+
+      background: $color-purple;
+
+      &.corner-ribbon-success {
+        background: $color-green;
+      }
+
+      &.corner-ribbon-danger {
+        background: $color-red;
+      }
+
+      .fa {
+        margin-top: 20px;
+        font-size: 1.5em;
+      }
+
+      p {
+        text-transform: uppercase;
+        font-size: 12px;
+      }
+    }
 
     .day {
       width: 60px;

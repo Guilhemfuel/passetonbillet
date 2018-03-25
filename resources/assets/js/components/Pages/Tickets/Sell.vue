@@ -25,10 +25,16 @@
                         <div class="row justify-content-center">
                             <form class="col-sm-12 col-md-10 col-lg-6">
                                 <div class="col-xs-12 form-group">
-                                    <input id="last_name" type="text"
-                                           :class="{'form-control': true, 'is-invalid': errors.has('last_name') }"
-                                           name="last_name" required v-validate="'required'"
-                                           :placeholder="lang.sell.inputs.last_name" v-model="form.last_name">
+                                    <el-tooltip class="item" effect="dark" :content="lang.sell.other_name"
+                                                placement="top-start">
+                                        <div>
+                                        <input id="last_name" type="text"
+                                               :class="{'form-control': true, 'is-invalid': errors.has('last_name') }"
+                                               name="last_name" required v-validate="'required'"
+                                               :placeholder="lang.sell.inputs.last_name" v-model="form.last_name"
+                                               disabled>
+                                        </div>
+                                    </el-tooltip>
                                     <span v-if="errors.has('last_name')"
                                           class="invalid-feedback">{{ errors.first('last_name')}}</span>
 
@@ -113,7 +119,7 @@
                             <span v-if="errors.has('price')" class="invalid-feedback">{{ errors.first('price') }}</span>
 
                             <!--<textarea class="form-control mt-4" :placeholder="lang.sell.inputs.notes"-->
-                                      <!--name="notes"></textarea>-->
+                            <!--name="notes"></textarea>-->
                             <button type="submit" class="btn btn-pink btn-block mt-4" @click.prevent="sellTicket">
                                 {{lang.sell.submit}}
                             </button>
@@ -122,7 +128,8 @@
                 </div>
             </div>
             <div class="col-sm-12 col-md-6">
-                <ticket :ticket="selectedTicket" :lang="lang.component" class-name="mb-0 mt-sm-4 mt-md-0 max-sized"></ticket>
+                <ticket :ticket="selectedTicket" :lang="lang.component"
+                        class-name="mb-0 mt-sm-4 mt-md-0 max-sized"></ticket>
                 <p class="text-center">{{lang.sell.preview}}</p>
             </div>
         </div>

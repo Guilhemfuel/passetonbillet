@@ -1,6 +1,4 @@
 
-window._ = require('lodash');
-
 /**
  * Detect if in local environment or not
  */
@@ -19,6 +17,13 @@ if(host != 'lastar.io') {
 
 window.Vue = require('vue');
 window.Vue.use(require('vue-resource'));
+
+/**
+ * Add lodash to vue
+ */
+import lodash from 'lodash';
+Object.defineProperty(Vue.prototype, '$lodash', { value: lodash });
+
 
 /**
  * Use Sentry to report errors

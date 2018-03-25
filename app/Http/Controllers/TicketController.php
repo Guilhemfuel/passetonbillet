@@ -105,7 +105,17 @@ class TicketController extends Controller
      */
     public function searchTickets( SearchTicketsRequest $request )
     {
-        $tickets = collect( Eurostar::retrieveTicket( $request->last_name, $request->booking_code ) );
+        // Lock to family name
+        if ($request->last_name != \Auth::user()->last_name){
+            throw new LastarException('Family name must be yours.');
+        }
+
+
+        $tickets = collect( Eurostar::retrieveTicket( \Auth::user()->last_name, $request->booking_code ) );
+        // All tickets expired
+        if (count($tickets)==0){
+            throw new LastarException('Family name must be yours.');
+        }
         session( [ 'tickets' => $tickets ] );
 
         return TicketRessource::collection( $tickets );
