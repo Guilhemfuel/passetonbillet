@@ -7,7 +7,7 @@
     "require": {
         "php": ">=7",
         "ext-gd": "*",
-        "bcmath": "*",
+        "ext-bcmath": "*",
         "anhskohbo/no-captcha": "^3.0",
         "barryvdh/laravel-debugbar": "^3.0",
         "doctrine/dbal": "^2.5",
