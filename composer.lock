@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8f037fa01578e87a0a15bd9de8c25987",
-    "content-hash": "593d70e2d8ae59d1069d4eb19082a523",
+    "hash": "666ee3d5d9ea878806fee667ae9478ec",
+    "content-hash": "2be18fc4adeaa5a778d96d2f44113023",
     "packages": [
         {
             "name": "anhskohbo/no-captcha",
@@ -68,16 +68,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.52.29",
+            "version": "3.52.32",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "51efd3a7cda92f245ccf39fea03227e0eb473c93"
+                "reference": "c10b8f60a5da9ad4d7fa9f890186632a4c025d1b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/51efd3a7cda92f245ccf39fea03227e0eb473c93",
-                "reference": "51efd3a7cda92f245ccf39fea03227e0eb473c93",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/c10b8f60a5da9ad4d7fa9f890186632a4c025d1b",
+                "reference": "c10b8f60a5da9ad4d7fa9f890186632a4c025d1b",
                 "shasum": ""
             },
             "require": {
@@ -144,7 +144,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2018-03-20 21:15:39"
+            "time": "2018-03-23 18:04:27"
         },
         {
             "name": "barryvdh/laravel-debugbar",
@@ -4574,16 +4574,16 @@
         },
         {
             "name": "laravel/dusk",
-            "version": "v3.0.4",
+            "version": "v3.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/dusk.git",
-                "reference": "df287183e521d761141352b59ec106a45a87f1b0"
+                "reference": "660e079526c0c0178ccb29c8e03a9674be9c0e98"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/dusk/zipball/df287183e521d761141352b59ec106a45a87f1b0",
-                "reference": "df287183e521d761141352b59ec106a45a87f1b0",
+                "url": "https://api.github.com/repos/laravel/dusk/zipball/660e079526c0c0178ccb29c8e03a9674be9c0e98",
+                "reference": "660e079526c0c0178ccb29c8e03a9674be9c0e98",
                 "shasum": ""
             },
             "require": {
@@ -4631,7 +4631,7 @@
                 "testing",
                 "webdriver"
             ],
-            "time": "2018-03-07 16:24:19"
+            "time": "2018-03-25 16:22:21"
         },
         {
             "name": "mockery/mockery",
@@ -6161,7 +6161,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.6.4",
+        "php": ">=7",
         "ext-gd": "*"
     },
     "platform-dev": []

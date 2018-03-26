@@ -5,7 +5,7 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": ">=5.6.4",
+        "php": ">=7",
         "ext-gd": "*",
         "anhskohbo/no-captcha": "^3.0",
         "barryvdh/laravel-debugbar": "^3.0",
