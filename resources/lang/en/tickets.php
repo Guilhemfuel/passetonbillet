@@ -30,6 +30,7 @@ return [
         'register'      => 'Safety is our number one concern. Therefore, you must create an account before sending offers.',
         'register_cta'  => 'Create an account and send your offer!',
         'user_verified' => 'We verified the identity of this user.',
+        'discuss'       => 'Discuss',
 
         'status' => [
             'awaiting' => 'Awaiting',

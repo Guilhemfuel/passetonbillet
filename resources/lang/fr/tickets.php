@@ -30,6 +30,7 @@ return [
         'register'      => 'La sécurité est notre premier soucis. Ainsi, vous devez etre inscrit pour commnuniquer avec les autres membres.',
         'register_cta'  => 'Inscrivez-vous pour envoyer votre offre!',
         'user_verified' => 'Nous avons vérifié l\'identité de cet utilisateur.',
+        'discuss'       => 'Discuster',
 
         'status' => [
             'awaiting' => 'En Attente',
