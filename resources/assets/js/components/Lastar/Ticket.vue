@@ -6,6 +6,7 @@
 
             <div :class="[className,{'card':true, 'card-ticket':true, 'front':true}]">
                 <div class="card-travel-info">
+                    <!-- Ribbon status of offer-->
                     <div :class="{'corner-ribbon':true,
                             'corner-ribbon-success':ticket.offerStatus==1,
                             'corner-ribbon-danger':ticket.offerStatus==-1}"
@@ -23,6 +24,7 @@
                             <p>{{lang.status.refused}}</p>
                         </template>
                     </div>
+                    <!-- Rest of front of ticket -->
                     <div class="day">
                         <span>{{date.format('D')}}</span>
                     </div>
@@ -46,7 +48,21 @@
                     </div>
                 </div>
                 <div class="card-seller-info">
-                    <template v-if="!pastTicket && !display">
+                    <template v-if="!pastTicket && !display
+                        && $lodash.has(ticket, 'discussionId')
+                        && $lodash.has(ticket, 'offerStatus')
+                        && ticket.offerStatus == 1" >
+                        <a :href="discussPageUrl(ticket.id, ticket.discussionId)" class="btn btn-pink btn-buy btn-sm">{{lang.discuss}}</a>
+                    </template>
+                    <template v-else-if="!pastTicket && !display
+                        && $lodash.has(ticket, 'discussionId')
+                        && $lodash.has(ticket, 'offerStatus')
+                        && ticket.offerStatus == -1" >
+                        <button class="btn btn-pink btn-buy btn-sm" @click="editing=true">
+                            {{lang.new_offer}}
+                        </button>
+                    </template>
+                    <template v-else-if="!pastTicket && !display">
                         <button class="btn btn-pink btn-buy btn-sm" v-if="!selecting && buying" @click="editing=true">
                             {{lang.buy}}
                         </button>
@@ -59,12 +75,6 @@
                     </template>
                     <template v-if="!pastTicket && (user && ticket.user.id == user.id) && !display">
                         <button class="btn btn-pink btn-buy btn-sm" @click="editing=true">{{lang.edit}}</button>
-                    </template>
-                    <template v-if="!pastTicket && !display
-                        && $lodash.has(ticket, 'discussionId')
-                        && $lodash.has(ticket, 'offerStatus')
-                        && ticket.offerStatus == 1" >
-                        <a :href="discussPageUrl(ticket.id, ticket.discussionId)" class="btn btn-pink btn-buy btn-sm">{{lang.discuss}}</a>
                     </template>
 
                     <div class="price" v-if="!selecting">
@@ -103,8 +113,12 @@
                 =============== User modifying his ticket ===============
 
                 -->
-                <template v-if="!buying">
+                <!-- A ticket for an offer that was denied is in same state as buying-->
+                <template v-if="!(buying || ($lodash.has(ticket, 'discussionId')
+                        && $lodash.has(ticket, 'offerStatus')
+                        && ticket.offerStatus == -1 &&!pastTicket))">
                     <template v-if="bought">
+                        <!-- once tiket was bought-->
                         <div class="card-travel-info">
                             <a href="#" class="float-left" @click.prevent="editing=false"><i
                                     class="fa fa-chevron-circle-left"
@@ -117,6 +131,7 @@
                         </div>
                     </template>
                     <template v-else>
+                        <!-- Modify your own ticket -->
                         <div class="card-travel-info">
                             <a href="#" class="float-left" @click.prevent="editing=false"><i
                                     class="fa fa-chevron-circle-left"
@@ -340,6 +355,11 @@
                         // Success in offer
                         if (response.ok) {
                             this.state = 'offered';
+                            this.ticket.offerStatus = 0;
+                            if (this.$lodash.has(this.ticket, 'discussionId')){
+                                this.editing = false;
+                            }
+
                             return;
                         } else {
                             this.state = 'default';

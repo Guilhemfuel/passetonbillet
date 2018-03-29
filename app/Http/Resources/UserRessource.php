@@ -24,7 +24,13 @@ class UserRessource extends Resource
         if ( $includeOffers ) {
             $this->offersDone = $this->offers
                 ->whereIn('status',[Discussion::AWAITING,Discussion::DENIED,Discussion::ACCEPTED])
-                ->pluck( 'ticket_id' );
+                ->map(function ($item) {
+                    return [
+                        'id'=>$item['id'],
+                        'ticket_id' => $item['ticket_id'],
+                        'status' => $item['status'],
+                        'price' => $item['price']];
+                });
         }
     }
 

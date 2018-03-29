@@ -31,6 +31,8 @@ return [
         'register_cta'  => 'Create an account and send your offer!',
         'user_verified' => 'We verified the identity of this user.',
         'discuss'       => 'Discuss',
+        'new_offer'     => 'New Offer',
+
 
         'status' => [
             'awaiting' => 'Awaiting',
@@ -108,15 +110,15 @@ return [
         'no_selling_tickets_cta' => 'Click here to sell a ticket.',
         'no_offered_tickets'     => 'You have not sent any offer yet!',
         'no_offered_tickets_cta' => 'Click here to buy a ticket.',
-        'bought'            => 'Bought',
-        'sold'              => 'Sold',
-        'selling'           => 'Selling',
-        'offers_sent'       => 'Offers Sent',
+        'bought'                 => 'Bought',
+        'sold'                   => 'Sold',
+        'selling'                => 'Selling',
+        'offers_sent'            => 'Offers Sent',
     ],
     'delete'    => [
         'success' => 'Your ticket was successfully deleted.'
     ],
-    'errors' => [
+    'errors'    => [
         'passed' => 'This ticket is already passed.'
     ]
 

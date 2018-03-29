@@ -78,19 +78,51 @@
     width: 100%;
     height: 100%;
 
-    &.sold {
+    &.buyer {
+
       .messages {
-        @include media-breakpoint-up(xs) {  top: 207px !important; }
-        @include media-breakpoint-up(sm) {  top: 250px !important; }
-        @include media-breakpoint-up(md) {  top: 148px !important; }
+        @include media-breakpoint-up(xs) {  top: 105px !important; }
+        @include media-breakpoint-up(sm) {  top: 129px !important; }
+      }
+
+      &.sold {
+        .messages {
+          @include media-breakpoint-up(xs) {  top: 105px !important; }
+          @include media-breakpoint-up(sm) {  top: 129px !important; }
+        }
+      }
+
+      &.sold-here {
+        .messages {
+          @include media-breakpoint-up(xs) {  top: 207px !important; }
+          @include media-breakpoint-up(sm) {  top: 231px !important; }
+          @include media-breakpoint-up(md) {  top: 129px !important; }
+        }
       }
     }
 
-    &.sold-here {
+    &.seller {
+
       .messages {
-        @include media-breakpoint-up(xs) {  top: 207px !important; }
-        @include media-breakpoint-up(sm) {  top: 231px !important; }
-        @include media-breakpoint-up(md) {  top: 129px !important; }
+        @include media-breakpoint-up(xs) {  top: 143px; }
+        @include media-breakpoint-up(sm) {  top: 186px; }
+        @include media-breakpoint-up(md) { top: 148px; }
+      }
+
+      &.sold {
+        .messages {
+          @include media-breakpoint-up(xs) {  top: 207px !important; }
+          @include media-breakpoint-up(sm) {  top: 250px !important; }
+          @include media-breakpoint-up(md) {  top: 148px !important; }
+        }
+      }
+
+      &.sold-here {
+        .messages {
+          @include media-breakpoint-up(xs) {  top: 231px !important; }
+          @include media-breakpoint-up(sm) {  top: 250px !important; }
+          @include media-breakpoint-up(md) {  top: 148px !important; }
+        }
       }
     }
 
@@ -105,10 +137,6 @@
       padding: 15px;
       transition: box-shadow 0.3s ease-in-out;
       display: block;
-
-      @include media-breakpoint-up(xs) {  top: 143px; }
-      @include media-breakpoint-up(sm) {  top: 186px; }
-      @include media-breakpoint-up(md) { top: 148px; }
 
       &.shadow{
         box-shadow: inset 0px 80px 125px -100px rgba(0,0,0,0.3);

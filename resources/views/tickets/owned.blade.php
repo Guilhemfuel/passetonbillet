@@ -4,7 +4,7 @@
     <div class="container-fluid">
         <div class="row" id="owned-tickets">
             <my-tickets :lang="lang" :user="user" :tickets="tickets" :bought-tickets="boughtTickets"
-                        :offer-sent="offerSent" :csrf="csrf"
+                        :offer-sent="offerSent" :csrf="csrf" :api="api"
                         :routes="routes"></my-tickets>
         </div>
     </div>
@@ -25,7 +25,13 @@
                 'discussion_id' => 'discussion_id'
             ] )
         ]
-    ]
+    ];
+    $api = [
+        'tickets' => [
+            'buy' => route('api.tickets.buy'),
+            'offer' => route('api.tickets.offer')
+        ]
+    ];
     ?>
 
     <script type="text/javascript">
@@ -38,6 +44,7 @@
                 boughtTickets:  {!! json_encode($boughtTickets) !!},
                 csrf: '{!! csrf_token() !!}',
                 routes: {!! json_encode($routes) !!},
+                api: {!! json_encode($api) !!},
                 offerSent: {!! json_encode($offerSent) !!}
             }
         });

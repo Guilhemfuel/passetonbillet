@@ -31,6 +31,7 @@ return [
         'register_cta'  => 'Inscrivez-vous pour envoyer votre offre!',
         'user_verified' => 'Nous avons vérifié l\'identité de cet utilisateur.',
         'discuss'       => 'Discuster',
+        'new_offer'     => 'Nouvelle Offre',
 
         'status' => [
             'awaiting' => 'En Attente',

@@ -114,7 +114,7 @@ class TicketController extends Controller
         $tickets = collect( Eurostar::retrieveTicket( \Auth::user()->last_name, $request->booking_code ) );
         // All tickets expired
         if (count($tickets)==0){
-            throw new LastarException('Family name must be yours.');
+            throw new LastarException('No tickets were found.');
         }
         session( [ 'tickets' => $tickets ] );
 
@@ -169,10 +169,21 @@ class TicketController extends Controller
         }
 
         // User verification (no existing offer)
-        $discussion = Discussion::where( 'ticket_id', $ticket->id )
-                                ->where( 'buyer_id', \Auth::user()->id )->first();
-        if ( $discussion ) {
+        $oldDiscussionCount = Discussion::where( 'ticket_id', $ticket->id )
+                                ->where( 'buyer_id', \Auth::user()->id )
+                                ->whereIn('status',[
+                                    Discussion::SOLD, Discussion::ACCEPTED, Discussion::AWAITING
+                                ])->count();
+        if ( $oldDiscussionCount > 0 ) {
             throw new LastarException( __( 'offer.errors.offer_already_done' ) );
+        }
+
+        // Now if there was an offer denied before, we soft delete it
+        $oldDiscussion = Discussion::where( 'ticket_id', $ticket->id )
+                                   ->where( 'buyer_id', \Auth::user()->id )
+                                   ->where('status',Discussion::DENIED)->first();
+        if($oldDiscussion) {
+            $oldDiscussion->delete();
         }
 
         $discussion = new Discussion( [

@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Discussion extends Model
 {
+    use SoftDeletes;
+
     CONST DENIED = - 1;
     CONST AWAITING = 0;
     CONST ACCEPTED = 1;
@@ -32,7 +35,6 @@ class Discussion extends Model
         'status'    => 'integer',
         'price'     => 'integer',
         'currency'  => 'string',
-
     ];
 
     /**

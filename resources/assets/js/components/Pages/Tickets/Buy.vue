@@ -43,15 +43,15 @@
         <transition enter-class="pre-animated"
                     enter-active-class="animated fadeIn"
                     leave-active-class="animated fadeOut">
-            <p v-if="state=='result'" class="text-center mt-4 mb-0"><span class="text-pink">{{tickets.length}}</span> billet(s) corresponde(nt) à votre recherche.</p>
+            <p v-if="state=='result'" class="text-center mt-4 mb-0"><span class="text-pink">{{ticketsWithOffers.length}}</span> billet(s) corresponde(nt) à votre recherche.</p>
         </transition>
 
         <transition enter-class="pre-animated"
                     enter-active-class="animated fadeInUpBig"
                     leave-active-class="animated fadeOut">
-            <div class="row mt-4" v-if="tickets.length > 0">
-                <div class="col-12 col-sm-12 col-md-6 col-lg-4" v-for="ticket in tickets">
-                    <ticket :ticket="ticket" :api="api" :lang="lang.component" :user="user" :buying="true" class-name="mt-4"></ticket>
+            <div class="row mt-4" v-if="ticketsWithOffers.length > 0">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4" v-for="ticket in ticketsWithOffers">
+                    <ticket :ticket="ticket" :api="api" :routes="routes" :lang="lang.component" :user="user" :buying="true" class-name="mt-4"></ticket>
                 </div>
             </div>
         </transition>
@@ -106,6 +106,20 @@
                     }
                 }
                 return null;
+            },
+            ticketsWithOffers(){
+                // Add offer inforation to each ticket
+                var tickets = this.tickets;
+                if (this.user.offers_sent === {}) return;
+                for (var i=0;i<tickets.length;i++){
+                    for (var key in this.user.offers_sent) {
+                        if (this.user.offers_sent[key].ticket_id == tickets[i].id){
+                            tickets[i].discussionId = this.user.offers_sent[key].id;
+                            tickets[i].offerStatus = this.user.offers_sent[key].status;
+                        }
+                    }
+                }
+                return tickets;
             }
         },
         methods: {

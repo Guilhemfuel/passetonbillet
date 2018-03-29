@@ -1,6 +1,7 @@
 <template>
 
-    <div :class="{'col-12':true, 'discussion':true, 'p-0':true, 'sold':sold, 'sold-here':sold_here}">
+    <div :class="{'col-12':true, 'discussion':true, 'p-0':true, 'sold':sold, 'sold-here':sold_here,
+        'seller':(user.id == discussion.ticket.user.id),'buyer':(user.id != discussion.ticket.user.id)}">
         <modal :is-open="modalSellOpen"  :title="'Vendre ce billet à '+correspondant.full_name" @close-modal="modalSellOpen=false" v-if="!sold">
             <p>
                 You are about to mark this ticket as sold to {{correspondant.full_name}}. Make sure to click there, only once you received the payment. {{correspondant.full_name}} will then automatically receive your ticket.
@@ -29,8 +30,8 @@
                     </p>
                     </a>
                 </div>
-                <div class="col-md-4 d-sm-none d-none d-md-flex" v-if="!sold">
-                    <div class="pt-5">
+                <div class="col-md-4 d-sm-none d-none d-md-flex" v-if="!sold && user.id == discussion.ticket.user.id">
+                    <div class="pt-5 mx-auto">
                         <button class="btn btn-lastar-blue mx-auto" @click="modalSellOpen=true">Vendre ce billet à {{correspondant.full_name}}</button>
                     </div>
                 </div>
@@ -38,7 +39,7 @@
                 <template v-if="sold">
                     <div class="col-md-4 d-sm-none d-none d-md-block" v-if="sold_here">
                         <h3 class="text-center">Deal! </h3>
-                        <p class="text-center" v-if="user == discussion.ticket.user.id">
+                        <p class="text-center" v-if="user.id == discussion.ticket.user.id">
                             You already sold this ticket to {{correspondant.full_name}}!<br> Congratulations!
                         </p>
                         <p class="text-center" v-else>
@@ -46,7 +47,7 @@
                         </p>
                     </div>
                     <div class="col-md-4 d-sm-none d-none d-md-block pt-5" v-else>
-                        <p class="text-center" v-if="user == discussion.ticket.user.id">
+                        <p class="text-center" v-if="user.id == discussion.ticket.user.id">
                             Ticket already sold to someone else!
                         </p>
                         <p class="text-center" v-else>
@@ -68,7 +69,7 @@
                         <span class="text-right">{{discussion.ticket.train.arrival_time.substring(0,5)}}</span>
                     </p>
                 </div>
-                <div class="col-sm-12 d-md-none p-0" v-if="!sold">
+                <div class="col-sm-12 d-md-none p-0" v-if="!sold && user.id == discussion.ticket.user.id">
                     <button @click="modalSellOpen=true" class="btn btn-lastar-blue btn-block btn-header">Vendre ce billet à {{correspondant.full_name}}</button>
                 </div>
                 <div class="col-sm-12 d-md-none p-0" v-if="sold_here">
@@ -177,7 +178,7 @@
 
             setInterval(function () {
                 this.checkMessages();
-            }.bind(this), 30000);
+            }.bind(this), 10000);
         },
         methods: {
             sendMessage() {
@@ -187,6 +188,7 @@
                 this.$http.post(this.sendUrl, {"message": this.inputMessage})
                     .then(response => {
                         if (response.ok) {
+
                             this.discussion.messages.push(response.body.data);
                             this.inputMessage = '';
                             this.state = 'default';

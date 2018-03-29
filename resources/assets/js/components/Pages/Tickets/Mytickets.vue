@@ -13,16 +13,16 @@
             <div class="col-12 col-sm-6 col-md-6 col-lg-4" v-for="ticket in currentTickets">
                 <template v-if="state==stateValues.bought">
                     <ticket :ticket="ticket" :lang="lang.component" :user="user" :bought="true" :routes="routes"
-                            :csrf="csrf"></ticket>
+                            :api="api" :csrf="csrf"></ticket>
                 </template>
                 <template v-else-if="state==stateValues.sold">
-                    <ticket :ticket="ticket" :lang="lang.component" :user="user" :routes="routes" :csrf="csrf"></ticket>
+                    <ticket :ticket="ticket" :lang="lang.component" :user="user" :routes="routes" :api="api" :csrf="csrf"></ticket>
                 </template>
                 <template v-else-if="state==stateValues.selling">
-                    <ticket :ticket="ticket" :lang="lang.component" :user="user" :routes="routes" :csrf="csrf"></ticket>
+                    <ticket :ticket="ticket" :lang="lang.component" :user="user" :routes="routes" :api="api" :csrf="csrf"></ticket>
                 </template>
                 <template v-else-if="state==stateValues.offered">
-                    <ticket :ticket="ticket" :lang="lang.component" :user="user" :routes="routes" :csrf="csrf"></ticket>
+                    <ticket :ticket="ticket" :lang="lang.component" :user="user" :routes="routes" :api="api" :csrf="csrf"></ticket>
                 </template>
             </div>
             <div class="col-12">
@@ -54,6 +54,7 @@
             boughtTickets: {type: Array, required: true},
             offerSent: {type: Array, required: true},
             routes: {type: Object, required: true},
+            api: {type: Object, required: true},
             lang: {type: Object, required: true},
             user: {type: Object, required: true},
             csrf: {type: String, required: true},
