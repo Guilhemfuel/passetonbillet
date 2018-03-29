@@ -40,7 +40,7 @@ class Kernel extends HttpKernel
 
             \App\Http\Middleware\Language::class,
 
-            HttpsProtocol::class,
+//            HttpsProtocol::class,
         ],
 
         'api' => [
