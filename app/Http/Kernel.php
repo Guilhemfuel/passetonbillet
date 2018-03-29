@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\HttpsProtocol;
 use App\Http\Middleware\Verified\Phone;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -38,6 +39,8 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
 
             \App\Http\Middleware\Language::class,
+
+            HttpsProtocol::class,
         ],
 
         'api' => [

@@ -119,7 +119,7 @@
 
       &.sold-here {
         .messages {
-          @include media-breakpoint-up(xs) {  top: 231px !important; }
+          @include media-breakpoint-up(xs) {  top: 207px !important; }
           @include media-breakpoint-up(sm) {  top: 250px !important; }
           @include media-breakpoint-up(md) {  top: 148px !important; }
         }
