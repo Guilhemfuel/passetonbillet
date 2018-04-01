@@ -171,5 +171,18 @@ class Ticket extends Model
         return $this->belongsTo( 'App\User' ,'sold_to_id');
     }
 
+    /**
+     *
+     * Boot
+     *
+     */
+
+    protected static function boot() {
+        parent::boot();
+
+        static::deleting(function($ticket) {
+            $ticket->discussions()->delete();
+        });
+    }
 
 }

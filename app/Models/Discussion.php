@@ -94,4 +94,18 @@ class Discussion extends Model
         return $this->hasMany('App\Models\Message', 'discussion_id');
     }
 
+    /**
+     *
+     * Boot
+     *
+     */
+
+    protected static function boot() {
+        parent::boot();
+
+        static::deleting(function($ticket) {
+            $ticket->messages()->delete();
+        });
+    }
+
 }
