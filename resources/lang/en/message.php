@@ -11,7 +11,7 @@ return [
     'awaiting_offers' => [
         'title' => 'Awaiting offers',
         'confirm_denial_message' => 'This offer was successfully denied.',
-        'confirm_accept' => 'You confimed your interest! Start discussing details now.'
+        'confirm_accept' => 'Offer accepted! Start discussing details now.'
     ],
 
     'discussions' => [
