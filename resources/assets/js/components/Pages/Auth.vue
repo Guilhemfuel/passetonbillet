@@ -60,7 +60,7 @@
                 </a>
                 <div class="actions btn-rack mt-4">
                     <a class="btn btn-facebook text-white" :href="routes.facebook">
-                        <i class="fa fa-facebook"></i> Facebook Connect
+                        <i class="fa fa-facebook pull-left"></i> Facebook Connect
                     </a>
                     <button class="btn btn-outline-purple" @click.prevent="openRegister()">
                         {{lang.register.title}}
@@ -197,7 +197,7 @@
 
                     <div class="btn-rack mt-4">
                         <a class="btn btn-facebook" :href="routes.facebook">
-                            <i class="fa fa-facebook"></i> Facebook Connect
+                            <i class="fa fa-facebook pull-left"></i> Facebook Connect
                         </a>
                         <button class="btn btn-outline-purple" @click.prevent="openLogin()">
                             {{lang.auth.title}}
@@ -213,7 +213,7 @@
                     </p>
 
                     <a class="btn btn-facebook btn-block" :href="routes.facebook">
-                        <i class="fa fa-facebook"></i> {{lang.register.fb_register}}
+                        <i class="fa fa-facebook pull-left"></i> {{lang.register.fb_register}}
                     </a>
                     <button class="btn btn-outline-purple btn-block" @click.prevent="registerType = registerStates.form">
                         {{lang.register.manually}}

@@ -24,11 +24,11 @@
                                 </a>
                             </li>
                             @if (App::isLocale('fr'))
-                                <a href="{{route('lang','en')}}">
+                                <a class="nav-link" href="{{route('lang','en')}}">
                                     <span class="flag-icon flag-icon-gb"></span>
                                 </a>
                             @else
-                                <a href="{{route('lang','fr')}}">
+                                <a class="nav-link" href="{{route('lang','fr')}}">
                                     <span class="flag-icon flag-icon-fr"></span>
                                 </a>
                             @endif

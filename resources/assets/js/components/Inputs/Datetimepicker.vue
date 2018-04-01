@@ -19,7 +19,8 @@
                         end: '22:00'
                       }"
                     @change="changeTime"
-                    :placeholder="lang.trip_time">
+                    :placeholder="lang.trip_time"
+            >
             </el-time-select>
         </div>
     </div>
