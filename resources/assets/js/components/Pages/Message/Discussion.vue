@@ -138,7 +138,7 @@
                 return this.api.send.replace('ticket_id', this.discussion.ticket.id).replace('discussion_id', this.discussion.id);
             },
             profileUrl: function () {
-                return this.routes.profile.replace('user_id', this.correspondant.id);
+                return this.routes.profile.replace('user_id', this.correspondant.hashid);
             },
             refreshUrl: function () {
                 var formatted_date = new moment(this.lastMessageReceived.created_at.date);

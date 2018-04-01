@@ -39,6 +39,10 @@
     tr {
       cursor: pointer;
     }
+
+    .ticket-part {
+      border-right: 1px solid $color-border;
+    }
   }
 
 }

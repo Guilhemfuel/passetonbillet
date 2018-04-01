@@ -37,7 +37,7 @@ return [
         'modals' => [
             'sell' => [
                 'first_part' => 'You are about to mark this ticket as sold to',
-                'secund_part' => 'Make sure to click there, only once you received the payment',
+                'secund_part' => 'Make sure to click there only once you received the payment',
                 'third_part' => 'will then automatically receive your ticket'
             ]
         ]

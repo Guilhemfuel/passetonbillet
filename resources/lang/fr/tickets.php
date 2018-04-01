@@ -21,7 +21,7 @@ return [
         'if_interested' => 'Le vendeur vous contactera s\'il est interessé.',
         'infos'         => 'Infos',
         'booking_code'  => 'Numéro de réservation',
-        'booking_name'  => 'Now de réservation',
+        'booking_name'  => 'Nom de réservation',
         'delete'        => 'Vous ne voulez plus vendre ce billet?',
         'share'         => 'Lien de partage du billet',
         'copied'        => 'Lien copié dans le presse-papier.',

@@ -39,6 +39,7 @@
                 </div>
                 <div>
                     <ticket :ticket="ticket" :lang="langTickets.component" class-name="mb-0 mt-4 max-sized no-border"></ticket>
+                    <p class="text-center mt-3 text-white">{{__('common.ticket.buy_now')}}</p>
                 </div>
             </div>
         </div>
@@ -46,11 +47,11 @@
             <div class="lang">
                 @if (App::isLocale('fr'))
                     <a href="{{route('lang','en')}}">
-                        <span class="flag-icon flag-icon-fr"></span>
+                        <span class="flag-icon flag-icon-gb"></span>
                     </a>
                 @else
                     <a href="{{route('lang','fr')}}">
-                        <span class="flag-icon flag-icon-gb"></span>
+                        <span class="flag-icon flag-icon-fr"></span>
                     </a>
                 @endif
             </div>
@@ -63,6 +64,7 @@
                           :old="old"
                           :token="token"
                           :default-email="defaultEmail"
+                          :ticket-link="true"
                     ></auth>
                 </div>
             </div>

@@ -25,9 +25,18 @@
                             <tbody>
                             <tr v-for="offer in offersAwaiting">
                                 <th scope="col" class="text-center text-info" @click.prevent="openTicketModal(offer.ticket)">
-                                    {{offer.ticket.train.departure_city.short_name.substr(2, 5)}}-{{offer.ticket.train.arrival_city.short_name.substr(2, 5)}}
-                                    <!--<i class="fa fa-ticket"></i>-->
-                                    <br>{{formattedDate(offer.ticket.train.departure_date)}}
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-sm-2 d-none d-sm-block text-center text-info pt-2">
+                                                <i class="fa fa-search-plus" aria-hidden="true"></i>
+                                            </div>
+                                            <div class=" col-12 col-sm-10 text-center text-info">
+                                                {{offer.ticket.train.departure_city.short_name.substr(2, 5)}}-{{offer.ticket.train.arrival_city.short_name.substr(2, 5)}}
+                                                <!--<i class="fa fa-ticket"></i>-->
+                                                <br>{{formattedDate(offer.ticket.train.departure_date)}}
+                                            </div>
+                                        </div>
+                                    </div>
                                 </th>
                                 <th scope="col">{{offer.buyer.full_name}}</th>
                                 <th scope="col" class="text-center">{{offer.price}}{{offer.currency == 'GBP' ? '£' : '€'}}</th>
@@ -67,7 +76,7 @@
                             <thead>
                             <tr>
                                 <th scope="col" class="text-center">Ticket</th>
-                                <th scope="col">Name</th>
+                                <th scope="col" class="text-center">Name</th>
                                 <th scope="col">Last message</th>
                             </tr>
                             </thead>
@@ -78,16 +87,25 @@
                                         v-if="modalTicket" :display="true"></ticket>
                             </modal>
                             <tr v-for="offer in discussions">
-                                <th scope="col" class="text-center text-info"  @click.prevent="openTicketModal(offer.ticket)">
-                                    {{offer.ticket.train.departure_city.short_name.substr(2, 5)}}-{{offer.ticket.train.arrival_city.short_name.substr(2, 5)}}
-                                    <!--<i class="fa fa-ticket"></i>-->
-                                    <br>{{formattedDate(offer.ticket.train.departure_date)}}
+                                <th scope="col"  @click.prevent="openTicketModal(offer.ticket)">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-md-2 d-none d-sm-none d-md-block text-center text-info align-middle">
+                                                <p class="mt-2"><i class="fa fa-search-plus" aria-hidden="true"></i></p>
+                                            </div>
+                                            <div class="col-12 col-md-10 text-center text-info ticket-part">
+                                                {{offer.ticket.train.departure_city.short_name.substr(2, 5)}}-{{offer.ticket.train.arrival_city.short_name.substr(2, 5)}}
+                                                <!--<i class="fa fa-ticket"></i>-->
+                                                <br>{{formattedDate(offer.ticket.train.departure_date)}}
+                                            </div>
+                                        </div>
+                                    </div>
                                 </th>
-                                <th scope="col" @click="openDiscussion(offer.id)">
+                                <th class="align-middle text-center" scope="col" @click="openDiscussion(offer.id)">
                                     <a style="d-none" :href="discussionPageUrl(offer.ticket.id,offer.id)" :id="'discussion-link-'+offer.id"></a>
                                     {{offer.buyer.id == user.id ? offer.seller.full_name : offer.buyer.full_name}}
                                 </th>
-                                <th @click="openDiscussion(offer.id)">{{offer.last_message?offer.last_message.message:'-'}}</th>
+                                <th @click="openDiscussion(offer.id)" class="align-middle">{{offer.last_message?offer.last_message.message:'-'}}</th>
                             </tr>
                             </tbody>
                         </table>
@@ -101,7 +119,7 @@
 <script>
     export default {
         props: {
-            api: {type: Object, required: true},
+            api: {required: true},
             routes: {type: Object, required: true},
             lang: {type: Object, required: true},
             ticketLang: {type: Object, required: true},

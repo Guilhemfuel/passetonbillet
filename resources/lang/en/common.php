@@ -16,7 +16,9 @@ return [
             '7' => 'Off-peak',
             '8' => 'Professional',
             '9' => 'Anytime'
-        ]
+        ],
+        'buy_now' => 'Buy this ticket now!'
+
     ],
     'error' => 'Whoops! Something went wrong... Please try again! Contact us if the '
 

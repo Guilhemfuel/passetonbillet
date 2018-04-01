@@ -43,11 +43,11 @@
             <div class="lang">
                 @if (App::isLocale('fr'))
                     <a href="{{route('lang','en')}}">
-                        <span class="flag-icon flag-icon-fr"></span>
+                        <span class="flag-icon flag-icon-gb"></span>
                     </a>
                 @else
                     <a href="{{route('lang','fr')}}">
-                        <span class="flag-icon flag-icon-gb"></span>
+                        <span class="flag-icon flag-icon-fr"></span>
                     </a>
                 @endif
             </div>

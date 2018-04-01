@@ -16,7 +16,8 @@ return [
             '7' => 'Hors pointe',
             '8' => 'Pro',
             '9' => 'À tout moment'
-        ]
+        ],
+        'buy_now' => 'Acheter ce billet maintenant!'
     ],
     'error' => 'Whoops! Une petite erreur est apparue... Merci de reesayer! Contactez-nous si le problème persiste.',
 

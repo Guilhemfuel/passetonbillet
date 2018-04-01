@@ -1,5 +1,8 @@
 <template>
     <div>
+
+        <!-- LOGIN-->
+
         <transition enter-class="pre-animated"
                     enter-active-class="animated fadeInUpBig"
                     leave-active-class="animated fadeOutDownBig">
@@ -66,6 +69,9 @@
             </div>
 
         </transition>
+
+        <!-- REGISTER -->
+
         <transition enter-class="pre-animated"
                     enter-active-class="animated fadeInDownBig"
                     leave-active-class="animated fadeOutUpBig">
@@ -78,6 +84,9 @@
                     <p>Whoops!</p>
                     <p v-for="error in customErrors">{{error}}</p>
                 </div>
+
+                <!-- MANUAL REGISTER -->
+
                 <div id="registerForm" v-if="registerType == registerStates.form">
                     <form role="form"
                           method="POST"
@@ -195,9 +204,16 @@
                         </button>
                     </div>
                 </div>
+
+                <!-- REGISTER MENU -->
+
                 <div id="defaultRegister"  v-if="registerType == registerStates.default">
+                    <p class="mb-b" v-if="ticketLink">
+                        {{lang.register.ticketLinkMessage}}
+                    </p>
+
                     <a class="btn btn-facebook btn-block" :href="routes.facebook">
-                        <i class="fa fa-facebook"></i> Register with Facebook
+                        <i class="fa fa-facebook"></i> {{lang.register.fb_register}}
                     </a>
                     <button class="btn btn-outline-purple btn-block" @click.prevent="registerType = registerStates.form">
                         {{lang.register.manually}}
@@ -207,6 +223,9 @@
 
             </div>
         </transition>
+
+        <!-- ASK FOR RESET PASSWORD -->
+
         <transition enter-class="pre-animated"
                     enter-active-class="animated fadeInUpBig"
                     leave-active-class="animated fadeOutDownBig">
@@ -253,6 +272,9 @@
             </div>
 
         </transition>
+
+        <!-- RESET PASSWORD -->
+
         <transition enter-class="pre-animated"
                     enter-active-class="animated fadeInUpBig"
                     leave-active-class="animated fadeOutDownBig">
@@ -337,6 +359,7 @@
             csrf: {type: String, required: true},
             lang: {type: Object, required: true},
             routes: {type: Object, required: true},
+            ticketLink: {type: Boolean, required: false},
             old: {
                 type: Object, required: false, default: () => {
                 }

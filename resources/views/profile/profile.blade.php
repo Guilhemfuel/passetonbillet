@@ -135,7 +135,7 @@
                     </div>
                 </modal>
 
-                @if(\Auth::user()->id != $user->id && isset($tickets))
+                @if(\Auth::user()->id != $user->id && isset($tickets) && $tickets->count() > 0)
                     <h3 class="mt-4 mb-0 text-center">@lang('common.ticket.name')s</h3>
                     <div class="tickets row">
                         <div class="col-12 col-sm-12 col-md-6 col-lg-4" v-for="ticket in tickets">

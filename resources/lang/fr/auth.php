@@ -40,6 +40,10 @@ return [
                                      <br>Pensez à vérifier dans vos spams!',
         'token_no_user'          => 'Whoops! Nous n\'avons trouvé aucun utilisateur correspondant à ce lien... Si le problème persiste, contactez-nous.',
         'account_confirmed'      => 'Félicitations! Votre compte est maintenant activé. Vous pouvez à présent vous connecter en cliquant <a href="' . route( 'login.page' ) . '">ici</a> !',
+        'fb_register' => 'Inscription avec Facebook',
+
+
+        'ticketLinkMessage' => 'Inscrivez vous sur Lastar pour acheter et vendre des billets Eurostar de manière sécurisée, rapide, et économe.'
 
     ],
     'auth'     => [

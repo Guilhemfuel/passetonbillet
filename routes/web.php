@@ -15,6 +15,11 @@
 // Home Page
 Route::get( '/', 'PageController@home' )->name( 'home' );
 
+Route::get( '/home', function(){
+    return redirect()->route('home');
+})->name( 'home-redirect' );
+
+
 // Lang
 Route::get( 'lang/{lang}', 'LanguageController@switchLang' )->name( 'lang' );
 
