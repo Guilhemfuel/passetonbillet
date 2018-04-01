@@ -8,6 +8,8 @@ return [
     |--------------------------------------------------------------------------
     */
 
+    'empty' => 'You don\'t have any message yet!',
+
     'awaiting_offers' => [
         'title' => 'Awaiting offers',
         'confirm_denial_message' => 'This offer was successfully denied.',
