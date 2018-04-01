@@ -1,6 +1,6 @@
 
 <template>
-    <div>
+    <div class="input-date">
         <el-date-picker
                 v-if="isRequired"
                 v-model="inputValue"
@@ -10,6 +10,7 @@
                 type="date"
                 format="dd/MM/yyyy"
                 value-format="yyyy-MM-dd"
+                :clearable="false"
             >
         </el-date-picker>
         <el-date-picker
@@ -21,6 +22,7 @@
                 format="dd/MM/yyyy"
                 value-format="yyyy-MM-dd"
                 :popper-class="popperClass"
+                :clearable="false"
         >
         </el-date-picker>
         <input type="hidden" :name="nameInput" :value="dateValue"/>

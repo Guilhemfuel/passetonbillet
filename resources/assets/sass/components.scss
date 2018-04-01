@@ -537,6 +537,12 @@ $animation-duration: 0.3s;
   .date {
     .el-input__inner {
       border-radius: 4px 4px 0px 0px;
+      padding-left: 15px !important;
+      padding-right: 15px !important;
+    }
+
+    .el-input__prefix {
+      display: none;
     }
   }
   .time {

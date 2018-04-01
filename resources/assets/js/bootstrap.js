@@ -54,6 +54,8 @@ if (lang === 'fr') {
     window.Vue.use(VeeValidate);
 }
 
+window.locale = lang;
+
 /**
  * We use the front-end framework elem-io, and therefore need to set the language.
  */
