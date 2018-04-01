@@ -6,8 +6,8 @@
     "type": "project",
     "require": {
         "php": ">=7",
-        "ext-gd": "*",
         "ext-bcmath": "*",
+        "ext-gd": "*",
         "anhskohbo/no-captcha": "^3.0",
         "barryvdh/laravel-debugbar": "^3.0",
         "doctrine/dbal": "^2.5",
@@ -23,7 +23,8 @@
         "nexmo/laravel": "^1.0",
         "nicolaslopezj/searchable": "1.*",
         "sentry/sentry-laravel": "^0.8.0",
-        "vinkla/hashids": "^5.0"
+        "vinkla/hashids": "^5.0",
+        "vinkla/pusher": "^4.1"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.2",

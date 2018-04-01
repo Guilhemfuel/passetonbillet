@@ -1,6 +1,10 @@
 <template>
     <div class="col-12">
 
+        <div class="text-center" v-if="discussions.length == 0 && offersAwaiting.length == 0">
+            {{lang.empty}}
+        </div>
+
         <div class="card" v-if="offersAwaiting.length > 0">
             <div class="card-header reverse">
                 <h4 class="card-title mb-0">{{lang.awaiting_offers.title}}</h4>
@@ -102,7 +106,7 @@
                                     </div>
                                 </th>
                                 <th class="align-middle text-center" scope="col" @click="openDiscussion(offer.id)">
-                                    <a style="d-none" :href="discussionPageUrl(offer.ticket.id,offer.id)" :id="'discussion-link-'+offer.id"></a>
+                                    <a class="d-none" :href="discussionPageUrl(offer.ticket.id,offer.id)" :id="'discussion-link-'+offer.id"></a>
                                     {{offer.buyer.id == user.id ? offer.seller.full_name : offer.buyer.full_name}}
                                 </th>
                                 <th @click="openDiscussion(offer.id)" class="align-middle">{{offer.last_message?offer.last_message.message:'-'}}</th>
