@@ -3,15 +3,14 @@
 @section('dashboard-content')
     <div class="container-fluid">
         <div class="row" id="owned-tickets">
-            <my-tickets :lang="lang" :user="user" :tickets="tickets" :bought-tickets="boughtTickets"
-                        :offer-sent="offerSent" :csrf="csrf" :api="api"
-                        :routes="routes"></my-tickets>
+            <my-tickets :lang="child.owned_tickets.lang" :user="user" :tickets="child.owned_tickets.tickets" :bought-tickets="child.owned_tickets.boughtTickets"
+                        :offer-sent="child.owned_tickets.offerSent" :api="child.owned_tickets.api"
+                        :routes="child.owned_tickets.routes"></my-tickets>
         </div>
     </div>
 @endsection
 
-@push('scripts')
-    <?php
+<?php
     $lang = Lang::get( 'tickets' );
     $routes = [
         'tickets' => [
@@ -32,21 +31,18 @@
             'offer' => route('api.tickets.offer')
         ]
     ];
-    ?>
+?>
+
+@push('vue-data')
 
     <script type="text/javascript">
-        var ownedTicket = new Vue({
-            el: '#owned-tickets',
-            data: {
-                lang: {!!json_encode($lang)!!},
-                user: {!! json_encode($user) !!},
-                tickets: {!! json_encode($tickets) !!},
-                boughtTickets:  {!! json_encode($boughtTickets) !!},
-                csrf: '{!! csrf_token() !!}',
-                routes: {!! json_encode($routes) !!},
-                api: {!! json_encode($api) !!},
-                offerSent: {!! json_encode($offerSent) !!}
-            }
-        });
+        data.owned_tickets = {
+            lang: {!!json_encode($lang)!!},
+            tickets: {!! json_encode($tickets) !!},
+            boughtTickets:  {!! json_encode($boughtTickets) !!},
+            routes: {!! json_encode($routes) !!},
+            api: {!! json_encode($api) !!},
+            offerSent: {!! json_encode($offerSent) !!}
+        }
     </script>
 @endpush
