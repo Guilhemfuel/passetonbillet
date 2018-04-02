@@ -19,7 +19,7 @@
                 <div class="col-md-4 col-6">
                     <a :href="profileUrl">
                     <img class="mx-auto rounded-circle" :src="correspondant.picture" alt="profile_picture"/>
-                    <p class="text-center mt-2 d-none d-sm-block">
+                    <p class="text-center mt-2 d-none d-sm-block full-name">
                         {{correspondant.full_name}}
 
                         <span class="fa-stack fa-lg label-verified d-none d-sm-inline-block"

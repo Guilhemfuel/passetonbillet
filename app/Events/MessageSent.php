@@ -29,20 +29,6 @@ class MessageSent implements ShouldBroadcast
     }
 
     /**
-     * Get the data to broadcast.
-     *
-     * @return array
-     */
-    public function broadcastWith()
-    {
-        return [
-            'sender_id'  => $this->message->sender_id,
-            'message'    => $this->message->message,
-            'created_at' => $this->message->created_at
-        ];
-    }
-
-    /**
      * Get the channels the event should broadcast on.
      *
      * @return \Illuminate\Broadcasting\Channel|array
