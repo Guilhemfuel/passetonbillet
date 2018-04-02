@@ -138,8 +138,8 @@
                 @if(\Auth::user()->id != $user->id && isset($tickets) && $tickets->count() > 0)
                     <h3 class="mt-4 mb-0 text-center">@lang('common.ticket.name')s</h3>
                     <div class="tickets row">
-                        <div class="col-12 col-sm-12 col-md-6 col-lg-4" v-for="ticket in tickets">
-                            <ticket :ticket="child.profile.ticket" :api="child.profile.ticketsAPI" :lang="child.profile.langTickets" :user="user" :buying="child.profile.true" class-name="mt-4"></ticket>
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-4" v-for="ticket in child.profile.tickets">
+                            <ticket :ticket="ticket" :api="child.profile.ticketsAPI" :lang="child.profile.langTickets" :user="user" :buying="child.profile.true" class-name="mt-4"></ticket>
                         </div>
                     </div>
                 @endif
