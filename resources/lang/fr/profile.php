@@ -16,6 +16,7 @@ return [
     'edit_profile' => 'Modifier les informations',
     'member_since' => 'Membre depuis le ',
     'number_tickets_successfully_sold' => 'Tickets vendus avec succès',
+    'by' => 'par',
 
     'stats_title' => 'Statistiques',
 

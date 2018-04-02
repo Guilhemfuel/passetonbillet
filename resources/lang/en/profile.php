@@ -16,6 +16,7 @@ return [
     'change_picture' => 'Change profile picture',
     'member_since' => 'Member since ',
     'number_tickets_successfully_sold' => 'Tickets successfully sold',
+    'by' => 'by',
 
     'stats_title' => 'Statistics',
 
