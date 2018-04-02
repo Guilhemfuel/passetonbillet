@@ -40,8 +40,8 @@ return [
         ],
         'change_picture' => [
             'title' => 'Edit your profile picture',
-            'text' => 'Upload a new profile picture.',
-            'cta' => 'Save the picture.',
+            'text' => 'Upload a new profile picture',
+            'cta' => 'Submit your document',
             'error' => 'An error occurred when we tried to upload your picture. Please try again.  Contact us if the problem persists.',
             'success' => 'Amazing! Your profile picture was updated.'
         ],

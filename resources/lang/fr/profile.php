@@ -41,7 +41,7 @@ return [
         'change_picture' => [
             'title' => 'Modifier votre photo de profil',
             'text' => 'Téléchargez une nouvelle photo de profil',
-            'cta' => 'Enregistrer la photo.',
+            'cta' => 'Envoyer la photo',
             'error' => 'Il y a une erreur lors de l\'upload de la photo. Essayez encore! Merci de nous contacter si le problème persiste.',
             'success' => 'Super! Votre photo de profil a été mise à jour.'
         ],
