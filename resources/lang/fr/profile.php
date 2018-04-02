@@ -15,6 +15,7 @@ return [
     'change_picture' => 'Changer la photo de profil',
     'edit_profile' => 'Modifier les informations',
     'member_since' => 'Membre depuis le ',
+    'number_tickets_successfully_sold' => 'Tickets vendus avec succès',
 
     'stats_title' => 'Statistiques',
 

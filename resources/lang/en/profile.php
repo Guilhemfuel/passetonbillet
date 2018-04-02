@@ -15,6 +15,7 @@ return [
     'edit_profile' => 'Edit your informations',
     'change_picture' => 'Change profile picture',
     'member_since' => 'Member since ',
+    'number_tickets_successfully_sold' => 'Tickets successfully sold',
 
     'stats_title' => 'Statistics',
 
