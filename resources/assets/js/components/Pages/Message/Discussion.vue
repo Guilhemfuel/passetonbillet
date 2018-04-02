@@ -168,6 +168,10 @@
             },
             sold_here: function () {
                 return this.sold && this.discussion.status == 2;
+            },
+            messages: function() {
+                // Simply to be able to put a watcher on this
+                return this.discussion.messages;
             }
         },
         methods: {
@@ -210,10 +214,14 @@
                     this.discussion.messages.push(data.message);
                 });
         },
-        updated(){
-            // Scroll to bottom on update
-            var div = document.getElementById('messages');
-            div.scrollTop = div.scrollHeight;
+        watch: {
+            // whenever question changes, this function will run
+            messages: function (newMessages, oldMessages) {
+                this.$lodash.delay(function(){
+                    var div = document.getElementById('messages');
+                    div.scrollTop = div.scrollHeight;
+                },50);
+            }
         },
     }
 </script>
