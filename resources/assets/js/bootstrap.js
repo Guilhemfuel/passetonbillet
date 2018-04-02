@@ -116,13 +116,14 @@ window.Echo = new Echo({
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-let token = document.head.querySelector('meta[name="csrf-token"]');
+let token = document.head.querySelector('meta[name="csrf-token"]').content;
+window.csrf = token;
 
 if (token) {
     window.Vue.http.interceptors.push(function (request, next) {
         // modify headers
         request.headers.set('X-Socket-ID', window.Echo.socketId());
-        request.headers.set('X-CSRF-TOKEN', token.content);
+        request.headers.set('X-CSRF-TOKEN', token);
         request.headers.set('Content-Type', 'application/json');
         request.headers.set('Accept', 'application/json');
 

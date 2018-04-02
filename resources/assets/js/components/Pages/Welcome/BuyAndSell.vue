@@ -69,7 +69,6 @@
             api: {type: Object, required: true},
             routes: {type: Object, required: true},
             lang: {type: Object, required: true},
-            csrf: {type: String, required:true},
             state: {type: String, Default: 'buy', required: true}
         },
         data() {
@@ -77,6 +76,7 @@
                 buyingState: 'default',
                 sellState: 'default',
                 sellingTickets: [],
+                csrf: window.csrf,
                 search: {
                     departure_station: null,
                     arrival_station: null,

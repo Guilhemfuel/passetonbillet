@@ -57,14 +57,13 @@
             </div>
             <div class="content">
                 <div>
-                    <auth :auth-type="authType"
-                          :csrf="csrf"
-                          :lang="lang"
-                          :routes="routes"
-                          :old="old"
-                          :token="token"
-                          :default-email="defaultEmail"
-                          :ticket-link="true"
+                    <auth :auth-type="child.auth.authType"
+                          :lang="child.auth.lang"
+                          :routes="child.auth.routes"
+                          :old="child.auth.old"
+                          :token="child.auth.token"
+                          :default-email="child.auth.defaultEmail"
+                          :ticket-link="child.auth.true"
                     ></auth>
                 </div>
             </div>
@@ -84,22 +83,18 @@
     $old = session()->getOldInput();
     ?>
 
-    @push('scripts')
-        <script type="text/javascript">
-            var authComponent = new Vue({
-                el: '#authComponent',
-                data: {
-                    authType: '{{$type}}',
-                    csrf: '{{csrf_token()}}',
-                    lang: {!!json_encode($lang)!!},
-                    routes: {!! json_encode($routes)!!},
-                    old: {!! $old?json_encode($old):'{}' !!},
-                    token: {!! isset($token)?"'".$token."'":'null' !!},
-                    defaultEmail: '{{isset($email)?$email:''}}',
-                    ticket: {!! json_encode($ticket)!!},
-                    langTickets: {!! json_encode( $langTicket) !!}
-                }
-            });
+    @push('vue-data')
+        <script type="application/javascript">
+            data.auth = {
+                authType: '{{$type}}',
+                lang: {!!json_encode($lang)!!},
+                routes: {!! json_encode($routes)!!},
+                old: {!! $old?json_encode($old):'{}' !!},
+                token: {!! isset($token)?"'".$token."'":'null' !!},
+                defaultEmail: '{{isset($email)?$email:''}}',
+                ticket: {!! json_encode($ticket)!!},
+                langTickets: {!! json_encode( $langTicket) !!}
+            }
         </script>
     @endpush
 
