@@ -143,10 +143,10 @@
             routes: {type: Object, required: true},
             lang: {type: Object, required: true},
             user: {type: Object, required: true},
-            csrf: {type: String, required: true}
         },
         data() {
             return {
+                csrf: window.csrf,
                 state: 'input',
                 form: {last_name: this.user.last_name, _token: this.csrf},
                 tickets: [],

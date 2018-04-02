@@ -74,8 +74,7 @@ $notificationsLang = Lang::get('notifications');
             settingsLang: {!! json_encode($settingsLang) !!},
             notificationsLang: {!! json_encode($notificationsLang) !!},
             settingsRoutes: {!! json_encode( $settingsRoutes ) !!},
-            notificationsRoutes: {!! json_encode($notificationsRoutes) !!},
-            user: {!! json_encode($jsonUser) !!},
+            notificationsRoutes: {!! json_encode($notificationsRoutes) !!}
         }
 
     </script>

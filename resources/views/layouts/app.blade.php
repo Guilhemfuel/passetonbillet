@@ -79,7 +79,7 @@
             messages: {!! ( session()->has('flash_notification') && session('flash_notification')!==null?json_encode(session('flash_notification')):'[]') !!},
             custom_errors: {!!  ($errors->any()?json_encode($errors->all()):'[]') !!},
             child: null,
-            user: {!! isset($userData)?json_encode($userData):(isset($user)?json_encode($user):'null') !!},
+            user: {!! isset($userData)?json_encode($userData):(isset($user)?json_encode($user):(isset($jsonUser)?json_encode($jsonUser):'null')) !!},
         },
         mounted() {
             for (var i = 0; i < this.messages.length; i++) {

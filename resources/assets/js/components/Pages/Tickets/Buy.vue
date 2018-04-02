@@ -70,11 +70,11 @@
             lang: {type: Object, required: true},
             user: {type: Object, required: true},
             stations: {type: Array, required: true},
-            csrf: {type: String, required: true},
            // defaultTickets: {type: Array, required: true}
         },
         data() {
             return {
+                csrf: window.csrf,
                 state: 'default',
                 tickets: [],
                 search: {
