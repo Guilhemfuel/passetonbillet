@@ -4,7 +4,7 @@
     <div class="container-fluid">
         <div class="row" id="sell-ticket">
             @if(Auth::user()->phone_verified)
-                <sell-ticket :api="api" :lang="lang" :user="user" :csrf="csrf" :routes="routes"></sell-ticket>
+                <sell-ticket :api="child.sell_tickets.api" :lang="child.sell_tickets.lang" :user="user" :routes="child.sell_tickets.routes"></sell-ticket>
             @else
 
                 @if(!Auth::user()->phone_verification_sent)
@@ -75,7 +75,7 @@
                                 </form>
                                 <a href="#" @click.prevent="resendNumberModalOpen=true">@lang('tickets.sell.confirm_number.no_code_received')</a>
 
-                                <modal v-cloak :is-open="resendNumberModalOpen" @close-modal="resendNumberModalOpen=false">
+                                <modal v-cloak :is-open="child.sell_tickets.resendNumberModalOpen" @close-modal="child.sell_tickets.resendNumberModalOpen=false">
                                     <div class="modal-body">
                                         <p class="text-justify">
                                             @lang('tickets.sell.confirm_number.last_step')
@@ -112,33 +112,28 @@
     </div>
 @endsection
 
-@push('scripts')
-    <?php
+<?php
     $lang = Lang::get( 'tickets' );
     $routes = [
         'tickets' => [
             'sell' => route( 'public.ticket.sell.post' )
         ]
     ]
-    ?>
+?>
 
+
+@push('vue-data')
     <script type="text/javascript">
-        var sellTicket = new Vue({
-            el: '#sell-ticket',
-            data: {
-                api: {
-                    tickets: {
-                        search: '{!! route('api.tickets.search') !!}'
-                    }
-                },
-                lang: {!!json_encode($lang)!!},
-                user: {!! json_encode($user) !!},
-                csrf: '{!! csrf_token() !!}',
-                routes: {!! json_encode($routes) !!},
+        data.sell_tickets = {
+            api: {
+                tickets: {
+                    search: '{!! route('api.tickets.search') !!}'
+                }
+            },
+            lang: {!!json_encode($lang)!!},
+            routes: {!! json_encode($routes) !!},
 
-                resendNumberModalOpen: false
-
-            }
-        });
+            resendNumberModalOpen: false
+        }
     </script>
 @endpush

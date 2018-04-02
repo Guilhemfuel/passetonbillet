@@ -2,8 +2,7 @@
 
 @section('content')
 
-    <div class="welcome-page" id="welcome-page">
-
+    <div class="welcome-page">
         <div class="section-header">
             <div class="first-section" style="background-image: url('{{secure_asset('img/bg/5.jpg')}}');">
                 <div class="fixed-content">
@@ -46,26 +45,26 @@
                             @if($tickets && $tickets->count()>0)
                             <div class="tickets mx-auto d-none d-sm-none d-md-block">
                                 <div class="first-ticket">
-                                    <ticket :ticket="tickets[0]" :lang="ticketLang.component"></ticket>
+                                    <ticket :ticket="child.welcome.tickets[0]" :lang="child.welcome.ticketLang.component"></ticket>
                                 </div>
                                 <div class="secund-ticket">
-                                    <ticket :ticket="tickets[1]" :lang="ticketLang.component"></ticket>
+                                    <ticket :ticket="child.welcome.tickets[1]" :lang="child.welcome.ticketLang.component"></ticket>
                                 </div>
                                 <div class="third-ticket">
-                                    <ticket :ticket="tickets[2]" :lang="ticketLang.component"></ticket>
+                                    <ticket :ticket="child.welcome.tickets[2]" :lang="child.welcome.ticketLang.component"></ticket>
                                 </div>
                             </div>
                             <div class="tickets-sm d-none d-sm-flex d-md-none">
                                 <div class="first-ticket">
-                                    <ticket :ticket="tickets[0]" :lang="ticketLang.component"></ticket>
+                                    <ticket :ticket="child.welcome.tickets[0]" :lang="child.welcome.ticketLang.component"></ticket>
                                 </div>
                                 <div class="secund-ticket">
-                                    <ticket :ticket="tickets[1]" :lang="ticketLang.component"></ticket>
+                                    <ticket :ticket="child.welcome.tickets[1]" :lang="child.welcome.ticketLang.component"></ticket>
                                 </div>
                             </div>
                             <div class="tickets-xs d-flex d-sm-none">
                                 <div class="first-ticket">
-                                    <ticket :ticket="tickets[1]" :lang="ticketLang.component"></ticket>
+                                    <ticket :ticket="child.welcome.tickets[1]" :lang="child.welcome.ticketLang.component"></ticket>
                                 </div>
                             </div>
                             @endif
@@ -80,13 +79,13 @@
             <div class="section-search" id="section-search">
                 <div class="container">
                     <div class="row" id="buy-ticket">
-                        <buy-sell :stations="stations"
-                                  :api="api"
-                                  :routes="routes"
-                                  :lang="ticketLang"
-                                  :csrf="csrf"
-                                  :state="stateBuySell"
-                                  v-on:change-state="changeState($event)"
+                        <buy-sell :tickets="child.welcome.tickets"
+                                  :state="child.welcome.stateBuySell"
+                                  :lang="child.welcome.ticketLang"
+                                  :routes="child.welcome.routes"
+                                  :api="child.welcome.api"
+                                  :stations="child.welcome.stations"
+                                  v-on:change-state="child.welcome.stateBuySell=$event"
                         ></buy-sell>
                     </div>
                 </div>
@@ -128,65 +127,56 @@
 
     </div>
 
-        @endsection
+    @endsection
 
-        @push('scripts')
+    <?php
+        $langTickets = Lang::get( 'tickets' );
+        $routes = [
+            'tickets'  => [
 
-            <?php
-            $langTickets = Lang::get( 'tickets' );
-            $routes = [
-                'tickets'  => [
+            ],
+            'register' => route( 'register.page' )
+        ];
+        $api = [
+            'tickets' => [
+                'buy' => route( 'api.tickets.buy' )
+            ]
+        ];
+    ?>
 
-                ],
-                'register' => route( 'register.page' )
-            ];
-            $api = [
-                'tickets' => [
-                    'buy' => route( 'api.tickets.buy' )
-                ]
-            ];
-            ?>
+    @push('vue-data')
+        <script type="application/javascript">
+            data.welcome = {
+                tickets: {!! json_encode($tickets) !!},
+                ticketLang: {!! json_encode($langTickets) !!},
+                routes: {!! json_encode($routes) !!},
+                api: {!! json_encode($api) !!},
+                stations: {!! json_encode($stations) !!},
+                stateBuySell: 'buy'
+            }
+        </script>
+    @endpush
 
-
-            <script type="application/javascript">
-                function scrollTo(element) {
-                    window.scroll({
-                        behavior: 'smooth',
-                        left: 0,
-                        top: element.offsetTop
-                    });
-                }
-
-                window.onload = function () {
-                    document.getElementById("scroll-to-search").addEventListener('click', () => {
-                        scrollTo(document.getElementById("section-search"));
-                    });
-                    document.getElementById("btn-buy").addEventListener('click', () => {
-                        scrollTo(document.getElementById("section-search"));
-                    });
-                    document.getElementById("btn-sell").addEventListener('click', () => {
-                        scrollTo(document.getElementById("section-search"));
-                    });
-                }
-
-
-
-                const welcome = new Vue({
-                    el: '#welcome-page',
-                    data: {
-                        tickets: {!! json_encode($tickets) !!},
-                        ticketLang: {!! json_encode($langTickets) !!},
-                        csrf: '{!! csrf_token() !!}',
-                        routes: {!! json_encode($routes) !!},
-                        api: {!! json_encode($api) !!},
-                        stations: {!! json_encode($stations) !!},
-                        stateBuySell: 'buy',
-                    },
-                    methods: {
-                        changeState($event) {
-                            this.stateBuySell = $event;
-                        }
-                    },
+    @push('scripts')
+        <script type="application/javascript">
+            function scrollTo(element) {
+                window.scroll({
+                    behavior: 'smooth',
+                    left: 0,
+                    top: element.offsetTop
                 });
-            </script>
+            }
+
+            window.onload = function () {
+                document.getElementById("scroll-to-search").addEventListener('click', () => {
+                    scrollTo(document.getElementById("section-search"));
+                });
+                document.getElementById("btn-buy").addEventListener('click', () => {
+                    scrollTo(document.getElementById("section-search"));
+                });
+                document.getElementById("btn-sell").addEventListener('click', () => {
+                    scrollTo(document.getElementById("section-search"));
+                });
+            }
+        </script>
     @endpush

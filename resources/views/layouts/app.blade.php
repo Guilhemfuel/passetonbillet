@@ -44,7 +44,6 @@
 
 <body>
 <div id="app">
-    <div id="root"></div>
 
     @if(session('login'))
         {{-- Watever that needs to be done on login--}}
@@ -68,12 +67,19 @@
 <!-- Scripts -->
 <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
 <script src="/js/app.js"></script>
+<script type="application/javascript">
+    let data = {};
+</script>
+@stack('vue-data')
 <script>
-    const root = new Vue({
-        el: '#root',
+    const notifications = new Vue({
+        el: '#app',
+        name: 'Lastar',
         data: {
             messages: {!! ( session()->has('flash_notification') && session('flash_notification')!==null?json_encode(session('flash_notification')):'[]') !!},
-            custom_errors: {!!  ($errors->any()?json_encode($errors->all()):'[]') !!}
+            custom_errors: {!!  ($errors->any()?json_encode($errors->all()):'[]') !!},
+            child: null,
+            user: {!! isset($userData)?json_encode($userData):(isset($user)?json_encode($user):(isset($jsonUser)?json_encode($jsonUser):'null')) !!},
         },
         mounted() {
             for (var i = 0; i < this.messages.length; i++) {
@@ -102,6 +108,9 @@
                 });
             }
 
+        },
+        created: function() {
+            this.child = data;
         }
     });
 </script>

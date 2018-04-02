@@ -13,12 +13,12 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <a class="nav-link">
-                        <notifications :lang="notificationsLang" :user="user" :routes="notificationsRoutes" v-cloak></notifications>
+                        <notifications :lang="child.navbar.notificationsLang" :user="user" :routes="child.navbar.notificationsRoutes" v-cloak></notifications>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link">
-                        <settings :lang="settingsLang" :routes="settingsRoutes" :active-lang="activeLang" :user="user" v-cloak></settings>
+                        <settings :lang="child.navbar.settingsLang" :routes="child.navbar.settingsRoutes" :active-lang="child.navbar.activeLang" :user="user" v-cloak></settings>
                     </a>
                 </li>
                 <li class="nav-item">

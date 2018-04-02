@@ -356,7 +356,6 @@
         props: {
             token: {required: false},
             authType: {type: String, required: true},
-            csrf: {type: String, required: true},
             lang: {type: Object, required: true},
             routes: {type: Object, required: true},
             ticketLink: {type: Boolean, required: false},
@@ -386,6 +385,7 @@
         },
         data() {
             return {
+                csrf: window.csrf,
                 type: this.authType,
                 registerType: this.registerStates.default,
                 customErrors: [],

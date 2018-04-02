@@ -128,7 +128,6 @@
             lang: {type: Object, required: true},
             ticketLang: {type: Object, required: true},
             user: {type: Object, required: true},
-            csrf: {type: String, required: true},
             offersAwaiting: {type: Array, required: true},
             buyingDiscussions: {type: Array, required: true},
             sellingDiscussions: {type: Array, required: true},
@@ -137,7 +136,8 @@
             return {
                 state: 'default',
                 modalTicketOpened: false,
-                modalTicket: null
+                modalTicket: null,
+                csrf: window.csrf,
             }
         },
         computed: {

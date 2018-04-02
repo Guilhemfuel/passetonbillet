@@ -22,8 +22,6 @@ $notificationsRoutes = [
 ];
 $notificationsLang = Lang::get('notifications');
 
-$activeLang = App::getLocale();
-
 ?>
 
 @section('content')
@@ -67,26 +65,18 @@ $activeLang = App::getLocale();
 
 @endsection
 
-@push('scripts')
-
+@push('vue-data')
     <script type="application/javascript">
-        const sidebar = new Vue({
-            el: '#side-bar',
-            data: {
-                important: false
-            }
-        });
-        const navbar = new Vue({
-            el: '#nav-bar',
-            data: {
-                activeLang: "{{$activeLang}}",
-                settingsLang: {!! json_encode($settingsLang) !!},
-                notificationsLang: {!! json_encode($notificationsLang) !!},
-                settingsRoutes: {!! json_encode( $settingsRoutes ) !!},
-                notificationsRoutes: {!! json_encode($notificationsRoutes) !!},
-                user: {!! json_encode($jsonUser) !!},
-            }
-        });
+        {{-- Pass data to main component--}}
+
+        data.navbar = {
+            activeLang: window.locale,
+            settingsLang: {!! json_encode($settingsLang) !!},
+            notificationsLang: {!! json_encode($notificationsLang) !!},
+            settingsRoutes: {!! json_encode( $settingsRoutes ) !!},
+            notificationsRoutes: {!! json_encode($notificationsRoutes) !!}
+        }
+
     </script>
 @endpush
 
