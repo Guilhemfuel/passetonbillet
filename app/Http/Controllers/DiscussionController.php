@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\MessageSent;
 use App\Http\Resources\DiscussionAllMessagesResource;
 use App\Http\Resources\DiscussionLastMessageResource;
 use App\Http\Resources\MessageResource;
@@ -210,10 +211,13 @@ class DiscussionController extends Controller
             'discussion_id' => $discussion->id,
         ]);
 
-        $message->receiver->notify( new MessageNotification($discussion) );
-
         // Save message and mark as sent
         if ($message->save()){
+
+            broadcast(new MessageSent($message))->toOthers();
+
+            $message->receiver->notify( new MessageNotification($discussion) );
+
             return new MessageResource($message);
         } else {
             return response([

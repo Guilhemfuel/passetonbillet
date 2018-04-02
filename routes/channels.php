@@ -11,6 +11,12 @@
 |
 */
 
-//Broadcast::channel('App.User.{id}', function ($user, $id) {
-//    return (int) $user->id === (int) $id;
-//});
+Broadcast::channel('discussion.{discussion}', function ($user, \App\Models\Discussion $discussion) {
+
+    if (!$discussion) return false;
+    if ($user->id != $discussion->seller->id && $user->id != $discussion->buyer->id) return false;
+
+
+
+    return $discussion->status >= \App\Models\Discussion::ACCEPTED;
+});

@@ -32,7 +32,7 @@
                             </div>
                             <div class="col-md-5 col-lg-4 col-sm-12 mt-xs-4">
                                 @if(!$user->id_verified && $user->idVerification == null)
-                                <button class="btn btn-block btn-lastar-blue" @click.prevent="modalVerifyIdentity=true">@lang('profile.account_verify') <i
+                                <button class="btn btn-block btn-warning" @click.prevent="modalVerifyIdentity=true">@lang('profile.account_verify') <i
                                             class="fa fa-check-circle pl-2" aria-hidden="true"></i>
                                 </button>
                                 @endif

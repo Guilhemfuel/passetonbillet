@@ -90,6 +90,26 @@ if (lang === 'fr') {
 
 window.moment = moment;
 
+
+/**
+ *
+ * Laravel Echo
+ *
+ */
+
+import Echo from "laravel-echo"
+
+window.Pusher = require('pusher-js');
+
+let pusherKey = document.head.querySelector('meta[name="pusher:app_key"]').content;
+
+window.Echo = new Echo({
+    broadcaster: 'pusher',
+    key: pusherKey,
+    cluster: 'eu',
+    encrypted: true
+});
+
 /**
  * We'll load the vue HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the
@@ -101,6 +121,7 @@ let token = document.head.querySelector('meta[name="csrf-token"]');
 if (token) {
     window.Vue.http.interceptors.push(function (request, next) {
         // modify headers
+        request.headers.set('X-Socket-ID', window.Echo.socketId());
         request.headers.set('X-CSRF-TOKEN', token.content);
         request.headers.set('Content-Type', 'application/json');
         request.headers.set('Accept', 'application/json');

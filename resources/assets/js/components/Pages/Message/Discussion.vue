@@ -170,16 +170,6 @@
                 return this.sold && this.discussion.status == 2;
             }
         },
-        mounted(){
-            var myDiv = document.getElementById('messages');
-            myDiv.scrollTop = myDiv.scrollHeight;
-
-            this.checkMessages();
-
-            setInterval(function () {
-                this.checkMessages();
-            }.bind(this), 10000);
-        },
         methods: {
             sendMessage() {
                 if (this.state == 'sending' || (this.sold && !this.sold_here)) return;
@@ -193,8 +183,6 @@
                             this.inputMessage = '';
                             this.state = 'default';
 
-                            var myDiv = document.getElementById('messages');
-                            myDiv.scrollTop = myDiv.scrollHeight*1000;
                         }
                     }, response => {
                         this.state = 'failed_sending';
@@ -210,25 +198,22 @@
                 } else {
                     this.topShadow = true;
                 }
-            },
-            checkMessages(){
-                if ((this.sold && !this.sold_here)) return;
-                this.$http.get(this.refreshUrl, {"message": this.inputMessage})
-                .then(response => {
-                    if (response.ok) {
-                        for (let message of response.body.data){
-                            this.discussion.messages.push(message);
-                        }
-                        var myDiv = document.getElementById('messages');
-                        myDiv.scrollTop = myDiv.scrollHeight*1000;
-
-//                      sort array of messages by date
-                        if (this.discussion.messages.length>1){
-                            this.discussion.messages = this.discussion.messages.sort((a, b) => (a.created_at.date > b.created_at.date));
-                        }
-                    }
-                });
             }
-        }
+        },
+        mounted() {
+            // Init window with max scroll
+            var div = document.getElementById('messages');
+            div.scrollTop = div.scrollHeight;
+
+            Echo.private('discussion.'+this.discussion.id)
+                .listen('MessageSent', (data) => {
+                    this.discussion.messages.push(data.message);
+                });
+        },
+        updated(){
+            // Scroll to bottom on update
+            var div = document.getElementById('messages');
+            div.scrollTop = div.scrollHeight;
+        },
     }
 </script>

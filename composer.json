@@ -22,9 +22,9 @@
         "league/flysystem-aws-s3-v3": "^1.0",
         "nexmo/laravel": "^1.0",
         "nicolaslopezj/searchable": "1.*",
+        "pusher/pusher-php-server": "~3.0",
         "sentry/sentry-laravel": "^0.8.0",
-        "vinkla/hashids": "^5.0",
-        "vinkla/pusher": "^4.1"
+        "vinkla/hashids": "^5.0"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.2",
