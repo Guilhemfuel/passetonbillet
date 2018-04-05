@@ -18,7 +18,8 @@ class MessageResource extends Resource
             'id'         => $this->id,
             'sender_id'  => $this->sender_id,
             'message'    => $this->message,
-            'created_at' => $this->created_at
+            'created_at' => $this->created_at,
+            'read_at'    => $this->read_at
         ];
     }
 }

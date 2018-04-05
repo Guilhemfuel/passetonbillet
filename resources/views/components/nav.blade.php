@@ -13,7 +13,7 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <a class="nav-link">
-                        <notifications :lang="child.navbar.notificationsLang" :user="user" :routes="child.navbar.notificationsRoutes" v-cloak></notifications>
+                        <notifications :lang="child.navbar.notificationsLang" :current-page="currentPage" :user="user" :routes="child.navbar.notificationsRoutes" v-cloak></notifications>
                     </a>
                 </li>
                 <li class="nav-item">

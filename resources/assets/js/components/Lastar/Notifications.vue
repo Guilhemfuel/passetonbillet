@@ -33,6 +33,7 @@
     export default {
         props: {
             user: {type:Object,required:true},
+            currentPage: {type:Object,required:true},
             routes: {type:Object,required:true},
             lang: {type:Object,required:true}
         },
@@ -41,7 +42,7 @@
                 state: 'default',
                 dropdownOpened: false,
                 fullyOpened: false,
-                unreadCount: this.user.unread_notifications,
+                unreadCount: this.user.unread_notifications?this.user.unread_notifications:0,
                 notifications: []
             }
         },
@@ -84,6 +85,28 @@
                         this.state='default';
                         this.notifications = response.body;
                     })
+            },
+            notify(notification, duration = 10000){
+
+                let color = 'neon';
+                if ('color' in notification){
+                    color = notification.color;
+                }
+
+                this.$notify({
+                    dangerouslyUseHTMLString: true,
+                    message: '<span class="text-'+color+' mr-3 notification-icon d-flex align-items-center">' +
+                        '<i class="fa fa-2x fa-' + notification.icon + '" aria-hidden=\"true\"></i>' +
+                    '</span>' +
+                    '<span class="notification-message pr-3">' +
+                        notification.text +
+                    '</span>',
+                    onClick: function() {
+                        window.location.href = notification.link;
+                    },
+                    duration: duration,
+                    offset: 57,
+                });
             }
         },
         directives: {
@@ -119,6 +142,29 @@
 
                 }
             }
+        },
+        mounted() {
+            Echo.private('App.User.' + this.user.id)
+                .notification((notification) => {
+                    let shouldNotify = true;
+
+                    // Handle no notification cases
+                    switch (notification.type){
+                        case "App\\Notifications\\MessageNotification":
+                            if (this.currentPage.name == 'public.message.discussion.page'){
+                                if (this.currentPage.data.discussion_id == notification.discussion_id){
+                                    // We don't notify new message on page
+                                    shouldNotify = false;
+                                }
+                            }
+                            break;
+                    }
+
+                    if (shouldNotify){
+                        this.unreadCount = this.unreadCount + 1;
+                        this.notify(notification);
+                    }
+                });
         }
     }
 </script>

@@ -120,7 +120,7 @@
 
                             <!--<textarea class="form-control mt-4" :placeholder="lang.sell.inputs.notes"-->
                             <!--name="notes"></textarea>-->
-                            <button type="submit" class="btn btn-pink btn-block mt-4" @click.prevent="sellTicket">
+                            <button type="submit" class="btn btn-pink btn-block mt-4" :disabled="selectedTicket.bought_price < selectedTicket.price" @click.prevent="sellTicket">
                                 {{lang.sell.submit}}
                             </button>
                         </form>
@@ -204,8 +204,8 @@
                 this.selectedTicket.price = Math.floor(this.selectedTicket.bought_price);
                 this.state = 'selling_details';
             },
-            sellTicket(scope) {
-                this.$validator.validateAll(scope).then((result) => {
+            sellTicket() {
+                this.$validator.validateAll().then((result) => {
                     if (result) {
                         this.$refs.sell_form.submit();
                     }

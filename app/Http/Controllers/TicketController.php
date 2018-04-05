@@ -196,7 +196,7 @@ class TicketController extends Controller
         ] );
         $discussion->save();
 
-        $discussion->seller->notify( new OfferNotification( $discussion->ticket ) );
+        $discussion->seller->notify( new OfferNotification( $discussion ) );
 
         return new DiscussionLastMessageResource( $discussion );
 

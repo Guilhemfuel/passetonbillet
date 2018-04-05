@@ -22,7 +22,7 @@ $routes = [
 ];
 $api = [
     'send' => route('api.discussion.send',['ticket_id','discussion_id']),
-    'refresh' => route('api.discussion.refresh',['ticket_id','discussion_id'])
+    'read' => route('api.discussion.read',['ticket_id','discussion_id'])
 ];
 ?>
 
@@ -37,6 +37,10 @@ $api = [
             api: {!! json_encode($api) !!},
             discussion: {!! json_encode($discussion) !!}
         };
+        currentPage.data = {
+            discussion_id: {!! $discussion->id !!},
+            ticket_id: {!! $discussion->ticket->id !!},
+        }
     </script>
 @endpush
 

@@ -79,7 +79,8 @@ Route::group( [ 'middleware' => 'auth', 'as' => 'public.' ], function () {
         Route::post( 'sell', 'TicketController@sellTicket' )->name( 'sell.post' )->middleware( 'auth.verified.phone' );
 
         // See my tickets
-        Route::get( 'owned', 'PageController@myTicketsPage' )->name( 'owned.page' );
+        // Possible values for tab: selling (default), sold, offered, bought
+        Route::get( 'owned/{tab?}', 'PageController@myTicketsPage' )->name( 'owned.page' );
 
         // Buy a ticket
         Route::get( 'buy', 'PageController@buyPage' )->name( 'buy.page' );
@@ -172,7 +173,7 @@ Route::group( [ 'prefix' => 'api' ], function () {
 
         // Discussion api routes
         Route::post( 'messages/{ticket}/{discussion}', 'DiscussionController@sendMessage' )->name( 'api.discussion.send' );
-        Route::get( 'messages/{ticket}/{discussion}/refresh', 'DiscussionController@refreshDiscussion' )->name( 'api.discussion.refresh' );
+        Route::post( 'messages/{ticket}/{discussion}/read', 'DiscussionController@markAsRead' )->name( 'api.discussion.read' );
     } );
 
     Route::post( 'tickets/buy', 'TicketController@buyTickets' )->name( 'api.tickets.buy' );

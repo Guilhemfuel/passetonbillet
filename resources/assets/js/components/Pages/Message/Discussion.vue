@@ -140,11 +140,9 @@
             profileUrl: function () {
                 return this.routes.profile.replace('user_id', this.correspondant.hashid);
             },
-            refreshUrl: function () {
-                var formatted_date = new moment(this.lastMessageReceived.created_at.date);
-                var url = this.api.refresh.replace('ticket_id', this.discussion.ticket.id)
+            readUrl: function () {
+                return this.api.read.replace('ticket_id', this.discussion.ticket.id)
                     .replace('discussion_id', this.discussion.id);
-                return url + '?date=' + encodeURI(formatted_date.format('YYYY-MM-DD HH:mm:ss'));
             },
             correspondant: function () {
                 if (this.user.id == this.discussion.buyer.id) {
@@ -212,7 +210,9 @@
             Echo.private('discussion.'+this.discussion.id)
                 .listen('MessageSent', (data) => {
                     this.discussion.messages.push(data.message);
-                });
+                    // Marj as read
+                    this.$http.post(this.readUrl);
+            });
         },
         watch: {
             // whenever question changes, this function will run

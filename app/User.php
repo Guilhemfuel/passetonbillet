@@ -152,11 +152,14 @@ class User extends Authenticatable
 
     public function getCountUnreadMessagesAttribute()
     {
-        return \DB::table('notifications')
-                  ->where('notifiable_id',$this->id)
-                  ->whereIn('type',['App\Notifications\MessageNotification','App\Notifications\OfferNotification'])
-                  ->whereNull('read_at')
-                  ->count();
+        // Count of unread: unanswered received offers + unread message
+        $count = count($this->offersReceived->where('status',Discussion::AWAITING));
+        foreach ($this->allOffers as $discussion){
+            if($discussion->unread($this)){
+                $count++;
+            }
+        }
+        return $count;
     }
 
     public function getMemberSinceAttribute()
@@ -196,11 +199,21 @@ class User extends Authenticatable
     }
 
     /**
-     * Offers made by user
+     * Offers
      */
     public function offers()
     {
         return $this->hasMany('App\Models\Discussion', 'buyer_id');
+    }
+
+    public function offersReceived()
+    {
+        return $this->hasManyThrough('App\Models\Discussion', 'App\Ticket');
+    }
+
+    public function getAllOffersAttribute()
+    {
+        return $this->offers->concat($this->offersReceived);
     }
 
     /**

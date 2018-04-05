@@ -12,6 +12,7 @@ use App\Http\Resources\TicketFullRessource;
 use App\Http\Resources\TicketRessource;
 use App\Http\Resources\UserRessource;
 use App\Models\Discussion;
+use App\Notifications\OfferNotification;
 use App\Notifications\Verification\IdConfirmed;
 use App\Station;
 use App\Ticket;
@@ -75,8 +76,25 @@ class PageController extends Controller
      * Display page with all tickets owned by user
      *
      */
-    public function myTicketsPage()
+    public function myTicketsPage($tab=null)
     {
+
+        // Possibility to specify which tab is opened first
+        $state = 3;
+        switch ($tab){
+            case 'selling':
+                $state = 3;
+                break;
+            case 'sold':
+                $state = 1;
+                break;
+            case 'offered':
+                $state = 4;
+                break;
+            case 'bought':
+                $state = 2;
+                break;
+        }
 
         return view( 'tickets.owned' )->with( 'user', new UserRessource( \Auth::user() ) )
                                       ->with( 'tickets', TicketRessource::collection( \Auth::user()->tickets ) )
@@ -87,7 +105,7 @@ class PageController extends Controller
                                               Discussion::DENIED,
                                               Discussion::ACCEPTED
                                           ] )
-                                      ) );
+                                      ) )->with('state',$state);
 
     }
 
@@ -108,6 +126,9 @@ class PageController extends Controller
             $sellingDiscussions = $sellingDiscussions->merge( $discussions->where( 'status', '>=', Discussion::ACCEPTED ) );
             $offersAwaiting = $offersAwaiting->merge( $discussions->where( 'status', Discussion::AWAITING ) );
         }
+
+        // Mark notification of offers as read in database (as we're on page)
+        \Auth::user()->unreadNotifications->where('type',OfferNotification::class)->markAsRead();
 
         return view( 'messages.home' )->with( 'user', new UserRessource( \Auth::user() ) )
                                       ->with( 'offersAwaiting', DiscussionLastMessageResource::collection( $offersAwaiting ) )

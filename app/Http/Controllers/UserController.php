@@ -254,7 +254,7 @@ class UserController extends Controller
 
         foreach ($unread_notifications as $notification) {
             array_push( $jsonNotificationContent , $notification->data );
-            $unread_notifications->markAsRead();
+            $notification->markAsRead();
         }
 
         return \GuzzleHttp\json_encode($jsonNotificationContent);

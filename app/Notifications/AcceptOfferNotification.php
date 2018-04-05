@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Mail\AcceptedOfferEmail;
 use App\Mail\OfferEmail;
 use App\Models\Discussion;
 use App\Ticket;
@@ -9,7 +10,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class OfferNotification extends Notification implements ShouldQueue
+class AcceptOfferNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -40,11 +41,11 @@ class OfferNotification extends Notification implements ShouldQueue
      * Get the mail representation of the notification.
      *
      * @param  mixed  $notifiable
-     * @return OfferEmail
+     * @return AcceptedOfferEmail
      */
     public function toMail($notifiable)
     {
-        return new OfferEmail( $notifiable, $this->discussion->ticket );
+        return new AcceptedOfferEmail( $notifiable, $this->discussion );
     }
 
     /**
@@ -56,10 +57,14 @@ class OfferNotification extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
-            'icon' => 'ticket',
-            'text' => __('notifications.offer'),
-            'link' => route('public.message.home.page'),
-            'discussion_id' => $this->discussion->id
+            'icon' => 'check-circle',
+            'text' => __('notifications.offer_accepted'),
+            'link' => route('public.message.discussion.page',[
+                $this->discussion->ticket->id,
+                $this->discussion->id
+            ]),
+            'discussion_id' => $this->discussion->id,
+            'color'=> 'success'
         ];
     }
 }

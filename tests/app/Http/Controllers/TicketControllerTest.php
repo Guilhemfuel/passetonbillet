@@ -222,7 +222,7 @@ class TicketControllerTest extends LastarTestCase
             $ticket->user,
             OfferNotification::class,
             function ( $notification ) use ( $ticket ) {
-                return $notification->ticket->id === $ticket->id;
+                return $notification->discussion->ticket->id === $ticket->id;
             }
         );
 
@@ -390,7 +390,7 @@ class TicketControllerTest extends LastarTestCase
             $ticket->user,
             OfferNotification::class,
             function ( $notification ) use ( $ticket ) {
-                return $notification->ticket->id === $ticket->id;
+                return $notification->discussion->ticket->id === $ticket->id;
             }
         );
 

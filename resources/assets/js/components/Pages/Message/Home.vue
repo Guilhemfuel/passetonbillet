@@ -105,11 +105,13 @@
                                         </div>
                                     </div>
                                 </th>
-                                <th class="align-middle text-center" scope="col" @click="openDiscussion(offer.id)">
+                                <th  :class="{'unread':unreadDiscussion(offer),'align-middle':true,'text-center':true, 'last-message-sender':true}" scope="col" @click="openDiscussion(offer.id)">
                                     <a class="d-none" :href="discussionPageUrl(offer.ticket.id,offer.id)" :id="'discussion-link-'+offer.id"></a>
                                     {{offer.buyer.id == user.id ? offer.seller.full_name : offer.buyer.full_name}}
                                 </th>
-                                <th @click="openDiscussion(offer.id)" class="align-middle">{{offer.last_message?offer.last_message.message:'-'}}</th>
+                                <th @click="openDiscussion(offer.id)" :class="{'unread':unreadDiscussion(offer),'align-middle':true,'last-message':true}">
+                                    {{offer.last_message?offer.last_message.message:'-'}}
+                                </th>
                             </tr>
                             </tbody>
                         </table>
@@ -156,6 +158,12 @@
             }
         },
         methods: {
+            unreadDiscussion(discussion){
+                if (discussion.last_message && discussion.last_message.sender_id != this.user.id && discussion.last_message.read_at == null){
+                    return true;
+                }
+                return false;
+            },
             openTicketModal(ticket) {
                 this.modalTicket = ticket;
                 this.modalTicketOpened = true;

@@ -69,6 +69,10 @@
 <script src="/js/app.js"></script>
 <script type="application/javascript">
     let data = {};
+    let currentPage = {
+        name: '{!! Route::currentRouteName()!!}',
+        data: {}
+    };
 </script>
 @stack('vue-data')
 <script>
@@ -79,9 +83,12 @@
             messages: {!! ( session()->has('flash_notification') && session('flash_notification')!==null?json_encode(session('flash_notification')):'[]') !!},
             custom_errors: {!!  ($errors->any()?json_encode($errors->all()):'[]') !!},
             child: null,
-            user: {!! isset($userData)?json_encode($userData):(isset($user)?json_encode($user):(isset($jsonUser)?json_encode($jsonUser):'null')) !!},
+            user: {!! isset($jsonUser)?json_encode($jsonUser):(isset($userData)?json_encode($userData):(isset($user)?json_encode($user):'null')) !!},
+            currentPage: null
         },
         mounted() {
+
+            // Display Messages
             for (var i = 0; i < this.messages.length; i++) {
                 this.$message({
                     message: this.messages[i].message,
@@ -111,6 +118,7 @@
         },
         created: function() {
             this.child = data;
+            this.currentPage = currentPage;
         }
     });
 </script>

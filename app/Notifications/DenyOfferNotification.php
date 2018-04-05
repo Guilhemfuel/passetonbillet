@@ -9,7 +9,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class OfferNotification extends Notification implements ShouldQueue
+class DenyOfferNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -33,18 +33,7 @@ class OfferNotification extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail','database','broadcast'];
-    }
-
-    /**
-     * Get the mail representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return OfferEmail
-     */
-    public function toMail($notifiable)
-    {
-        return new OfferEmail( $notifiable, $this->discussion->ticket );
+        return ['database','broadcast'];
     }
 
     /**
@@ -56,10 +45,11 @@ class OfferNotification extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
-            'icon' => 'ticket',
-            'text' => __('notifications.offer'),
-            'link' => route('public.message.home.page'),
-            'discussion_id' => $this->discussion->id
+            'icon' => 'times-circle',
+            'text' => __('notifications.offer_denied'),
+            'link' => route('public.ticket.owned.page',['offers']),
+            'discussion_id' => $this->discussion->id,
+            'color' => 'danger'
         ];
     }
 }

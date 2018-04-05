@@ -57,6 +57,8 @@
             api: {type: Object, required: true},
             lang: {type: Object, required: true},
             user: {type: Object, required: true},
+            defaultState: { required: true},
+
 
             stateValues: {
                 type: Object, default: () => {
@@ -72,7 +74,7 @@
         data() {
             return {
                 csrf: window.csrf,
-                state: this.stateValues.selling,
+                state: this.defaultState,
             }
         },
         computed: {

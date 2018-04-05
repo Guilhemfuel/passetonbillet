@@ -565,3 +565,13 @@ $animation-duration: 0.3s;
 .el-message {
   border-radius: 3px;
 }
+
+/////// Notifs elem
+.el-notification{
+  cursor: pointer;
+  .el-notification__content {
+    p {
+      display: flex;
+    }
+  }
+}

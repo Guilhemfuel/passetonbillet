@@ -27,6 +27,7 @@
     }
   }
 
+
   .invalid-feedback {
     display: inherit;
   }
@@ -42,6 +43,15 @@
 
     .ticket-part {
       border-right: 1px solid $color-border;
+    }
+
+    .last-message {
+      color: $color-placeholder;
+
+      &.unread {
+        font-weight: 700;
+        color:black;
+      }
     }
   }
 
@@ -90,21 +100,21 @@
 
       .messages {
         @include media-breakpoint-up(xs) {  top: 105px !important; }
-        @include media-breakpoint-up(sm) {  top: 129px !important; }
+        @include media-breakpoint-up(sm) { top: 148px !important; }
       }
 
       &.sold {
         .messages {
           @include media-breakpoint-up(xs) {  top: 105px !important; }
-          @include media-breakpoint-up(sm) {  top: 129px !important; }
+          @include media-breakpoint-up(sm) {  top: 148px !important; }
         }
       }
 
       &.sold-here {
         .messages {
           @include media-breakpoint-up(xs) {  top: 207px !important; }
-          @include media-breakpoint-up(sm) {  top: 231px !important; }
-          @include media-breakpoint-up(md) {  top: 129px !important; }
+          @include media-breakpoint-up(sm) {  top: 250px !important; }
+          @include media-breakpoint-up(md) {  top: 148px !important; }
         }
       }
     }

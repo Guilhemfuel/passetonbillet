@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -76,6 +77,24 @@ class Discussion extends Model
     }
 
     /**
+     * Methods
+     */
+
+    /**
+     * Returns true if given user hasn't read the last message he received
+     *
+     * @param User $user
+     *
+     * @return bool
+     */
+    public function unread(User $user)
+    {
+        $lastMessageReceived = $this->messages()->orderBy('created_at','desc')
+                                    ->where('sender_id','!=',$user->id)->first();
+        return $lastMessageReceived && $lastMessageReceived->read_at == null;
+    }
+
+    /**
      * Relationships
      */
 
@@ -106,6 +125,25 @@ class Discussion extends Model
         static::deleting(function($ticket) {
             $ticket->messages()->delete();
         });
+    }
+
+    /**
+     *  To array, to be used by emails
+     */
+
+    public function toArray()
+    {
+        return [
+            'id'           => $this->id,
+            'status'       => $this->status,
+//            'buyer'        => $this->buyer,
+//            'seller'       => $this->seller,
+//            'ticket'       => $this->ticket,
+            'price'        => $this->price,
+//            'last_message' => $this->last_message,
+            'currency'     => $this->currency,
+            'updated_at'   => $this->updated_at,
+        ];
     }
 
 }

@@ -5,7 +5,7 @@
         <div class="row" id="owned-tickets">
             <my-tickets :lang="child.owned_tickets.lang" :user="user" :tickets="child.owned_tickets.tickets" :bought-tickets="child.owned_tickets.boughtTickets"
                         :offer-sent="child.owned_tickets.offerSent" :api="child.owned_tickets.api"
-                        :routes="child.owned_tickets.routes"></my-tickets>
+                        :routes="child.owned_tickets.routes" :default-state="child.owned_tickets.defaultState"></my-tickets>
         </div>
     </div>
 @endsection
@@ -42,7 +42,8 @@
             boughtTickets:  {!! json_encode($boughtTickets) !!},
             routes: {!! json_encode($routes) !!},
             api: {!! json_encode($api) !!},
-            offerSent: {!! json_encode($offerSent) !!}
+            offerSent: {!! json_encode($offerSent) !!},
+            defaultState: {!! json_encode($state) !!}
         }
     </script>
 @endpush
