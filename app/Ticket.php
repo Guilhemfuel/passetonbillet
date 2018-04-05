@@ -44,6 +44,7 @@ class Ticket extends Model
 
         // Buyer info
         'eurostar_code',
+        'eurostar_ticket_number',
         'buyer_email',
         'buyer_name',
     ];
@@ -74,16 +75,17 @@ class Ticket extends Model
     ];
 
     public static $rules = [
-        'user_id'         => 'required|exists:users,id',
-        'sold_to_id'      => 'exists:users,id',
-        'price'           => 'required|numeric',
-        'bought_price'    => 'required|numeric',
-        'currency'        => 'required',
-        'bought_currency' => 'required',
-        'inbound'         => 'required|boolean',
-        'eurostar_code'   => 'required',
-        'buyer_email'     => 'required|email',
-        'buyer_name'      => 'required|max:6'
+        'user_id'                => 'required|exists:users,id',
+        'sold_to_id'             => 'exists:users,id',
+        'price'                  => 'required|numeric',
+        'bought_price'           => 'required|numeric',
+        'currency'               => 'required',
+        'bought_currency'        => 'required',
+        'inbound'                => 'required|boolean',
+        'eurostar_code'          => 'required',
+        'eurostar_ticket_number' => 'required|numeric',
+        'buyer_email'            => 'required|email',
+        'buyer_name'             => 'required|max:6'
     ];
 
     /**
@@ -101,7 +103,7 @@ class Ticket extends Model
         // Find matching trains
         $request = Train::where( 'departure_city', $departureStationId )
                         ->where( 'arrival_city', $arrivalStationId )
-                        ->where( 'departure_date',$exactDay?'=':'>=', $date )
+                        ->where( 'departure_date', $exactDay ? '=' : '>=', $date )
                         ->with( 'tickets' );
 
         if ( $time ) {
@@ -114,9 +116,11 @@ class Ticket extends Model
         $tickets = collect();
         foreach ( $trains as $train ) {
             if ( $train->tickets ) {
-                foreach ($train->tickets as $ticket) {
-                    if ( (!\Auth::check() ) || \Auth::user()->id != $ticket->user_id){
-                        if ($ticket->sold_to_id == null) $tickets->push($ticket);
+                foreach ( $train->tickets as $ticket ) {
+                    if ( ( ! \Auth::check() ) || \Auth::user()->id != $ticket->user_id ) {
+                        if ( $ticket->sold_to_id == null ) {
+                            $tickets->push( $ticket );
+                        }
                     }
                 }
             }
@@ -129,9 +133,11 @@ class Ticket extends Model
      * MUTATORS
      */
 
-    public function getPassedAttribute(){
+    public function getPassedAttribute()
+    {
         $now = new Carbon();
-        return $this->train->carbon_departure_date->lt($now);
+
+        return $this->train->carbon_departure_date->lt( $now );
     }
 
 //    public function getFlexibilityAttribute( $value )
@@ -163,12 +169,12 @@ class Ticket extends Model
 
     public function discussions()
     {
-        return $this->hasMany('App\Models\Discussion');
+        return $this->hasMany( 'App\Models\Discussion' );
     }
 
     public function buyer()
     {
-        return $this->belongsTo( 'App\User' ,'sold_to_id');
+        return $this->belongsTo( 'App\User', 'sold_to_id' );
     }
 
     /**
@@ -177,12 +183,13 @@ class Ticket extends Model
      *
      */
 
-    protected static function boot() {
+    protected static function boot()
+    {
         parent::boot();
 
-        static::deleting(function($ticket) {
+        static::deleting( function ( $ticket ) {
             $ticket->discussions()->delete();
-        });
+        } );
     }
 
 }

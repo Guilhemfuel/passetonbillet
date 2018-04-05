@@ -1,3 +1,2 @@
-# Lastar
-Online market place to buy and sell Eurostar tickets.
-Coming soon. 
+# lastar
+Lastar eurostar train app

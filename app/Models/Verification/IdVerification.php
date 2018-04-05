@@ -53,6 +53,10 @@ class IdVerification extends Model
      */
 
 
+    public function getScanAttribute($value){
+        return \Storage::disk('s3')->temporaryUrl(ltrim($value, '/'),now()->addMinutes(5));
+    }
+
 
     /**
      * Relationships

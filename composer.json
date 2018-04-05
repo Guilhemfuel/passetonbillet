@@ -24,6 +24,8 @@
         "nicolaslopezj/searchable": "1.*",
         "pusher/pusher-php-server": "~3.0",
         "sentry/sentry-laravel": "^0.8.0",
+        "setasign/fpdf": "1.8.1",
+        "setasign/fpdi": "^2.0",
         "vinkla/hashids": "^5.0"
     },
     "require-dev": {

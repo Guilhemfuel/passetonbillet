@@ -34,18 +34,12 @@ class UserController extends Controller
             return redirect()->route( 'public.profile.home' );
         }
 
+        $url = ImageHelper::resizeImageAndUploadToS3( 700, null, true, $request->scan, 'id_verification' );
+
         $idVerif = new IdVerification( [
             'user_id' => \Auth::user()->id,
-            'scan'    => ImageHelper::resizeImageAndUploadToS3( 700, null, true, $request->scan, 'id_verification' )
+            'scan'    => parse_url($url)['path']
         ] );
-
-
-        if ( ! filter_var( $idVerif->scan, FILTER_VALIDATE_URL ) ) {
-            flash( __( 'profile.modal.verify_identity.error' ) )->error();
-
-            return redirect()->route( 'public.profile.home' );
-        }
-
         $idVerif->save();
 
         flash( __( 'profile.modal.verify_identity.success' ) )->success();

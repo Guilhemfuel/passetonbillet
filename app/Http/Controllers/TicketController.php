@@ -62,7 +62,11 @@ class TicketController extends Controller
         $ticket->price = $request->price;
         $ticket->currency = $ticket->bought_currency;
         $ticket->user_notes = $request->notes;
-        $ticket->save();
+//        $ticket->save();
+
+        // Now we want to generate the pdf
+
+        dd(Eurostar::downloadAndReuploadPDF($ticket));
 
         flash( __( 'tickets.sell.success' ) )->success()->important();
 
