@@ -36,7 +36,7 @@ return [
         'password'               => 'Password',
         'password_confirm'       => 'Confirm password',
         'already_registered'     => 'Already registered ? Click here to login.',
-        'success_email_redirect' => 'Welcome! Just one more  step: we sent you an email to confirm your registration. Click on the link in the mail to activate your account. 
+        'success_email_redirect' => 'Last step! Please check your mails and click on the activation link we just sent you. 
                                      <br>If you don\'t find the email please check your junk mail folder.',
         'token_no_user'          => 'Whoops! We didn\'t find any user corresponding to this link... If the issue persist please contact us.',
         'account_confirmed'      => 'Congratulations! Your account is now activated. You can already login by clicking <a href="' . route( 'login.page' ) . '">here</a> !',
