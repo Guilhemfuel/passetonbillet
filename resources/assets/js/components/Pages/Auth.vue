@@ -11,6 +11,10 @@
                 <p>
                     <a href="#" class="mb-4" @click.prevent="openRegister()">{{lang.auth.not_registered_yet}}</a>
                 </p>
+                <a class="btn btn-facebook text-white btn-block mb-5" :href="routes.facebook">
+                    <i class="fa fa-facebook pull-left"></i> Facebook Connect
+                </a>
+
                 <form role="form"
                       method="POST"
                       :action="routes.login"
@@ -47,7 +51,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group mt-4">
+                    <div class="form-group mt-2">
                         <div class="col-xs-12">
                             <button type="submit" class="btn btn-lastar-blue btn-block">
                                 {{lang.auth.title}}
@@ -55,17 +59,9 @@
                         </div>
                     </div>
                 </form>
-                <a href="#" class="mb-4" @click.prevent="openResetPssword()">
+                <a href="#" class="mb-3" @click.prevent="openResetPssword()">
                     {{lang.reset.question}}
                 </a>
-                <div class="actions btn-rack mt-4">
-                    <a class="btn btn-facebook text-white" :href="routes.facebook">
-                        <i class="fa fa-facebook pull-left"></i> Facebook Connect
-                    </a>
-                    <button class="btn btn-outline-purple" @click.prevent="openRegister()">
-                        {{lang.register.title}}
-                    </button>
-                </div>
             </div>
 
         </transition>

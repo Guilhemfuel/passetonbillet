@@ -14,6 +14,7 @@ return [
     'id_verification_fail'    => 'Identity check failed',
     'offer'                   => 'New offer for one of your tickets',
     'offer_accepted'          => 'One of your offer was accepted',
+    'ticket_sold'             => 'You received a ticket',
 
     'message' => 'You received a new message',
 

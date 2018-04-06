@@ -12,11 +12,6 @@
             <div class="card-body card-messages">
                 <div class="awaiting_offers">
                     <div class="table-responsive">
-                        <modal :is-open="modalTicketOpened" @close-modal="modalTicketOpened=false">
-                            <ticket class-name="fixed-width mx-auto" :user="user" :ticket="modalTicket"
-                                    :lang="ticketLang"
-                                    v-if="modalTicket" :display="true"></ticket>
-                        </modal>
                         <table class="table table-hover">
                             <thead>
                             <tr>
@@ -27,8 +22,15 @@
                             </tr>
                             </thead>
                             <tbody>
+                            <modal :is-open="modalTicketOfferOpened" @close-modal="modalTicketOfferOpened=false">
+                                <div style="width: 270px; margin: auto">
+                                <ticket class-name="fixed-width mx-auto" :user="user" :ticket="modalTicketOffer"
+                                        :lang="ticketLang"
+                                        v-if="modalTicketOfferOpened" :display="true"></ticket>
+                                </div>
+                            </modal>
                             <tr v-for="offer in offersAwaiting">
-                                <th scope="col" class="text-center text-info" @click.prevent="openTicketModal(offer.ticket)">
+                                <th scope="col" class="text-center text-info" v-popover:popticketoffer @click="openTicketModalOffer(offer.ticket)">
                                     <div class="container-fluid">
                                         <div class="row">
                                             <div class="col-sm-2 d-none d-sm-block text-center text-info pt-2">
@@ -76,6 +78,13 @@
             <div class="card-body card-messages">
                 <div class="awaiting_offers">
                     <div class="table-responsive">
+                        <modal :is-open="modalTicketOpened" @close-modal="modalTicketOpened=false">
+                            <div style="width: 270px; margin: auto">
+                            <ticket class-name="fixed-width mx-auto" :user="user" :ticket="modalTicket"
+                                    :lang="ticketLang"
+                                    v-if="modalTicketOpened" :display="true"></ticket>
+                            </div>
+                        </modal>
                         <table class="table table-hover table-discussion">
                             <thead>
                             <tr>
@@ -85,13 +94,8 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <modal :is-open="modalTicketOpened" @close-modal="modalTicketOpened=false">
-                                <ticket class-name="fixed-width mx-auto" :user="user" :ticket="modalTicket"
-                                        :lang="ticketLang"
-                                        v-if="modalTicket" :display="true"></ticket>
-                            </modal>
                             <tr v-for="offer in discussions">
-                                <th scope="col"  @click.prevent="openTicketModal(offer.ticket)">
+                                <th scope="col" @click="openTicketModal(offer.ticket)">
                                     <div class="container-fluid">
                                         <div class="row">
                                             <div class="col-md-2 d-none d-sm-none d-md-block text-center text-info align-middle">
@@ -137,9 +141,11 @@
         data() {
             return {
                 state: 'default',
-                modalTicketOpened: false,
                 modalTicket: null,
-                csrf: window.csrf,
+                modalTicketOffer: null,
+                modalTicketOpened: false,
+                modalTicketOfferOpened: false,
+                csrf: window.csrf
             }
         },
         computed: {
@@ -165,8 +171,12 @@
                 return false;
             },
             openTicketModal(ticket) {
-                this.modalTicket = ticket;
                 this.modalTicketOpened = true;
+                this.modalTicket = ticket;
+            },
+            openTicketModalOffer(ticket) {
+                this.modalTicketOfferOpened = true;
+                this.modalTicketOffer = ticket;
             },
             denyOffer(id) {
                 document.getElementById("deny-" + id).submit();
@@ -175,7 +185,7 @@
                 document.getElementById("accept-" + id).submit();
             },
             formattedDate: function (mydate) {
-                return moment(mydate, 'HH:mm:ss').format('MMM Do')
+                return moment(mydate).format('MMM Do')
             },
             discussionPageUrl(ticket_id,discussion_id){
                 return this.routes.discussion.replace('ticket_id',ticket_id).replace('discussion_id',discussion_id);

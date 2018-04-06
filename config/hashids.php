@@ -43,6 +43,10 @@ return [
             'salt' => 'lastar-rocks',
             'length' => 8,
         ],
+        'file' => [
+            'salt' => 'my-files-are-safe-bro',
+            'length' => 26,
+        ],
 
     ],
 

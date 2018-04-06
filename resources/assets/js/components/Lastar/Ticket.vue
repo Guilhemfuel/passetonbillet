@@ -125,9 +125,8 @@
                                     aria-hidden="true"></i></a>
                             <p class="float-center text-center mb-0 edit-title">{{lang.infos}}</p>
                         </div>
-                        <div class="card-seller-info card-buying">
-                            <p>{{lang.booking_name}}: <span class="text-primary">{{ticket.buyer_name}}</span></p>
-                            <p>{{lang.booking_code}}: <span class="text-primary">{{ticket.eurostar_code}}</span></p>
+                        <div class="card-seller-info card-buying text-center">
+                            <a target="_blank" class="btn btn-success" :href="ticket.download_link">Download Ticket</a>
                         </div>
                     </template>
                     <template v-else>
@@ -315,8 +314,8 @@
                 this.$emit('sell', this.ticket.id);
             },
             share() {
-                console.log('in');
-                var url = this.shareUrl(this.ticket.hashid)
+                if (!this.routes || !this.routes.tickets || !this.routes.tickets.share) return null;
+                var url = this.shareUrl(this.ticket.hashid);
                 this.$emit('share', url);
 
                 this.$refs.sharelink.select();
@@ -326,15 +325,15 @@
 
             },
             shareUrl(ticket_id) {
-                if (!this.routes.tickets || !this.routes.tickets.share) return null;
+                if (!this.routes || !this.routes.tickets || !this.routes.tickets.share) return null;
                 return this.routes.tickets.share.replace('ticket_id', ticket_id)
             },
             deleteUrl(ticket_id) {
-                if (!this.routes.tickets || !this.routes.tickets.delete) return null;
+                if (!this.routes || !this.routes.tickets || !this.routes.tickets.delete) return null;
                 return this.routes.tickets.delete.replace('ticket_id', ticket_id)
             },
             discussPageUrl(ticket_id,discussion_id) {
-                if (!this.routes.tickets || !this.routes.tickets.delete) return null;
+                if (!this.routes || !this.routes.tickets || !this.routes.tickets.delete) return null;
                 return this.routes.tickets.discuss_page.replace('ticket_id', ticket_id).replace('discussion_id', discussion_id);
             },
             makeOffer() {

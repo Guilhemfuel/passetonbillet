@@ -1,10 +1,13 @@
 @component('mail::message')
-# Hello  {{$user->full_name}} !
+# Hello  {{$user->first_name}} !
 
-Someone sent you an offer for one of the ticket you are currenctly selling!
+Quelqu'un vous a envoyé une offre pour ce billet:
+
+@component('mail::ticket',['ticket'=>$ticket, 'lang'=>'fr'])
+@endcomponent
 
 @component('mail::button', ['url' => route('home'),'color'=>'blue'])
-Check out offer
+Voir l'offre
 @endcomponent
 
 @endcomponent

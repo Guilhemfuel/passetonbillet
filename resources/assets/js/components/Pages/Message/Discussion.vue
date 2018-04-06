@@ -14,6 +14,13 @@
                 <button class="btn btn-danger" @click="modalSellOpen=false">Cancel</button>
             </div>
         </modal>
+        <modal :is-open="modalTicketOpened" @close-modal="modalTicketOpened=false">
+            <div style="width: 270px; margin: auto">
+                <ticket class-name="fixed-width mx-auto" :user="user" :ticket="discussion.ticket"
+                        :lang="ticketLang"
+                        v-if="modalTicketOpened" :display="true"></ticket>
+            </div>
+        </modal>
         <div class="info-header">
             <div class="row">
                 <div class="col-md-4 col-6">
@@ -59,6 +66,7 @@
 
                 <div class="col-md-4 col-6">
                     <p class="text-center align-middle pt-3">
+                    <a href="#" @click="modalTicketOpened=true">
                         Ticket
                         <br>
                         {{discussion.ticket.train.departure_city.short_name.substring(2)}}
@@ -67,6 +75,7 @@
                         <br>
                         <span class="text-left">{{discussion.ticket.train.departure_time.substring(0,5)}}</span>
                         <span class="text-right">{{discussion.ticket.train.arrival_time.substring(0,5)}}</span>
+                    </a>
                     </p>
                 </div>
                 <div class="col-sm-12 d-md-none p-0" v-if="!sold && user.id == discussion.ticket.user.id">
@@ -109,6 +118,7 @@
         </template>
         </button>
         </div>
+        <audio class="d-none" src="/audio/notification.mp3" id="notification-sound"></audio>
     </div>
 </template>
 
@@ -131,6 +141,7 @@
                 inputMessage: '',
                 topShadow: false,
                 modalSellOpen: false,
+                modalTicketOpened: false
             }
         },
         computed: {
@@ -209,7 +220,10 @@
 
             Echo.private('discussion.'+this.discussion.id)
                 .listen('MessageSent', (data) => {
+                    // Add to list of messages
                     this.discussion.messages.push(data.message);
+                    // Play sound
+                    document.getElementById('notification-sound').play();
                     // Marj as read
                     this.$http.post(this.readUrl);
             });

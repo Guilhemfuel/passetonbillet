@@ -12,6 +12,13 @@
 |
 */
 
+Route::get('/test', function () {
+    $discussion = App\Models\Discussion::orderByDesc('created_at')->first();
+    $user = \App\User::first();
+
+    return new App\Mail\TicketSoldEmail($user,$discussion);
+});
+
 // Home Page
 Route::get( '/', 'PageController@home' )->name( 'home' );
 
@@ -58,11 +65,9 @@ Route::get('/about','PageController@about')->name('about.page');
 
 
 // Contact page
-Route::group( [ 'middleware' => 'guest' ],function ()
-{
-    Route::get( '/contact', 'PageController@contact' )->name( 'contact.page' );
-    Route::post( '/contact', 'HelpController@contact' )->name( 'contact' );
-});
+Route::get( '/contact', 'PageController@contact' )->name( 'contact.page' );
+Route::post( '/contact', 'HelpController@contact' )->name( 'contact' );
+
 
 
 // Auth Routes
@@ -87,6 +92,10 @@ Route::group( [ 'middleware' => 'auth', 'as' => 'public.' ], function () {
 
         // Remove a non-sold ticket
         Route::delete( '/', 'TicketController@delete' )->name( 'delete' );
+
+        // Download ticket
+        Route::get( 'download/{ticket_id}', 'TicketController@downloadTicket' )->name( 'download' );
+
     } );
 
     /**

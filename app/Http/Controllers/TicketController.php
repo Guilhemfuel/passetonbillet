@@ -12,6 +12,7 @@ use App\Http\Resources\DiscussionLastMessageResource;
 use App\Http\Resources\StationRessource;
 use App\Http\Resources\TicketRessource;
 use App\Http\Resources\TrainRessource;
+use App\Jobs\DownloadTicketPdf;
 use App\Mail\OfferEmail;
 use App\Models\Discussion;
 use App\Notifications\OfferNotification;
@@ -52,7 +53,7 @@ class TicketController extends Controller
         $oldTicket = Ticket::where( 'eurostar_code', $ticket->eurostar_code )
                            ->where( 'buyer_name', $ticket->buyer_name )
                            ->first();
-        if ( $oldTicket && $oldTicket->train_id == $ticket->train_id ) {
+        if ( $oldTicket && $oldTicket->eurostar_ticker_number == $ticket->eurostar_ticker_number ) {
             flash( __( 'tickets.sell.errors.duplicate' ) )->error()->important();
 
             return redirect()->route( 'public.ticket.sell.page' );
@@ -62,11 +63,10 @@ class TicketController extends Controller
         $ticket->price = $request->price;
         $ticket->currency = $ticket->bought_currency;
         $ticket->user_notes = $request->notes;
-//        $ticket->save();
+        $ticket->save();
 
         // Now we want to generate the pdf
-
-        dd(Eurostar::downloadAndReuploadPDF($ticket));
+        DownloadTicketPdf::dispatch($ticket);
 
         flash( __( 'tickets.sell.success' ) )->success()->important();
 
@@ -96,6 +96,36 @@ class TicketController extends Controller
 
         return redirect()->route( 'public.ticket.owned.page' );
 
+    }
+
+    /**
+     * Redirects to the link to download the pdf of a ticket
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function downloadTicket($ticket_id)
+    {
+        $ticket = Ticket::find( $ticket_id );
+        if ( ! $ticket || $ticket->passed || $ticket->buyer->id != \Auth::user()->id) {
+            flash( __( 'common.error' ) )->error()->important();
+            return redirect()->route( 'public.ticket.owned.page' );
+        }
+
+        $filePath = 'pdf/tickets/'.$ticket->pdf_file_name;
+        if ( ! \Storage::disk('s3')->exists($filePath) ) {
+            dd(\Storage::disk('s3')->get($filePath));
+
+            flash( __( 'common.error' ) )->error()->important();
+            return redirect()->route( 'public.ticket.owned.page' );
+        }
+
+        $url = \Storage::disk('s3')->temporaryUrl(
+            $filePath, now()->addMinutes(5)
+        );
+
+        return redirect($url);
     }
 
     /////////////////////////

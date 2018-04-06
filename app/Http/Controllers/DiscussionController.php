@@ -14,6 +14,7 @@ use App\Models\Message;
 use App\Notifications\AcceptOfferNotification;
 use App\Notifications\MessageNotification;
 use App\Notifications\DenyOfferNotification;
+use App\Notifications\SoldToYouNotification;
 use App\Ticket;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -189,6 +190,8 @@ class DiscussionController extends Controller
         $ticket->sold_to_id = $discussion->buyer->id;
         $ticket->save();
         $discussion->save();
+
+        $discussion->buyer->notify(new SoldToYouNotification($discussion));
 
         flash(__('message.success.sold'))->success()->important();
         return redirect()->route('public.message.discussion.page',[

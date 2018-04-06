@@ -28,6 +28,7 @@ return [
         'stack' => [
             'driver' => 'stack',
             'channels' => ['single'],
+            'level' => 'debug',
         ],
         'single' => [
             'driver' => 'single',

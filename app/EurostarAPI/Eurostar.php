@@ -197,6 +197,7 @@ class Eurostar
 
     /**
      * Download the ticket PDF from eurostar, and store it on S3
+     * Also update ticket with the passbook_link
      */
     public function downloadAndReuploadPDF( Ticket $ticket )
     {
@@ -228,6 +229,11 @@ class Eurostar
             }
             $ticketIndex++;
         }
+
+
+        // Now retrieve and save passbook url
+        $ticket->passbook_link = $decoded['etapBooking']['ticketsData']['passbook'][$ticket->eurostar_ticket_number];
+        $ticket->save();
 
         // Now that we retrieved passenger id, we simply need to do a post to retrieve and download the ticket
         $response = $this->client->request(
@@ -268,13 +274,9 @@ class Eurostar
         $pdf->AddPage();
         $pdf->useTemplate($page);
 
-        $fileName = \Hash::make($ticket->buyer_name.$ticket->eurostar_code).$ticket->id.'.pdf';
+        \Storage::disk('s3')->put('pdf/tickets/'.$ticket->pdf_file_name, (string) $pdf->Output("S"));
 
-        \Storage::disk('s3')->put('pdf/tickets/'.$fileName, (string) $pdf->Output("S"));
-        dd(\Storage::disk('s3')->temporaryUrl('pdf/tickets/'.$fileName,now()->addMinutes(5)));
-
-        return \Storage::disk('s3')->temporaryUrl('pdf/tickets/'.$fileName,now()->addMinutes(1));
-
+        return true;
     }
 
 }

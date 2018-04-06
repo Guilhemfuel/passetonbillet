@@ -26,8 +26,7 @@ class TicketFullRessource extends Resource
             'bought_currency' => $this->bought_currency,
             'inbound' => $this->inbound,
             'buyer' => $this->sold_to_id?new UserRessource($this->buyer):null,
-            'buyer_name' => $this->buyer_name,
-            'eurostar_code' => $this->eurostar_code,
+            'download_link' => route('public.ticket.download',['ticket_id'=>$this->id]),
         ];
     }
 }
