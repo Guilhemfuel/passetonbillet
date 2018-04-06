@@ -224,7 +224,7 @@ class UserController extends Controller
 
         $phoneVerification->delete();
 
-        flash( __( 'number_confirmed' ) )->success();
+        flash( __( 'tickets.sell.confirm_number.errors.number_confirmed' ) )->success();
 
         return redirect()->back();
 
