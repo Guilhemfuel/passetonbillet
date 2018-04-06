@@ -1,5 +1,5 @@
 @component('mail::message')
-# Hello  {{$user->full_name}} !
+# Hello  {{$user->first_name}} !
 
 Your identity has just been confirmed!
 

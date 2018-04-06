@@ -1,5 +1,5 @@
 @component('mail::message')
-# Hello  {{$user->full_name}} !
+# Hello  {{$user->first_name}} !
 
 Votre offre de **{{$discussion->price}} {{$discussion->currency}}** pour le ticket ci-dessous est acceptée!
 

@@ -18,7 +18,7 @@ class IdDenied extends Notification implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($comment)
+    public function __construct( $comment )
     {
         $this->comment = $comment;
     }
@@ -26,21 +26,23 @@ class IdDenied extends Notification implements ShouldQueue
     /**
      * Get the notification's delivery channels.
      *
-     * @param  mixed  $notifiable
+     * @param  mixed $notifiable
+     *
      * @return array
      */
-    public function via($notifiable)
+    public function via( $notifiable )
     {
-        return ['mail','database'];
+        return [ 'mail', 'database', 'broadcast' ];
     }
 
     /**
      * Get the mail representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param  mixed $notifiable
+     *
      * @return IdDeniedMail
      */
-    public function toMail($notifiable)
+    public function toMail( $notifiable )
     {
         return new IdDeniedMail( $notifiable, $this->comment );
 
@@ -49,15 +51,17 @@ class IdDenied extends Notification implements ShouldQueue
     /**
      * Get the array representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param  mixed $notifiable
+     *
      * @return array
      */
-    public function toArray($notifiable)
+    public function toArray( $notifiable )
     {
         return [
-            'icon' => 'times',
-            'text' => __('notifications.verification.id.failure'),
-            'link' => route('public.profile.home')
+            'icon'  => 'times',
+            'text'  => __( 'notifications.verification.id.failure' ),
+            'link'  => route( 'public.profile.home' ),
+            'color' => 'danger'
         ];
     }
 }

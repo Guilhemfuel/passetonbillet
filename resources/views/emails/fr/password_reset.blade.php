@@ -1,5 +1,5 @@
 @component('mail::message')
-# Hello  {{$user->full_name}} !
+# Hello  {{$user->first_name}} !
 
 Cliquez sur le bouton pour ré-initialiser votre mot de passe.
 

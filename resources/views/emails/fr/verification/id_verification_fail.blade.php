@@ -1,5 +1,5 @@
 @component('mail::message')
-# Hello  {{$user->full_name}} !
+# Hello  {{$user->first_name}} !
 
 Malheuresment, votre identité n'a pas pu etre confirmée pour les raisons suivantes:
 
