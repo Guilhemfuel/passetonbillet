@@ -63,7 +63,7 @@ return [
         'errors'        => [
             'max_value' => 'Whoops! Selling price can\'t exceed original price ! Try again with a lower price.',
             'duplicate' => 'Whoops! This ticket is already on sale...',
-            'search'    => 'Whoops ! No tickets were found... Try again and if the issue persists please contact us.'
+            'search'    => 'Whoops! No tickets were found... Try again and if the issue persists please contact us.'
         ],
         'success'       => 'Hooray! Your ticket is now on the market ! Thank you for your trust !',
 
