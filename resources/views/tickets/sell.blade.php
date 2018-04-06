@@ -73,7 +73,7 @@
                                         </div>
                                     </div>
                                 </form>
-                                <a href="#" @click.prevent="resendNumberModalOpen=true">@lang('tickets.sell.confirm_number.no_code_received')</a>
+                                <a href="#" @click.prevent="child.sell_tickets.resendNumberModalOpen=true">@lang('tickets.sell.confirm_number.no_code_received')</a>
 
                                 <modal v-cloak :is-open="child.sell_tickets.resendNumberModalOpen" @close-modal="child.sell_tickets.resendNumberModalOpen=false">
                                     <div class="modal-body">

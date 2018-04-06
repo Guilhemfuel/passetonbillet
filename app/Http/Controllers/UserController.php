@@ -202,7 +202,7 @@ class UserController extends Controller
                                               ->first();
 
         if ( ! $phoneVerification ) {
-            flash( __( 'no_verification_found' ) )->error();
+            flash( __( 'tickets.sell.confirm_number.errors.no_verification_found' ) )->error();
 
             return redirect()->back();
         }

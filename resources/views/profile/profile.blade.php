@@ -92,7 +92,6 @@
                         </ul>
                         <form method="post" action="{{route('public.profile.id.upload')}}" enctype="multipart/form-data">
                             {{csrf_field()}}
-                            <p>@lang('profile.modal.change_picture.text')</p>
                             <div class="form-group">
                                 <input class="form-control" type="file" name="scan">
                             </div>
