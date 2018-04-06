@@ -89,6 +89,7 @@ class PageController extends Controller
                 $state = 1;
                 break;
             case 'offered':
+            case 'offers':
                 $state = 4;
                 break;
             case 'bought':

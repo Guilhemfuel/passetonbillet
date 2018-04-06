@@ -49,11 +49,14 @@ class TicketController extends Controller
             return redirect()->route( 'public.ticket.sell.page' );
         }
 
+
         // Make sure we don't have such a ticket yet
         $oldTicket = Ticket::where( 'eurostar_code', $ticket->eurostar_code )
                            ->where( 'buyer_name', $ticket->buyer_name )
+            ->where('eurostar_ticket_number',$ticket->eurostar_ticket_number)
                            ->first();
-        if ( $oldTicket && $oldTicket->eurostar_ticker_number == $ticket->eurostar_ticker_number ) {
+
+        if ( $oldTicket ) {
             flash( __( 'tickets.sell.errors.duplicate' ) )->error()->important();
 
             return redirect()->route( 'public.ticket.sell.page' );

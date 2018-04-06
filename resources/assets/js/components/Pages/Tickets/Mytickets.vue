@@ -3,20 +3,21 @@
 
         <div class="row">
             <div class="col-12 text-center py-3">
-                <el-radio-group v-model="state" class="mx-auto">
+                <el-radio-group v-model="state" class="mx-auto" :label="state" @change="rerender">
                     <el-radio-button :label="stateValues.selling">{{lang.owned.selling}}</el-radio-button>
                     <el-radio-button :label="stateValues.offered">{{lang.owned.offers_sent}}</el-radio-button>
                     <el-radio-button :label="stateValues.sold">{{lang.owned.sold}}</el-radio-button>
                     <el-radio-button :label="stateValues.bought">{{lang.owned.bought}}</el-radio-button>
                 </el-radio-group>
             </div>
-            <div class="col-12 col-sm-6 col-md-6 col-lg-4" v-for="ticket in currentTickets">
+            <div class="col-12 col-sm-6 col-md-6 col-lg-4" v-for="ticket in currentTickets" :key="rerenderer">
                 <template v-if="state==stateValues.bought">
                     <ticket :ticket="ticket" :lang="lang.component" :user="user" :bought="true" :routes="routes"
-                            :api="api" :csrf="csrf"></ticket>
+                            :api="api" :csrf="csrf" ></ticket>
                 </template>
                 <template v-else-if="state==stateValues.sold">
-                    <ticket :ticket="ticket" :lang="lang.component" :user="user" :routes="routes" :api="api" :csrf="csrf"></ticket>
+                    <ticket :ticket="ticket" :lang="lang.component" :user="user" :routes="routes" :api="api"
+                            :csrf="csrf"></ticket>
                 </template>
                 <template v-else-if="state==stateValues.selling">
                     <ticket :ticket="ticket" :lang="lang.component" :user="user" :routes="routes" :api="api" :csrf="csrf"></ticket>
@@ -59,7 +60,6 @@
             user: {type: Object, required: true},
             defaultState: { required: true},
 
-
             stateValues: {
                 type: Object, default: () => {
                     return {
@@ -75,6 +75,7 @@
             return {
                 csrf: window.csrf,
                 state: this.defaultState,
+                rerenderer: 0
             }
         },
         computed: {
@@ -83,7 +84,7 @@
                 for (var i = 0; i < this.tickets.length; i++) {
                     var now = moment();
                     var departure = moment(this.tickets[i].train.departure_date, 'YYYY-MM-DD');
-                    if (!now.isAfter(departure)) {
+                    if (!now.isAfter(departure) && this.tickets[i].buyer == null) {
                         ticketsToReturn.push(this.tickets[i])
                     }
                 }
@@ -94,7 +95,7 @@
                 for (var i = 0; i < this.tickets.length; i++) {
                     var now = moment();
                     var departure = moment(this.tickets[i].train.departure_date, 'YYYY-MM-DD');
-                    if (now.isAfter(departure)) {
+                    if (this.tickets[i].buyer != null) {
                         ticketsToReturn.push(this.tickets[i])
                     }
                 }
@@ -128,6 +129,17 @@
                 return actualTickets.sort(compare);
             }
         },
-        methods: {}
+        methods: {
+            // To fix the issue of rerendering we change the key
+            rerender(){
+                this.rerenderer = this.rerenderer + 1;
+            },
+
+        },
+        watch: {
+            state: function(){
+                console.log(this.state);
+            }
+        }
     }
 </script>
