@@ -9,10 +9,10 @@ return [
     */
 
     'title' => 'My profile',
-    'account_verify' => 'Verify your account',
+    'account_verify' => 'Verify my account',
     'account_verified' => 'Identity verified',
     'change_password' => 'Change password',
-    'edit_profile' => 'Edit your informations',
+    'edit_profile' => 'Edit your information',
     'change_picture' => 'Change profile picture',
     'member_since' => 'Member since ',
     'number_tickets_successfully_sold' => 'Tickets successfully sold',
