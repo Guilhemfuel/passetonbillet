@@ -20,7 +20,7 @@ return [
         'buy_now' => 'Buy this ticket now!'
 
     ],
-    'error' => 'Whoops! Something went wrong... Please try again! Contact us if the '
+    'error' => 'Whoops! Something went wrong... Please try again! Contact us if the problem persists.'
 
 
 ];
