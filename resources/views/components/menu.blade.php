@@ -7,7 +7,7 @@
 
 <li  class="{{ Route::current()->getName() == 'public.ticket.sell.page' ? ' active' : '' }}">
     <a href="{{route('public.ticket.sell.page')}}">
-        <i class="fa fa-credit-card"></i>
+        <i class="fa fa-money"></i>
         <span class="d-sm-inline d-none label">{{__('nav.sell_ticket')}}</span>
     </a>
 </li>

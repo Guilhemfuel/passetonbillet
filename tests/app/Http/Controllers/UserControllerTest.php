@@ -27,7 +27,7 @@ class UserControllerTest extends LastarTestCase
     public function testUploadId()
     {
         $user = factory( User::class )->create();
-        $fakeUrl = 'http://fakeurl.com';
+        $fakeUrl = 'http://fakeurl.com/test.jpg';
 
         \App\Facades\ImageHelper::shouldReceive( 'resizeImageAndUploadToS3' )->once()->andReturn( $fakeUrl );
 
@@ -35,7 +35,6 @@ class UserControllerTest extends LastarTestCase
         $response = $this->postWithCsrf( route( 'public.profile.id.upload' ), [
             'scan'         => UploadedFile::fake()->image('id.jpg')
         ] );
-
 
         // Building flash message
         $flashMesage = new Message();
@@ -47,7 +46,7 @@ class UserControllerTest extends LastarTestCase
                  ->assertSessionHas( [ 'flash_notification' => collect( [ $flashMesage ] ) ] );
 
         $user = $user->fresh();
-        $this->assertEquals($user->idVerification->scan,$fakeUrl);
+        $this->assertEquals($user->idVerification->scan,\Storage::disk('s3')->temporaryUrl(ltrim('test.jpg', '/'),now()->addMinutes(5)));
     }
 
     // Make sure that you can't change a password if you give a false password for the actual one

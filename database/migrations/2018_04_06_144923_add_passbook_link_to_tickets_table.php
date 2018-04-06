@@ -28,7 +28,7 @@ class AddPassbookLinkToTicketsTable extends Migration
     {
         Schema::table( 'tickets', function ( Blueprint $table ) {
             // We allow to remove and re-add ticket
-            $table->drop( 'passbook_link' );
+            $table->dropColumn( 'passbook_link' );
         });
     }
 }

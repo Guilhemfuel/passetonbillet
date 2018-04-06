@@ -28,7 +28,7 @@ class AddEurostarPassagengerNumberToTicketsTable extends Migration
     {
         Schema::table( 'tickets', function ( Blueprint $table ) {
             // We allow to remove and re-add ticket
-            $table->drop( 'eurostar_ticket_number' );
+            $table->dropColumn( 'eurostar_ticket_number' );
         });
     }
 }

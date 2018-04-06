@@ -3,6 +3,7 @@
 namespace Tests\app\Http\Controllers;
 
 use App\Http\Resources\TicketRessource;
+use App\Jobs\DownloadTicketPdf;
 use App\Notifications\OfferNotification;
 use App\Ticket;
 use App\Station;
@@ -22,17 +23,18 @@ class TicketControllerTest extends LastarTestCase
      */
     public function testSearchTickets()
     {
-        $name = str_random( 10 );
         $code = str_random( 6 );
 
         $tickets = factory( Ticket::class, 2 )->states( 'new' )->make();
+        $user = factory( User::class )->create();
 
         \Eurostar::shouldReceive( 'retrieveTicket' )->once()
-                 ->with( $name, $code )
+                 ->with( $user->last_name, $code )
                  ->andReturn( $tickets );
 
-        $response = $this->beAUser()->postWithCsrf( route( 'api.tickets.search' ), [
-            'last_name'    => $name,
+        $this->be($user);
+        $response = $this->postWithCsrf( route( 'api.tickets.search' ), [
+            'last_name'    => $user->last_name,
             'booking_code' => $code
         ] );
 
@@ -41,6 +43,33 @@ class TicketControllerTest extends LastarTestCase
             json_decode( json_encode( [ 'data' => TicketRessource::collection( collect( $tickets ) ) ] ) ) );
 
         $response->assertSessionHas( 'tickets', collect( $tickets ) );
+    }
+
+    /**
+     * Make sure the ajax request for tickets only works with user name
+     *
+     * @return void
+     */
+    public function testSearchTicketsNameNotMatchingUserSurName()
+    {
+        $code = str_random( 6 );
+        $name = str_random( 6 );
+
+        $tickets = factory( Ticket::class, 2 )->states( 'new' )->make();
+        $user = factory( User::class )->create();
+
+        $this->be($user);
+        $response = $this->postWithCsrf( route( 'api.tickets.search' ), [
+            'last_name'    => $name,
+            'booking_code' => $code
+        ] );
+
+        $response->assertStatus(500);
+        $this->assertEquals(
+            json_decode( $response->getContent() ),
+            null );
+
+        $response->assertSessionMissing( 'tickets', collect( $tickets ) );
     }
 
     public function testSellTicketWithoutPhoneVerified()
@@ -64,6 +93,8 @@ class TicketControllerTest extends LastarTestCase
      */
     public function testSellTicket()
     {
+        \Queue::fake();
+
         $tickets = factory( Ticket::class, 2 )->states( 'new' )->make();
         $ticketIndex = random_int( 0, 1 );
         $newPrice = $tickets[ $ticketIndex ]->bought_price - random_int( 0, ( $tickets[ $ticketIndex ]->bought_price - 1 ) ); // Price between original price and 1
@@ -91,6 +122,12 @@ class TicketControllerTest extends LastarTestCase
         $tickets[ $ticketIndex ]->user_notes = $newNotes;
 
         $this->assertDatabaseHas( 'tickets', $tickets[ $ticketIndex ]->toArray() );
+
+        $ticket = $tickets[ $ticketIndex ];
+
+        \Queue::assertPushed(DownloadTicketPdf::class, function ($job) use ($ticket) {
+            return $job->ticket->id === $ticket->id;
+        });
     }
 
     /**
