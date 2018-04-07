@@ -165,7 +165,7 @@ class UserController extends Controller
                     'text' => $phoneVerification->message
                 ] );
             } catch (\Exception $e){
-                flash(__('common.error'));
+                flash(__('common.error'))->error();
                 return redirect()->back();
             }
         }

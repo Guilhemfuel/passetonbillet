@@ -47,7 +47,6 @@
 
     @if(session('login'))
         {{-- Watever that needs to be done on login--}}
-        
     @endif
 
     @yield('content')
