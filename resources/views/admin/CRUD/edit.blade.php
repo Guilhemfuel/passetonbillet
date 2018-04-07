@@ -25,7 +25,7 @@
                         </button>
                     </div>
 
-                    <modal :is-open="child.edit_page.deleteModalOpened" v-on:close-modal="child.edit_page.deleteModalOpened = false">
+                    <modal v-cloak :is-open="child.edit_page.deleteModalOpened" v-on:close-modal="child.edit_page.deleteModalOpened = false">
                         Do you really wish to delete this item ?
                         <div>
                             <button class="btn btn-default" @click="child.edit_page.deleteModalOpened = false">Cancel</button>
@@ -37,7 +37,7 @@
                         </div>
                     </modal>
                 @endif
-                    <form id="editForm" method="POST" action="{{route($model.'.update',$entity->id)}}">
+                    <form id="editForm" method="POST" action="{{route($model.'.update',$entity->id)}}" v-cloak >
                         {{csrf_field()}}
                         {{ method_field('PUT') }}
 
@@ -47,6 +47,8 @@
                             <button class="btn btn-success btn-fill btn-sm" type="submit">
                                 <i class="fa fa-floppy-o"></i> Update entity
                             </button>
+{{--                            @include('admin.CRUD.'.$model.'.form')--}}
+
                         </div>
                     </form>
             </div>
