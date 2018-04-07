@@ -27,15 +27,15 @@
         "sentry/sentry-laravel": "^0.8.0",
         "setasign/fpdf": "1.8.1",
         "setasign/fpdi": "^2.0",
-        "vinkla/hashids": "^5.0"
+        "vinkla/hashids": "^5.0",
+        "filp/whoops": "~2.0"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.2",
         "fzaninotto/faker": "~1.4",
         "laravel/dusk": "^3.0",
         "mockery/mockery": "0.9.*",
-        "phpunit/phpunit": "~7.0",
-        "filp/whoops": "~2.0"
+        "phpunit/phpunit": "~7.0"
     },
     "autoload": {
         "classmap": [
