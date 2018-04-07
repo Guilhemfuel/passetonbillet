@@ -36,7 +36,7 @@
     <div class="col-md-6">
         <div class="form-group">
             <label>Birthdate</label>
-            <datepicker :input-class="inputClass"
+            <datepicker input-class="form-control"
                         :wrapper-class="'lastar-calendar'"
                         :placeholder="'Birthdate'"
                         :name="'birthdate'"

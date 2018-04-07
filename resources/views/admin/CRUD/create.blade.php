@@ -30,14 +30,3 @@
     </div>
 
 @endsection
-
-@push('scripts')
-    <script type="application/javascript">
-        const createForm = new Vue({
-            el: '#createForm',
-            data: {
-                inputClass: 'form-control'
-            }
-        });
-    </script>
-@endpush

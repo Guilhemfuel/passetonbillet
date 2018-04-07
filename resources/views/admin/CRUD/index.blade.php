@@ -76,12 +76,3 @@
     </div>
 
 @endsection
-
-
-@push('scripts')
-    <script type="application/javascript">
-        const tableIndex = new Vue({
-            el: '#crud-table'
-        });
-    </script>
-@endpush

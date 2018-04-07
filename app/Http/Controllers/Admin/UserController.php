@@ -35,7 +35,7 @@ class UserController extends BaseController
         $user->status = - 1;
         $user->save();
 
-        \Session::flash( 'success', $this->CRUDsingularEntityName . ' created!' );
+        flash()->success($this->CRUDsingularEntityName . ' created!');
 
         return redirect()->route( $this->CRUDmodelName . '.edit', $user->id );
     }
@@ -58,7 +58,8 @@ class UserController extends BaseController
         }
         $user->update( $request->all() );
         $user->save();
-        \Session::flash( 'success', $this->CRUDsingularEntityName . ' updated!' );
+
+        flash()->success($this->CRUDsingularEntityName . ' updated!');
 
         return redirect()->route( $this->CRUDmodelName . '.edit', $user->id );
     }
@@ -71,7 +72,8 @@ class UserController extends BaseController
         $idCheck = IdVerification::where('accepted',null)->oldest()->first();
 
         if ( $idCheck == null ) {
-            \Session::flash( 'danger', 'No id check is awaiting.' );
+
+            flash()->error('danger', 'No id check is awaiting.' );
 
             return redirect()->route( 'admin.home' );
         }
@@ -93,7 +95,8 @@ class UserController extends BaseController
         $idVerif = IdVerification::find( $request->verification_id );
 
         if ($idVerif->accepted!=null){
-            \Session::flash( 'danger', 'ID confirmation already done!' );
+
+            flash()->error('ID confirmation already done!');
 
             return redirect()->route( 'id_check.oldest' );
         }
@@ -103,7 +106,7 @@ class UserController extends BaseController
 
         $idVerif->user->notify( new IdConfirmed() );
 
-        \Session::flash( 'success', 'ID confirmed!' );
+        flash()->success('ID confirmed!');
 
         return redirect()->route( 'id_check.oldest' );
     }
@@ -121,7 +124,8 @@ class UserController extends BaseController
         $idVerif = IdVerification::find( $request->verification_id );
 
         if ($idVerif->accepted!=null){
-            \Session::flash( 'danger', 'ID confirmation already done!' );
+
+            flash()->error('ID confirmation already done!');
 
             return redirect()->route( 'id_check.oldest' );
         }
@@ -134,7 +138,7 @@ class UserController extends BaseController
 
         $idVerif->delete();
 
-        \Session::flash( 'success', 'ID successfully Denied!' );
+        flash()->success('ID successfully Denied!');
 
         return redirect()->route( 'id_check.oldest' );
     }

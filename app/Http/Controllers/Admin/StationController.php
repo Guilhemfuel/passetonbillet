@@ -42,7 +42,7 @@ class StationController extends BaseController
         }
         $station->save();
 
-        \Session::flash('success',$this->CRUDsingularEntityName.' created!');
+        flash()->success($this->CRUDsingularEntityName.' created!');
         return redirect()->route($this->CRUDmodelName.'.edit',$station->id);
     }
 
@@ -75,12 +75,12 @@ class StationController extends BaseController
                 $station->timezone = '+02:00';
                 break;
             default:
-                \Session::flash('error','Country not found!');
+                flash()->error('Country not found!');
                 return redirect()->back();
         }
         $station->save();
 
-        \Session::flash('success',$this->CRUDsingularEntityName.' created!');
+        flash()->error($this->CRUDsingularEntityName.' created!');
         return redirect()->route($this->CRUDmodelName.'.edit',$station->id);
     }
 

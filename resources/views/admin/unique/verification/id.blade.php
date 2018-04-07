@@ -41,10 +41,10 @@
                         <input type="hidden" name="verification_id" value="{{$user->idVerification->id}}">
                         <button type="submit" class="btn btn-success">Accept ID Verification</button>
                     </form>
-                    <button @click.prevent="denyModelOpened=true" class="btn btn-danger">Deny ID Verification</button>
+                    <button @click.prevent="child.id_check.denyModalOpened=true" class="btn btn-danger">Deny ID Verification</button>
                 </div>
 
-                <modal v-cloak :is-open="denyModelOpened" @close-modal="denyModelOpened=false" title="Deny ID Verification">
+                <modal v-cloak :is-open="child.id_check.denyModalOpened" @close-modal="child.id_check.denyModalOpened=false" title="Deny ID Verification">
                     <form method="post" action="{{route('id_check.deny')}}">
                         {{csrf_field()}}
                         <input type="hidden" name="verification_id" value="{{$user->idVerification->id}}">
@@ -59,13 +59,10 @@
 
 @endsection
 
-@push('scripts')
+@push('vue-data')
     <script type="application/javascript">
-        const tableIndex = new Vue({
-            el: '#unique-admin',
-            data: {
-                denyModelOpened: false
-            }
-        });
+        data.id_check = {
+            denyModalOpened: false
+        }
     </script>
 @endpush

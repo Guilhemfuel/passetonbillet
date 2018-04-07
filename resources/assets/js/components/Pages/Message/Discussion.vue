@@ -31,7 +31,7 @@
                     </a>
                 </div>
                 <div class="col-md-4 d-sm-none d-none d-md-flex align-items-center justify-content-center" v-if="!sold && user.id == discussion.ticket.user.id">
-                    <button class="btn btn-lastar-blue mx-auto" @click="modalSellOpen=true"> {{lang.discussions.cta_sell_to}} {{correspondant.full_name}}</button>
+                    <button class="btn btn-primary mx-auto" @click="modalSellOpen=true"> {{lang.discussions.cta_sell_to}} {{correspondant.full_name}}</button>
                 </div>
 
                 <template v-if="sold">

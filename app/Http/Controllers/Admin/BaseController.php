@@ -133,7 +133,7 @@ abstract class BaseController extends Controller
     {
         $entity = $this->model::find( $id );
         if ( ! $entity ) {
-            \Session::flash( 'danger', 'Entity not found!' );
+            flash()->error('Entity not found!');
         }
 
         return $this->lastarView( 'admin.CRUD.edit', [ 'entity' => $entity ] );
@@ -150,11 +150,10 @@ abstract class BaseController extends Controller
     {
         $entity = $this->model::find( $id );
         if ( ! $entity ) {
-            \Session::flash( 'danger', 'Entity not found!' );
+            flash()->error('Entity not found!');
         }
         $entity->delete();
-        \Session::flash( 'success', 'Entity deleted!' );
-
+        flash()->success('Entity deleted!' );
         return redirect()->route( $this->CRUDmodelName . '.index' );
     }
 

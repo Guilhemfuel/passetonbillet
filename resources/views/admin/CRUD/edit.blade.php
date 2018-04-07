@@ -20,15 +20,15 @@
 
                 @if(isset($entity))
                     <div class="crud-actions">
-                        <button class="btn btn-danger btn-fill btn-sm" id="btn-delete" @click="deleteModalOpened = true">
+                        <button class="btn btn-danger btn-fill btn-sm" id="btn-delete" @click="child.edit_page.deleteModalOpened = true">
                             <i class="fa fa-trash" data-toggle="modal" data-target="#deleteModal"></i> Delete entity
                         </button>
                     </div>
 
-                    <modal :is-open="deleteModalOpened" v-on:close-modal="deleteModalOpened = false">
+                    <modal :is-open="child.edit_page.deleteModalOpened" v-on:close-modal="child.edit_page.deleteModalOpened = false">
                         Do you really wish to delete this item ?
                         <div>
-                            <button class="btn btn-default" @click="deleteModalOpened = false">Cancel</button>
+                            <button class="btn btn-default" @click="child.edit_page.deleteModalOpened = false">Cancel</button>
                             <form id="deleteForm" method="POST" action="{{route($model.'.destroy',$entity->id)}}">
                                 {{ csrf_field() }}
                                 {{ method_field('DELETE') }}
@@ -57,15 +57,14 @@
 
 @endsection
 
-@push('scripts')
+
+
+@push('vue-data')
     <script type="application/javascript">
-        const editForm = new Vue({
-            el: '#editPage',
-            name: 'EditPage',
-            data: {
-                inputClass: 'form-control',
-                deleteModalOpened: false,
-            }
-        });
+
+        data.edit_page = {
+            deleteModalOpened: false,
+        }
+
     </script>
 @endpush

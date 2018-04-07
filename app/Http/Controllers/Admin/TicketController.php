@@ -21,7 +21,8 @@ class TicketController extends BaseController
      */
     public function create()
     {
-        \Session::flash('danger','Ticket can\'t be created!');
+        flash()->error('Ticket can\'t be created!');
+
         return redirect()->route($this->CRUDmodelName.'.index');
     }
 
@@ -33,7 +34,7 @@ class TicketController extends BaseController
      */
     public function store(Request $request)
     {
-        \Session::flash('danger','Ticket can\'t be created!');
+        flash()->error('Ticket can\'t be created!');
         return redirect()->route($this->CRUDmodelName.'.index');
     }
 
@@ -49,12 +50,13 @@ class TicketController extends BaseController
         $ticket = Ticket::find($id);
         if (!$ticket){
             \Session::flash('danger','Entity not found!');
+            flash()->error('Ticket not found!');
             return redirect()->back();
         }
         $ticket->update($request->all());
         $ticket->save();
 
-        \Session::flash('success',$this->CRUDsingularEntityName.' updated!');
+        flash()->success('Ticket updated!');
         return redirect()->route($this->CRUDmodelName.'.edit',$ticket->id);
     }
 

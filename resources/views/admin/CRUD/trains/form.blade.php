@@ -27,7 +27,7 @@
     <div class="col-md-6">
         <div class="form-group">
             <label>Departure Date</label>
-            <datepicker :input-class="inputClass"
+            <datepicker input-class="form-control"
                         :wrapper-class="'lastar-calendar'"
                         :placeholder="'Departure Date'"
                         :name="'departure_date'"
@@ -38,7 +38,7 @@
     <div class="col-md-6">
         <div class="form-group">
             <label>Arrival Date</label>
-            <datepicker :input-class="inputClass"
+            <datepicker input-class="form-control"
                         :wrapper-class="'lastar-calendar'"
                         :placeholder="'Departure Date'"
                         :name="'arrival_date'"

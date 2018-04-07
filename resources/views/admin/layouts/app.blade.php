@@ -7,6 +7,19 @@
 
     <title>Lastar Admin @yield('title')</title>
 
+    <!-- Favicon  -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{{secure_asset('img/favicon/apple-touch-icon.png')}}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{secure_asset('img/favicon/favicon-32x32.png')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{secure_asset('img/favicon/favicon-16x16.png')}}">
+    <link rel="manifest" href="{{secure_asset('img/favicon/site.webmanifest')}}">
+    <link rel="mask-icon" href="{{secure_asset('img/favicon/safari-pinned-tab.svg')}}" color="#5bbad5">
+    <link rel="shortcut icon" href="{{secure_asset('img/favicon/favicon.ico')}}">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-config" content="{{secure_asset('img/favicon/browserconfig.xml')}}">
+
+    <!-- Pusher App if-->
+    <meta name="pusher:app_key" content="{{env('PUSHER_APP_KEY')}}"/>
+
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="lang" content="{{ config('app.locale') }}">
@@ -14,7 +27,7 @@
     <!-- Styles -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
           integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css" />
 
     <link rel="stylesheet" href="{{ mix('/css/admin.css') }}">
@@ -50,36 +63,6 @@
 
                 <div class="content">
                     <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-md-12">
-                                @if ($errors->any())
-                                    <div class="alert alert-danger alert-dismissible" role="alert">
-                                        <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">×</button>
-                                        Whoops!</br>
-                                        @foreach ($errors->all() as $error)
-                                            <span>{{$error}}</span>
-                                        @endforeach
-                                    </div>
-                                @endif
-                            </div>
-                            <div class="col-md-12">
-                                @if (Session::has('success'))
-                                    <div class="alert alert-success alert-dismissible" role="alert">
-                                        <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">×</button>
-                                        {{ Session::get('success') }}
-                                    </div>
-                                @endif
-                            </div>
-                            <div class="col-md-12">
-                                @if (Session::has('danger'))
-                                    <div class="alert alert-danger alert-dismissible" role="alert">
-                                        <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">×</button>
-                                        {{ Session::get('danger') }}
-                                    </div>
-                                @endif
-                            </div>
-                        </div>
-
                         @yield('content')
                     </div>
                 </div>
@@ -91,7 +74,63 @@
 
 
 <!-- Scripts -->
+<script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
 <script src="/js/admin.js"></script>
+<script type="application/javascript">
+    let data = {};
+    let currentPage = {
+        name: '{!! Route::currentRouteName()!!}',
+        data: {}
+    };
+</script>
+@stack('vue-data')
+<script>
+    const notifications = new Vue({
+        el: '#app',
+        name: 'Lastar',
+        data: {
+            messages: {!! ( session()->has('flash_notification') && session('flash_notification')!==null?json_encode(session('flash_notification')):'[]') !!},
+            custom_errors: {!!  ($errors->any()?json_encode($errors->all()):'[]') !!},
+            child: null,
+            user: {!! isset($jsonUser)?json_encode($jsonUser):(isset($userData)?json_encode($userData):(isset($user)?json_encode($user):'null')) !!},
+            currentPage: null
+        },
+        mounted() {
+
+            // Display Messages
+            for (var i = 0; i < this.messages.length; i++) {
+                this.$message({
+                    message: this.messages[i].message,
+                    type: this.messages[i].level=='danger'?'error':this.messages[i].level,
+                    showClose: true,
+                    duration: this.messages[i].important?0:10000,
+                    dangerouslyUseHTMLString: true
+                });
+            }
+
+            var errorsMessage = '<ul style="margin-bottom: 0px!important;">';
+            for (var i = 0; i < this.custom_errors.length; i++) {
+                errorsMessage += '<li>' + this.custom_errors[i] + '</li>'
+            }
+            errorsMessage += '</ul>';
+
+            if ( this.custom_errors.length>0) {
+                this.$message({
+                    dangerouslyUseHTMLString: true,
+                    message: errorsMessage,
+                    type: 'error',
+                    showClose: true,
+                    duration: 0
+                });
+            }
+
+        },
+        created: function() {
+            this.child = data;
+            this.currentPage = currentPage;
+        }
+    });
+</script>
 @stack('scripts')
 </body>
 </html>
