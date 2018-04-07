@@ -12,46 +12,28 @@
             <div class="card-body card-messages">
                 <div class="awaiting_offers">
                     <div class="table-responsive">
-                        <table class="table table-hover">
+                        <table class="table table-hover table-offers">
                             <thead>
                             <tr>
                                 <th scope="col" class="text-center">Ticket</th>
-                                <th scope="col">Buyer Name</th>
+                                <th scope="col" class="d-none d-md-table-cell">Buyer Name</th>
                                 <th scope="col" class="text-center">Price</th>
                                 <th scope="col" class="text-center">Actions</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <modal :is-open="modalTicketOfferOpened" @close-modal="modalTicketOfferOpened=false">
-                                <div style="width: 270px; margin: auto">
-                                <ticket class-name="fixed-width mx-auto" :user="user" :ticket="modalTicketOffer"
-                                        :lang="ticketLang"
-                                        v-if="modalTicketOfferOpened" :display="true"></ticket>
-                                </div>
-                            </modal>
                             <tr v-for="offer in offersAwaiting">
-                                <th scope="col" class="text-center text-info" v-popover:popticketoffer @click="openTicketModalOffer(offer.ticket)">
-                                    <div class="container-fluid">
-                                        <div class="row">
-                                            <div class="col-sm-2 d-none d-sm-block text-center text-info pt-2">
-                                                <i class="fa fa-search-plus" aria-hidden="true"></i>
-                                            </div>
-                                            <div class=" col-12 col-sm-10 text-center text-info">
-                                                {{offer.ticket.train.departure_city.short_name.substr(2, 5)}}-{{offer.ticket.train.arrival_city.short_name.substr(2, 5)}}
-                                                <!--<i class="fa fa-ticket"></i>-->
-                                                <br>{{formattedDate(offer.ticket.train.departure_date)}}
-                                            </div>
-                                        </div>
-                                    </div>
+                                <th scope="col" class="text-center text-info">
+                                    <ticket-mini :discussion="offer" :lang="ticketLang" :ticket="offer.ticket"></ticket-mini>
                                 </th>
-                                <th scope="col">{{offer.buyer.full_name}}</th>
-                                <th scope="col" class="text-center">{{offer.price}}{{offer.currency == 'GBP' ? '£' : '€'}}</th>
-                                <th scope="col" class="text-center actions">
-                                    <button class="btn btn-lastar-blue" @click.prevent="acceptOffer(offer.id)">
-                                        Accept
+                                <th scope="col" class="d-none d-sm-none d-md-table-cell align-middle">{{offer.buyer.full_name}}</th>
+                                <th scope="col" class="text-center align-middle">{{offer.price}}{{offer.currency == 'GBP' ? '£' : '€'}}</th>
+                                <th scope="col" class="text-center actions align-middle">
+                                    <button class="btn btn-success" @click.prevent="acceptOffer(offer.id)">
+                                        {{lang.awaiting_offers.accept}}
                                     </button>
-                                    <button class="btn btn-lastar-blue" @click.prevent="denyOffer(offer.id)">
-                                        Deny
+                                    <button class="btn btn-danger" @click.prevent="denyOffer(offer.id)">
+                                        {{lang.awaiting_offers.deny}}
                                     </button>
                                     <!--<i class="fa fa-check" aria-hidden="true" @click.prevent="acceptOffer(offer.id)"></i>-->
                                     <!--<i class="fa fa-times" aria-hidden="true" @click.prevent="denyOffer(offer.id)"></i>-->
@@ -76,15 +58,8 @@
                 <h4 class="card-title mb-0">{{lang.discussions.title}}</h4>
             </div>
             <div class="card-body card-messages">
-                <div class="awaiting_offers">
+                <div class="current-discussions">
                     <div class="table-responsive">
-                        <modal :is-open="modalTicketOpened" @close-modal="modalTicketOpened=false">
-                            <div style="width: 270px; margin: auto">
-                            <ticket class-name="fixed-width mx-auto" :user="user" :ticket="modalTicket"
-                                    :lang="ticketLang"
-                                    v-if="modalTicketOpened" :display="true"></ticket>
-                            </div>
-                        </modal>
                         <table class="table table-hover table-discussion">
                             <thead>
                             <tr>
@@ -94,29 +69,20 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr v-for="offer in discussions">
-                                <th scope="col" @click="openTicketModal(offer.ticket)">
-                                    <div class="container-fluid">
-                                        <div class="row">
-                                            <div class="col-md-2 d-none d-sm-none d-md-block text-center text-info align-middle">
-                                                <p class="mt-2"><i class="fa fa-search-plus" aria-hidden="true"></i></p>
-                                            </div>
-                                            <div class="col-12 col-md-10 text-center text-info ticket-part">
-                                                {{offer.ticket.train.departure_city.short_name.substr(2, 5)}}-{{offer.ticket.train.arrival_city.short_name.substr(2, 5)}}
-                                                <!--<i class="fa fa-ticket"></i>-->
-                                                <br>{{formattedDate(offer.ticket.train.departure_date)}}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </th>
-                                <th  :class="{'unread':unreadDiscussion(offer),'align-middle':true,'text-center':true, 'last-message-sender':true}" scope="col" @click="openDiscussion(offer.id)">
-                                    <a class="d-none" :href="discussionPageUrl(offer.ticket.id,offer.id)" :id="'discussion-link-'+offer.id"></a>
-                                    {{offer.buyer.id == user.id ? offer.seller.full_name : offer.buyer.full_name}}
-                                </th>
-                                <th @click="openDiscussion(offer.id)" :class="{'unread':unreadDiscussion(offer),'align-middle':true,'last-message':true}">
-                                    {{offer.last_message?offer.last_message.message:'-'}}
-                                </th>
-                            </tr>
+                            <template v-for="offer in discussions">
+                                <tr  @click="openDiscussion(offer.id)">
+                                    <th scope="col" class="col-ticket">
+                                        <ticket-mini :discussion="offer" :lang="ticketLang" :ticket="offer.ticket"></ticket-mini>
+                                    </th>
+                                    <th  :class="{'unread':unreadDiscussion(offer),'align-middle':true,'text-center':true, 'last-message-sender':true}" scope="col" @click="openDiscussion(offer.id)">
+                                        <a class="d-none" :href="discussionPageUrl(offer.ticket.id,offer.id)" :id="'discussion-link-'+offer.id"></a>
+                                        {{offer.buyer.id == user.id ? offer.seller.full_name : offer.buyer.full_name}}
+                                    </th>
+                                    <th :class="{'unread':unreadDiscussion(offer),'align-middle':true,'last-message':true}">
+                                        {{offer.last_message?offer.last_message.message:'-'}}
+                                    </th>
+                                </tr>
+                            </template>
                             </tbody>
                         </table>
                     </div>
@@ -141,10 +107,6 @@
         data() {
             return {
                 state: 'default',
-                modalTicket: null,
-                modalTicketOffer: null,
-                modalTicketOpened: false,
-                modalTicketOfferOpened: false,
                 csrf: window.csrf
             }
         },
@@ -169,14 +131,6 @@
                     return true;
                 }
                 return false;
-            },
-            openTicketModal(ticket) {
-                this.modalTicketOpened = true;
-                this.modalTicket = ticket;
-            },
-            openTicketModalOffer(ticket) {
-                this.modalTicketOfferOpened = true;
-                this.modalTicketOffer = ticket;
             },
             denyOffer(id) {
                 document.getElementById("deny-" + id).submit();

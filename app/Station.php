@@ -20,9 +20,10 @@ use Nicolaslopezj\Searchable\SearchableTrait;
 class Station extends Model
 {
 
-    CONST LONDON_ID = 1;
-    CONST PARIS_ID = 6;
-    CONST BXL_ID = 13;
+    CONST LONDON_ID = 7015400;
+    CONST PARIS_ID = 8727100;
+    CONST BXL_ID = 8814001;
+    CONST AMS_ID = 8400058;
 
     use SearchableTrait, SoftDeletes;
 
@@ -102,16 +103,17 @@ class Station extends Model
         $stations = Station::all();
         $sortedCollection = collect([]);
         if (\App::isLocale( 'fr' )){
-            $sortedCollection->push( $stations->firstWhere('id',self::PARIS_ID) );
-            $sortedCollection->push( $stations->firstWhere('id',self::LONDON_ID) );
+            $sortedCollection->push( $stations->firstWhere('eurostar_id',self::PARIS_ID) );
+            $sortedCollection->push( $stations->firstWhere('eurostar_id',self::LONDON_ID) );
         } else {
-            $sortedCollection->push( $stations->firstWhere('id',self::LONDON_ID) );
-            $sortedCollection->push( $stations->firstWhere('id',self::PARIS_ID) );
+            $sortedCollection->push( $stations->firstWhere('eurostar_id',self::LONDON_ID) );
+            $sortedCollection->push( $stations->firstWhere('eurostar_id',self::PARIS_ID) );
         }
 
-        $sortedCollection->push( $stations->firstWhere('id',self::BXL_ID) );
+        $sortedCollection->push( $stations->firstWhere('eurostar_id',self::BXL_ID) );
+        $sortedCollection->push( $stations->firstWhere('eurostar_id',self::AMS_ID) );
         return $sortedCollection->merge(
-            $stations->whereNotIn('id',[self::PARIS_ID,self::LONDON_ID,self::BXL_ID])
+            $stations->whereNotIn('eurostar_id',[self::PARIS_ID,self::LONDON_ID,self::BXL_ID,self::AMS_ID])
         );
     }
 }

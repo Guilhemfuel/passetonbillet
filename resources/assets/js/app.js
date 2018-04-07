@@ -39,6 +39,8 @@ Vue.component('sidebar', require('./components/Shared/Sidebar.vue'));
 Vue.component('notifications', require('./components/Lastar/Notifications.vue'));
 Vue.component('settings', require('./components/Lastar/Settings.vue'));
 Vue.component('ticket', require('./components/Lastar/Ticket.vue'));
+Vue.component('ticket-mini', require('./components/Lastar/Ticket-Mini.vue'));
+
 
 // Pages
 Vue.component('auth', require('./components/Pages/Auth.vue'));

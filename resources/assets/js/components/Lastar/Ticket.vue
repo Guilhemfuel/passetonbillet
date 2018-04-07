@@ -70,7 +70,7 @@
                             {{lang.sell}}
                         </button>
                         <button class="btn btn-pink btn-buy btn-sm" v-if="bought" @click="editing=true">
-                            {{lang.infos}}
+                            {{lang.download}}
                         </button>
                     </template>
                     <template v-if="!pastTicket && (user && ticket.user.id == user.id) && !display">
@@ -78,8 +78,22 @@
                     </template>
 
                     <div class="price" v-if="!selecting">
-                        <span v-if="ticket.currency == 'GBP'">£{{ticket.price}}</span>
-                        <span v-if="ticket.currency == 'EUR'">€{{ticket.price}}</span>
+                        <span v-if="ticket.currency == 'GBP'">
+                            <template v-if="ticket.offerPrice && ticket.offerPrice!=ticket.price">
+                                <span class="old-price">£{{ticket.price}}</span><span class="offer-price text-center">£{{ticket.offerPrice}}</span>
+                            </template>
+                            <template v-else>
+                            <span class="text-center"></span> £{{ticket.price}}
+                            </template>
+                        </span>
+                        <span v-if="ticket.currency == 'EUR'">
+                            <template v-if="ticket.offerPrice && ticket.offerPrice!=ticket.price">
+                                <span class="old-price">€{{ticket.price}}</span><span class="offer-price text-center">€{{ticket.offerPrice}}</span>
+                            </template>
+                            <template v-else>
+                            <span class="text-center"></span> €{{ticket.price}}
+                            </template>
+                        </span>
                     </div>
                     <div class="price" v-if="selecting">
                         <span v-if="ticket.bought_currency == 'GBP'">£{{ticket.bought_price}}</span>
@@ -126,7 +140,12 @@
                             <p class="float-center text-center mb-0 edit-title">{{lang.infos}}</p>
                         </div>
                         <div class="card-seller-info card-buying text-center">
-                            <a target="_blank" class="btn btn-success" :href="ticket.download_link">Download Ticket</a>
+                            <a target="_blank" class="btn btn-lastar" :href="ticket.download_link">{{lang.download_ticket}}</a>
+                            <div class="mt-3">
+                                <a href="">
+                                    <img style="width: 150px" src="/img/mail/apple_wallet.png">
+                                </a>
+                            </div>
                         </div>
                     </template>
                     <template v-else>

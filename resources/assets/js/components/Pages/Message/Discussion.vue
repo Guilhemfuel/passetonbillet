@@ -4,26 +4,19 @@
         'seller':(user.id == discussion.ticket.user.id),'buyer':(user.id != discussion.ticket.user.id)}">
         <modal :is-open="modalSellOpen"  :title="'Vendre ce billet à '+correspondant.full_name" @close-modal="modalSellOpen=false" v-if="!sold">
             <p>
-                You are about to mark this ticket as sold to {{correspondant.full_name}}. Make sure to click there, only once you received the payment. {{correspondant.full_name}} will then automatically receive your ticket.
+                {{lang.discussions.modal_sell.part_1}} {{correspondant.full_name}}. {{lang.discussions.modal_sell.part_2}}. {{correspondant.full_name}} {{lang.discussions.modal_sell.part_3}}.
             </p>
             <form class="hidden" method="post" ref="sellForm" :action="routes.sell">
                 <input type="hidden" name="_token" :value="csrf">
             </form>
             <div class="btn-rack">
-                <button class="btn btn-success" @click="$refs.sellForm.submit()">Sell ticket to {{correspondant.full_name}}</button>
-                <button class="btn btn-danger" @click="modalSellOpen=false">Cancel</button>
-            </div>
-        </modal>
-        <modal :is-open="modalTicketOpened" @close-modal="modalTicketOpened=false">
-            <div style="width: 270px; margin: auto">
-                <ticket class-name="fixed-width mx-auto" :user="user" :ticket="discussion.ticket"
-                        :lang="ticketLang"
-                        v-if="modalTicketOpened" :display="true"></ticket>
+                <button class="btn btn-success" @click="$refs.sellForm.submit()">{{lang.discussions.cta_sell_to}} {{correspondant.full_name}}</button>
+                <button class="btn btn-danger" @click="modalSellOpen=false">{{lang.discussions.cancel}}</button>
             </div>
         </modal>
         <div class="info-header">
             <div class="row">
-                <div class="col-md-4 col-6">
+                <div class="col-md-4 col-sm-6 col-4 d-flex align-items-center justify-content-center flex-column">
                     <a :href="profileUrl">
                     <img class="mx-auto rounded-circle" :src="correspondant.picture" alt="profile_picture"/>
                     <p class="text-center mt-2 d-none d-sm-block full-name">
@@ -37,58 +30,36 @@
                     </p>
                     </a>
                 </div>
-                <div class="col-md-4 d-sm-none d-none d-md-flex" v-if="!sold && user.id == discussion.ticket.user.id">
-                    <div class="pt-5 mx-auto">
-                        <button class="btn btn-lastar-blue mx-auto" @click="modalSellOpen=true">Vendre ce billet à {{correspondant.full_name}}</button>
-                    </div>
+                <div class="col-md-4 d-sm-none d-none d-md-flex align-items-center justify-content-center" v-if="!sold && user.id == discussion.ticket.user.id">
+                    <button class="btn btn-lastar-blue mx-auto" @click="modalSellOpen=true"> {{lang.discussions.cta_sell_to}} {{correspondant.full_name}}</button>
                 </div>
 
                 <template v-if="sold">
-                    <div class="col-md-4 d-sm-none d-none d-md-block" v-if="sold_here">
-                        <h3 class="text-center">Deal! </h3>
+                    <div class="col-8 col-md-4 col-sm-6 d-flex align-items-center justify-content-center flex-column" v-if="sold_here">
+                        <h3 class="text-center">Deal!</h3>
                         <p class="text-center" v-if="user.id == discussion.ticket.user.id">
-                            You already sold this ticket to {{correspondant.full_name}}!<br> Congratulations!
+                            {{lang.discussions.sold_to}} {{correspondant.first_name}}<br>
                         </p>
                         <p class="text-center" v-else>
-                            You already bought this ticket from {{correspondant.full_name}}!<br> Congratulations!
+                            {{lang.discussions.bought_from}} {{correspondant.first_name}}<br>
                         </p>
                     </div>
-                    <div class="col-md-4 d-sm-none d-none d-md-block pt-5" v-else>
-                        <p class="text-center" v-if="user.id == discussion.ticket.user.id">
-                            Ticket already sold to someone else!
-                        </p>
-                        <p class="text-center" v-else>
-                            Ticket already sold to someone else!
+                    <div class="col-8 col-md-4 col-sm-6 d-flex align-items-center justify-content-center flex-column" v-else>
+                        <p class="text-center">
+                            {{lang.discussions.sold_to_so_else}}
                         </p>
                     </div>
                 </template>
 
 
-                <div class="col-md-4 col-6">
-                    <p class="text-center align-middle pt-3">
-                    <a href="#" @click="modalTicketOpened=true">
-                        Ticket
-                        <br>
-                        {{discussion.ticket.train.departure_city.short_name.substring(2)}}
-                        <i aria-hidden="true" class="fa fa-long-arrow-right text-primary"></i>
-                        {{discussion.ticket.train.arrival_city.short_name.substring(2)}}
-                        <br>
-                        <span class="text-left">{{discussion.ticket.train.departure_time.substring(0,5)}}</span>
-                        <span class="text-right">{{discussion.ticket.train.arrival_time.substring(0,5)}}</span>
-                    </a>
-                    </p>
+                <div class="col-md-4 col-12 d-flex align-items-center justify-content-center flex-column py-3 py-sm-0 pb-sm-3" v-if="sold">
+                    <ticket-mini :discussion="discussion" :ticket="discussion.ticket" :lang="ticketLang"></ticket-mini>
+                </div>
+                <div class="col-md-4 col-sm-6 col-8 d-flex align-items-center justify-content-center flex-column py-3 py-sm-0 pb-sm-3" v-else>
+                    <ticket-mini :discussion="discussion" :ticket="discussion.ticket" :lang="ticketLang"></ticket-mini>
                 </div>
                 <div class="col-sm-12 d-md-none p-0" v-if="!sold && user.id == discussion.ticket.user.id">
                     <button @click="modalSellOpen=true" class="btn btn-lastar-blue btn-block btn-header">Vendre ce billet à {{correspondant.full_name}}</button>
-                </div>
-                <div class="col-sm-12 d-md-none p-0" v-if="sold_here">
-                    <h3 class="text-center">Deal! </h3>
-                    <p class="text-center" v-if="user == discussion.ticket.user.id">
-                        You already sold this ticket to {{correspondant.full_name}}!<br> Congratulations!
-                    </p>
-                    <p class="text-center" v-else>
-                        You already bought this ticket from {{correspondant.full_name}}!<br> Congratulations!
-                    </p>
                 </div>
             </div>
         </div>
@@ -103,7 +74,7 @@
                 </div>
             </template>
             <p class="text-center" v-if="(sold && !sold_here)">
-                Ticket was sold to someone else. The discussion ended.
+                {{lang.discussions.sold_disc_ended}}
             </p>
         </div>
         <div class="input" v-if="!(sold && !sold_here)">
@@ -111,7 +82,7 @@
         @keyup.enter.prevent="sendMessage"></textarea>
         <button class="btn btn-lastar-blue" @click="sendMessage">
         <template v-if="state!='sending'">
-        Send
+        {{lang.discussions.send}}
         </template>
         <template v-else>
         <loader :class-name="'mx-auto white'"></loader>

@@ -16,7 +16,7 @@
                             :api="api" :csrf="csrf" ></ticket>
                 </template>
                 <template v-else-if="state==stateValues.sold">
-                    <ticket :ticket="ticket" :lang="lang.component" :user="user" :routes="routes" :api="api"
+                    <ticket :ticket="ticket" :lang="lang.component" :user="user" :routes="routes" :api="api" :display="true"
                             :csrf="csrf"></ticket>
                 </template>
                 <template v-else-if="state==stateValues.selling">
@@ -113,6 +113,7 @@
                     for(var i=0;i<this.offerSent.length;i++){
                         var ticket = this.offerSent[i].ticket;
                         ticket.offerStatus = this.offerSent[i].status;
+                        ticket.offerPrice = this.offerSent[i].price;
                         ticket.discussionId = this.offerSent[i].id;
                         actualTickets.push(ticket);
                     }
@@ -134,12 +135,40 @@
             rerender(){
                 this.rerenderer = this.rerenderer + 1;
             },
+            setPageTitle(){
+                let basePath = 'ticket/owned/';
+                switch (this.state){
+                    case 1:
+                        window.history.pushState('My Tickets', 'My Tickets - Sold', 'sold');
+                        break;
+                    case 2:
+                        this.$emit('changePath','selling')
+                        window.history.pushState('My Tickets', 'My Tickets - Bought', 'bought');
+                        break;
+                        break;
+                    case 3:
+                        this.$emit('changePath','selling')
+                        window.history.pushState('My Tickets', 'My Tickets - Selling', 'selling');
+                        break;
+                        break;
+                    case 4:
+                        this.$emit('changePath','selling')
+                        window.history.pushState('My Tickets', 'My Tickets - Offers', 'offers');
+                        break;
+                        break;
+                }
+
+            }
 
         },
         watch: {
             state: function(){
-                console.log(this.state);
+                this.setPageTitle();
             }
+        },
+        mounted() {
+            window.history.replaceState('My Tickets', 'My Tickets - Offers', '/ticket/owned/');
+            this.setPageTitle();
         }
     }
 </script>

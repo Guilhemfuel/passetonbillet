@@ -63,6 +63,8 @@ Route::get('/privacy','PageController@privacy')->name('privacy.page');
 // About page
 Route::get('/about','PageController@about')->name('about.page');
 
+//Partners page
+Route::get('/partners','PageController@partners')->name('partners.page');
 
 // Contact page
 Route::get( '/contact', 'PageController@contact' )->name( 'contact.page' );

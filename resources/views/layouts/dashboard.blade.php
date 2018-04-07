@@ -55,7 +55,7 @@ $notificationsLang = Lang::get('notifications');
                 @include('components.menu')
             </ul>
         </div>
-        <div class="col-sm-8 col-md-9 col bg-light-gray">
+        <div class="col-sm-8 col-md-9 col bg-light-gray" id="main-content">
 
         @include('components.nav')
 

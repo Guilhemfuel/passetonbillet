@@ -155,5 +155,17 @@ class StationsTableSeeder extends Seeder
         $station->timezone = "+02:00";
         $station->save();
 
+        // Amsterdam
+        $station = new Station();
+        $station->eurostar_id = 8400058;
+        $station->name_fr = "Amsterdam";
+        $station->name_en = "Amsterdam";
+        $station->short_name = "NLAMS";
+        $station->country = "nl";
+        $station->timezone_txt = "Europe/Amsterdam";
+        $station->timezone = "+02:00";
+        $station->save();
+
+
     }
 }

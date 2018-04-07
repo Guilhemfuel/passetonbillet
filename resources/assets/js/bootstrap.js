@@ -39,8 +39,9 @@ if (local) {
 /**
  * We use VeeValidator, and therefore need to set the language.
  */
-import VeeValidate from 'vee-validate';
+import VeeValidate, { Validator }  from 'vee-validate';
 import localeFr from './validator/fr.js';
+import localeEn from './validator/en.js';
 var lang = document.head.querySelector('meta[name="lang"]').content;
 
 if (lang === 'fr') {
@@ -51,7 +52,8 @@ if (lang === 'fr') {
         }
     });
 } else {
-    window.Vue.use(VeeValidate);
+    Validator.localize('ar', localeEn);
+    window.Vue.use(VeeValidate)
 }
 
 window.locale = lang;

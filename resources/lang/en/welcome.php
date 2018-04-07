@@ -26,6 +26,7 @@ return [
         'about'      => 'About us',
         'help'       => 'Help',
         'contact'    => 'Contact',
+        'partners'   => 'Partners',
         'conditions' => 'Terms',
         'privacy'    => 'Privacy'
 

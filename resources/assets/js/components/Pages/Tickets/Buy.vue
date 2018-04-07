@@ -43,7 +43,7 @@
         <transition enter-class="pre-animated"
                     enter-active-class="animated fadeIn"
                     leave-active-class="animated fadeOut">
-            <p v-if="state=='result'" class="text-center mt-4 mb-0"><span class="text-pink">{{ticketsWithOffers.length}}</span> billet(s) corresponde(nt) à votre recherche.</p>
+            <p v-if="state=='result'" class="text-center mt-4 mb-0"><span class="text-pink">{{ticketsWithOffers.length}}</span> {{lang.buy.search_result}}</p>
         </transition>
 
         <transition enter-class="pre-animated"

@@ -149,7 +149,7 @@ class DiscussionController extends Controller
         // Mark notifications regarding this conversation as read
         $notifications = \Auth::user()->unreadNotifications->where('type',MessageNotification::class);
         foreach ($notifications as $notification){
-            if ($notification->data["discussion_id"]== $discussion_id){
+            if (isset($notification->data["discussion_id"]) &&  $notification->data["discussion_id"]== $discussion_id){
                 $notification->markAsRead();
             }
         }

@@ -189,7 +189,7 @@ class RegisterController extends Controller
 
         $user = User::where('fb_id', $providerUser['id'])->first();
         if ($user){
-            auth()->login($user);
+            auth()->login($user, true);
             return redirect()->route('home');
         }
 

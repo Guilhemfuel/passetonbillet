@@ -3,12 +3,12 @@
 return [
 
     'catchline' => 'Creating a community of trusted buyers and sellers.</br>Find cheap and safe Eurostar tickets. Even at the very last minute.',
-    'button' => [
-        'buy' => 'buy',
-        'sell'=> 'sell'
+    'button'    => [
+        'buy'  => 'buy',
+        'sell' => 'sell'
     ],
-    'ticket' => [
-        'name' => 'Ticket',
+    'ticket'    => [
+        'name'        => 'Ticket',
         'flexibility' => [
             '1' => 'Non Flexible',
             '2' => 'Semi Flexible',
@@ -17,10 +17,15 @@ return [
             '8' => 'Professional',
             '9' => 'Anytime'
         ],
-        'buy_now' => 'Buy this ticket now!'
+        'buy_now'     => 'Buy this ticket now!'
 
     ],
-    'error' => 'Whoops! Something went wrong... Please try again! Contact us if the problem persists.'
+    'error'     => 'Whoops! Something went wrong... Please try again! Contact us if the problem persists.',
+
+    'help' => [
+        'before_icon' => 'If you have any querries or issues, please contact us using the chat',
+        'after_icon'  => 'or by email.'
+    ]
 
 
 ];

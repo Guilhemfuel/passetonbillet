@@ -3,7 +3,7 @@
         <div class="card card-buy-sell-welcome">
             <div class="card-body">
                 <div class="buttons-search">
-                    <button :class="{'btn':true, 'btn-success':true} " @click="switchState('buy')">{{lang.buy.title}}</button>
+                    <button :class="{'btn':true, 'btn-lastar-blue':true} " @click="switchState('buy')">{{lang.buy.title}}</button>
                     <button :class="{'btn':true, 'btn-danger':true} " @click="switchState('sell')">{{lang.sell.title}}</button>
                 </div>
                 <div id="action-content">
@@ -19,7 +19,7 @@
                                                 v-on:change-time="changeTime($event)"
                             ></buy-ticket-welcome>
                             <div class="row">
-                                <button class="btn btn-lastar-blue mt-3 mx-auto btn-action-submit" @click.prevent="searchTickets">
+                                <button class="btn btn-primary mt-3 mx-auto btn-action-submit" @click.prevent="searchTickets">
                                     <span v-if="sellState!='searching'">{{lang.buy.research}}</span>
                                     <loader v-else class-name="loader-btn"></loader>
                                 </button>
@@ -27,7 +27,7 @@
                             <transition enter-class="pre-animated"
                                         enter-active-class="animated fadeIn no-space"
                                         leave-active-class="animated fadeOut no-space">
-                                <p v-if="sellState=='result'" class="text-center mt-4 mb-0"><span class="text-pink">{{sellingTickets.length}}</span> billet(s) corresponde(nt) à votre recherche.</p>
+                                <p v-if="sellState=='result'" class="text-center mt-4 mb-0"><span class="text-pink">{{sellingTickets.length}}</span> {{lang.buy.search_result}}</p>
                             </transition>
 
                             <transition enter-class="pre-animated"
@@ -50,8 +50,8 @@
                                 <span>{{lang.sell.title}}</span>
                             </button>
                             <p v-else class="text-center mt-3">
-                                Safety is our number one concern! You must register to sell one of your tickets!<br>
-                                <a :href="routes.register">Create a Lastar account</a>
+                                {{lang.buy.safety}}<br>
+                                <a :href="routes.register">{{lang.buy.create_account}}</a>
                             </p>
                         </div>
                     </transition>

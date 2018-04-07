@@ -14,6 +14,9 @@
                         <a href="{{route('contact.page')}}" class="text-white">@lang('welcome.footer.contact')</a>
                     </div>
                     <div class="col-sm-4 col-12">
+                        <a href="{{route('partners.page')}}" class="text-white">@lang('welcome.footer.partners')</a>
+                    </div>
+                    <div class="col-sm-4 col-12">
                         <a class="text-white" href="{{route('cgu.page')}}">@lang('welcome.footer.conditions')</a>
                     </div>
                     <div class="col-sm-4 col-12">

@@ -30,10 +30,10 @@ class PageController extends Controller
         if ( \Auth::check() ) {
             return redirect()->route( 'public.ticket.buy.page' );
         } else {
-            // TODO: default les trois prochains en date
             //TODO: change tickets to only show the latest or the previously searched etc..
             $tickets = Ticket::join( 'trains', 'trains.id', '=', 'tickets.train_id' )
                              ->orderByDesc( 'trains.departure_date' )->take( 3 )->get();
+
 
             return view( 'welcome' )->with( 'tickets', TicketRessource::collection( $tickets ) )
                                     ->with( 'stations', StationRessource::collection( Station::sortedStations() ) );
@@ -210,6 +210,7 @@ class PageController extends Controller
     /**
      * ============================= Infos static pages =============================
      * Contact
+     * Partners
      * About
      * CGU
      * Privacy
@@ -222,6 +223,14 @@ class PageController extends Controller
     public function contact()
     {
         return view( 'help.contact' );
+    }
+
+    /**
+     * Display the contact page
+     */
+    public function partners()
+    {
+        return view( 'help.partners' );
     }
 
     /**

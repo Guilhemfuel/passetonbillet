@@ -21,4 +21,8 @@ return [
     ],
     'error' => 'Whoops! Une petite erreur est apparue... Merci de reesayer! Contactez-nous si le problème persiste.',
 
+    'help' => [
+        'before_icon' => 'Un soucis? N\'hésitez pas à nous contacter en utilisant le chat',
+        'after_icon'  => 'ou par email.'
+    ]
 ];

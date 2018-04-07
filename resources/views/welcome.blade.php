@@ -45,26 +45,26 @@
                             @if($tickets && $tickets->count()>0)
                             <div class="tickets mx-auto d-none d-sm-none d-md-block">
                                 <div class="first-ticket">
-                                    <ticket :ticket="child.welcome.tickets[0]" :lang="child.welcome.ticketLang.component"></ticket>
+                                    <ticket :ticket="child.welcome.tickets[0]" v-if="child.welcome.tickets[0]" :lang="child.welcome.ticketLang.component"></ticket>
                                 </div>
                                 <div class="secund-ticket">
-                                    <ticket :ticket="child.welcome.tickets[1]" :lang="child.welcome.ticketLang.component"></ticket>
+                                    <ticket :ticket="child.welcome.tickets[1]" v-if="child.welcome.tickets[1]" :lang="child.welcome.ticketLang.component"></ticket>
                                 </div>
                                 <div class="third-ticket">
-                                    <ticket :ticket="child.welcome.tickets[2]" :lang="child.welcome.ticketLang.component"></ticket>
+                                    <ticket :ticket="child.welcome.tickets[2]" v-if="child.welcome.tickets[2]" :lang="child.welcome.ticketLang.component"></ticket>
                                 </div>
                             </div>
                             <div class="tickets-sm d-none d-sm-flex d-md-none">
                                 <div class="first-ticket">
-                                    <ticket :ticket="child.welcome.tickets[0]" :lang="child.welcome.ticketLang.component"></ticket>
+                                    <ticket :ticket="child.welcome.tickets[0]"  v-if="child.welcome.tickets[0] :lang="child.welcome.ticketLang.component"></ticket>
                                 </div>
                                 <div class="secund-ticket">
-                                    <ticket :ticket="child.welcome.tickets[1]" :lang="child.welcome.ticketLang.component"></ticket>
+                                    <ticket :ticket="child.welcome.tickets[1]"  v-if="child.welcome.tickets[1]" :lang="child.welcome.ticketLang.component"></ticket>
                                 </div>
                             </div>
                             <div class="tickets-xs d-flex d-sm-none">
                                 <div class="first-ticket">
-                                    <ticket :ticket="child.welcome.tickets[1]" :lang="child.welcome.ticketLang.component"></ticket>
+                                    <ticket :ticket="child.welcome.tickets[1]"  v-if="child.welcome.tickets[1] :lang="child.welcome.ticketLang.component"></ticket>
                                 </div>
                             </div>
                             @endif

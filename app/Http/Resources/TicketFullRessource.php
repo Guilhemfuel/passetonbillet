@@ -27,6 +27,7 @@ class TicketFullRessource extends Resource
             'inbound' => $this->inbound,
             'buyer' => $this->sold_to_id?new UserRessource($this->buyer):null,
             'download_link' => route('public.ticket.download',['ticket_id'=>$this->id]),
+            'passbook_link' => $this->passbook_link
         ];
     }
 }

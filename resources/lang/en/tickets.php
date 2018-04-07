@@ -9,29 +9,31 @@ return [
     */
 
     'component' => [
-        'buy'           => 'Buy',
-        'sell'          => 'Sell this ticket',
-        'sold_by'       => 'Sold by',
-        'edit'          => 'Edit',
-        'edit_ticket'   => 'Edit ticket',
-        'buy_ticket'    => 'Buy ticket',
-        'your_offer'    => 'Your offer',
-        'price'         => 'Price',
-        'send_offer'    => 'Send offer',
-        'if_interested' => 'The seller will contact you soon if interested.',
-        'infos'         => 'Infos',
-        'booking_code'  => 'Booking code',
-        'booking_name'  => 'Booking name',
-        'delete'        => 'You don\'t want to sell this ticket anymore?',
-        'share'         => 'Link to share this ticket',
-        'copied'        => 'Link copied to clipboard.',
-        'delete_cta'    => 'Remove ticket',
-        'offer_sent'    => 'Seller received your offer! If interested, he\'ll contact you.',
-        'register'      => 'Safety is our number one concern. Therefore, you must create an account before sending offers.',
-        'register_cta'  => 'Create an account and send your offer!',
-        'user_verified' => 'We verified the identity of this user.',
-        'discuss'       => 'Discuss',
-        'new_offer'     => 'New Offer',
+        'buy'             => 'Buy',
+        'sell'            => 'Sell this ticket',
+        'sold_by'         => 'Sold by',
+        'edit'            => 'Edit',
+        'edit_ticket'     => 'Edit ticket',
+        'buy_ticket'      => 'Buy ticket',
+        'your_offer'      => 'Your offer',
+        'price'           => 'Price',
+        'send_offer'      => 'Send offer',
+        'if_interested'   => 'The seller will contact you soon if interested.',
+        'infos'           => 'Infos',
+        'booking_code'    => 'Booking code',
+        'booking_name'    => 'Booking name',
+        'delete'          => 'You don\'t want to sell this ticket anymore?',
+        'share'           => 'Link to share this ticket',
+        'copied'          => 'Link copied to clipboard.',
+        'delete_cta'      => 'Remove ticket',
+        'offer_sent'      => 'Seller received your offer! If interested, he\'ll contact you.',
+        'register'        => 'Safety is our number one concern. Therefore, you must create an account before sending offers.',
+        'register_cta'    => 'Create an account and send your offer!',
+        'user_verified'   => 'We verified the identity of this user.',
+        'discuss'         => 'Discuss',
+        'new_offer'       => 'New Offer',
+        'download_ticket' => 'Download Ticket',
+        'download'        => 'Download',
 
 
         'status' => [
@@ -87,7 +89,7 @@ return [
         ]
     ],
     'buy'       => [
-        'inputs'    => [
+        'inputs'        => [
             'trippicker'     => [
                 'departure_station' => 'Departure station',
                 'arrival_satation'  => 'Arrival station',
@@ -97,9 +99,12 @@ return [
                 'trip_time' => 'From (Optional)'
             ]
         ],
-        'title'     => 'Buy a ticket',
-        'catchline' => 'What is your journey?',
-        'research'  => 'Search'
+        'title'         => 'Buy a ticket',
+        'catchline'     => 'What is your journey?',
+        'research'      => 'Search',
+        'search_result' => 'ticket(s) match your criteria.',
+        'safety'        => 'Safety is our number one concern! You must register to sell one of your tickets!',
+        'create_account'=> 'Create a Lastar account'
     ],
     'owned'     => [
         'no_bought_tickets'      => 'You have not bought any tickets yet!',

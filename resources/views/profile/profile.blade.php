@@ -6,7 +6,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header card-header-lastar reverse">
-                        <h4 class="card-title mb-0">@lang('profile.title')</h4>
+                        <h4 class="card-title mb-0"> @lang('profile.title') </h4>
                     </div>
                     @if(\Auth::user()->id == $user->id)
                     <div class="card-body">
