@@ -1,22 +1,24 @@
+
+@if($entity->eurostar_ticket_number)
 <div class="row">
     <div class="col-md-4">
         <div class="form-group">
             <label>Train Number</label>
-            <input type="text" class="form-control" placeholder="Train number"
+            <input type="text" class="form-control" name="departure_city" placeholder="Train number"
                    value="{{$entity->train->number}}" disabled>
         </div>
     </div>
     <div class="col-md-4">
         <div class="form-group">
             <label>Departure city</label>
-            <input type="text" class="form-control" placeholder="Departure city"
+            <input type="text" class="form-control" name="departure_city" placeholder="Departure city"
                    value="{{$entity->train->departureCity->name}}" disabled>
         </div>
     </div>
     <div class="col-md-4">
         <div class="form-group">
             <label>Arrival city</label>
-            <input type="text" class="form-control" placeholder="Arrival city"
+            <input type="text" class="form-control"  name="arrival_city" placeholder="Arrival city"
                    value="{{$entity->train->arrivalCity->name}}" disabled>
         </div>
     </div>
@@ -44,6 +46,55 @@
         </div>
     </div>
 </div>
+
+@else
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label><a href="{{route('trains.edit',['id'=>$entity->train->id])}}">Train Number</a></label>
+                <input type="text" class="form-control" placeholder="Train number"
+                       value="{{$entity->train->number}}">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Departure city</label>
+                <input type="text" class="form-control" name="departure_city" placeholder="Departure city"
+                       value="{{$entity->train->departureCity->name}}" disabled="">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Arrival city</label>
+                <input type="text" class="form-control" name="arrival_city" placeholder="Arrival city"
+                       value="{{$entity->train->arrivalCity->name}}" disabled>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Buyer Name</label>
+                <input type="text" class="form-control" placeholder="Buyer last name"
+                       value="{{$entity->buyer_name}}" name="buyer_name">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Buyer Email</label>
+                <input type="text" class="form-control" placeholder="Buyer email address"
+                       value="{{$entity->buyer_email}}" name="buyer_email">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Eurostar Code</label>
+                <input type="text" class="form-control" placeholder="Booking code"
+                       value="{{$entity->eurostar_code}}" name="eurostar_code">
+            </div>
+        </div>
+    </div>
+@endif
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">

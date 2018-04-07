@@ -20,7 +20,7 @@ $factory->define( App\User::class, function ( Faker\Generator $faker ) {
         'last_name'      => $faker->lastName,
         'gender'         => $faker->numberBetween( 0, 1 ),
         'phone_country'  => array_random( [ 'FR', 'EN' ] ),
-        'phone'          => '0'.$faker->randomNumber( 9 ),
+        'phone'          => '0' . $faker->randomNumber( 9 ),
         'birthdate'      => $faker->dateTimeThisCentury->format( \App\EurostarAPI\Eurostar::DATE_FORMAT_DB ),
         'language'       => array_random( [ 'FR', 'EN' ] ),
         'location'       => str_random( 10 ),
@@ -62,8 +62,8 @@ $factory->state( App\User::class, 'not_registered', function ( \Faker\Generator 
 // User without phone
 $factory->state( App\User::class, 'phone_less', function ( \Faker\Generator $faker ) {
     return [
-        'phone_country'                => null,
-        'phone'        => null,
+        'phone_country' => null,
+        'phone'         => null,
     ];
 } );
 
@@ -84,15 +84,15 @@ $factory->define( App\Train::class, function ( Faker\Generator $faker ) {
     $station2 = \App\Station::where( 'id', '!=', $station1->id )->inRandomOrder()->first();
 
     $date = new \Carbon\Carbon();
-    $date->addDays(random_int(0,30));
-    $date->addMonths(random_int(0,12));
-    $date->addYears(random_int(0,10));
+    $date->addDays( random_int( 0, 30 ) );
+    $date->addMonths( random_int( 0, 12 ) );
+    $date->addYears( random_int( 0, 10 ) );
 
     return [
-        'number'         => $faker->randomNumber( 4 ),
-        'departure_date' => $date->format(\App\EurostarAPI\Eurostar::DATE_FORMAT_DB),
+        'number'         => $faker->numberBetween( 9001, 9050 ),
+        'departure_date' => $date->format( \App\EurostarAPI\Eurostar::DATE_FORMAT_DB ),
         'departure_time' => $faker->time(),
-        'arrival_date'   => $date->format(\App\EurostarAPI\Eurostar::DATE_FORMAT_DB),
+        'arrival_date'   => $date->format( \App\EurostarAPI\Eurostar::DATE_FORMAT_DB ),
         'arrival_time'   => $faker->time(),
         'departure_city' => $station1->id,
         'arrival_city'   => $station2->id
@@ -104,27 +104,27 @@ $factory->define( App\Ticket::class, function ( Faker\Generator $faker ) {
     $user = factory( App\User::class )->create();
 
     return [
-        'train_id'        => $train->id,
-        'user_id'         => $user->id,
-        'user_notes'      => $faker->text( 120 ),
-        'price'           => $faker->numberBetween( 30, 100 ),
-        'currency'        => $faker->numberBetween( 0, 1 ) ? 'EUR' : 'GBP',
-        'bought_price'    => $faker->numberBetween( 30, 100 ),
-        'bought_currency' => $faker->numberBetween( 0, 1 ) ? 'EUR' : 'GBP',
-        'flexibility'     => $faker->numberBetween( 0, 3 ),
-        'inbound'         => $faker->boolean(),
-        'class'           => str_random( 2 ),
-        'eurostar_code'   => $faker->text( 6 ),
-        'buyer_email'     => $user->email,
-        'buyer_name'      => $user->last_name,
+        'train_id'               => $train->id,
+        'user_id'                => $user->id,
+        'user_notes'             => $faker->text( 120 ),
+        'price'                  => $faker->numberBetween( 30, 100 ),
+        'currency'               => $faker->numberBetween( 0, 1 ) ? 'EUR' : 'GBP',
+        'bought_price'           => $faker->numberBetween( 30, 100 ),
+        'bought_currency'        => $faker->numberBetween( 0, 1 ) ? 'EUR' : 'GBP',
+        'flexibility'            => $faker->numberBetween( 0, 3 ),
+        'inbound'                => $faker->boolean(),
+        'class'                  => str_random( 2 ),
+        'eurostar_code'          => $faker->text( 6 ),
+        'buyer_email'            => $user->email,
+        'buyer_name'             => $user->last_name,
     ];
 } );
 
 // Unsaved ticket
 $factory->state( App\Ticket::class, 'new', function ( \Faker\Generator $faker ) {
     return [
-        'user_id' => null,
-        'price' => null,
+        'user_id'  => null,
+        'price'    => null,
         'currency' => null,
     ];
 } );

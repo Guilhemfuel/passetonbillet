@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\Admin\TicketRequest;
 use App\Ticket;
+use App\User;
+use Faker\Factory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -12,18 +15,28 @@ class TicketController extends BaseController
     protected $CRUDsingularEntityName = 'Ticket';
 
     protected $model = Ticket::class;
-    protected $creatable = false;
+    protected $creatable = true;
 
     /**
-     * Show the form for creating a new resource.
+     * Store a newly created resource in storage.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        flash()->error('Ticket can\'t be created!');
+        $ticket = factory(Ticket::class)->make();
+        $admin = User::where('status',100)->first();
+        if (!$admin) {
+            flash('No admin found!')->error();
+            return redirect()->back();
+        }
 
-        return redirect()->route($this->CRUDmodelName.'.index');
+        $ticket->user_id = $admin->id;
+        $ticket->save();
+
+        flash()->success($this->CRUDsingularEntityName.' created! Admin owner is: '.$admin->full_name);
+        return redirect()->route($this->CRUDmodelName.'.edit',$ticket->id);
     }
 
     /**
@@ -32,11 +45,12 @@ class TicketController extends BaseController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        flash()->error('Ticket can\'t be created!');
-        return redirect()->route($this->CRUDmodelName.'.index');
+        flash()->success($this->CRUDsingularEntityName.' can\'t be created like that!');
+        return redirect()->route($this->CRUDmodelName);
     }
+
 
     /**
      * Update the specified resource in storage.

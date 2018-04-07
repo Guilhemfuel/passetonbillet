@@ -34,7 +34,6 @@ class PageController extends Controller
             $tickets = Ticket::join( 'trains', 'trains.id', '=', 'tickets.train_id' )
                              ->orderByDesc( 'trains.departure_date' )->take( 3 )->get();
 
-
             return view( 'welcome' )->with( 'tickets', $tickets?TicketRessource::collection( $tickets ):[] )
                                     ->with( 'stations', StationRessource::collection( Station::sortedStations() ) );
         }
