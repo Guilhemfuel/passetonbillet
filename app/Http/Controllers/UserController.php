@@ -157,16 +157,20 @@ class UserController extends Controller
                 'user_id'       => $request->user()->id
             ] );
 
+        if ( \App::environment( 'production', 'staging' ) ) {
+            try {
+                Nexmo::message()->send( [
+                    'to'   => $phoneVerification->phone_number,
+                    'from' => config( 'nexmo.send_from' ),
+                    'text' => $phoneVerification->message
+                ] );
+            } catch (\Exception $e){
+                flash(__('common.error'));
+                return redirect()->back();
+            }
+        }
 
         $phoneVerification->save();
-
-        if ( \App::environment( 'production', 'staging' ) ) {
-            Nexmo::message()->send( [
-                'to'   => $phoneVerification->phone_number,
-                'from' => config( 'nexmo.send_from' ),
-                'text' => $phoneVerification->message
-            ] );
-        }
 
         flash( __( 'tickets.sell.confirm_number.success.code_sent' ) )->success();
 
