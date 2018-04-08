@@ -19,12 +19,17 @@
     @endpush
 @endif
 
-{{-- Form --}}
+{{-- Fake ticket --}}
+@if($entity->eurostar_ticket_number==null)
 <div class="row text-bold">
     <div class="col">
-    <h3 class="text-danger  text-center">{{$entity->eurostar_ticket_number==null?'FAKE':''}}</h3>
+    <h3 class="text-danger  text-center">FAKE</h3>
     </div>
 </div>
+@endif
+
+{{-- Form --}}
+
 @if($entity->eurostar_ticket_number)
 <div class="row">
     <div class="col-md-4">
@@ -122,7 +127,14 @@
     </div>
 @endif
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-3">
+        <div class="form-group">
+            <label>Ticket Number</label>
+            <input type="text" class="form-control"
+                   value="{{$entity->eurostar_ticket_number}}" disabled>
+        </div>
+    </div>
+    <div class="col-md-3">
         <div class="form-group">
             <label>Trip</label>
             <select class="form-control" name="inbound" disabled>
