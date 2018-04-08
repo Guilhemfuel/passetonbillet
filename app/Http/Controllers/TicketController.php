@@ -191,21 +191,25 @@ class TicketController extends Controller
         $price = $request->price;
 
         if ( ! $ticket ) {
-            throw new LastarException( __( 'offer.errors.ticket_not_found' ) );
+            flash()->error(__('offer.errors.ticket_not_found'));
+            return redirect()->back();
         }
 
         // Price verification
         if ( $price <= 0 ) {
-            throw new LastarException( __( 'offer.errors.price_null' ) );
+            flash()->error(__('offer.errors.price_null'));
+            return redirect()->back();
         }
 
         if ( $price > $ticket->price ) {
-            throw new LastarException( __( 'offer.errors.over_price' ) );
+            flash()->error(__('offer.errors.over_price'));
+            return redirect()->back();
         }
 
         // User verification (not owner)
         if ( \Auth::user()->id == $ticket->user->id ) {
-            throw new LastarException( __( 'offer.errors.ticket_owned' ) );
+            flash()->error(__('offer.errors.ticket_owned' ));
+            return redirect()->back();
         }
 
         // User verification (no existing offer)
