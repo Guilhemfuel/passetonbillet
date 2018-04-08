@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\EurostarException;
 use App\Exceptions\LastarException;
+use App\Facades\AppHelper;
 use App\Http\Requests\BuyTicketsRequest;
 use App\Http\Requests\OfferRequest;
 use App\Http\Requests\SearchTicketsRequest;
@@ -145,7 +146,7 @@ class TicketController extends Controller
     public function searchTickets( SearchTicketsRequest $request )
     {
         // Lock to family name
-        if ($request->last_name != \Auth::user()->last_name){
+        if ( AppHelper::removeAccents($request->last_name )!= AppHelper::removeAccents(\Auth::user()->last_name)){
             throw new LastarException('Family name must be yours.');
         }
 
