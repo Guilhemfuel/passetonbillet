@@ -10,7 +10,7 @@
                     <el-radio-button :label="stateValues.bought">{{lang.owned.bought}}</el-radio-button>
                 </el-radio-group>
             </div>
-            <div class="col-12 col-sm-6 col-md-6 col-lg-4" v-for="ticket in currentTickets" :key="rerenderer">
+            <div class="col-12 col-sm-6 col-md-6 col-lg-4" v-for="ticket in currentTickets" :key="ticket.id">
                 <template v-if="state==stateValues.bought">
                     <ticket :ticket="ticket" :lang="lang.component" :user="user" :bought="true" :routes="routes"
                             :api="api" :csrf="csrf" ></ticket>
