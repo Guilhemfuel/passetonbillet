@@ -1,4 +1,9 @@
 
+<div class="row text-bold">
+    <div class="col">
+    <h3 class="text-danger  text-center">{{$entity->eurostar_ticket_number==null?'FAKE':''}}</h3>
+    </div>
+</div>
 @if($entity->eurostar_ticket_number)
 <div class="row">
     <div class="col-md-4">
