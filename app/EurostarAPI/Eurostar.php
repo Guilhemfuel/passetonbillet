@@ -269,7 +269,7 @@ class Eurostar
             $pdfUrl = $decoded[ $ticketIndex ]['url'];
         } catch (\Exception $exception) {
             \Log::error(print_r($decoded));
-            dd('FATAL ERROR');
+            return false;
         }
 
         $pdf = new Fpdi();

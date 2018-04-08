@@ -156,6 +156,7 @@ class TicketController extends Controller
         } else {
             $tickets = collect( Eurostar::retrieveTicket( \Auth::user()->last_name, $request->booking_code ) );
         }
+
         // All tickets expired
         if (count($tickets)==0){
             throw new LastarException('No tickets were found.');
