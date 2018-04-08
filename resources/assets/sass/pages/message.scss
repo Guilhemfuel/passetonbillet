@@ -160,6 +160,11 @@
       }
     }
 
+    .reminder {
+      font-size: 14px;
+      color: $color-placeholder;
+    }
+
     .messages {
       width: calc(100% + 30px);
       margin-left: -15px;

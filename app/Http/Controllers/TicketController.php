@@ -112,15 +112,15 @@ class TicketController extends Controller
     public function downloadTicket($ticket_id)
     {
         $ticket = Ticket::find( $ticket_id );
-        if ( ! $ticket || $ticket->passed || $ticket->buyer->id != \Auth::user()->id) {
-            flash( __( 'common.error' ) )->error()->important();
-            return redirect()->route( 'public.ticket.owned.page' );
+        if (!\Auth::user()->isAdmin() || ! $ticket || $ticket->passed){
+            if ( $ticket->buyer->id != \Auth::user()->id) {
+                flash( __( 'common.error' ) )->error()->important();
+                return redirect()->route( 'public.ticket.owned.page' );
+            }
         }
 
         $filePath = 'pdf/tickets/'.$ticket->pdf_file_name;
         if ( ! \Storage::disk('s3')->exists($filePath) ) {
-            dd(\Storage::disk('s3')->get($filePath));
-
             flash( __( 'common.error' ) )->error()->important();
             return redirect()->route( 'public.ticket.owned.page' );
         }
@@ -147,14 +147,16 @@ class TicketController extends Controller
     {
         // Lock to family name
         if ( !\Auth::user()->isAdmin() && AppHelper::removeAccents($request->last_name )!= AppHelper::removeAccents(\Auth::user()->last_name)){
-            flash('Family name must be yours.')->error();
+            throw new LastarException('No tickets were found.');
         }
 
         if (\Auth::user()->isAdmin()){
             $tickets = collect( Eurostar::retrieveTicket( $request->last_name, $request->booking_code ) );
+
         } else {
             $tickets = collect( Eurostar::retrieveTicket( \Auth::user()->last_name, $request->booking_code ) );
         }
+
         // All tickets expired
         if (count($tickets)==0){
             throw new LastarException('No tickets were found.');

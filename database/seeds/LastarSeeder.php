@@ -14,6 +14,5 @@ class LastarSeeder extends Seeder
         factory(App\User::class, 50)->create();
         factory(App\Ticket::class, 50)->create();
         factory(App\Train::class, 50)->create();
-        //factory(App\Station::class, 20)->create();
     }
 }

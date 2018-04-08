@@ -222,12 +222,17 @@ class Eurostar
 
         $accessToken = $decoded['etapBooking']['accessToken'];
         $ticketIndex = 0;
+        $passengersIndex = [];
+
         foreach ( $decoded['etapBooking']['ticketsData']['tickets'] as $ticketData ) {
+            // Fill the number of ticket seen for each passenger
+            isset($passengersIndex[$ticketData['passengerId']])?$passengersIndex[$ticketData['passengerId']]++:$passengersIndex[$ticketData['passengerId']]=0;
+
             if ( $ticketData['ticketNumber'] == $ticket->eurostar_ticket_number ) {
                 $passengerId = $ticketData['passengerId'];
-                break;
+                // Order of ticket for this passenger
+                $ticketIndex = $passengersIndex[$ticketData['passengerId']];
             }
-            $ticketIndex++;
         }
 
 
@@ -265,7 +270,19 @@ class Eurostar
         }
 
         $decoded = json_decode( (string) $response->getBody(), true )['tickets'];
-        $pdfUrl = $decoded[$ticketIndex]['url'];
+        try {
+            $pdfUrl = $decoded[ $ticketIndex ]['url'];
+        } catch (\Exception $exception) {
+            if (count($decoded)==1){
+                $pdfUrl = $decoded[ 0 ]['url'];
+            } else {
+                \Log::error('Error while finding pdf.... '.print_r($decoded));
+                return false;
+            }
+        }
+
+        \Log::debug($ticketIndex);
+
 
         $pdf = new Fpdi();
         $pdf->setSourceFile(StreamReader::createByString(file_get_contents($pdfUrl)));

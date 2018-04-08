@@ -1,9 +1,35 @@
 
+{{-- Additional Buttton--}}
+
+@if($entity->eurostar_ticket_number)
+    {{-- IF REAL TICKET --}}
+    @push('additional-btn')
+        @if($entity->pdf_downloaded)
+        <a class="btn btn-info btn-fill btn-sm mr-3" target="_blank" href="{{route('public.ticket.download',['ticket_id'=>$entity->id])}}">
+            <i class="fa fa-file-pdf-o" aria-hidden="true"></i> Download ticket
+        </a>
+        @else
+        <button class="btn btn-info btn-fill btn-sm mr-3" type="button" disabled>
+            <i class="fa fa-file-pdf-o" aria-hidden="true"></i> Download ticket
+        </button>
+        @endif
+        <a class="btn btn-warning btn-fill btn-sm mr-3" href="{{route('tickets.redownload',['ticket_id'=>$entity->id])}}">
+            <i class="fa fa-cloud-download" aria-hidden="true"></i> Retry donwloading ticket
+        </a>
+    @endpush
+@endif
+
+{{-- Fake ticket --}}
+@if($entity->eurostar_ticket_number==null)
 <div class="row text-bold">
     <div class="col">
-    <h3 class="text-danger  text-center">{{$entity->eurostar_ticket_number==null?'FAKE':''}}</h3>
+    <h3 class="text-danger  text-center">FAKE</h3>
     </div>
 </div>
+@endif
+
+{{-- Form --}}
+
 @if($entity->eurostar_ticket_number)
 <div class="row">
     <div class="col-md-4">
@@ -101,7 +127,14 @@
     </div>
 @endif
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-3">
+        <div class="form-group">
+            <label>Ticket Number</label>
+            <input type="text" class="form-control"
+                   value="{{$entity->eurostar_ticket_number}}" disabled>
+        </div>
+    </div>
+    <div class="col-md-3">
         <div class="form-group">
             <label>Trip</label>
             <select class="form-control" name="inbound" disabled>
