@@ -50,7 +50,7 @@
                     enter-active-class="animated fadeInUpBig"
                     leave-active-class="animated fadeOut">
             <div class="row mt-4" v-if="ticketsWithOffers.length > 0">
-                <div class="col-12 col-sm-12 col-md-6 col-lg-4" v-for="ticket in ticketsWithOffers">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4" v-for="ticket in ticketsWithOffers" :key="ticket.id">
                     <ticket :ticket="ticket" :api="api" :routes="routes" :lang="lang.component" :user="user" :buying="true" class-name="mt-4"></ticket>
                 </div>
             </div>
@@ -83,6 +83,7 @@
                     trip_date: null,
                     trip_time: null,
                 },
+                countSearch: 0
             }
         },
         created() {
@@ -151,6 +152,8 @@
                             return 0;
                         }
 
+                        console.log('change');
+                        this.countSearch++;
                         this.state='result';
                         this.tickets = response.data.data.sort(compare);
                     })

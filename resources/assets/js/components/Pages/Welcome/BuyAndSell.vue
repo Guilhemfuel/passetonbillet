@@ -34,7 +34,7 @@
                                         enter-active-class="animated fadeInUpBig no-space"
                                         leave-active-class="animated fadeOut no-space">
                                 <div class="row mt-4" v-if="sellingTickets.length > 0">
-                                    <div class="col-12 col-sm-12 col-md-6 col-lg-4" v-for="ticket in sellingTickets">
+                                    <div class="col-12 col-sm-12 col-md-6 col-lg-4" v-for="ticket in sellingTickets" :key="ticket.id">
                                         <ticket :ticket="ticket" :routes="routes" :api="api" :lang="lang.component" :buying="true" class-name="mt-4"></ticket>
                                     </div>
                                 </div>
@@ -122,14 +122,15 @@
                 this.$http.post(this.api.tickets.buy, this.search)
                     .then(response => {
                         function compare(a, b) {
+                            console.log('sort');
                             if (a.train.departure_date < b.train.departure_date)
-                                return 1;
-                            if (a.train.departure_date > b.train.departure_date)
                                 return -1;
+                            if (a.train.departure_date > b.train.departure_date)
+                                return 1;
                             return 0;
                         }
 
-                        this.state='result';
+                        this.sellState='result';
                         this.tickets = response.data.data.sort(compare);
                     })
 

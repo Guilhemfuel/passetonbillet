@@ -128,7 +128,7 @@ class Ticket extends Model
             }
         }
 
-        return $tickets->sortBy( 'trains.departure_date' );
+        return $tickets;
     }
 
     /**
