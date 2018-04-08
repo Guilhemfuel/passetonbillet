@@ -73,7 +73,7 @@ class UserController extends BaseController
 
         if ( $idCheck == null ) {
 
-            flash()->error('danger', 'No id check is awaiting.' );
+            flash('No id check is awaiting.')->error();
 
             return redirect()->route( 'admin.home' );
         }

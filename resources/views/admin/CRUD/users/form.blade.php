@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
-            <label>First Name</label>
+            <label>First Name @if($entity->id_verified) <i aria-hidden="true" class="fa fa-check-circle text-warning"></i> @endif</label>
             <input type="text" class="form-control" placeholder="First Name" value="{{isset($entity)?$entity->first_name:(old('first_name'))}}" name="first_name">
         </div>
     </div>
