@@ -20,6 +20,13 @@
     </a>
 </li>
 
+<li  class="{{  substr(Route::currentRouteName(),0,7) == 'offers.'? 'active':'' }}">
+    <a href="{{route('offers.index')}}">
+        <i class="fa fa-comments"></i>
+        Offers
+    </a>
+</li>
+
 <li  class="{{ substr(Route::currentRouteName(),0,9) == 'stations.'? 'active':'' }}">
     <a href="{{route('stations.index')}}">
         <i class="fa fa-globe"></i>
@@ -44,3 +51,4 @@
         ID Check @if($awaitingIdCheck>0)<span class="badge badge-pill badge-light">{{$awaitingIdCheck}}</span>@endif
     </a>
 </li>
+

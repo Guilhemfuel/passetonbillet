@@ -155,6 +155,7 @@ Route::group( [ 'prefix' => 'lastadmin', 'middleware' => 'auth.admin' ], functio
     Route::resource( 'tickets', 'Admin\TicketController' );
     Route::resource( 'stations', 'Admin\StationController' );
     Route::resource( 'trains', 'Admin\TrainController' );
+    Route::resource( 'offers', 'Admin\DiscussionController' );
 
     Route::group( [ 'prefix' => 'id_check' ], function () {
         Route::get( '/', 'Admin\UserController@getOldestIdCheck' )->name( 'id_check.oldest' );

@@ -131,9 +131,11 @@ abstract class BaseController extends Controller
      */
     public function edit( $id )
     {
+
         $entity = $this->model::find( $id );
         if ( ! $entity ) {
             flash()->error('Entity not found!');
+            return redirect()->back();
         }
 
         return $this->lastarView( 'admin.CRUD.edit', [ 'entity' => $entity ] );
@@ -151,6 +153,7 @@ abstract class BaseController extends Controller
         $entity = $this->model::find( $id );
         if ( ! $entity ) {
             flash()->error('Entity not found!');
+            return redirect()->back();
         }
         $entity->delete();
         flash()->success('Entity deleted!' );

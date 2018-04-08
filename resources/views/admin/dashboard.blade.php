@@ -26,6 +26,34 @@
         <div class="col-sm-3 col-xs-6">
             <div class="card">
                 <div class="card-header">
+                    <h4 class="title text-center">{{$ticketCount}}<br>
+                        <a href="{{route('tickets.index')}}" class="stat-link">
+                            <i class="fa fa-ticket fa-2x"></i>
+                        </a>
+                    </h4>
+                </div>
+                <div class="card-body text-center">
+                    Tickets
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3 col-xs-6">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="title text-center">{{$offerCount}}<br>
+                        <a href="{{route('offers.index')}}" class="stat-link">
+                            <i class="fa fa-comments fa-2x"></i>
+                        </a>
+                    </h4>
+                </div>
+                <div class="card-body text-center">
+                    Offers
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3 col-xs-6">
+            <div class="card">
+                <div class="card-header">
                     <h4 class="title text-center">{{$stationCount}}<br>
                         <a href="{{route('stations.index')}}" class="stat-link">
                             <i class="fa fa-globe fa-2x"></i>
@@ -37,7 +65,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-3 col-xs-6">
+        <div class="col-sm-3 col-xs-6 pt-4">
             <div class="card">
                 <div class="card-header">
                     <h4 class="title text-center">{{$trainCount}}<br>
@@ -48,20 +76,6 @@
                 </div>
                 <div class="card-body text-center">
                     Trains
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-3 col-xs-6">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="title text-center">{{$ticketCount}}<br>
-                        <a href="{{route('tickets.index')}}" class="stat-link">
-                            <i class="fa fa-ticket fa-2x"></i>
-                        </a>
-                    </h4>
-                </div>
-                <div class="card-body text-center">
-                    Tickets
                 </div>
             </div>
         </div>

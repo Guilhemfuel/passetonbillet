@@ -16,7 +16,7 @@
                     <td>{{$entity->first_name}}</td>
                     <td>{{$entity->last_name}}</td>
                     <td>{{$entity->role}}</td>
-                    <td class="text-center"><a href="https://facebook.com/{{$entity->fb_id}}" target="_blank">{!!$entity->fb_id!=null?'<i aria-hidden="true" class="fa fa-facebook-official text-facebook"></i>':'X'!!}</a></td>
+                    <td class="text-center">{!!$entity->fb_id!=null?'<a href="https://facebook.com/{{$entity->fb_id}}" target="_blank"><i aria-hidden="true" class="fa fa-facebook-official text-facebook"></i></a>':'X'!!}</td>
                     <td class="text-center">{!!$entity->id_verified?'<i aria-hidden="true" class="fa fa-check-circle text-warning"></i>':'X'!!}</td>
                     <td>
                         <a class="btn btn-sm btn-info btn-fill" href="{{route('users.edit',$entity->id)}}">

@@ -51,19 +51,35 @@ class Discussion extends Model
     ];
 
     /**
+     * Relationships of the model (used for eager loading)
+     */
+    public static $relationships = [ 'buyer', 'ticket' ];
+
+    /**
      * Mutators
      */
 
-    public function getStatusTextAttibute( $value )
+    public function getStatusTextAttribute()
     {
-        switch ( $value ) {
-            case $value == static::DENIED :
-                return 'denied';
-            case $value == static::AWAITING:
-                return 'awaiting';
-            case $value == static::ACCEPTED:
-                return 'accepted';
+        if ($this->ticket->sold_to_id != null){
+            if ($this->ticket->sold_to_id == $this->buyer->id) {
+                return 'Sold here';
+            } else {
+                return 'Sold';
+            }
         }
+
+        switch ( $this->status ) {
+            case static::DENIED :
+                return 'Denied';
+                break;
+            case static::AWAITING:
+                return 'Awaiting';
+            case static::ACCEPTED:
+                return 'Accepted';
+        }
+
+        return '-';
     }
 
     public function getSellerAttribute()
