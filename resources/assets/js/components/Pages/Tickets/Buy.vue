@@ -142,8 +142,17 @@
                 this.state = 'searching';
                 this.$http.post(this.api.tickets.buy, this.search)
                     .then(response => {
+                        function compare(a, b) {
+                            console.log('sort');
+                            if (a.train.departure_date < b.train.departure_date)
+                                return -1;
+                            if (a.train.departure_date > b.train.departure_date)
+                                return 1;
+                            return 0;
+                        }
+
                         this.state='result';
-                        this.tickets = response.data.data;
+                        this.tickets = response.data.data.sort(compare);
                     })
 
             }

@@ -121,8 +121,16 @@
                 this.sellState = 'searching';
                 this.$http.post(this.api.tickets.buy, this.search)
                     .then(response => {
-                        this.sellState='result';
-                        this.sellingTickets = response.data.data;
+                        function compare(a, b) {
+                            if (a.train.departure_date < b.train.departure_date)
+                                return 1;
+                            if (a.train.departure_date > b.train.departure_date)
+                                return -1;
+                            return 0;
+                        }
+
+                        this.state='result';
+                        this.tickets = response.data.data.sort(compare);
                     })
 
             },
