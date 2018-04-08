@@ -14,6 +14,7 @@
             <tr>
                 <td>
                     <a href="{{route('users.edit',$entity->user->id)}}">{{$entity->user->email}}</a>
+                    <span class="text-danger pull-right">{{$entity->eurostar_ticket_number==null?'FAKE':''}}</span>
                 </td>
                 <td>
                     <a href="{{route('trains.edit',$entity->train->id)}}">{{$entity->train->number}}</a>
