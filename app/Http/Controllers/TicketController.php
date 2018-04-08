@@ -147,11 +147,11 @@ class TicketController extends Controller
     {
         // Lock to family name
         if ( !\Auth::user()->isAdmin() && AppHelper::removeAccents($request->last_name )!= AppHelper::removeAccents(\Auth::user()->last_name)){
-            flash('Family name must be yours.')->error();
+            throw new LastarException('No tickets were found.');
         }
 
         if (\Auth::user()->isAdmin()){
-            $tickets = collect( Eurostar::retrieveTicket( \Auth::user()->last_name, $request->booking_code ) );
+            $tickets = collect( Eurostar::retrieveTicket( $request->last_name, $request->booking_code ) );
 
         } else {
             $tickets = collect( Eurostar::retrieveTicket( \Auth::user()->last_name, $request->booking_code ) );

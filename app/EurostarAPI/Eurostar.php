@@ -265,7 +265,12 @@ class Eurostar
         }
 
         $decoded = json_decode( (string) $response->getBody(), true )['tickets'];
-        $pdfUrl = $decoded[$ticketIndex]['url'];
+        try {
+            $pdfUrl = $decoded[ $ticketIndex ]['url'];
+        } catch (\Exception $exception) {
+            \Log::error(print_r($decoded));
+            dd('FATAL ERROR');
+        }
 
         $pdf = new Fpdi();
         $pdf->setSourceFile(StreamReader::createByString(file_get_contents($pdfUrl)));
