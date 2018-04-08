@@ -51,6 +51,8 @@
 
                         </div>
                     </form>
+
+                @stack('additional-content')
             </div>
 
         </div>
@@ -58,6 +60,8 @@
     </div>
 
 @endsection
+
+
 
 
 
