@@ -4,7 +4,7 @@
     <table class="table table-hover table-striped">
         <thead>
         <th>Seller Email</th>
-        <th>Train ID</th>
+        <th>Date</th>
         <th>Price</th>
         <th>Currency</th>
         <th>Actions</th>
@@ -17,7 +17,7 @@
                     <span class="text-danger pull-right">{{$entity->eurostar_ticket_number==null?'FAKE':''}}</span>
                 </td>
                 <td>
-                    <a href="{{route('trains.edit',$entity->train->id)}}">{{$entity->train->number}}</a>
+                    {{$entity->train->departure_date}}
                 </td>
                 <td>{{$entity->price}}</td>
                 <td>{{$entity->currency}}</td>
