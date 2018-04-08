@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\Admin\TicketRequest;
+use App\Jobs\DownloadTicketPdf;
 use App\Ticket;
 use App\User;
 use Faker\Factory;
@@ -63,7 +64,6 @@ class TicketController extends BaseController
     {
         $ticket = Ticket::find($id);
         if (!$ticket){
-            \Session::flash('danger','Entity not found!');
             flash()->error('Ticket not found!');
             return redirect()->back();
         }
@@ -71,6 +71,26 @@ class TicketController extends BaseController
         $ticket->save();
 
         flash()->success('Ticket updated!');
+        return redirect()->route($this->CRUDmodelName.'.edit',$ticket->id);
+    }
+
+    /**
+     * Re-deownload a pdf for a ticket
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function redownload(Request $request, $ticket_id)
+    {
+        $ticket = Ticket::find($ticket_id);
+        if (!$ticket){
+            flash()->error('Ticket not found!');
+            return redirect()->back();
+        }
+
+        DownloadTicketPdf::dispatch($ticket);
+
+        flash()->success('Done! Pdf should be updated in less than 5 minutes.');
         return redirect()->route($this->CRUDmodelName.'.edit',$ticket->id);
     }
 

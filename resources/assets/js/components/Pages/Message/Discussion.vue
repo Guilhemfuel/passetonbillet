@@ -64,6 +64,15 @@
             </div>
         </div>
         <div :class="{'messages':true, 'row':true, 'shadow':topShadow, 'archived':(sold && !sold_here)}" v-on:scroll="onScroll" id="messages">
+            <p class="text-center px-4 reminder" v-if="!sold">
+                <template  v-if="user.id == discussion.ticket.user.id">
+                    {{lang.discussions.explanation_seller}}
+                </template>
+                <template v-else>
+                    {{lang.discussions.explanation_buyer}}
+                </template>
+                {{lang.discussions.sold_disc_ended}}
+            </p>
             <template v-for="message in discussion.messages">
                 <div class="msg-container">
                     <el-tooltip class="item" effect="dark" :content="messageTooltip(message)" placement="right">

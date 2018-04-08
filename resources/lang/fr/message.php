@@ -30,6 +30,10 @@ return [
         'cta_sell_to'     => 'Vendre ce billet à',
         'cancel'          => 'Annuler',
 
+        'explanation_buyer'  =>'Rappel: le but de cette conversation est de trouver le moyen de paiement qui conviendra le mieux à vous et au vendeur. Nous vous enverrons le billet dès que le vendeur aura reçu votre paiement.',
+        'explanation_seller'  =>'Rappel:  le but de cette conversation est de trouver le moyen de paiement qui conviendra le mieux à vous et à l\'acheteur. Cliquez sur le bouton "Vendre ce billet à X" ci-dessus dès que vous recevrez le paiement de l\'acheteur.',
+
+
         'modal_sell' => [
             'part_1' => 'Vous vous apprêtez à envoyer cd billet à',
             'part_2' => 'Ne valider qu\'une fois le paiement reçu.',

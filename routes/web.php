@@ -153,6 +153,10 @@ Route::group( [ 'prefix' => 'lastadmin', 'middleware' => 'auth.admin' ], functio
 
     Route::resource( 'users', 'Admin\UserController' );
     Route::resource( 'tickets', 'Admin\TicketController' );
+    Route::group( [ 'prefix' => 'tickets','as' => 'tickets.' ], function () {
+        Route::get( '/redownload/{ticket_id}', 'Admin\TicketController@redownload' )->name( 'redownload' );
+    } );
+
     Route::resource( 'stations', 'Admin\StationController' );
     Route::resource( 'trains', 'Admin\TrainController' );
     Route::resource( 'offers', 'Admin\DiscussionController' );

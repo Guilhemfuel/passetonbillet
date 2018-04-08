@@ -1,4 +1,18 @@
 
+{{-- Additional Buttton--}}
+
+@if($entity->eurostar_ticket_number)
+    @push('additional-btn')
+        <a class="btn btn-info btn-fill btn-sm mr-3" target="_blank" href="{{route('public.ticket.download',['ticket_id'=>$entity->id])}}">
+            <i class="fa fa-file-pdf-o" aria-hidden="true"></i> Download ticket
+        </a>
+        <a class="btn btn-warning btn-fill btn-sm mr-3" href="{{route('tickets.redownload',['ticket_id'=>$entity->id])}}">
+            <i class="fa fa-cloud-download" aria-hidden="true"></i> Retry donwloading ticket
+        </a>
+    @endpush
+@endif
+
+{{-- Form --}}
 <div class="row text-bold">
     <div class="col">
     <h3 class="text-danger  text-center">{{$entity->eurostar_ticket_number==null?'FAKE':''}}</h3>
