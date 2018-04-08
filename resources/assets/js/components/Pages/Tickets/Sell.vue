@@ -25,8 +25,9 @@
                         <div class="row justify-content-center">
                             <form class="col-sm-12 col-md-10 col-lg-6">
                                 <div class="col-xs-12 form-group">
+                                    <!-- Name input-->
                                     <el-tooltip class="item" effect="dark" :content="lang.sell.other_name"
-                                                placement="top-start">
+                                                placement="top-start" v-if="!user.admin">
                                         <div>
                                         <input id="last_name" type="text"
                                                :class="{'form-control': true, 'is-invalid': errors.has('last_name') }"
@@ -35,9 +36,14 @@
                                                disabled>
                                         </div>
                                     </el-tooltip>
+                                    <input v-else id="last_name" type="text"
+                                           :class="{'form-control': true, 'is-invalid': errors.has('last_name') }"
+                                           name="last_name" required v-validate="'required'"
+                                           :placeholder="lang.sell.inputs.last_name" v-model="form.last_name">
+
                                     <span v-if="errors.has('last_name')"
                                           class="invalid-feedback">{{ errors.first('last_name')}}</span>
-
+                                    <!--Reference number-->
                                 </div>
                                 <div class="col-xs-12 form-group">
                                     <input id="booking_code" type="text"

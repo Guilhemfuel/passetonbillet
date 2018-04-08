@@ -146,12 +146,15 @@ class TicketController extends Controller
     public function searchTickets( SearchTicketsRequest $request )
     {
         // Lock to family name
-        if ( AppHelper::removeAccents($request->last_name )!= AppHelper::removeAccents(\Auth::user()->last_name)){
-            throw new LastarException('Family name must be yours.');
+        if ( !\Auth::user()->isAdmin() && AppHelper::removeAccents($request->last_name )!= AppHelper::removeAccents(\Auth::user()->last_name)){
+            flash('Family name must be yours.')->error();
         }
 
-
-        $tickets = collect( Eurostar::retrieveTicket( \Auth::user()->last_name, $request->booking_code ) );
+        if (\Auth::user()->isAdmin()){
+            $tickets = collect( Eurostar::retrieveTicket( $request->last_name, $request->booking_code ) );
+        } else {
+            $tickets = collect( Eurostar::retrieveTicket( \Auth::user()->last_name, $request->booking_code ) );
+        }
         // All tickets expired
         if (count($tickets)==0){
             throw new LastarException('No tickets were found.');
