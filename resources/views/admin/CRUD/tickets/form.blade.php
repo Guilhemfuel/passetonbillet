@@ -2,10 +2,17 @@
 {{-- Additional Buttton--}}
 
 @if($entity->eurostar_ticket_number)
+    {{-- IF REAL TICKET --}}
     @push('additional-btn')
+        @if($entity->pdf_downloaded)
         <a class="btn btn-info btn-fill btn-sm mr-3" target="_blank" href="{{route('public.ticket.download',['ticket_id'=>$entity->id])}}">
             <i class="fa fa-file-pdf-o" aria-hidden="true"></i> Download ticket
         </a>
+        @else
+        <button class="btn btn-info btn-fill btn-sm mr-3" type="button" disabled>
+            <i class="fa fa-file-pdf-o" aria-hidden="true"></i> Download ticket
+        </button>
+        @endif
         <a class="btn btn-warning btn-fill btn-sm mr-3" href="{{route('tickets.redownload',['ticket_id'=>$entity->id])}}">
             <i class="fa fa-cloud-download" aria-hidden="true"></i> Retry donwloading ticket
         </a>
