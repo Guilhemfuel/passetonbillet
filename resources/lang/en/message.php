@@ -28,6 +28,8 @@ return [
         'cta_sell_to'     => 'Sell this ticket to',
         'cancel'          => 'Cancel',
 
+        'explanation_buyer'  =>'Reminder: the purpose of the chat is for the buyer and the seller to agree on the best payment method. You will receive the ticket as soon as the seller will have received the money.',
+
         'modal_sell' => [
             'part_1' => 'You are about to send this ticket to',
             'part_2' => 'Make sure to click there, only once you received the payment.',

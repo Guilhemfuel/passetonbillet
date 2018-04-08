@@ -35,7 +35,7 @@
                         <div class="col-5 departure">
                             <i class="fa fa-train fa-2x" aria-hidden="true"></i><br>
                             <span class="city">{{ticket.train.departure_city.name}}</span><br>
-                            <span class="time">{{arrival_time}}</span>
+                            <span class="time">{{departure_time}}</span>
                         </div>
                         <div class="col-2 arrow">
                             <i class="fa fa-long-arrow-right fa-2x" aria-hidden="true"></i>
@@ -43,7 +43,7 @@
                         <div class="col-5 arrival">
                             <i class="fa fa-train fa-2x" aria-hidden="true"></i><br>
                             <span class="city">{{ticket.train.arrival_city.name}}</span><br>
-                            <span class="time">{{departure_time}}</span>
+                            <span class="time">{{arrival_time}}</span>
                         </div>
                     </div>
                 </div>
@@ -309,10 +309,10 @@
             }
         },
         computed: {
-            departure_time: function () {
+            arrival_time: function () {
                 return moment(this.ticket.train.arrival_time, 'HH:mm:ss').format('HH:mm')
             },
-            arrival_time: function () {
+            departure_time: function () {
                 return moment(this.ticket.train.departure_time, 'HH:mm:ss').format('HH:mm')
             },
             pastTicket: function () {
