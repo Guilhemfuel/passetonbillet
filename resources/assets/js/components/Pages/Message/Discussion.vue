@@ -71,7 +71,6 @@
                 <template v-else>
                     {{lang.discussions.explanation_buyer}}
                 </template>
-                {{lang.discussions.sold_disc_ended}}
             </p>
             <template v-for="message in discussion.messages">
                 <div class="msg-container">
