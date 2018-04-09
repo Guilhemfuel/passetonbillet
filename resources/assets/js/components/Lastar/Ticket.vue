@@ -317,8 +317,8 @@
             },
             pastTicket: function () {
                 var now = moment();
-                var departure = moment(this.ticket.train.departure_date, 'YYYY-MM-DD');
-                return now.isAfter(departure)
+                var departure = moment(this.ticket.train.departure_date + ' ' + this.departure_time, 'YYYY-MM-DD HH:mm');
+                return now.isAfter(departure.subtract(2,'h'))
             },
             offerDone: function () {
                 if (this.buying && this.user) {

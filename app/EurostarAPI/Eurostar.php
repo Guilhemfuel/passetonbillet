@@ -154,7 +154,8 @@ class Eurostar
             throw new LastarException( 'Arrival station with code ' . $data['info']['destination']['code'] . ' not found.' );
         }
 
-        if ( $past || ( new \DateTime( $trainDepartureDate ) >= new \DateTime() ) ) {
+        // You can sell ticket max two hours before train!
+        if ( $past || (  (new \DateTime(  $trainDepartureDate.' '. $trainDepartureTime  ))->modify('-2 hour') >= new \DateTime() ) ) {
             // We don't consider past tickets
 
             // Create train
