@@ -34,7 +34,7 @@
                     <a class="btn btn-sm btn-info btn-fill" href="{{route('tickets.edit',$entity->id)}}">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
                     </a>
-                    <input style="height: 10px;width: 10px;opacity: 0;" value="{{route( 'ticket.unique.page', [ 'ticket_id' => $entity->id ] )}}" id="share-{{ $entity->id}}">
+                    <input style="height: 10px;width: 10px;opacity: 0;" value="{{route( 'ticket.unique.page', [ 'ticket_id' => \Hashids::encode($entity->id) ] )}}" id="share-{{ $entity->id}}">
 
                 </td>
             </tr>
