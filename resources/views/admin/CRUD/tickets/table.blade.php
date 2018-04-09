@@ -8,6 +8,7 @@
         <th>From</th>
         <th>To</th>
         <th>Price</th>
+        <th class="text-center">NB Offres</th>
         <th>Actions</th>
         </thead>
         <tbody>
@@ -27,6 +28,7 @@
                     {{ substr($entity->train->arrivalCity->short_name,2)  }}
                 </td>
                 <td>{{$entity->price}} {{$entity->currency}}</td>
+                <td class="text-center">{{$entity->discussions->count()}}</td>
                 <td>
                     <button class="btn btn-sm btn-primary btn-fill" onclick="share({{ $entity->id}})">
                         <i class="fa fa-clipboard" aria-hidden="true"></i>
