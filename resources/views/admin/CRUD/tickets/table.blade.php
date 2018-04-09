@@ -28,9 +28,14 @@
                 </td>
                 <td>{{$entity->price}} {{$entity->currency}}</td>
                 <td>
+                    <button class="btn btn-sm btn-primary btn-fill" onclick="share({{ $entity->id}})">
+                        <i class="fa fa-clipboard" aria-hidden="true"></i>
+                    </button>
                     <a class="btn btn-sm btn-info btn-fill" href="{{route('tickets.edit',$entity->id)}}">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
                     </a>
+                    <input style="height: 10px;width: 10px;opacity: 0;" value="{{route( 'ticket.unique.page', [ 'ticket_id' => $entity->id ] )}}" id="share-{{ $entity->id}}">
+
                 </td>
             </tr>
         @endforeach
@@ -44,3 +49,16 @@
         </div>
 
     @endif
+
+@push('scripts')
+
+    <script type="application/javascript">
+        console.log(navigator);
+        let share = function(id) {
+            document.getElementById('share-'+id).select();
+            document.getElementById('share-'+id).setSelectionRange(0,  document.getElementById('share-'+id).value.length);
+
+            document.execCommand("Copy");
+        }
+    </script>
+@endpush
