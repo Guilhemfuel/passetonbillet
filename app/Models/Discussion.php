@@ -126,7 +126,7 @@ class Discussion extends Model
 
     public function messages()
     {
-        return $this->hasMany('App\Models\Message', 'discussion_id');
+        return $this->hasMany('App\Models\Message', 'discussion_id')->orderBy('created_at');
     }
 
     /**
