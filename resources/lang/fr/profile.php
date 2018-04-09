@@ -9,7 +9,7 @@ return [
     */
 
     'title' => 'Mon profil',
-    'account_verify' => 'Vérifier votre compte',
+    'account_verify' => 'VPrivacy Policyérifier votre compte',
     'account_verified' => 'Identité vérifée',
     'change_password' => 'Changer le mot de passe',
     'change_picture' => 'Changer la photo de profil',

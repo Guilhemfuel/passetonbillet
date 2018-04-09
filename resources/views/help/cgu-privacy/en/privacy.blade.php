@@ -25,18 +25,18 @@
                             </li>
                             @if (App::isLocale('fr'))
                                 <a class="nav-link" href="{{route('lang','en')}}">
-                                    <span class="flag-icon flag-icon-fr"></span>
+                                    <span class="flag-icon flag-icon-gb"></span>
                                 </a>
                             @else
                                 <a class="nav-link" href="{{route('lang','fr')}}">
-                                    <span class="flag-icon flag-icon-gb"></span>
+                                    <span class="flag-icon flag-icon-fr"></span>
                                 </a>
                             @endif
                         </ul>
                     </nav>
                     <div class="content">
                         <div>
-                            <h2 class="text-center text-white">Privacy PolicyLastar.io</h2>
+                            <h2 class="text-center text-white">Privacy Policy</h2>
                             <p class="text-center text-white">
                                 Last updated: March 10, 2018
                             </p>
@@ -383,7 +383,6 @@
         @include('components.footer')
     </div>
 
-    </div>
 
 @endsection
 

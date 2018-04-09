@@ -25,144 +25,137 @@
                             </li>
                             @if (App::isLocale('fr'))
                                 <a class="nav-link" href="{{route('lang','en')}}">
-                                    <span class="flag-icon flag-icon-fr"></span>
+                                    <span class="flag-icon flag-icon-gb"></span>
                                 </a>
                             @else
                                 <a class="nav-link" href="{{route('lang','fr')}}">
-                                    <span class="flag-icon flag-icon-gb"></span>
+                                    <span class="flag-icon flag-icon-fr"></span>
                                 </a>
                             @endif
                         </ul>
                     </nav>
                     <div class="content">
                         <div>
-                            <h2 class="text-center text-white">Privacy PolicyLastar.io</h2>
+                            <h2 class="text-center text-white">Privacy Policy</h2>
                             <p class="text-center text-white">
                                 Last updated: March 10, 2018
                             </p>
                             <div class="container container-over-bg p-5 mt-3 text-justify">
 
-                                <h4 class="mt-3 pb-3">How We Collect and Use Your Information
+                                <h4 class="mt-3 pb-3">Comment nous collectons et utilisons vos informations
                                 </h4>
 
                                 <div>
-                                    <p>This privacy policy has been compiled to better serve those
-                                        who are concerned with how their 'Personally Identifiable Information' (PII) is
-                                        being used online. PII, as described in US privacy law and information security,
-                                        is information that can be used on its own or with other information to
-                                        identify, contact, or locate a single person, or to identify an individual in
-                                        context. Please read our privacy policy carefully to get a clear understanding
-                                        of how we collect, use, protect or otherwise handle your Personally Identifiable
-                                        Information in accordance with our website.</p>
-                                    <p class='grayText'><strong>What personal information do we collect from the
-                                            people that visit our blog, website or app?</strong></p>
-                                    <p>When ordering or registering on our site, as appropriate, you
-                                        may be asked to enter your name, email address, mailing address, phone number,
-                                        City or other details to help you with your experience.
+                                    <p>Cette politique de confidentialité a été compilée pour mieux servir les
+                                        qui s'inquiètent de la manière dont leurs «informations personnelles identifiables» (PII)
+                                        être utilisé en ligne. PII, tel que décrit dans la loi américaine sur la confidentialité et la sécurité de l'information,
+                                        est une information qui peut être utilisée seule ou avec d'autres informations
+                                        identifier, contacter ou localiser une seule personne, ou identifier une personne
+                                        le contexte. S'il vous plaît lire attentivement notre politique de confidentialité pour obtenir une compréhension claire
+                                        de la façon dont nous collectons, utilisons, protégeons ou manipulons autrement votre identifiant personnel
+                                        Informations conformément à notre site Web.</p>
+                                    <p class='grayText'><strong>Quelles informations personnelles collectons-nous
+                                            les gens qui visitent notre blog, site web ou application?</strong></p>
+                                    <p>Lors de la commande ou de l'inscription sur notre site, le cas échéant, vous
+                                        peut vous demander d'entrer votre nom, adresse e-mail, adresse postale, numéro de téléphone,
+                                        Ville ou d'autres détails pour vous aider avec votre expérience.
                                     </p>
 
-                                    <p class='grayText'><strong>When do we collect information?</strong></p>
-                                    <p>We collect information from you when you register on our
-                                        site, place an order, subscribe to a newsletter, respond to a survey, fill out a
-                                        form, Use Live Chat, Open a Support Ticket or enter information on our site.
+                                    <p class='grayText'><strong>Quand recueillons-nous des informations?</strong></p>
+                                    <p>
+                                        Nous recueillons des informations auprès de vous lorsque vous vous inscrivez sur notre
+                                        site, passer une commande, s'abonner à un bulletin, répondre à un sondage, remplir un
+                                        formulaire, utiliser Live Chat, ouvrir un ticket de support ou entrer des informations sur notre site.
                                     </p>
 
-                                    <p class='grayText'><strong>How do we use your information? </strong></p>
-                                    <p> We may use the information we collect from you when you
-                                        register, make a purchase, sign up for our newsletter, respond to a survey or
-                                        marketing communication, surf the website, or use certain other site features in
-                                        the following ways:</p>
+                                    <p class='grayText'><strong>Comment utilisons-nous vos informations?
+                                        </strong></p>
+                                    <p> Nous pouvons utiliser les informations que nous recueillons de vous lorsque vous
+                                        inscrivez-vous, faites un achat, inscrivez-vous à notre newsletter, répondez à un sondage ou
+                                        marketing, surfer sur le site Web ou utiliser certaines autres fonctionnalités du site
+                                        les moyens suivants:</p>
                                     <ul>
-                                        <li>To
-                                            personalize your experience and to allow us to deliver the type of content
-                                            and
-                                            product offerings in which you are most interested.
+                                        <li>
+                                            Personnaliser votre expérience et nous permettre de livrer le type de contenu
+                                            et
+                                            offres de produits dans lesquelles vous êtes le plus intéressé.
                                         </li>
-                                        <li>To
-                                            improve our website in order to better serve you.
+                                        <li>Améliorer notre site internet afin de mieux vous servir.
                                         </li>
-                                        <li>To
-                                            allow us to better service you in responding to your customer service
-                                            requests.
+                                        <li>Pour nous permettre de mieux vous servir en répondant à votre service client
+                                            demandes
                                         </li>
-                                        <li>To
-                                            administer a contest, promotion, survey or other site feature.
+                                        <li>Administrer un concours, une promotion, un sondage ou une autre caractéristique du site.
                                         </li>
-                                        <li>To
-                                            quickly process your transactions.
+                                        <li>Traitez rapidement vos transactions.
                                         </li>
-                                        <li>To ask
-                                            for ratings and reviews of services or products
+                                        <li>Demander des évaluations de services ou de produits
                                         </li>
-                                        <li>To
-                                            follow up with them after correspondence (live chat, email or phone
-                                            inquiries)
+                                        <li>
+                                            Faire un suivi avec eux après la correspondance (chat en direct, email ou téléphone
+                                            demandes de renseignements)
                                         </li>
                                     </ul>
                                     <span id='infoPro'></span>
-                                    <div class='grayText'><strong>How do we protect your information?</strong></div>
-                                    <p>We do not use vulnerability scanning and/or scanning to PCI
-                                        standards.
+                                    <div class='grayText'><strong>Comment protégeons-nous vos informations?</strong></div>
+                                    <p>Nous n'utilisons pas l'analyse de vulnérabilité et / ou la numérisation vers les normes PCI.
                                     </p>
-                                    <p>We only provide articles and information. We never ask for
-                                        credit card numbers.
+                                    <p>Nous fournissons uniquement des articles et des informations. Nous ne demandons jamais
+                                        numéros de carte de crédit.
                                     </p>
-                                    <p>We do not use Malware Scanning.</p>
-                                    <p>Your personal information is contained behind secured
-                                        networks and is only accessible by a limited number of persons who have special
-                                        access rights to such systems, and are required to keep the information
-                                        confidential. In addition, all sensitive/credit information you supply is
-                                        encrypted via Secure Socket Layer (SSL) technology.
-                                    </p>
-
-                                    <p>We implement a variety of security measures when a user
-                                        places an order enters, submits, or accesses their information to maintain the
-                                        safety of your personal information.
+                                    <p>Nous n'utilisons pas la recherche de logiciels malveillants.</p>
+                                    <p>Vos informations personnelles sont sauvegardées dans des
+                                        réseaux sécurisé et accessible que par un nombre limité de personnes ayant des
+                                        droits d'accès à ces systèmes, et tenus de conserver les informations
+                                        confidentielles. En outre, toutes les informations sensibles que vous fournissez sont
+                                        crypté via la technologie SSL (Secure Socket Layer).
                                     </p>
 
-                                    <p>All transactions are processed through a gateway provider and
-                                        are not stored or processed on our servers.
+                                    <p>Nous mettons en œuvre une variété de mesures de sécurité lorsqu'un utilisateur
+                                        place une commande entre, soumet ou accède à ses informations pour maintenir
+                                        la sécurité de vos informations personnelles.
+                                    </p>
+
+                                    <p>Toutes les transactions sont traitées par un fournisseur de passerelle et
+                                        ne sont pas stockés ou traités sur nos serveurs.
                                     </p>
                                     <span id='coUs'></span>
-                                    <p class='grayText'><strong>Do we use 'cookies'?</strong></p>
-                                    <p>Yes. Cookies are small files that a site or its service
-                                        provider transfers to your computer's hard drive through your Web browser (if
-                                        you allow) that enables the site's or service provider's systems to recognize
-                                        your browser and capture and remember certain information. For instance, we use
-                                        cookies to help us remember and process the items in your shopping cart. They
-                                        are also used to help us understand your preferences based on previous or
-                                        current site activity, which enables us to provide you with improved services.
-                                        We also use cookies to help us compile aggregate data about site traffic and
-                                        site interaction so that we can offer better site experiences and tools in the
-                                        future.
+                                    <p class='grayText'><strong>
+                                            Utilisons-nous des 'cookies'?</strong></p>
+                                    <p>Oui. Les cookies sont de petits fichiers qu'un site ou son service
+                                        le fournisseur transfère sur le disque dur de votre ordinateur via votre navigateur Web (si
+                                        vous autorisez) qui permet aux systèmes du site ou du fournisseur de services de reconnaître
+                                        votre navigateur et capturer et se souvenir de certaines informations. Par exemple, nous utilisons
+                                        des cookies pour nous aider à mémoriser et traiter les articles dans votre panier. Ils
+                                        sont également utilisés pour nous aider à comprendre vos préférences basées sur
+                                        l'activité actuelle du site, ce qui nous permet de vous fournir des services améliorés.
+                                        Nous utilisons également des cookies pour nous aider à compiler des données agrégées sur le trafic du site et
+                                        l'interaction du site afin que nous puissions offrir de meilleures expériences de site et des outils dans le
+                                        avenir.
                                     </p>
-                                    <p><strong>We use cookies to:</strong></p>
+                                    <p><strong>Nous utilisons des cookies pour:</strong></p>
                                     <ul>
-                                        <li>Help
-                                            remember and process the items in the shopping cart.
+                                        <li>Permettre de
+                                            mémoriser et traiter les articles dans le panier.
                                         </li>
-                                        <li>Understand and save user's preferences for future visits.
+                                        <li>Comprendre et enregistrer les préférences de l'utilisateur pour les prochaines visites.
                                         </li>
-                                        <li>Keep
-                                            track of advertisements.
+                                        <li>Mémoriser les contenus publicitaires.
                                         </li>
                                         <li>
-                                            Compile aggregate data about site traffic and site interactions in order to
-                                            offer better site experiences and tools in the future. We may also use
-                                            trusted
-                                            third-party services that track this information on our behalf.
+                                            Compiler des données agrégées sur le trafic du site et les interactions du site afin d'offrir de meilleures expériences de site et de meilleurs outils dans le futur. Nous pouvons également utiliser
+                                            des services de tiers de confiance qui suivent ces informations en notre nom.
                                         </li>
                                     </ul>
-                                    <p>You can choose to have your computer warn you each time a
-                                        cookie is being sent, or you can choose to turn off all cookies. You do this
-                                        through your browser settings. Since browser is a little different, look at your
-                                        browser's Help Menu to learn the correct way to modify your cookies.</p>
-                                    <p><strong>If users disable cookies in their
-                                            browser:</strong></p>
+                                    <p>Yous pouvez choisir que votre ordinateur vous avertisse à chaque fois
+                                        qu'un cookie est en cours d'envoi, ou vous pouvez choisir de désactiver tous les cookies. Vous pouvez faire cela
+                                        grâce aux paramètres de votre navigateur. Comme les navigateur peuvent être un peu différent, nous vous conseillons de regarder votre
+                                        menu d'aide du navigateur pour apprendre la bonne façon de modifier vos cookies.</p>
+                                    <p><strong>Si les utilisateurs désactivent les cookies dans leur
+                                            navigateur:</strong></p>
 
-                                    <p>If you turn cookies off, Some of the features that make your
-                                        site experience more efficient may not function properly.Some of the features
-                                        that make your site experience more efficient and may not function properly.
+                                    <p>Si vous désactivez les cookies, certaines des fonctionnalités qui rendent
+                                        l'expérience de site plus efficace peuvent ne pas fonctionner correctement.
                                     </p>
                                     <span id='trDi'></span>
                                     <div class='grayText'><strong>Third-party disclosure</strong></div>
@@ -170,13 +163,13 @@
                                         parties your Personally Identifiable Information.
                                     </p>
                                     <span id='trLi'></span>
-                                    <p class='grayText'><strong>Third-party links</strong></p>
-                                    <p>Occasionally, at our discretion, we may include or offer
-                                        third-party products or services on our website. These third-party sites have
-                                        separate and independent privacy policies. We therefore have no responsibility
-                                        or liability for the content and activities of these linked sites. Nonetheless,
-                                        we seek to protect the integrity of our site and welcome any feedback about
-                                        these sites.
+                                    <p class='grayText'><strong>Divulgation par des tiers</strong></p>
+                                    <p>Occasionnellement, à notre discrétion, nous pouvons inclure ou offrir
+                                        des produits ou services de tiers sur notre site Web. Ces sites tiers ont
+                                        des politiques de confidentialité distinctes et indépendantes. Nous ne sommes donc en aucun cas responsables
+                                        pour le contenu et les activités de ces sites liés. Toutefois,
+                                        nous cherchons à protéger l'intégrité de notre site et à recevoir vos avis sur
+                                        ces sites.
                                     </p>
                                     {{--<p class='grayText'><strong>Google</strong></p>--}}
                                     {{--<p>Google's advertising requirements can be summed up by--}}
@@ -214,161 +207,163 @@
                                     {{--Opt Out page or by using the Google Analytics Opt Out Browser add on.--}}
                                     {{--</p>--}}
                                     <span id='calOppa'></span>
-                                    <p class='grayText'><strong>California Online Privacy Protection Act</strong>
+                                    <p class='grayText'><strong>Loi sur la protection de la vie privée en ligne
+                                        </strong>
                                     </p>
-                                    <p>CalOPPA is the first state law in the nation to require
-                                        commercial websites and online services to post a privacy policy. The law's
-                                        reach stretches well beyond California to require any person or company in the
-                                        United States (and conceivably the world) that operates websites collecting
-                                        Personally Identifiable Information from California consumers to post a
-                                        conspicuous privacy policy on its website stating exactly the information being
-                                        collected and those individuals or companies with whom it is being shared. - See
-                                        more at:
+                                    <p>CalOPPA est la première loi de la nation à exiger
+                                        des sites commerciaux et services en ligne d'afficher une politique de confidentialité. La portée des lois s'étend bien au-delà de la Californie pour exiger qu'une personne ou une entreprise aux
+                                        États-Unis (et peut-être le monde) qui exploite des sites Web de collecte
+                                        d'informations personnellement identifiables des consommateurs californiens
+                                       de publier une politique de confidentialité ostentatoire sur son site Web indiquant avec exactitude les informations
+                                        recueillies et les personnes ou les entreprises avec lesquelles elle sont partagés. - Voir
+                                        Plus à:
                                         <a target="_blank" href="http://consumercal.org/california-online-privacy-protection-act-caloppa/#sthash.0FdRbT51.dpuf">http://consumercal.org/california-online-privacy-protection-act-caloppa/#sthash.0FdRbT51.dpuf</a>
                                     </p>
-                                    <p>According to CalOPPA, we agree to the
-                                        following:</p>
+                                    <p>Selon CalOPPA, nous sommes d'accord avec sur les principes suivant:</p>
                                     <ul>
-                                        <li>Users can visit our site anonymously.</li>
-                                        <li>Once this privacy policy is created, we will add a link to it
-                                            on our home page or as a minimum, on the first significant page after
-                                            entering
-                                            our website.
+                                        <li>Les utilisateurs peuvent visiter le site de manière anonyme.</li>
+                                        <li>Une fois cette politique de confidentialité créée, nous ajouterons un lien vers celle-ci
+                                            sur notre page d'accueil.
                                         </li>
-                                        <li>Our Privacy Policy link includes the word 'Privacy' and can
-                                            easily be found on the page specified above.
+                                        <li>
+                                            Notre lien de Politique de confidentialité inclut le mot "Confidentialité" et peut
+                                            facilement se trouver sur la page spécifiée ci-dessus.
                                         </li>
                                     </ul>
 
-                                    <p>You will be notified of any Privacy Policy changes:</p>
+                                    <p>
+                                        Vous serez informé de toute modification de la politique de confidentialité:</p>
                                     <ul>
-                                        <li>On our
-                                            Privacy Policy Page
+                                        <li>Sur notre
+                                            page de Politique de confidentialité
                                         </li>
                                         <li>Via email
                                         </li>
                                     </ul>
-                                    <p>Can change your personal information:</p>
+                                    <p>Vous pouvez modifier vos informations personelles:</p>
                                     <ul>
-                                        <li>By
-                                            emailing us
+                                        <li>En en envoyant un email
+
                                         </li>
-                                        <li>By
-                                            logging in to your account
+                                        <li>En vous connectant sur votre compte
                                         </li>
-                                        <li>By
-                                            chatting with us or by sending us a support ticket
+                                        <li>En discuttant avec nous en live sur la plateforme
                                         </li>
                                     </ul>
-                                    <p><strong>How does our site handle Do Not Track
-                                            signals?</strong></p>
-                                    <p>We honor Do Not Track signals and Do Not Track, plant
-                                        cookies, or use advertising when a Do Not Track (DNT) browser mechanism is in
-                                        place.
+                                    <p><strong>Comment notre site gère t-il les signaux à ne pas suivre?
+                                        </strong></p>
+                                    <p>
+                                        Nous honorons les signaux Do Not Track et Do Not Track, plant
+                                        cookies, ou utiliser la publicité lorsqu'un mécanisme de navigateur Ne pas suivre (DNT) est en
+                                        endroit.
                                     </p>
-                                    <p><strong>Does our site allow third-party behavioral
-                                            tracking?</strong></p>
-                                    <p>It's also important to note that we allow third-party
-                                        behavioral tracking
+                                    <p><strong>
+                                            Est-ce que notre site permet le comportement de tiers
+                                            suivi?</strong></p>
+                                    <p>
+                                        Il est également important de noter que nous autorisons les tiers
+                                        suivi comportemental
                                     </p>
                                     <span id='coppAct'></span>
-                                    <p class='grayText'><strong>COPPA (Children Online Privacy Protection
-                                            Act)</strong></p>
-                                    <p>When it comes to the collection of personal information from
-                                        children under the age of 13 years old, the Children's Online Privacy Protection
-                                        Act (COPPA) puts parents in control. The Federal Trade Commission, United
-                                        States' consumer protection agency, enforces the COPPA Rule, which spells out
-                                        what operators of websites and online services must do to protect children's
-                                        privacy and safety online.</p>
-                                    <p>We do not specifically market to children under the age of 13
-                                        years old.
+                                    <p class='grayText'><strong>COPPA (Acte de Protection de la vie privée des enfants en ligne)</strong></p>
+                                    <p>Quand il s'agit de la collecte de renseignements personnels des enfants de moins de 13 ans, la protection de la vie privée des enfants en ligne
+                                        La loi (COPPA) met les parents en responsables. La Federal Trade Commission, applique la règle de la COPPA, qui énonce
+                                         que les opérateurs de sites Web et des services en ligne doivent faire pour protéger les enfants
+                                        confidentialité et sécurité en ligne.</p>
+                                    <p>Nous ne vendons pas spécifiquement aux enfants de moins de 13 ans
+                                        ans.
                                     </p>
-                                    <p>Do we let third-parties, including ad networks or plug-ins
-                                        collect PII from children under 13?
+                                    <p>Laissons-nous des tiers, y compris des réseaux publicitaires ou des plug-ins
+                                        recueillir des renseignements personnels sur les enfants de moins de 13 ans?
                                     </p>
                                     <span id='ftcFip'></span>
-                                    <p class='grayText'><strong>Fair Information Practices</strong></p>
-                                    <p>The Fair Information Practices Principles form the backbone
-                                        of privacy law in the United States and the concepts they include have played a
-                                        significant role in the development of data protection laws around the globe.
-                                        Understanding the Fair Information Practice Principles and how they should be
-                                        implemented is critical to comply with the various privacy laws that protect
-                                        personal information.</p>
-                                    <p><strong>In order to be in line with Fair Information
-                                            Practices we will take the following responsive action, should a data breach
-                                            occur:</strong></p>
+                                    <p class='grayText'><strong>Pratiques équitables d'information</strong></p>
+                                    <p>Les principes de pratiques d'information équitables forment l'épine dorsale
+                                        de la loi sur la vie privée aux États-Unis et les concepts qu'ils comprennent ont joué un
+                                        rôle important dans le développement des lois sur la protection des données dans le monde entier.
+                                        Comprendre les principes de pratiques d'information équitables et comment ils devraient être
+                                        mis en œuvre est essentiel pour se conformer aux diverses lois sur la protection de la vie privée qui protègent
+                                        informations personnelles.</p>
+                                    <p><strong>Afin d'être en accord avec les informations justes
+                                            Pratiques nous prendrons l'action réactive suivante, si une violation de données
+                                            se produire:</strong></p>
                                     <div class="ml-5">
-                                        <p>We will notify you via email</p>
+                                        <p>Nous vous informerons par e-mail</p>
                                         <ul>
-                                            <li>Within
-                                                7 business days
+                                            <li>En moins de
+                                                7 jours ouvrables
                                             </li></ul>
-                                        <p>We will notify the users via in-site notification</p>
+                                        <p>Nous informerons les utilisateurs via les notifications sur site</p>
                                         <ul>
-                                            <li>Within
-                                                7 business days
+                                            <li>En moins de
+                                                7 jours ouvrables
                                             </li></ul>
                                     </div>
-                                    <p>We also agree to the Individual Redress Principle which
-                                        requires that individuals have the right to legally pursue enforceable rights
-                                        against data collectors and processors who fail to adhere to the law. This
-                                        principle requires not only that individuals have enforceable rights against
-                                        data users, but also that individuals have recourse to courts or government
-                                        agencies to investigate and/or prosecute non-compliance by data processors.
+                                    <p>Nous sommes également d'accord avec le principe de la réparation individuelle
+                                        exige que les individus aient le droit de poursuivre légalement des droits exécutoires
+                                        contre les collecteurs de données et les processeurs qui ne respectent pas la loi. Ce
+                                        principe exige non seulement que les individus aient des droits opposables
+                                        utilisateurs de données, mais aussi que les particuliers ont recours aux tribunaux ou au gouvernement
+                                        agences pour enquêter et / ou poursuivre les non-conformités par les entreprises de traitement de données.
                                     </p>
                                     <span id='canSpam'></span>
-                                    <p class='grayText'><strong>CAN SPAM Act</strong></p>
-                                    <p>The CAN-SPAM Act is a law that sets the rules for commercial
-                                        email, establishes requirements for commercial messages, gives recipients the
-                                        right to have emails stopped from being sent to them, and spells out tough
-                                        penalties for violations.</p>
-                                    <p><strong>We collect your email address in order to:</strong>
+                                    <p class='grayText'><strong>Loi CAN SPAM</strong></p>
+                                    <p>La loi CAN-SPAM est une loi qui définit les règles pour les
+                                        courrier électronique, établit des exigences pour les messages commerciaux, donne aux
+                                        droit d'avoir des courriels arrêtés d'être envoyé à eux, et énonce dur
+                                        pénalités pour les violations.</p>
+                                    <p><strong>Nous collectons votre adresse email afin de:</strong>
                                     </p>
                                     <ul>
-                                        <li>Send
-                                            information, respond to inquiries, and/or other requests or questions
+                                        <li>
+                                            Envoyer
+                                            des informations, répondre aux demandes, et / ou d'autres demandes ou questions.
                                         </li>
                                         <li>
-                                            Process orders and to send information and updates pertaining to orders.
+                                            Traiter les commandes et envoyer des informations et des mises à jour relatives aux commandes.
                                         </li>
-                                        <li>Send
-                                            you additional information related to your product and/or service
+                                        <li>Envoyer des informations supplémentaires liées à votre produit et / ou service
                                         </li>
-                                        <li>Market
-                                            to our mailing list or continue to send emails to our clients after the original
-                                            transaction has occurred.
+                                        <li>Vendre
+                                            à notre liste de diffusion ou continuer à envoyer des courriels à nos clients après l'original
+                                            la transaction a eu lieu.
                                         </li>
                                     </ul>
-                                    <p><strong>To be in accordance with CANSPAM, we agree to the
-                                            following:</strong></p>
+                                    <p><strong>
+                                            Pour être en accord avec CANSPAM, nous acceptons :
+                                        </strong></p>
                                     <ul>
-                                        <li>Not
-                                            use false or misleading subjects or email addresses.
+                                        <li>Pas
+                                            l'utilisation des sujets faux ou trompeurs ou des adresses email.
                                         </li>
                                         <li>
-                                            Identify the message as an advertisement in some reasonable way.
+
+                                            Identifiez le message comme une publicité d'une manière raisonnable.
                                         </li>
                                         <li>
-                                            Include the physical address of our business or site headquarters.
+                                            Indiquez l'adresse physique de notre siège social ou de notre site.
                                         </li>
                                         <li>
-                                            Monitor third-party email marketing services for compliance, if one is used.
+
+                                            Surveiller la conformité des services de marketing par courriel d'une tierce partie, le cas échéant.
                                         </li>
-                                        <li>Honor
-                                            opt-out/unsubscribe requests quickly.
+                                        <li>Honnorer la désinscription / désinscription des demandes rapidement.
                                         </li>
-                                        <li>Allow
-                                            users to unsubscribe by using the link at the bottom of each email.
+                                        <li>Permettre
+                                            aux utilisateurs à se désabonner en utilisant le lien en bas de chaque email.
                                         </li>
                                     </ul>
-                                    <p><strong>If at any time you would like to unsubscribe from
-                                            receiving future emails, you can email us at</strong> <a href="mailto:contact@lastar.io">contact@lastar.io</a> and we will promptly remove you from <strong>ALL</strong> correspondence.</p>
+                                    <p><strong>
+                                            Si vous souhaitez vous désabonner à tout moment
+                                            de recevoir de futurs email, vous pouvez nous envoyer un courriel à</strong> <a href="mailto:contact@lastar.io">contact@lastar.io</a> et nous vous retirerons rapidement de <strong>TOUTES</strong> correspondance.</p>
 
                                 </div>
                                 <span id='ourCon'></span>
-                                <p class='grayText'><strong>Contacting Us</strong></p>
-                                <p>If there are any questions regarding this privacy policy, you may
-                                    contact us using the information below.</p>
+                                <p class='grayText'><strong>
+                                        Nous contacter</strong></p>
+                                <p>
+                                    Si vous avez des questions concernant cette politique de confidentialité, vous pouvez
+                                    contactez-nous en utilisant les informations ci-dessous.</p>
                                 <p>Lastar.io</p>
                                 <p>contact@lastar.io</p>
                             </div>
@@ -383,7 +378,6 @@
         @include('components.footer')
     </div>
 
-    </div>
 
 @endsection
 
