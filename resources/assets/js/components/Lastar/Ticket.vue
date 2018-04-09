@@ -211,7 +211,7 @@
                                 {{ticket.train.arrival_city.name}}</p>
                             <template v-if="user">
                                 <p class="text-center">{{lang.sold_by}}
-                                    <a target="_blank" :href="'/profile/user/'+ticket.user.hashid"></atarget>
+                                    <a target="_blank" :href="'/profile/user/'+ticket.user.hashid">
                                         <b>{{ticket.user.full_name}}</b>
                                         <el-tooltip class="item" effect="dark" :content="lang.user_verified"
                                                     placement="bottom-end">
