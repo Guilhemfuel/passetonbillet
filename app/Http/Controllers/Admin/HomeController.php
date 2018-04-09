@@ -20,12 +20,13 @@ class HomeController extends BaseController
     public function home()
     {
         $data = [
-            'ticketCount'  => Ticket::all()->count(),
-            'trainCount'   => Train::all()->count(),
-            'userCount'    => User::all()->count(),
-            'stationCount' => Station::all()->count(),
+            'ticketCount'         => Ticket::all()->count(),
+            'ticketSoldCount'     => Ticket::whereNotNull('sold_to_id')->count(),
+                'trainCount'      => Train::all()->count(),
+            'userCount'           => User::all()->count(),
+            'stationCount'        => Station::all()->count(),
             'idVerificationCount' => IdVerification::awaitingCount(),
-            'offerCount' => Discussion::all()->count()
+            'offerCount'          => Discussion::all()->count()
         ];
 
         return $this->lastarView( 'admin.dashboard', $data );

@@ -54,6 +54,20 @@
         <div class="col-sm-3 col-xs-6">
             <div class="card">
                 <div class="card-header">
+                    <h4 class="title text-center">{{$ticketSoldCount}}<br>
+                        <a href="#" class="stat-link">
+                            <i class="fa fa-money fa-2x" aria-hidden="true"></i>
+                        </a>
+                    </h4>
+                </div>
+                <div class="card-body text-center">
+                    Tickets Sold
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3 col-xs-6 pt-4">
+            <div class="card">
+                <div class="card-header">
                     <h4 class="title text-center">{{$stationCount}}<br>
                         <a href="{{route('stations.index')}}" class="stat-link">
                             <i class="fa fa-globe fa-2x"></i>
