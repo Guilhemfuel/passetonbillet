@@ -22,7 +22,7 @@ class DiscussionLastMessageResource extends Resource
             'seller'       => new UserRessource( $this->seller ),
             'ticket'       => new TicketRessource( $this->ticket ),
             'price'        => $this->price,
-            'last_message' => $this->last_message,
+            'last_message' => $this->lastMessage,
             'currency'     => $this->currency,
             'updated_at'   => $this->updated_at,
         ];

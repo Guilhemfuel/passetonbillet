@@ -87,11 +87,6 @@ class Discussion extends Model
         return $this->ticket->user;
     }
 
-    public function getLastMessageAttribute()
-    {
-        return $this->messages()->orderBy('created_at','desc')->first();
-    }
-
     /**
      * Methods
      */
@@ -122,6 +117,11 @@ class Discussion extends Model
     public function ticket()
     {
         return $this->belongsTo( 'App\Ticket' );
+    }
+
+    public function lastMessage()
+    {
+        return $this->hasOne('App\Models\Message', 'discussion_id')->latest();
     }
 
     public function messages()
