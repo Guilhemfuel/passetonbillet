@@ -36,7 +36,9 @@ class TicketController extends BaseController
                                 ->orderBy( 'sold_to_id', 'desc' )
                                 ->orderBy( 'trains.departure_date' )
                                 ->orderBy( 'stations.name_en' )
+                                ->select('tickets.*', 'trains.departure_city','trains.departure_date','stations.name_en')
                                 ->paginate( 30 );
+
 
         $data = [ 'entities' => $entities, 'searchable' => $this->searchable, 'creatable' => $this->creatable ];
 
