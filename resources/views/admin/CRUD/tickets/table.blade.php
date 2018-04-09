@@ -13,7 +13,11 @@
         </thead>
         <tbody>
         @foreach($entities as $entity)
-            <tr>
+            <tr @if($entity->sold_to_id != null) class="table-success"
+                @elseif($entity->passed)
+                class="table-danger"
+                @endif
+            >
                 <td>
                     <a href="{{route('users.edit',$entity->user->id)}}">{{$entity->user->full_name}}</a>
                     <span class="text-danger pull-right">{{$entity->eurostar_ticket_number==null?'FAKE':''}}</span>

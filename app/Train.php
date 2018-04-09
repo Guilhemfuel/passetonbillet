@@ -48,7 +48,12 @@ class Train extends Model
     /**
      * Relationships of the model (used for eager loading)
      */
-    public static $relationships = ['tickets','departureCity','arrivalCity'];
+    public static $relationships = ['tickets'];
+
+    /**
+     * Automatically loaded relationships
+     */
+    public $with = ['departureCity','arrivalCity'];
 
     /**
      * Mutators

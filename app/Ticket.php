@@ -54,7 +54,7 @@ class Ticket extends Model
     /**
      * Relationships of the model (used for eager loading)
      */
-    public static $relationships = [ 'user', 'train' ];
+    public static $relationships = [ 'user', 'train', 'discussions' ];
 
     /**
      * Searchable rules.

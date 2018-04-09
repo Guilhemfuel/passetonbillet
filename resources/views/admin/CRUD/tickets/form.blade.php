@@ -26,27 +26,40 @@
     <h3 class="text-danger  text-center">FAKE</h3>
     </div>
 </div>
+@elseif($entity->sold_to_id!=null)
+<div class="row text-bold">
+    <div class="col">
+        <h3 class="text-success  text-center">SOLD</h3>
+    </div>
+</div>
 @endif
 
 {{-- Form --}}
 
 @if($entity->eurostar_ticket_number)
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-3">
         <div class="form-group">
-            <label>Train Number</label>
-            <input type="text" class="form-control" name="departure_city" placeholder="Train number"
+            <label><a href="{{route('trains.edit',$entity->train->id)}}">Train Number</a></label>
+            <input type="text" class="form-control" name="train_number" placeholder="Train number"
                    value="{{$entity->train->number}}" disabled>
         </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
+        <div class="form-group">
+            <label>Departure Date</label>
+            <input type="text" class="form-control" placeholder="Train number"
+                   value="{{$entity->train->carbon_departure_date->format('d/m/Y H:i:s')}}" disabled>
+        </div>
+    </div>
+    <div class="col-md-3">
         <div class="form-group">
             <label>Departure city</label>
             <input type="text" class="form-control" name="departure_city" placeholder="Departure city"
                    value="{{$entity->train->departureCity->name}}" disabled>
         </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
         <div class="form-group">
             <label>Arrival city</label>
             <input type="text" class="form-control"  name="arrival_city" placeholder="Arrival city"
@@ -143,12 +156,19 @@
             </select>
         </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-3">
         <div class="form-group">
-            <label>User</label>
+            <label>Seller</label>
             <userpicker :name="'user_id'"
                         :default-placeholder="'User name'"
                         :default-value="{{json_encode($entity->user)}}"></userpicker>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label>Buyer</label>
+            <input type="text" class="form-control"
+                   value="{{isset($entity->buyer)?$entity->buyer->full_name:''}}" disabled>
         </div>
     </div>
 </div>
