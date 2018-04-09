@@ -65,10 +65,10 @@
         },
         computed: {
             departure_time: function () {
-                return moment(this.ticket.train.arrival_time, 'HH:mm:ss').format('HH:mm')
+                return moment(this.ticket.train.departure_time, 'HH:mm:ss').format('HH:mm')
             },
             arrival_time: function () {
-                return moment(this.ticket.train.departure_time, 'HH:mm:ss').format('HH:mm')
+                return moment(this.ticket.train.arrival_time, 'HH:mm:ss').format('HH:mm')
             },
             pastTicket: function () {
                 var now = moment();
