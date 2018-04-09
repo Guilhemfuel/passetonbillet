@@ -7,6 +7,8 @@
                     :picker-options="datePickerOptions"
                     @change="changeDate"
                     :placeholder="lang.trip_date"
+                    format="dd/MM/yyyy"
+                    :clearable="false"
             >
             </el-date-picker>
         </div>

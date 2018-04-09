@@ -54,7 +54,7 @@ class TicketController extends Controller
         // Make sure we don't have such a ticket yet
         $oldTicket = Ticket::where( 'eurostar_code', $ticket->eurostar_code )
                            ->where( 'buyer_name', $ticket->buyer_name )
-            ->where('eurostar_ticket_number',$ticket->eurostar_ticket_number)
+                           ->where( 'eurostar_ticket_number', $ticket->eurostar_ticket_number )
                            ->first();
 
         if ( $oldTicket ) {
@@ -70,7 +70,7 @@ class TicketController extends Controller
         $ticket->save();
 
         // Now we want to generate the pdf
-        DownloadTicketPdf::dispatch($ticket);
+        DownloadTicketPdf::dispatch( $ticket );
 
         flash( __( 'tickets.sell.success' ) )->success()->important();
 
@@ -88,8 +88,9 @@ class TicketController extends Controller
 
         // Make sure that ticket is valid, and that user is the owner of the ticket
         $ticket = Ticket::find( $request->ticket_id );
-        if ( ! $ticket ||  $ticket->passed || $ticket->sold_to_id != null || \Auth::user()->id != $ticket->user_id) {
+        if ( ! $ticket || $ticket->passed || $ticket->sold_to_id != null || \Auth::user()->id != $ticket->user_id ) {
             flash( __( 'common.error' ) )->error()->important();
+
             return redirect()->route( 'public.ticket.owned.page' );
         }
 
@@ -109,27 +110,36 @@ class TicketController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function downloadTicket($ticket_id)
+    public function downloadTicket( $ticket_id )
     {
         $ticket = Ticket::find( $ticket_id );
-        if (!\Auth::user()->isAdmin() || ! $ticket || $ticket->passed){
-            if ( $ticket->buyer->id != \Auth::user()->id) {
+        // Make sure allowed user
+        if ( ! \Auth::user()->isAdmin() || ! $ticket || $ticket->passed ) {
+            if ( $ticket->buyer->id != \Auth::user()->id ) {
                 flash( __( 'common.error' ) )->error()->important();
+
                 return redirect()->route( 'public.ticket.owned.page' );
             }
         }
 
-        $filePath = 'pdf/tickets/'.$ticket->pdf_file_name;
-        if ( ! \Storage::disk('s3')->exists($filePath) ) {
+        // Check if file exists
+        $filePath = 'pdf/tickets/' . $ticket->pdf_file_name;
+        if ( ! \Storage::disk( 's3' )->exists( $filePath ) ) {
             flash( __( 'common.error' ) )->error()->important();
+
             return redirect()->route( 'public.ticket.owned.page' );
         }
 
-        $url = \Storage::disk('s3')->temporaryUrl(
-            $filePath, now()->addMinutes(5)
+        // Store stat
+        AppHelper::stat( 'download_pdf' ,[
+            'ticket_id'=>$ticket_id
+        ] );
+
+        $url = \Storage::disk( 's3' )->temporaryUrl(
+            $filePath, now()->addMinutes( 5 )
         );
 
-        return redirect($url);
+        return redirect( $url );
     }
 
     /////////////////////////
@@ -146,11 +156,11 @@ class TicketController extends Controller
     public function searchTickets( SearchTicketsRequest $request )
     {
         // Lock to family name
-        if ( !\Auth::user()->isAdmin() && AppHelper::removeAccents($request->last_name )!= AppHelper::removeAccents(\Auth::user()->last_name)){
-            throw new LastarException('No tickets were found.');
+        if ( ! \Auth::user()->isAdmin() && AppHelper::removeAccents( $request->last_name ) != AppHelper::removeAccents( \Auth::user()->last_name ) ) {
+            throw new LastarException( 'No tickets were found.' );
         }
 
-        if (\Auth::user()->isAdmin()){
+        if ( \Auth::user()->isAdmin() ) {
             $tickets = collect( Eurostar::retrieveTicket( $request->last_name, $request->booking_code ) );
 
         } else {
@@ -158,8 +168,8 @@ class TicketController extends Controller
         }
 
         // All tickets expired
-        if (count($tickets)==0){
-            throw new LastarException('No tickets were found.');
+        if ( count( $tickets ) == 0 ) {
+            throw new LastarException( 'No tickets were found.' );
         }
         session( [ 'tickets' => $tickets ] );
 
@@ -175,6 +185,13 @@ class TicketController extends Controller
      */
     public function buyTickets( BuyTicketsRequest $request )
     {
+        AppHelper::stat( 'search_tickets' ,[
+            'departure_station' => $request->departure_station,
+            'arrival_station'   => $request->arrival_station,
+            'trip_date'         => $request->trip_date,
+            'trip_time'         => $request->trip_time
+        ] );
+
         $tickets = Ticket::applyFilters(
             $request->get( 'departure_station' ),
             $request->get( 'arrival_station' ),
@@ -196,33 +213,39 @@ class TicketController extends Controller
         $price = $request->price;
 
         if ( ! $ticket ) {
-            flash()->error(__('offer.errors.ticket_not_found'));
+            flash()->error( __( 'offer.errors.ticket_not_found' ) );
+
             return redirect()->back();
         }
 
         // Price verification
         if ( $price <= 0 ) {
-            flash()->error(__('offer.errors.price_null'));
+            flash()->error( __( 'offer.errors.price_null' ) );
+
             return redirect()->back();
         }
 
         if ( $price > $ticket->price ) {
-            flash()->error(__('offer.errors.over_price'));
+            flash()->error( __( 'offer.errors.over_price' ) );
+
             return redirect()->back();
         }
 
         // User verification (not owner)
         if ( \Auth::user()->id == $ticket->user->id ) {
-            flash()->error(__('offer.errors.ticket_owned' ));
+            flash()->error( __( 'offer.errors.ticket_owned' ) );
+
             return redirect()->back();
         }
 
         // User verification (no existing offer)
         $oldDiscussionCount = Discussion::where( 'ticket_id', $ticket->id )
-                                ->where( 'buyer_id', \Auth::user()->id )
-                                ->whereIn('status',[
-                                    Discussion::SOLD, Discussion::ACCEPTED, Discussion::AWAITING
-                                ])->count();
+                                        ->where( 'buyer_id', \Auth::user()->id )
+                                        ->whereIn( 'status', [
+                                            Discussion::SOLD,
+                                            Discussion::ACCEPTED,
+                                            Discussion::AWAITING
+                                        ] )->count();
         if ( $oldDiscussionCount > 0 ) {
             throw new LastarException( __( 'offer.errors.offer_already_done' ) );
         }
@@ -230,8 +253,8 @@ class TicketController extends Controller
         // Now if there was an offer denied before, we soft delete it
         $oldDiscussion = Discussion::where( 'ticket_id', $ticket->id )
                                    ->where( 'buyer_id', \Auth::user()->id )
-                                   ->where('status',Discussion::DENIED)->first();
-        if($oldDiscussion) {
+                                   ->where( 'status', Discussion::DENIED )->first();
+        if ( $oldDiscussion ) {
             $oldDiscussion->delete();
         }
 

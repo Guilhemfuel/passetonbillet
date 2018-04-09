@@ -42,7 +42,7 @@ class MessageNotification extends Notification implements ShouldQueue
         $class = 'App\Mail\MessageEmail';
         $count = EmailSent::where('user_id',$notifiable->id)
                           ->where('email_class', $class)
-                          ->where('created_at', '>=', \Carbon\Carbon::now()->subHour())
+                          ->where('created_at', '>=', \Carbon\Carbon::now()->subMinutes(5))
                           ->count();
 
         if ($count == 0) {

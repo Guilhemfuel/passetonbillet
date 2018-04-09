@@ -144,7 +144,6 @@
                 this.$http.post(this.api.tickets.buy, this.search)
                     .then(response => {
                         function compare(a, b) {
-                            console.log('sort');
                             if (a.train.departure_date < b.train.departure_date)
                                 return -1;
                             if (a.train.departure_date > b.train.departure_date)
@@ -152,7 +151,6 @@
                             return 0;
                         }
 
-                        console.log('change');
                         this.countSearch++;
                         this.state='result';
                         this.tickets = response.data.data.sort(compare);
