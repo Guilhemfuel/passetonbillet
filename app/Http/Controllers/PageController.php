@@ -32,7 +32,7 @@ class PageController extends Controller
         } else {
             //TODO: change tickets to only show the latest or the previously searched etc..
             $tickets = Ticket::join( 'trains', 'trains.id', '=', 'tickets.train_id' )
-                             ->orderByDesc( 'trains.departure_date' )->take( 3 )->get();
+                             ->orderBy( 'trains.departure_date' )->take( 3 )->get();
 
             return view( 'welcome' )->with( 'tickets', $tickets?TicketRessource::collection( $tickets ):[] )
                                     ->with( 'stations', StationRessource::collection( Station::sortedStations() ) );
