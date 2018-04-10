@@ -1,7 +1,7 @@
 @if($entity->fb_id)
     {{-- IF REAL TICKET --}}
     @push('additional-btn')
-        <a class="btn btn-facebook btn-fill btn-sm pl-3" target="_blank" href="https://facebook.com/{{$entity->id}}">
+        <a class="btn btn-facebook btn-fill btn-sm pl-3" target="_blank" href="https://facebook.com/{{$entity->fb_id}}">
             <i class="fa fa-facebook" aria-hidden="true"></i> Profile
         </a>
     @endpush
