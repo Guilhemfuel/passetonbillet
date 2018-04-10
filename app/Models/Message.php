@@ -9,6 +9,8 @@ class Message extends Model
 {
     use SoftDeletes;
 
+    protected $touches = ['discussion'];
+
     protected $dates = [ 'deleted_at','read_at' ];
 
     public $table = 'messages';

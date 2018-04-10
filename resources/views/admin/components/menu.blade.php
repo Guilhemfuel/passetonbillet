@@ -27,6 +27,15 @@
     </a>
 </li>
 
+
+<li  class="{{ substr(Route::currentRouteName(),0,6) == 'stats.'? 'active':'' }}">
+    <a href="{{route('stats.index')}}">
+        <i class="fa fa-bar-chart"></i>
+        Stats
+    </a>
+</li>
+
+
 <li  class="{{ substr(Route::currentRouteName(),0,9) == 'stations.'? 'active':'' }}">
     <a href="{{route('stations.index')}}">
         <i class="fa fa-globe"></i>

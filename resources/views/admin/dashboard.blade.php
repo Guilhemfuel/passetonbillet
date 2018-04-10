@@ -9,7 +9,7 @@
 
     <div class="row">
 
-        <div class="col-sm-3 col-xs-6">
+        <div class="col-sm-3 col-xs-6 pt-4">
             <div class="card">
                 <div class="card-header">
                     <h4 class="title text-center">{{$userCount}}<br>
@@ -23,7 +23,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-3 col-xs-6">
+        <div class="col-sm-3 col-xs-6 pt-4">
             <div class="card">
                 <div class="card-header">
                     <h4 class="title text-center">{{$ticketCount}}<br>
@@ -37,7 +37,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-3 col-xs-6">
+        <div class="col-sm-3 col-xs-6 pt-4">
             <div class="card">
                 <div class="card-header">
                     <h4 class="title text-center">{{$offerCount}}<br>
@@ -48,20 +48,6 @@
                 </div>
                 <div class="card-body text-center">
                     Offers
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-3 col-xs-6">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="title text-center">{{$ticketSoldCount}}<br>
-                        <a href="#" class="stat-link">
-                            <i class="fa fa-money fa-2x" aria-hidden="true"></i>
-                        </a>
-                    </h4>
-                </div>
-                <div class="card-body text-center">
-                    Tickets Sold
                 </div>
             </div>
         </div>

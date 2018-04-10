@@ -33,4 +33,32 @@ class AppHelper
         }
     }
 
+    /**
+     * Returns an associative array with for each date in period the number of created items
+     * By default, one month history
+     *
+     * @param $model
+     * @param $period
+     *
+     * @return Array
+     */
+    public function dailyCreatedStat($model, $filterClosure = null, $period = 'tomorrow -1 month'){
+
+        $date = new \DateTime( 'tomorrow -1 month' );
+        $dailyCount = $model::select( array(
+            \DB::raw( "date(created_at) as date" ),
+            \DB::raw( "COUNT(*) as count" )
+        ) )
+                              ->where( 'created_at', '>', $date )
+                              ->groupBy( 'date' )
+                              ->orderBy( 'date', 'DESC' );
+
+        if ($filterClosure!=null){
+            $dailyCount = $filterClosure($dailyCount);
+        }
+
+
+        return $dailyCount->pluck( 'count', 'date' );
+    }
+
 }
