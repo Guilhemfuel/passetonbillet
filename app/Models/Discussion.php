@@ -5,10 +5,11 @@ namespace App\Models;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Nicolaslopezj\Searchable\SearchableTrait;
 
 class Discussion extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, SearchableTrait;
 
     CONST DENIED = - 1;
     CONST AWAITING = 0;
@@ -56,13 +57,38 @@ class Discussion extends Model
     public static $relationships = [ 'buyer', 'ticket' ];
 
     /**
+     * Searchable rules.
+     *
+     * @var array
+     */
+    protected $searchable = [
+        /**
+         * Columns and their priority in search results.
+         * Columns with higher values are more important.
+         * Columns with equal values have equal importance.
+         *
+         * @var array
+         */
+        'columns' => [
+            'users.first_name'       => 8,
+            'users.last_name'       => 8,
+            'users.email'           => 8,
+            'tickets.eurostar_code' => 10,
+        ],
+        'joins'   => [
+            'tickets' => [ 'discussions.ticket_id', 'tickets.id' ],
+            'users'   => [ 'tickets.user_id', 'users.id' ],
+        ],
+    ];
+
+    /**
      * Mutators
      */
 
     public function getStatusTextAttribute()
     {
-        if ($this->ticket->sold_to_id != null){
-            if ($this->ticket->sold_to_id == $this->buyer->id) {
+        if ( $this->ticket->sold_to_id != null ) {
+            if ( $this->ticket->sold_to_id == $this->buyer->id ) {
                 return 'Sold here';
             } else {
                 return 'Sold';
@@ -98,10 +124,11 @@ class Discussion extends Model
      *
      * @return bool
      */
-    public function unread(User $user)
+    public function unread( User $user )
     {
-        $lastMessageReceived = $this->messages()->orderBy('created_at','desc')
-                                    ->where('sender_id','!=',$user->id)->first();
+        $lastMessageReceived = $this->messages()->orderBy( 'created_at', 'desc' )
+                                    ->where( 'sender_id', '!=', $user->id )->first();
+
         return $lastMessageReceived && $lastMessageReceived->read_at == null;
     }
 
@@ -121,12 +148,12 @@ class Discussion extends Model
 
     public function lastMessage()
     {
-        return $this->hasOne('App\Models\Message', 'discussion_id')->latest();
+        return $this->hasOne( 'App\Models\Message', 'discussion_id' )->latest();
     }
 
     public function messages()
     {
-        return $this->hasMany('App\Models\Message', 'discussion_id')->orderBy('created_at');
+        return $this->hasMany( 'App\Models\Message', 'discussion_id' )->orderBy( 'created_at' );
     }
 
     /**
@@ -135,12 +162,13 @@ class Discussion extends Model
      *
      */
 
-    protected static function boot() {
+    protected static function boot()
+    {
         parent::boot();
 
-        static::deleting(function($ticket) {
+        static::deleting( function ( $ticket ) {
             $ticket->messages()->delete();
-        });
+        } );
     }
 
     /**
@@ -150,15 +178,15 @@ class Discussion extends Model
     public function toArray()
     {
         return [
-            'id'           => $this->id,
-            'status'       => $this->status,
+            'id'         => $this->id,
+            'status'     => $this->status,
 //            'buyer'        => $this->buyer,
 //            'seller'       => $this->seller,
 //            'ticket'       => $this->ticket,
-            'price'        => $this->price,
+            'price'      => $this->price,
 //            'last_message' => $this->last_message,
-            'currency'     => $this->currency,
-            'updated_at'   => $this->updated_at,
+            'currency'   => $this->currency,
+            'updated_at' => $this->updated_at,
         ];
     }
 

@@ -53,6 +53,7 @@ class User extends Authenticatable
         'columns' => [
             'users.first_name' => 10,
             'users.last_name'  => 10,
+            'users.email'  => 8,
         ]
     ];
 

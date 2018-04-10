@@ -47,7 +47,9 @@
                             <button class="btn btn-success btn-fill btn-sm mr-3" type="submit">
                                 <i class="fa fa-floppy-o"></i> Update entity
                             </button>
-                            @stack('additional-btn')
+                            <div class="pull-right">
+                             @stack('additional-btn')
+                            </div>
                         </div>
                     </form>
 

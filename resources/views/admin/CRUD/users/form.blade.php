@@ -1,3 +1,12 @@
+@if($entity->fb_id)
+    {{-- IF REAL TICKET --}}
+    @push('additional-btn')
+        <a class="btn btn-facebook btn-fill btn-sm pl-3" target="_blank" href="https://facebook.com/{{$entity->id}}">
+            <i class="fa fa-facebook" aria-hidden="true"></i> Profile
+        </a>
+    @endpush
+@endif
+
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">

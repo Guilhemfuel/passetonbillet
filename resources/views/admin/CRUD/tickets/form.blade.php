@@ -13,7 +13,7 @@
             <i class="fa fa-file-pdf-o" aria-hidden="true"></i> Download ticket
         </button>
         @endif
-        <a class="btn btn-warning btn-fill btn-sm mr-3" href="{{route('tickets.redownload',['ticket_id'=>$entity->id])}}">
+        <a class="btn btn-warning btn-fill btn-sm" href="{{route('tickets.redownload',['ticket_id'=>$entity->id])}}">
             <i class="fa fa-cloud-download" aria-hidden="true"></i> Retry donwloading ticket
         </a>
     @endpush
