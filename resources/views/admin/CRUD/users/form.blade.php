@@ -69,3 +69,70 @@
         </div>
     </div>
 </div>
+
+
+{{------------ Emails Sent --------------}}
+
+@push('additional-content')
+
+    <div class="row mt-5">
+        <div class="col-sm-6 col-12">
+            <h5>Emails Sents({{$entity->emailsReceived()->count()}})</h5>
+            <table class="table table-hover table-striped">
+                <thead>
+                <th>Type</th>
+                <th class="text-center">Ticket</th>
+                <th class="text-right">Date</th>
+                </thead>
+                <tbody>
+                @foreach($entity->emailsReceived as $email)
+                    <tr>
+                        <td>{{$email->email_class}}</td>
+                        <th class="text-center">
+                            @if($email->ticket_id)
+                            <a href="{{route('tickets.edit',$email->ticket_id)}}"><i class="fa fa-ticket"></i></a>
+                            @else
+                                -
+                            @endif
+                        </th>
+                        <td class="text-right">{{$email->created_at}}</td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-6 col-12">
+            <h5>Tickets({{$entity->tickets()->count()}})</h5>
+            <table class="table table-hover table-striped">
+                <thead>
+                <th>Date</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Price</th>
+                <th>Link</th>
+                </thead>
+                <tbody>
+                @foreach($entity->tickets as $ticket)
+                    <tr>
+                        <td>{{$ticket->train->carbon_departure_date->format('d/m/Y')}}</td>
+                        <th>
+                            {{substr($ticket->train->departureCity->short_name,2)}}
+                        </th>
+                        <th>
+                            {{ substr($ticket->train->arrivalCity->short_name,2)  }}
+                        </th>
+                        <th>
+                            {{$ticket->price}} {{$ticket->currency}}
+                        </th>
+                        <th>
+                            <a href="{{route('tickets.edit',$ticket->id)}}"><i class="fa fa-ticket"></i></a>
+                        </th>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+@endpush

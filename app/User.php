@@ -199,6 +199,11 @@ class User extends Authenticatable
         return $this->hasOne('App\Models\Verification\IdVerification');
     }
 
+    public function emailsReceived()
+    {
+        return $this->hasMany( 'App\Models\EmailSent','user_id' );
+    }
+
     /**
      * Offers
      */
