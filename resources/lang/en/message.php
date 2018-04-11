@@ -25,11 +25,22 @@ return [
         'sold_disc_ended' => 'Ticket was sold to someone else. The discussion ended.',
         'bought_from'     => 'You bought this ticket from',
         'sold_to'         => 'You sold this ticket to',
-        'cta_sell_to'     => 'Sell this ticket to',
+        'cta_sell_to'     => 'Send this ticket to',
         'cancel'          => 'Cancel',
 
-        'explanation_buyer'  =>'Reminder: the purpose of the chat is for the buyer and the seller to agree on the best payment method. We will send you the ticket as soon as the seller will have received the money.',
-        'explanation_seller'  =>'Reminder: the purpose of the chat is for the buyer and the seller to agree on the best payment method. Click on the button "Sell this ticket to X" above as soon as you received the payment from the buyer.',
+        'modal_title' => 'How does it work?',
+        'modal_explanation_buyer'  => [
+            'part_one' => 'The unique purpose of the chat is for you and the buyer to agree on the best payment method and to share the relevant payment information.<br>
+                        Once you receive the money from the buyer, you MUST click on the button "Send this ticket to ',
+            'part_two' => '". The buyer will then automatically receive your ticket, so no need to worry about anything else ! 😄'
+        ],
+        'modal_explanation_seller' => 'The unique purpose of the chat is for you and the seller to agree on the best payment method and to share the relevant payment information.<br>
+                        Once the seller receives your payment, she/he will simply click on a button and we will send you the ticket by email! It\'s that simple ! 😄',
+        'modal_open_chat'          => 'A question? A doubt? Click here to chat with us!',
+        'modal_close_understand'   => 'I understand !',
+
+        'explanation_buyer'  => 'Reminder: the unique purpose of the chat is for the buyer and the seller to agree on the best payment method. We will send you the ticket as soon as the seller will have received the money.',
+        'explanation_seller' => 'Reminder: the unique purpose of the chat is for the buyer and the seller to agree on the best payment method. Click on the button "Sell this ticket to X" above as soon as you received the payment from the buyer.',
 
         'modal_sell' => [
             'part_1' => 'You are about to send this ticket to',

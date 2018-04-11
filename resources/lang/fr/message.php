@@ -27,8 +27,20 @@ return [
         'sold_disc_ended' => 'Le billet a été vendu à une autre personne. La discussion est terminée.',
         'bought_from'     => 'Vous avez acheté ce billet à',
         'sold_to'         => 'Vous avez vendu ce billet à',
-        'cta_sell_to'     => 'Vendre ce billet à',
+        'cta_sell_to'     => 'Envoyer ce billet à',
         'cancel'          => 'Annuler',
+
+        'modal_title' => 'Comment ça marche ?',
+        'modal_explanation_buyer' => [
+            'part_one' => 'Le but de cette conversation est, pour vous et l\'acheteur, de trouver le moyen de paiement qui conviendra le mieux.<br>
+                        Dès que vous aurez reçu le paiement de l\'acheteur, vous devrez clicker sur le bouton "Envoyer ce billet à ',
+            'part_two' => '". L\'acheteur recevra automatiquement son billet, pas besoin de vous soucier de quoique ce soit d\'autre ! 😄'
+        ],
+        'modal_explanation_seller' => 'Le but de cette conversation est, pour vous et le vendeur, de trouver le moyen de paiement qui conviendra le mieux.<br>
+                        Dès que le vendeur aura reçu votre paiement, elle/il aura juste à appuyer sur un boutton et nous vous enverrons le billet par email! C\'est aussi simple que ça ! 😄',
+        'modal_open_chat' => 'Une question? Un doute? Clickez-ici pour discuter avec la team!',
+        'modal_close_understand'   => 'Compris !',
+
 
         'explanation_buyer'  =>'Rappel: le but de cette conversation est de trouver le moyen de paiement qui conviendra le mieux à vous et au vendeur. Nous vous enverrons le billet dès que le vendeur aura reçu votre paiement.',
         'explanation_seller'  =>'Rappel:  le but de cette conversation est de trouver le moyen de paiement qui conviendra le mieux à vous et à l\'acheteur. Cliquez sur le bouton "Vendre ce billet à X" ci-dessus dès que vous recevrez le paiement de l\'acheteur.',

@@ -14,6 +14,25 @@
                 <button class="btn btn-danger" @click="modalSellOpen=false">{{lang.discussions.cancel}}</button>
             </div>
         </modal>
+        <modal :is-open="modalInfo" :title="lang.discussions.modal_title"  @close-modal="closeInfoModal" v-if="modalInfo">
+            <div class="container-fluid">
+                <div class="row">
+                    <p class="text-justify" v-if="user.id == discussion.ticket.user.id">
+                        <span v-html="lang.discussions.modal_explanation_buyer.part_one"></span>{{discussion.buyer.full_name}}
+                        <span v-html="lang.discussions.modal_explanation_buyer.part_two"></span>
+                    </p>
+                    <p class="text-justify" v-html="" v-else>
+                        <span v-html="lang.discussions.modal_explanation_seller"></span>
+                    </p>
+                    <a style="width: 100%;" class="text-center mt-3" href="#" onclick="$crisp.push(['do', 'chat:show']);$crisp.push(['do', 'chat:open'])">
+                        {{lang.discussions.modal_open_chat}}
+                    </a>
+                    <button class="btn btn-primary btn-block mt-1" @click="closeInfoModal">
+                        {{lang.discussions.modal_close_understand}}
+                    </button>
+                </div>
+            </div>
+        </modal>
         <div class="info-header">
             <div class="row">
                 <div class="col-md-4 col-sm-6 col-4 d-flex align-items-center justify-content-center flex-column">
@@ -50,8 +69,6 @@
                         </p>
                     </div>
                 </template>
-
-
                 <div class="col-md-4 col-12 d-flex align-items-center justify-content-center flex-column py-3 py-sm-0 pb-sm-3" v-if="sold">
                     <ticket-mini :discussion="discussion" :ticket="discussion.ticket" :lang="ticketLang"></ticket-mini>
                 </div>
@@ -120,7 +137,8 @@
                 inputMessage: '',
                 topShadow: false,
                 modalSellOpen: false,
-                modalTicketOpened: false
+                modalTicketOpened: false,
+                modalInfo: false
             }
         },
         computed: {
@@ -190,6 +208,10 @@
                 } else {
                     this.topShadow = true;
                 }
+            },
+            closeInfoModal(){
+                this.modalInfo = false;
+                $crisp.push(['do', 'chat:hide']);
             }
         },
         mounted() {
@@ -197,6 +219,7 @@
             var div = document.getElementById('messages');
             div.scrollTop = div.scrollHeight;
 
+            // Pusher
             Echo.private('discussion.'+this.discussion.id)
                 .listen('MessageSent', (data) => {
                     // Add to list of messages
@@ -206,6 +229,11 @@
                     // Marj as read
                     this.$http.post(this.readUrl);
             });
+
+            // Check if modal info should be opened for user (at least one message sent)
+            let countMessages = this.messages.filter((msg) => msg.sender_id === this.user.id).length;
+            if (countMessages==0) this.modalInfo = true;
+
         },
         watch: {
             // whenever question changes, this function will run
