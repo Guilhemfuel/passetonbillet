@@ -14,7 +14,7 @@
                 <button class="btn btn-danger" @click="modalSellOpen=false">{{lang.discussions.cancel}}</button>
             </div>
         </modal>
-        <modal :is-open="modalInfo" :title="lang.discussions.modal_title"  @close-modal="closeInfoModal" v-if="modalInfo">
+        <modal :is-open="modalInfo" :title="lang.discussions.modal_title"  @close-modal="closeInfoModal" v-if="modalInfo" :button-close="false">
             <div class="container-fluid">
                 <div class="row">
                     <p class="text-justify" v-if="user.id == discussion.ticket.user.id">
@@ -51,6 +51,10 @@
                 </div>
                 <div class="col-md-4 d-sm-none d-none d-md-flex align-items-center justify-content-center" v-if="!sold && user.id == discussion.ticket.user.id">
                     <button class="btn btn-primary mx-auto" @click="modalSellOpen=true"> {{lang.discussions.cta_sell_to}} {{correspondant.full_name}}</button>
+                    <a href="#" @click.prevent="modalInfo=true">{{lang.discussions.modal_title}}</a>
+                </div>
+                <div class="col-md-4 d-sm-none d-none d-md-flex align-items-center justify-content-center" v-if="!sold && user.id != discussion.ticket.user.id">
+                    <a href="#" @click.prevent="modalInfo=true">{{lang.discussions.modal_title}}</a>
                 </div>
 
                 <template v-if="sold">
@@ -82,7 +86,7 @@
         </div>
         <div :class="{'messages':true, 'row':true, 'shadow':topShadow, 'archived':(sold && !sold_here)}" v-on:scroll="onScroll" id="messages">
             <p class="text-center px-4 reminder" v-if="!sold">
-                <template  v-if="user.id == discussion.ticket.user.id">
+                <template v-if="user.id == discussion.ticket.user.id">
                     {{lang.discussions.explanation_seller}}
                 </template>
                 <template v-else>

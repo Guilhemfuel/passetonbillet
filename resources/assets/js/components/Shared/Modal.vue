@@ -7,7 +7,7 @@
                     <div class="modal-content" v-click-outside="outsideClick">
                         <div class="modal-header" v-if="title">
                             <h5 class="modal-title">{{title}}</h5>
-                            <button type="button" class="close" @click="closeModal">
+                            <button type="button" class="close" @click="closeModal" v-if="buttonClose">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -42,6 +42,7 @@
         props: {
             isOpen: {type: Boolean, required: true},
             closeOnOutsideClick: {type: Boolean, default: true, required: false},
+            buttonClose: {type: Boolean, default: true, required: false},
             title: {type: String, required: false},
             footer: {type: String, required: false},
             modalClass: {type: String, default: ''}
