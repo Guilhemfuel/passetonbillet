@@ -50,11 +50,13 @@
                     </a>
                 </div>
                 <div class="col-md-4 d-sm-none d-none d-md-flex align-items-center justify-content-center" v-if="!sold && user.id == discussion.ticket.user.id">
-                    <button class="btn btn-primary mx-auto" @click="modalSellOpen=true"> {{lang.discussions.cta_sell_to}} {{correspondant.full_name}}</button>
-                    <a href="#" @click.prevent="modalInfo=true">{{lang.discussions.modal_title}}</a>
+                    <div>
+                        <button class="btn btn-primary mx-auto" @click="modalSellOpen=true"> {{lang.discussions.cta_sell_to}} {{correspondant.full_name}}</button><br>
+                        <p class="text-center"><a href="#" @click.prevent="modalInfo=true">{{lang.discussions.modal_title}}</a></p>
+                    </div>
                 </div>
                 <div class="col-md-4 d-sm-none d-none d-md-flex align-items-center justify-content-center" v-if="!sold && user.id != discussion.ticket.user.id">
-                    <a href="#" @click.prevent="modalInfo=true">{{lang.discussions.modal_title}}</a>
+                    <p class="text-center"><a href="#" @click.prevent="modalInfo=true">{{lang.discussions.modal_title}}</a></p>
                 </div>
 
                 <template v-if="sold">
@@ -80,7 +82,7 @@
                     <ticket-mini :discussion="discussion" :ticket="discussion.ticket" :lang="ticketLang"></ticket-mini>
                 </div>
                 <div class="col-sm-12 d-md-none p-0" v-if="!sold && user.id == discussion.ticket.user.id">
-                    <button @click="modalSellOpen=true" class="btn btn-lastar-blue btn-block btn-header">Vendre ce billet à {{correspondant.full_name}}</button>
+                    <button @click="modalSellOpen=true" class="btn btn-lastar-blue btn-block btn-header">{{lang.discussions.cta_sell_to}} {{correspondant.full_name}}</button>
                 </div>
             </div>
         </div>

@@ -43,7 +43,7 @@ return [
 
 
         'explanation_buyer'  =>'Rappel: le but de cette conversation est de trouver le moyen de paiement qui conviendra le mieux à vous et au vendeur. Nous vous enverrons le billet dès que le vendeur aura reçu votre paiement.',
-        'explanation_seller'  =>'Rappel:  le but de cette conversation est de trouver le moyen de paiement qui conviendra le mieux à vous et à l\'acheteur. Cliquez sur le bouton "Vendre ce billet à X" ci-dessus dès que vous recevrez le paiement de l\'acheteur.',
+        'explanation_seller'  =>'Rappel:  le but de cette conversation est de trouver le moyen de paiement qui conviendra le mieux à vous et à l\'acheteur. Cliquez sur le bouton "Envoyer ce billet à X" ci-dessus dès que vous recevrez le paiement de l\'acheteur pour qu\'il recoive automatiquement votre billet.',
 
 
         'modal_sell' => [

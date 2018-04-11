@@ -54,6 +54,25 @@
                     </div>
 
                     <div class="col-md-3 col-sm-6 col-12">
+                        <h5 class="text-center">Tickets Sold</h5>
+                        <table class="table table-hover table-striped">
+                            <thead>
+                            <th>Date</th>
+                            <th class="text-right">Count</th>
+                            </thead>
+                            <tbody>
+                            @foreach($dailyTicketSoldCount as $day => $count)
+                                <tr>
+                                    <td>{{$day}}</td>
+                                    <td class="text-right">{{$count}}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                    <div class="col-md-3 col-sm-6 col-12">
                         <h5 class="text-center">Offers Sent</h5>
                         <table class="table table-hover table-striped">
                             <thead>

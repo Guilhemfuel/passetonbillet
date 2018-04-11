@@ -33,6 +33,9 @@ class StatsController extends Controller
             'dailyUserCount' => \AppHelper::dailyCreatedStat(User::class),
             'dailyTicketCount' => \AppHelper::dailyCreatedStat(Ticket::class),
             'dailyOfferCount' => \AppHelper::dailyCreatedStat(Discussion::class),
+            'dailyTicketSoldCount' => \AppHelper::dailyCreatedStat(Discussion::class,function($query){
+                return $query->where('status',Discussion::SOLD);
+            },'updated_at'),
             'dailyResearchCount' => \AppHelper::dailyCreatedStat(Statistic::class,function($query){
                 return $query->where('action','search_tickets');
             }),

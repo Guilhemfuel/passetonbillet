@@ -42,14 +42,14 @@ class AppHelper
      *
      * @return Array
      */
-    public function dailyCreatedStat($model, $filterClosure = null, $period = 'tomorrow -1 month'){
+    public function dailyCreatedStat($model, $filterClosure = null, $field = 'created_at', $period = 'tomorrow -1 month'){
 
         $date = new \DateTime( 'tomorrow -1 month' );
         $dailyCount = $model::select( array(
-            \DB::raw( "date(created_at) as date" ),
+            \DB::raw( "date(".$field.") as date" ),
             \DB::raw( "COUNT(*) as count" )
         ) )
-                              ->where( 'created_at', '>', $date )
+                              ->where( $field, '>', $date )
                               ->groupBy( 'date' )
                               ->orderBy( 'date', 'DESC' );
 
