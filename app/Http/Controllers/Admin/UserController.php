@@ -81,6 +81,19 @@ class UserController extends BaseController
         return view( 'admin.unique.verification.id' )->with( [ 'user' => $idCheck->user ] );
     }
 
+    // ----------- Impersonate ------
+
+    public function impersonate(Request $request, $id){
+        $user = User::find( $id );
+        if ( ! $user ) {
+            \Session::flash( 'danger', 'Entity not found!' );
+            return redirect()->back();
+        }
+
+        auth()->login($user);
+        return redirect()->route('home');
+    }
+
     // ----------- ID Verification -----------
 
     /**

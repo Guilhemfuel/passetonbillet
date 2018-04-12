@@ -1,5 +1,9 @@
 @extends('layouts.dashboard')
 
+@section('title')
+    - Buy Ticket
+@endsection
+
 @section('dashboard-content')
     <div class="container-fluid">
         <div class="row" id="buy-ticket">
@@ -29,6 +33,7 @@ $api = [
         'offer' => route('api.tickets.offer')
     ]
 ];
+// Override default user with user with sent offers
 ?>
 
 
@@ -39,6 +44,7 @@ $api = [
                 routes: {!! json_encode($routes) !!},
                 api: {!! json_encode($api) !!},
                 stations: {!! json_encode($stations) !!}
-            }
+            };
+            userData = {!! json_encode($user) !!};
     </script>
 @endpush

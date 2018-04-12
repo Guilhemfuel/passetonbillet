@@ -38,9 +38,9 @@
                             <h1 class="text-center text-white">LASTAR</h1>
                             <div class="action-buttons">
                                 <button class="btn btn-lastar-blue" id="btn-buy"
-                                        @click="stateBuySell='buy'">@lang('common.button.buy')</button>
+                                        @click="child.welcome.stateBuySell='buy'">@lang('common.button.buy')</button>
                                 <button class="btn btn-danger" id="btn-sell"
-                                        @click="stateBuySell='sell'">@lang('common.button.sell')</button>
+                                        @click="child.welcome.stateBuySell='sell'">@lang('common.button.sell')</button>
                             </div>
                             @if($tickets && $tickets->count()>0)
                             <div class="tickets mx-auto d-none d-sm-none d-md-block">

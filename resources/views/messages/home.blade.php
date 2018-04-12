@@ -1,5 +1,9 @@
 @extends('layouts.dashboard')
 
+@section('title')
+    - Messages
+@endsection
+
 @section('dashboard-content')
     <div class="container-fluid">
         <div class="row" id="messages-home">

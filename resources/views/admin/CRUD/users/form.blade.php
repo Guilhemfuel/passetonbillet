@@ -1,8 +1,11 @@
 @if($entity->fb_id)
     {{-- IF REAL TICKET --}}
     @push('additional-btn')
-        <a class="btn btn-facebook btn-fill btn-sm pl-3" target="_blank" href="https://facebook.com/{{$entity->fb_id}}">
+        <a class="btn btn-facebook btn-fill btn-sm ml-3" target="_blank" href="https://facebook.com/{{$entity->fb_id}}">
             <i class="fa fa-facebook" aria-hidden="true"></i> Profile
+        </a>
+        <a class="btn btn-warning btn-fill btn-sm ml-3" target="_blank" href="{{route('users.impersonate',$entity->id)}}">
+            <i class="fa fa-magic pr-2" aria-hidden="true"></i> Impersonate
         </a>
     @endpush
 @endif

@@ -63,7 +63,7 @@
                         </button>
                     </template>
                     <template v-else-if="!pastTicket && !display">
-                        <button class="btn btn-pink btn-buy btn-sm" v-if="!selecting && buying" @click="editing=true">
+                        <button class="btn btn-pink btn-buy btn-sm" v-if="!selecting && buying && !offerDone" @click="editing=true">
                             {{lang.buy}}
                         </button>
                         <button class="btn btn-pink btn-buy btn-sm" v-if="selecting" @click.prevent="sell">
@@ -322,7 +322,7 @@
             },
             offerDone: function () {
                 if (this.buying && this.user) {
-                    return this.user.offers_sent.includes(this.ticket.id);
+                    return this.user.offers_sent && this.user.offers_sent.map(a => a.ticket_id).includes(this.ticket.id);
                 }
                 return false;
             },
@@ -377,6 +377,10 @@
                             if (this.$lodash.has(this.ticket, 'discussionId')){
                                 this.editing = false;
                             }
+                            this.$emit('make-offer',{
+                                price: this.priceOffer,
+                                ticket_id: this.ticket.id
+                            });
 
                             return;
                         } else {

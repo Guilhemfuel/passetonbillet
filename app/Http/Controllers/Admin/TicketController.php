@@ -82,7 +82,7 @@ class TicketController extends BaseController
     {
         flash()->success( $this->CRUDsingularEntityName . ' can\'t be created like that!' );
 
-        return redirect()->route( $this->CRUDmodelName );
+        return redirect()->route( $this->CRUDmodelName .'.index' );
     }
 
 

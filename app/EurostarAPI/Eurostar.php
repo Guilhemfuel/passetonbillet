@@ -84,6 +84,8 @@ class Eurostar
      */
     public function retrieveTicket( $lastName, $referenceNumber, $past = false )
     {
+
+
         $response = $this->client->request(
             'GET',
             $this->retrieveURL . $referenceNumber . '/' . $lastName . '?locale=uk-en',

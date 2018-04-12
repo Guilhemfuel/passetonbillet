@@ -73,6 +73,7 @@
         name: '{!! Route::currentRouteName()!!}',
         data: {}
     };
+    let userData = {!! isset($jsonUser)?json_encode($jsonUser):(isset($userData)?json_encode($userData):(isset($user)?json_encode($user):'null')) !!};
 </script>
 @stack('vue-data')
 <script>
@@ -83,7 +84,7 @@
             messages: {!! ( session()->has('flash_notification') && session('flash_notification')!==null?json_encode(session('flash_notification')):'[]') !!},
             custom_errors: {!!  ($errors->any()?json_encode($errors->all()):'[]') !!},
             child: null,
-            user: {!! isset($jsonUser)?json_encode($jsonUser):(isset($userData)?json_encode($userData):(isset($user)?json_encode($user):'null')) !!},
+            user: null,
             currentPage: null
         },
         mounted() {
@@ -119,6 +120,7 @@
         created: function() {
             this.child = data;
             this.currentPage = currentPage;
+            this.user = userData;
         }
     });
 </script>

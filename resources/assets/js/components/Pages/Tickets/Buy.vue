@@ -77,6 +77,7 @@
                 csrf: window.csrf,
                 state: 'default',
                 tickets: [],
+                offerSentNow: [],
                 search: {
                     departure_station: null,
                     arrival_station: null,
@@ -117,6 +118,7 @@
                         if (this.user.offers_sent[key].ticket_id == tickets[i].id){
                             tickets[i].discussionId = this.user.offers_sent[key].id;
                             tickets[i].offerStatus = this.user.offers_sent[key].status;
+                            tickets[i].offerPrice = this.user.offers_sent[key].price;
                         }
                     }
                 }

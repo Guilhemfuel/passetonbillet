@@ -365,6 +365,9 @@ class DiscussionControllerTest extends LastarTestCase
         $discussion = factory( Discussion::class )->create([
             'status' => Discussion::ACCEPTED
         ]);
+        $ticket = $discussion->ticket;
+        $ticket->eurostar_ticket_number = random_int(0,100);
+        $ticket->save();
 
         // We create another discussion with the same ticket and accept the sell
         $secundDiscussion = factory( Discussion::class )->create([
@@ -428,6 +431,9 @@ class DiscussionControllerTest extends LastarTestCase
         $discussion = factory( Discussion::class )->create([
             'status' => Discussion::ACCEPTED
         ]);
+        $ticket = $discussion->ticket;
+        $ticket->eurostar_ticket_number = random_int(0,100);
+        $ticket->save();
 
         // Now we mark as sold the ticket
         $this->be($discussion->ticket->user);
@@ -493,12 +499,17 @@ class DiscussionControllerTest extends LastarTestCase
         $discussion = factory( Discussion::class )->create([
             'status' => Discussion::ACCEPTED
         ]);
+        $ticket = $discussion->ticket;
+        $ticket->eurostar_ticket_number = random_int(0,100);
+        $ticket->save();
+
         // Now we mark as sold the ticket
         $this->be($discussion->ticket->user);
         $response = $this->postWithCsrf(route('public.message.discussion.sell',[
             $discussion->ticket_id,
             $discussion
         ]));
+
         $response->assertRedirect(route('public.message.discussion.page',[
             $discussion->ticket_id,
             $discussion->id

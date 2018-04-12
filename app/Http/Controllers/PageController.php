@@ -17,6 +17,7 @@ use App\Notifications\Verification\IdConfirmed;
 use App\Station;
 use App\Ticket;
 use App\User;
+use Carbon\Carbon;
 use Hashids\Hashids;
 use Illuminate\Http\Request;
 use Mockery\Exception;
@@ -32,7 +33,10 @@ class PageController extends Controller
         } else {
             //TODO: change tickets to only show the latest or the previously searched etc..
             $tickets = Ticket::join( 'trains', 'trains.id', '=', 'tickets.train_id' )
-                             ->orderBy( 'trains.departure_date' )->take( 3 )->get();
+                             ->orderBy( 'trains.departure_date' )
+                            ->where('trains.departure_date','>',Carbon::now())
+                             ->take( 3 )
+                             ->get();
 
             return view( 'welcome' )->with( 'tickets', $tickets?TicketRessource::collection( $tickets ):[] )
                                     ->with( 'stations', StationRessource::collection( Station::sortedStations() ) );

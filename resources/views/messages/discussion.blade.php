@@ -1,5 +1,9 @@
 @extends('layouts.dashboard')
 
+@section('title')
+    - Offer
+@endsection
+
 @section('dashboard-content')
         <div  id="messages-discussion">
             <discussion :lang="child.discussion.lang"

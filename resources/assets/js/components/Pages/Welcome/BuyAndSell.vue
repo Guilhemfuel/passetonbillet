@@ -69,7 +69,7 @@
             api: {type: Object, required: true},
             routes: {type: Object, required: true},
             lang: {type: Object, required: true},
-            state: {type: String, Default: 'buy', required: true}
+            state: {type: String, Default: 'buy', required: true},
         },
         data() {
             return {

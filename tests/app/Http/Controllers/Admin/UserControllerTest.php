@@ -185,12 +185,12 @@ class UserControllerTest extends BaseControllerTest
         $response = $this->beAnAdmin()->postWithCsrf( route( 'id_check.deny' ), [
             'verification_id' => $idVerif->id,
             'comment'         => $comment
-        ]);
+        ] );
 
         \Notification::assertSentTo(
             $user,
             IdDenied::class,
-            function ($notification) use ($comment) {
+            function ( $notification ) use ( $comment ) {
                 return $notification->comment === $comment;
             }
 
@@ -226,7 +226,7 @@ class UserControllerTest extends BaseControllerTest
 
         $response = $this->beAnAdmin()->postWithCsrf( route( 'id_check.deny' ), [
             'verification_id' => $idVerif->id,
-            'comment' => str_random(20)
+            'comment'         => str_random( 20 )
         ] );
 
         \Notification::assertNotSentTo(
@@ -292,5 +292,29 @@ class UserControllerTest extends BaseControllerTest
             ]
         ];
 
+    }
+
+    /**
+     * Make sure regular users can't impersonate
+     */
+    public function testImpersonateUsersNonAdmin()
+    {
+        $user = factory( User::class )->create();
+        $userToImpersonate = factory( 'App\User' )->create();
+        $this->be($user);
+        $this->get( route( 'users.impersonate', $userToImpersonate ) )
+             ->assertStatus( 302 );
+        $this->assertNotEquals( auth()->id(), $userToImpersonate->id );
+
+    }
+
+    /**
+     * Make sure regular users can't impersonate
+     */
+    public function testImpersonateUsers()
+    {
+        $user = factory( User::class )->create();
+        $this->get( route( 'users.impersonate', $user ) );
+        $this->assertEquals( auth()->id(), $user->id );
     }
 }

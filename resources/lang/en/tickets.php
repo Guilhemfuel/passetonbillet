@@ -70,7 +70,7 @@ return [
         'success'       => 'Hooray! Your ticket is now on the market ! Thank you for your trust !',
 
         'confirm_number' => [
-            'last_step'        => 'One last step! Because safety is our number one mission, we need to verify your phone number. We will send you a verificcode via a text message, and you\'ll then be able to sell your ticket!',
+            'last_step'        => 'One last step! Because safety is our number one mission, we need to verify your phone number. We will send you a verification code via a text message, and you\'ll then be able to sell your ticket!',
             'code_check'       => 'Type the code you received in the text message we sent you. You\'ll then be able to start selling tickets!',
             'CTA'              => 'Verify my phone number',
             'no_code_received' => 'You didn\'t receive a verification code? Click here',

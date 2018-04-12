@@ -1,5 +1,9 @@
 @extends('layouts.dashboard')
 
+@section('title')
+    - Profile
+@endsection
+
 @section('dashboard-content')
     <div class="container">
         <div class="row" id="profile-home">

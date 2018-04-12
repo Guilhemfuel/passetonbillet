@@ -41,9 +41,26 @@ class TicketControllerTest extends BaseControllerTest
     }
 
     /**
-     * Test tickets can't be created
+     * Test create a fake ticket
      */
     public function testCreateTicket()
+    {
+        // Create fake ticket
+        $ticketCount = Ticket::all()->count();
+        $this->beAnAdmin();
+        $response = $this->get(route('tickets.create') );
+        $ticket = Ticket::orderByDesc('created_at')->first();
+
+        $response->assertRedirect( route('tickets.edit',$ticket->id ));
+
+        $this->assertEquals($ticketCount + 1,Ticket::all()->count() );
+    }
+
+
+    /**
+     * Test can't store a ticket
+     */
+    public function testStoreTicket()
     {
         $ticket = factory( Ticket::class )->make();
 
@@ -51,7 +68,7 @@ class TicketControllerTest extends BaseControllerTest
         $response = $this->post( $this->basePath, $ticket->toArray() );
 
         $response->assertStatus( 302 );
-        $response->assertRedirect( $this->basePath );
+        $response->assertRedirect( $this->basePath.'.index' );
 
 
         $this->assertDatabaseMissing( 'tickets',$ticket->toArray() );

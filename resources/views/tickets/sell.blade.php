@@ -1,5 +1,9 @@
 @extends('layouts.dashboard')
 
+@section('title')
+    - Sell Ticket
+@endsection
+
 @section('dashboard-content')
     <div class="container-fluid">
         <div class="row" id="sell-ticket">

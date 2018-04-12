@@ -131,8 +131,8 @@ class TicketController extends Controller
         }
 
         // Store stat
-        AppHelper::stat( 'download_pdf' ,[
-            'ticket_id'=>$ticket_id
+        AppHelper::stat( 'download_pdf', [
+            'ticket_id' => $ticket_id
         ] );
 
         $url = \Storage::disk( 's3' )->temporaryUrl(
@@ -164,6 +164,11 @@ class TicketController extends Controller
             $tickets = collect( Eurostar::retrieveTicket( $request->last_name, $request->booking_code ) );
 
         } else {
+            AppHelper::stat( 'retrieve_tickets', [
+                'name'         => \Auth::user()->last_name,
+                'booking_code' => $request->booking_code,
+            ] );
+
             $tickets = collect( Eurostar::retrieveTicket( \Auth::user()->last_name, $request->booking_code ) );
         }
 
@@ -185,7 +190,7 @@ class TicketController extends Controller
      */
     public function buyTickets( BuyTicketsRequest $request )
     {
-        AppHelper::stat( 'search_tickets' ,[
+        AppHelper::stat( 'search_tickets', [
             'departure_station' => $request->departure_station,
             'arrival_station'   => $request->arrival_station,
             'trip_date'         => $request->trip_date,

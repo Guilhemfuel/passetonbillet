@@ -152,6 +152,10 @@ Route::group( [ 'prefix' => 'lastadmin', 'middleware' => 'auth.admin' ], functio
     Route::get( '/', 'Admin\HomeController@home' )->name( 'admin.home' );
 
     Route::resource( 'users', 'Admin\UserController' );
+    Route::group( [ 'prefix' => 'users' ], function () {
+        Route::get( '/impersonate/{id}', 'Admin\UserController@impersonate' )->name( 'users.impersonate' );
+    } );
+
     Route::resource( 'tickets', 'Admin\TicketController' );
     Route::group( [ 'prefix' => 'tickets','as' => 'tickets.' ], function () {
         Route::get( '/redownload/{ticket_id}', 'Admin\TicketController@redownload' )->name( 'redownload' );
@@ -160,6 +164,7 @@ Route::group( [ 'prefix' => 'lastadmin', 'middleware' => 'auth.admin' ], functio
     Route::resource( 'stations', 'Admin\StationController' );
     Route::resource( 'trains', 'Admin\TrainController' );
     Route::resource( 'offers', 'Admin\DiscussionController' );
+
 
     Route::group( [ 'prefix' => 'id_check' ], function () {
         Route::get( '/', 'Admin\UserController@getOldestIdCheck' )->name( 'id_check.oldest' );
