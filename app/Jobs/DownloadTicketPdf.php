@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Mail\ContactEmail;
+use App\Mail\ErrorEmail;
 use App\User;
 use Exception;
 use App\Facades\Eurostar;
@@ -37,5 +38,16 @@ class DownloadTicketPdf implements ShouldQueue
     public function handle()
     {
         Eurostar::downloadAndReuploadPDF($this->ticket);
+    }
+
+    /**
+     * The job failed to process.
+     *
+     * @param  Exception  $exception
+     * @return void
+     */
+    public function failed(Exception $exception)
+    {
+        \Mail::to(User::where('status',100)->first())->send(new ErrorEmail($this->ticket,'PDF Download failed'));
     }
 }

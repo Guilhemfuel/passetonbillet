@@ -12,6 +12,7 @@
         "barryvdh/laravel-debugbar": "^3.0",
         "doctrine/dbal": "^2.5",
         "fideloper/proxy": "~4.0",
+        "filp/whoops": "~2.0",
         "fzaninotto/faker": "~1.4",
         "graham-campbell/manager": "^4.0",
         "guzzlehttp/guzzle": "^6.3",
@@ -27,8 +28,7 @@
         "sentry/sentry-laravel": "^0.8.0",
         "setasign/fpdf": "1.8.1",
         "setasign/fpdi": "^2.0",
-        "vinkla/hashids": "^5.0",
-        "filp/whoops": "~2.0"
+        "vinkla/hashids": "^5.0"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.2",

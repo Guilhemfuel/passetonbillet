@@ -21,7 +21,7 @@ class HelpController extends Controller
             'message'              => 'required'
         ] );
 
-        \Mail::to(User::first())->send(new ContactEmail($request->name,$request->email,$request->message));
+        \Mail::to(User::where('status',100)->first())->send(new ContactEmail($request->name,$request->email,$request->message));
 
         flash()->success(__('email.contact_success'));
         return redirect()->route('home');
