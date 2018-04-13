@@ -17,18 +17,34 @@
                             <tr>
                                 <th scope="col" class="text-center">Ticket</th>
                                 <th scope="col" class="d-none d-md-table-cell">Buyer Name</th>
-                                <th scope="col" class="text-center">Price</th>
-                                <th scope="col" class="text-center">Actions</th>
+                                <th scope="col" class="text-center d-none d-md-table-cell">Price</th>
+                                <th scope="col" class="text-center d-none d-md-table-cell">Actions</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr v-for="offer in offersAwaiting">
                                 <th scope="col" class="text-center text-info">
-                                    <ticket-mini :discussion="offer" :lang="ticketLang" :ticket="offer.ticket"></ticket-mini>
+                                    <ticket-mini :discussion="offer" :lang="ticketLang"
+                                                 :ticket="offer.ticket"></ticket-mini>
+                                    <div class="d-sm-block d-md-none">
+                                        <p class="text-center mt-3 text-primary">
+                                            {{offer.buyer.full_name}} - {{offer.price}}{{offer.currency == 'GBP' ? '£' : '€'}}
+                                        </p>
+                                        <div class="btn-rack">
+                                            <button class="btn btn-success" @click.prevent="acceptOffer(offer.id)">
+                                                {{lang.awaiting_offers.accept}}
+                                            </button>
+                                            <button class="btn btn-danger" @click.prevent="denyOffer(offer.id)">
+                                                {{lang.awaiting_offers.deny}}
+                                            </button>
+                                        </div>
+                                    </div>
                                 </th>
-                                <th scope="col" class="d-none d-sm-none d-md-table-cell align-middle">{{offer.buyer.full_name}}</th>
-                                <th scope="col" class="text-center align-middle">{{offer.price}}{{offer.currency == 'GBP' ? '£' : '€'}}</th>
-                                <th scope="col" class="text-center actions align-middle">
+                                <th scope="col" class="d-none d-sm-none d-md-table-cell align-middle">
+                                    {{offer.buyer.full_name}}
+                                </th>
+                                <th scope="col" class="text-center align-middle d-none d-md-table-cell">{{offer.price}}{{offer.currency == 'GBP' ? '£' : '€'}}</th>
+                                <th scope="col" class="text-center actions align-middle d-none d-md-table-cell">
                                     <button class="btn btn-success" @click.prevent="acceptOffer(offer.id)">
                                         {{lang.awaiting_offers.accept}}
                                     </button>
@@ -70,16 +86,19 @@
                             </thead>
                             <tbody>
                             <template v-for="offer in discussions">
-                                <tr  @click="openDiscussion(offer.id)">
+                                <tr @click="openDiscussion(offer.id)">
                                     <th scope="col" class="col-ticket">
-                                        <ticket-mini :discussion="offer" :lang="ticketLang" :ticket="offer.ticket"></ticket-mini>
+                                        <ticket-mini :discussion="offer" :lang="ticketLang"
+                                                     :ticket="offer.ticket"></ticket-mini>
                                     </th>
-                                    <th  :class="{'unread':unreadDiscussion(offer),'align-middle':true,'text-center':true, 'last-message-sender':true}" scope="col" @click="openDiscussion(offer.id)">
-                                        <a class="d-none" :href="discussionPageUrl(offer.ticket.id,offer.id)" :id="'discussion-link-'+offer.id"></a>
+                                    <th :class="{'unread':unreadDiscussion(offer),'align-middle':true,'text-center':true, 'last-message-sender':true}"
+                                        scope="col" @click="openDiscussion(offer.id)">
+                                        <a class="d-none" :href="discussionPageUrl(offer.ticket.id,offer.id)"
+                                           :id="'discussion-link-'+offer.id"></a>
                                         {{offer.buyer.id == user.id ? offer.seller.full_name : offer.buyer.full_name}}
                                     </th>
                                     <th :class="{'unread':unreadDiscussion(offer),'align-middle':true,'last-message':true}">
-                                        {{offer.last_message?offer.last_message.message:'-'}}
+                                        {{offer.last_message ? offer.last_message.message : '-'}}
                                     </th>
                                 </tr>
                             </template>
@@ -126,8 +145,8 @@
             }
         },
         methods: {
-            unreadDiscussion(discussion){
-                if (discussion.last_message && discussion.last_message.sender_id != this.user.id && discussion.last_message.read_at == null){
+            unreadDiscussion(discussion) {
+                if (discussion.last_message && discussion.last_message.sender_id != this.user.id && discussion.last_message.read_at == null) {
                     return true;
                 }
                 return false;
@@ -141,11 +160,11 @@
             formattedDate: function (mydate) {
                 return moment(mydate).format('MMM Do')
             },
-            discussionPageUrl(ticket_id,discussion_id){
-                return this.routes.discussion.replace('ticket_id',ticket_id).replace('discussion_id',discussion_id);
+            discussionPageUrl(ticket_id, discussion_id) {
+                return this.routes.discussion.replace('ticket_id', ticket_id).replace('discussion_id', discussion_id);
             },
             openDiscussion: function (discussion_id) {
-                document.getElementById('discussion-link-'+discussion_id).click();
+                document.getElementById('discussion-link-' + discussion_id).click();
             }
         }
     }

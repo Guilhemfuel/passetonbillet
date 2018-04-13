@@ -323,6 +323,18 @@ $animation-duration: 0.5s;
 #sell-ticket, #owned-tickets, #buy-ticket {
   padding: 20px 0px;
 
+  @include media-breakpoint-down(sm) {
+    margin-left: -45px;
+    margin-right: -45px;
+    margin-top: -20px;
+  }
+
+  @include media-breakpoint-up(md) {
+    margin-right: -15px;
+    margin-left: -15px;
+    margin-top: 0px;
+  }
+
   .card {
     .card-header {
       @extend .purple-gradient;
@@ -424,4 +436,16 @@ $animation-duration: 0.5s;
     );
   }
 
+}
+
+// My ticket component
+#owned-tickets {
+
+  @include media-breakpoint-down(sm) {
+    padding: 15px;
+  }
+
+  @include media-breakpoint-up(md) {
+    padding: 0px;
+  }
 }
