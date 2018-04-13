@@ -135,9 +135,9 @@ class PageController extends Controller
         \Auth::user()->unreadNotifications->where('type',OfferNotification::class)->markAsRead();
 
         return view( 'messages.home' )->with( 'user', new UserRessource( \Auth::user() ) )
-                                      ->with( 'offersAwaiting', DiscussionLastMessageResource::collection( $offersAwaiting ) )
-                                      ->with( 'buyingDiscussions', DiscussionLastMessageResource::collection( $buyingDiscussions ) )
-                                      ->with( 'sellingDiscussions', DiscussionLastMessageResource::collection( $sellingDiscussions ) );
+                                      ->with( 'offersAwaiting', DiscussionLastMessageResource::collection( $offersAwaiting->sortByDesc('updated_at') ) )
+                                      ->with( 'buyingDiscussions', DiscussionLastMessageResource::collection( $buyingDiscussions->sortByDesc('updated_at') ) )
+                                      ->with( 'sellingDiscussions', DiscussionLastMessageResource::collection( $sellingDiscussions->sortByDesc('updated_at')) );
     }
 
     /**
