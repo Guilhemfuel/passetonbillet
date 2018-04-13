@@ -4,11 +4,15 @@
         <a class="btn btn-facebook btn-fill btn-sm ml-3" target="_blank" href="https://facebook.com/{{$entity->fb_id}}">
             <i class="fa fa-facebook" aria-hidden="true"></i> Profile
         </a>
-        <a class="btn btn-warning btn-fill btn-sm ml-3" target="_blank" href="{{route('users.impersonate',$entity->id)}}">
-            <i class="fa fa-magic pr-2" aria-hidden="true"></i> Impersonate
-        </a>
     @endpush
 @endif
+
+{{-- Impersonate user button --}}
+@push('additional-btn')
+    <a class="btn btn-warning btn-fill btn-sm ml-3" href="{{route('users.impersonate',$entity->id)}}">
+        <i class="fa fa-magic pr-2" aria-hidden="true"></i> Impersonate
+    </a>
+@endpush
 
 <div class="row">
     <div class="col-md-6">
