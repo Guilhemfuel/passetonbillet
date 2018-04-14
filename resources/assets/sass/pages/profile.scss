@@ -6,6 +6,10 @@
     margin-left: -45px;
     margin-right: -45px;
     margin-top: -20px;
+
+    .card-header.reverse {
+      text-align: center;
+    }
   }
 
   @include media-breakpoint-up(md) {
