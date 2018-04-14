@@ -71,7 +71,7 @@
                                 </div>
                                 <div class="col-md-4 col-sm-12">
                                     <div class="align-middle mt-3">
-                                        <h5 class="text-center text-primary">0</h5>
+                                        <h5 class="text-center text-primary">{{$user->tickets()->whereNotNull('sold_to_id')->count()}}</h5>
                                         <h5 class="text-center">@lang('profile.number_tickets_successfully_sold')<br>@lang('profile.by') {{$user->full_name}}</h5>
                                     </div>
                                 </div>

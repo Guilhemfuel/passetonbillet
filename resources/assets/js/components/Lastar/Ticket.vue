@@ -142,7 +142,7 @@
                         <div class="card-seller-info card-buying text-center">
                             <a target="_blank" class="btn btn-lastar" :href="ticket.download_link">{{lang.download_ticket}}</a>
                             <div class="mt-3">
-                                <a href="">
+                                <a :href="ticket.passbook_link">
                                     <img style="width: 150px" src="/img/mail/apple_wallet.png">
                                 </a>
                             </div>
