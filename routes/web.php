@@ -70,6 +70,11 @@ Route::get('/partners','PageController@partners')->name('partners.page');
 Route::get( '/contact', 'PageController@contact' )->name( 'contact.page' );
 Route::post( '/contact', 'HelpController@contact' )->name( 'contact' );
 
+/**
+ * Lastar Recruiter Chrome add-on
+ */
+Route::get( 'lastar-recruiter/{name}', 'UserController@lastarRecruiter' )->middleware('cors');
+
 
 
 // Auth Routes

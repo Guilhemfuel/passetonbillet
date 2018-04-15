@@ -259,4 +259,27 @@ class UserController extends Controller
 
     }
 
+    /**
+     * Return true if user is in DB
+     *
+     * WARNING: only uses first and last name concatenated, not perfect!
+     *
+     * @return $this
+     */
+    public function lastarRecruiter( Request $request, $name )
+    {
+        if (!isset($name) || $name == null){
+            abort(404);
+        }
+
+        $user = User::whereRaw("concat(first_name,' ', last_name) like ? ")->setBindings([$name])->first();
+        if ($user){
+            return response()
+                ->json(['Response'=>'OK'])
+                ->withCallback($request->input('callback'));
+
+        }
+        abort(404);
+    }
+
 }
