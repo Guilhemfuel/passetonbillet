@@ -272,7 +272,7 @@ class UserController extends Controller
             abort(404);
         }
 
-        $user = User::whereRaw("concat(first_name,' ', last_name) like ? ")->setBindings([$name])->first();
+        $user = User::whereRaw("concat(first_name,' ', last_name) like ? ")->setBindings(['%'.$name.'%'])->first();
         if ($user){
             return response()
                 ->json(['Response'=>'OK'])
