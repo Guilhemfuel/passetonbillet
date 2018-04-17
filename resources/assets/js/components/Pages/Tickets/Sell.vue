@@ -114,7 +114,7 @@
 
                             <div class="input-group">
                                 <!-- Todo: ajouter l'option de la currency-->
-                                <span class="input-group-addon">{{selectedTicket.bought_currency == 'GBP' ? '£' : '€'}}</span>
+                                <span class="input-group-addon">{{selectedTicket.bought_currency_symbol}}</span>
                                 <input type="text" :class="'form-control' + (errors.has('price')?' is-invalid':'')"
                                        :aria-label="lang.sell.inputs.price"
                                        :placeholder="lang.sell.inputs.price"

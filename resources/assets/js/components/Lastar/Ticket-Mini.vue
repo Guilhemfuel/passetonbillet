@@ -26,20 +26,13 @@
         </div>
         <div class="card-seller-info">
             <div class="price">
-                <span v-if="ticket.currency == 'GBP'">
+                <span>
                     <template v-if="discussion && discussion.price!=ticket.price">
-                        <span class="old-price">£{{ticket.price}}</span><span class="offer-price text-center">£{{discussion.price}}</span>
+                        <span class="old-price">{{ticket.currency_symbol}}{{ticket.price}}</span>
+                        <span class="offer-price text-center">{{ticket.currency_symbol}}{{discussion.price}}</span>
                     </template>
                     <template v-else>
-                    <span class="text-center"></span> £{{ticket.price}}
-                    </template>
-                </span>
-                <span v-if="ticket.currency == 'EUR'">
-                    <template v-if="discussion.price && discussion.price!=ticket.price">
-                        <span class="old-price">€{{ticket.price}}</span><span class="offer-price text-center">€{{discussion.price}}</span>
-                    </template>
-                    <template v-else>
-                    <span class="text-center"></span> €{{ticket.price}}
+                    <span class="text-center"></span> {{ticket.currency_symbol}}{{ticket.price}}
                     </template>
                 </span>
             </div>

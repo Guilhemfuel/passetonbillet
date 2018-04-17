@@ -78,26 +78,18 @@
                     </template>
 
                     <div class="price" v-if="!selecting">
-                        <span v-if="ticket.currency == 'GBP'">
+                        <span>
                             <template v-if="ticket.offerPrice && ticket.offerPrice!=ticket.price">
-                                <span class="old-price">£{{ticket.price}}</span><span class="offer-price text-center">£{{ticket.offerPrice}}</span>
+                                <span class="old-price">{{ticket.currency_symbol}}{{ticket.price}}</span>
+                                <span class="offer-price text-center">{{ticket.currency_symbol}}{{ticket.offerPrice}}</span>
                             </template>
                             <template v-else>
-                            <span class="text-center"></span> £{{ticket.price}}
-                            </template>
-                        </span>
-                        <span v-if="ticket.currency == 'EUR'">
-                            <template v-if="ticket.offerPrice && ticket.offerPrice!=ticket.price">
-                                <span class="old-price">€{{ticket.price}}</span><span class="offer-price text-center">€{{ticket.offerPrice}}</span>
-                            </template>
-                            <template v-else>
-                            <span class="text-center"></span> €{{ticket.price}}
+                            <span class="text-center"></span> {{ticket.currency_symbol}}{{ticket.price}}
                             </template>
                         </span>
                     </div>
                     <div class="price" v-if="selecting">
-                        <span v-if="ticket.bought_currency == 'GBP'">£{{ticket.bought_price}}</span>
-                        <span v-if="ticket.bought_currency == 'EUR'">€{{ticket.bought_price}}</span>
+                        <span>{{ticket.bought_currency_symbol}}{{ticket.bought_price}}</span>
                     </div>
                     <div class="seller" v-if="!selecting">
                         <template v-if="user">
@@ -238,7 +230,7 @@
                                 <div class="col-12 col-sm-10 col-md-8 mx-auto">
 
                                     <div class="input-group">
-                                        <span class="input-group-addon">{{ticket.currency == 'GBP' ? '£' : '€'}}</span>
+                                        <span class="input-group-addon">{{ticket.currency_symbol}}</span>
                                         <input type="text"
                                                :class="'form-control' + (errors.has('price')?' is-invalid':'')"
                                                :aria-label="lang.price"
@@ -307,6 +299,12 @@
         mounted() {
             if (this.offerDone) {
                 this.state == 'offered';
+            }
+            if (!this.ticket.currency){
+                this.ticket.currency = this.ticket.bought_currency;
+            }
+            if (!this.ticket.currency_symbol){
+                this.ticket.currency_symbol = this.ticket.bought_currency_symbol;
             }
         },
         computed: {

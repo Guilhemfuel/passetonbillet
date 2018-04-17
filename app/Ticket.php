@@ -132,6 +132,25 @@ class Ticket extends Model
     }
 
     /**
+     * Helper
+     */
+    private function getSymbolCurrency($currency){
+        switch ($currency){
+            case "EUR":
+            case "EFT":
+                return '€';
+                break;
+            case "USD":
+                return '$';
+                break;
+            case "GBP":
+                return '£';
+                break;
+        }
+        return '';
+    }
+
+    /**
      * MUTATORS
      */
 
@@ -140,6 +159,14 @@ class Ticket extends Model
         $now = new Carbon();
 
         return $this->train->carbon_departure_date->lt( $now );
+    }
+
+    public function getCurrencySymbolAttribute(){
+        return $this->getSymbolCurrency($this->currency);
+    }
+
+    public function getBoughtCurrencySymbolAttribute(){
+        return $this->getSymbolCurrency($this->bought_currency);
     }
 
 //    public function getFlexibilityAttribute( $value )
