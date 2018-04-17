@@ -76,10 +76,10 @@
                     </div>
                 </template>
                 <div class="col-md-4 col-12 d-flex align-items-center justify-content-center flex-column py-3 py-sm-0 pb-sm-3" v-if="sold">
-                    <ticket-mini :discussion="discussion" :ticket="discussion.ticket" :lang="ticketLang"></ticket-mini>
+                    <ticket-mini :discussion="discussion" :ticket="discussion.ticket" :lang="ticketLang" :user="user"></ticket-mini>
                 </div>
                 <div class="col-md-4 col-sm-6 col-8 d-flex align-items-center justify-content-center flex-column py-3 py-sm-0 pb-sm-3" v-else>
-                    <ticket-mini :discussion="discussion" :ticket="discussion.ticket" :lang="ticketLang"></ticket-mini>
+                    <ticket-mini :discussion="discussion" :ticket="discussion.ticket" :lang="ticketLang" :user="user"></ticket-mini>
                 </div>
                 <div class="col-sm-12 d-md-none p-0" v-if="!sold && user.id == discussion.ticket.user.id">
                     <button @click="modalSellOpen=true" class="btn btn-lastar-blue btn-block btn-header">{{lang.discussions.cta_sell_to}} {{correspondant.full_name}}</button>

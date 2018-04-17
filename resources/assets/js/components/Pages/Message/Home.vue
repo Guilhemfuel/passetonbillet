@@ -5,7 +5,7 @@
             {{lang.empty}}
         </div>
 
-        <div class="card" v-if="offersAwaiting.length > 0">
+        <div class="card card-awaiting-offers" v-if="offersAwaiting.length > 0">
             <div class="card-header reverse">
                 <h4 class="card-title mb-0">{{lang.awaiting_offers.title}}</h4>
             </div>
@@ -15,7 +15,7 @@
                         <table class="table table-hover table-offers">
                             <thead>
                             <tr>
-                                <th scope="col" class="text-center">Ticket</th>
+                                <th scope="col" class="text-center d-none d-md-table-cell">Ticket</th>
                                 <th scope="col" class="d-none d-md-table-cell">Buyer Name</th>
                                 <th scope="col" class="text-center d-none d-md-table-cell">Price</th>
                                 <th scope="col" class="text-center d-none d-md-table-cell">Actions</th>
@@ -98,7 +98,7 @@
                                         {{offer.buyer.id == user.id ? offer.seller.full_name : offer.buyer.full_name}}
                                     </th>
                                     <th :class="{'unread':unreadDiscussion(offer),'align-middle':true,'last-message':true}">
-                                        {{offer.last_message ? offer.last_message.message : '-'}}
+                                        {{offer.last_message ? (offer.last_message.message.substring(0,30) + (offer.last_message.message.length>30?'...':'') : '-'}}
                                     </th>
                                 </tr>
                             </template>

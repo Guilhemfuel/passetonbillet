@@ -158,6 +158,7 @@
                         </div>
                         <div class="card-seller-info card-buying" v-if="(user && ticket.user.id == user.id)">
                             <div class="share">
+                                <p class="text-center" v-if="ticket.eurostar_ticket_number">{{lang.eurostar_ticket_number}}: {{ticket.eurostar_ticket_number}}</p>
                                 <p class="text-center">{{lang.share}}:</p>
                                 <div class="input-group">
                                     <el-popover

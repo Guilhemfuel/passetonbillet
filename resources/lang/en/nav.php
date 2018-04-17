@@ -8,23 +8,28 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'login' => 'Login',
-    'logout' => 'Logout',
-    'register' => 'Register',
-    'home'    => 'Home',
-    'messages'    => 'Messages',
-    'my_tickets'    => 'My tickets',
-    'sell_ticket'    => 'Sell a ticket',
-    'buy_ticket'    => 'Buy a ticket',
-    'my_profile'    => 'My Profile',
+    'login'              => 'Login',
+    'logout'             => 'Logout',
+    'register'           => 'Register',
+    'home'               => 'Home',
+    'messages'           => 'Messages',
+    'messages.mobile'    => 'Messages',
+    'my_tickets'         => 'My tickets',
+    'my_tickets.mobile'  => 'Tickets',
+    'sell_ticket'        => 'Sell a ticket',
+    'sell_ticket.mobile' => 'Sell',
+    'buy_ticket'         => 'Buy a ticket',
+    'buy_ticket.mobile'  => 'Buy',
+    'my_profile'         => 'My Profile',
+    'my_profile.mobile'  => 'Profile',
 
-      'dropdowns' => [
+    'dropdowns' => [
         'settings' => [
             'title' => 'Settings',
             'items' => [
                 'profile' => 'Edit my profil',
-                'admin' => 'Admin',
-                'logout' => 'Logout'
+                'admin'   => 'Admin',
+                'logout'  => 'Logout'
             ]
         ]
     ]

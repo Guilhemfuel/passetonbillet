@@ -19,6 +19,12 @@
   }
 
   .card {
+    &.card-awaiting-offers {
+      @include media-breakpoint-down(sm) {
+        margin-top: 25px;
+      }
+    }
+
     .card-header {
       @extend .purple-gradient;
       color: white;

@@ -162,6 +162,13 @@ html, body {
     @extend .purple-gradient;
     color: white;
     text-transform: uppercase;
+
+    @include media-breakpoint-down(sm) {
+      background: $color-white !important;
+      color: $color-purple !important;
+      border-bottom: 0px;
+      padding-bottom: 0px;
+    }
   }
 
   .card-body {
@@ -199,11 +206,18 @@ html, body {
   }
 
   #side-bar {
+
     padding: 0px;
+    position: relative;
     @include media-breakpoint-down(sm) {
       width: 60px;
     }
     font-size: 18px;
+
+    .side-bar-content {
+      position: sticky;
+      top: 0px;
+    }
 
     .logo {
       padding: 20px;
@@ -256,6 +270,17 @@ html, body {
 
         a {
           padding: 10px 20px;
+
+          @include media-breakpoint-down(xs) {
+            padding: 10px 0px;
+            text-align: center;
+            line-height: 16px;
+
+            .label {
+              font-size: 10px !important;
+            }
+          }
+
           padding-right: 0px;
           color: white;
           display: block;

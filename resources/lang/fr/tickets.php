@@ -9,31 +9,32 @@ return [
     */
 
     'component' => [
-        'buy'             => 'Acheter',
-        'sell'            => 'Vendre ce billet',
-        'sold_by'         => 'Vendu par',
-        'edit'            => 'Modifier',
-        'edit_ticket'     => 'Modifier le billet',
-        'buy_ticket'      => 'Acheter le billet',
-        'your_offer'      => 'Votre offre',
-        'price'           => 'Prix',
-        'send_offer'      => 'Envoyer l\'offre',
-        'if_interested'   => 'Le vendeur vous contactera s\'il est interessé.',
-        'infos'           => 'Infos',
-        'booking_code'    => 'Numéro de réservation',
-        'booking_name'    => 'Nom de réservation',
-        'delete'          => 'Vous ne voulez plus vendre ce billet?',
-        'share'           => 'Lien de partage du billet',
-        'copied'          => 'Lien copié dans le presse-papier.',
-        'delete_cta'      => 'Retirer le billet',
-        'offer_sent'      => 'Le vendeur a bien reçu votre offre! Il vous recontactera si il est interessé.',
-        'register'        => 'La sécurité est notre premier soucis. Ainsi, vous devez etre inscrit pour commnuniquer avec les autres membres.',
-        'register_cta'    => 'Inscrivez-vous pour envoyer votre offre!',
-        'user_verified'   => 'Nous avons vérifié l\'identité de cet utilisateur.',
-        'discuss'         => 'Discuster',
-        'new_offer'       => 'Nouvelle Offre',
-        'download_ticket' => 'Télécharger le billet',
-        'download'        => 'Télécharger',
+        'buy'                    => 'Acheter',
+        'sell'                   => 'Vendre ce billet',
+        'sold_by'                => 'Vendu par',
+        'edit'                   => 'Modifier',
+        'edit_ticket'            => 'Modifier le billet',
+        'buy_ticket'             => 'Acheter le billet',
+        'your_offer'             => 'Votre offre',
+        'price'                  => 'Prix',
+        'send_offer'             => 'Envoyer l\'offre',
+        'if_interested'          => 'Le vendeur vous contactera s\'il est interessé.',
+        'infos'                  => 'Infos',
+        'booking_code'           => 'Numéro de réservation',
+        'booking_name'           => 'Nom de réservation',
+        'delete'                 => 'Vous ne voulez plus vendre ce billet?',
+        'share'                  => 'Lien de partage du billet',
+        'copied'                 => 'Lien copié dans le presse-papier.',
+        'delete_cta'             => 'Retirer le billet',
+        'offer_sent'             => 'Le vendeur a bien reçu votre offre! Il vous recontactera si il est interessé.',
+        'register'               => 'La sécurité est notre premier soucis. Ainsi, vous devez etre inscrit pour commnuniquer avec les autres membres.',
+        'register_cta'           => 'Inscrivez-vous pour envoyer votre offre!',
+        'user_verified'          => 'Nous avons vérifié l\'identité de cet utilisateur.',
+        'discuss'                => 'Discuster',
+        'new_offer'              => 'Nouvelle Offre',
+        'download_ticket'        => 'Télécharger le billet',
+        'download'               => 'Télécharger',
+        'eurostar_ticket_number' => 'Numéro du billet',
 
         'status' => [
             'awaiting' => 'En Attente',
@@ -86,7 +87,7 @@ return [
         ]
     ],
     'buy'       => [
-        'inputs'    => [
+        'inputs'         => [
             'trippicker'     => [
                 'departure_station' => 'Gare de départ',
                 'arrival_satation'  => 'Gare d\'arrivée',
@@ -96,12 +97,12 @@ return [
                 'trip_time' => 'À partir de (Optionnel)'
             ]
         ],
-        'title'     => 'Acheter un billet',
-        'catchline' => 'Quel est votre trajet?',
-        'research'  => 'Rechercher',
-        'search_result' => 'ticket(s) correspondent à votre recherche.',
-        'safety'        => 'La sécurité est notre priorité numéro 1. Vous devez vous inscrire pour vendre un billet.',
-        'create_account'=> 'Inscrivez-vous et envoyez votre offre!'
+        'title'          => 'Acheter un billet',
+        'catchline'      => 'Quel est votre trajet?',
+        'research'       => 'Rechercher',
+        'search_result'  => 'ticket(s) correspondent à votre recherche.',
+        'safety'         => 'La sécurité est notre priorité numéro 1. Vous devez vous inscrire pour vendre un billet.',
+        'create_account' => 'Inscrivez-vous et envoyez votre offre!'
     ],
     'owned'     => [
         'no_bought_tickets'      => 'Vous n\'avez pas encore acheté de billet!',

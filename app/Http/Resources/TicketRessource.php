@@ -29,6 +29,9 @@ class TicketRessource extends Resource
             'bought_currency' => $this->bought_currency,
             'inbound'         => $this->inbound,
             'buyer'           => $this->sold_to_id ? new UserRessource( $this->buyer ) : null,
+
+            // Only for seller
+            'eurostar_ticket_number' => $this->when(\Auth::check() && \Auth::user()->id == $this->user_id,$this->eurostar_ticket_number),
         ];
     }
 }

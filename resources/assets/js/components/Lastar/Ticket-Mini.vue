@@ -43,6 +43,9 @@
                     </template>
                 </span>
             </div>
+            <div class="ticket-number" v-if="user && ticket.user.id ==user.id">
+                {{ticket.eurostar_ticket_number}}
+            </div>
         </div>
     </div>
 </template>
@@ -53,6 +56,7 @@
             ticket: {type: Object, required: true},
             discussion: {type: Object},
             lang: {type: Object, required: true},
+            user: {type: Object, required: false},
         },
         data() {
             return {

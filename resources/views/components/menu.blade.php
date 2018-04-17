@@ -2,6 +2,7 @@
     <a href="{{route('public.ticket.buy.page')}}">
         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
         <span class="d-sm-inline d-none label">{{__('nav.buy_ticket')}}</span>
+        <span class="d-inline d-sm-none mobile-link-name label"><br>{{__('nav.buy_ticket.mobile')}}</span>
     </a>
 </li>
 
@@ -9,6 +10,7 @@
     <a href="{{route('public.ticket.sell.page')}}">
         <i class="fa fa-money"></i>
         <span class="d-sm-inline d-none label">{{__('nav.sell_ticket')}}</span>
+        <span class="d-inline d-sm-none mobile-link-name label"><br>{{__('nav.sell_ticket.mobile')}}</span>
     </a>
 </li>
 
@@ -20,6 +22,7 @@
         @endif
         <i class="fa fa-envelope-o" aria-hidden="true"></i>
         <span class="d-sm-inline d-none label">{{__('nav.messages')}}</span>
+        <span class="d-inline d-sm-none mobile-link-name label"><br>{{__('nav.messages.mobile')}}</span>
     </a>
 </li>
 
@@ -28,6 +31,7 @@
     <a href="{{route('public.ticket.owned.page')}}">
         <i class="fa fa-ticket" aria-hidden="true"></i>
         <span class="d-sm-inline d-none label">{{__('nav.my_tickets')}}</span>
+        <span class="d-inline d-sm-none mobile-link-name label"><br>{{__('nav.my_tickets.mobile')}}</span>
     </a>
 </li>
 
@@ -35,6 +39,7 @@
     <a href="{{route('public.profile.home')}}">
         <i class="fa fa-user-circle-o" aria-hidden="true"></i>
         <span class="d-sm-inline d-none label">{{__('nav.my_profile')}}</span>
+        <span class="d-inline d-sm-none mobile-link-name label"><br>{{__('nav.my_profile.mobile')}}</span>
     </a>
 </li>
 

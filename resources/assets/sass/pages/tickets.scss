@@ -313,6 +313,13 @@ $animation-duration: 0.5s;
         font-size: 18px;
         font-weight: 400;
       }
+
+      .ticket-number {
+        position: absolute;
+        right: 2px;
+        bottom: -4px;
+        font-size: 12px;
+      }
     }
 
   }
@@ -344,6 +351,13 @@ $animation-duration: 0.5s;
       @extend .purple-gradient;
       color: white;
       text-transform: uppercase;
+
+      @include media-breakpoint-down(sm) {
+        background: $color-white !important;
+        color: $color-purple !important;
+        border-bottom: 0px;
+        padding-bottom: 0px;
+      }
     }
 
     .card-body {
