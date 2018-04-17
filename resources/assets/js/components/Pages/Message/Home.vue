@@ -98,7 +98,7 @@
                                         {{offer.buyer.id == user.id ? offer.seller.full_name : offer.buyer.full_name}}
                                     </th>
                                     <th :class="{'unread':unreadDiscussion(offer),'align-middle':true,'last-message':true}">
-                                        {{offer.last_message ? (offer.last_message.message.substring(0,30) + (offer.last_message.message.length>30?'...':'') : '-'}}
+                                        {{offer.last_message ? (offer.last_message.message.substring(0,30) + (offer.last_message.message.length>30?'...':'')) : '-'}}
                                     </th>
                                 </tr>
                             </template>
