@@ -114,7 +114,7 @@ class MessageNotification extends Notification implements ShouldQueue
         $url = route('public.message.discussion.page',[$this->discussion->ticket_id,$this->discussion->id]);
 
         return FacebookMessage::create()
-                              ->to(['id'=>1999920870080427])
+                              ->to(['id'=>253093131783325])
                               ->text('You received a new message on Lastar!')
                               ->notificationType(NotificationType::REGULAR) // Optional
                               ->buttons([
