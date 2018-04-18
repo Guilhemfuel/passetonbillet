@@ -168,7 +168,11 @@ Route::group( [ 'prefix' => 'lastadmin', 'middleware' => 'auth.admin' ], functio
 
     Route::resource( 'stations', 'Admin\StationController' );
     Route::resource( 'trains', 'Admin\TrainController' );
+
     Route::resource( 'offers', 'Admin\DiscussionController' );
+    Route::group( [ 'prefix' => 'offers','as' => 'offers.' ], function () {
+        Route::get( '/undeny/{id}', 'Admin\DiscussionController@cancelDeny' )->name( 'undeny' );
+    } );
 
 
     Route::group( [ 'prefix' => 'id_check' ], function () {

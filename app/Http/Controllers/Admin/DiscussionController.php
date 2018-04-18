@@ -78,4 +78,31 @@ class DiscussionController extends BaseController
         return redirect()->route($this->CRUDmodelName.'.edit',$entity->id);
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function cancelDeny(Request $request, $id)
+    {
+        $entity = Discussion::find($id);
+        if (!$entity){
+            flash()->error('Offer not found!');
+            return redirect()->back();
+        }
+
+        if ($entity->status != Discussion::DENIED){
+            flash('Can\'t undeny a non denied offer!')->error();
+            return redirect()->route('public.message.home.page');
+        }
+
+        $entity->status = Discussion::AWAITING;
+        $entity->save();
+
+        flash('Offer is now awaiting!')->error();
+        return redirect()->route($this->CRUDmodelName.'.edit',$entity->id);
+    }
+
 }

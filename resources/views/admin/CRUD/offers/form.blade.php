@@ -22,6 +22,14 @@
     @endif
 </div>
 
+@if ($entity->status == \App\Models\Discussion::DENIED)
+    @push('additional-btn')
+        <a class="btn btn-info btn-sm" href="{{route('offers.undeny',$entity->id)}}">
+            <i class="fa fa-ban" aria-hidden="true"></i> Cancel Deny Offer
+        </a>
+    @endpush
+@endif
+
 @push('additional-content')
     <div class="row mt-5">
         <div class="col-12">
