@@ -39,6 +39,7 @@ return [
         'client_id' => env('FB_CLIENT_ID'),
         'client_secret' => env('FB_CLIENT_SECRET'),
         'redirect' => env('FB_REDIRECT',env('APP_URL').'/register/fb/callback'),
+        'page-token' => env('FB_PAGE_TOKEN')
     ],
 
 ];

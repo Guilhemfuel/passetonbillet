@@ -101,7 +101,7 @@ class DiscussionController extends BaseController
         $entity->status = Discussion::AWAITING;
         $entity->save();
 
-        flash('Offer is now awaiting!')->error();
+        flash('Offer is now awaiting!')->success();
         return redirect()->route($this->CRUDmodelName.'.edit',$entity->id);
     }
 

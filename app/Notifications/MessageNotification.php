@@ -10,6 +10,10 @@ use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use NotificationChannels\Facebook\Components\Button;
+use NotificationChannels\Facebook\Enums\NotificationType;
+use NotificationChannels\Facebook\FacebookChannel;
+use NotificationChannels\Facebook\FacebookMessage;
 
 class MessageNotification extends Notification implements ShouldQueue
 {
@@ -48,6 +52,10 @@ class MessageNotification extends Notification implements ShouldQueue
         if ($count == 0) {
             array_push($via,'mail');
         }
+
+//        if ($notifiable->fb_id){
+//            array_push($via,FacebookChannel::class);
+//        }
 
         return $via;
 
@@ -93,5 +101,24 @@ class MessageNotification extends Notification implements ShouldQueue
             'link' => route('public.message.discussion.page',[$this->discussion->ticket_id,$this->discussion->id]),
             'discussion_id' => $this->discussion->id
         ]);
+    }
+
+    /**
+     * Get the facebook messenger representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return BroadcastMessage
+     */
+    public function toFacebook($notifiable)
+    {
+        $url = route('public.message.discussion.page',[$this->discussion->ticket_id,$this->discussion->id]);
+
+        return FacebookMessage::create()
+                              ->to(['id'=>1999920870080427])
+                              ->text('You received a new message on Lastar!')
+                              ->notificationType(NotificationType::REGULAR) // Optional
+                              ->buttons([
+                Button::create('Reply to Message', $url)->isTypeWebUrl(),
+            ]); // Buttons are optional as well.
     }
 }

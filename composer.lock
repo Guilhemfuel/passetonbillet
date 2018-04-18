@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c94a6d4bfdb5263203d84dd7ce39d238",
-    "content-hash": "207a41b94c14e9463c280da9828df3ca",
+    "hash": "e6271e4c82ac7871003679a1ce5b5c4b",
+    "content-hash": "b3abddb92168eeda2a8a11b5d71e5ba3",
     "packages": [
         {
             "name": "anhskohbo/no-captcha",
@@ -1557,6 +1557,59 @@
             ],
             "description": "Easy flash notifications",
             "time": "2017-06-22 19:01:19"
+        },
+        {
+            "name": "laravel-notification-channels/facebook",
+            "version": "0.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel-notification-channels/facebook.git",
+                "reference": "f2c3aeff56a5c0d7b50e5039c4ac97e3e8f74afc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel-notification-channels/facebook/zipball/f2c3aeff56a5c0d7b50e5039c4ac97e3e8f74afc",
+                "reference": "f2c3aeff56a5c0d7b50e5039c4ac97e3e8f74afc",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.2",
+                "illuminate/notifications": "5.3.* || 5.4.* || 5.5.* || 5.6.*",
+                "illuminate/support": "5.1.* || 5.2.* || 5.3.* || 5.4.* || 5.5.* || 5.6.*",
+                "php": ">=5.6.4"
+            },
+            "require-dev": {
+                "mockery/mockery": "^0.9.5",
+                "phpunit/phpunit": "4.*"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "NotificationChannels\\Facebook\\FacebookServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "NotificationChannels\\Facebook\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Syed Irfaq R.",
+                    "email": "syed@lukonet.com",
+                    "homepage": "https://lukonet.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Facebook Notifications Channel for Laravel 5.3",
+            "homepage": "https://github.com/laravel-notification-channels/facebook",
+            "time": "2018-02-08 18:22:50"
         },
         {
             "name": "laravel/framework",
