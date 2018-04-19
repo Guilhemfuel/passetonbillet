@@ -27,7 +27,6 @@
     <!-- Pusher App if-->
     <meta name="pusher:app_key" content="{{env('PUSHER_APP_KEY')}}"/>
 
-
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="lang" content="{{ config('app.locale') }}">

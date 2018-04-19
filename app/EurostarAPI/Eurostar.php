@@ -227,6 +227,10 @@ class Eurostar
         $ticketIndex = 0;
         $passengersIndex = [];
 
+        if(!isset($decoded['etapBooking']['ticketsData'])){
+            \Log::debug($decoded);
+        }
+
         foreach ( $decoded['etapBooking']['ticketsData']['tickets'] as $ticketData ) {
             // Fill the number of ticket seen for each passenger
             isset($passengersIndex[$ticketData['passengerId']])?$passengersIndex[$ticketData['passengerId']]++:$passengersIndex[$ticketData['passengerId']]=0;
@@ -288,8 +292,14 @@ class Eurostar
 
 
         $pdf = new Fpdi();
-        $pdf->setSourceFile(StreamReader::createByString(file_get_contents($pdfUrl)));
+        $pageCount = $pdf->setSourceFile(StreamReader::createByString(file_get_contents($pdfUrl)));
         // Only import the page needed.
+        \Log::debug('pagecount: '.$pageCount);
+        \Log::debug('$ticketIndex: '.($ticketIndex));
+
+        if($pageCount < (1+$ticketIndex) ){
+            $ticketIndex = $pageCount%($ticketIndex);
+        }
         $page = $pdf->importPage(1+$ticketIndex);
         $pdf->AddPage();
         $pdf->useTemplate($page);

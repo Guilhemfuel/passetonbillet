@@ -185,6 +185,8 @@
             <select class="form-control" name="bought_currency">
                 <option value="GBP" {{$entity->bought_currency=='GBP'?'selected':''}}>GBP</option>
                 <option value="EUR" {{$entity->bought_currency=='EUR'?'selected':''}}>EUR</option>
+                <option value="EUR" {{$entity->bought_currency=='EFT'?'selected':''}}>EFT</option>
+                <option value="EUR" {{$entity->bought_currency=='USD'?'selected':''}}>USD</option>
             </select>
         </div>
     </div>
@@ -200,6 +202,8 @@
             <select class="form-control" name="currency">
                 <option value="GBP" {{$entity->currency=='GBP'?'selected':''}}>GBP</option>
                 <option value="EUR" {{$entity->currency=='EUR'?'selected':''}}>EUR</option>
+                <option value="EUR" {{$entity->currency=='EFT'?'selected':''}}>EFT</option>
+                <option value="EUR" {{$entity->currency=='USD'?'selected':''}}>USD</option>
             </select>
         </div>
     </div>
