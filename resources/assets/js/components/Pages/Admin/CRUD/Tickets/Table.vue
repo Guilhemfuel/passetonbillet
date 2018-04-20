@@ -24,7 +24,7 @@
                 class="table table-striped"
                 ref="ticketsTable"
                 :data="searchedTickets"
-                max-height="500"
+                max-height="650"
                 style="width: 100%"
                 :row-class-name="tableRowClassName"
         >
@@ -70,11 +70,16 @@
                     prop="status"
                     label="Status"
                     :filtered-value="['selling']"
-                    :filters="[{value:'sold',text:'sold'},{value:'passed',text:'passed'},{value:'selling',text:'selling'}]"
+                    :filters="[{value:'sold',text:'sold'},{value:'passed',text:'passed'},{value:'selling',text:'selling'},{value:'scam',text:'scam'}]"
                     :filter-method="filterHandler"
             >
             </el-table-column>
-
+            <el-table-column
+                    prop="offers_count"
+                    label="Offers"
+                    sortable
+            >
+            </el-table-column>
             <el-table-column
                     label="Actions"
                     fixed="right"
@@ -87,7 +92,7 @@
                     <a class="btn btn-sm btn-info btn-fill" :href="scope.row.edit_link">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
                     </a>
-                    <input style="height: 10px;width: 10px;opacity: 0;" :value="scope.row.share_link" :id="'share-'+scope.row.id">
+                    <input type="hidden" :value="scope.row.share_link" :id="'share-'+scope.row.id" >
 
                 </template>
             </el-table-column>
@@ -114,10 +119,16 @@
                 return row[property] === value;
             },
             share(id) {
-                document.getElementById('share-'+id).select();
-                document.getElementById('share-'+id).setSelectionRange(0,  document.getElementById('share-'+id).value.length);
+                let url = document.getElementById('share-'+id);
+                var range = document.createRange();
+                range.selectNode(url);
+                window.getSelection().addRange(range);
+                url.select();
 
                 document.execCommand("Copy");
+                console.log(url.value);
+                window.getSelection().removeAllRanges();
+
             },
             tableRowClassName({row, rowIndex}) {
                 if (row.status === 'sold') {

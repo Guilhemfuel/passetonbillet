@@ -21,7 +21,7 @@ class Ticket extends Model
 
     use SearchableTrait, SoftDeletes;
 
-    protected $dates = [ 'deleted_at' ];
+    protected $dates = [ 'deleted_at', 'marked_as_fraud_at' ];
 
     protected $fillable = [
         // Train info
@@ -49,6 +49,8 @@ class Ticket extends Model
         'passbook_link',
         'buyer_email',
         'buyer_name',
+
+        'marked_as_fraud_at'
     ];
 
     /**
@@ -192,7 +194,9 @@ class Ticket extends Model
     }
 
     public function getStatusAttribute(){
-        if ($this->sold_to_id){
+        if ($this->scam){
+            return 'scam';
+        }else if ($this->sold_to_id){
             return 'sold';
         } else {
             if ($this->passed){
@@ -201,6 +205,10 @@ class Ticket extends Model
                 return 'selling';
             }
         }
+    }
+
+    public function getScamAttribute(){
+        return $this->marked_as_fraud_at != null;
     }
 
     /**

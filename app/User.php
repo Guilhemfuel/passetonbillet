@@ -17,6 +17,12 @@ class User extends Authenticatable
 
     protected $dates = [ 'deleted_at' ];
 
+    const STATUS_BANNED_USER = -100;
+    const STATUS_USER = 1;
+    const STATUS_UNCONFIRMED_USER = 0;
+    const STATUS_UNINVITED_USER = -1;
+    const STATUS_ADMIN = 100;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -99,13 +105,13 @@ class User extends Authenticatable
 
     /**
      *
-     * User is admin if status = 100
+     * User is admin if status = STATUS_ADMIN
      *
      * @return bool
      */
     public function isAdmin()
     {
-        return $this->status == 100;
+        return $this->status == self::STATUS_ADMIN;
     }
 
     public function getFullNameAttribute()
@@ -119,14 +125,16 @@ class User extends Authenticatable
     public function getRoleAttribute()
     {
         switch ( $this->status ) {
-            case 100:
+            case self::STATUS_ADMIN:
                 return 'Admin';
-            case 1:
+            case self::STATUS_USER:
                 return 'User';
-            case 0:
-                return 'Unconfirmed User';
-            case - 1:
-                return 'Uninvited User';
+            case self::STATUS_UNCONFIRMED_USER:
+                return 'Unconfirmed';
+            case self::STATUS_UNINVITED_USER:
+                return 'Uninvited';
+            case self::STATUS_BANNED_USER:
+                return 'Banned';
         }
     }
 
@@ -167,6 +175,11 @@ class User extends Authenticatable
     {
         $date = new Carbon($this->created_at);
         return __('profile.member_since').$date->toFormattedDateString();
+    }
+
+    public function getBannedAttribute()
+    {
+        return $this->status == self::STATUS_BANNED_USER;
     }
 
 

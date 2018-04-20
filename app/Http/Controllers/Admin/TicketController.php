@@ -134,10 +134,33 @@ class TicketController extends BaseController
             return redirect()->back();
         }
 
+        if ($ticket->passed){
+            flash()->error( 'Can\'t redownload pdf of past ticket!' );
+
+            return redirect()->back();
+        }
+
         DownloadTicketPdf::dispatch( $ticket );
 
         flash()->success( 'Done! Pdf should be updated in less than 5 minutes.' );
 
+        return redirect()->route( $this->CRUDmodelName . '.edit', $ticket->id );
+    }
+
+    // ---------- Mark as Fraud -------
+
+    public function markAsFraud(Request $request, $id)
+    {
+        $ticket = Ticket::find( $id );
+        if ( ! $ticket ) {
+            \Session::flash( 'danger', 'Entity not found!' );
+            return redirect()->back();
+        }
+
+        $ticket->marked_as_fraud_at = Carbon::now();
+        $ticket->save();
+
+        flash('Ticket marked as scam.')->success();
         return redirect()->route( $this->CRUDmodelName . '.edit', $ticket->id );
     }
 

@@ -81,6 +81,28 @@ class UserController extends BaseController
         return view( 'admin.unique.verification.id' )->with( [ 'user' => $idCheck->user ] );
     }
 
+    // ---------- Ban User -------
+
+    public function banUser(Request $request, $id)
+    {
+        $user = User::find( $id );
+        if ( ! $user ) {
+            \Session::flash( 'danger', 'Entity not found!' );
+            return redirect()->back();
+        }
+
+        if ($user->status != User::STATUS_USER) {
+            \Session::flash( 'danger', 'Only active user (non admin) can be banned!' );
+            return redirect()->back();
+        }
+
+        $user->status = User::STATUS_BANNED_USER;
+        $user->save();
+
+        flash('User banned.')->success();
+        return redirect()->route( $this->CRUDmodelName . '.edit', $user->id );
+    }
+
     // ----------- Impersonate ------
 
     public function impersonate(Request $request, $id){

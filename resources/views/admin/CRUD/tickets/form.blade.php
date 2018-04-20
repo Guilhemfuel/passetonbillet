@@ -4,6 +4,12 @@
 @if($entity->eurostar_ticket_number)
     {{-- IF REAL TICKET --}}
     @push('additional-btn')
+        @if(!$entity->scam)
+        <a class="btn btn-danger btn-fill btn-sm mr-3" href="{{route('tickets.scam',$entity->id)}}">
+            <i class="fa fa-ban" aria-hidden="true"></i>
+            Mark as Scam
+        </a>
+        @endif
         @if($entity->pdf_downloaded)
         <a class="btn btn-info btn-fill btn-sm mr-3" target="_blank" href="{{route('public.ticket.download',['ticket_id'=>$entity->id])}}">
             <i class="fa fa-file-pdf-o" aria-hidden="true"></i> Download ticket
@@ -13,9 +19,11 @@
             <i class="fa fa-file-pdf-o" aria-hidden="true"></i> Download ticket
         </button>
         @endif
+        @if(!$entity->passed)
         <a class="btn btn-warning btn-fill btn-sm" href="{{route('tickets.redownload',['ticket_id'=>$entity->id])}}">
             <i class="fa fa-cloud-download" aria-hidden="true"></i> Retry donwloading ticket
         </a>
+        @endif
     @endpush
 @endif
 
@@ -26,6 +34,12 @@
     <h3 class="text-danger  text-center">FAKE</h3>
     </div>
 </div>
+@elseif($entity->scam)
+    <div class="row text-bold">
+        <div class="col">
+            <h3 class="text-danger  text-center">SCAM</h3>
+        </div>
+    </div>
 @elseif($entity->sold_to_id!=null)
 <div class="row text-bold">
     <div class="col">
@@ -159,9 +173,14 @@
     <div class="col-md-3">
         <div class="form-group">
             <label>Seller</label>
+            @if(!$entity->scam)
             <userpicker :name="'user_id'"
                         :default-placeholder="'User name'"
                         :default-value="{{json_encode($entity->user)}}"></userpicker>
+            @else
+                <input type="text" class="form-control"
+                       value="{{$entity->user->full_name}}" disabled>
+            @endif
         </div>
     </div>
     <div class="col-md-3">
@@ -208,3 +227,46 @@
         </div>
     </div>
 </div>
+
+
+{{------------ Additional content --------------}}
+
+@push('additional-content')
+
+    <div class="row mt-5">
+        <div class="col-sm-6 col-12">
+            <h5>Offers ({{$entity->discussions()->count()}})</h5>
+            <table class="table table-hover table-striped">
+                <thead>
+                <th>Date</th>
+                <th>From</th>
+                <th>Price</th>
+                <th>Status</th>
+                <th>Link</th>
+                </thead>
+                <tbody>
+                @foreach($entity->discussions as $offer)
+                    <tr>
+                        <td>{{$offer->created_at->format('d/m/Y')}}</td>
+                        <td>
+                            {{$offer->buyer->full_name}}
+                        </td>
+                        <td>
+                            {{$offer->price}} {{$offer->currency}}
+                        </td>
+                        <td>
+                            {{$offer->status}}
+                        </td>
+                        <td>
+                            <a href="{{route('offers.edit',$offer->id)}}"><i class="fa fa-comments" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+@endpush

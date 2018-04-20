@@ -176,11 +176,13 @@ Route::group( [ 'prefix' => 'lastadmin', 'middleware' => 'auth.admin' ], functio
     Route::resource( 'users', 'Admin\UserController' );
     Route::group( [ 'prefix' => 'users' ], function () {
         Route::get( '/impersonate/{id}', 'Admin\UserController@impersonate' )->name( 'users.impersonate' );
+        Route::get( '/ban/{id}', 'Admin\UserController@banUser' )->name( 'users.ban' );
     } );
 
     Route::resource( 'tickets', 'Admin\TicketController' );
     Route::group( [ 'prefix' => 'tickets','as' => 'tickets.' ], function () {
         Route::get( '/redownload/{ticket_id}', 'Admin\TicketController@redownload' )->name( 'redownload' );
+        Route::get( '/scam/{ticket_id}', 'Admin\TicketController@markAsFraud' )->name( 'scam' );
     } );
 
     Route::resource( 'stations', 'Admin\StationController' );

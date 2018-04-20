@@ -102,6 +102,43 @@ class UserControllerTest extends BaseControllerTest
     }
 
     /**
+     * Test user can be banned
+     */
+    public function testBanUser()
+    {
+        $user = factory( User::class )->create([
+            'status' => User::STATUS_USER
+        ]);
+
+        // Delete user
+        $response = $this->get( route('users.ban',$user->id) );
+        $response->assertStatus( 302 );
+        $response->assertRedirect( route('users.edit',$user->id)  );
+
+        $user = $user->fresh();
+        $this->assertEquals( $user->status, User::STATUS_BANNED_USER );
+    }
+
+    /**
+     * Test admin can't be banned
+     */
+    public function testBanAdmin()
+    {
+        $user = factory( User::class )->create([
+            'status' => User::STATUS_ADMIN
+        ]);
+
+        // Delete user
+        $this->get(route('users.edit',$user->id));
+        $response = $this->get( route('users.ban',$user->id) );
+        $response->assertStatus( 302 );
+        $response->assertRedirect( route('users.edit',$user->id)  );
+
+        $user = $user->fresh();
+        $this->assertEquals( $user->status, User::STATUS_ADMIN );
+    }
+
+    /**
      * Test id verification acceptance work
      */
     public function testAcceptIdVerification()

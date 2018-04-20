@@ -113,4 +113,26 @@ class TicketControllerTest extends BaseControllerTest
         $this->assertNotNull( $ticket->deleted_at );
     }
 
+    /**
+     * Test Ticket can be edited
+     */
+    public function testMarkTicketAsScam()
+    {
+        $ticket = factory( Ticket::class )->create([
+            'marked_as_fraud_at' => null
+        ]);
+
+        // Mark as scan Ticket
+        $this->get( route('tickets.edit',$ticket->id) );
+        $response = $this->get( route('tickets.scam',$ticket->id) );
+
+        $response->assertStatus( 302 );
+        $response->assertRedirect( $this->basePath . '/' . $ticket->id . '/edit' );
+
+        // Make sure ticket is updated with proper data
+        $ticket = $ticket->fresh();
+        $this->assertTrue( $ticket->scam );
+
+    }
+
 }

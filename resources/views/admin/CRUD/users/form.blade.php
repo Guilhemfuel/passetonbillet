@@ -1,5 +1,16 @@
+@if($entity->banned)
+    <h4 class="text-danger text-center">BANNED</h4>
+@else
+    @push('additional-btn')
+        <a class="btn btn-danger btn-fill btn-sm ml-3" href="{{route('users.ban',$entity->id)}}">
+            <i class="fa fa-ban" aria-hidden="true"></i>
+            Ban User
+        </a>
+    @endpush
+@endif
+
 @if($entity->fb_id)
-    {{-- IF REAL TICKET --}}
+    {{-- IF Facebook user --}}
     @push('additional-btn')
         <a class="btn btn-facebook btn-fill btn-sm ml-3" target="_blank" href="https://facebook.com/{{$entity->fb_id}}">
             <i class="fa fa-facebook" aria-hidden="true"></i> Profile
@@ -7,24 +18,30 @@
     @endpush
 @endif
 
-{{-- Impersonate user button --}}
-@push('additional-btn')
-    <a class="btn btn-warning btn-fill btn-sm ml-3" href="{{route('users.impersonate',$entity->id)}}">
-        <i class="fa fa-magic pr-2" aria-hidden="true"></i> Impersonate
-    </a>
-@endpush
+
+{{-- Impersonnate if not banned --}}
+@if(!$entity->banned)
+    @push('additional-btn')
+        <a class="btn btn-warning btn-fill btn-sm ml-3" href="{{route('users.impersonate',$entity->id)}}">
+            <i class="fa fa-magic pr-2" aria-hidden="true"></i> Impersonate
+        </a>
+    @endpush
+@endif
 
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
-            <label>First Name @if($entity->id_verified) <i aria-hidden="true" class="fa fa-check-circle text-warning"></i> @endif</label>
-            <input type="text" class="form-control" placeholder="First Name" value="{{isset($entity)?$entity->first_name:(old('first_name'))}}" name="first_name">
+            <label>First Name @if($entity->id_verified) <i aria-hidden="true"
+                                                           class="fa fa-check-circle text-warning"></i> @endif</label>
+            <input type="text" class="form-control" placeholder="First Name"
+                   value="{{isset($entity)?$entity->first_name:(old('first_name'))}}" name="first_name">
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group">
             <label>Last Name</label>
-            <input type="text" class="form-control" placeholder="Last Name" value="{{isset($entity)?$entity->last_name:(old('last_name'))}}" name="last_name">
+            <input type="text" class="form-control" placeholder="Last Name"
+                   value="{{isset($entity)?$entity->last_name:(old('last_name'))}}" name="last_name">
         </div>
     </div>
 </div>
@@ -33,8 +50,12 @@
         <div class="form-group">
             <label>Gender</label>
             <select class="form-control" name="gender">
-                <option value="1" {{isset($entity)?($entity->gender==1?'selected':''):(old('gender')==1?'selected':'')}}>Male</option>
-                <option value="0" {{isset($entity)?($entity->gender==0?'selected':''):(old('gender')==0?'selected':'')}}>Female</option>
+                <option value="1" {{isset($entity)?($entity->gender==1?'selected':''):(old('gender')==1?'selected':'')}}>
+                    Male
+                </option>
+                <option value="0" {{isset($entity)?($entity->gender==0?'selected':''):(old('gender')==0?'selected':'')}}>
+                    Female
+                </option>
             </select>
         </div>
     </div>
@@ -42,8 +63,12 @@
         <div class="form-group">
             <label>Language</label>
             <select class="form-control" name="language">
-                <option value="FR" {{isset($entity)?($entity->language=='FR'?'selected':''):(old('language')=='FR'?'selected':'')}}>French</option>
-                <option value="EN" {{isset($entity)?($entity->language=='EN'?'selected':''):(old('gender')=='EN'?'selected':'')}}>English</option>
+                <option value="FR" {{isset($entity)?($entity->language=='FR'?'selected':''):(old('language')=='FR'?'selected':'')}}>
+                    French
+                </option>
+                <option value="EN" {{isset($entity)?($entity->language=='EN'?'selected':''):(old('gender')=='EN'?'selected':'')}}>
+                    English
+                </option>
             </select>
         </div>
     </div>
@@ -72,13 +97,14 @@
     <div class="col-md-6">
         <div class="form-group">
             <label>Email</label>
-            <input type="text" class="form-control" placeholder="Email" name="email" value="{{isset($entity)?$entity->email:(old('email'))}}">
+            <input type="text" class="form-control" placeholder="Email" name="email"
+                   value="{{isset($entity)?$entity->email:(old('email'))}}">
         </div>
     </div>
 </div>
 
 
-{{------------ Emails Sent --------------}}
+{{------------ Additional content --------------}}
 
 @push('additional-content')
 
@@ -97,7 +123,7 @@
                         <td>{{$email->email_class}}</td>
                         <th class="text-center">
                             @if($email->ticket_id)
-                            <a href="{{route('tickets.edit',$email->ticket_id)}}"><i class="fa fa-ticket"></i></a>
+                                <a href="{{route('tickets.edit',$email->ticket_id)}}"><i class="fa fa-ticket"></i></a>
                             @else
                                 -
                             @endif
