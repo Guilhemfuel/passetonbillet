@@ -40,6 +40,12 @@ abstract class BaseController extends Controller
      */
     protected $creatable = true;
 
+    /**
+     * @var $paginable : wether entity uses pagination or not
+     */
+    protected $paginable = true;
+
+
     public function __construct()
     {
         $this->middleware( 'auth.admin' );
@@ -64,6 +70,7 @@ abstract class BaseController extends Controller
         }
         $data['model'] = $this->CRUDmodelName;
         $data['entitySingleName'] = $this->CRUDsingularEntityName;
+        $data['paginable'] = $this->paginable;
 
         return view( $viewName, $data );
     }

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\Admin\TicketRequest;
+use App\Http\Resources\Admin\TicketTableResource;
+use App\Http\Resources\StationRessource;
 use App\Jobs\DownloadTicketPdf;
+use App\Station;
 use App\Ticket;
 use App\User;
 use Faker\Factory;
@@ -19,6 +22,7 @@ class TicketController extends BaseController
     protected $model = Ticket::class;
     protected $creatable = true;
     protected $searchable = false;
+    protected $paginable = false;
 
     /**
      * Show a list of all entities
@@ -37,10 +41,14 @@ class TicketController extends BaseController
                                 ->orderBy( 'trains.departure_date' )
                                 ->orderBy( 'stations.name_en' )
                                 ->select('tickets.*', 'trains.departure_city','trains.departure_date','stations.name_en')
-                                ->paginate( 30 );
+                                ->get();
 
+        $stations = Station::all()->pluck('short_name');
+        $stations = array_map(function($name){
+            return substr($name,2);
+        },$stations->toArray());
 
-        $data = [ 'entities' => $entities, 'searchable' => $this->searchable, 'creatable' => $this->creatable ];
+        $data = [ 'entities' => TicketTableResource::collection($entities),'stations'=>$stations, 'searchable' => $this->searchable, 'creatable' => $this->creatable ];
 
         return $this->lastarView( 'admin.CRUD.index', $data );
     }

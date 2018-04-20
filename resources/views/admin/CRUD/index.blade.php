@@ -51,26 +51,31 @@
                     @endif
                 </div>
 
-                <div class="top-pagination">
-                    @if(isset($search))
-                        {{ $entities->appends(['search' => $search])->links() }}
-                    @else
-                        {{ $entities->links() }}
+                @if($paginable)
+                    <div class="top-pagination">
+                        @if(isset($search))
+                            {{ $entities->appends(['search' => $search])->links() }}
+                        @else
+                            {{ $entities->links() }}
 
-                    @endif
-                </div>
+                        @endif
+                    </div>
+                @endif
 
                 <div class="table-responsive table-full-width">
                     @include('admin.CRUD.'. $model .'.table')
                 </div>
 
-                <div class="bottom-pagination">
-                    @if(isset($search))
-                        {{ $entities->appends(['search' => $search])->links() }}
-                    @else
-                        {{ $entities->links() }}
-                    @endif
-                </div>
+                @if($paginable)
+                    <div class="bottom-pagination">
+                        @if(isset($search))
+                            {{ $entities->appends(['search' => $search])->links() }}
+                        @else
+                            {{ $entities->links() }}
+                        @endif
+                    </div>
+                @endif
+
             </div>
         </div>
     </div>

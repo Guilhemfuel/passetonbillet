@@ -191,6 +191,18 @@ class Ticket extends Model
         return \Storage::disk('s3')->exists($filePath);
     }
 
+    public function getStatusAttribute(){
+        if ($this->sold_to_id){
+            return 'sold';
+        } else {
+            if ($this->passed){
+                return 'passed';
+            } else {
+                return 'selling';
+            }
+        }
+    }
+
     /**
      * RELATIONSHIPS
      */
