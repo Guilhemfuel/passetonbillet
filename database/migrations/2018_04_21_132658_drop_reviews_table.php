@@ -13,7 +13,7 @@ class DropReviewsTable extends Migration
      */
     public function up()
     {
-        //
+        Schema::dropIfExists('reviews');
     }
 
     /**
@@ -23,6 +23,18 @@ class DropReviewsTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::create('reviews', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('ticket_id')->unsigned();
+            $table->integer('buyer_id')->unsigned();
+            $table->smallInteger('mark');
+            $table->text('message');
+
+            $table->timestamps();
+            $table->softDeletes();
+
+            $table->foreign('ticket_id')->references('id')->on('tickets');
+            $table->foreign('buyer_id')->references('id')->on('users');
+        });
     }
 }
