@@ -12,6 +12,7 @@
         </thead>
         <tbody>
         @foreach($entities as $entity)
+            @if($entity->ticket)
             <tr>
                 <td class="text-center">
                     <a href="{{route('tickets.edit',$entity->ticket->id)}}">
@@ -38,6 +39,7 @@
                     </a>
                 </td>
             </tr>
+            @endif
         @endforeach
         </tbody>
     </table>
