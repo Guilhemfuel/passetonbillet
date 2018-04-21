@@ -53,6 +53,8 @@
 
     @yield('content')
 
+    @stack('modals')
+
 </div>
 
 @if(Auth::user())

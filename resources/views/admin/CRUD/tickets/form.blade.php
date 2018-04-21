@@ -20,9 +20,36 @@
         </button>
         @endif
         @if(!$entity->passed)
+        <button class="btn btn-primary btn-fill btn-sm mr-3" @click.prevent="child.ticket.uploadPdfModal = true">
+            <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+            Manually Upload PDF
+        </button>
         <a class="btn btn-warning btn-fill btn-sm" href="{{route('tickets.redownload',['ticket_id'=>$entity->id])}}">
             <i class="fa fa-cloud-download" aria-hidden="true"></i> Retry donwloading ticket
         </a>
+
+            @push('additional-content')
+                {{-- Modal here so that pdf form is in the right place (not in the update form)--}}
+                <modal v-cloak :is-open="child.ticket.uploadPdfModal"  @close-modal="child.ticket.uploadPdfModal = false"
+                       title="Manually upload ticket PDF">
+                    <form method="post" action="{{route('tickets.manual_upload',$entity->id)}}" enctype="multipart/form-data" id="pdfForm">
+                        {{csrf_field()}}
+                        <div class="form-group">
+                            <input class="form-control" type="file" name="ticket_pdf">
+                        </div>
+                        <button type="submit" class="btn btn-block btn-lastar-blue">Upload</button>
+                    </form>
+                </modal>
+            @endpush
+
+            @push('vue-data')
+                {{--Modal here to avoid being in edition form--}}
+                <script type="application/javascript">
+                    data.ticket = {
+                        uploadPdfModal: false
+                    }
+                </script>
+            @endpush
         @endif
     @endpush
 @endif
@@ -255,7 +282,7 @@
                             {{$offer->price}} {{$offer->currency}}
                         </td>
                         <td>
-                            {{$offer->status}}
+                            {{$offer->status_text}}
                         </td>
                         <td>
                             <a href="{{route('offers.edit',$offer->id)}}"><i class="fa fa-comments" aria-hidden="true"></i>
