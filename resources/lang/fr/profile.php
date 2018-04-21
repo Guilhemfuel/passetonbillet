@@ -49,7 +49,7 @@ return [
         ],
         'verify_identity' => [
             'title' => 'Vérification d\'identité',
-            'text' => 'Afin d’assurer une sécurité maximum pour nos utilisateurs, nous offrons la possibilité de vérifier la conformité de votre profil en nous envoyant un scan d’une de vos pièces d’identité.',
+            'text' => 'Afin d’assurer une sécurité maximum pour nos utilisateurs, vous devez vérifier la conformité de votre profil en nous envoyant un scan d’une de vos pièces d’identité.',
             'list_title' => 'Pièces d\'identité acceptées',
             'list_id' => [
                 'passport' => 'Passeport',
@@ -57,7 +57,7 @@ return [
                 'driving_license' => 'Permis de conduire'
             ],
             'cta' => 'Vérifier mon identité',
-            'delay' => 'La verification se fait généralement sous 24 heures.',
+            'delay' => 'La verification se fait généralement sous 24 heures, mais vous pourrez vendre un billet dès l\'upload de votre pièce d\'identité.',
             'error' => 'Il y a une erreur lors de l\'upload de votre piẻce d\'identité. Si le problème persiste, contactez-nous!',
             'success' => 'Votre pièce d\'identité a bien été uploadé. Votre compte devrait être mis à jour sous 24h!'
         ]

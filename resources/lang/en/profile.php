@@ -49,7 +49,7 @@ return [
         ],
         'verify_identity' => [
             'title' => 'Identity check',
-            'text' => 'In order to guarantee an optimal level of security for our users, we offer the opportunity to upload a copy of one of your identity documents to have your profile verified.',
+            'text' => 'In order to guarantee an optimal level of security for our users, you must upload a copy of one of your identity documents to have your profile verified.',
             'list_title' => 'Identification documents accepted',
             'list_id' => [
                 'passport' => 'Passport',
@@ -57,7 +57,7 @@ return [
                 'driving_license' => 'Driving license'
             ],
             'cta' => 'Verify my identity',
-            'delay' => 'The identity verification usually takes place within 24 hours.',
+            'delay' => 'The identity verification usually takes place within 24 hours, but you\'ll be able to sell a ticket as soon as you uploaded it.',
             'error' => 'An error occurred when we tried to download your identity document. Please try again. Contact us if the problem persists.',
             'success' => 'Your identity document was successfully downloaded. Your account should be verified within 24 hours!'
         ]

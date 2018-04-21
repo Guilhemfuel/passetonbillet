@@ -159,6 +159,15 @@ class User extends Authenticatable
         return ($this->idVerification!==null&&$this->idVerification->accepted) ?:false;
     }
 
+    /**
+     * Return true if used is verified or if has uploaded an id that was not denied
+     *
+     * @return bool
+     */
+    public function getIdUploadedAttribute(){
+        return $this->id_verified || $this->idVerification!==null;
+    }
+
     public function getCountUnreadMessagesAttribute()
     {
         // Count of unread: unanswered received offers + unread message

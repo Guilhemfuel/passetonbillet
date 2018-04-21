@@ -6,6 +6,7 @@ use App\Events\RegisteredEvent;
 use App\Listeners\RegisteredListener;
 use App\Mail\EmailVerification;
 use App\User;
+use Illuminate\Http\Request;
 use Tests\LastarTestCase;
 
 class RegisteredListenerTest extends LastarTestCase
@@ -14,12 +15,16 @@ class RegisteredListenerTest extends LastarTestCase
 
         \Mail::fake();
 
-        $user = factory( User::class )->states( 'not_confirmed' )->create();
+        $user = factory( User::class )->states( 'not_confirmed' )->create([
+            'fb_id' => null
+        ]);
 
-        $listener = new RegisteredListener();
+        $request = new Request();
+
+        $listener = new RegisteredListener($request);
         $listener->handle(new RegisteredEvent($user));
 
-        \Mail::assertSent(EmailVerification::class, function ($mail) use ($user) {
+        \Mail::assertQueued(EmailVerification::class, function ($mail) use ($user) {
             return $mail->user->id === $user->id;
         });
     }

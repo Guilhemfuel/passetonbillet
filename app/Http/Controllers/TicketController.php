@@ -16,6 +16,7 @@ use App\Http\Resources\TrainRessource;
 use App\Jobs\DownloadTicketPdf;
 use App\Mail\OfferEmail;
 use App\Models\Discussion;
+use App\Models\Statistic;
 use App\Notifications\OfferNotification;
 use App\Ticket;
 use App\Train;
@@ -52,12 +53,14 @@ class TicketController extends Controller
 
 
         // Make sure we don't have such a ticket yet
-        $oldTicket = Ticket::whereRaw("lower(eurostar_code) = ? ",strtolower($ticket->eurostar_code))
+        $oldTicket = Ticket::withScams()
+                           ->whereRaw( "lower(eurostar_code) = ? ", strtolower( $ticket->eurostar_code ) )
                            ->where( 'buyer_name', $ticket->buyer_name )
                            ->where( 'eurostar_ticket_number', $ticket->eurostar_ticket_number )
                            ->first();
         if ( $oldTicket ) {
             flash( __( 'tickets.sell.errors.duplicate' ) )->error()->important();
+
             return redirect()->route( 'public.ticket.sell.page' );
         }
 
@@ -66,6 +69,12 @@ class TicketController extends Controller
         $ticket->currency = $ticket->bought_currency;
         $ticket->user_notes = $request->notes;
         $ticket->save();
+
+        // Log the IP of the seller
+        AppHelper::stat( 'add_ticket', [
+            'ticket_id' => $ticket->id,
+            'ip_adress' => $request->ip(),
+        ] );
 
         // Now we want to generate the pdf
         DownloadTicketPdf::dispatch( $ticket );

@@ -87,6 +87,9 @@ return [
                 'code_sent'        => 'A text message with a validation code was sent to your number.',
                 'number_confirmed' => 'Success! Your phone number is confirmed. You can now sell your tickets!'
             ]
+        ],
+        'upload_id' => [
+            'last_step' =>''
         ]
     ],
     'buy'       => [

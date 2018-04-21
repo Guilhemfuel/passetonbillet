@@ -8,7 +8,40 @@
     <div class="container-fluid">
         <div class="row" id="sell-ticket">
             @if(Auth::user()->phone_verified)
-                <sell-ticket :api="child.sell_tickets.api" :lang="child.sell_tickets.lang" :user="user" :routes="child.sell_tickets.routes"></sell-ticket>
+
+                @if (Auth::user()->id_uploaded)
+                    <sell-ticket :api="child.sell_tickets.api" :lang="child.sell_tickets.lang" :user="user" :routes="child.sell_tickets.routes"></sell-ticket>
+                @else
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-header reverse">
+                                <h4 class="card-title mb-0">@lang('tickets.sell.title')</h4>
+                            </div>
+                            <div class="card-body justify-content-center d-flex">
+                                <div class="col-sm-12 col-md-10 col-lg-6">
+                                    <img class="mx-auto d-block mb-3 lastar-icon" style="width: 150px" src="{{secure_asset('img/icones/lastar-icon-id.png')}}">
+                                    <p class="text-justify">@lang('profile.modal.verify_identity.text')</p>
+                                    <p class="text-justify">@lang('profile.modal.verify_identity.list_title'):</p>
+                                    <ul>
+                                        @foreach( __('profile.modal.verify_identity.list_id') as $item)
+                                            <li>{{$item}}</li>
+                                        @endforeach
+                                    </ul>
+                                    <form method="post" action="{{route('public.profile.id.upload')}}" enctype="multipart/form-data">
+                                        {{csrf_field()}}
+                                        <div class="form-group">
+                                            <input class="form-control" type="file" name="scan">
+                                        </div>
+                                        <button type="submit" class="btn btn-block btn-lastar-blue">@lang('profile.modal.change_picture.cta')</button>
+                                    </form>
+                                    <br>
+                                    <p class="text-center">@lang('profile.modal.verify_identity.delay')</p>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                @endif
             @else
 
                 @if(!Auth::user()->phone_verification_sent)

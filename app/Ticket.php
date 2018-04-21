@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Traits\ScamFiltered;
 use Carbon\Carbon;
 use Hashids\Hashids;
 use Illuminate\Database\Eloquent\Model;
@@ -19,7 +20,7 @@ use Nicolaslopezj\Searchable\SearchableTrait;
 class Ticket extends Model
 {
 
-    use SearchableTrait, SoftDeletes;
+    use SearchableTrait, SoftDeletes, ScamFiltered;
 
     protected $dates = [ 'deleted_at', 'marked_as_fraud_at' ];
 

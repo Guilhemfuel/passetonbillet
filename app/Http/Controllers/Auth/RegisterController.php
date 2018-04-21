@@ -256,6 +256,9 @@ class RegisterController extends Controller
         $user->fb_id = session()->pull('fb_user_id');
         $user->save();
 
+        // Registered event triggered (used for email verification...)
+        event( new RegisteredEvent( $user ) );
+
         auth()->login($user);
         flash()->success(__('auth.social.success'));
         return redirect()->route('home');

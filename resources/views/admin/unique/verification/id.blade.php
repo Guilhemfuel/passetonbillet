@@ -31,7 +31,11 @@
                 </div>
                 <h4>Uploaded Id:</h4>
                 <div class="row">
+                    @if($user->idVerification->is_pdf)
                     <img class="mx-auto id-scan" src="{{$user->idVerification->scan}}"/>
+                    @else
+                    <embed src="{{$user->idVerification->scan}}" class="mx-auto id-scan" width="100%" height="400">
+                    @endif
                 </div>
 
 

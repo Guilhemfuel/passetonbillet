@@ -13,6 +13,7 @@ use Nexmo\Laravel\Facade\Nexmo;
 
 class UserController extends Controller
 {
+    const ID_PATH = 'id_verification';
 
     /**
      * Upload
@@ -24,7 +25,7 @@ class UserController extends Controller
     public function uploadId( Request $request )
     {
         $request->validate( [
-            'scan' => 'required|image'
+            'scan' => 'required|file|max:5000|mimes:jpeg,jpg,bmp,png,gif,svg,pdf'
         ] );
 
         // Make sure user isn't verified or does not have a pending verification
@@ -34,16 +35,23 @@ class UserController extends Controller
             return redirect()->route( 'public.profile.home' );
         }
 
-        $url = ImageHelper::resizeImageAndUploadToS3( 700, null, true, $request->scan, 'id_verification' );
+        // Store PDF or Image (resize images)
+        $scan = $request->scan;
+        $scanFileType = $scan->getClientOriginalExtension();
+        if (strtolower($scanFileType ) === 'pdf') {
+            \Storage::disk('s3')->putFileAs('/'.self::ID_PATH.'/', $scan,IdVerification::userIdFileName(\Auth::user(),$scanFileType));
+        } else {
+            ImageHelper::resizeImageAndUploadToS3( 700, null, true, $request->scan, self::ID_PATH, IdVerification::userIdFileName(\Auth::user(),$scanFileType) );
+        }
 
         $idVerif = new IdVerification( [
             'user_id' => \Auth::user()->id,
-            'scan'    => parse_url($url)['path']
+            'scan'    => self::ID_PATH.'/'.IdVerification::userIdFileName(\Auth::user(),$scanFileType)
         ] );
         $idVerif->save();
 
         flash( __( 'profile.modal.verify_identity.success' ) )->success();
-        return redirect()->route( 'public.profile.home' );
+        return redirect()->back();
     }
 
     /**
@@ -228,7 +236,7 @@ class UserController extends Controller
 
         $phoneVerification->delete();
 
-        flash( __( 'tickets.sell.confirm_number.errors.number_confirmed' ) )->success();
+        flash( __( 'tickets.sell.confirm_number.success.number_confirmed' ) )->success();
 
         return redirect()->back();
 

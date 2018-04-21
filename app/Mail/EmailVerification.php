@@ -3,9 +3,10 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\SerializesModels;
 
-class EmailVerification extends LastarMail
+class EmailVerification extends LastarMail implements ShouldQueue
 {
     use Queueable, SerializesModels;
 

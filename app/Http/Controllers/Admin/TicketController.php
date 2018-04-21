@@ -41,6 +41,7 @@ class TicketController extends BaseController
                                 ->orderBy( 'trains.departure_date' )
                                 ->orderBy( 'stations.name_en' )
                                 ->select('tickets.*', 'trains.departure_city','trains.departure_date','stations.name_en')
+                                ->withScams()
                                 ->get();
 
         $stations = Station::all()->pluck('short_name');
@@ -51,6 +52,24 @@ class TicketController extends BaseController
         $data = [ 'entities' => TicketTableResource::collection($entities),'stations'=>$stations, 'searchable' => $this->searchable, 'creatable' => $this->creatable ];
 
         return $this->lastarView( 'admin.CRUD.index', $data );
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int $id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function edit( $id )
+    {
+        $entity = $this->model::withScams()->find( $id );
+        if ( ! $entity ) {
+            flash()->error('Entity not found!');
+            return redirect()->back();
+        }
+
+        return $this->lastarView( 'admin.CRUD.edit', [ 'entity' => $entity ] );
     }
 
 
@@ -157,8 +176,7 @@ class TicketController extends BaseController
             return redirect()->back();
         }
 
-        $ticket->marked_as_fraud_at = Carbon::now();
-        $ticket->save();
+        $ticket->scam();
 
         flash('Ticket marked as scam.')->success();
         return redirect()->route( $this->CRUDmodelName . '.edit', $ticket->id );

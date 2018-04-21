@@ -2,6 +2,7 @@
 
 namespace App\Models\Verification;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -48,10 +49,19 @@ class IdVerification extends Model
         return static::where('accepted',null)->count();
     }
 
+    public static function userIdFileName(User $user, $fileType){
+        if ($fileType!='pdf') $fileType = 'jpg';
+        return \Vinkla\Hashids\Facades\Hashids::connection('file')->encode($user->id).md5($user->full_name).'.'.$fileType;
+    }
+
     /**
      * Mutators
      */
 
+
+    public function getIsPdfAttribute(){
+        return substr($this->scan,-3) == 'pdf';
+    }
 
     public function getScanAttribute($value){
         return \Storage::disk('s3')->temporaryUrl(ltrim($value, '/'),now()->addMinutes(5));

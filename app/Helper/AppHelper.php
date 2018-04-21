@@ -22,14 +22,18 @@ class AppHelper
         return str_replace($search, $replace, $string);
     }
 
-    public function stat($action,$data){
+    public function stat($action,$data,$user=null){
         if (\Auth::check()) {
             if (\Auth::user()->isAdmin()) {
                 return null;
             }
             return Statistic::create(['user_id'=>\Auth::user()->id,'action'=>$action,'data'=>json_encode($data)]);
         } else {
-            return Statistic::create(['data'=>json_encode($data),'action'=>$action]);
+            if ($user){
+                return Statistic::create(['user_id'=>$user->id,'action'=>$action,'data'=>json_encode($data)]);
+            } else {
+                return Statistic::create(['data'=>json_encode($data),'action'=>$action]);
+            }
         }
     }
 

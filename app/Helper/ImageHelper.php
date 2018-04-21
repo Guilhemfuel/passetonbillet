@@ -36,7 +36,7 @@ class ImageHelper
      *
      * @return string: path of the uploaded file
      */
-    public function resizeImageAndUploadToS3( $width, $height, $aspectRatio, $image, $destinationPath )
+    public function resizeImageAndUploadToS3( $width, $height, $aspectRatio, $image, $destinationPath, $filename = null )
     {
         $image = Image::make($image);
 
@@ -62,7 +62,7 @@ class ImageHelper
             }
         }
 
-        return $this->savePictureToS3( $image->stream('jpg'), $destinationPath );
+        return $this->savePictureToS3( $image->stream('jpg'), $destinationPath, $filename );
     }
 
 
@@ -75,14 +75,16 @@ class ImageHelper
      *
      * @return string: the path to the uploaded file
      */
-    private function savePictureToS3( $imageString, $destinationPath )
+    private function savePictureToS3( $imageString, $destinationPath, $filename = null )
     {
         $disk = 's3';
 
         // 0. Make the image
         $image = Image::make( $imageString );
-        // 1. Generate a filename.
-        $filename = md5( $imageString . time() . rand( 0, 100 ) ) . '.jpg';
+        // 1. Generate a filename if needed.
+        if (!$filename) {
+            $filename = md5( $imageString . time() . rand( 0, 100 ) ) . '.jpg';
+        }
         // 2. Store the image on disk.
         \Storage::disk( $disk )->put( $destinationPath . '/' . $filename, (string) $image->stream() );
 

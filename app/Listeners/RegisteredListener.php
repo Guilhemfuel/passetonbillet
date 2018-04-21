@@ -3,11 +3,18 @@
 namespace App\Listeners;
 
 use App\Events\RegisteredEvent;
+use App\Helper\AppHelper;
 use App\Mail\EmailVerification;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Http\Request;
 
-class RegisteredListener implements ShouldQueue
+class RegisteredListener
 {
+
+    public function __construct(Request $request)
+    {
+        $this->request = $request;
+    }
 
     /**
      * Handle the event.
@@ -17,6 +24,14 @@ class RegisteredListener implements ShouldQueue
      */
     public function handle(RegisteredEvent $event)
     {
-        \Mail::to($event->user)->send(new EmailVerification($event->user));
+        // If user registered with email
+        if (!$event->user->fb_id) {
+            \Mail::to( $event->user )->send( new EmailVerification( $event->user ) );
+        }
+
+        // Store event and IP
+        \AppHelper::stat( 'register', [
+            'ip_adress' => $this->request->ip()
+        ],$event->user );
     }
 }
