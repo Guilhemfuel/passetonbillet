@@ -251,4 +251,19 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Discussion', 'buyer_id')
             ->where('status',Discussion::SOLD);
     }
+
+    /**
+     *
+     * Boot
+     *
+     */
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting( function ( $ticket ) {
+            $ticket->tickets()->delete();
+        } );
+    }
 }

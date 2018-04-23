@@ -88,8 +88,8 @@ class Discussion extends Model
 
     public function getStatusTextAttribute()
     {
-        if ( $this->ticket_with_scams->sold_to_id != null ) {
-            if ( $this->ticket_with_scams->sold_to_id == $this->buyer->id ) {
+        if ( $this->ticket->sold_to_id != null ) {
+            if ( $this->ticket->sold_to_id == $this->buyer->id ) {
                 return 'Sold here';
             } else {
                 return 'Sold';
@@ -112,11 +112,6 @@ class Discussion extends Model
     public function getSellerAttribute()
     {
         return $this->ticket->user;
-    }
-
-    public function getTicketWithScamsAttribute()
-    {
-        return Ticket::withScams()->find($this->ticket_id);
     }
 
     /**
