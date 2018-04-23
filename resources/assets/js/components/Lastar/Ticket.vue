@@ -321,7 +321,7 @@
             },
             offerDone: function () {
                 if (this.buying && this.user) {
-                    return this.user.offers_sent && this.user.offers_sent.map(a => a.ticket_id).includes(this.ticket.id);
+                    return this.user.offers_sent && Array.isArray(this.user.offers_sent) && this.user.offers_sent.length>0 && this.user.offers_sent.map(a => a.ticket_id).includes(this.ticket.id);
                 }
                 return false;
             },

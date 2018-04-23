@@ -31,7 +31,7 @@ class ScamFilteredScope implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
-        $builder->whereNull($model->getQualifiedMarkedAsScamAtColumn());
+//        $builder->whereNull($model->getQualifiedMarkedAsScamAtColumn());
     }
 
     /**

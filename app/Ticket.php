@@ -120,7 +120,7 @@ class Ticket extends Model
         // Collect tickets for each of the trains
         $tickets = collect();
         foreach ( $trains as $train ) {
-            if ( $train->tickets ) {
+            if ( $train->tickets()->withoutScams() ) {
                 foreach ( $train->tickets as $ticket ) {
                     if ( ( ! \Auth::check() ) || \Auth::user()->id != $ticket->user_id ) {
                         if ( $ticket->sold_to_id == null ) {

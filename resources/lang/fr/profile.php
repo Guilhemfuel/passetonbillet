@@ -49,7 +49,7 @@ return [
         ],
         'verify_identity' => [
             'title' => 'Vérification d\'identité',
-            'text' => 'Afin d’assurer une sécurité maximum pour nos utilisateurs, vous devez vérifier la conformité de votre profil en nous envoyant un scan d’une de vos pièces d’identité.',
+            'text' => 'Afin d’assurer une sécurité maximum pour nos utilisateurs, vous devez vérifier la conformité de votre profil en nous envoyant une photo ou un scan d’une de vos pièces d’identité.',
             'list_title' => 'Pièces d\'identité acceptées',
             'list_id' => [
                 'passport' => 'Passeport',

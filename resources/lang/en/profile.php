@@ -49,7 +49,7 @@ return [
         ],
         'verify_identity' => [
             'title' => 'Identity check',
-            'text' => 'In order to guarantee an optimal level of security for our users, you must upload a copy of one of your identity documents to have your profile verified.',
+            'text' => 'In order to guarantee an optimal level of security for our users, you must upload a picture or a scan of one of your identity documents to have your profile verified.',
             'list_title' => 'Identification documents accepted',
             'list_id' => [
                 'passport' => 'Passport',
