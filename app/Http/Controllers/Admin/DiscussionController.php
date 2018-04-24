@@ -76,6 +76,7 @@ class DiscussionController extends BaseController
         }
 
         return redirect()->route($this->CRUDmodelName.'.edit',$entity->id);
+
     }
 
     /**
