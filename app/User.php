@@ -191,6 +191,18 @@ class User extends Authenticatable
         return $this->status == self::STATUS_BANNED_USER;
     }
 
+    // Lowercase email
+
+    public function getEmailAttribute($value)
+    {
+        return strtolower($value);
+    }
+
+    public function setEmailAttribute($value)
+    {
+        $this->attributes['email'] = strtolower($value);
+    }
+
 
     /**
      * RELATIONSHIPS

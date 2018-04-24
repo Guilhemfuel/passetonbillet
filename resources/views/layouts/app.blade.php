@@ -24,7 +24,7 @@
     <!-- Facebook MetaTags -->
     <meta property="fb:app_id" content="{{env('FB_APP_ID')}}"/>
 
-    <!-- Pusher App if-->
+    <!-- Pusher App id-->
     <meta name="pusher:app_key" content="{{env('PUSHER_APP_KEY')}}"/>
 
     <!-- CSRF Token -->
@@ -42,6 +42,8 @@
     </script>
     {{-- Adding Crisp Chat--}}
     <script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="16ad47a5-b681-444a-93bf-901198e51212";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
+
+    @yield('head')
 </head>
 
 <body>
