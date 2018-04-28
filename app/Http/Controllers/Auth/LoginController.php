@@ -64,6 +64,7 @@ class LoginController extends Controller
     {
         $credentials = $request->only($this->username(), 'password');
         $credentials['email_verified']=true;
+        $credentials['email'] = strtolower($credentials['email']);
         return $credentials;
     }
 
