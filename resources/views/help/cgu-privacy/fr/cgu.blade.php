@@ -55,12 +55,11 @@
                                 </p>
 
                                 <p class="ml-5">
-                                    Axel Amer & Julien Nahum
-                                    <br>Téléphone : +447507418244 & +44 7397 515743
+                                    Axel A. & Julien N.
                                     <br>Adresse e-mail : contact@lastar.io
 
                                     Les directeurs de publication du site sont :
-                                    Axel Amer & Julien Nahum.
+                                    Axel A. & Julien N.
 
                                 </p>
 
