@@ -53,7 +53,7 @@ class UserController extends Controller
 
         flash( __( 'profile.modal.verify_identity.success' ) )->success();
 
-        return redirect()->route('public.profile.home');
+        return redirect()->back();
     }
 
     /**
