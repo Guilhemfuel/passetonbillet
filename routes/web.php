@@ -13,10 +13,7 @@
 */
 
 Route::get('/test', function () {
-    $discussion = App\Models\Discussion::orderByDesc('created_at')->first();
-    $user = \App\User::first();
-
-    return new App\Mail\TicketSoldEmail($user,$discussion);
+    echo phpinfo();
 });
 
 // Home Page

@@ -24,7 +24,7 @@ class UserController extends Controller
      */
     public function uploadId( Request $request )
     {
-        $request->validate( [
+        $this->validate($request, [
             'scan' => 'required|file|max:5000|mimes:jpeg,jpg,bmp,png,gif,svg,pdf'
         ] );
 
@@ -34,6 +34,7 @@ class UserController extends Controller
 
             return redirect()->route( 'public.profile.home' );
         }
+
 
         // Store PDF or Image (resize images)
         $scan = $request->scan;
@@ -51,7 +52,8 @@ class UserController extends Controller
         $idVerif->save();
 
         flash( __( 'profile.modal.verify_identity.success' ) )->success();
-        return redirect()->back();
+
+        return redirect()->route('public.profile.home');
     }
 
     /**

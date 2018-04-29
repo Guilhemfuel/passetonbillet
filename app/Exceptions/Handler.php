@@ -74,9 +74,13 @@ class Handler extends ExceptionHandler
             return \Redirect::back()->withInput( $request->input() )->with( 'eurostar_error', $errorMsg );
         }
 
-        return response()->view('errors.500', [
-            'sentryID' => $this->sentryID,
-        ], 500);
+        if ( \App::environment() != 'local' && app()->bound( 'sentry' ) && $this->sentryShouldReport( $exception )  ){
+            return response()->view('errors.500', [
+                'sentryID' => $this->sentryID,
+            ], 500);
+        } else {
+            return parent::render( $request, $exception );
+        }
     }
 
     /**

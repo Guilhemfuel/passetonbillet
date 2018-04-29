@@ -38,7 +38,11 @@ class ImageHelper
      */
     public function resizeImageAndUploadToS3( $width, $height, $aspectRatio, $image, $destinationPath, $filename = null )
     {
+
         $image = Image::make($image);
+
+        dd('store');
+
 
         if ($width && $height) {
             $image->resize($width, $height);
@@ -61,6 +65,8 @@ class ImageHelper
 
             }
         }
+
+        dd('pk');
 
         return $this->savePictureToS3( $image->stream('jpg'), $destinationPath, $filename );
     }
