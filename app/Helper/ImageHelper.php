@@ -41,9 +41,6 @@ class ImageHelper
 
         $image = Image::make($image);
 
-        dd('store');
-
-
         if ($width && $height) {
             $image->resize($width, $height);
         } elseif ($width && !$height) {
@@ -65,8 +62,6 @@ class ImageHelper
 
             }
         }
-
-        dd('pk');
 
         return $this->savePictureToS3( $image->stream('jpg'), $destinationPath, $filename );
     }
