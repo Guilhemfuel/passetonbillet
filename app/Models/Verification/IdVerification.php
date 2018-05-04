@@ -60,7 +60,7 @@ class IdVerification extends Model
 
 
     public function getIsPdfAttribute(){
-        return substr($this->scan,-3) == 'pdf';
+        return substr($this->attributes['scan'],-3) == 'pdf';
     }
 
     public function getScanAttribute($value){

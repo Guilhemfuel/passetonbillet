@@ -17,7 +17,7 @@
                 <h4>User Details:</h4>
                 <div class="row user-info">
                     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                        <p>Full Name: {{$user->full_name}}</p>
+                        <p>Full Name: <a target="_blank" href="{{route('users.edit',$user->id)}}">{{$user->full_name}}</a></p>
                     </div>
                     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                         <p>Birthdate: {{$user->birthdate}}</p>
@@ -31,11 +31,13 @@
                 </div>
                 <h4>Uploaded Id:</h4>
                 <div class="row">
-                    @if($user->idVerification->is_pdf)
+                    <div class="col">
+                    @if(!$user->idVerification->is_pdf)
                     <img class="mx-auto id-scan" src="{{$user->idVerification->scan}}"/>
                     @else
                     <embed src="{{$user->idVerification->scan}}" class="mx-auto id-scan" width="100%" height="400">
                     @endif
+                    </div>
                 </div>
 
 
