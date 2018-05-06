@@ -15,7 +15,7 @@ return [
         ],
         'cheaper' => [
             'title' => 'Moins cher',
-            'text' => 'Voyager en Eurostar et moins cher que jamais.'
+            'text' => 'Voyager en europe et moins cher que jamais.'
         ],
         'safer' => [
             'title' => 'Plus sûr',

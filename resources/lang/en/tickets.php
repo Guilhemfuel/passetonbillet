@@ -47,7 +47,7 @@ return [
     ],
     'sell'      => [
         'title'         => 'Sell a ticket',
-        'description'   => 'Selling a ticket is very easy and super quick. All we need to do is to enter your name and your Eurostar booking code. All the tickets corresponding to your specific booking will appear and you only have to select those that you want to sell.',
+        'description'   => 'Selling a ticket is very easy and super quick. All we need to do is to enter your name and your booking code. All the tickets corresponding to your specific booking will appear and you only have to select those that you want to sell.',
         'inputs'        => [
             'last_name'    => 'Last name of any passenger',
             'booking_code' => 'Booking code, eg: QNUSHT',

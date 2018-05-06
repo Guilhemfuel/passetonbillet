@@ -78,9 +78,7 @@
                                     The Lastar.io site aims to:
                                 </p>
                                 <p class="ml-5">
-                                    Connect users who want to buy or sell Eurostar tickets between them. Tickets MUST be
-                                    pre-purchased on eurostar.com, snap.eurostar.com or sncf.com in order to be posted
-                                    on Lastar.io. Tickets MUST be nominative under the name of the Lastar.io user.
+                                    Connect users who want to buy or sell European train tickets between them. Tickets MUST be nominative under the name of the Lastar.io user.
                                 </p>
 
                                 <h4 class="mt-5 pb-3">ARTICLE 3. CONTACT
@@ -238,32 +236,32 @@
                                         the Digital Economy and Law No. 2004- 801 of 6 August 2004 on the protection of
                                         individuals with regard to the processing of personal data;
                                     </li>
-                                    <li> the sale of a fake Eurostar ticket between the users preventing a buyer from
+                                    <li> the sale of a fake European train ticket between the users preventing a buyer from
                                         taking the train indicated on the purchased ticket;
 
                                     </li>
-                                    <li> the sale of a Eurostar ticket in multiple copies between the users preventing a
+                                    <li> the sale of a European train ticket in multiple copies between the users preventing a
                                         buyer from taking the train indicated on the purchased ticket;
 
                                     </li>
-                                    <li> any legal problem involving the purchase and resale of Eurostar tickets;
+                                    <li> any legal problem involving the purchase and resale of European train tickets;
 
                                     </li>
-                                    <li> any physical problems that may occur during the exchange of Eurostar tickets
+                                    <li> any physical problems that may occur during the exchange of European train tickets
                                         between Lastar users;
 
                                     </li>
                                     <li> any financial problem including the non-receipt of the total or partial amount
-                                        corresponding to the selling price of a Eurostar ticket listed on Lastar.io that
-                                        may occur during the exchange of Eurostar tickets between users of Lastar.
+                                        corresponding to the selling price of an European train ticket listed on Lastar.io that
+                                        may occur during the exchange of European train tickets between users of Lastar.
 
                                     </li>
                                 </ul>
 
                                 <p>
                                     The publisher reminds users that the ONLY ONE UNIQUE role of the online platform
-                                    Lastar.io is to CONNECT INDIVIDUALS WISHING TO BUY OR RESELL EUROSTAR TICKETS UNDER
-                                    THEIR NAME, PURCHASED IN ADVANCE ON EUROSTAR.COM, SNAPEUROSTAR.COM OR SNCF.COM.
+                                    Lastar.io is to CONNECT INDIVIDUALS WISHING TO BUY OR RESELL EUROPEAN TRAIN TICKETS UNDER
+                                    THEIR NAME.
                                     LASTAR INC. IS NOT INVOLVED AND HAS NO RESPONSIBILITY IN ALL FINANCIAL TRANSACTIONS
                                     AND PHYSICAL AND VIRTUAL EXCHANGES AND PROBLEMS RELATED TO THE LATTERS AFTER TWO
                                     USERS OF THE PLATFORM HAVE BEEN CONNECTED TOGETHER THROUGH THE LASTAR.IO WEBSITE.

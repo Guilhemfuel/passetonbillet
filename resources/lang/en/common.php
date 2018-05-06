@@ -2,7 +2,7 @@
 
 return [
 
-    'catchline' => 'Creating a community of trusted buyers and sellers.</br>Find cheap and safe Eurostar tickets. Even at the very last minute.',
+    'catchline' => 'Creating a community of trusted buyers and sellers.</br>Find cheap and safe European train tickets. Even at the very last minute.',
     'button'    => [
         'buy'  => 'buy',
         'sell' => 'sell'

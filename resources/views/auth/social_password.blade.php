@@ -35,49 +35,77 @@
             </div>
             <div class="content">
 
-                <div id="socialRegister">
-                    <img class="profile-picture rounded-circle mx-auto" src="{{$user->avatar}}">
-                    <h2 class="text-center txt-primary mt-2">Hello {{$user->user['first_name']}}!</h2>
-                    <p class="mt-3">@lang('auth.social.last_step_pwd')</p>
-                    <form role="form"
-                          method="POST"
-                          id="pwd-form"
-                          action="{{route('fb.confirm')}}"
-                    >
-                        {{csrf_field()}}
+                    <social-register v-cloak>
+                        <img class="profile-picture rounded-circle mx-auto" src="{{$user->avatar}}">
+                        <h2 class="text-center txt-primary mt-2">Hello {{$user->user['first_name']}}!</h2>
+                        <p class="mt-3">@lang('auth.social.last_step_pwd')</p>
+                        <form role="form"
+                              method="POST"
+                              id="pwd-form"
+                              action="{{route('fb.confirm')}}"
+                        >
+                            {{csrf_field()}}
 
-                        <div class="col-xs-12 form-group">
-                            <label for="password" class="control-label">@lang('profile.modal.change_password.component.password')
-                                <small class="text-muted">(8 char. min)</small>
-                            </label>
-                            <input id="password" type="password"
-                                   class="form-control"
-                                   name="password"
-                                   required placeholder="@lang('profile.modal.change_password.component.password')">
+                            <div class="col-xs-12 form-group">
+                                <label for="password"
+                                       class="control-label">@lang('profile.modal.change_password.component.password')
+                                    <small class="text-muted">(8 char. min)</small>
+                                </label>
+                                <input id="password" type="password"
+                                       class="form-control"
+                                       name="password"
+                                       v-validate="'required|min:8'"
+                                       required placeholder="@lang('profile.modal.change_password.component.password')">
+                                <span v-cloak v-if="errors.has('password')" class="invalid-feedback d-inline">@{{ errors.first('password') }}</span>
 
-                        </div>
-
-                        <div class="col-xs-12 form-group">
-                            <label for="password-confirm"
-                                   class="control-label">@lang('profile.modal.change_password.component.password_confirm')</label>
-
-                            <input id="password-confirm" type="password"
-                                   class="form-control"
-                                   name="password_confirmation"
-                                   required placeholder="@lang('profile.modal.change_password.component.password_confirm')">
-                        </div>
-
-                        <div class="form-group mt-4">
-                            <div class="col-xs-12">
-                                <button type="submit" class="btn btn-lastar-blue btn-block">
-                                    @lang('auth.register.title')
-                                </button>
                             </div>
-                        </div>
 
-                    </form>
-                </div>
+                            <div class="col-xs-12 form-group">
+                                <label for="password-confirm"
+                                       class="control-label">@lang('profile.modal.change_password.component.password_confirm')</label>
+
+                                <input id="password-confirm" type="password"
+                                       class="form-control"
+                                       name="password_confirmation"
+                                       v-validate="'required|confirmed:password|min:8'"
+                                       required
+                                       placeholder="@lang('profile.modal.change_password.component.password_confirm')">
+                                <span v-cloak
+                                      :class="{'invalid-feedback':true,'d-inline':errors.has('password_confirmation')}">@{{ errors.first('password_confirmation') }}</span>
+                            </div>
+
+                            <div class="form-group mt-4">
+                                <div class="col-xs-12">
+                                    <button class="btn btn-lastar-blue btn-block" @click.prevent="validateBeforeSubmit">
+                                        @lang('auth.register.title')
+                                    </button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </social-register>
             </div>
         </div>
     </div>
 @endsection
+
+@push('vue-data')
+    <script type="application/javascript">
+
+        Vue.component('social-register', {
+            data: function () {
+                return {
+                    count: 0
+                }
+            },
+            methods: {
+                validateBeforeSubmit() {
+                    this.$validator.validateAll().then((result) => {
+                        console.log('ok');
+                    });
+                }
+            },
+            template: '<div id="socialRegister"><slot></slot></div>'
+        });
+    </script>
+@endpush

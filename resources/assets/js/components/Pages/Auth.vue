@@ -136,9 +136,14 @@
                         <div class="col-xs-12 form-group">
                             <label for="birthdate" class="control-label">{{lang.register.birthdate}}</label>
 
-                            <datepicker id="birthdate" type="date"
-                                        name="birthdate" placeholder="DD/MM/YYYY" v-model="form.birthdate"
-                                        popper-class="birthdate"></datepicker>
+                            <cleave id="birthdate"
+                                    name="birthdate"
+                                    placeholder="DD/MM/YYYY"
+                                    class="form-control"
+                                    v-model="form.birthdate"
+                                    :options="{
+                                        date: true,
+                                        datePattern: ['d', 'm', 'Y']}"></cleave>
                         </div>
 
                         <div class="col-xs-12 form-group">
@@ -386,7 +391,7 @@
                 registerType: this.registerStates.default,
                 customErrors: [],
                 form: {
-                    gender: 1,
+                    gender: 0,
                     first_name: this.old ? (this.old.first_name ? this.old.first_name : null) : null,
                     last_name: this.old ? (this.old.last_name ? this.old.last_name : null) : null,
                     location: this.old ? (this.old.location ? this.old.location : null) : null,

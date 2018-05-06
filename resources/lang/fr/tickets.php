@@ -45,7 +45,7 @@ return [
     ],
     'sell'      => [
         'title'         => 'Vendre un billet',
-        'description'   => 'Vendre un billet est très simple et très rapide. Tout ce que vous avez à faire est d\'entrer votre nom de famille ainsi que votre numéro de réservation Eurostar. Tous les tickets correspondants à cette reservation vont alors aparaître et vous n\'aurez plus qu\'à séléctionner ceux que vous souhaitez mettre en vente.',
+        'description'   => 'Vendre un billet est très simple et très rapide. Tout ce que vous avez à faire est d\'entrer votre nom de famille ainsi que votre numéro de réservation. Tous les tickets correspondants à cette reservation vont alors aparaître et vous n\'aurez plus qu\'à séléctionner ceux que vous souhaitez mettre en vente.',
         'inputs'        => [
             'last_name'    => 'Nom de famille associé à la reservation',
             'booking_code' => 'Référence de réservation, ex: QNUSHT',

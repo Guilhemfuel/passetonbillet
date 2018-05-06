@@ -15,7 +15,7 @@ return [
         ],
         'cheaper' => [
             'title' => 'So Cheap',
-            'text'  => 'It has never been cheaper to take the Eurostar.'
+            'text'  => 'It has never been cheaper to take travel through Europe.'
         ],
         'safer'   => [
             'title' => 'So Safe',

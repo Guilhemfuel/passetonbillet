@@ -42,7 +42,7 @@ return [
         'account_confirmed'      => 'Congratulations! Your account is now activated. You can already login by clicking <a href="' . route( 'login.page' ) . '">here</a> !',
         'fb_register' => 'Register with Facebook',
 
-        'ticketLinkMessage' => 'Register now on Lastar to be able to buy and sell Eurostar tickets in a safe, quick, and cheap way.'
+        'ticketLinkMessage' => 'Register now on Lastar to be able to buy and sell European trains tickets in a safe, quick, and cheap way.'
     ],
     'auth'         => [
         'title'              => 'Login',

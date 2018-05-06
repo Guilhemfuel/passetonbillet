@@ -79,9 +79,7 @@
                                 </p>
                                 <p class="ml-5">
                                     Mettre en relation des utilisateurs souhaitant acheter ou vendre des billets
-                                    Eurostar entre eux. Les billets doivent IMPERATIVEMENT être achetés au préalablement
-                                    sur eurostar.com, snap.eurostar.com ou sncf.com afin de pouvoir être postés sur
-                                    Lastar.io. Les billets doivent IMPERATIVEMENT être nominatifs sous le nom de
+                                    de train européen entre eux. Les billets doivent IMPERATIVEMENT être nominatifs sous le nom de
                                     l'utilisateur Lastar.io.
                                 </p>
 
@@ -250,25 +248,25 @@
                                         protection des
                                         personnes physiques à l'égard de traitement de données à caractère personnel;
                                     </li>
-                                    <li> de la vente d’un faux billet Eurostar entre les utilisateurs empêchant un
+                                    <li> de la vente d’un faux billet de train européen entre les utilisateurs empêchant un
                                         acheteur de
                                         prendre le train indiqué sur le billet acheté ;
                                     </li>
-                                    <li> de la vente d’un billet Eurostar en plusieurs exemplaires entre les
+                                    <li> de la vente d’un billet de train européen en plusieurs exemplaires entre les
                                         utilisateurs
                                         empêchant un acheteur de prendre le train indiqué sur le billet acheté ;
                                     </li>
-                                    <li> de tout problème légal impliquant l’achat et la revente de billets Eurostar ;
+                                    <li> de tout problème légal impliquant l’achat et la revente de billets de train européen ;
                                     </li>
                                     <li> de tout problème physique pouvant survenir lors de l’échange de billets
-                                        Eurostar entre
+                                        de train européen entre
                                         les utilisateurs Lastar ;
                                     </li>
                                     <li> de tout problème financiers incluant la non réception de la somme totale ou
                                         partiale
-                                        correspondant au prix de vente d’un billet Eurostar listé sur Lastar.io pouvant
+                                        correspondant au prix de vente d’un billet de train européen listé sur Lastar.io pouvant
                                         survenir
-                                        lors de l’échange de billets Eurostar entre les utilisateurs de Lastar.
+                                        lors de l’échange de billets de train européen entre les utilisateurs de Lastar.
                                     </li>
                                 </ul>
 
@@ -277,9 +275,7 @@
                                     ligne
                                     Lastar.io est de METTRE EN RELATIONS DES INDIVIDUS SOUHAITANT ACHETER OU REVENDRE
                                     DES
-                                    BILLETS EUROSTAR À LEUR NOM, ACHETÉS AU PRÉALABLE SUR EUROSTAR.COM, SNAPEUROSTAR.COM
-                                    OU
-                                    SNCF.COM. EN AUCUN CAS LASTAR INC. N’EST IMPLIQUÉE ET NE POSSÈDE AUCUNE
+                                    BILLETS DE TRAIN EUROPÉEN À LEUR NOM. EN AUCUN CAS LASTAR INC. N’EST IMPLIQUÉE ET NE POSSÈDE AUCUNE
                                     REPONSABILITÉ
                                     DANS TOUTES LES TRANSACTIONS FINANCIÈRES ET ÉCHANGES PHYSIQUES ET VIRTUELS AINSI QUE
                                     LES
