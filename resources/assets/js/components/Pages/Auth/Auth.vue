@@ -134,7 +134,7 @@
                         </div>
 
                         <div class="col-xs-12 form-group">
-                            <label for="birthdate" class="control-label">{{lang.register.birthdate}}</label>
+                            <label for="birthdate" class="control-label">{{lang.register.birthdate}} (DD/MM/YYYY)</label>
 
                             <cleave id="birthdate"
                                     name="birthdate"
