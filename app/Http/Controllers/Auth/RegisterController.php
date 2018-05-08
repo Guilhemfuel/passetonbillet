@@ -183,9 +183,20 @@ class RegisterController extends Controller
      */
     public function fb_callback()
     {
-        $providerUser = \Socialite::driver('facebook')->fields([
-            'first_name', 'last_name', 'email', 'gender', 'birthday','locale','picture'
-        ])->user();
+        try {
+            $providerUser = \Socialite::driver( 'facebook' )->fields( [
+                'first_name',
+                'last_name',
+                'email',
+                'gender',
+                'birthday',
+                'locale',
+                'picture'
+            ] )->user();
+        } catch (\Exception $e){
+            flash(__('common.error'))->error();
+            return redirect()->route('register.page');
+        }
 
         $user = User::where('fb_id', $providerUser['id'])->first();
         if ($user){

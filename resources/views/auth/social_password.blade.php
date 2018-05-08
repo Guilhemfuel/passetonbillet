@@ -35,55 +35,12 @@
             </div>
             <div class="content">
 
-                    <social-register v-cloak>
-                        <img class="profile-picture rounded-circle mx-auto" src="{{$user->avatar}}">
-                        <h2 class="text-center txt-primary mt-2">Hello {{$user->user['first_name']}}!</h2>
-                        <p class="mt-3">@lang('auth.social.last_step_pwd')</p>
-                        <form role="form"
-                              method="POST"
-                              id="pwd-form"
-                              action="{{route('fb.confirm')}}"
-                        >
-                            {{csrf_field()}}
-
-                            <div class="col-xs-12 form-group">
-                                <label for="password"
-                                       class="control-label">@lang('profile.modal.change_password.component.password')
-                                    <small class="text-muted">(8 char. min)</small>
-                                </label>
-                                <input id="password" type="password"
-                                       class="form-control"
-                                       name="password"
-                                       v-validate="'required|min:8'"
-                                       required placeholder="@lang('profile.modal.change_password.component.password')">
-                                <span v-cloak v-if="errors.has('password')" class="invalid-feedback d-inline">@{{ errors.first('password') }}</span>
-
-                            </div>
-
-                            <div class="col-xs-12 form-group">
-                                <label for="password-confirm"
-                                       class="control-label">@lang('profile.modal.change_password.component.password_confirm')</label>
-
-                                <input id="password-confirm" type="password"
-                                       class="form-control"
-                                       name="password_confirmation"
-                                       v-validate="'required|confirmed:password|min:8'"
-                                       required
-                                       placeholder="@lang('profile.modal.change_password.component.password_confirm')">
-                                <span v-cloak
-                                      :class="{'invalid-feedback':true,'d-inline':errors.has('password_confirmation')}">@{{ errors.first('password_confirmation') }}</span>
-                            </div>
-
-                            <div class="form-group mt-4">
-                                <div class="col-xs-12">
-                                    <button class="btn btn-lastar-blue btn-block" @click.prevent="validateBeforeSubmit">
-                                        @lang('auth.register.title')
-                                    </button>
-                                </div>
-                            </div>
-
-                        </form>
-                    </social-register>
+                <social-password :user="child.social_pwd.social_user"
+                                 :lang-auth="child.social_pwd.lang_auth"
+                                 :lang-profile="child.social_pwd.lang_profile"
+                                 :route-fb-confirm="child.social_pwd.route_fb_confirm"
+                >
+                </social-password>
             </div>
         </div>
     </div>
@@ -92,20 +49,12 @@
 @push('vue-data')
     <script type="application/javascript">
 
-        Vue.component('social-register', {
-            data: function () {
-                return {
-                    count: 0
-                }
-            },
-            methods: {
-                validateBeforeSubmit() {
-                    this.$validator.validateAll().then((result) => {
-                        console.log('ok');
-                    });
-                }
-            },
-            template: '<div id="socialRegister"><slot></slot></div>'
-        });
+        data.social_pwd = {
+            lang_profile: {!! json_encode(__('profile')) !!},
+            lang_auth: {!! json_encode(__('auth')) !!},
+            social_user: {!! json_encode($user) !!},
+            route_fb_confirm: "{{route('fb.confirm')}}"
+        }
+
     </script>
 @endpush

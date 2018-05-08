@@ -43,7 +43,8 @@ Vue.component('ticket-mini', require('./components/Lastar/Ticket-Mini.vue'));
 
 
 // Pages
-Vue.component('auth', require('./components/Pages/Auth.vue'));
+Vue.component('auth', require('./components/Pages/Auth/Auth.vue'));
+Vue.component('social-password', require('./components/Pages/Auth/SocialPassword.vue'));
 Vue.component('sell-ticket', require('./components/Pages/Tickets/Sell.vue'));
 Vue.component('buy-ticket', require('./components/Pages/Tickets/Buy.vue'));
 Vue.component('my-tickets', require('./components/Pages/Tickets/Mytickets.vue'));
