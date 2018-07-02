@@ -11,10 +11,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-//
-//Route::get('/test', function () {
-//    echo phpinfo();
-//});
 
 // Home Page
 Route::get( '/', 'PageController@home' )->name( 'home' );
@@ -25,23 +21,6 @@ Route::get( '/home', function(){
 
 // Lang
 Route::get( 'lang/{lang}', 'LanguageController@switchLang' )->name( 'lang' );
-
-
-// Allow Facebook webhook
-Route::get('fb/webhook',function(\Illuminate\Http\Request $request){
-    $token = 'token';
-    $challenge = $request->hub_challenge;
-    $hubMode = $request->hub_mode;
-    $hubVerifyToken = $request->hub_verify_token;
-
-    if ($hubMode && $hubVerifyToken){
-        if ($hubMode == 'subscribe' && $token == $hubVerifyToken){
-            return response($challenge);
-        } else {
-            return response(null,403);
-        }
-    }
-});
 
 /**
  * Auth - login, register routes
