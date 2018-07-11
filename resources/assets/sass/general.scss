@@ -44,6 +44,8 @@ html, body {
 }
 
 ////// Colors //////
+
+// TODO: delete these grtadients
 .purple-gradient {
   background: $color-purple; /* fallback for old browsers */
   background: -webkit-linear-gradient(left top, $color-purple, $color-pink); /* Chrome 10-25, Safari 5.1-6 */
@@ -75,6 +77,20 @@ html, body {
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#{ie-hex-str(rgba($color-purple, $opacity))}', endColorstr='#{ie-hex-str(rgba($color-pink, $opacity))}',GradientType=0 ); /* IE6-9 */
 }
 
+@mixin orange-gradient( $opacity) {
+  background: -moz-linear-gradient(top, rgba($color-orange, $opacity) 0%, rgba($color-orange-dark, $opacity) 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, rgba($color-orange, $opacity) 0%, rgba($color-orange-dark, $opacity) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, rgba($color-orange, $opacity) 0%, rgba($color-orange-dark, $opacity) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#{ie-hex-str(rgba($color-orange, $opacity))}', endColorstr='#{ie-hex-str(rgba($color-orange-dark, $opacity))}',GradientType=0 ); /* IE6-9 */
+}
+
+@mixin orange-gradient-reverse( $opacity) {
+  background: -moz-linear-gradient(top, rgba($color-orange-dark, $opacity) 0%, rgba($color-orange, $opacity) 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, rgba($color-orange-dark, $opacity) 0%, rgba($color-orange, $opacity) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, rgba($color-orange-dark, $opacity) 0%, rgba($color-orange, $opacity) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#{ie-hex-str(rgba($color-orange-dark, $opacity))}', endColorstr='#{ie-hex-str(rgba($color-orange, $opacity))}',GradientType=0 ); /* IE6-9 */
+}
+
 .blue-gradient {
   background: $color-blue; /* fallback for old browsers */
   background: -webkit-linear-gradient(left top, $color-blue, $color-neon); /* Chrome 10-25, Safari 5.1-6 */
@@ -85,12 +101,13 @@ html, body {
 
 .btn {
   cursor: pointer;
+  border-radius: 40px;
 }
 
 ////// Buttons /////
 .btn-white {
   background-color: white;
-  color: $color-purple;
+  color: $color-orange;
   cursor: pointer;
 
   &:hover {
@@ -98,6 +115,7 @@ html, body {
   }
 }
 
+// TODO: delete lastar button
 .btn-lastar {
   @extend .purple-gradient;
   color: white;
@@ -118,6 +136,21 @@ html, body {
   }
 }
 
+.btn-ptb {
+  background-color: $color-orange;
+  color: white;
+  cursor: pointer;
+  padding-left: 20px;
+  padding-right: 20px;
+
+  text-decoration: none;
+
+  &:hover {
+    opacity: 0.8;
+    color: white;
+  }
+}
+
 .btn-outline-white {
   background-color: transparent;
   color: white;
@@ -126,7 +159,7 @@ html, body {
 
   &:hover {
     background-color: white;
-    color: $color-purple;
+    color: $color-orange;
     border: 0px;
   }
 }
@@ -135,6 +168,19 @@ html, body {
   background-color: transparent;
   color: $color-purple;
   border: 1px solid $color-purple !important;
+  cursor: pointer;
+
+  &:hover {
+    @extend .purple-gradient;
+    color: white;
+    border: 0px;
+  }
+}
+
+.btn-outline-orange {
+  background-color: transparent;
+  color: $color-orange;
+  border: 1px solid $color-orange !important;
   cursor: pointer;
 
   &:hover {

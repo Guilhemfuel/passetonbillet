@@ -8,9 +8,9 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'login' => 'Connexion',
+    'login' => 'Se Connecter',
     'logout' => 'Déconnexion',
-    'register'    => 'Inscription',
+    'register'    => 'S\'inscrire',
     'home'    => 'Home',
     'messages'    => 'Messages',
     'messages.mobile'    => 'Messages',

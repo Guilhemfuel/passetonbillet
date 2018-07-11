@@ -3,6 +3,11 @@
   width: 100%;
   min-height: 100%;
 
+  .main-logo {
+    width: 50%;
+    min-width: 280px;
+  }
+
   .section-header {
     min-height: 100vh;
     width: 100%;
@@ -10,18 +15,20 @@
     .first-section{
       background-position: center center;
       background-size: cover;
+      background-color: #4A4A4A;
+      background-blend-mode: multiply;
       min-height: 100vh;
       display: flex;
 
       .fixed-content{
-        //@extend .purple-gradient;
-        @include purple-gradient-reverse(.9);
         top: 0;
         bottom: 0;
         flex: 1;
         position: relative;
         width: 100%;
         padding-bottom: 20px;
+
+
       }
 
       .content {
@@ -30,17 +37,30 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        text-align: center;
 
         .center{
           margin-top: -60px;
         }
+
       }
+    }
+
+    .navbar {
+      padding: 20px;
+      padding-left: 35px;
+      padding-right: 35px;
     }
 
     .navbar-brand {
       img {
-        width: 130px;
+        width: 160px;
       }
+    }
+
+    .nav-item {
+      margin-left: 10px;
+
     }
 
     .nav-link {
@@ -49,13 +69,31 @@
       font-weight: 400;
       padding-left: 10px;
       padding-right: 10px;
-      font-size: 20px;
+      font-size: 18px;
+
+      &.btn-ptb {
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-left: 25px;
+        padding-right: 25px;
+        margin-top: 4px;
+      }
+
+      .fa {
+        font-size: 22px;
+      }
+
+      &.flag {
+        padding-top: 3px;
+      }
     }
 
+
+
     .flag-icon {
-      border-radius: 18px;
-      width: 18px;
-      height: 18px;
+      border-radius: 24px;
+      width: 24px;
+      height: 24px;
       background-size: cover;
       background-position: center center;
       box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
@@ -76,72 +114,6 @@
         text-transform: uppercase;
         margin: 0px 10px;
         font-weight: 600;
-      }
-    }
-
-    .tickets {
-      margin-top: 40px;
-      position: relative;
-      width: 760px;
-
-      .first-ticket {
-        position: absolute;
-        z-index: 1;
-        width: 250px;
-      }
-
-      .third-ticket {
-        width: 250px;
-        position: absolute;
-        left: 510px;
-        top: 0px;
-      }
-
-      .secund-ticket {
-        width: 300px;
-        position: relative;
-        left: 230px;
-        top: -10px;
-        z-index: 3;
-        .card-travel-info {
-          padding-top: 40px;
-          padding-bottom: 30px;
-        }
-        .card-ticket .card-travel-info .day {
-          margin-top: 0px;
-        }
-      }
-
-      .card-ticket {
-        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.4);
-        border-width: 0px;
-      }
-    }
-
-    .tickets-sm {
-      justify-content: center;
-      .card-ticket {
-        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.4);
-        border-width: 0px;
-      }
-
-      .first-ticket, .secund-ticket {
-        width: 250px;
-        margin: 20px;
-      }
-    }
-
-    .tickets-xs {
-      justify-content: center;
-
-      .card-ticket {
-        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.4);
-        border-width: 0px;
-      }
-
-      .first-ticket {
-        width: 250px;
-        margin: 20px;
       }
     }
 
@@ -194,11 +166,10 @@
   }
 
   .section-advantages {
-    @extend .purple-gradient.reverse;
+    background-color: white;
     width: 100%;
     padding-top: 50px;
     padding-bottom: 50px;
-    border-bottom: 2px solid white;
 
     .svg-icon {
       width: 150px;
@@ -208,16 +179,20 @@
 
     .advantage-title {
       text-align: center;
-      color: white;
+      color: $color-orange;
       margin-top: 15PX;
     }
 
     .advantage-text {
-      width: 150px;
+
+      @include media-breakpoint-down(md){
+        width: 200px;
+      }
+
       text-align: center;
       display: block;
       margin: 0px auto;
-      color: white;
+      color: black;
     }
   }
 

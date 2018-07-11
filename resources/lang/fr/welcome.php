@@ -9,18 +9,20 @@ return [
     */
 
     'advantages' => [
+        'why_use' => 'POURQUOI UTILISER',
         'quicker' => [
-            'title' => 'Rapide',
-            'text' => 'L\'achat et la vente de billet est plus rapide que jamais.'
+            'title' => 'Plus Rapide',
+            'text' => 'Grâce à de nombreuses nouvelles fonctionnalités, vous pourrez ajouter et télécharger vos billets en un seul clic !'
         ],
         'cheaper' => [
-            'title' => 'Moins cher',
-            'text' => 'Voyager en europe et moins cher que jamais.'
+            'title' => '100% Gratuit',
+            'text' => 'Pour nous faire pardonner de vous avoir fait patienter pendant des mois, la nouvelle version de Passetonbillet.fr sera dans un premier temps 100% gratuit pour les acheteurs et les vendeurs !'
         ],
         'safer' => [
-            'title' => 'Plus sûr',
-            'text' => 'Obtenir son billet est maintenant plus sur que jamais.'
-        ]
+            'title' => 'Plus Sécurisé',
+            'text' => 'Nous avons mis en place différents procédés de sécurité qui permettront de réduire considérablement le nombre d’arnaques !'
+        ],
+        'more_info' => 'En savoir plus'
     ],
     'footer' => [
         'about' => 'À Propos de Lastar',
