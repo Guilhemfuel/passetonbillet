@@ -53,7 +53,7 @@
 
                     <div class="form-group mt-2">
                         <div class="col-xs-12">
-                            <button type="submit" class="btn btn-lastar-blue btn-block">
+                            <button type="submit" class="btn btn-ptb-blue btn-block">
                                 {{lang.auth.title}}
                             </button>
                         </div>
@@ -190,7 +190,7 @@
 
                         <!--TODO: Accept rules checkbox + Captcha -->
 
-                        <button type="submit" class="btn btn-lastar-blue btn-block mt-4">
+                        <button type="submit" class="btn btn-ptb-blue btn-block mt-4">
                             {{lang.register.title}}
                         </button>
 
@@ -200,7 +200,7 @@
                         <a class="btn btn-facebook" :href="routes.facebook">
                             <i class="fa fa-facebook pull-left"></i> Facebook Connect
                         </a>
-                        <button class="btn btn-outline-purple" @click.prevent="openLogin()">
+                        <button class="btn btn-outline-orange" @click.prevent="openLogin()">
                             {{lang.auth.title}}
                         </button>
                     </div>
@@ -216,7 +216,7 @@
                     <a class="btn btn-facebook btn-block" :href="routes.facebook">
                         <i class="fa fa-facebook pull-left"></i> {{lang.register.fb_register}}
                     </a>
-                    <button class="btn btn-outline-purple btn-block" @click.prevent="registerType = registerStates.form">
+                    <button class="btn btn-outline-orange btn-block" @click.prevent="registerType = registerStates.form">
                         {{lang.register.manually}}
                     </button>
                 </div>
@@ -256,17 +256,17 @@
 
                     <div class="form-group mt-4">
                         <div class="col-xs-12">
-                            <button type="submit" class="btn btn-lastar-blue btn-block">
+                            <button type="submit" class="btn btn-ptb-blue btn-block">
                                 {{lang.reset.submit}}
                             </button>
                         </div>
                     </div>
                 </form>
                 <div class="btn-rack mt-4">
-                    <button class="btn btn-outline-purple" @click.prevent="openRegister()">
+                    <button class="btn btn-outline-orange" @click.prevent="openRegister()">
                         {{lang.register.title}}
                     </button>
-                    <button class="btn btn-outline-purple" @click.prevent="openLogin()">
+                    <button class="btn btn-outline-orange" @click.prevent="openLogin()">
                         {{lang.auth.title}}
                     </button>
                 </div>
@@ -329,17 +329,17 @@
 
                     <div class="form-group mt-4">
                         <div class="col-xs-12">
-                            <button type="submit" class="btn btn-lastar-blue btn-block">
+                            <button type="submit" class="btn btn-ptb-blue btn-block">
                                 {{lang.new_password.submit}}
                             </button>
                         </div>
                     </div>
                 </form>
                 <div class="btn-rack mt-4">
-                    <button class="btn btn-outline-purple" @click.prevent="openRegister()">
+                    <button class="btn btn-outline-orange" @click.prevent="openRegister()">
                         {{lang.register.title}}
                     </button>
-                    <button class="btn btn-outline-purple" @click.prevent="openLogin()">
+                    <button class="btn btn-outline-orange" @click.prevent="openLogin()">
                         {{lang.auth.title}}
                     </button>
                 </div>
@@ -352,7 +352,7 @@
 <script>
 
 
-    var defaultPageTitle = 'Lastar - ';
+    var defaultPageTitle = 'PasseTonBillet - ';
     export default {
         props: {
             token: {required: false},

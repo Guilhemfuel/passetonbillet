@@ -229,14 +229,6 @@ class PageController extends Controller
     }
 
     /**
-     * Display the contact page
-     */
-    public function partners()
-    {
-        return view( 'help.partners' );
-    }
-
-    /**
      * Display the about page
      */
     public function about()

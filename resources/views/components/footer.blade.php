@@ -1,6 +1,6 @@
 <div class="section-footer">
     <div class="container">
-        <p class="text-center text-white pt-4">Lastar ©</p>
+        <p class="text-center text-white pt-4">PasseTonBillet ©</p>
         <div class="footer-content">
             <div class="text-white">
                 <div class="row">
@@ -12,9 +12,6 @@
                     </div>
                     <div class="col-sm-4 col-12">
                         <a href="{{route('contact.page')}}" class="text-white">@lang('welcome.footer.contact')</a>
-                    </div>
-                    <div class="col-sm-4 col-12">
-                        <a href="{{route('partners.page')}}" class="text-white">@lang('welcome.footer.partners')</a>
                     </div>
                     <div class="col-sm-4 col-12">
                         <a class="text-white" href="{{route('cgu.page')}}">@lang('welcome.footer.conditions')</a>

@@ -25,7 +25,7 @@ return [
         'more_info' => 'En savoir plus'
     ],
     'footer' => [
-        'about' => 'À Propos de Lastar',
+        'about' => 'Qui sommes-nous',
         'help' => 'Aide',
         'contact' => 'Contact',
         'partners'   => 'Partenaires',

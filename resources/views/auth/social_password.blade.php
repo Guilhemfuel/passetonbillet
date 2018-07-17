@@ -7,10 +7,10 @@
 @section('content')
 
     <div class="row auth">
-        <div class="col-12 col-sm-6 purple-gradient left-panel">
+        <div class="col-12 col-sm-6 left-panel">
             {{--TODO: full sticky only visible on large screens, remains to do mobile version--}}
             <div class="content">
-                <a href="{{route('home')}}"><img class="lastar-logo mx-auto" src="{{secure_asset('img/logo.png')}}"></a>
+                <a href="{{route('home')}}"><img class="logo mx-auto" src="{{secure_asset('img/logo.png')}}"></a>
                 <div class="actions btn-rack mt-4">
                     <button class="btn btn-white">
                         Find a ticket

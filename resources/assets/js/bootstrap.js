@@ -68,8 +68,6 @@ import langEn from 'element-ui/lib/locale/lang/en';
 import langFr from 'element-ui/lib/locale/lang/fr';
 import locale from 'element-ui/lib/locale';
 
-import '../sass/element-variables.scss'
-
 if (lang === 'fr') {
     locale.use(langFr)
 } else {

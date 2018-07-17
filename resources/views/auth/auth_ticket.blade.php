@@ -26,9 +26,9 @@
 @section('content')
 
     <div class="row auth" id="authComponent">
-        <div class="col-12 col-sm-6 purple-gradient left-panel">
+        <div class="col-12 col-sm-6 left-panel">
             <div class="content">
-                <a href="{{route('home')}}"><img class="lastar-logo lastar-logo-sm mx-auto" src="{{secure_asset('img/logo.png')}}"></a>
+                <a href="{{route('home')}}"><img class="logo logo-sm mx-auto" src="{{secure_asset('img/logo.png')}}"></a>
                 <div class="actions btn-rack mt-4">
                     <a href="{{route('about.page')}}" class="btn btn-outline-white">
                         About us

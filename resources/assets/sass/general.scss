@@ -48,6 +48,34 @@ html, body {
   font-family: 'DIN Condensed';
 }
 
+////// Forms //////
+
+.form-group {
+  label {
+    text-transform: uppercase;
+    font-size: 12px;
+    color: $color-sub-title;
+    margin-bottom: 0px;
+  }
+}
+
+.form-control {
+
+  ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: $color-placeholder;
+    opacity: 1; /* Firefox */
+  }
+
+  &.invalid {
+    border-color: $color-red;
+
+    &:focus {
+      box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, .25);
+    }
+  }
+}
+
+
 ////// Colors //////
 
 // TODO: delete these grtadients
@@ -131,7 +159,7 @@ html, body {
   }
 }
 
-.btn-lastar-blue {
+.btn-ptb-blue,.btn-lastar-blue {
   @extend .blue-gradient;
   color: white;
   cursor: pointer;
@@ -189,7 +217,7 @@ html, body {
   cursor: pointer;
 
   &:hover {
-    @extend .purple-gradient;
+    @include orange-gradient(1);
     color: white;
     border: 0px;
   }

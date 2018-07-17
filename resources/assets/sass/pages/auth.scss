@@ -38,7 +38,7 @@
       padding: 20px 0px;
       min-width: 280px;
 
-      .lastar-logo {
+      .logo {
         width: 250px;
         display: block;
 
@@ -46,7 +46,7 @@
           width: 200px;
         }
 
-        &.lastar-logo-sm {
+        &.logo-sm {
           width: 180px !important;
         }
       }
@@ -65,7 +65,11 @@
     }
   }
   .left-panel {
-
+    background-position: center center;
+    background-size: cover;
+    background-color: #4A4A4A;
+    background-blend-mode: multiply;
+    background-image: url('/img/bg/auth.jpg');
   }
 
   // Inputs

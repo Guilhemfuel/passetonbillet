@@ -332,14 +332,14 @@ $animation-duration: 0.3s;
       &:not(.blank):not(.disabled).month,
       &:not(.blank):not(.disabled).year {
         &:hover {
-          border: 1px solid $color-purple;
+          border: 1px solid $color-orange;
         }
       }
       &.selected {
-        background-color: $color-purple;
+        background-color: $color-orange;
         color: $color-white;
         &:hover, &.highlighted {
-          background-color: $color-purple;
+          background-color: $color-orange;
           border: 0px;
         }
       }
@@ -432,12 +432,12 @@ $animation-duration: 0.3s;
 }
 
 .el-select-dropdown__item.selected, .el-select-dropdown__item.selected.hover {
-  background-color: $color-purple !important;
+  background-color: $color-orange !important;
   color: $color-white !important;
 }
 
 .el-time-panel__btn.confirm {
-  color: $color-purple !important;
+  color: $color-orange !important;
 }
 
 .el-time-panel {
@@ -488,7 +488,7 @@ $animation-duration: 0.3s;
     transition: 0.5s ease-in-out;
 
     .fa {
-      color: $color-purple;
+      color: $color-orange;
       font-size: 22px;
       transform: rotate(90deg);
       transition: 0.5s ease-in-out;
