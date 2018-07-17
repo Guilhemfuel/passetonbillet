@@ -181,6 +181,8 @@
       text-align: center;
       color: $color-orange;
       margin-top: 15PX;
+
+      @extend .din;
     }
 
     .advantage-text {
@@ -189,10 +191,13 @@
         width: 200px;
       }
 
+      @extend .din;
+
       text-align: center;
       display: block;
       margin: 0px auto;
       color: black;
+      font-size: 18px;
     }
   }
 
