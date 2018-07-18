@@ -24,5 +24,6 @@ return [
     'help' => [
         'before_icon' => 'Un soucis? N\'hésitez pas à nous contacter en utilisant le chat',
         'after_icon'  => 'ou par email.'
-    ]
+    ],
+
 ];

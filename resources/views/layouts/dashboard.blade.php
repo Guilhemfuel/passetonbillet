@@ -43,8 +43,8 @@ $notificationsLang = Lang::get( 'notifications' );
                         <div class="mx-auto text-center">
                             <img class="mx-auto rounded-circle" src="{{$user->picture}}" alt="profile_picture"/>
                         </div>
-                        <p class="text-center mt-2 d-none d-sm-block name">
-                            Salut {{$user->first_name}} ! @if($user->id_verified)
+                        <p class="text-center mt-2 d-none d-sm-block user-name">
+                            @lang('nav.hello') {{$user->first_name}} ! @if($user->id_verified)
                                 <span class="fa-stack fa-lg label-verified d-none d-sm-inline-block">
 
                               <i class="fa fa-circle fa-stack-1x text-warning"></i>
@@ -55,7 +55,7 @@ $notificationsLang = Lang::get( 'notifications' );
 
                             @endif
                         </p>
-                        <p class="text-center mt-2 d-none d-sm-block name2">
+                        <p class="text-center mt-2 d-none d-sm-block ranking">
                             4.5 <i class="fa fa-star" aria-hidden="true"></i>
 
                         </p>
