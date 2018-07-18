@@ -7,7 +7,7 @@
                     enter-active-class="animated fadeInUpBig"
                     leave-active-class="animated fadeOutDownBig">
             <div v-if="type==states.login" class="content">
-                <h1 class="text-primary">{{lang.auth.title}}</h1>
+                <h1 class="text-dark">{{lang.auth.title}}</h1>
                 <p>
                     <a href="#" class="mb-4" @click.prevent="openRegister()">{{lang.auth.not_registered_yet}}</a>
                 </p>
@@ -59,9 +59,11 @@
                         </div>
                     </div>
                 </form>
-                <a href="#" class="mb-3" @click.prevent="openResetPssword()">
-                    {{lang.reset.question}}
-                </a>
+                <div class="text-center">
+                    <a href="#" class="mb-3 text)" @click.prevent="openResetPssword()">
+                        {{lang.reset.question}}
+                    </a>
+                </div>
             </div>
 
         </transition>
