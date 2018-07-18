@@ -32,7 +32,9 @@ return [
                 'logout' => 'Déconnexion'
             ]
         ]
-    ]
+    ],
+
+    'hello' => 'Salut'
 
 
 

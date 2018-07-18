@@ -235,20 +235,18 @@ html, body {
 }
 
 // Cards
+.card-title{
+  margin-left: 20px;
+  padding-bottom: 8px;
+  font-size: 25px;
+  font-weight: bold;
+  color: $color-gray;
 
+  text-transform: uppercase;
+}
 .card {
-  .card-header-lastar {
-    @extend .purple-gradient;
-    color: white;
-    text-transform: uppercase;
-
-    @include media-breakpoint-down(sm) {
-      background: $color-white !important;
-      color: $color-purple !important;
-      border-bottom: 0px;
-      padding-bottom: 0px;
-    }
-  }
+    border-radius: 19px;
+    border: 0px solid;
 
   .card-body {
     padding: 30px;
@@ -286,6 +284,8 @@ html, body {
 
   #side-bar {
 
+    @include orange-gradient(1);
+
     padding: 0px;
     position: relative;
     @include media-breakpoint-down(sm) {
@@ -302,15 +302,28 @@ html, body {
       padding: 20px;
 
       img {
-        width:140px;
+        margin-top: 20px;
+        width:85%;
         display: block;
       }
+    }
+
+    .user-name {
+      font-size: 25px;
+      font-weight: normal;
+      margin-bottom: -12px;
+    }
+
+    .ranking {
+      font-size: 20px;
+      font-weight: normal;
     }
 
     .profile {
       padding: 20px;
       @include media-breakpoint-down(sm) {
         padding: 0px;
+
       }
 
       .label-verified {
@@ -324,7 +337,7 @@ html, body {
 
       img {
         box-shadow: 1px 3px 5px rgba(0,0,0,0.3);
-        width: 120px;
+        width: 160px;
         display: block;
 
         @include media-breakpoint-down(xs) {
@@ -336,6 +349,7 @@ html, body {
     }
 
     .nav {
+        background-color: white;
         padding: 0px;
 
       li {
@@ -361,12 +375,12 @@ html, body {
           }
 
           padding-right: 0px;
-          color: white;
+          color: #A4A4A4;
           display: block;
           position: relative;
 
           .fa {
-            margin-left: 26px;
+            margin-left: 10px;
             margin-right: 10px;
             @include media-breakpoint-down(xs) {
               margin-left: 0px;
@@ -377,7 +391,10 @@ html, body {
 
           .label {
             text-transform: uppercase;
-            font-size: 12px;
+            font-weight: bold;
+            font-size: 19px;
+            line-height: 40px;
+            margin-left: 20px;
           }
         }
 
@@ -397,8 +414,13 @@ html, body {
         }
 
         &.active {
+
           background-color: rgba(0,0,0,0.05);
           border-left: 4px solid $color-blue;
+
+          a {
+            color: $color-neon;
+          }
         }
 
         &:not(.active){

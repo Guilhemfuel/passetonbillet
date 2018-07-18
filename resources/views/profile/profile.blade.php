@@ -8,10 +8,9 @@
     <div class="container">
         <div class="row" id="profile-home">
             <div class="col-12">
+                <div class="card-title mb-0"> @lang('profile.title') </div>
+
                 <div class="card">
-                    <div class="card-header card-header-lastar reverse">
-                        <h4 class="card-title mb-0"> @lang('profile.title') </h4>
-                    </div>
                     @if(\Auth::user()->id == $user->id)
                     <div class="card-body">
                         <div class="row align-items-center">

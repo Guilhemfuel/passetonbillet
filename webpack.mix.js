@@ -34,7 +34,7 @@ if(!mix.inProduction()){
             'routes/**/*'
         ],
         proxy: 'https://lastar.nahum',
-        port: 8000,
+        port: 8080,
         node: {
             fs: 'empty',
             child_process: 'empty',

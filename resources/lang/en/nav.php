@@ -32,6 +32,8 @@ return [
                 'logout'  => 'Logout'
             ]
         ]
-    ]
+    ],
+
+    'hello' => 'Hello'
 
 ];
