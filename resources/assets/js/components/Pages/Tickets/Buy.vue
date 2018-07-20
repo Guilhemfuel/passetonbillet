@@ -1,10 +1,9 @@
 <template>
     <div class="col-12">
 
+        <div class="card-title mb-0"> {{lang.buy.title}}</div>
+
         <div class="card">
-            <div class="card-header reverse">
-                <h4 class="card-title mb-0">{{lang.buy.title}}</h4>
-            </div>
             <div class="card-body">
                 <p class="card-text">
                     {{lang.buy.catchline}}

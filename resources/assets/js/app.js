@@ -19,7 +19,7 @@ Vue.component('cleave', require('vue-cleave'));
 Vue.component('vue-select', require('vue-select'));
 Vue.component('datepicker', require('vuejs-datepicker'));
 
-// Inputs
+// Inputs - TODO: delete/convert components to nue format
 Vue.component('phone', require('./components/Inputs/Phone.vue'));
 Vue.component('timepicker', require('./components/Inputs/Timepicker.vue'));
 Vue.component('stationpicker', require('./components/Inputs/Stationpicker.vue'));
@@ -28,30 +28,57 @@ Vue.component('datepicker', require('./components/Inputs/Datepicker.vue'));
 Vue.component('trippicker', require('./components/Inputs/Trippicker.vue'));
 Vue.component('datetimepicker', require('./components/Inputs/Datetimepicker.vue'));
 
-// Shared
+/**
+ * Form components
+ */
+
+
+Vue.component('input-text', require('./components/Forms/input-text.vue'));
+Vue.component('input-textarea', require('./components/Forms/input-textarea.vue'));
+Vue.component('input-textarea-basic', require('./components/Forms/input-textarea-basic.vue'));
+Vue.component('input-select', require('./components/Forms/input-select.vue'));
+Vue.component('input-currency', require('./components/Forms/input-currency.vue'));
+Vue.component('input-date', require('./components/Forms/input-date.vue'));
+Vue.component('input-country', require('./components/Forms/input-country.vue'));
+Vue.component('input-image', require('./components/Forms/input-image.vue'));
+Vue.component('input-station', require('./components/Forms/input-station.vue'));
+Vue.component('vue-form', require('./components/Forms/vue-form.vue'));
+
+/**
+ * Table components
+ */
+
+Vue.component('smart-table', require('./components/Tables/smart-table.vue'));
+
+
+/**
+ * Shared components
+ */
+
 Vue.component('sandwich', require('./components/Shared/Sandwich.vue'));
 Vue.component('loader', require('./components/Shared/Loader.vue'));
 Vue.component('modal', require('./components/Shared/Modal.vue'));
 Vue.component('flash', require('./components/Shared/Flash.vue'));
 Vue.component('sidebar', require('./components/Shared/Sidebar.vue'));
 
-// Lastar
+/**
+ * PTB specific components
+ */
 Vue.component('notifications', require('./components/Lastar/Notifications.vue'));
 Vue.component('settings', require('./components/Lastar/Settings.vue'));
 Vue.component('ticket', require('./components/Lastar/Ticket.vue'));
 Vue.component('ticket-mini', require('./components/Lastar/Ticket-Mini.vue'));
 
-
-// Pages
+/**
+ * Page components
+ */
 Vue.component('auth', require('./components/Pages/Auth/Auth.vue'));
 Vue.component('social-password', require('./components/Pages/Auth/SocialPassword.vue'));
 Vue.component('sell-ticket', require('./components/Pages/Tickets/Sell.vue'));
 Vue.component('buy-ticket', require('./components/Pages/Tickets/Buy.vue'));
 Vue.component('my-tickets', require('./components/Pages/Tickets/Mytickets.vue'));
 
-Vue.component('buy-sell', require('./components/Pages/Welcome/BuyAndSell.vue'));
-Vue.component('buy-ticket-welcome', require('./components/Pages/Welcome/Buy.vue'));
-Vue.component('sell-ticket-welcome', require('./components/Pages/Welcome/Sell.vue'));
+Vue.component('home-search', require('./components/Pages/Welcome/HomeSearch.vue'));
 
 Vue.component('messages-home', require('./components/Pages/Message/Home.vue'));
 Vue.component('discussion', require('./components/Pages/Message/Discussion.vue'));

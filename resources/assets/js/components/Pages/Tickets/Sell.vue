@@ -2,13 +2,11 @@
     <div class="col-12">
         <!-- Input and ticket selecting -->
 
-        <div class="card" v-if="startCardVisible">
-            <div class="card-header reverse">
-                <h4 class="card-title mb-0" v-if="state=='input'">{{lang.sell.title}}</h4>
-                <h4 class="card-title mb-0" v-else-if="state=='select'">{{lang.sell.your_tickets}}</h4>
-                <h4 class="card-title mb-0" v-else-if="state=='searching'">{{lang.sell.searching}}</h4>
+        <h4 class="card-title mb-0" v-if="state=='input'">{{lang.sell.title}}</h4>
+        <h4 class="card-title mb-0" v-else-if="state=='select'">{{lang.sell.your_tickets}}</h4>
+        <h4 class="card-title mb-0" v-else-if="state=='searching'">{{lang.sell.searching}}</h4>
 
-            </div>
+        <div class="card" v-if="startCardVisible">
             <div class="card-body">
                 <transition enter-class="pre-animated"
                             enter-active-class="animated fadeIn"
@@ -98,12 +96,10 @@
         <!-- selling details and confirm sale -->
         <div class="row" v-if="state=='selling_details'">
             <div class="col-sm-12 col-md-6">
+                <h4 class="card-title mb-0">
+                    {{lang.sell.details_title}}
+                </h4>
                 <div class="card">
-                    <div class="card-header reverse">
-                        <h4 class="card-title mb-0">
-                            {{lang.sell.details_title}}
-                        </h4>
-                    </div>
                     <div class="card-body">
                         <p class="card-text text-justify">
                             {{lang.sell.details}}

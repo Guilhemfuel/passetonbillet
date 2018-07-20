@@ -18,7 +18,9 @@
 @import "~bootstrap/scss/bootstrap.scss";
 
 // Animate Sass
-@import "~animatewithsass";
+@import "~animatewithsass"; //TODO:delete this one
+
+@import "~animate-sass/animate";
 
 // Elem.io
 @import "~element-ui/packages/theme-chalk/src/index";

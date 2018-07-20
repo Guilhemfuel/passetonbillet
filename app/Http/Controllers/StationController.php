@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\StationRessource;
 use Illuminate\Http\Request;
 use App\Station;
 
@@ -17,11 +18,22 @@ class StationController extends Controller
      *
      * @return string
      */
-    public function stations(){
-        if (\App::isLocale('fr')) {
-            return \GuzzleHttp\json_encode( Station::orderBy('name_fr')->pluck('id','name_fr'));
-        } else {
-            return \GuzzleHttp\json_encode( Station::orderBy('name_en')->pluck('id','name_en'));
+    public function stationSearch( Request $request )
+    {
+        if ( ! $request->name ) {
+            return [];
         }
+
+        $searchName = '%' . strtolower( $request->name ) . '%';
+
+        if ( \App::isLocale( 'fr' ) ) {
+            $stations = Station::whereRaw( "LOWER(name_fr) LIKE ?", [ $searchName ] )
+                               ->orderBy( 'name_fr' )->get();
+        } else {
+            $stations = Station::whereRaw( "LOWER(name_en) LIKE ?", [ $searchName ] )
+                               ->orderBy( 'name_en' )->get();
+        }
+
+        return StationRessource::collection( $stations );
     }
 }

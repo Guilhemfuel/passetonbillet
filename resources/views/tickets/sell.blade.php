@@ -13,10 +13,8 @@
                     <sell-ticket :api="child.sell_tickets.api" :lang="child.sell_tickets.lang" :user="user" :routes="child.sell_tickets.routes"></sell-ticket>
                 @else
                     <div class="col-sm-12">
+                        <h4 class="card-title mb-0">@lang('tickets.sell.title')</h4>
                         <div class="card">
-                            <div class="card-header reverse">
-                                <h4 class="card-title mb-0">@lang('tickets.sell.title')</h4>
-                            </div>
                             <div class="card-body justify-content-center d-flex">
                                 <div class="col-sm-12 col-md-10 col-lg-6">
                                     <img class="mx-auto d-block mb-3 lastar-icon" style="width: 150px" src="{{secure_asset('img/icones/lastar-icon-id.png')}}">
@@ -46,10 +44,9 @@
 
                 @if(!Auth::user()->phone_verification_sent)
                     <div class="col-sm-12">
+                        <h4 class="card-title mb-0">@lang('tickets.sell.title')</h4>
+
                         <div class="card">
-                            <div class="card-header reverse">
-                                <h4 class="card-title mb-0">@lang('tickets.sell.title')</h4>
-                            </div>
                             <div class="card-body">
                                 <p class="card-text text-justify">
                                    @lang('tickets.sell.confirm_number.last_step')
@@ -80,10 +77,8 @@
                     </div>
                 @else
                     <div class="col-sm-12">
+                        <h4 class="card-title mb-0">@lang('tickets.sell.title')</h4>
                         <div class="card">
-                            <div class="card-header reverse">
-                                <h4 class="card-title mb-0">@lang('tickets.sell.title')</h4>
-                            </div>
                             <div class="card-body">
                                 <p class="card-text text-justify">
                                     @lang('tickets.sell.confirm_number.code_check')

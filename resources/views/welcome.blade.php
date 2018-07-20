@@ -36,34 +36,27 @@
                     <div class="content">
                         <div class="center">
                             <img class="main-logo align-top" src="{{secure_asset('img/logo.png')}}"  alt="logo passe ton billet">
-                            <div class="action-buttons">
-                                <button class="btn btn-ptb" id="btn-buy"
-                                        @click="child.welcome.stateBuySell='buy'">@lang('common.button.buy')</button>
-                                <button class="btn btn-white" id="btn-sell"
-                                        @click="child.welcome.stateBuySell='sell'">@lang('common.button.sell')</button>
-                            </div>
-                            <div class="text-center text-white">
+                            <h3 class="text-center catchline">@lang('welcome.advantages.one_clic')</h3>
+                            <home-search :tickets="child.welcome.tickets"
+                                      :state="child.welcome.stateBuySell"
+                                      :lang="child.welcome.ticketLang"
+                                      :routes="child.welcome.routes"
+                                      :api="child.welcome.api"
+                                      :stations="child.welcome.stations"
+                                      v-on:change-state="child.welcome.stateBuySell=$event"
+                            ></home-search>
+
+                            <a href="{{route('register.page')}}" class="btn btn-white text-uppercase my-5" id="btn-register">
+                                @lang('auth.register.title')
+                            </a>
+
+                            <div class="text-center text-white" >
                                 <i id="scroll-to-search" class="fa fa-angle-down fa-3x mx-auto" aria-hidden="true"></i>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            {{--<div class="section-search" id="section-search">--}}
-                {{--<div class="container">--}}
-                    {{--<div class="row" id="buy-ticket">--}}
-                        {{--<buy-sell :tickets="child.welcome.tickets"--}}
-                                  {{--:state="child.welcome.stateBuySell"--}}
-                                  {{--:lang="child.welcome.ticketLang"--}}
-                                  {{--:routes="child.welcome.routes"--}}
-                                  {{--:api="child.welcome.api"--}}
-                                  {{--:stations="child.welcome.stations"--}}
-                                  {{--v-on:change-state="child.welcome.stateBuySell=$event"--}}
-                        {{--></buy-sell>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-            {{--</div>--}}
             <div class="section-advantages" id="section-advantages">
                 <div class="container">
                     <div class="row">
@@ -120,11 +113,6 @@
             ],
             'register' => route( 'register.page' )
         ];
-        $api = [
-            'tickets' => [
-                'buy' => route( 'api.tickets.buy' )
-            ]
-        ];
     ?>
 
     @push('vue-data')
@@ -133,8 +121,6 @@
                 tickets: {!! json_encode($tickets) !!},
                 ticketLang: {!! json_encode($langTickets) !!},
                 routes: {!! json_encode($routes) !!},
-                api: {!! json_encode($api) !!},
-                stations: {!! json_encode($stations) !!},
                 stateBuySell: 'buy'
             }
         </script>
@@ -153,12 +139,6 @@
             window.onload = function () {
                 document.getElementById("scroll-to-search").addEventListener('click', () => {
                     scrollTo(document.getElementById("section-advantages"));
-                });
-                document.getElementById("btn-buy").addEventListener('click', () => {
-                    scrollTo(document.getElementById("section-search"));
-                });
-                document.getElementById("btn-sell").addEventListener('click', () => {
-                    scrollTo(document.getElementById("section-search"));
                 });
             }
         </script>

@@ -180,12 +180,14 @@ Route::group( [ 'prefix' => 'lastadmin', 'middleware' => 'auth.admin' ], functio
  *
  **/
 Route::group( [ 'prefix' => 'api' ], function () {
+    Route::post( 'tickets/buy', 'TicketController@buyTickets' )->name( 'api.tickets.buy' );
+    Route::get( 'stations/search', 'StationController@stationSearch' )->name( 'api.stations.search' );
+
     Route::group( [ 'middleware' => 'auth.admin' ], function () {
         Route::get( 'users/{name}', 'Admin\UserController@searchAPI' )->name( 'api.users.search' );
     } );
 
     Route::group( [ 'middleware' => 'auth' ], function () {
-        Route::get( 'stations', 'StationController@stations' )->name( 'api.stations.list' );
         Route::get( 'notifications', 'UserController@getNotifications' )->name( 'api.notifications' );
         Route::post( 'ticket/search', 'TicketController@searchTickets' )->name( 'api.tickets.search' );
         Route::post( 'ticket/offer', 'TicketController@makeAnOffer' )->name( 'api.tickets.offer' );
@@ -194,6 +196,4 @@ Route::group( [ 'prefix' => 'api' ], function () {
         Route::post( 'messages/{ticket}/{discussion}', 'DiscussionController@sendMessage' )->name( 'api.discussion.send' );
         Route::post( 'messages/{ticket}/{discussion}/read', 'DiscussionController@markAsRead' )->name( 'api.discussion.read' );
     } );
-
-    Route::post( 'tickets/buy', 'TicketController@buyTickets' )->name( 'api.tickets.buy' );
 } );

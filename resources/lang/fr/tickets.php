@@ -95,6 +95,10 @@ return [
             'datetimepicker' => [
                 'trip_date' => 'Date du voyage',
                 'trip_time' => 'À partir de (Optionnel)'
+            ],
+            'homepicker' => [
+                'depart' => 'Départ',
+                'arrival' => 'Arrivée'
             ]
         ],
         'title'          => 'Acheter un billet',

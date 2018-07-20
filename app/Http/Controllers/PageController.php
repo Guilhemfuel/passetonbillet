@@ -38,8 +38,7 @@ class PageController extends Controller
                              ->take( 3 )
                              ->get();
 
-            return view( 'welcome' )->with( 'tickets', $tickets?TicketRessource::collection( $tickets ):[] )
-                                    ->with( 'stations', StationRessource::collection( Station::sortedStations() ) );
+            return view( 'welcome' )->with( 'tickets', $tickets?TicketRessource::collection( $tickets ):[] );
         }
     }
 

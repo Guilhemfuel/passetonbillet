@@ -86,41 +86,26 @@
                 <!-- MANUAL REGISTER -->
 
                 <div id="registerForm" v-if="registerType == registerStates.form">
-                    <form role="form"
-                          method="POST"
-                          :action="routes.register"
-                          data-toggle="validator">
 
-                        <input type="hidden" name="_token" :value="csrf">
+
+                    <vue-form :action="routes.register">
+
 
                         <div class="row">
-                            <div class="col-xs-12 col-sm-6 form-group">
-                                <label for="first_name"
-                                       class="control-label">{{lang.register.first_name}}</label>
+                            <input-text name="first_name"
+                                        class-name="col-xs-12 col-sm-6"
+                                        :label="lang.register.first_name"
+                                        validation="required"
+                                        :placeholder="lang.register.first_name"
+                            ></input-text>
 
-                                <input id="first_name" type="text"
-                                       :class="{'form-control': true, 'is-invalid': errors.has('first_name') }"
-                                       name="first_name" required v-validate="'required'"
-                                       :placeholder="lang.register.first_name" v-model="form.first_name">
-                                <span v-if="errors.has('first_name')"
-                                      class="invalid-feedback">{{ errors.first('first_name')
-                                    }}</span>
+                            <input-text name="last_name"
+                                        class-name="col-xs-12 col-sm-6"
+                                        :label="lang.register.last_name"
+                                        validation="required"
+                                        :placeholder="lang.register.last_name"
+                            ></input-text>
 
-                            </div>
-
-                            <div class="col-xs-12 col-sm-6 form-group">
-                                <label for="last_name"
-                                       class="control-label">{{lang.register.last_name}}</label>
-
-                                <input id="last_name" type="text"
-                                       :class="{'form-control': true, 'is-invalid': errors.has('last_name') }"
-                                       name="last_name" required v-validate="'required'"
-                                       :placeholder="lang.register.last_name" v-model="form.last_name">
-                                <span v-if="errors.has('last_name')"
-                                      class="invalid-feedback">{{ errors.first('last_name')
-                                    }}</span>
-
-                            </div>
                         </div>
 
                         <div class="col-xs-12 form-group">
@@ -135,60 +120,45 @@
                             </div>
                         </div>
 
-                        <div class="col-xs-12 form-group">
-                            <label for="birthdate" class="control-label">{{lang.register.birthdate}} (DD/MM/YYYY)</label>
-
-                            <cleave id="birthdate"
+                        <input-date
                                     name="birthdate"
+                                    class-name="col-xs-12"
+                                    :label="lang.register.birthdate"
+                                    validation="date_format:DD/MM/YYYY"
                                     placeholder="DD/MM/YYYY"
-                                    class="form-control"
-                                    v-model="form.birthdate"
-                                    :options="{
-                                        date: true,
-                                        datePattern: ['d', 'm', 'Y']}"></cleave>
-                        </div>
+                                    format="dd/MM/yyyy"
+                                    value-format="dd/MM/yyyy"
+                                    default-value-format="DD/MM/YYYY"></input-date>
 
-                        <div class="col-xs-12 form-group">
-                            <label for="location" class="control-label">{{lang.register.location.title}}</label>
-                            <input id="location" type="text" class="form-control" name="location"
-                                   :placeholder="lang.register.location.placeholder" v-model="form.location">
-                        </div>
+                        <input-text name="location"
+                                    class-name="col-xs-12"
+                                    :label="lang.register.location.title"
+                                    :placeholder="lang.register.location.title"
+                        ></input-text>
 
-                        <div class="col-xs-12 form-group">
-                            <label for="email" class="control-label">{{lang.register.email}}</label>
+                        <input-text name="email"
+                                    type="email"
+                                    class-name="col-xs-12"
+                                    :label="lang.register.email"
+                                    :placeholder="lang.register.email"
+                                    validation="required|email"
+                        ></input-text>
 
-                            <input id="email" type="email"
-                                   :class="{'form-control': true, 'is-invalid': errors.has('email') }"
-                                   name="email" v-validate="'required|email'"
-                                   required :placeholder="lang.register.email">
-                            <span v-if="errors.has('email')" class="invalid-feedback">{{ errors.first('email') }}</span>
+                        <input-text name="password"
+                                    type="password"
+                                    class-name="col-xs-12"
+                                    :label="lang.register.password"
+                                    :placeholder="lang.register.password"
+                                    validation="required|min:8"
+                        ></input-text>
 
-                        </div>
-
-                        <div class="col-xs-12 form-group">
-                            <label for="password" class="control-label">{{lang.register.password}}
-                                <small class="text-muted">(8 char. min)</small>
-                            </label>
-                            <input id="password" type="password"
-                                   :class="{'form-control': true, 'is-invalid': errors.has('password') }"
-                                   name="password" v-validate="'required|min:8'"
-                                   required :placeholder="lang.register.password">
-                            <span v-if="errors.has('password')" class="invalid-feedback">{{ errors.first('password')
-                                }}</span>
-                        </div>
-
-                        <div class="col-xs-12 form-group">
-                            <label for="password-confirm"
-                                   class="control-label">{{lang.register.password_confirm}}</label>
-
-                            <input id="password-confirm" type="password"
-                                   :class="{'form-control': true, 'is-invalid': errors.has('password_confirmation') }"
-                                   name="password_confirmation" v-validate="'required|confirmed:password|min:8'"
-                                   required :placeholder="lang.register.password">
-                            <span v-if="errors.has('password_confirmation')"
-                                  class="invalid-feedback">{{ errors.first('password_confirmation') }}</span>
-
-                        </div>
+                        <input-text name="password_confirmation"
+                                    type="password"
+                                    class-name="col-xs-12"
+                                    :label="lang.register.password_confirm"
+                                    :placeholder="lang.register.password_confirm"
+                                    validation="required|min:8"
+                        ></input-text>
 
                         <!--TODO: Accept rules checkbox + Captcha -->
 
@@ -196,7 +166,7 @@
                             {{lang.register.title}}
                         </button>
 
-                    </form>
+                    </vue-form>
 
                     <div class="btn-rack mt-4">
                         <a class="btn btn-facebook" :href="routes.facebook">

@@ -101,6 +101,10 @@ return [
             'datetimepicker' => [
                 'trip_date' => 'Travel date',
                 'trip_time' => 'From (Optional)'
+            ],
+            'homepicker' => [
+                'depart' => 'From',
+                'arrival' => 'To'
             ]
         ],
         'title'          => 'Buy a ticket',

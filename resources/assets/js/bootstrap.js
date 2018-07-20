@@ -5,7 +5,7 @@
 var host = window.location.hostname;
 var local = false;
 
-if(host != 'lastar.io') {
+if(host != 'passetonbillet.com') {
     local = true;
 }
 
@@ -17,13 +17,6 @@ if(host != 'lastar.io') {
 
 window.Vue = require('vue');
 window.Vue.use(require('vue-resource'));
-
-/**
- * Add lodash to vue
- */
-import lodash from 'lodash';
-Object.defineProperty(Vue.prototype, '$lodash', { value: lodash });
-
 
 /**
  * Use Sentry to report errors
@@ -89,6 +82,8 @@ if (lang === 'fr') {
 }
 
 window.moment = moment;
+window.Vue.prototype.$lodash = require('lodash');
+window.Vue.prototype.$moment = moment;
 
 
 /**

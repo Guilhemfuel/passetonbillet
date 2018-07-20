@@ -31,7 +31,6 @@ $--color-primary: $color-orange;
 
 $theme-colors: (
         primary: $color-orange,
-        pink: $color-pink,
         secondary: $color-dark-blue,
         success: $color-green,
         info: $color-blue,
@@ -41,13 +40,16 @@ $theme-colors: (
         dark: $color-gray,
         facebook: $color-facebook,
         light-gray: $color-light-gray,
-        neon: $color-neon
+        neon: $color-neon,
+        orange: $color-orange,
+        pink: $color-pink,
 );
 
 // Alerts
 $alert-border-width: 0px;
 
-// Cards
+// Animate Scss
+$use-pulse: true;
 
 
 

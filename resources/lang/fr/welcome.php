@@ -9,6 +9,7 @@ return [
     */
 
     'advantages' => [
+        'one_clic' => "ACHETEZ ET REVENDEZ VOS BILLETS DE TRAIN EN 1 CLIC !",
         'why_use' => 'POURQUOI UTILISER',
         'quicker' => [
             'title' => 'Plus Rapide',

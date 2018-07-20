@@ -431,6 +431,11 @@ $animation-duration: 0.3s;
   width: 100% !important;
 }
 
+.el-date-editor .el-input__inner {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
 .el-select-dropdown__item.selected, .el-select-dropdown__item.selected.hover {
   background-color: $color-orange !important;
   color: $color-white !important;
@@ -455,16 +460,16 @@ $animation-duration: 0.3s;
 
   /* Placeholder */
   &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-    color: #DDDDDD !important;
+    color: $color-placeholder !important;
   }
   &::-moz-placeholder { /* Firefox 19+ */
-    color: #DDDDDD !important;
+    color: $color-placeholder !important;
   }
   &:-ms-input-placeholder { /* IE 10+ */
-    color: #DDDDDD !important;
+    color: $color-placeholder !important;
   }
   &:-moz-placeholder { /* Firefox 18- */
-    color: #DDDDDD !important;
+    color: $color-placeholder !important;
   }
 }
 
@@ -541,6 +546,7 @@ $animation-duration: 0.3s;
       border-radius: 4px 4px 0px 0px;
       padding-left: 15px !important;
       padding-right: 15px !important;
+
     }
 
     .el-input__prefix {
@@ -559,6 +565,12 @@ $animation-duration: 0.3s;
 {
   .el-icon-d-arrow-right, .el-icon-d-arrow-left {
     display: none;
+  }
+
+  &.el-date-picker__header--bordered {
+    .el-icon-d-arrow-right, .el-icon-d-arrow-left {
+      display: block;
+    }
   }
 }
 

@@ -21,7 +21,10 @@ mix.js('resources/assets/js/app.js', 'public/js').version()
     .sass('resources/assets/sass/app.scss', 'public/css').version()
     .sass('resources/assets/sass/admin.scss', 'public/css').version()
     .copyDirectory('resources/assets/img', 'public/img')
-    .copyDirectory('resources/assets/audio', 'public/audio');
+    .copyDirectory('resources/assets/audio', 'public/audio')
+    .copyDirectory('resources/assets/fonts', 'public/fonts');
+
+
 
 if(!mix.inProduction()){
 

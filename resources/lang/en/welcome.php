@@ -9,6 +9,7 @@ return [
     */
 
     'advantages' => [
+        'one_clic' => "Buy and sell your tickets in one click !",
         'why_use' => 'WHY USE',
         'quicker' => [
             'title' => 'So Quick',

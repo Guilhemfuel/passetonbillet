@@ -8,6 +8,32 @@
     min-width: 280px;
   }
 
+  .catchline {
+    color: white;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    font-size: 26px;
+  }
+
+  .no-space .row{
+    position: absolute;
+  }
+
+  // Transitions
+  $animation-duration: 0.3s;
+
+  .fadeIn {
+    @include fadeIn(
+            $duration: $animation-duration
+    );
+  }
+  .fadeOut {
+    @include fadeOut(
+            $duration: $animation-duration
+    );
+  }
+
   .section-header {
     min-height: 100vh;
     width: 100%;
@@ -41,6 +67,29 @@
 
         .center{
           margin-top: -60px;
+
+          #home-search {
+
+            .form-group label {
+              color: white !important;
+              font-size: 14px !important;
+            }
+
+            .form-text {
+              display: none;
+            }
+
+            #btn-search {
+              margin-top: 20px;
+              min-width: 220px;
+            }
+
+          }
+
+          #btn-register {
+            margin-top: 20px;
+            min-width: 220px;
+          }
         }
 
       }
@@ -121,47 +170,6 @@
       &:hover {
         cursor: pointer;
       }
-    }
-  }
-
-  .section-search {
-    background-color: white;
-    width: 100%;
-
-    .card-buy-sell-welcome {
-      border:none;
-    }
-
-    .buttons-search {
-      display: flex;
-      justify-content: center;
-
-      button {
-        width: 150px;
-        margin: 0px 20px;
-      }
-    }
-
-    .btn-action-submit{
-      min-width: 150px;
-    }
-
-    .no-space .row{
-      position: absolute;
-    }
-
-    // Transitions
-    $animation-duration: 0.3s;
-
-    .fadeIn {
-      @include fadeIn(
-              $duration: $animation-duration
-      );
-    }
-    .fadeOut {
-      @include fadeOut(
-              $duration: $animation-duration
-      );
     }
   }
 
