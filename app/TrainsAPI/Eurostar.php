@@ -7,9 +7,8 @@
  * Time: 00:00
  */
 
-namespace App\EurostarAPI;
+namespace App\TrainsAPI;
 
-use App\Exceptions\LastarException;
 use App\Ticket;
 use Exception;
 use App\Station;
@@ -80,7 +79,7 @@ class Eurostar
      * @param $referenceNumber
      *
      * @return array
-     * @throws LastarException
+     * @throws EurostarException
      */
     public function retrieveTicket( $lastName, $referenceNumber, $past = false )
     {
@@ -93,12 +92,12 @@ class Eurostar
         );
 
         if ( ! isset( json_decode( (string) $response->getBody(), true )['booking'] ) ) {
-            throw new LastarException( 'Nothing found with this name/code combination.' );
+            throw new EurostarException( 'Nothing found with this name/code combination.' );
         }
 
         // Handle errors (if there isn't a trip from a station to another one)
         if ( $response->getStatusCode() == 500 ) {
-            throw new LastarException( 'Please try again later.' );
+            throw new EurostarException( 'Please try again later.' );
         }
 
         $decoded = json_decode( (string) $response->getBody(), true )['booking'];
@@ -150,10 +149,10 @@ class Eurostar
         $trainArrivalStation = Station::where( 'eurostar_id', $data['info']['destination']['code'] )->first();
 
         if ( $trainDepartureStation == null ) {
-            throw new LastarException( 'Departure station with code ' . $data['info']['origin']['code'] . ' not found.' );
+            throw new EurostarException( 'Departure station with code ' . $data['info']['origin']['code'] . ' not found.' );
         }
         if ( $trainArrivalStation == null ) {
-            throw new LastarException( 'Arrival station with code ' . $data['info']['destination']['code'] . ' not found.' );
+            throw new EurostarException( 'Arrival station with code ' . $data['info']['destination']['code'] . ' not found.' );
         }
 
         // You can sell ticket max two hours before train!
@@ -213,12 +212,12 @@ class Eurostar
         );
 
         if ( ! isset( json_decode( (string) $response->getBody(), true )['booking'] ) ) {
-            throw new LastarException( 'Nothing found with this name/code combination.' );
+            throw new EurostarException( 'Nothing found with this name/code combination.' );
         }
 
         // Handle errors (if there isn't a trip from a station to another one)
         if ( $response->getStatusCode() == 500 ) {
-            throw new LastarException( 'Please try again later.' );
+            throw new EurostarException( 'Please try again later.' );
         }
 
         $decoded = json_decode( (string) $response->getBody(), true )['booking'];
@@ -268,12 +267,12 @@ class Eurostar
         );
 
         if ( ! isset( json_decode( (string) $response->getBody(), true )['tickets'] ) ) {
-            throw new LastarException( 'Nothing found for this passenger.' );
+            throw new EurostarException( 'Nothing found for this passenger.' );
         }
 
         // Handle errors (if there isn't a trip from a station to another one)
         if ( $response->getStatusCode() == 500 ) {
-            throw new LastarException( 'Please try again later.' );
+            throw new EurostarException( 'Please try again later.' );
         }
 
         $decoded = json_decode( (string) $response->getBody(), true )['tickets'];

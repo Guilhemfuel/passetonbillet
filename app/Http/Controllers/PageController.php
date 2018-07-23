@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\EurostarAPI\Eurostar as EurostarSrc;
-use App\Exceptions\LastarException;
+use App\Exceptions\PasseTonBilletException;
 use App\Facades\Eurostar;
 use App\Http\Resources\DiscussionCollectionResource;
 use App\Http\Resources\DiscussionLastMessageResource;

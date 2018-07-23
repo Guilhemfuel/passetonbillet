@@ -2,10 +2,9 @@
 
 namespace App\Providers;
 
-use App\EurostarAPI\Eurostar;
 use Illuminate\Support\ServiceProvider;
 
-class EurostarServiceProvider extends ServiceProvider
+class TrainsServiceProvider extends ServiceProvider
 {
 
     /**
@@ -16,7 +15,10 @@ class EurostarServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind('eurostar', function($app) {
-            return new Eurostar();
+            return new \App\TrainsAPI\Eurostar();
+        });
+        $this->app->bind('sncf', function($app) {
+            return new \App\TrainsAPI\Sncf();
         });
     }
 }

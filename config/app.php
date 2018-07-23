@@ -181,7 +181,7 @@ return [
         App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        App\Providers\EurostarServiceProvider::class,
+        App\Providers\TrainsServiceProvider::class,
 
 
     ],
@@ -235,6 +235,7 @@ return [
 
         //Custom
         'Eurostar'     => \App\Facades\Eurostar::class,
+        'Sncf'     => \App\Facades\Sncf::class,
         'AppHelper'    => \App\Facades\AppHelper::class,
         'ImageHelper'  => \App\Facades\ImageHelper::class,
 

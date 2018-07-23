@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use App\EurostarAPI\Eurostar;
-use App\Exceptions\LastarException;
+use App\Exceptions\PasseTonBilletException;
 use App\Station;
 use App\Ticket;
 use App\Train;
@@ -592,7 +592,7 @@ class EurostarTest extends TestCase
      */
     public function testRetrieveTicketError()
     {
-        $this->expectException( LastarException::class );
+        $this->expectException( PasseTonBilletException::class );
 
         // Mock client
         $mock = new MockHandler( [

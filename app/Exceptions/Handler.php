@@ -29,7 +29,7 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $sentryDontReport = [
-        LastarException::class
+        PasseTonBilletException::class
     ];
 
     /**

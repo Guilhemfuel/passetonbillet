@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\EurostarException;
-use App\Exceptions\LastarException;
+use App\Exceptions\PasseTonBilletException;
 use App\Facades\AppHelper;
 use App\Http\Requests\BuyTicketsRequest;
 use App\Http\Requests\OfferRequest;
@@ -164,7 +164,7 @@ class TicketController extends Controller
     {
         // Lock to family name
         if ( ! \Auth::user()->isAdmin() && AppHelper::removeAccents( $request->last_name ) != AppHelper::removeAccents( \Auth::user()->last_name ) ) {
-            throw new LastarException( 'No tickets were found.' );
+            throw new PasseTonBilletException( 'No tickets were found.' );
         }
 
         if ( \Auth::user()->isAdmin() ) {
@@ -181,7 +181,7 @@ class TicketController extends Controller
 
         // All tickets expired
         if ( count( $tickets ) == 0 ) {
-            throw new LastarException( 'No tickets were found.' );
+            throw new PasseTonBilletException( 'No tickets were found.' );
         }
         session( [ 'tickets' => $tickets ] );
 
@@ -259,7 +259,7 @@ class TicketController extends Controller
                                             Discussion::AWAITING
                                         ] )->count();
         if ( $oldDiscussionCount > 0 ) {
-            throw new LastarException( __( 'offer.errors.offer_already_done' ) );
+            throw new PasseTonBilletException( __( 'offer.errors.offer_already_done' ) );
         }
 
         // Now if there was an offer denied before, we soft delete it

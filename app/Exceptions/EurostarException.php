@@ -2,6 +2,6 @@
 
 namespace App\Exceptions;
 
-class EurostarException extends LastarException
+class EurostarException extends PasseTonBilletException
 {
 }

@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 
-use App\Exceptions\LastarException;
+use App\Exceptions\PasseTonBilletException;
 use App\Facades\Eurostar;
 use App\Station;
 use Illuminate\Console\Command;
@@ -68,7 +68,7 @@ class UpdateTrains extends Command
                         $trains = array_merge( $trains, $temp_trains );
                         break;
                     }
-                    catch (LastarException $e) {
+                    catch (PasseTonBilletException $e) {
                         $this->alert($departure_station->name_en.' to '.$arrival_station->name_en.' error.');
                     }
                 }

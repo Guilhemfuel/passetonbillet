@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Exceptions\LastarException;
+use App\Exceptions\PasseTonBilletException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use PhpParser\Node\Expr\Array_;
@@ -58,15 +58,15 @@ abstract class BaseController extends Controller
      * @param array $data
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * @throws LastarException
+     * @throws PasseTonBilletException
      */
     protected function lastarView( $viewName, $data = [] )
     {
         if ( $this->CRUDmodelName === null ) {
-            throw new LastarException( '$CRUDmodelName must not be null.' );
+            throw new PasseTonBilletException( '$CRUDmodelName must not be null.' );
         }
         if ( $this->CRUDsingularEntityName === null ) {
-            throw new LastarException( '$CRUDsingularEntityName must not be null.' );
+            throw new PasseTonBilletException( '$CRUDsingularEntityName must not be null.' );
         }
         $data['model'] = $this->CRUDmodelName;
         $data['entitySingleName'] = $this->CRUDsingularEntityName;

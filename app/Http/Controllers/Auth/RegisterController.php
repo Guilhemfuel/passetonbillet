@@ -194,6 +194,7 @@ class RegisterController extends Controller
                 'picture'
             ] )->user();
         } catch (\Exception $e){
+            throw $e;
             flash(__('common.error'))->error();
             return redirect()->route('register.page');
         }
