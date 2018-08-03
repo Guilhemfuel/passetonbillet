@@ -15,15 +15,20 @@ class CreateStationTable extends Migration
     {
         Schema::create('stations', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('eurostar_id')->unique();
-            $table->string('name_fr');
-            $table->string('name_en');
-            $table->string('short_name');
-            $table->string('country');
-            $table->string('timezone_txt');
+            $table->integer('uic')->nullable();
+            $table->integer('uic8_sncf')->nullable();
+            $table->string('sncf_id')->nullable();
+            $table->string('name');
+            $table->string('slug');
+            $table->string('country',2);
             $table->string('timezone');
-            $table->timestamps();
-            $table->softDeletes();
+            $table->boolean('is_suggestable');
+
+
+            $table->integer('parent_station_id')->nullable();
+            $table->integer('same_as')->nullable();
+
+            $table->jsonb('data');
         });
     }
 

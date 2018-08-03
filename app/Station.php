@@ -9,12 +9,6 @@ use Nicolaslopezj\Searchable\SearchableTrait;
 /**
  * App\Station
  *
- * @property-read mixed $name
- * @property-read mixed $eurostar_id
- * @property-read mixed $short_name
- * @property-read mixed $country
- * @property-read mixed $timezone_txt
- * @property-read mixed $timezone
  * @mixin \Eloquent
  */
 class Station extends Model
@@ -32,13 +26,18 @@ class Station extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'eurostar_id',
-        'name_fr',
-        'name_en',
-        'short_name',
+        'id',
+        'uic',
+        'uic8_sncf',
+        'name',
+        'parent_station_id',
+        'slug',
         'country',
-        'timezone_txt',
-        'timezone'
+        'timezone',
+        'sncf_id',
+        'same_as',
+        'is_suggestable',
+        'data'
     ];
 
     /**
@@ -66,24 +65,20 @@ class Station extends Model
         ]
     ];
 
-    public static $rules = [
-        'eurostar_id' => 'required|numeric',
-        'name_fr' => 'required',
-        'name_en' => 'required',
-        'short_name' => 'required',
-        'country' => 'required|max:2'
-    ];
 
     /**
      * MUTATORS
      */
 
+    //TODO:update all method below
+
+
     public function getNameAttribute()
     {
-        if ( \App::isLocale( 'en' ) ) {
-            return $this->name_en;
+        if ( \App::isLocale( 'en' ) && $this->data['name_en']!="" ) {
+
         }
-        else if ( \App::isLocale( 'fr' ) ) {
+        else if ( \App::isLocale( 'fr' ) && $this->data['name_fr']!=""  ) {
             return $this->name_fr;
         }
     }
