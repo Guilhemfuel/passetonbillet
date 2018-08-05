@@ -8,22 +8,71 @@ return [
     |--------------------------------------------------------------------------
     */
 
+    'favorites' => [
+        'title' =>'YOUR FAVORITE JOURNEYS',
+        'subtitle'=>'Make your researchh in one click !',
+         ],
+    'feedback' => [
+        'title' =>'OUR USERS\'S FEEDBACK',
+        ],
+    'howitworks' => [
+    'title' =>'HOW IT WORKS',
+    'search' => [
+        'title' => 'Search',
+        'text' => 'Search and choose one or more tickets that interest you.',
+    ],
+    'auction'=> [
+        'title' => 'Make an offer',
+        'text' => 'Make an offer at or below the asking price of the seller.',
+    ],
+    'chat'=> [
+        'title' => 'Chat',
+        'text' => '	• If the offer is accepted by the seller, a conversation is created with it so that you choose the means of payment that best suits both of you. </br> 
+	                    • If the offer is not accepted you can make a new offer.',
+    ],
+    'send'=> [
+        'title' => 'Receive the ticket',
+        'text' => 'Once agreed, send the money and your ticket will be sent to you as soon as the seller has received your money!',
+    ],
+    'buttons'=> [
+        'buyer' => 'Buyer',
+        'seller'=> 'Reseller',
+             ],
+        ],
     'advantages' => [
-        'one_clic' => "Buy and sell your tickets in one click !",
+        'one_clic' => "BUY AND RESELL YOUR <br> SECOND HAND TRAIN TICKETS",
         'why_use' => 'WHY USE',
         'quicker' => [
             'title' => 'So Quick',
-            'text'  => 'It has never been quicker to connect buyers and sellers.'
+            'text'  => 'With many new features, you can buy and sell your used train tickets in no time. In most cases you can even directly download your verified ticket directly on the site.'
         ],
         'cheaper' => [
             'title' => 'So Cheap',
-            'text'  => 'It has never been cheaper to take travel through Europe.'
+            'text'  => 'To make us forgive for making you wait for months, the new version of Passetonbillet.com is a first time 100% free for all buyers and sellers.'
         ],
         'safer'   => [
             'title' => 'So Safe',
-            'text'  => 'It has never been safer to get your tickets.'
+            'text'  => 'PasseTonBillet.fr uses various security procedures such as the verification of each ticket sold and the identity of our users in order to guarantee a maximum level of security.'
+        ],
+        '10years' => [
+            'title' => '10 Years of Experience',
+            'text' => 'PasseTonBillet.fr is the first used train ticket resale site created. It is now 10 years that he listens and improves continuously to meet the expectations of its users.'
         ],
         'more_info' => 'More info'
+    ],
+    'FAQ' => [
+        'title' => 'OUR ANSWERS TO YOUR QUESTIONS',
+        'Q1'=> 'Why is PasseTonBillet.fr safer than its competitors ?',
+        'A1'=> 'Answer to the question',
+        'Q2'=> 'Why is PasseTonBillet.fr safer than its competitors ?',
+        'A2'=> 'Answer to the question',
+        'Q3'=> 'Why is PasseTonBillet.fr safer than its competitors ?',
+        'A3'=> 'Answer to the question',
+        'Q4'=> 'Why is PasseTonBillet.fr safer than its competitors ?',
+        'A4'=> 'Answer to the question',
+        'buttons' => [
+            'seemore' => 'Go to help center',
+        ],
     ],
     'footer'     => [
         'about'      => 'About us',

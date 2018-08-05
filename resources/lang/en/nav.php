@@ -17,6 +17,7 @@ return [
     'my_tickets'         => 'My tickets',
     'my_tickets.mobile'  => 'Tickets',
     'sell_ticket'        => 'Sell a ticket',
+    'resell_a_ticket'    => 'Sell a ticket',
     'sell_ticket.mobile' => 'Sell',
     'buy_ticket'         => 'Buy a ticket',
     'buy_ticket.mobile'  => 'Buy',

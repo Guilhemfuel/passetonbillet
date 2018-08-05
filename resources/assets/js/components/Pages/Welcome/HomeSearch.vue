@@ -5,17 +5,17 @@
                 <div class="row text-left justify-content-center">
                     <input-station name="departure_station"
                                    :label="lang.buy.inputs.homepicker.depart"
-                                   class-name="col-sm-4"
+                                   class-name="col-sm-3"
                                    validation="required"
                     ></input-station>
                     <input-station name="arrival_station"
-                                   :label="lang.buy.inputs.homepicker.depart"
-                                   class-name="col-sm-4"
+                                   :label="lang.buy.inputs.homepicker.arrival"
+                                   class-name="col-sm-3"
                                    validation="required"
                     ></input-station>
                     <input-date
                             name="departure_date"
-                            class-name="col-sm-4"
+                            class-name="col-sm-3"
                             label="Date"
                             validation="required|date_format:DD/MM/YYYY"
                             placeholder="DD/MM/YYYY"
@@ -25,7 +25,7 @@
                             :picker-options="datePickerOptions"
                     ></input-date>
 
-                    <button class="btn btn-primary text-uppercase" id="btn-search" type="submit">
+                    <button class="btn btn-primary text-uppercase col-sm-3" id="btn-search" type="submit">
                         {{lang.buy.research}}
                     </button>
                 </div>

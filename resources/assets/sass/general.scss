@@ -104,7 +104,6 @@ html, body {
   }
 }
 
-
 ////// Colors //////
 
 // TODO: delete these grtadients
@@ -129,28 +128,28 @@ html, body {
   background: -moz-linear-gradient(top, rgba($color-pink, $opacity) 0%, rgba($color-purple, $opacity) 100%); /* FF3.6-15 */
   background: -webkit-linear-gradient(top, rgba($color-pink, $opacity) 0%, rgba($color-purple, $opacity) 100%); /* Chrome10-25,Safari5.1-6 */
   background: linear-gradient(to bottom, rgba($color-pink, $opacity) 0%, rgba($color-purple, $opacity) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#{ie-hex-str(rgba($color-pink, $opacity))}', endColorstr='#{ie-hex-str(rgba($color-purple, $opacity))}',GradientType=0 ); /* IE6-9 */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{ie-hex-str(rgba($color-pink, $opacity))}', endColorstr='#{ie-hex-str(rgba($color-purple, $opacity))}', GradientType=0); /* IE6-9 */
 }
 
 @mixin purple-gradient-reverse( $opacity) {
   background: -moz-linear-gradient(top, rgba($color-purple, $opacity) 0%, rgba($color-pink, $opacity) 100%); /* FF3.6-15 */
   background: -webkit-linear-gradient(top, rgba($color-purple, $opacity) 0%, rgba($color-pink, $opacity) 100%); /* Chrome10-25,Safari5.1-6 */
   background: linear-gradient(to bottom, rgba($color-purple, $opacity) 0%, rgba($color-pink, $opacity) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#{ie-hex-str(rgba($color-purple, $opacity))}', endColorstr='#{ie-hex-str(rgba($color-pink, $opacity))}',GradientType=0 ); /* IE6-9 */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{ie-hex-str(rgba($color-purple, $opacity))}', endColorstr='#{ie-hex-str(rgba($color-pink, $opacity))}', GradientType=0); /* IE6-9 */
 }
 
 @mixin orange-gradient( $opacity) {
   background: -moz-linear-gradient(top, rgba($color-orange, $opacity) 0%, rgba($color-orange-dark, $opacity) 100%); /* FF3.6-15 */
   background: -webkit-linear-gradient(top, rgba($color-orange, $opacity) 0%, rgba($color-orange-dark, $opacity) 100%); /* Chrome10-25,Safari5.1-6 */
   background: linear-gradient(to bottom, rgba($color-orange, $opacity) 0%, rgba($color-orange-dark, $opacity) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#{ie-hex-str(rgba($color-orange, $opacity))}', endColorstr='#{ie-hex-str(rgba($color-orange-dark, $opacity))}',GradientType=0 ); /* IE6-9 */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{ie-hex-str(rgba($color-orange, $opacity))}', endColorstr='#{ie-hex-str(rgba($color-orange-dark, $opacity))}', GradientType=0); /* IE6-9 */
 }
 
 @mixin orange-gradient-reverse( $opacity) {
   background: -moz-linear-gradient(top, rgba($color-orange-dark, $opacity) 0%, rgba($color-orange, $opacity) 100%); /* FF3.6-15 */
   background: -webkit-linear-gradient(top, rgba($color-orange-dark, $opacity) 0%, rgba($color-orange, $opacity) 100%); /* Chrome10-25,Safari5.1-6 */
   background: linear-gradient(to bottom, rgba($color-orange-dark, $opacity) 0%, rgba($color-orange, $opacity) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#{ie-hex-str(rgba($color-orange-dark, $opacity))}', endColorstr='#{ie-hex-str(rgba($color-orange, $opacity))}',GradientType=0 ); /* IE6-9 */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{ie-hex-str(rgba($color-orange-dark, $opacity))}', endColorstr='#{ie-hex-str(rgba($color-orange, $opacity))}', GradientType=0); /* IE6-9 */
 }
 
 .blue-gradient {
@@ -163,7 +162,11 @@ html, body {
 
 .btn {
   cursor: pointer;
-  border-radius: 40px;
+  border-radius: 8px;
+
+  &:hover {
+      opacity: 0.8;
+    }
 }
 
 ////// Buttons /////
@@ -171,9 +174,11 @@ html, body {
   background-color: white;
   color: $color-orange;
   cursor: pointer;
+  padding-left: 20px;
+  padding-right: 20px;
 
   &:hover {
-    background-color: rgba(256,256,256,0.7);
+    opacity: 0.8;
   }
 }
 
@@ -188,7 +193,7 @@ html, body {
   }
 }
 
-.btn-ptb-blue,.btn-lastar-blue {
+.btn-ptb-blue, .btn-lastar-blue {
   @extend .blue-gradient;
   color: white;
   cursor: pointer;
@@ -201,6 +206,21 @@ html, body {
 .btn-ptb {
   background-color: $color-orange;
   color: white;
+  cursor: pointer;
+  padding-left: 20px;
+  padding-right: 20px;
+
+  text-decoration: none;
+
+  &:hover {
+    opacity: 0.8;
+    color: white;
+  }
+}
+
+.btn-ptb-white {
+  background-color: white;
+  color: orange;
   cursor: pointer;
   padding-left: 20px;
   padding-right: 20px;
@@ -264,7 +284,7 @@ html, body {
 }
 
 // Cards
-.card-title{
+.card-title {
   margin-left: 20px;
   padding-bottom: 8px;
   font-size: 25px;
@@ -273,15 +293,15 @@ html, body {
 
   text-transform: uppercase;
 }
+
 .card {
-    border-radius: 19px;
-    border: 0px solid;
+  border-radius: 19px;
+  border: 0px solid;
 
   .card-body {
     padding: 30px;
   }
 }
-
 
 // All buttons in button rack are aligned and take all width
 .btn-rack {
@@ -293,11 +313,11 @@ html, body {
     margin-left: 15px;
   }
 
-  .btn:first-child{
+  .btn:first-child {
     margin-left: 0px;
   }
 
-  .btn:last-child{
+  .btn:last-child {
     margin-right: 0px;
   }
 }
@@ -319,7 +339,7 @@ html, body {
 
     @include media-breakpoint-down(sm) {
       width: 60px;
-      box-shadow: 0px 0px 20px rgba(0,0,0,0.2);
+      box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
       z-index: 1;
     }
 
@@ -329,7 +349,6 @@ html, body {
       border-bottom-left-radius: 50% 30px;
       margin-bottom: 25px;
     }
-
 
     .side-bar-content {
       position: sticky;
@@ -341,7 +360,7 @@ html, body {
 
       img {
         margin-top: 20px;
-        width:85%;
+        width: 85%;
         display: block;
       }
     }
@@ -376,7 +395,7 @@ html, body {
       img {
         border: 5px solid;
         border-radius: 160px;
-        box-shadow: 1px 3px 5px rgba(0,0,0,0.3);
+        box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.3);
         width: 160px;
         display: block;
 
@@ -385,20 +404,20 @@ html, body {
           margin-left: 5px;
           margin-bottom: 15px;
           border: 0px solid;
-          border-radius: 30pxpx;
+          border-radius: 30 pxpx;
         }
       }
     }
 
     .nav {
-        background-color: white;
-        padding: 0px;
+      background-color: white;
+      padding: 0px;
 
       li {
         position: relative;
         width: 100%;
         border-right: 4px solid transparent;
-        border-top: 1px solid rgba(0,0,0,0.05);
+        border-top: 1px solid rgba(0, 0, 0, 0.05);
 
         -webkit-transition: background-color .15s ease-in;
         transition: background-color .15s ease-in;
@@ -406,7 +425,6 @@ html, body {
         &:first-child {
           border-top: 0px solid;
         }
-
 
         a {
           padding: 10px 8px;
@@ -447,13 +465,13 @@ html, body {
         }
 
         .badge-pill {
-          background-color: rgba(255,255,255,0.2);
+          background-color: rgba(255, 255, 255, 0.2);
           position: absolute;
           top: 12px;
           left: 10px;
 
           @include media-breakpoint-down(sm) {
-            font-size:8px;
+            font-size: 8px;
             top: 7px;
             left: 32px;
             background-color: $color-blue;
@@ -463,7 +481,7 @@ html, body {
 
         &.active {
 
-          background-color: rgba(0,0,0,0.05);
+          background-color: rgba(0, 0, 0, 0.05);
           border-left: 4px solid $color-blue;
 
           a {
@@ -471,15 +489,15 @@ html, body {
           }
         }
 
-        &:not(.active){
+        &:not(.active) {
           border-bottom: 1px solid transparent;
           padding-left: 4px;
 
-          &:hover{
+          &:hover {
             padding-left: 4px;
-            background-color: rgba(0,0,0,0.1);
+            background-color: rgba(0, 0, 0, 0.1);
             //border-left: 4px solid $color-blue;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
           }
         }
 
