@@ -21,7 +21,7 @@ $factory->define( App\User::class, function ( Faker\Generator $faker ) {
         'gender'         => $faker->numberBetween( 0, 1 ),
         'phone_country'  => array_random( [ 'FR', 'EN' ] ),
         'phone'          => '0' . $faker->randomNumber( 9 ),
-        'birthdate'      => $faker->dateTimeThisCentury->format( \App\EurostarAPI\Eurostar::DATE_FORMAT_DB ),
+        'birthdate'      => $faker->dateTimeThisCentury->format( \App\Trains\Eurostar::DATE_FORMAT_DB ),
         'language'       => array_random( [ 'FR', 'EN' ] ),
         'location'       => str_random( 10 ),
         'status'         => 1,
@@ -90,9 +90,9 @@ $factory->define( App\Train::class, function ( Faker\Generator $faker ) {
 
     return [
         'number'         => $faker->numberBetween( 9001, 9050 ),
-        'departure_date' => $date->format( \App\EurostarAPI\Eurostar::DATE_FORMAT_DB ),
+        'departure_date' => $date->format( \App\Trains\Eurostar::DATE_FORMAT_DB ),
         'departure_time' => $faker->time(),
-        'arrival_date'   => $date->format( \App\EurostarAPI\Eurostar::DATE_FORMAT_DB ),
+        'arrival_date'   => $date->format( \App\Trains\Eurostar::DATE_FORMAT_DB ),
         'arrival_time'   => $faker->time(),
         'departure_city' => $station1->id,
         'arrival_city'   => $station2->id

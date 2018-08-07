@@ -69,8 +69,7 @@ class PageController extends Controller
      */
     public function buyPage()
     {
-        return view( 'tickets.buy' )->with( 'user', new UserRessource( \Auth::user(), true ) )
-                                    ->with( 'stations', StationRessource::collection( Station::all() ) );
+        return view( 'tickets.buy' )->with( 'user', new UserRessource( \Auth::user(), true ) );
     }
 
     /**

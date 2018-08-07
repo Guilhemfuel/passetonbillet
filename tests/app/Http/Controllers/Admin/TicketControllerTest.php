@@ -68,7 +68,7 @@ class TicketControllerTest extends BaseControllerTest
         $response = $this->post( $this->basePath, $ticket->toArray() );
 
         $response->assertStatus( 302 );
-        $response->assertRedirect( $this->basePath.'.index' );
+        $response->assertRedirect( $this->basePath );
 
 
         $this->assertDatabaseMissing( 'tickets',$ticket->toArray() );

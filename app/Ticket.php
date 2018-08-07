@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Exceptions\PasseTonBilletException;
 use App\Traits\ScamFiltered;
 use Carbon\Carbon;
 use Hashids\Hashids;
@@ -19,6 +20,8 @@ use Nicolaslopezj\Searchable\SearchableTrait;
  */
 class Ticket extends Model
 {
+
+    const PROVIDERS = [ 'eurostar', 'thalys', 'sncf' ];
 
     use SearchableTrait, SoftDeletes, ScamFiltered;
 
@@ -43,10 +46,12 @@ class Ticket extends Model
         'bought_price',
         'bought_currency',
         'inbound',
+        'correspondance',
+        'provider',
 
         // Buyer info
-        'eurostar_code',
-        'eurostar_ticket_number',
+        'provider_code',
+        'ticket_number',
         'passbook_link',
         'buyer_email',
         'buyer_name',
@@ -80,17 +85,18 @@ class Ticket extends Model
     ];
 
     public static $rules = [
-        'user_id'                => 'required|exists:users,id',
-        'sold_to_id'             => 'exists:users,id',
-        'price'                  => 'required|numeric',
-        'bought_price'           => 'required|numeric',
-        'currency'               => 'required',
-        'bought_currency'        => 'required',
-        'inbound'                => 'required|boolean',
-        'eurostar_code'          => 'required',
-        'eurostar_ticket_number' => 'required|numeric',
-        'buyer_email'            => 'required|email',
-        'buyer_name'             => 'required|max:6'
+        'user_id'         => 'required|exists:users,id',
+        'sold_to_id'      => 'exists:users,id',
+        'price'           => 'required|numeric',
+        'bought_price'    => 'required|numeric',
+        'currency'        => 'required',
+        'bought_currency' => 'required',
+        'correspondance'  => 'boolean',
+        'inbound'         => 'required|boolean',
+        'provider'        => 'required',
+        'provider_code'   => 'required|max:6',
+        'buyer_email'     => 'required|email',
+        'buyer_name'      => 'required'
     ];
 
     /**
@@ -137,8 +143,9 @@ class Ticket extends Model
     /**
      * Helper
      */
-    private function getSymbolCurrency($currency){
-        switch ($currency){
+    private function getSymbolCurrency( $currency )
+    {
+        switch ( $currency ) {
             case "EUR":
             case "EFT":
                 return '€';
@@ -150,6 +157,7 @@ class Ticket extends Model
                 return '£';
                 break;
         }
+
         return '';
     }
 
@@ -164,12 +172,14 @@ class Ticket extends Model
         return $this->train->carbon_departure_date->lt( $now );
     }
 
-    public function getCurrencySymbolAttribute(){
-        return $this->getSymbolCurrency($this->currency);
+    public function getCurrencySymbolAttribute()
+    {
+        return $this->getSymbolCurrency( $this->currency );
     }
 
-    public function getBoughtCurrencySymbolAttribute(){
-        return $this->getSymbolCurrency($this->bought_currency);
+    public function getBoughtCurrencySymbolAttribute()
+    {
+        return $this->getSymbolCurrency( $this->bought_currency );
     }
 
 //    public function getFlexibilityAttribute( $value )
@@ -185,22 +195,26 @@ class Ticket extends Model
 
 //{"fareFlexibility":{"1":{"code":"1","value":"Non Flexible"},"2":{"code":"2","value":"Semi Flexible"},"3":{"code":"3","value":"Fully Flexible"},"7":{"code":"7","value":"Off Peak"},"8":{"code":"8","value":"Advance"},"9":{"code":"9","value":"Anytime"}},"classOfService":{"B":{"code":"B","value":"Standard"},"H":{"code":"H","value":"Standard Premier"},"A":{"code":"A","value":"Business Premier"},"2":{"code":"2","value":"Standard Class"},"1":{"code":"1","value":"First Class"}}}
 
-    public function getPdfFileNameAttribute(){
-        return \Vinkla\Hashids\Facades\Hashids::connection('file')->encode($this->id).md5($this->buyer_name.$this->eurostar_code).'.pdf';
+    public function getPdfFileNameAttribute()
+    {
+        return \Vinkla\Hashids\Facades\Hashids::connection( 'file' )->encode( $this->id ) . md5( $this->buyer_name . $this->eurostar_code ) . '.pdf';
     }
 
-    public function getPdfDownloadedAttribute(){
-        $filePath = 'pdf/tickets/'.$this->pdf_file_name;
-        return \Storage::disk('s3')->exists($filePath);
+    public function getPdfDownloadedAttribute()
+    {
+        $filePath = 'pdf/tickets/' . $this->pdf_file_name;
+
+        return \Storage::disk( 's3' )->exists( $filePath );
     }
 
-    public function getStatusAttribute(){
-        if ($this->scam){
+    public function getStatusAttribute()
+    {
+        if ( $this->scam ) {
             return 'scam';
-        }else if ($this->sold_to_id){
+        } else if ( $this->sold_to_id ) {
             return 'sold';
         } else {
-            if ($this->passed){
+            if ( $this->passed ) {
                 return 'passed';
             } else {
                 return 'selling';
@@ -208,8 +222,17 @@ class Ticket extends Model
         }
     }
 
-    public function getScamAttribute(){
+    public function getScamAttribute()
+    {
         return $this->marked_as_fraud_at != null;
+    }
+
+    public function setProviderAttribute( $value )
+    {
+        if (!in_array($value,self::PROVIDERS)){
+            throw new PasseTonBilletException("Provider ${value} unknown.");
+        }
+        $this->attributes['provider'] = $value;
     }
 
     /**

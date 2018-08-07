@@ -27,9 +27,14 @@ class TicketFullRessource extends Resource
             'bought_currency' => $this->bought_currency,
             'bought_currency_symbol' => $this->bought_currency_symbol,
             'inbound' => $this->inbound,
+            'provider'               => $this->provider,
             'buyer' => $this->sold_to_id?new UserRessource($this->buyer):null,
             'download_link' => route('public.ticket.download',['ticket_id'=>$this->id]),
-            'passbook_link' => $this->passbook_link
+            'passbook_link' => $this->passbook_link,
+
+             // Only for seller
+            'ticket_number' => $this->when( \Auth::check() && \Auth::user()->id == $this->user_id, $this->ticket_number ),
+
         ];
     }
 }

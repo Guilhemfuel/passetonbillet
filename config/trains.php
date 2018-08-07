@@ -12,6 +12,6 @@ return [
     ],
 
     'sncf' => [
-        'booking_url' => env('SNCF_BOOKING','https://en.oui.sncf/vsa/api/order/en_US/{name}/{booking_code}?source=vsa')
+        'booking_url' => env('SNCF_BOOKING','https://en.oui.sncf/vsa/api/order/{country}/{name}/{booking_code}?source=vsa'),
     ]
 ];

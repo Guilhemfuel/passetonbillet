@@ -25,7 +25,7 @@ extract( $config['connections'][ $config['default'] ] );
 // Override config default with actual db credentials (phpunit.xml value)
 $username = env( 'DB_USERNAME_TEST', '' );
 $password = env( 'DB_PASSWORD_TEST', '' );
-$database = env( 'DB_DATABASE_TEST','lastar_test' );
+$database = env( 'DB_DATABASE_TEST','ptb_test' );
 $port = env('DB_PORT_TEST', env('DB_PORT', '5432'));
 
 // Drop and recreate database

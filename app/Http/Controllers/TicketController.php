@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exceptions\EurostarException;
 use App\Exceptions\PasseTonBilletException;
 use App\Facades\AppHelper;
+use App\Facades\Sncf;
 use App\Http\Requests\BuyTicketsRequest;
 use App\Http\Requests\OfferRequest;
 use App\Http\Requests\SearchTicketsRequest;
@@ -54,9 +55,11 @@ class TicketController extends Controller
 
         // Make sure we don't have such a ticket yet
         $oldTicket = Ticket::withScams()
-                           ->whereRaw( "lower(eurostar_code) = ? ", strtolower( $ticket->eurostar_code ) )
+                           ->whereRaw( "lower(provider_code) = ? ", strtolower( $ticket->provider_code ) )
+                           ->where( 'provider', $ticket->provider )
+                           ->where('train_id', $ticket->train_id)
                            ->where( 'buyer_name', $ticket->buyer_name )
-                           ->where( 'eurostar_ticket_number', $ticket->eurostar_ticket_number )
+                           ->where( 'ticket_number', $ticket->ticket_number )
                            ->first();
         if ( $oldTicket ) {
             flash( __( 'tickets.sell.errors.duplicate' ) )->error()->important();
@@ -168,7 +171,14 @@ class TicketController extends Controller
         }
 
         if ( \Auth::user()->isAdmin() ) {
-            $tickets = collect( Eurostar::retrieveTicket( $request->last_name, $request->booking_code ) );
+
+            try {
+                $ticketArray = Eurostar::retrieveTicket( $request->last_name, $request->booking_code );
+            } catch (PasseTonBilletException $e) {
+                $ticketArray = Sncf::retrieveTicket( $request->last_name, $request->booking_code );
+            }
+
+            $tickets = collect( $ticketArray );
 
         } else {
             AppHelper::stat( 'retrieve_tickets', [
@@ -176,7 +186,13 @@ class TicketController extends Controller
                 'booking_code' => $request->booking_code,
             ] );
 
-            $tickets = collect( Eurostar::retrieveTicket( \Auth::user()->last_name, $request->booking_code ) );
+            try {
+                $ticketArray = Eurostar::retrieveTicket( \Auth::user()->last_name, $request->booking_code );
+            } catch (PasseTonBilletException $e) {
+                $ticketArray = Sncf::retrieveTicket( \Auth::user()->last_name, $request->booking_code );
+            }
+
+            $tickets = collect( $ticketArray );
         }
 
         // All tickets expired

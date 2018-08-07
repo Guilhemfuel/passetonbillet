@@ -169,6 +169,7 @@
                         this.state = 'searching';
                         this.$http.post(this.api.tickets.search, this.form)
                             .then(response => {
+                                console.log('search',response);
                                 if (response.ok) {
                                     if (response.data.data.length == 1) {
                                         this.state = 'selling_details';
