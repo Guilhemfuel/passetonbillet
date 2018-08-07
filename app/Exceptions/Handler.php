@@ -68,8 +68,11 @@ class Handler extends ExceptionHandler
      */
     public function render( $request, Exception $exception )
     {
-        if ( $exception instanceof EurostarException ) {
-            $errorMsg = 'Eurostar Error: ' . $exception->getMessage();
+        if ( ($exception instanceof EurostarException || $exception instanceof SncfException)
+             && \App::environment() != 'local'
+             && !$request->expectsJson()
+        ) {
+            $errorMsg = 'Train Error: ' . $exception->getMessage();
 
             return \Redirect::back()->withInput( $request->input() )->with( 'eurostar_error', $errorMsg );
         }

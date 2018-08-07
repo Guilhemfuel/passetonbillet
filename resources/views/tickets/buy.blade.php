@@ -7,7 +7,7 @@
 @section('dashboard-content')
     <div class="container-fluid">
         <div class="row" id="buy-ticket">
-            <buy-ticket :lang="child.buy_ticket.lang" :user="user" :routes="child.buy_ticket.routes" :api="child.buy_ticket.api" :stations="child.buy_ticket.stations"></buy-ticket>
+            <buy-ticket :lang="child.buy_ticket.lang" :user="user" :routes="child.buy_ticket.routes" :api="child.buy_ticket.api" ></buy-ticket>
         </div>
     </div>
 @endsection
@@ -43,7 +43,6 @@ $api = [
                 lang: {!!json_encode($lang)!!},
                 routes: {!! json_encode($routes) !!},
                 api: {!! json_encode($api) !!},
-                stations: {!! json_encode($stations) !!}
             };
             userData = {!! json_encode($user) !!};
     </script>

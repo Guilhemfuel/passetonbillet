@@ -1,18 +1,17 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\App\Trains;
 
-use App\EurostarAPI\Eurostar;
-use App\Exceptions\PasseTonBilletException;
 use App\Station;
 use App\Ticket;
 use App\Train;
+use App\Trains\Eurostar as EurostarClass;
+use App\Facades\Eurostar;
 use Faker\Factory;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
-use phpDocumentor\Reflection\Types\Boolean;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -323,7 +322,7 @@ class EurostarTest extends TestCase
     {
         $oldCount = Train::count();
 
-        $foundTicket = \App\Facades\Eurostar::createTrainAndReturnTicket( $data, $currency, $lastName, $referenceNumber, $buyerEmail, $outbound, $past );
+        $foundTicket = Eurostar::createTrainAndReturnTicket( $data, $currency, $lastName, $referenceNumber, $buyerEmail, $outbound, $past );
 
         $this->assertGreaterThan( $oldCount, Train::count() );
 
@@ -367,7 +366,7 @@ class EurostarTest extends TestCase
         $dataSet1['info']['departureDate'] = '1996-08-01';
         $dataSet1['info']['arrivalDate'] = '1996-08-01';
 
-        $foundTicket = \App\Facades\Eurostar::createTrainAndReturnTicket( $dataSet1, $ticket->currency, $ticket->buyer_name, $ticket->eurostar_code, $ticket->buyer_email, $ticket->inbound, false );
+        $foundTicket = Eurostar::createTrainAndReturnTicket( $dataSet1, $ticket->currency, $ticket->buyer_name, $ticket->eurostar_code, $ticket->buyer_email, $ticket->inbound, false );
 
         $this->assertNull( $foundTicket );
     }
@@ -388,8 +387,8 @@ class EurostarTest extends TestCase
         // Create a train for tomorrow
         $train = factory( Train::class )->make();
         $tomorrow = new \DateTime( 'tomorrow' );
-        $train->departure_date = $tomorrow->format(Eurostar::DATE_FORMAT_DB);
-        $train->arrival_date = $tomorrow->format(Eurostar::DATE_FORMAT_DB);
+        $train->departure_date = $tomorrow->format( EurostarClass::DATE_FORMAT_DB);
+        $train->arrival_date = $tomorrow->format(EurostarClass::DATE_FORMAT_DB);
 
         $ticket = factory( Ticket::class )->make();
 
@@ -404,7 +403,7 @@ class EurostarTest extends TestCase
         $handler = HandlerStack::create( $mock );
         $client = new Client( [ 'handler' => $handler ] );
 
-        $eurostarApi = new Eurostar( $client );
+        $eurostarApi = new EurostarClass( $client );
         $tickets = $eurostarApi->retrieveTicket( $this->familyName, $this->bookingCode );
 
         /* @var Ticket $ticket */
@@ -444,8 +443,8 @@ class EurostarTest extends TestCase
         $train = factory( Train::class )->make();
         $tomorrow = new \DateTime( 'tomorrow' );
         $tomorrow->setTime( 14, 55 );
-        $train->departure_date = $tomorrow->format(Eurostar::DATE_FORMAT_DB);
-        $train->arrival_date = $tomorrow->format(Eurostar::DATE_FORMAT_DB);
+        $train->departure_date = $tomorrow->format(EurostarClass::DATE_FORMAT_DB);
+        $train->arrival_date = $tomorrow->format(EurostarClass::DATE_FORMAT_DB);
 
         $ticket = factory( Ticket::class )->make();
 
@@ -460,7 +459,7 @@ class EurostarTest extends TestCase
         $handler = HandlerStack::create( $mock );
         $client = new Client( [ 'handler' => $handler ] );
 
-        $eurostarApi = new Eurostar( $client );
+        $eurostarApi = new EurostarClass( $client );
         $tickets = $eurostarApi->retrieveTicket( $this->familyName, $this->bookingCode );
 
         /* @var Ticket $ticket */
@@ -501,10 +500,10 @@ class EurostarTest extends TestCase
         $train2 = factory( Train::class )->make();
         $yesterday = new \DateTime( 'yesterday' );
         $tomorrow = new \DateTime( 'tomorrow' );
-        $train1->departure_date = $yesterday->format(Eurostar::DATE_FORMAT_DB);
-        $train1->arrival_date = $yesterday->format(Eurostar::DATE_FORMAT_DB);
-        $train2->departure_date = $tomorrow->format(Eurostar::DATE_FORMAT_DB);
-        $train2->arrival_date = $tomorrow->format(Eurostar::DATE_FORMAT_DB);
+        $train1->departure_date = $yesterday->format(EurostarClass::DATE_FORMAT_DB);
+        $train1->arrival_date = $yesterday->format(EurostarClass::DATE_FORMAT_DB);
+        $train2->departure_date = $tomorrow->format(EurostarClass::DATE_FORMAT_DB);
+        $train2->arrival_date = $tomorrow->format(EurostarClass::DATE_FORMAT_DB);
 
         $ticket = factory( Ticket::class )->make();
 
@@ -522,7 +521,7 @@ class EurostarTest extends TestCase
         $handler = HandlerStack::create( $mock );
         $client = new Client( [ 'handler' => $handler ] );
 
-        $eurostarApi = new Eurostar( $client );
+        $eurostarApi = new EurostarClass( $client );
         $tickets = $eurostarApi->retrieveTicket( $this->familyName, $this->bookingCode );
 
         /* @var Ticket $ticket */
@@ -561,8 +560,8 @@ class EurostarTest extends TestCase
         // Create a train for tomorrow
         $train = factory( Train::class )->make();
         $yesterday = new \DateTime( 'yesterday' );
-        $train->departure_date = $yesterday->format(Eurostar::DATE_FORMAT_DB);
-        $train->arrival_date = $yesterday->format(Eurostar::DATE_FORMAT_DB);
+        $train->departure_date = $yesterday->format(EurostarClass::DATE_FORMAT_DB);
+        $train->arrival_date = $yesterday->format(EurostarClass::DATE_FORMAT_DB);
 
         $ticket = factory( Ticket::class )->make();
 
@@ -577,7 +576,7 @@ class EurostarTest extends TestCase
         $handler = HandlerStack::create( $mock );
         $client = new Client( [ 'handler' => $handler ] );
 
-        $eurostarApi = new Eurostar( $client );
+        $eurostarApi = new EurostarClass( $client );
         $tickets = $eurostarApi->retrieveTicket( $this->familyName, $this->bookingCode );
 
         /* @var Ticket $ticket */
@@ -601,7 +600,7 @@ class EurostarTest extends TestCase
         $handler = HandlerStack::create( $mock );
         $client = new Client( [ 'handler' => $handler ] );
 
-        $eurostarApi = new Eurostar( $client );
+        $eurostarApi = new EurostarClass( $client );
         $eurostarApi->retrieveTicket( $this->familyName, $this->bookingCode );
     }
 

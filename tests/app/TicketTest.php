@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\app;
+namespace Tests\App;
 
 use App\Http\Resources\TicketRessource;
 use App\Ticket;

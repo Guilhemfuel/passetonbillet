@@ -29,6 +29,8 @@ class CreateStationTable extends Migration
             $table->integer('same_as')->nullable();
 
             $table->jsonb('data');
+
+            $table->softDeletes();
         });
     }
 

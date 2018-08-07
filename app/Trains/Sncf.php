@@ -7,34 +7,35 @@
  * Time: 00:00
  */
 
-namespace App\TrainsAPI;
+namespace App\Trains;
 
+use App\Exceptions\SncfException;
 use App\Ticket;
+use Carbon\Carbon;
 use Exception;
 use App\Station;
 use App\Train;
 use GuzzleHttp\Client;
-use App\Exceptions\EurostarException;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\RequestOptions;
 use setasign\Fpdi\Fpdi;
 use setasign\Fpdi\PdfParser\StreamReader;
 
-class Eurostar
+class Sncf
 {
     private $retrieveURL;
-    private $pdfURL;
     private $client;
 
+    const PROVIDER = "sncf";
+
     const DATE_FORMAT_JSON = 'd/m/Y';
-    const TIME_FORMAT_JSON = 'H:i';
+    const TIME_FORMAT_DB = 'H:i:s';
     const DATE_FORMAT_DB = 'Y-m-d';
 
     public function __construct( Client $customClient = null )
     {
-        $this->retrieveURL = config( 'eurostar.booking_url' );
-        $this->pdfURL = config( 'eurostar.pdf_url' );
+        $this->retrieveURL = config( 'trains.sncf.booking_url' );
         // wrap Guzzle Client in order to throw a EurostarException instead of a ClientException on a request
         $this->client = new class( $customClient )
         {
@@ -52,7 +53,10 @@ class Eurostar
                     'headers' => [
                         'Content-type' => 'application/json',
                         'Accept'       => 'application/json',
-                        'x-apikey'     => config( 'eurostar.api_key' )
+                        'Accept-Language' => 'fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7',
+                        'Cache-Control' => 'no-cache',
+                        'Connection' => 'keep-alive',
+                        'Host' => 'en.oui.sncf'
                     ],
                 ] );
             }
@@ -63,7 +67,7 @@ class Eurostar
                     return $this->client->request( $method, $uri, $options );
                 } catch ( Exception $e ) {
                     if ( $e instanceof ClientException ) {
-                        throw new EurostarException( $e->getMessage() );
+                        throw new SncfException( $e->getMessage() );
                     }
                     throw $e;
                 }
@@ -79,104 +83,116 @@ class Eurostar
      * @param $referenceNumber
      *
      * @return array
-     * @throws EurostarException
+     * @throws PasseTonBilletException
      */
     public function retrieveTicket( $lastName, $referenceNumber, $past = false )
     {
+        $referenceNumber = strtoupper($referenceNumber);
 
+        $url = str_replace('{name}',$lastName,$this->retrieveURL);
+        $url = str_replace('{booking_code}',$referenceNumber,$url);
 
-        $response = $this->client->request(
-            'GET',
-            $this->retrieveURL . $referenceNumber . '/' . $lastName . '?locale=uk-en',
-            [ 'http_errors' => false ]
-        );
+        // Try for each version of SNCF website
+        foreach ( ['fr_FR','en_UK'] as $country){
 
-        if ( ! isset( json_decode( (string) $response->getBody(), true )['booking'] ) ) {
-            throw new EurostarException( 'Nothing found with this name/code combination.' );
+            $response = $this->client->request(
+                'GET',
+                str_replace('{country}',$country,$url),
+                [ 'http_errors' => false ]
+            );
+
+            $decoded = json_decode( (string) $response->getBody(), true );
+
+            if ( ! isset( $decoded['status'] ) || $decoded['status'] != "SUCCESS"  ) {
+                continue;
+            } else {
+                break;
+            }
+        }
+
+        if ( ! isset( $decoded['status'] ) || $decoded['status'] != "SUCCESS"  ) {
+            throw new SncfException( 'Nothing found with this name/code combination.' );
         }
 
         // Handle errors (if there isn't a trip from a station to another one)
         if ( $response->getStatusCode() == 500 ) {
-            throw new EurostarException( 'Please try again later.' );
+            throw new SncfException( 'Please try again later.' );
         }
 
-        $decoded = json_decode( (string) $response->getBody(), true )['booking'];
+        $decoded = $decoded["order"];
+        $trainData = $decoded["trainFolders"][$referenceNumber];
 
         // Find tickets
-        $buyerEmail = $decoded['contact']['email'];
-        $currency = $decoded['currency'];
-        $returnTickets = $decoded['isReturn'];
-        $passengers = $decoded['passengers'];
+        $transactionId = $trainData["transactionIds"][0];
+        $price = $decoded ["transactions"][$transactionId]["amount"];
+        $buyerEmail = $decoded['initialContact']['emailAddress'];
+        $currency = "EUR";
 
         $tickets = [];
 
-        foreach ( $passengers as $passenger ) {
+        // For each travel
+        foreach ( $trainData['travels'] as $travel ) {
 
-            $outboundInfo = $passenger['outbound']['legs'][0];
-
-            $ticket = $this->createTrainAndReturnTicket( $outboundInfo, $currency, $lastName, $referenceNumber, $buyerEmail, true, $past );
+            $ticket = $this->createTrainAndReturnTicket( $travel, $currency, $lastName, $referenceNumber, $buyerEmail, $price, $past );
 
             if ( $ticket ) {
                 array_push( $tickets, $ticket );
             }
 
-            if ( $returnTickets ) {
-                $inboundInfo = $passenger['inbound']['legs'][0];
-                $ticketReturn = $this->createTrainAndReturnTicket( $inboundInfo, $currency, $lastName, $referenceNumber, $buyerEmail, false, $past );
-                if ( $ticketReturn ) {
-                    array_push( $tickets, $ticketReturn );
-                }
-            }
         }
 
         return $tickets;
     }
 
-    public function createTrainAndReturnTicket( $data, $currency, $lastName, $referenceNumber, $buyerEmail, $outbound = true, $past = false )
+    public function createTrainAndReturnTicket( $data, $currency, $lastName, $referenceNumber, $buyerEmail, $price, $past = false )
     {
 
+        // Check if correspondance
+        $correspondance = false;
 
-        $trainNumber = $data['info']['trainNumber'];
-        $trainDepartureDate = $data['info']['departureDate'];
-        $trainDepartureTime = $data['info']['departureTime'];
-        $trainArrivalDate = $data['info']['arrivalDate'];
-        $trainArrivalTime = $data['info']['arrivalTime'];
+        if (count($data["segments"]) > 2 ) {
+            $correspondance = true;
+        }
+
+        $trainNumber = $data["segments"][0]['trainNumber'];
+
+        $departureDateTime = new Carbon($data["arrivalDate"]);
+        $arrivalDateTime = new Carbon($data["departureDate"]);
 
         $trainDepartureStation = null;
         $trainArrivalStation = null;
 
-        $trainDepartureStation = Station::where( 'eurostar_id', $data['info']['origin']['code'] )->first();
-        $trainArrivalStation = Station::where( 'eurostar_id', $data['info']['destination']['code'] )->first();
+        $trainDepartureStation = Station::where( 'sncf_id', $data['origin']['stationResarailCode'] )->first();
+        $trainArrivalStation = Station::where( 'sncf_id', $data['destination']['stationResarailCode'] )->first();
 
         if ( $trainDepartureStation == null ) {
-            throw new EurostarException( 'Departure station with code ' . $data['info']['origin']['code'] . ' not found.' );
+            throw new SncfException( 'Departure station with code ' . $data['origin']['stationResarailCode'] . ' not found.' );
         }
         if ( $trainArrivalStation == null ) {
-            throw new EurostarException( 'Arrival station with code ' . $data['info']['destination']['code'] . ' not found.' );
+            throw new SncfException( 'Arrival station with code ' . $data['destination']['stationResarailCode'] . ' not found.' );
         }
 
         // You can sell ticket max two hours before train!
-        if ( $past || (  (new \DateTime(  $trainDepartureDate.' '. $trainDepartureTime  ))->modify('-2 hour') >= new \DateTime() ) ) {
+        if ( $past || $departureDateTime->modify('-2 hour') >= new \DateTime() ) {
             // We don't consider past tickets
 
             // Create train
             $train = Train::firstOrCreate(
                 [
                     'number'         => $trainNumber,
-                    'departure_date' => $trainDepartureDate,
-                    'departure_time' => date( "H:i:s", strtotime( $trainDepartureTime ) ),
+                    'departure_date' => $departureDateTime->format(self::DATE_FORMAT_DB),
+                    'departure_time' => $departureDateTime->format(self::TIME_FORMAT_DB),
                     'departure_city' => $trainDepartureStation->id,
-                    'arrival_date'   => $trainArrivalDate,
-                    'arrival_time'   => date( "H:i:s", strtotime( $trainArrivalTime ) ),
+                    'arrival_date'   => $arrivalDateTime->format(self::DATE_FORMAT_DB),
+                    'arrival_time'   => $arrivalDateTime->format(self::TIME_FORMAT_DB),
                     'arrival_city'   => $trainArrivalStation->id
                 ]
             );
 
             // Retrieve ticket information
-            $flexibility = $data['fare']['flexibilityLevel'];
-            $class = $data['fare']['classOfService'];
-            $boughtPrice = $data['fare']['totalFarePrice'];
-            $ticketNumber = $data['fare']['tcn'];
+            $flexibility = $data['fareFlexibility'];
+            $class = $data['segments'][0]['comfortClass'];
+            $boughtPrice = $price;
 
             // Create new Ticket
             $ticket = new Ticket();
@@ -185,11 +201,13 @@ class Eurostar
             $ticket->class = $class;
             $ticket->bought_price = intval( $boughtPrice );
             $ticket->bought_currency = $currency;
-            $ticket->inbound = ! $outbound;
+            $ticket->inbound = $data["type"] != "OUTWARD";
             $ticket->buyer_name = $lastName;
-            $ticket->eurostar_code = $referenceNumber;
-            $ticket->eurostar_ticket_number = $ticketNumber;
+            $ticket->provider_code = $referenceNumber;
+            $ticket->provider = self::PROVIDER;
             $ticket->buyer_email = $buyerEmail;
+            $ticket->correspondence = $correspondance;
+
 
             return $ticket;
         }
@@ -212,12 +230,12 @@ class Eurostar
         );
 
         if ( ! isset( json_decode( (string) $response->getBody(), true )['booking'] ) ) {
-            throw new EurostarException( 'Nothing found with this name/code combination.' );
+            throw new SncfException( 'Nothing found with this name/code combination.' );
         }
 
         // Handle errors (if there isn't a trip from a station to another one)
         if ( $response->getStatusCode() == 500 ) {
-            throw new EurostarException( 'Please try again later.' );
+            throw new SncfException( 'Please try again later.' );
         }
 
         $decoded = json_decode( (string) $response->getBody(), true )['booking'];
@@ -258,7 +276,7 @@ class Eurostar
                 ]),
                 'headers' => [
                     'Accept'        => 'application/json, text/plain, */*',
-                    'x-apikey'      => config( 'eurostar.api_key_web' ),
+                    'x-apikey'      => config( 'trains.eurostar.api_key_web' ),
                     'Authorization' => $accessToken,
                     'cid'           => str_random( 20 ),
                     'User-Agent'    => null,
@@ -267,12 +285,12 @@ class Eurostar
         );
 
         if ( ! isset( json_decode( (string) $response->getBody(), true )['tickets'] ) ) {
-            throw new EurostarException( 'Nothing found for this passenger.' );
+            throw new SncfException( 'Nothing found for this passenger.' );
         }
 
         // Handle errors (if there isn't a trip from a station to another one)
         if ( $response->getStatusCode() == 500 ) {
-            throw new EurostarException( 'Please try again later.' );
+            throw new SncfException( 'Please try again later.' );
         }
 
         $decoded = json_decode( (string) $response->getBody(), true )['tickets'];

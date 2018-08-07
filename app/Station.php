@@ -70,17 +70,20 @@ class Station extends Model
      * MUTATORS
      */
 
-    //TODO:update all method below
-
-
     public function getNameAttribute()
     {
-        if ( \App::isLocale( 'en' ) && $this->data['name_en']!="" ) {
-
+        if ( \App::isLocale( 'en' )
+             && isset($this->data['name_en'])
+             && $this->data['name_en']!=""
+        ) {
+            return $this->data['name_en'];
         }
-        else if ( \App::isLocale( 'fr' ) && $this->data['name_fr']!=""  ) {
-            return $this->name_fr;
+        else if ( \App::isLocale( 'fr' )
+                  && isset($this->data['name_fr'])
+                  && $this->data['name_fr']!="") {
+            return $this->data['name_fr'];
         }
+        return $this->attributes['name'];
     }
 
     public function getFlagAttribute()

@@ -15,10 +15,10 @@ class TrainsServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind('eurostar', function($app) {
-            return new \App\TrainsAPI\Eurostar();
+            return new \App\Trains\Eurostar();
         });
         $this->app->bind('sncf', function($app) {
-            return new \App\TrainsAPI\Sncf();
+            return new \App\Trains\Sncf();
         });
     }
 }
