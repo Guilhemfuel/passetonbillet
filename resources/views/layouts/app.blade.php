@@ -72,6 +72,8 @@
 
 <!-- Scripts -->
 <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+@routes
+<script src="/lang/lang-{{ \App::getLocale() }}.js"></script>
 <script src="/js/app.js"></script>
 <script type="application/javascript">
     let data = {};
@@ -79,7 +81,7 @@
         name: '{!! Route::currentRouteName()!!}',
         data: {}
     };
-    let userData = {!! isset($jsonUser)?json_encode($jsonUser):(isset($userData)?json_encode($userData):(isset($user)?json_encode($user):'null')) !!};
+    let userData = {!! isset($userData)?json_encode($userData):'null' !!};
 </script>
 @stack('vue-data')
 <script>

@@ -25,9 +25,11 @@
                             :picker-options="datePickerOptions"
                     ></input-date>
 
-                    <button class="btn btn-primary text-uppercase col-sm-3" id="btn-search" type="submit">
-                        {{lang.buy.research}}
-                    </button>
+                    <div class="col-sm-3">
+                        <button class="btn btn-primary btn-input text-uppercase" id="btn-search" type="submit">
+                            {{lang.buy.research}}
+                        </button>
+                    </div>
                 </div>
             </vue-form>
         </div>
@@ -39,12 +41,9 @@
         props: {
             routes: {type: Object, required: true},
             lang: {type: Object, required: true},
-            state: {type: String, Default: 'buy', required: true},
         },
         data() {
             return {
-                buyingState: 'default',
-                sellState: 'default',
                 sellingTickets: [],
                 datePickerOptions: {
                     disabledDate: function (myDate) {
@@ -55,10 +54,7 @@
                 },
             }
         },
-        computed: {
-
-        },
-        methods: {
-        }
+        computed: {},
+        methods: {}
     }
 </script>

@@ -43,7 +43,7 @@ class AdapatTicketStructureToAddOtherTrains extends Migration
             $table->string('eurostar_code',6);
             $table->bigInteger('eurostar_ticket_number')->nullable();
 
-            $table->integer('flexibility')->change();;
+            $table->dropColumn('flexibility');
         });
     }
 }

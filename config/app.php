@@ -126,6 +126,13 @@ return [
     'log_level' => env( 'APP_LOG_LEVEL', 'debug' ),
 
     /*
+     |
+     |  Chosen editor
+     |
+     */
+    'editor' => env('APP_EDITOR','phpstorm'),
+
+    /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
     |--------------------------------------------------------------------------
@@ -172,6 +179,7 @@ return [
         Laracasts\Flash\FlashServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         NotificationChannels\Facebook\FacebookServiceProvider::class,
+        TeamTNT\Scout\TNTSearchScoutServiceProvider::class,
 
         /*
          * Application Service Providers...

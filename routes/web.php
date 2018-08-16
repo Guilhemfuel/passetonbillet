@@ -20,6 +20,7 @@ Route::get( '/home', function(){
 })->name( 'home-redirect' );
 
 // Lang
+Route::get( 'lang/lang-{locale}.js', 'LanguageController@getLangJsFile' )->name( 'lang.js' );
 Route::get( 'lang/{lang}', 'LanguageController@switchLang' )->name( 'lang' );
 
 /**
@@ -136,42 +137,44 @@ Route::group( [ 'prefix' => 'ticket', 'as' => 'ticket.' ], function () {
 /**
  * Admin routes
  **/
-Route::group( [ 'prefix' => 'lastadmin', 'middleware' => 'auth.admin' ], function () {
-    Route::get( '/', 'Admin\HomeController@home' )->name( 'admin.home' );
+Route::blacklist(function() {
+    Route::group( [ 'prefix' => 'lastadmin', 'middleware' => 'auth.admin' ], function () {
+        Route::get( '/', 'Admin\HomeController@home' )->name( 'admin.home' );
 
-    Route::resource( 'users', 'Admin\UserController' );
-    Route::group( [ 'prefix' => 'users' ], function () {
-        Route::get( '/impersonate/{id}', 'Admin\UserController@impersonate' )->name( 'users.impersonate' );
-        Route::get( '/ban/{id}', 'Admin\UserController@banUser' )->name( 'users.ban' );
+        Route::resource( 'users', 'Admin\UserController' );
+        Route::group( [ 'prefix' => 'users' ], function () {
+            Route::get( '/impersonate/{id}', 'Admin\UserController@impersonate' )->name( 'users.impersonate' );
+            Route::get( '/ban/{id}', 'Admin\UserController@banUser' )->name( 'users.ban' );
+        } );
+
+        Route::resource( 'tickets', 'Admin\TicketController' );
+        Route::group( [ 'prefix' => 'tickets', 'as' => 'tickets.' ], function () {
+            Route::get( '/redownload/{ticket_id}', 'Admin\TicketController@redownload' )->name( 'redownload' );
+            Route::get( '/scam/{ticket_id}', 'Admin\TicketController@markAsFraud' )->name( 'scam' );
+            Route::post( '/manual-upload/{ticket_id}', 'Admin\TicketController@pdfManualUpload' )->name( 'manual_upload' );
+        } );
+
+        Route::resource( 'stations', 'Admin\StationController' );
+        Route::resource( 'trains', 'Admin\TrainController' );
+
+        Route::resource( 'offers', 'Admin\DiscussionController' );
+        Route::group( [ 'prefix' => 'offers', 'as' => 'offers.' ], function () {
+            Route::get( '/undeny/{id}', 'Admin\DiscussionController@cancelDeny' )->name( 'undeny' );
+        } );
+
+
+        Route::group( [ 'prefix' => 'id_check' ], function () {
+            Route::get( '/', 'Admin\UserController@getOldestIdCheck' )->name( 'id_check.oldest' );
+            Route::post( '/confirm', 'Admin\UserController@acceptIdVerification' )->name( 'id_check.accept' );
+            Route::post( '/deny', 'Admin\UserController@denyIdVerification' )->name( 'id_check.deny' );
+        } );
+
+        Route::group( [ 'prefix' => 'stats' ], function () {
+            Route::get( '/', 'Admin\StatsController@index' )->name( 'stats.index' );
+        } );
+
     } );
-
-    Route::resource( 'tickets', 'Admin\TicketController' );
-    Route::group( [ 'prefix' => 'tickets','as' => 'tickets.' ], function () {
-        Route::get( '/redownload/{ticket_id}', 'Admin\TicketController@redownload' )->name( 'redownload' );
-        Route::get( '/scam/{ticket_id}', 'Admin\TicketController@markAsFraud' )->name( 'scam' );
-        Route::post( '/manual-upload/{ticket_id}', 'Admin\TicketController@pdfManualUpload' )->name( 'manual_upload' );
-    } );
-
-    Route::resource( 'stations', 'Admin\StationController' );
-    Route::resource( 'trains', 'Admin\TrainController' );
-
-    Route::resource( 'offers', 'Admin\DiscussionController' );
-    Route::group( [ 'prefix' => 'offers','as' => 'offers.' ], function () {
-        Route::get( '/undeny/{id}', 'Admin\DiscussionController@cancelDeny' )->name( 'undeny' );
-    } );
-
-
-    Route::group( [ 'prefix' => 'id_check' ], function () {
-        Route::get( '/', 'Admin\UserController@getOldestIdCheck' )->name( 'id_check.oldest' );
-        Route::post( '/confirm', 'Admin\UserController@acceptIdVerification' )->name( 'id_check.accept' );
-        Route::post( '/deny', 'Admin\UserController@denyIdVerification' )->name( 'id_check.deny' );
-    } );
-
-    Route::group( [ 'prefix' => 'stats' ], function () {
-        Route::get( '/', 'Admin\StatsController@index' )->name( 'stats.index' );
-    } );
-
-} );
+});
 
 
 /**

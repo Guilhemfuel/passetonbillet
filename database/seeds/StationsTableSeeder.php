@@ -30,6 +30,8 @@ class StationsTableSeeder extends Seeder
                 'uic'               => $record['uic'] ? (integer) $record['uic'] : null,
                 'uic8_sncf'         => $record['uic8_sncf'] ? (integer) $record['uic8_sncf'] : null,
                 'name'              => $record['name'],
+                'name_fr'           => $this->valueOrNull($record['info:fr']),
+                'name_en'           => $this->valueOrNull($record['info:en']),
                 'parent_station_id' => $record['parent_station_id'] ? (integer) $record['parent_station_id'] : null,
                 'slug'              => $record['slug'],
                 'country'           => $record['country'],
@@ -38,8 +40,6 @@ class StationsTableSeeder extends Seeder
                 'same_as'           => $record['same_as'] ? (integer) $record['same_as'] : null,
                 'is_suggestable'    => $record['is_suggestable'] == 't',
                 'data'              => json_encode( [
-                    'name_fr'         => $this->valueOrNull($record['info:fr']),
-                    'name_en'         => $this->valueOrNull($record['info:en']),
                     'latitude'        => $this->valueOrNull($record['latitude']),
                     'longitude'       => $this->valueOrNull($record['longitude']),
                     'is_city'         => $record['is_city'] == 't',

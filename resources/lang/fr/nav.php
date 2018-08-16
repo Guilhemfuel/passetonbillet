@@ -23,6 +23,7 @@ return [
     'buy_ticket.mobile'  => 'Acheter',
     'my_profile'    => 'Mon Profil',
     'my_profile.mobile'  => 'Profil',
+    'settings'           => 'Préférences',
 
     'dropdowns' => [
         'settings' => [

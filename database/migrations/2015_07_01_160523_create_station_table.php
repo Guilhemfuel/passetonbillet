@@ -19,6 +19,8 @@ class CreateStationTable extends Migration
             $table->integer('uic8_sncf')->nullable();
             $table->string('sncf_id')->nullable();
             $table->string('name');
+            $table->string('name_fr')->nullable();
+            $table->string('name_en')->nullable();
             $table->string('slug');
             $table->string('country',2);
             $table->string('timezone');

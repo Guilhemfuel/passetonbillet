@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Query\Builder;
+use Laravel\Scout\Searchable;
 use Nicolaslopezj\Searchable\SearchableTrait;
 
 /**
@@ -19,7 +21,7 @@ class Station extends Model
     CONST BXL_ID = 8814001;
     CONST AMS_ID = 8400058;
 
-    use SearchableTrait, SoftDeletes;
+    use Searchable, SoftDeletes;
 
     protected $dates = ['deleted_at'];
 
@@ -30,6 +32,8 @@ class Station extends Model
         'uic',
         'uic8_sncf',
         'name',
+        'name_fr',
+        'name_en',
         'parent_station_id',
         'slug',
         'country',
@@ -45,25 +49,48 @@ class Station extends Model
      */
     public static $relationships = [];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('suggestable', function (\Illuminate\Database\Eloquent\Builder $builder) {
+            $builder->where('is_suggestable', true);
+            $builder->whereNotNull('uic');
+
+        });
+    }
+
+
+
     /**
-     * Searchable rules.
+     * List of searchable entities
      *
-     * @var array
+     * @return bool
      */
-    protected $searchable = [
-        /**
-         * Columns and their priority in search results.
-         * Columns with higher values are more important.
-         * Columns with equal values have equal importance.
-         *
-         * @var array
-         */
-        'columns' => [
-            'stations.name_fr' => 10,
-            'stations.name_en' => 10,
-            'stations.short_name' => 8,
-        ]
-    ];
+    public function shouldBeSearchable()
+    {
+        // We only index parent station
+        if ($this->attributes==[] || $this->parent_station_id != null) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Get the indexable data array for the model.
+     *
+     * @return array
+     */
+    public function toSearchableArray()
+    {
+        if ($this->attributes==[]) return [];
+        return [
+            'id' => $this->id,
+            'name' => $this->attributes['name'],
+            'name_fr' => $this->attributes['name_fr'],
+            'name_en' => $this->attributes['name_en']
+        ];
+    }
 
 
     /**
@@ -73,15 +100,13 @@ class Station extends Model
     public function getNameAttribute()
     {
         if ( \App::isLocale( 'en' )
-             && isset($this->data['name_en'])
-             && $this->data['name_en']!=""
+             && !is_null($this->name_en)
         ) {
-            return $this->data['name_en'];
+            return $this->name_en;
         }
         else if ( \App::isLocale( 'fr' )
-                  && isset($this->data['name_fr'])
-                  && $this->data['name_fr']!="") {
-            return $this->data['name_fr'];
+                  && !is_null($this->name_fr)) {
+            return $this->name_fr;
         }
         return $this->attributes['name'];
     }

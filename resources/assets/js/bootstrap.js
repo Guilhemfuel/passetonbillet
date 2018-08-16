@@ -84,7 +84,8 @@ if (lang === 'fr') {
 window.moment = moment;
 window.Vue.prototype.$lodash = require('lodash');
 window.Vue.prototype.$moment = moment;
-
+window.Vue.prototype.trans = string => window.Vue.prototype.$lodash.get(window.i18n, string);
+window.Vue.prototype.route = route;
 
 /**
  *
@@ -129,3 +130,7 @@ if (token) {
 } else {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
+
+/**
+ * Add support to route helper
+ */

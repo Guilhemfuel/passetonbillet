@@ -23,17 +23,18 @@ return [
     'buy_ticket.mobile'  => 'Buy',
     'my_profile'         => 'My Profile',
     'my_profile.mobile'  => 'Profile',
+    'settings'           => 'Settings',
 
     'dropdowns' => [
-        'settings' => [
-            'title' => 'Settings',
-            'items' => [
-                'profile' => 'Edit my profil',
-                'admin'   => 'Admin',
-                'logout'  => 'Logout'
-            ]
+    'settings' => [
+        'title' => 'Settings',
+        'items' => [
+            'profile' => 'Edit my profil',
+            'admin'   => 'Admin',
+            'logout'  => 'Logout'
         ]
-    ],
+    ]
+],
 
     'hello' => 'Hello'
 

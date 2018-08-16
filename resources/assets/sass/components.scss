@@ -12,9 +12,18 @@ $animation-duration: 0.3s;
 .nav-settings, .nav-notifications {
   position: relative;
 
+  .fa {
+    color: white;
+    font-size: 24px;
+    margin-top: 7px;
+    margin-bottom: 0px;
+    -webkit-transition: color 0.1s;
+    transition: color 0.1s;
+  }
+
   .fa:hover {
     cursor: pointer;
-    color: #20c7a1 !important;
+    color: $color-orange;
   }
 
   &[v-cloak] {
@@ -22,15 +31,24 @@ $animation-duration: 0.3s;
   }
 
   .dropdown {
+    border: 1px solid #ebeef5;
     position: absolute;
     display: block;
     float: none;
     top: 44px;
-    right: -20px;
+    right: -5px;
     background-color: white;
-    border-radius: 0px 0px 5px 5px;
-    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
     font-size: 16px;
+
+    &::before {
+      border-bottom: 15px solid #000;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      width: 0;
+      height: 0;
+    }
   }
 
   .dropdown-header {
@@ -587,5 +605,31 @@ $animation-duration: 0.3s;
     p {
       display: flex;
     }
+  }
+}
+
+// Sandwich menu
+
+.sandwich-menu {
+  .fa {
+    color: white;
+    font-size: 24px;
+    margin: 25px;
+    margin-top: 7px;
+    margin-bottom: 0px;
+
+    transition: color 0.1s;
+
+    &:hover {
+      color: $color-orange;
+    }
+  }
+}
+.sandwich-menu-dropdown {
+  min-width: 180px;
+
+  .fa {
+    margin-right: 15px;
+    width: 12px;
   }
 }

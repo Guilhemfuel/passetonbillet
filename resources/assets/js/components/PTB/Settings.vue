@@ -6,17 +6,17 @@
                     v-on:afterEnter="transitionCallback">
             <div class="dropdown" v-show="dropdownOpened" v-click-outside="clickOutside">
                 <div class="dropdown-header">
-                    {{lang.title}}
+                    {{trans('nav.dropdowns.settings.title')}}
                 </div>
                 <div class="dropdown-body">
                     <div class="item">
-                        <a :href="routes.profile">{{lang.items.profile}}</a>
+                        <a :href="routes.profile">{{trans('nav.dropdowns.settings.items.profile')}}</a>
                     </div>
                     <div class="item" v-if="user.admin">
-                        <a :href="routes.admin">{{lang.items.admin}}</a>
+                        <a :href="routes.admin">{{trans('nav.dropdowns.settings.items.admin')}}</a>
                     </div>
                     <div class="item">
-                        <a :href="routes.logout">{{lang.items.logout}}</a>
+                        <a :href="routes.logout">{{trans('nav.dropdowns.settings.items.logout')}}</a>
                     </div>
                 </div>
             </div>
@@ -27,7 +27,6 @@
 <script>
     export default {
         props: {
-            lang: {type: Object,required: true},
             routes: {type: Object, required: true},
             activeLang: {type: String, required: true},
             user: {type:Object, required: true}

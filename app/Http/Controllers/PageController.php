@@ -28,18 +28,8 @@ class PageController extends Controller
 
     public function home()
     {
-        if ( \Auth::check() ) {
-            return redirect()->route( 'public.ticket.buy.page' );
-        } else {
-            //TODO: change tickets to only show the latest or the previously searched etc..
-            $tickets = Ticket::join( 'trains', 'trains.id', '=', 'tickets.train_id' )
-                             ->orderBy( 'trains.departure_date' )
-                            ->where('trains.departure_date','>',Carbon::now())
-                             ->take( 3 )
-                             ->get();
 
-            return view( 'welcome' )->with( 'tickets', $tickets?TicketRessource::collection( $tickets ):[] );
-        }
+        return view( 'welcome' );
     }
 
     /**
@@ -59,7 +49,7 @@ class PageController extends Controller
      */
     public function sellPage()
     {
-        return view( 'tickets.sell' )->with( 'user', new UserRessource( \Auth::user() ) );
+        return view( 'tickets.sell' );
     }
 
     /**

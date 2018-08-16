@@ -1,5 +1,5 @@
 <template>
-    <div :class="{'sandwich-menu':true,'opened':opened}" @click="toggledSandwich()" >
+    <div :class="{'sandwich-menu':true,'opened':value}" @click="toggledSandwich()" >
         <span></span>
         <span></span>
         <span></span>
@@ -10,11 +10,11 @@
 <script>
     export default {
         props: {
-            opened: false
+            value: {required:true}
         },
         methods: {
             toggledSandwich() {
-                this.$emit('toggled');
+                this.$emit('toggle');
             }
         }
     }

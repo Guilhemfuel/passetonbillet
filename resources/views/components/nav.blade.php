@@ -1,42 +1,34 @@
-
 <nav class="navbar navbar-light navbar-expand" id="nav-bar">
     <div class="container-fluid">
-        <div class="navbar-header">
-
-        </div>
         <div class="collapse navbar-collapse">
-            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                {{--<li class="nav-item active">--}}
-                    {{--<a class="nav-link" href="#">Dashboard <span class="sr-only">(current)</span></a>--}}
-                {{--</li>--}}
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="navbar-brand p-0" href="{{route('home')}}">
+                        <img src="{{secure_asset('img/logo-black.png')}}" class="align-top logo-black"
+                             alt="logo passe ton billet">
+                        <img src="{{secure_asset('img/logo-icon.png')}}" class="icon align-top d-inline-block d-sm-none"
+                             alt="logo passe ton billet">
+                    </a>
+                </li>
             </ul>
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link">
-                        <notifications :lang="child.navbar.notificationsLang" :current-page="currentPage" :user="user" :routes="child.navbar.notificationsRoutes" v-cloak></notifications>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link">
-                        <settings :lang="child.navbar.settingsLang" :routes="child.navbar.settingsRoutes" :active-lang="child.navbar.activeLang" :user="user" v-cloak></settings>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" onclick="$crisp.push(['do', 'chat:open'])">
-                        <i class="fa fa-question-circle" aria-hidden="true"></i>
-                    </a>
-                </li>
-                <li class="nav-item">
-                @if (App::isLocale('fr'))
-                    <a class="nav-link" href="{{route('lang','en')}}">
-                        <span class="flag-icon flag-icon-gb"></span>
-                    </a>
-                @else
-                    <a class="nav-link" href="{{route('lang','fr')}}">
-                        <span class="flag-icon flag-icon-fr"></span>
-                    </a>
+                @if(Route::current()->getName() != 'public.ticket.sell.page')
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-ptb d-none d-sm-block btn-sell"
+                           href="{{route('public.ticket.sell.page')}}">@lang('nav.resell_a_ticket')</a>
+                        <a class="nav-link btn btn-ptb d-block d-sm-none"
+                           href="{{route('public.ticket.sell.page')}}">@lang('nav.sell_ticket.mobile')</a>
+                    </li>
                 @endif
-                </li>
+                @if(Route::current()->getName() != 'public.ticket.buy.page')
+                    <li class="nav-item ml-2">
+                        <a class="nav-link btn btn-ptb-white d-none d-sm-block"
+                           href="{{route('public.ticket.buy.page')}}">@lang('nav.buy_ticket')</a>
+                        <a class="nav-link btn btn-ptb-white d-block d-sm-none"
+                           href="{{route('public.ticket.buy.page')}}">@lang('nav.buy_ticket.mobile')</a>
+                    </li>
+                @endif
+                @include('components.nav-logged')
             </ul>
         </div>
     </div>

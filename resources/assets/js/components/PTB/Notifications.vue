@@ -1,6 +1,6 @@
 <template>
     <div class="nav-notifications">
-        <i class="fa fa-bell text-neon" @click="toggleDropdown()" aria-hidden="true"></i>
+        <i class="fa fa-bell" @click="toggleDropdown()" aria-hidden="true"></i>
         <span v-if="unreadCount>0" class="badge badge-pill badge-warning">{{unreadCount}}</span>
         <transition enter-active-class="animated fadeInDown"
                     leave-active-class="animated fadeOutUp"
@@ -21,7 +21,7 @@
                         </div>
                     </div>
                     <div v-if="state!='searching'&&notifications.length==0" class="item item-notification">
-                        <p class="text-center">{{lang.no_new}}</p>
+                        <p class="text-center">{{trans('notifications.no_new')}}</p>
                     </div>
                 </div>
             </div>
@@ -34,8 +34,6 @@
         props: {
             user: {type:Object,required:true},
             currentPage: {type:Object,required:true},
-            routes: {type:Object,required:true},
-            lang: {type:Object,required:true}
         },
         data() {
             return {
@@ -80,7 +78,7 @@
                 this.getNotifications();
             },
             getNotifications(){
-                this.$http.get(this.routes.api.notifications)
+                this.$http.get(route('api.notifications'))
                     .then(response => {
                         this.state='default';
                         this.notifications = response.body;

@@ -59,15 +59,15 @@ Vue.component('sandwich', require('./components/Shared/Sandwich.vue'));
 Vue.component('loader', require('./components/Shared/Loader.vue'));
 Vue.component('modal', require('./components/Shared/Modal.vue'));
 Vue.component('flash', require('./components/Shared/Flash.vue'));
-Vue.component('sidebar', require('./components/Shared/Sidebar.vue'));
+Vue.component('dropdown-menu', require('./components/PTB/DropDownMenu.vue'));
 
 /**
  * PTB specific components
  */
-Vue.component('notifications', require('./components/Lastar/Notifications.vue'));
-Vue.component('settings', require('./components/Lastar/Settings.vue'));
-Vue.component('ticket', require('./components/Lastar/Ticket.vue'));
-Vue.component('ticket-mini', require('./components/Lastar/Ticket-Mini.vue'));
+Vue.component('notifications', require('./components/PTB/Notifications.vue'));
+Vue.component('settings', require('./components/PTB/Settings.vue'));
+Vue.component('ticket', require('./components/PTB/Ticket.vue'));
+Vue.component('ticket-mini', require('./components/PTB/Ticket-Mini.vue'));
 
 /**
  * Page components

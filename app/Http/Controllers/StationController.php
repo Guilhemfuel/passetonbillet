@@ -24,15 +24,9 @@ class StationController extends Controller
             return [];
         }
 
-        $searchName = '%' . strtolower( $request->name ) . '%';
-
-        if ( \App::isLocale( 'fr' ) ) {
-            $stations = Station::whereRaw( "LOWER(name_fr) LIKE ?", [ $searchName ] )
-                               ->orderBy( 'name_fr' )->get();
-        } else {
-            $stations = Station::whereRaw( "LOWER(name_en) LIKE ?", [ $searchName ] )
-                               ->orderBy( 'name_en' )->get();
-        }
+        $stations = Station::search(  $request->name )
+                           ->orderBy( 'name' )
+                           ->get();
 
         return StationRessource::collection( $stations );
     }

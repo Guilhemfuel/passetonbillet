@@ -38,17 +38,25 @@ html, body {
   }
 }
 
-////// Validation Errors //////
-.invalid-feedback::first-letter {
-  text-transform: capitalize;
-}
+//
+// ==============================
+//
+// FONTS
+//
+// ==============================
+//
 
-/////// FONTS //////
 .din {
   font-family: 'DIN Condensed';
 }
 
-////// Forms //////
+//
+// ==============================
+//
+// Forms
+//
+// ==============================
+//
 
 .form-group {
   label {
@@ -88,6 +96,11 @@ html, body {
   }
 }
 
+////// Validation Errors //////
+.invalid-feedback::first-letter {
+  text-transform: capitalize;
+}
+
 .form-control {
 
   ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
@@ -104,7 +117,13 @@ html, body {
   }
 }
 
-////// Colors //////
+//
+// ==============================
+//
+// Gradients
+//
+// ==============================
+//
 
 // TODO: delete these grtadients
 .purple-gradient {
@@ -160,16 +179,29 @@ html, body {
   background: linear-gradient(to bottom right, $color-blue, $color-neon); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
+//
+// ==============================
+//
+// Buttons
+//
+// ==============================
+//
+
 .btn {
   cursor: pointer;
   border-radius: 8px;
 
   &:hover {
-      opacity: 0.8;
-    }
+    opacity: 0.8;
+  }
+
+  &.btn-input {
+    height: 38px;
+    border-radius: 5px;
+    line-height: 0px;
+  }
 }
 
-////// Buttons /////
 .btn-white {
   background-color: white;
   color: $color-orange;
@@ -283,25 +315,6 @@ html, body {
   color: white;
 }
 
-// Cards
-.card-title {
-  margin-left: 20px;
-  padding-bottom: 8px;
-  font-size: 25px;
-  font-weight: bold;
-  color: $color-gray;
-
-  text-transform: uppercase;
-}
-
-.card {
-  border-radius: 19px;
-  border: 0px solid;
-
-  .card-body {
-    padding: 30px;
-  }
-}
 
 // All buttons in button rack are aligned and take all width
 .btn-rack {
@@ -322,187 +335,56 @@ html, body {
   }
 }
 
+//
+// =================
+//
+// Cards
+//
+// =================
+//
+
+// Cards
+.card-title {
+  margin-left: 20px;
+  padding-bottom: 8px;
+  font-size: 25px;
+  font-weight: bold;
+  color: $color-gray;
+
+  text-transform: uppercase;
+}
+
+.card {
+  border-radius: 19px;
+  border: 0px solid;
+
+  .card-body {
+    padding: 30px;
+  }
+
+  .card-img-top-background {
+    height: 200px;
+    background-size: cover;
+    background-position: center center;
+    border-radius: 19px 19px 0px 0px;
+  }
+}
+
+//
+// ==============================
+//
 // Dashboard
+//
+// ==============================
+//
+
+
 #dashboard {
   width: 100%;
   margin: 0px;
 
   #main-content {
     overflow: hidden;
-  }
-
-  #side-bar {
-    width: 220px;
-    padding: 0px;
-    position: relative;
-    font-size: 18px;
-
-    @include media-breakpoint-down(sm) {
-      width: 60px;
-      box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
-      z-index: 1;
-    }
-
-    .top {
-      @include orange-gradient(1);
-      border-bottom-right-radius: 50% 30px;
-      border-bottom-left-radius: 50% 30px;
-      margin-bottom: 25px;
-    }
-
-    .side-bar-content {
-      position: sticky;
-      top: 0px;
-    }
-
-    .logo {
-      padding: 20px;
-
-      img {
-        margin-top: 20px;
-        width: 85%;
-        display: block;
-      }
-    }
-
-    .user-name {
-      font-size: 25px;
-      font-weight: normal;
-      margin-bottom: -12px;
-    }
-
-    .ranking {
-      font-size: 20px;
-      font-weight: normal;
-    }
-
-    .profile {
-      padding: 20px;
-      @include media-breakpoint-down(sm) {
-        padding: 0px;
-
-      }
-
-      .label-verified {
-        .fa-circle {
-          font-size: 26px;
-        }
-        .fa-check {
-          font-size: 16px;
-        }
-      }
-
-      img {
-        border: 5px solid;
-        border-radius: 160px;
-        box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.3);
-        width: 160px;
-        display: block;
-
-        @include media-breakpoint-down(sm) {
-          width: 30px;
-          margin-left: 5px;
-          margin-bottom: 15px;
-          border: 0px solid;
-          border-radius: 30 pxpx;
-        }
-      }
-    }
-
-    .nav {
-      background-color: white;
-      padding: 0px;
-
-      li {
-        position: relative;
-        width: 100%;
-        border-right: 4px solid transparent;
-        border-top: 1px solid rgba(0, 0, 0, 0.05);
-
-        -webkit-transition: background-color .15s ease-in;
-        transition: background-color .15s ease-in;
-
-        &:first-child {
-          border-top: 0px solid;
-        }
-
-        a {
-          padding: 10px 8px;
-
-          .label {
-            text-transform: uppercase;
-            font-weight: bold;
-            font-size: 16px;
-            line-height: 40px;
-            margin-left: 20px;
-          }
-
-          @include media-breakpoint-down(sm) {
-            padding: 10px 0px;
-            text-align: center;
-            line-height: 16px;
-
-            .label {
-              font-size: 10px !important;
-              line-height: 16px;
-            }
-          }
-
-          padding-right: 0px;
-          color: #A4A4A4;
-          display: block;
-          position: relative;
-
-          .fa {
-            margin-left: 10px;
-            margin-right: 10px;
-            @include media-breakpoint-down(sm) {
-              margin-left: 14px;
-              margin-right: 0px;
-              font-size: 20px;
-            }
-          }
-        }
-
-        .badge-pill {
-          background-color: rgba(255, 255, 255, 0.2);
-          position: absolute;
-          top: 12px;
-          left: 10px;
-
-          @include media-breakpoint-down(sm) {
-            font-size: 8px;
-            top: 7px;
-            left: 32px;
-            background-color: $color-blue;
-          }
-
-        }
-
-        &.active {
-
-          background-color: rgba(0, 0, 0, 0.05);
-          border-left: 4px solid $color-blue;
-
-          a {
-            color: $color-neon;
-          }
-        }
-
-        &:not(.active) {
-          border-bottom: 1px solid transparent;
-          padding-left: 4px;
-
-          &:hover {
-            padding-left: 4px;
-            background-color: rgba(0, 0, 0, 0.1);
-            //border-left: 4px solid $color-blue;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-          }
-        }
-
-      }
-    }
   }
 
   nav {
@@ -515,23 +397,130 @@ html, body {
   .navbar {
     z-index: 1;
 
-    .nav-link {
-      color: $color-neon;
-      font-size: 20px;
-      padding: 5px 10px;
+    .navbar-brand {
+      img {
+        width: 150px;
 
-      &:hover {
-        color: darken($color-neon, 15%);
+        &.icon {
+          width: inherit;
+          height: 44px;
+        }
       }
     }
 
-    .flag-icon {
-      border-radius: 18px;
-      width: 18px;
-      height: 18px;
-      background-size: cover;
-      background-position: center center;
-      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    @include media-breakpoint-down(xs) {
+      .logo-black {
+        display: none !important;
+      }
+    }
+
+    .nav-link {
+      color: $color-gray;
+      padding: 5px 10px;
+
+      &:hover {
+        color: $color-orange
+      }
+
+      &.btn-ptb {
+        color: white;
+        &:hover {
+          color: $color-gray;
+        }
+      }
+
+      &.btn-ptb-white {
+        color: $color-gray;
+        border: solid 1px $color-gray;
+
+        &:hover {
+          color: $color-orange;
+          border-color: $color-orange;
+        }
+      }
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-item.nav-logged-part {
+
+      .user-first-name {
+
+        p {
+          color: $color-gray;
+          margin-bottom: 0px;
+        }
+        &:hover {
+          p {
+            color: $color-orange;
+          }
+        }
+      }
+
+      .sandwich-menu, .nav-notifications {
+        .fa {
+          color: $color-orange;
+          &:hover {
+            color: black !important;
+          }
+        }
+      }
+
+      .sandwich-menu {
+        .fa {
+          margin-top: 12px;
+        }
+      }
+    }
+  }
+}
+
+
+//
+// ==============================
+//
+// Nav logged part (img, name, dropdown, notif...)
+//
+// ==============================
+//
+
+.nav-logged-part {
+  display: flex;
+  margin-left: 20px;
+
+  .user-picture {
+    width: 40px;
+
+    img {
+      border: solid 2px white;
+      border-radius: 40px;
+    }
+
+    &:hover {
+      img {
+        border-color: $color-orange;
+      }
+    }
+  }
+
+  .user-first-name {
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+
+    p {
+      margin-bottom: 5px;
+      font-weight: 400;
+      color: white;
+    }
+
+    &:hover {
+      p {
+        color: $color-orange;
+      }
     }
   }
 }
