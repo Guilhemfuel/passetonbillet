@@ -417,9 +417,14 @@ html, body {
     .nav-link {
       color: $color-gray;
       padding: 5px 10px;
+      font-weight: 800;
 
       &:hover {
         color: $color-orange
+      }
+
+      &.btn {
+        text-transform: uppercase;
       }
 
       &.btn-ptb {
@@ -452,6 +457,7 @@ html, body {
         p {
           color: $color-gray;
           margin-bottom: 0px;
+          font-weight: 700;
         }
         &:hover {
           p {
