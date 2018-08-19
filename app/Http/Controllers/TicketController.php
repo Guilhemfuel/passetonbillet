@@ -21,6 +21,7 @@ use App\Models\Statistic;
 use App\Notifications\OfferNotification;
 use App\Ticket;
 use App\Train;
+use App\Trains\Thalys;
 use Illuminate\Http\Request;
 use App\Facades\Eurostar;
 
@@ -181,6 +182,9 @@ class TicketController extends Controller
             $tickets = collect( $ticketArray );
 
         } else {
+
+            dd(\App\Facades\Thalys::retrieveTicket( \Auth::user()->last_name, $request->booking_code ));
+
             AppHelper::stat( 'retrieve_tickets', [
                 'name'         => \Auth::user()->last_name,
                 'booking_code' => $request->booking_code,

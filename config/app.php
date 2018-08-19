@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'Lastar',
+    'name' => 'Passe Ton Billet',
 
     /*
     |--------------------------------------------------------------------------
@@ -130,7 +130,7 @@ return [
      |  Chosen editor
      |
      */
-    'editor' => env('APP_EDITOR','phpstorm'),
+    'editor'    => env( 'APP_EDITOR', 'phpstorm' ),
 
     /*
     |--------------------------------------------------------------------------
@@ -243,13 +243,15 @@ return [
 
         //Custom
         'Eurostar'     => \App\Facades\Eurostar::class,
-        'Sncf'     => \App\Facades\Sncf::class,
-        'AppHelper'    => \App\Facades\AppHelper::class,
-        'ImageHelper'  => \App\Facades\ImageHelper::class,
+        'Sncf'         => \App\Facades\Sncf::class,
+        'Thalys'       => \App\Facades\Thalys::class,
+
+        'AppHelper'   => \App\Facades\AppHelper::class,
+        'ImageHelper' => \App\Facades\ImageHelper::class,
 
         //Added
-        'Socialite'    => Laravel\Socialite\Facades\Socialite::class,
-        'Debugbar'     => Barryvdh\Debugbar\Facade::class,
+        'Socialite'   => Laravel\Socialite\Facades\Socialite::class,
+        'Debugbar'    => Barryvdh\Debugbar\Facade::class,
 
 
     ],

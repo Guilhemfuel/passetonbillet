@@ -13,5 +13,10 @@ return [
 
     'sncf' => [
         'booking_url' => env('SNCF_BOOKING','https://en.oui.sncf/vsa/api/order/{country}/{name}/{booking_code}?source=vsa'),
+    ],
+
+    'thalys' => [
+        'base_url' => env('THALYS_BASE_URL','https://www.thalys.com/'),
+        'booking_url' => env('THALYS_BOOKING','https://www.thalys.com/?ajax=Services_PopinRecuperation'),
     ]
 ];
