@@ -32,9 +32,9 @@ return [
         ],
         'phone'                  => 'Téléphone',
         'language'               => 'Langue préférée',
-        'email'                  => 'Adresse e-mail',
+        'email'                  => 'E-mail',
         'password'               => 'Mot de passe',
-        'password_confirm'       => 'Confirmation mot de passe',
+        'password_confirm'       => 'Confirmation du mot de passe',
         'already_registered'     => 'Déjà inscrit ? Cliquez-ici pour vous connecter.',
         'success_email_redirect' => 'Dernière étape! Veuillez consulter vos mails et cliquer sur le lien d\'activation que nous venons de vous envoyer.
                                      <br>Pensez à vérifier dans vos spams!',

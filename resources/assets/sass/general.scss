@@ -235,6 +235,15 @@ html, body {
   }
 }
 
+.btn-ptb-orange {
+  background-color: $color-orange;
+  color: white;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
 .btn-ptb {
   background-color: $color-orange;
   color: white;
@@ -305,6 +314,7 @@ html, body {
 }
 
 .btn-facebook {
+
   .fa-facebook {
     margin-right: 10px;
     margin-top: 2px;
@@ -355,18 +365,18 @@ html, body {
 }
 
 .card {
-  border-radius: 19px;
   border: 0px solid;
 
   .card-body {
     padding: 30px;
-  }
+    border-bottom-style: solid;
+    border-color: orange;
+  }.btn-facebook
 
   .card-img-top-background {
     height: 200px;
     background-size: cover;
     background-position: center center;
-    border-radius: 19px 19px 0px 0px;
   }
 }
 

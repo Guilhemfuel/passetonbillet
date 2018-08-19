@@ -13,7 +13,7 @@ return [
         'subtitle'=>'Effectuez votre recherche en un clic !',
         ],
     'feedback' => [
-        'title' =>'LES AVIS DE NOS UTILISATEURS',
+        'title' =>'VOTRE AVIS',
          ],
     'howitworks' => [
         'title' =>'COMMENT ÇA MARCHE ?',
@@ -77,7 +77,7 @@ return [
         'more_info' => 'En savoir plus'
     ],
     'FAQ' => [
-        'title' => 'NOS RÉPONSES À VOS QUESTIONS',
+        'title' => 'NOUS RÉPONDONS À VOS QUESTIONS',
         'Q1'=> 'Pourquoi PasseTonBillet.fr est-il plus sécurisé que les concurrents ?',
         'A1'=> 'Réponse à la question',
         'Q2'=> 'Pourquoi PasseTonBillet.fr est-il plus sécurisé que les concurrents ?',

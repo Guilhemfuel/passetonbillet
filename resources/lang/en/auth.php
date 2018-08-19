@@ -32,7 +32,7 @@ return [
         ],
         'phone'                  => 'Phone Number',
         'language'               => 'Prefered language',
-        'email'                  => 'E-Mail Address',
+        'email'                  => 'E-Mail',
         'password'               => 'Password',
         'password_confirm'       => 'Confirm password',
         'already_registered'     => 'Already registered ? Click here to login.',

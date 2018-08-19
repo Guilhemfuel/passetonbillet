@@ -13,7 +13,7 @@ return [
         'subtitle'=>'Make your research in one click !',
     ],
     'feedback' => [
-        'title' =>'OUR USERS\'S FEEDBACK',
+        'title' =>'YOUR FEEDBACK',
     ],
     'howitworks' => [
         'title' =>'HOW IT WORKS',
@@ -77,7 +77,7 @@ return [
         'more_info' => 'More info'
     ],
     'FAQ' => [
-        'title' => 'OUR ANSWERS TO YOUR QUESTIONS',
+        'title' => 'WE ANSWERS YOUR QUESTIONS',
         'Q1'=> 'Why is PasseTonBillet.fr safer than its competitors ?',
         'A1'=> 'Answer to the question',
         'Q2'=> 'Why is PasseTonBillet.fr safer than its competitors ?',

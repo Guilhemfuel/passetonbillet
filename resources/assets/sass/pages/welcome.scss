@@ -295,7 +295,6 @@
 
     h1 {
       font-weight: 600;
-      letter-spacing: 4px;
       font-size: 58px;
     }
 
@@ -457,6 +456,7 @@
       outline: none;
       padding-left: 20px;
       padding-right: 20px;
+      width: 140px;
 
       &:hover, &.selected {
         background-color: #50d5e3;
@@ -481,6 +481,7 @@
       outline: none;
       padding-left: 20px;
       padding-right: 20px;
+      width: 140px;
 
       &:hover, &.selected {
         background-color: $color-orange;

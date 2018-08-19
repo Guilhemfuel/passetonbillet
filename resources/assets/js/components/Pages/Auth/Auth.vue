@@ -9,12 +9,11 @@
             <div v-if="type==states.login" class="content">
                 <h1 class="text-dark">{{lang.auth.title}}</h1>
                 <p>
-                    <a href="#" class="mb-4" @click.prevent="openRegister()">{{lang.auth.not_registered_yet}}</a>
+                    <a href="#" class="mb-4 a" @click.prevent="openRegister()">{{lang.auth.not_registered_yet}}</a>
                 </p>
-                <a class="btn btn-facebook text-white btn-block mb-5" :href="routes.facebook">
+                <a class="btn btn-facebook btn-facebook-login text-white btn-block mb-5" :href="routes.facebook">
                     <i class="fa fa-facebook pull-left"></i> Facebook Connect
                 </a>
-
                 <form role="form"
                       method="POST"
                       :action="routes.login"
@@ -53,7 +52,7 @@
 
                     <div class="form-group mt-2">
                         <div class="col-xs-12">
-                            <button type="submit" class="btn btn-ptb-blue btn-block">
+                            <button type="submit" class="btn btn-ptb-orange btn-block">
                                 {{lang.auth.title}}
                             </button>
                         </div>
@@ -74,9 +73,9 @@
                     enter-active-class="animated fadeInDownBig"
                     leave-active-class="animated fadeOutUpBig">
             <div v-if="type==states.register" class="content">
-                <h2 class="text-primary">{{lang.register.title}}</h2>
+                <h1 class="text-dark">{{lang.register.title}}</h1>
                 <p>
-                    <a href="#" @click.prevent="openLogin()">{{lang.register.already_registered}}</a>
+                    <a href="#" class="a" @click.prevent="openLogin()">{{lang.register.already_registered}}</a>
                 </p>
                 <div class="text-danger" v-if="customErrors.length > 0">
                     <p>Whoops!</p>
@@ -162,7 +161,7 @@
 
                         <!--TODO: Accept rules checkbox + Captcha -->
 
-                        <button type="submit" class="btn btn-ptb-blue btn-block mt-4">
+                        <button type="submit" class="btn btn-ptb-orange btn-block mt-4">
                             {{lang.register.title}}
                         </button>
 
@@ -188,7 +187,7 @@
                     <a class="btn btn-facebook btn-block" :href="routes.facebook">
                         <i class="fa fa-facebook pull-left"></i> {{lang.register.fb_register}}
                     </a>
-                    <button class="btn btn-outline-orange btn-block" @click.prevent="registerType = registerStates.form">
+                    <button class="btn btn-ptb-orange btn-block" @click.prevent="registerType = registerStates.form">
                         {{lang.register.manually}}
                     </button>
                 </div>
@@ -203,7 +202,7 @@
                     enter-active-class="animated fadeInUpBig"
                     leave-active-class="animated fadeOutDownBig">
             <div v-if="type==states.password_reset" class="content">
-                <h1 class="text-primary">{{lang.reset.title}}</h1>
+                <h1 class="text-dark">{{lang.reset.title}}</h1>
 
                 <form role="form"
                       method="POST"
@@ -228,7 +227,7 @@
 
                     <div class="form-group mt-4">
                         <div class="col-xs-12">
-                            <button type="submit" class="btn btn-ptb-blue btn-block">
+                            <button type="submit" class="btn btn-ptb-orange btn-block">
                                 {{lang.reset.submit}}
                             </button>
                         </div>
@@ -252,7 +251,7 @@
                     enter-active-class="animated fadeInUpBig"
                     leave-active-class="animated fadeOutDownBig">
             <div v-if="type==states.change_password" class="content">
-                <h1 class="text-primary">{{lang.new_password.title}}</h1>
+                <h1 class="text-dark">{{lang.new_password.title}}</h1>
 
                 <form role="form"
                       method="POST"
