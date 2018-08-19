@@ -26,7 +26,8 @@
                                        href="{{route('register')}}">@lang('nav.register')</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link register" href="{{route('login')}}">@lang('nav.login')</a>
+                                    <a class="nav-link register  btn btn-ptb-border"
+                                       href="{{route('login')}}">@lang('nav.login')</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link nav-help" href="#" onclick="$crisp.push(['do', 'chat:open'])">
@@ -68,6 +69,7 @@
                         </div>
                         <div class="card-body">
                             <h5 class="card-title">Paris <span class="arrow"></span> Lyon</h5>
+                            <div class="orange-card-border"></div>
                         </div>
                     </div>
                     <div class="card card-trip">
@@ -131,6 +133,10 @@
                 </div>
             </div>
 
+            <div class="section-feedback" id="section-feedback">
+                <h2 class="text-center text-warning title">{{__('welcome.feedback.title')}}</h2>
+            </div>
+
             <div class="section-howitworks"
                  style="background-image: url('{{secure_asset('img/bg/111.jpg')}}'); background-size:cover;">
                 <h2 class="text-center text-warning title">{{__('welcome.howitworks.title')}}</h2>
@@ -185,14 +191,42 @@
                     </div>
                 </transition>
                 <transition name="el-fade-in">
-                    <div v-if="child.welcome.stateHowItWorks=='seller'" v-cloak>
-                        how it works to sell
+                    <div class="container" v-if="child.welcome.stateHowItWorks=='seller'" v-cloak>
+                        <div class="row">
+                            <div class="col-12 col-md-6 col-lg-3 col-sm-6 mt-3">
+                                <img class="svg-icon"
+                                     src="{{secure_asset('img/icon_sell.svg')}}"
+                                     alt="Icon Sell"
+                                />
+                                <h3 class="howitworks-title  pt-1">@lang('welcome.howitworks.sell.title')</h3>
+                                <p class="howitworks-text">@lang('welcome.howitworks.sell.text')</p>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-3 col-sm-6 mt-3">
+                                <img class="svg-icon"
+                                     src="{{secure_asset('img/icon_accept.svg')}}"
+                                     alt="Icon Accept"
+                                />
+                                <h3 class="howitworks-title  pt-1">@lang('welcome.howitworks.accept.title')</h3>
+                                <p class="howitworks-text">@lang('welcome.howitworks.accept.text')</p>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-3 col-sm-6 mt-3">
+                                <img class="svg-icon"
+                                     src="{{secure_asset('img/icon_chat2.svg')}}"
+                                     alt="Icon Chat"
+                                />
+                                <h3 class="howitworks-title  pt-1">@lang('welcome.howitworks.chat2.title')</h3>
+                                <p class="howitworks-text">@lang('welcome.howitworks.chat2.text')</p>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-3 col-sm-6 mt-3">
+                                <img class="svg-icon"
+                                     src="{{secure_asset('img/icon_send2.svg')}}"
+                                     alt="Icon Send"
+                                />
+                                <h3 class="howitworks-title  pt-1">@lang('welcome.howitworks.send2.title')</h3>
+                                <p class="howitworks-text">@lang('welcome.howitworks.send2.text')</p>
+                            </div>
                     </div>
                 </transition>
-            </div>
-
-            <div class="section-feedback" id="section-feedback">
-                <h2 class="text-center text-warning title">{{__('welcome.feedback.title')}}</h2>
             </div>
 
             <div class="section-FAQ" id="section-FAQ">
@@ -245,7 +279,6 @@
             </div>
 
         </div>
-    </div>
     </div>
 
     <script type="application/javascript">

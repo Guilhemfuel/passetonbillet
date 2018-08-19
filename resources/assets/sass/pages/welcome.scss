@@ -81,6 +81,7 @@
 
         .center {
           margin-top: 140px;
+          text-align: left !important;
 
           #home-search {
 
@@ -149,9 +150,8 @@
 
         .nav-item {
 
-
           a {
-            color: $color-gray;
+            color: #82848a;
 
             &:hover {
               color: $color-orange;
@@ -170,13 +170,24 @@
             }
 
             &.btn-ptb-white {
-              color: $color-gray;
-              border: solid 1px $color-gray;
+              color: $color-orange;
+              border: solid 1px $color-orange;
             }
 
-
+            &.btn-ptb-border {
+              color: #82848a;
+              border-color: #82848a;
+              padding-top: 5px;
+              padding-bottom: 5px;
+              padding-left: 25px;
+              padding-right: 25px;
+              margin-top: 4px;
+            }
           }
         }
+
+      }
+    }
 
         .nav-item.nav-logged-part {
 
@@ -197,7 +208,7 @@
           .fa {
             color: $color-orange;
             &:hover {
-              color: black !important;
+              color: $color-dark-gray !important;
             }
           }
         }
@@ -244,6 +255,16 @@
         margin-top: 4px;
       }
 
+      &.btn-ptb-border {
+        color: $white;
+        border-color: white;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-left: 25px;
+        padding-right: 25px;
+        margin-top: 4px;
+      }
+
       &.nav-help {
 
         margin-left: -12px;
@@ -251,6 +272,7 @@
 
       .fa {
         font-size: 22px;
+        margin-left: 20px;
       }
 
       &.flag {
@@ -258,7 +280,7 @@
       }
 
       &.register {
-        margin-left: -10px;
+        margin-left: -1px;
       }
     }
 
@@ -294,7 +316,7 @@
         cursor: pointer;
       }
     }
-  }
+
 
   .section-favorites {
     background-color: $color-greybg;
@@ -372,7 +394,7 @@
   }
 
   .section-feedback {
-    background-color: white;
+    background-color: $color-greybg;
     width: 100%;
     padding-top: 50px;
     padding-bottom: 50px;
@@ -567,6 +589,3 @@
     }
 
   }
-
-}
-

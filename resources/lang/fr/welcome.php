@@ -26,7 +26,7 @@ return [
             'text' => 'Faîtes une offre aux inférieure ou égale au prix demandée par le vendeur.',
             ],
         'chat'=> [
-            'title' => 'Discutez',
+            'title' => 'Discutez avec le vendeur',
             'text' => '• Si l’offre est acceptée par le vendeur, une conversation se crée avec celui-ci afin que vous choisissiez le moyen de paiement qui vous correspond le mieux à tous les deux. </br>
 	                   • Si l’offre n’est pas acceptée vous pouvez faire une nouvelle offre.',
             ],
@@ -34,6 +34,22 @@ return [
             'title' => 'Recevez le billet',
             'text' => 'Une fois d’accord, envoyez l’argent et votre ticket vous sera envoyé dès que le vendeur aura reçu votre argent !',
              ],
+        'sell'=> [
+            'title' => 'Mettez votre billet en vente',
+            'text' => 'Mettez votre billet en vente en quelques clicks seulement grâce à notre technologie. ',
+        ],
+        'accept' => [
+            'title' => 'Recevez des offres',
+            'text' => 'Recevez des offres pour votre billet, puis acceptez seulement les offres qui vous conviennent.',
+        ],
+        'chat2'=> [
+            'title' => 'Discutez avec l\'acheteur',
+            'text' => 'Lorsque vous accepterez une offre pour votre billet, une conversation avec l’acheteur se créera automatiquement dans laquelle vous pourrez choisir  le moyen de paiement qui vous convient le mieux à tous les deux.',
+        ],
+        'send2'=> [
+            'title' => 'Envoyez le ticket',
+            'text' => 'Une fois l’argent de l’acheteur reçu, vous n’aurez plus qu’à lui envoyer le billet !',
+        ],
         'buttons'=> [
             'buyer' => 'Acheteur',
             'seller'=> 'Revendeur',
