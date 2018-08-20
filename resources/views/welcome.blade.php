@@ -12,13 +12,16 @@
                                  alt="logo passe ton billet">
                             <img src="{{secure_asset('img/logo-black.png')}}" class="align-top logo-black"
                                  alt="logo passe ton billet">
-                            <img src="{{secure_asset('img/logo-icon.png')}}" class="icon align-top d-inline-block d-sm-none"
+                            <img src="{{secure_asset('img/logo-icon.png')}}"
+                                 class="icon align-top d-inline-block d-sm-none"
                                  alt="logo passe ton billet">
                         </a>
                         <ul class="navbar-nav navbar-expand">
                             <li class="nav-item">
-                                <a class="nav-link btn btn-ptb d-none d-sm-block" href="{{route('public.ticket.sell.page')}}">@lang('nav.resell_a_ticket')</a>
-                                <a class="nav-link btn btn-ptb d-block d-sm-none" href="{{route('public.ticket.sell.page')}}">@lang('nav.sell_ticket.mobile')</a>
+                                <a class="nav-link btn btn-ptb d-none d-sm-block"
+                                   href="{{route('public.ticket.sell.page')}}">@lang('nav.resell_a_ticket')</a>
+                                <a class="nav-link btn btn-ptb d-block d-sm-none"
+                                   href="{{route('public.ticket.sell.page')}}">@lang('nav.sell_ticket.mobile')</a>
                             </li>
                             @if (Auth::guest())
                                 <li class="nav-item">
@@ -57,34 +60,49 @@
                 <h5 class="text-center text-warning subtitle">{{__('welcome.favorites.subtitle')}}</h5>
 
 
-                <div class="d-flex flex-row flex-nowrap cards-horizontal-list">
-                    <div class="card card-trip">
-                        <div class="card-img-top-background" style="background-image: url('img/cities/london.jpeg')">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Paris <span class="arrow"></span> Londres</h5>
-                        </div>
+                <div class="cards-horizontal-list">
+                    <div id="scroll-left" class="scroll-btn">
+                        <i class="fa fa-arrow-left" aria-hidden="true"></i>
                     </div>
-                    <div class="card card-trip">
-                        <div class="card-img-top-background" style="background-image: url('img/cities/lyon.jpg')">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Paris <span class="arrow"></span> Lyon</h5>
-                            <div class="orange-card-border"></div>
-                        </div>
+                    <div id="scroll-right" class="scroll-btn">
+                        <i class="fa fa-arrow-right" aria-hidden="true"></i>
                     </div>
-                    <div class="card card-trip">
-                        <div class="card-img-top-background" style="background-image: url('img/cities/paris.jpeg')">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Lyon <span class="arrow"></span> Paris</h5>
-                        </div>
-                    </div>
-                    <div class="card card-trip">
-                        <div class="card-img-top-background" style="background-image: url('img/cities/marseille.jpg')">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Paris <span class="arrow"></span> Marseille</h5>
+
+                    <div class="cards" id="cards-trips">
+                        <div class="d-inline-flex px-3">
+                            <div class="card card-trip">
+                                <div class="card-img-top-background"
+                                     style="background-image: url('img/cities/london.jpeg')">
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Paris <span class="arrow"></span> Londres</h5>
+                                </div>
+                            </div>
+                            <div class="card card-trip">
+                                <div class="card-img-top-background"
+                                     style="background-image: url('img/cities/lyon.jpg')">
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Paris <span class="arrow"></span> Lyon</h5>
+                                    <div class="orange-card-border"></div>
+                                </div>
+                            </div>
+                            <div class="card card-trip">
+                                <div class="card-img-top-background"
+                                     style="background-image: url('img/cities/paris.jpeg')">
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Lyon <span class="arrow"></span> Paris</h5>
+                                </div>
+                            </div>
+                            <div class="card card-trip">
+                                <div class="card-img-top-background"
+                                     style="background-image: url('img/cities/marseille.jpg')">
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Paris <span class="arrow"></span> Marseille</h5>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -226,6 +244,7 @@
                                 <h3 class="howitworks-title  pt-1">@lang('welcome.howitworks.send2.title')</h3>
                                 <p class="howitworks-text">@lang('welcome.howitworks.send2.text')</p>
                             </div>
+                        </div>
                     </div>
                 </transition>
             </div>
@@ -282,12 +301,17 @@
         </div>
     </div>
 
+    @push('scripts')
+
     <script type="application/javascript">
 
+        /**
+         *   Script to toggle to pos-top class of the nav-bar
+         */
         function checkScroll() {
             let scroll = window.scrollY;
 
-            if(scroll > 200){
+            if (scroll > 200) {
                 document.getElementById('nav').classList.remove("pos-top");
             }
             else {
@@ -295,15 +319,54 @@
             }
         }
 
-        (function() {
-            window.addEventListener('scroll', function(){
+        (function () {
+            window.addEventListener('scroll', function () {
                 checkScroll();
             });
         })();
 
+        // On page load check position of nav
         checkScroll();
 
     </script>
+
+    <script type="application/javascript">
+
+        /**
+         *   Script to slide the card-trip
+         */
+        let rightBtn = document.getElementById('scroll-right');
+        let leftBtn = document.getElementById('scroll-left');
+
+        rightBtn.onclick = function () {
+            var container = document.getElementById('cards-trips');
+            sideScroll(container,'right',25,365,25);
+        };
+
+        leftBtn.onclick = function () {
+            var container = document.getElementById('cards-trips');
+            sideScroll(container,'left',25,365,25);
+        };
+
+        function sideScroll(element,direction,speed,distance,step){
+            scrollAmount = 0;
+            var slideTimer = setInterval(function(){
+                if(direction == 'left'){
+                    element.scrollLeft -= step;
+                } else {
+                    element.scrollLeft += step;
+                }
+                scrollAmount += step;
+                if(scrollAmount >= distance){
+                    window.clearInterval(slideTimer);
+                }
+            }, speed);
+        }
+
+
+    </script>
+
+    @endpush
 
 
 @endsection

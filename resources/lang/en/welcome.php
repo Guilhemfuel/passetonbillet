@@ -8,84 +8,84 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'favorites' => [
-        'title' =>'YOUR FAVORITE JOURNEYS',
-        'subtitle'=>'Make your research in one click !',
+    'favorites'  => [
+        'title'    => 'YOUR FAVORITE JOURNEYS',
+        'subtitle' => 'Make your research in one click !',
     ],
-    'feedback' => [
-        'title' =>'YOUR FEEDBACK',
+    'feedback'   => [
+        'title' => 'YOUR FEEDBACK',
     ],
     'howitworks' => [
-        'title' =>'HOW IT WORKS',
-        'search' => [
+        'title'   => 'HOW IT WORKS',
+        'search'  => [
             'title' => 'Search',
-            'text' => 'Search and choose one or more tickets that interest you.',
-         ],
-        'auction'=> [
+            'text'  => 'Search and choose one or more tickets that interest you.',
+        ],
+        'auction' => [
             'title' => 'Make an offer',
-            'text' => 'Make an offer at or below the asking price of the seller.',
-         ],
-        'chat'=> [
+            'text'  => 'Make an offer at or below the asking price of the seller.',
+        ],
+        'chat'    => [
             'title' => 'Chat with the seller',
-            'text' => '	• If the offer is accepted by the seller, a conversation is created with it so that you choose the means of payment that best suits both of you. </br> 
+            'text'  => '	• If the offer is accepted by the seller, a conversation is created with it so that you choose the means of payment that best suits both of you. </br> 
 	                    • If the offer is not accepted you can make a new offer.',
         ],
-        'send'=> [
+        'send'    => [
             'title' => 'Receive the ticket',
-            'text' => 'Once agreed, send the money and your ticket will be sent to you as soon as the seller has received your money!',
+            'text'  => 'Once agreed, send the money and your ticket will be sent to you as soon as the seller has received your money!',
         ],
-        'sell'=> [
+        'sell'    => [
             'title' => 'Put your ticket on sale',
-            'text' => 'Put your ticket on sale in just a few clicks with our technology.',
+            'text'  => 'Put your ticket on sale in just a few clicks with our technology.',
         ],
-        'accept' => [
+        'accept'  => [
             'title' => 'Receive offers',
-            'text' => 'Receive offers for your ticket, then accept only the offers that suit you.',
+            'text'  => 'Receive offers for your ticket, then accept only the offers that suit you.',
         ],
-        'chat2'=> [
+        'chat2'   => [
             'title' => 'Chat with the buyer',
-            'text' => 'When you accept an offer for your ticket, a conversation with the buyer will be automatically created in which you can choose the means of payment that suits best both you and the buyer.',
+            'text'  => 'When you accept an offer for your ticket, a conversation with the buyer will be automatically created in which you can choose the means of payment that suits best both you and the buyer.',
         ],
-        'send2'=> [
+        'send2'   => [
             'title' => 'Send the ticket ',
-            'text' => 'Once the buyer\'s money is received, you just have to send the ticket!',
+            'text'  => 'Once the buyer\'s money is received, you just have to send the ticket!',
         ],
-        'buttons'=> [
-        'buyer' => 'Buyer',
-        'seller'=> 'Reseller',
-             ],
+        'buttons' => [
+            'buyer'  => 'Buyer',
+            'seller' => 'Reseller',
         ],
+    ],
     'advantages' => [
-        'one_clic' => "BUY AND RESELL YOUR <br> SECOND HAND TRAIN TICKETS",
-        'why_use' => 'WHY USE',
-        'quicker' => [
+        'one_clic'  => "BUY AND RESELL YOUR <br> SECOND HAND TRAIN TICKETS",
+        'why_use'   => 'WHY USE',
+        'quicker'   => [
             'title' => 'So Quick',
             'text'  => 'With many new features, you can buy and sell your used train tickets in no time. In most cases you can even directly download your verified ticket directly on the site.'
         ],
-        'cheaper' => [
+        'cheaper'   => [
             'title' => 'So Cheap',
             'text'  => 'To make us forgive for making you wait for months, the new version of Passetonbillet.com is a first time 100% free for all buyers and sellers.'
         ],
-        'safer'   => [
+        'safer'     => [
             'title' => 'So Safe',
             'text'  => 'PasseTonBillet.fr uses various security procedures such as the verification of each ticket sold and the identity of our users in order to guarantee a maximum level of security.'
         ],
-        '10years' => [
+        '10years'   => [
             'title' => '10 Years of Experience',
-            'text' => 'PasseTonBillet.fr is the first used train ticket resale site created. It is now 10 years that he listens and improves continuously to meet the expectations of its users.'
+            'text'  => 'PasseTonBillet.fr is the first used train ticket resale site created. It is now 10 years that he listens and improves continuously to meet the expectations of its users.'
         ],
         'more_info' => 'More info'
     ],
-    'FAQ' => [
-        'title' => 'WE ANSWERS YOUR QUESTIONS',
-        'Q1'=> 'Why is PasseTonBillet.fr safer than its competitors ?',
-        'A1'=> 'Answer to the question',
-        'Q2'=> 'Why is PasseTonBillet.fr safer than its competitors ?',
-        'A2'=> 'Answer to the question',
-        'Q3'=> 'Why is PasseTonBillet.fr safer than its competitors ?',
-        'A3'=> 'Answer to the question',
-        'Q4'=> 'Why is PasseTonBillet.fr safer than its competitors ?',
-        'A4'=> 'Answer to the question',
+    'FAQ'        => [
+        'title'   => 'WE ANSWERS YOUR QUESTIONS',
+        'Q1'      => 'Why is PasseTonBillet.fr safer than its competitors ?',
+        'A1'      => 'Answer to the question',
+        'Q2'      => 'Why is PasseTonBillet.fr safer than its competitors ?',
+        'A2'      => 'Answer to the question',
+        'Q3'      => 'Why is PasseTonBillet.fr safer than its competitors ?',
+        'A3'      => 'Answer to the question',
+        'Q4'      => 'Why is PasseTonBillet.fr safer than its competitors ?',
+        'A4'      => 'Answer to the question',
         'buttons' => [
             'seemore' => 'Go to help center',
         ],

@@ -150,6 +150,18 @@
 
         .nav-item {
 
+          .user-first-name {
+
+            p {
+              color: $color-dark-gray;
+            }
+            &:hover {
+              p {
+                color: $color-orange;
+              }
+            }
+          }
+
           a {
             color: #82848a;
 
@@ -194,7 +206,7 @@
           .user-first-name {
 
             p {
-              color: $color-gray;
+              color: white;
             }
             &:hover {
               p {
@@ -324,20 +336,53 @@
     padding-bottom: 50px;
 
     .cards-horizontal-list {
-      overflow-x: scroll;
-      padding: 20px;
       margin-top: 30px;
-      margin-bottom: 30x;
+      margin-bottom: 30px;
+      position: relative;
 
-      &::-webkit-scrollbar {
-        display: none;
+      .scroll-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        border-radius: 50%;
+        background-color: rgba(0,0,0,0.2);
+        font-size: 35px;
+        width: 52px;
+        text-align: center;
+        cursor: pointer;
+
+        z-index: 100;
+        color: rgba(255,255,255,0.8);
+
+
+        &:hover {
+          color: white;
+          background-color: rgba(0,0,0,0.6);
+        }
+
+        &#scroll-right {
+          right: 20px;
+        }
+
+        &#scroll-left {
+          left: 20px;
+        }
       }
+
+      .cards {
+        overflow: scroll;
+        &::-webkit-scrollbar {
+          display: none;
+        }
+      }
+
 
       .card-trip {
         box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
-        min-width: 350px;
+        width: 350px;
         margin-left: 15px;
         margin-right: 15px;
+        display: block;
 
         .arrow::after {
           color: $color-sub-title;
@@ -439,6 +484,10 @@
       text-align: center;
     }
 
+    .btn {
+      min-width: 160px;
+    }
+
     #btn-buyer {
       margin-right: 15px;
       height: 45px;
@@ -456,7 +505,6 @@
       outline: none;
       padding-left: 20px;
       padding-right: 20px;
-      width: 140px;
 
       &:hover, &.selected {
         background-color: #50d5e3;
@@ -481,7 +529,6 @@
       outline: none;
       padding-left: 20px;
       padding-right: 20px;
-      width: 140px;
 
       &:hover, &.selected {
         background-color: $color-orange;
