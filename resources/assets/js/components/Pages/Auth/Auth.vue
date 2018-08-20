@@ -129,12 +129,6 @@
                                     value-format="dd/MM/yyyy"
                                     default-value-format="DD/MM/YYYY"></input-date>
 
-                        <input-text name="location"
-                                    class-name="col-xs-12"
-                                    :label="lang.register.location.title"
-                                    :placeholder="lang.register.location.title"
-                        ></input-text>
-
                         <input-text name="email"
                                     type="email"
                                     class-name="col-xs-12"

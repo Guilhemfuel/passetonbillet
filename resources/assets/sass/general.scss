@@ -307,7 +307,7 @@ html, body {
   cursor: pointer;
 
   &:hover {
-    @include orange-gradient(1);
+    background-color: $color-orange;
     color: white;
     border: 0px;
   }
@@ -332,7 +332,6 @@ html, body {
   align-items: center;
   .btn {
     flex: 1;
-    margin-right: 15px;
     margin-left: 15px;
   }
 
@@ -445,8 +444,9 @@ html, body {
       }
 
       &.btn-ptb-white {
-        color: $color-gray;
-        border: solid 1px $color-gray;
+        background-color: transparent;
+        color: $color-orange;
+        border: solid 1px $color-orange;
 
         &:hover {
           color: $color-orange;
@@ -479,8 +479,13 @@ html, body {
       .sandwich-menu, .nav-notifications {
         .fa {
           color: $color-orange;
+          margin-top: 10px !important;
+
           &:hover {
             color: black !important;
+          }
+          .fa-bell {
+            margin-top: 0px !important;
           }
         }
       }
@@ -506,9 +511,11 @@ html, body {
 .nav-logged-part {
   display: flex;
   margin-left: 20px;
+  margin-top: 0px !important;
 
   .user-picture {
     width: 40px;
+    margin-left: 16px;
 
     img {
       border: solid 2px white;

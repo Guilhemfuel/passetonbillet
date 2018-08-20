@@ -43,7 +43,7 @@ return [
         'fb_register' => 'Inscription avec Facebook',
 
 
-        'ticketLinkMessage' => 'Inscrivez vous sur Lastar pour acheter et vendre des billets de trains européens de manière sécurisée, rapide, et économe.'
+        'ticketLinkMessage' => 'Inscrivez vous sur PasseTonBillet.fr pour acheter et vendre des billets de trains européens de manière sécurisée, rapide, et économe.'
 
     ],
     'auth'     => [

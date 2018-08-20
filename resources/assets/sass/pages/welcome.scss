@@ -162,6 +162,14 @@
             }
           }
 
+          .fa {
+            color: $color-orange;
+
+            &:hover {
+              color: $color-dark-gray !important;
+            }
+          }
+
           a {
             color: #82848a;
 
@@ -202,7 +210,6 @@
     }
 
         .nav-item.nav-logged-part {
-
           .user-first-name {
 
             p {
@@ -218,7 +225,7 @@
 
         .sandwich-menu, .nav-notifications {
           .fa {
-            color: $color-orange;
+            color: white;
             &:hover {
               color: $color-dark-gray !important;
             }
@@ -256,6 +263,7 @@
         padding-left: 25px;
         padding-right: 25px;
         margin-top: 4px;
+
       }
 
       &.btn-ptb-white {

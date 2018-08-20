@@ -115,7 +115,7 @@ class MessageNotification extends Notification implements ShouldQueue
 
         return FacebookMessage::create()
                               ->to(['id'=>253093131783325])
-                              ->text('You received a new message on Lastar!')
+                              ->text('You received a new message on PasseTonBillet.fr!')
                               ->notificationType(NotificationType::REGULAR) // Optional
                               ->buttons([
                 Button::create('Reply to Message', $url)->isTypeWebUrl(),
