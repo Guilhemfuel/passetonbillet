@@ -5,7 +5,6 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Illuminate\Support\Facades\App;
 
 
 class Handler extends ExceptionHandler
@@ -52,7 +51,7 @@ class Handler extends ExceptionHandler
      */
     public function report( Exception $exception )
     {
-        if ( App::environment() != 'local' && app()->bound( 'sentry' ) && $this->sentryShouldReport( $exception ) ) {
+        if ( \App::environment() != 'local' && app()->bound( 'sentry' ) && $this->sentryShouldReport( $exception ) ) {
             $this->sentryID = app( 'sentry' )->captureException( $exception );
         }
 
@@ -65,12 +64,12 @@ class Handler extends ExceptionHandler
      * @param  \Illuminate\Http\Request $request
      * @param  \Exception               $exception
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
     public function render( $request, Exception $exception )
     {
         if ( ($exception instanceof EurostarException || $exception instanceof SncfException)
-             && App::environment() != 'local'
+             && \App::environment() != 'local'
              && !$request->expectsJson()
         ) {
             $errorMsg = 'Train Error: ' . $exception->getMessage();
