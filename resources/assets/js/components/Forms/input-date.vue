@@ -53,7 +53,7 @@
         inject: ['$validator'],
         props: {
             label: {required: false, type: String},
-            withIcon: {required: false, default: true, type: Boolean},
+            withIcon: {required: false, default: false, type: Boolean},
             name: {required: true, type: String},
             type: {required: false, type: String},
             defaultValue: {required: false, type: Object},

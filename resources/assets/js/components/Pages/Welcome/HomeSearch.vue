@@ -22,6 +22,7 @@
                             format="dd/MM/yyyy"
                             value-format="dd/MM/yyyy"
                             default-value-format="DD/MM/YYYY"
+                            :with-icon="true"
                             :picker-options="datePickerOptions"
                     ></input-date>
 

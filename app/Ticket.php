@@ -51,6 +51,7 @@ class Ticket extends Model
 
         // Buyer info
         'provider_code',
+        'provider_id',
         'ticket_number',
         'passbook_link',
         'buyer_email',

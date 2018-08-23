@@ -19,10 +19,7 @@ use App\Train;
 use GuzzleHttp\Client;
 use GuzzleHttp\Cookie\CookieJar;
 use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Exception\ServerException;
-use GuzzleHttp\RequestOptions;
-use setasign\Fpdi\Fpdi;
-use setasign\Fpdi\PdfParser\StreamReader;
+use DiDom\Document;
 
 class Thalys
 {
@@ -34,6 +31,36 @@ class Thalys
     const DATE_FORMAT_JSON = 'd/m/Y';
     const TIME_FORMAT_DB = 'H:i:s';
     const DATE_FORMAT_DB = 'Y-m-d';
+
+    const THALYS_STATIONS_ID = [
+
+        // Germany
+        6698, // Aachen
+        7573, // Dortmund
+        7576, // Duisburg
+        7575, // Dusseldorf Flughafen
+        7475, // Dusseldorf Hbf
+        7591, // Essen
+        7561, // Koln
+
+        // Belgium
+        5929, // Antwerpeen
+        5893, // BXL - Midi
+        5995, // Liege
+
+        // France
+        233, // Aix
+        485, // Avignon
+        1129, // Paris gare du nord
+        4653, // Lille europe
+        4791, // Marseille
+        5614, // Valence TGV
+
+        // Netherlands
+        5894, // AMS - Centraal
+        8670, // Rotterdam
+        8672, // Schiphol Amsterdam airport
+    ];
 
     public function __construct( Client $customClient = null )
     {
@@ -135,7 +162,7 @@ class Thalys
         }
 
         $response = $this->client->request( 'GET',
-            config( 'trains.thalys.base_url' ) . $url,
+            config( 'trains.thalys.base_url' ) . 'fr/en' . substr( $url, 6 ),
             [
                 'http_errors' => false,
                 'headers'     => [
@@ -147,90 +174,108 @@ class Thalys
                 ]
             ] );
 
-        dd(config( 'trains.thalys.base_url' ) . $url,$response->getBody(true)->getContents());
 
-        $doc = new \DOMDocument();
-        $doc->loadHTML($response->getBody(true)->getContents());
+        $content = $response->getBody( true )->getContents();
+        $document = new Document( $content );
 
+        // Handle errors (if html containing data was not found)
+        if ( ! $document->has( '.travel_wrapper' ) ) {
+            throw new ThalysException( 'Please try again later.' );
+        }
 
-        echo $response->getBody(true)->getContents();
-        dd();
-
-        $decoded = json_decode( (string) $response->getBody(), true );
-
-        dd($decoded);
-
-
-        // Find tickets
-        $transactionId = $trainData["transactionIds"][0];
-        $price = $decoded ["transactions"][ $transactionId ]["amount"];
-        $buyerEmail = $decoded['initialContact']['emailAddress'];
-        $currency = "EUR";
-
+        $travelDataArray = $document->find( '.travel_wrapper' );
         $tickets = [];
 
-        // For each travel
-        foreach ( $trainData['travels'] as $travel ) {
-
-            $ticket = $this->createTrainAndReturnTicket( $travel, $currency, $lastName, $referenceNumber, $buyerEmail, $price, $past );
-
-            if ( $ticket ) {
-                array_push( $tickets, $ticket );
+        foreach ( $travelDataArray as $travelData ) {
+            if ( ! $travelData->has( '.date_travel' ) ) {
+                continue;
             }
+
+            $tickets[] = $this->createTrainAndReturnTicket( $travelData, $lastName, $referenceNumber );
 
         }
 
         return $tickets;
     }
 
-    public function createTrainAndReturnTicket( $data, $currency, $lastName, $referenceNumber, $buyerEmail, $price, $past = false )
+    private function createTrainAndReturnTicket( $travelData, $lastName, $referenceNumber, $past = false )
     {
 
-        // Check if correspondance
-        $correspondance = false;
+        // Find date
+        $date = $travelData->find( 'span.date_travel' )[0]->text();
+        $date = substr( $date, 16 ); // String before date is 'Your journey on ` so 16 chars
 
-        if ( count( $data["segments"] ) > 2 ) {
-            $correspondance = true;
+        setlocale( LC_ALL, 'fr_FR' );
+        Carbon::setLocale( 'fr' );
+        $departureDate = Carbon::createFromFormat( 'l F d. Y', $date );
+        $arrivalDate = $departureDate->copy();
+
+        // Now find ticket information
+        $ticketInfo = $travelData->find( '.travel.ticket-box' )[0];
+
+        //Departure and arrival time
+        $trip = $ticketInfo->find( '.od_wrapper' )[0];
+        $lines = $trip->find( '.line' );
+
+        $departureDate->setTimeFromTimeString( $lines[0]->find( '.time' )[0]->text() );
+        $departureStation = $this->getTrainStation( $lines[0]->find( '.city' )[0]->text() );
+
+        $arrivalDate->setTimeFromTimeString( $lines[1]->find( '.time' )[0]->text() );
+        $arrivalStation = $this->getTrainStation( $lines[1]->find( '.city' )[0]->text() );
+
+        if ( $departureStation == null ) {
+            throw new ThalysException( 'Departure station not found.' );
+        }
+        if ( $arrivalStation == null ) {
+            throw new ThalysException( 'Arrival station not found.' );
         }
 
-        $trainNumber = $data["segments"][0]['trainNumber'];
+        // Now we find ticket id
+        $ticketId = $travelData->find( 'a.btn_popin_send_ticket_by_email' )[0];
+        $ticketId = substr( $ticketId->getAttribute( 'id' ), 10 ); // Id starts with 'btn_popin_' (10 chars long)
 
-        $departureDateTime = new Carbon( $data["arrivalDate"] );
-        $arrivalDateTime = new Carbon( $data["departureDate"] );
+        //  Train ID and class
+        $tempInfoTravel = $travelData->find( '.travel_data' )[0]->find( '.wrapper_data' )[0]->find( 'p' )[1];
+        $tempInfoTravel = explode( "\r\n", $tempInfoTravel->text() );
 
-        $trainDepartureStation = null;
-        $trainArrivalStation = null;
+        $class = trim( $tempInfoTravel[1], ' ,' );
+        $trainNumber = trim( $tempInfoTravel[2], ' ,' );
 
-        $trainDepartureStation = Station::where( 'sncf_id', $data['origin']['stationResarailCode'] )->first();
-        $trainArrivalStation = Station::where( 'sncf_id', $data['destination']['stationResarailCode'] )->first();
+        // Retrieve price, currency and flexibility
+        $tempInfoTravel = $ticketInfo->find( '.id_wrapper' )[0]->find( '.line_client' );
+        $flexibility = $tempInfoTravel[1]->text();
 
-        if ( $trainDepartureStation == null ) {
-            throw new SncfException( 'Departure station with code ' . $data['origin']['stationResarailCode'] . ' not found.' );
-        }
-        if ( $trainArrivalStation == null ) {
-            throw new SncfException( 'Arrival station with code ' . $data['destination']['stationResarailCode'] . ' not found.' );
+        $price = floatval( preg_replace('/\D/', '', $tempInfoTravel[2]->text()) );
+
+        switch (substr($tempInfoTravel[2]->text(),-1)){
+            case '$':
+                $currency = 'USD';
+                break;
+            case '£':
+                $currency = 'GBP';
+                break;
+            default:
+                $currency = 'EUR';
         }
 
         // You can sell ticket max two hours before train!
-        if ( $past || $departureDateTime->modify( '-2 hour' ) >= new \DateTime() ) {
+        if ( $past || $departureDate->copy()->modify( '-2 hour' ) >= new \DateTime() ) {
             // We don't consider past tickets
 
             // Create train
             $train = Train::firstOrCreate(
                 [
                     'number'         => $trainNumber,
-                    'departure_date' => $departureDateTime->format( self::DATE_FORMAT_DB ),
-                    'departure_time' => $departureDateTime->format( self::TIME_FORMAT_DB ),
-                    'departure_city' => $trainDepartureStation->id,
-                    'arrival_date'   => $arrivalDateTime->format( self::DATE_FORMAT_DB ),
-                    'arrival_time'   => $arrivalDateTime->format( self::TIME_FORMAT_DB ),
-                    'arrival_city'   => $trainArrivalStation->id
+                    'departure_date' => $departureDate->format( self::DATE_FORMAT_DB ),
+                    'departure_time' => $departureDate->format( self::TIME_FORMAT_DB ),
+                    'departure_city' => $departureStation->id,
+                    'arrival_date'   => $arrivalDate->format( self::DATE_FORMAT_DB ),
+                    'arrival_time'   => $arrivalDate->format( self::TIME_FORMAT_DB ),
+                    'arrival_city'   => $arrivalStation->id
                 ]
             );
 
-            // Retrieve ticket information
-            $flexibility = $data['fareFlexibility'];
-            $class = $data['segments'][0]['comfortClass'];
+
             $boughtPrice = $price;
 
             // Create new Ticket
@@ -240,12 +285,11 @@ class Thalys
             $ticket->class = $class;
             $ticket->bought_price = intval( $boughtPrice );
             $ticket->bought_currency = $currency;
-            $ticket->inbound = $data["type"] != "OUTWARD";
+            $ticket->inbound = false;
             $ticket->buyer_name = $lastName;
             $ticket->provider_code = $referenceNumber;
+            $ticket->provider_id = $ticketId;
             $ticket->provider = self::PROVIDER;
-            $ticket->buyer_email = $buyerEmail;
-            $ticket->correspondence = $correspondance;
 
 
             return $ticket;
@@ -255,115 +299,30 @@ class Thalys
     }
 
     /**
-     * Download the ticket PDF from eurostar, and store it on S3
-     * Also update ticket with the passbook_link
+     * As we crawl a web page we don't have an id. This function finds the corresponding train station.
+     *
+     * @param $stationName
+     *
+     * @return Station
      */
-    public function downloadAndReuploadPDF( Ticket $ticket )
+    private function getTrainStation( string $stationName )
     {
+        $stations = Station::whereIn( 'id', self::THALYS_STATIONS_ID )->get();
 
-        // We first want to get the authorization code for this, as it has to be freshly emitted by eurostar
-        $response = $this->client->request(
-            'GET',
-            $this->retrieveURL . $ticket->eurostar_code . '/' . $ticket->buyer_name . '?locale=uk-en',
-            [ 'http_errors' => false ]
-        );
+        $bestMatch = null;
+        $matchValue = 0;
 
-        if ( ! isset( json_decode( (string) $response->getBody(), true )['booking'] ) ) {
-            throw new SncfException( 'Nothing found with this name/code combination.' );
-        }
+        foreach ( $stations as $station ) {
+            $tempMatchValue = 0;
+            similar_text( $stationName, $station->name, $tempMatchValue );
 
-        // Handle errors (if there isn't a trip from a station to another one)
-        if ( $response->getStatusCode() == 500 ) {
-            throw new SncfException( 'Please try again later.' );
-        }
-
-        $decoded = json_decode( (string) $response->getBody(), true )['booking'];
-
-        $accessToken = $decoded['etapBooking']['accessToken'];
-        $ticketIndex = 0;
-        $passengersIndex = [];
-
-        if ( ! isset( $decoded['etapBooking']['ticketsData'] ) ) {
-            \Log::debug( $decoded );
-        }
-
-        foreach ( $decoded['etapBooking']['ticketsData']['tickets'] as $ticketData ) {
-            // Fill the number of ticket seen for each passenger
-            isset( $passengersIndex[ $ticketData['passengerId'] ] ) ? $passengersIndex[ $ticketData['passengerId'] ] ++ : $passengersIndex[ $ticketData['passengerId'] ] = 0;
-
-            if ( $ticketData['ticketNumber'] == $ticket->eurostar_ticket_number ) {
-                $passengerId = $ticketData['passengerId'];
-                // Order of ticket for this passenger
-                $ticketIndex = $passengersIndex[ $ticketData['passengerId'] ];
+            if ( $tempMatchValue > $matchValue ) {
+                $matchValue = $tempMatchValue;
+                $bestMatch = $station;
             }
         }
 
-
-        // Now retrieve and save passbook url
-        $ticket->passbook_link = $decoded['etapBooking']['ticketsData']['passbook'][ $ticket->eurostar_ticket_number ];
-        $ticket->save();
-
-        // Now that we retrieved passenger id, we simply need to do a post to retrieve and download the ticket
-        $response = $this->client->request(
-            'POST',
-            $this->pdfURL . $ticket->eurostar_code . '/passengers/' . $passengerId . '/tickets?pos=GBZXA',
-            [
-                'body'    => \GuzzleHttp\json_encode( [
-                    "type"     => "PAH",
-                    "language" => "en",
-                    "combine"  => false
-                ] ),
-                'headers' => [
-                    'Accept'        => 'application/json, text/plain, */*',
-                    'x-apikey'      => config( 'trains.eurostar.api_key_web' ),
-                    'Authorization' => $accessToken,
-                    'cid'           => str_random( 20 ),
-                    'User-Agent'    => null,
-                ]
-            ]
-        );
-
-        if ( ! isset( json_decode( (string) $response->getBody(), true )['tickets'] ) ) {
-            throw new SncfException( 'Nothing found for this passenger.' );
-        }
-
-        // Handle errors (if there isn't a trip from a station to another one)
-        if ( $response->getStatusCode() == 500 ) {
-            throw new SncfException( 'Please try again later.' );
-        }
-
-        $decoded = json_decode( (string) $response->getBody(), true )['tickets'];
-        try {
-            $pdfUrl = $decoded[ $ticketIndex ]['url'];
-        } catch ( \Exception $exception ) {
-            if ( count( $decoded ) == 1 ) {
-                $pdfUrl = $decoded[0]['url'];
-            } else {
-                \Log::error( 'Error while finding pdf.... ' . print_r( $decoded ) );
-
-                return false;
-            }
-        }
-
-        \Log::debug( $ticketIndex );
-
-
-        $pdf = new Fpdi();
-        $pageCount = $pdf->setSourceFile( StreamReader::createByString( file_get_contents( $pdfUrl ) ) );
-        // Only import the page needed.
-        \Log::debug( 'pagecount: ' . $pageCount );
-        \Log::debug( '$ticketIndex: ' . ( $ticketIndex ) );
-
-        if ( $pageCount < ( 1 + $ticketIndex ) ) {
-            $ticketIndex = $pageCount % ( $ticketIndex );
-        }
-        $page = $pdf->importPage( 1 + $ticketIndex );
-        $pdf->AddPage();
-        $pdf->useTemplate( $page );
-
-        \Storage::disk( 's3' )->put( 'pdf/tickets/' . $ticket->pdf_file_name, (string) $pdf->Output( "S" ) );
-
-        return true;
+        return $bestMatch;
     }
 
 }

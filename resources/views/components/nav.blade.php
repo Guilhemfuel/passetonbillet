@@ -1,4 +1,4 @@
--<nav class="navbar navbar-light navbar-expand" id="nav-bar">
+<nav class="navbar navbar-light navbar-expand" id="nav-bar">
     <div class="container-fluid">
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto">
@@ -14,17 +14,17 @@
             <ul class="navbar-nav ml-auto">
                 @if(Route::current()->getName() != 'public.ticket.sell.page')
                     <li class="nav-item">
-                        <a class="nav-link btn btn-ptb d-none d-sm-block btn-sell"
+                        <a class="nav-link btn btn-ptb d-none d-sm-block btn-sell mt-0"
                            href="{{route('public.ticket.sell.page')}}">@lang('nav.resell_a_ticket')</a>
-                        <a class="nav-link btn btn-ptb d-block d-sm-none"
+                        <a class="nav-link btn btn-ptb d-block d-sm-none mt-0"
                            href="{{route('public.ticket.sell.page')}}">@lang('nav.sell_ticket.mobile')</a>
                     </li>
                 @endif
                 @if(Route::current()->getName() != 'public.ticket.buy.page')
                     <li class="nav-item ml-2">
-                        <a class="nav-link btn btn-ptb-white d-none d-sm-block"
+                        <a class="nav-link btn btn-ptb-white d-none d-sm-block mt-0"
                            href="{{route('public.ticket.buy.page')}}">@lang('nav.buy_ticket')</a>
-                        <a class="nav-link btn btn-ptb-white d-block d-sm-none"
+                        <a class="nav-link btn btn-ptb-white d-block d-sm-none mt-0"
                            href="{{route('public.ticket.buy.page')}}">@lang('nav.buy_ticket.mobile')</a>
                     </li>
                 @endif

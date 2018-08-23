@@ -122,7 +122,7 @@
 
                             <!--<textarea class="form-control mt-4" :placeholder="lang.sell.inputs.notes"-->
                             <!--name="notes"></textarea>-->
-                            <button type="submit" class="btn btn-pink btn-block mt-4" :disabled="selectedTicket.bought_price < selectedTicket.price" @click.prevent="sellTicket">
+                            <button type="submit" class="btn btn-ptb btn-block mt-4" :disabled="selectedTicket.bought_price < selectedTicket.price" @click.prevent="sellTicket">
                                 {{lang.sell.submit}}
                             </button>
                         </form>

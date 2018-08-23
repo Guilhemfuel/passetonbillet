@@ -6,6 +6,7 @@ use App\Exceptions\EurostarException;
 use App\Exceptions\PasseTonBilletException;
 use App\Facades\AppHelper;
 use App\Facades\Sncf;
+use App\Facades\Thalys;
 use App\Http\Requests\BuyTicketsRequest;
 use App\Http\Requests\OfferRequest;
 use App\Http\Requests\SearchTicketsRequest;
@@ -21,7 +22,6 @@ use App\Models\Statistic;
 use App\Notifications\OfferNotification;
 use App\Ticket;
 use App\Train;
-use App\Trains\Thalys;
 use Illuminate\Http\Request;
 use App\Facades\Eurostar;
 
@@ -183,17 +183,19 @@ class TicketController extends Controller
 
         } else {
 
-            dd(\App\Facades\Thalys::retrieveTicket( \Auth::user()->last_name, $request->booking_code ));
-
             AppHelper::stat( 'retrieve_tickets', [
                 'name'         => \Auth::user()->last_name,
                 'booking_code' => $request->booking_code,
             ] );
 
             try {
-                $ticketArray = Eurostar::retrieveTicket( \Auth::user()->last_name, $request->booking_code );
-            } catch (PasseTonBilletException $e) {
                 $ticketArray = Sncf::retrieveTicket( \Auth::user()->last_name, $request->booking_code );
+            } catch (PasseTonBilletException $e) {
+                try {
+                    $ticketArray = Sncf::retrieveTicket( \Auth::user()->last_name, $request->booking_code );
+                } catch (PasseTonBilletException $e) {
+                    $ticketArray = Thalys::retrieveTicket( \Auth::user()->last_name, $request->booking_code );
+                }
             }
 
             $tickets = collect( $ticketArray );

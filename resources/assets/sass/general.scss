@@ -484,8 +484,8 @@ html, body {
           &:hover {
             color: black !important;
           }
-          .fa-bell {
-            margin-top: 0px !important;
+          &.fa-bell {
+            margin-top: 2px !important;
           }
         }
       }
