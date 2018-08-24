@@ -24,10 +24,11 @@
             label: {required: false, type: String},
             name: {required: true, type: String},
             type: {required: false, type: String, default: 'text'},
-            defaultValue: {required: false, type: String, default: ''},
+            defaultValue: {required: false, type: String},
             className: {required: false, type: String},
             validation: {required: false, type: String},
             placeholder: {required: false, type: String},
+            oldValue: {required: false, type: Boolean, default: true},
         },
         computed: {
             getClass(){
@@ -35,11 +36,28 @@
             },
             pulse(){
                 return this.$parent.pulse;
+            },
+            defaultVal() {
+                if (this.defaultValue != null && this.defaultValue != undefined) {
+                    console.log('no');
+
+                    return this.defaultValue;
+                }
+                if (this.oldValue && this.$root.oldInput[this.name]) {
+                    console.log('ok');
+                    return this.$root.oldInput[this.name];
+                }
+                console.log('null');
+
+                return null;
             }
+        },
+        mounted(){
+            this.inputValue = this.defaultVal
         },
         data() {
             return {
-                inputValue: this.defaultValue,
+                inputValue: null,
             }
         }
     }

@@ -23,7 +23,7 @@ class Station extends Model
 
     use Searchable, SoftDeletes;
 
-    protected $dates = ['deleted_at'];
+    protected $dates = [ 'deleted_at' ];
 
     public $timestamps = false;
 
@@ -53,13 +53,12 @@ class Station extends Model
     {
         parent::boot();
 
-        static::addGlobalScope('suggestable', function (\Illuminate\Database\Eloquent\Builder $builder) {
-            $builder->where('is_suggestable', true);
-            $builder->whereNotNull('uic');
+        static::addGlobalScope( 'suggestable', function ( \Illuminate\Database\Eloquent\Builder $builder ) {
+            $builder->where( 'is_suggestable', true );
+            $builder->whereNotNull( 'uic' );
 
-        });
+        } );
     }
-
 
 
     /**
@@ -70,9 +69,10 @@ class Station extends Model
     public function shouldBeSearchable()
     {
         // We only index parent station
-        if ($this->attributes==[] || $this->parent_station_id != null) {
+        if ( $this->attributes == [] ) {
             return false;
         }
+
         return true;
     }
 
@@ -83,10 +83,13 @@ class Station extends Model
      */
     public function toSearchableArray()
     {
-        if ($this->attributes==[]) return [];
+        if ( $this->attributes == [] ) {
+            return [];
+        }
+
         return [
-            'id' => $this->id,
-            'name' => $this->attributes['name'],
+            'id'      => $this->id,
+            'name'    => $this->attributes['name'],
             'name_fr' => $this->attributes['name_fr'],
             'name_en' => $this->attributes['name_en']
         ];
@@ -97,23 +100,23 @@ class Station extends Model
      * MUTATORS
      */
 
-    public function getNameAttribute()
+    public function getNameCountrySpecificAttribute()
     {
         if ( \App::isLocale( 'en' )
-             && !is_null($this->name_en)
+             && ! is_null( $this->name_en )
         ) {
             return $this->name_en;
-        }
-        else if ( \App::isLocale( 'fr' )
-                  && !is_null($this->name_fr)) {
+        } else if ( \App::isLocale( 'fr' )
+                    && ! is_null( $this->name_fr ) ) {
             return $this->name_fr;
         }
-        return $this->attributes['name'];
+
+        return null;
     }
 
     public function getFlagAttribute()
     {
-        return "<span class=\"flag-icon flag-icon-".$this->country."\"></span>";
+        return "<span class=\"flag-icon flag-icon-" . $this->country . "\"></span>";
     }
 
     /**
@@ -124,19 +127,20 @@ class Station extends Model
     {
 
         $stations = Station::all();
-        $sortedCollection = collect([]);
-        if (\App::isLocale( 'fr' )){
-            $sortedCollection->push( $stations->firstWhere('eurostar_id',self::PARIS_ID) );
-            $sortedCollection->push( $stations->firstWhere('eurostar_id',self::LONDON_ID) );
+        $sortedCollection = collect( [] );
+        if ( \App::isLocale( 'fr' ) ) {
+            $sortedCollection->push( $stations->firstWhere( 'eurostar_id', self::PARIS_ID ) );
+            $sortedCollection->push( $stations->firstWhere( 'eurostar_id', self::LONDON_ID ) );
         } else {
-            $sortedCollection->push( $stations->firstWhere('eurostar_id',self::LONDON_ID) );
-            $sortedCollection->push( $stations->firstWhere('eurostar_id',self::PARIS_ID) );
+            $sortedCollection->push( $stations->firstWhere( 'eurostar_id', self::LONDON_ID ) );
+            $sortedCollection->push( $stations->firstWhere( 'eurostar_id', self::PARIS_ID ) );
         }
 
-        $sortedCollection->push( $stations->firstWhere('eurostar_id',self::BXL_ID) );
-        $sortedCollection->push( $stations->firstWhere('eurostar_id',self::AMS_ID) );
+        $sortedCollection->push( $stations->firstWhere( 'eurostar_id', self::BXL_ID ) );
+        $sortedCollection->push( $stations->firstWhere( 'eurostar_id', self::AMS_ID ) );
+
         return $sortedCollection->merge(
-            $stations->whereNotIn('eurostar_id',[self::PARIS_ID,self::LONDON_ID,self::BXL_ID,self::AMS_ID])
+            $stations->whereNotIn( 'eurostar_id', [ self::PARIS_ID, self::LONDON_ID, self::BXL_ID, self::AMS_ID ] )
         );
     }
 }

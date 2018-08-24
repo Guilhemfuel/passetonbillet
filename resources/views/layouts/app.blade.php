@@ -93,7 +93,8 @@
             custom_errors: {!!  ($errors->any()?json_encode($errors->all()):'[]') !!},
             child: null,
             user: null,
-            currentPage: null
+            currentPage: null,
+            oldInput: {!! (old() != [] ? json_encode( old() ) : 'null') !!}
         },
         mounted() {
 

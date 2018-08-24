@@ -117,6 +117,13 @@ html, body {
   }
 }
 
+.el-input.invalid, .el-select.invalid {
+  input.el-input__inner {
+    border-color: $color-red !important;
+  }
+}
+
+
 //
 // ==============================
 //
@@ -354,6 +361,7 @@ html, body {
 
 // Cards
 .card-title {
+
   margin-left: 20px;
   padding-bottom: 8px;
   font-size: 25px;
@@ -361,6 +369,11 @@ html, body {
   color: $color-gray;
 
   text-transform: uppercase;
+
+  @include media-breakpoint-down(sm) {
+    margin-top: 10px;
+  }
+
 }
 
 .card {

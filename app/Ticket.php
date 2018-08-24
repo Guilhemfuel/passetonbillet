@@ -48,6 +48,7 @@ class Ticket extends Model
         'inbound',
         'correspondance',
         'provider',
+        'manual',
 
         // Buyer info
         'provider_code',
@@ -94,8 +95,9 @@ class Ticket extends Model
         'bought_currency' => 'required',
         'correspondance'  => 'boolean',
         'inbound'         => 'required|boolean',
+        'manual'          => 'nullable|boolean',
         'provider'        => 'required',
-        'provider_code'   => 'required|max:6',
+        'provider_code'   => 'nullable|max:6',
         'buyer_email'     => 'required|email',
         'buyer_name'      => 'required'
     ];

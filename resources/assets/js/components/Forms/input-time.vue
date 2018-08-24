@@ -6,41 +6,30 @@
         <input type="hidden"
                :name="name"
                v-validate="validation"
-               :value="date"
+               :value="value"
         >
 
         <!-- With Icon -->
 
         <div :class="{'animated pulse':pulse&&errors.has(name),'icon-form':true}" v-if="withIcon">
-            <i class="fa fa-calendar text-primary" aria-hidden="true"></i>
-            <el-date-picker
-                    :class="{'invalid':errors.has(name),'animated pulse':pulse&&errors.has(name)}"
-                    v-model="date"
-                    :type="type"
-                    :format="format"
-                    :value-format="valueFormat"
+            <i class="fa fa-clock-o text-primary" aria-hidden="true"></i>
+            <cleave type="text"
+                    :class="{'invalid':errors.has(name),'form-control':true,'animated pulse':pulse&&errors.has(name)}"
                     :placeholder="placeholder"
-                    :id="name"
-                    prefix-icon=" "
-                    :picker-options="pickerOptions"
-            >
-            </el-date-picker>
+                    :options="cleaveOptions"
+                    v-model="value"
+            ></cleave>
         </div>
 
         <!-- Without Icon -->
 
-        <el-date-picker v-else
-                :class="{'invalid':errors.has(name),'animated pulse':pulse&&errors.has(name)}"
-                v-model="date"
-                :type="type"
-                :format="format"
-                :value-format="valueFormat"
+        <cleave v-else
+                type="text"
+                :class="{'invalid':errors.has(name),'form-control':true,'animated pulse':pulse&&errors.has(name)}"
                 :placeholder="placeholder"
-                :id="name"
-                prefix-icon=" "
-                :picker-options="pickerOptions"
-        >
-        </el-date-picker>
+                :options="cleaveOptions"
+                v-model="value"
+        ></cleave>
 
         <small v-if="errors.has(name)" :id="name+'Error'" class="form-text text-danger">
             {{ errors.first(name) }}
@@ -56,19 +45,15 @@
             withIcon: {required: false, default: false, type: Boolean},
             name: {required: true, type: String},
             type: {required: false, type: String},
-            defaultValue: {required: false, type: Object},
-            defaultValueFormat: {required: false, type: String},
-            format: {required: false, type: String},
-            valueFormat: {required: false, type: String},
             className: {required: false, type: String},
             validation: {required: false, type: String},
             placeholder: {required: false, type: String},
-            pickerOptions: {required:false, type: Object},
             oldValue: {required: false, type: Boolean, default: true},
+
         },
         computed: {
             getClass(){
-                return this.className?('form-group '+this.className):'form-group';
+                return this.className?('form-group input-time '+this.className):'form-group';
             },
             pulse(){
                 return this.$parent.pulse;
@@ -84,15 +69,12 @@
             }
         },
         mounted(){
-            if (typeof this.defaultVal === 'object') {
-                this.date = this.defaultVal?(new this.$moment(this.defaultVal.date)).format(this.defaultValueFormat):null
-            } else {
-                this.date = this.defaultVal
-            }
+            this.value = this.defaultVal
         },
         data() {
             return {
-                date: null,
+                value: null,
+                cleaveOptions: {  time: true, timePattern: ['h', 'm'] }
             }
         }
     }

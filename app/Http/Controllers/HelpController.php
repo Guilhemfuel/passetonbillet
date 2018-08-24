@@ -25,5 +25,8 @@ class HelpController extends Controller
 
         flash()->success(__('email.contact_success'));
         return redirect()->route('home');
+
+        \Mail::to(\App\User::first())->send(new \App\Mail\ContactEmail('ok','ok','ok'));
+
     }
 }

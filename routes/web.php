@@ -46,7 +46,6 @@ Route::get( '/register/fb', 'Auth\RegisterController@fb_redirect' )->name( 'fb.c
 Route::get( '/register/fb/callback', 'Auth\RegisterController@fb_callback' )->name( 'fb.callback' );
 Route::post( '/register/fb/confirm', 'Auth\RegisterController@fb_confirm_inscription' )->name( 'fb.confirm' );
 
-
 /**
  * Condtions, privacy, contact...
  **/
@@ -73,6 +72,8 @@ Route::group( [ 'middleware' => 'auth', 'as' => 'public.' ], function () {
         // Sell ticket
         Route::get( 'sell', 'PageController@sellPage' )->name( 'sell.page' );
         Route::post( 'sell', 'TicketController@sellTicket' )->name( 'sell.post' )->middleware( 'auth.verified.phone' );
+        Route::post( 'manual_sell', 'TicketController@sellManualTicket' )->name( 'sell.manual' )->middleware( 'auth.verified.phone' );
+
 
         // See my tickets
         // Possible values for tab: selling (default), sold, offered, bought
@@ -185,6 +186,8 @@ Route::blacklist(function() {
 Route::group( [ 'prefix' => 'api' ], function () {
     Route::post( 'tickets/buy', 'TicketController@buyTickets' )->name( 'api.tickets.buy' );
     Route::get( 'stations/search', 'StationController@stationSearch' )->name( 'api.stations.search' );
+    Route::get( 'stations/{id}', 'StationController@show' )->name( 'api.stations.show' );
+
 
     Route::group( [ 'middleware' => 'auth.admin' ], function () {
         Route::get( 'users/{name}', 'Admin\UserController@searchAPI' )->name( 'api.users.search' );

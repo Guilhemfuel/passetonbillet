@@ -1,7 +1,9 @@
 // This sass file is used for all vue or js componens not directly related to Lastar.
 // Ie: the folders Shared and Inputs
 
-[v-cloak] {display: none}
+[v-cloak] {
+  display: none
+}
 
 ////////////////
 // Settings
@@ -418,13 +420,12 @@ $animation-duration: 0.3s;
 
 // Footer
 
-
 .section-footer {
   @extend .bg-dark;
   width: 100%;
   padding-bottom: 50px;
 
-  .footer-content{
+  .footer-content {
     display: flex;
     justify-content: space-between;
 
@@ -437,7 +438,7 @@ $animation-duration: 0.3s;
       font-size: 1.5em;
     }
 
-    a:hover{
+    a:hover {
       border-bottom: 1px solid;
     }
   }
@@ -473,7 +474,7 @@ $animation-duration: 0.3s;
   background-color: $color-white !important;
   border: 1px solid $color-border !important;
   &:focus {
-    border: 1px solid #e3d7f9 !important;
+    border: 1px solid #ffcb80 !important;
   }
 
   /* Placeholder */
@@ -579,8 +580,8 @@ $animation-duration: 0.3s;
     }
   }
 }
-.el-date-picker__header
-{
+
+.el-date-picker__header {
   .el-icon-d-arrow-right, .el-icon-d-arrow-left {
     display: none;
   }
@@ -592,6 +593,14 @@ $animation-duration: 0.3s;
   }
 }
 
+///// Input Station
+
+.input-station-option {
+  span.specific-name {
+    color: #A7B0C0;
+  }
+}
+
 /////  Flash message eleme
 
 .el-message {
@@ -599,7 +608,7 @@ $animation-duration: 0.3s;
 }
 
 /////// Notifs elem
-.el-notification{
+.el-notification {
   cursor: pointer;
   .el-notification__content {
     p {
@@ -625,6 +634,7 @@ $animation-duration: 0.3s;
     }
   }
 }
+
 .sandwich-menu-dropdown {
   min-width: 180px;
 

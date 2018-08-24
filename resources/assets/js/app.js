@@ -15,7 +15,6 @@ require('./bootstrap');
  * Note that lastar uses elementUi vue components (so we import it here)
  */
 
-Vue.component('cleave', require('vue-cleave'));
 Vue.component('vue-select', require('vue-select'));
 Vue.component('datepicker', require('vuejs-datepicker'));
 
@@ -39,6 +38,7 @@ Vue.component('input-textarea-basic', require('./components/Forms/input-textarea
 Vue.component('input-select', require('./components/Forms/input-select.vue'));
 Vue.component('input-currency', require('./components/Forms/input-currency.vue'));
 Vue.component('input-date', require('./components/Forms/input-date.vue'));
+Vue.component('input-time', require('./components/Forms/input-time.vue'));
 Vue.component('input-country', require('./components/Forms/input-country.vue'));
 Vue.component('input-image', require('./components/Forms/input-image.vue'));
 Vue.component('input-station', require('./components/Forms/input-station.vue'));
@@ -74,7 +74,10 @@ Vue.component('ticket-mini', require('./components/PTB/Ticket-Mini.vue'));
  */
 Vue.component('auth', require('./components/Pages/Auth/Auth.vue'));
 Vue.component('social-password', require('./components/Pages/Auth/SocialPassword.vue'));
+
 Vue.component('sell-ticket', require('./components/Pages/Tickets/Sell.vue'));
+Vue.component('manual-sell-ticket', require('./components/Pages/Tickets/Components/ManualSell.vue'));
+
 Vue.component('buy-ticket', require('./components/Pages/Tickets/Buy.vue'));
 Vue.component('my-tickets', require('./components/Pages/Tickets/Mytickets.vue'));
 

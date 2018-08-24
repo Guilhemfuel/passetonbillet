@@ -56,6 +56,7 @@
             width: {required: false, default: 200},
             defaultValue: {required: false, type: String, default: ''},
             className: {required: false, type: String},
+            oldValue: {required: false, type: Boolean, default: true},
         },
         computed: {
             getClass() {
@@ -64,6 +65,15 @@
             pulse() {
                 return this.$parent.pulse;
             },
+            defaultVal() {
+                if (this.defaultValue != null && this.defaultValue != undefined) {
+                    return this.defaultValue;
+                }
+                if (this.oldValue && this.$root.oldInput[this.name]) {
+                    return this.$root.oldInput[this.name];
+                }
+                return null;
+            }
         },
         data() {
             return {
@@ -82,13 +92,12 @@
             if (this.defaultValue=='' || this.defaultValue==null) {
                 this.srcLoaded = true;
             } else {
-                console.log('fail');
                 let img = new Image();
                 img.onload = e => {
                     this.srcLoaded = true;
                     this.hasFile = true;
                 };
-                img.src = this.defaultValue;
+                img.src = this.defaultVal;
             }
 
         },

@@ -132,5 +132,8 @@ if (token) {
 }
 
 /**
- * Add support to route helper
+ * Other vue components
  */
+
+import Cleave from 'vue-cleave-component';
+Vue.use(Cleave);
