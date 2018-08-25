@@ -69,11 +69,13 @@
         ],
         "post-install-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postInstall",
-            "php artisan migrate --force"
+            "php artisan migrate --force",
+            "php artisan ptb:flush-cache"
         ],
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
-            "php artisan migrate --force"
+            "php artisan migrate --force",
+            "php artisan ptb:flush-cache"
         ]
     },
     "config": {
