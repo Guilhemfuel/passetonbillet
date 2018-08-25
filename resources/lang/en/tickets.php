@@ -122,7 +122,7 @@ return [
         'research'       => 'Search',
         'search_result'  => 'ticket(s) match your criteria.',
         'safety'         => 'Safety is our number one concern! You must register to sell one of your tickets!',
-        'create_account' => 'Create a Lastar account'
+        'create_account' => 'Create a Ptb account'
     ],
     'owned'     => [
         'no_bought_tickets'      => 'You have not bought any tickets yet!',

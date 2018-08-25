@@ -17,7 +17,7 @@
                         <div class="card">
                             <div class="card-body justify-content-center d-flex">
                                 <div class="col-sm-12 col-md-10 col-lg-6">
-                                    <img class="mx-auto d-block mb-3 lastar-icon" style="width: 150px" src="{{secure_asset('img/icones/lastar-icon-id.png')}}">
+                                    <img class="mx-auto d-block mb-3 ptb-icon" style="width: 150px" src="{{secure_asset('img/icones/ptb-icon-id.png')}}">
                                     <p class="text-justify">@lang('profile.modal.verify_identity.text')</p>
                                     <p class="text-justify">@lang('profile.modal.verify_identity.list_title'):</p>
                                     <ul>
@@ -30,7 +30,7 @@
                                         <div class="form-group">
                                             <input class="form-control" type="file" name="scan">
                                         </div>
-                                        <button type="submit" class="btn btn-block btn-lastar-blue">@lang('profile.modal.change_picture.cta')</button>
+                                        <button type="submit" class="btn btn-block btn-ptb-blue">@lang('profile.modal.change_picture.cta')</button>
                                     </form>
                                     <br>
                                     <p class="text-center">@lang('profile.modal.verify_identity.delay')</p>
@@ -64,7 +64,7 @@
                                         </div>
                                         <div class="col-sm-12 col-md-6">
                                             <div class="form-group">
-                                                <button type="submit" class="btn btn-lastar-blue btn-block">
+                                                <button type="submit" class="btn btn-ptb-blue btn-block">
                                                     @lang('tickets.sell.confirm_number.CTA')
                                                 </button>
                                             </div>
@@ -98,7 +98,7 @@
                                         </div>
                                         <div class="col-sm-12 col-md-6">
                                             <div class="form-group">
-                                                <button type="submit" class="btn btn-lastar-blue btn-block">
+                                                <button type="submit" class="btn btn-ptb-blue btn-block">
                                                     @lang('tickets.sell.confirm_number.CTA')
                                                 </button>
                                             </div>
@@ -125,7 +125,7 @@
                                                 </div>
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <button type="submit" class="btn btn-lastar-blue btn-block">
+                                                        <button type="submit" class="btn btn-ptb-blue btn-block">
                                                             @lang('tickets.sell.confirm_number.CTA')
                                                         </button>
                                                     </div>

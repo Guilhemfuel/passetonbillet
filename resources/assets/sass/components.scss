@@ -1,4 +1,4 @@
-// This sass file is used for all vue or js componens not directly related to Lastar.
+// This sass file is used for all vue or js componens not directly related to Ptb.
 // Ie: the folders Shared and Inputs
 
 [v-cloak] {
@@ -337,7 +337,7 @@ $animation-duration: 0.3s;
 
 // --- Datepicker ---
 
-.lastar-calendar {
+.ptb-calendar {
 
   .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
     background-color: $color-white;
@@ -369,7 +369,7 @@ $animation-duration: 0.3s;
 
 // --- Phone ---
 
-.lastar-phone {
+.ptb-phone {
   .el-select {
     position: relative;
     margin-right: -1px;

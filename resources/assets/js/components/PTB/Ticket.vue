@@ -132,7 +132,7 @@
                             <p class="float-center text-center mb-0 edit-title">{{lang.infos}}</p>
                         </div>
                         <div class="card-seller-info card-buying text-center">
-                            <a target="_blank" class="btn btn-lastar" :href="ticket.download_link">{{lang.download_ticket}}</a>
+                            <a target="_blank" class="btn btn-ptb" :href="ticket.download_link">{{lang.download_ticket}}</a>
                             <div class="mt-3">
                                 <a :href="ticket.passbook_link">
                                     <img style="width: 150px" src="/img/mail/apple_wallet.png">

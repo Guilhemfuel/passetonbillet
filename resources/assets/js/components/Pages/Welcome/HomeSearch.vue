@@ -7,11 +7,13 @@
                                    :label="lang.buy.inputs.homepicker.depart"
                                    class-name="col-sm-3"
                                    validation="required"
+                                   default-value="4916"
                     ></input-station>
                     <input-station name="arrival_station"
                                    :label="lang.buy.inputs.homepicker.arrival"
                                    class-name="col-sm-3"
                                    validation="required"
+                                   default-value="8267"
                     ></input-station>
                     <input-date
                             name="departure_date"
@@ -22,6 +24,7 @@
                             format="dd/MM/yyyy"
                             value-format="dd/MM/yyyy"
                             default-value-format="DD/MM/YYYY"
+                            :default-value="defaultDate"
                             :with-icon="true"
                             :picker-options="datePickerOptions"
                     ></input-date>
@@ -55,7 +58,11 @@
                 },
             }
         },
-        computed: {},
+        computed: {
+            defaultDate() {
+                return moment().format('DD/MM/YYYY');
+            }
+        },
         methods: {}
     }
 </script>

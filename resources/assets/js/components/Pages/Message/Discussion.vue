@@ -82,7 +82,7 @@
                     <ticket-mini :discussion="discussion" :ticket="discussion.ticket" :lang="ticketLang" :user="user"></ticket-mini>
                 </div>
                 <div class="col-sm-12 d-md-none p-0" v-if="!sold && user.id == discussion.ticket.user.id">
-                    <button @click="modalSellOpen=true" class="btn btn-lastar-blue btn-block btn-header">{{lang.discussions.cta_sell_to}} {{correspondant.full_name}}</button>
+                    <button @click="modalSellOpen=true" class="btn btn-ptb-blue btn-block btn-header">{{lang.discussions.cta_sell_to}} {{correspondant.full_name}}</button>
                 </div>
             </div>
         </div>
@@ -111,7 +111,7 @@
         <div class="input" v-if="!(sold && !sold_here)">
         <textarea placeholder="Type a message..." v-model="inputMessage"
         @keyup.enter.prevent="sendMessage"></textarea>
-        <button class="btn btn-lastar-blue" @click="sendMessage">
+        <button class="btn btn-ptb-blue" @click="sendMessage">
         <template v-if="state!='sending'">
         {{lang.discussions.send}}
         </template>

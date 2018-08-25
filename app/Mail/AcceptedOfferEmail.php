@@ -10,7 +10,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class AcceptedOfferEmail extends LastarMail
+class AcceptedOfferEmail extends PtbMail
 {
     use SerializesModels;
 
@@ -36,7 +36,7 @@ class AcceptedOfferEmail extends LastarMail
     {
         return $this->to($this->user->email,$this->user->full_name)
                     ->subject(trans('email.offer_accepted'))
-                    ->lastarMarkdown('offer_accepted',
+                    ->ptbMarkdown('offer_accepted',
                         [
                             'user' => $this->user,
                             'discussion'=> $this->discussion

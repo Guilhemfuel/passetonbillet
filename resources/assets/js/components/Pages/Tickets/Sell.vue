@@ -53,7 +53,7 @@
                                               class="invalid-feedback">{{ errors.first('booking_code')}}</span>
 
                                     </div>
-                                    <button type="submit" class="btn btn-lastar-blue btn-block" @click.prevent="search">
+                                    <button type="submit" class="btn btn-ptb-blue btn-block" @click.prevent="search">
                                         {{lang.sell.search}}
                                     </button>
                                 </form>

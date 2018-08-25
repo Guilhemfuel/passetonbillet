@@ -221,8 +221,8 @@ html, body {
   }
 }
 
-// TODO: delete lastar button
-.btn-lastar {
+// TODO: delete lastar button button
+.btn-ptb-purple {
   @extend .purple-gradient;
   color: white;
   cursor: pointer;
@@ -232,7 +232,7 @@ html, body {
   }
 }
 
-.btn-ptb-blue, .btn-lastar-blue {
+.btn-ptb-blue, .btn-ptb-blue {
   @extend .blue-gradient;
   color: white;
   cursor: pointer;

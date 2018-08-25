@@ -12,7 +12,7 @@ require('./bootstrap');
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  *
- * Note that lastar uses elementUi vue components (so we import it here)
+ * Note that ptb uses elementUi vue components (so we import it here)
  */
 
 Vue.component('vue-select', require('vue-select'));
@@ -82,6 +82,8 @@ Vue.component('buy-ticket', require('./components/Pages/Tickets/Buy.vue'));
 Vue.component('my-tickets', require('./components/Pages/Tickets/Mytickets.vue'));
 
 Vue.component('home-search', require('./components/Pages/Welcome/HomeSearch.vue'));
+Vue.component('home-buyer-selle-info', require('./components/Pages/Welcome/BuyerSellerInfo.vue'));
+
 
 Vue.component('messages-home', require('./components/Pages/Message/Home.vue'));
 Vue.component('discussion', require('./components/Pages/Message/Discussion.vue'));

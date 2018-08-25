@@ -8,7 +8,7 @@ use App\User;
 use Illuminate\Mail\Mailable;
 use Illuminate\Contracts\Mail\Mailer as MailerContract;
 
-abstract class LastarMail extends Mailable
+abstract class PtbMail extends Mailable
 {
     const DESCRIPTION = 'La description n\'est pas définie!';
 
@@ -59,7 +59,7 @@ abstract class LastarMail extends Mailable
     /**
      * Depending on user's language send the translated email
      */
-    public function lastarMarkdown($view,$data=[]){
+    public function ptbMarkdown($view,$data=[]){
         if(strtolower( $this->user->language ) == 'fr'){
             $view = 'emails.fr.'.$view;
         } else {

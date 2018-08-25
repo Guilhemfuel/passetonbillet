@@ -56,7 +56,7 @@
             withIcon: {required: false, default: false, type: Boolean},
             name: {required: true, type: String},
             type: {required: false, type: String},
-            defaultValue: {required: false, type: Object},
+            defaultValue: {required: false},
             defaultValueFormat: {required: false, type: String},
             format: {required: false, type: String},
             valueFormat: {required: false, type: String},

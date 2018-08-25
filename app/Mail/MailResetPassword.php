@@ -2,7 +2,7 @@
 
 namespace App\Mail;
 
-class MailResetPassword extends LastarMail
+class MailResetPassword extends PtbMail
 {
     public $user;
     public $token;
@@ -27,7 +27,7 @@ class MailResetPassword extends LastarMail
     {
         return $this->to($this->user->email,$this->user->full_name)
                     ->subject(trans('email.password_reset'))
-                    ->lastarMarkdown('password_reset',
+                    ->ptbMarkdown('password_reset',
                         [
                             'user' => $this->user,
                             'token' => $this->token

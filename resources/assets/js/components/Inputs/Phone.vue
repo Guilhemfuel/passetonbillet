@@ -1,7 +1,7 @@
 
 
 <template>
-    <div class="row lastar-phone mx-0">
+    <div class="row ptb-phone mx-0">
         <template v-if="required">
             <div class="col-country p-0">
                 <el-select v-model="activeCountry" name="phone_country">

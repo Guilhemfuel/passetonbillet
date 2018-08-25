@@ -9,7 +9,7 @@
                 <div class="fixed-content">
                     <nav class="navbar">
                         <a class="navbar-brand" href="{{route('home')}}">
-                            <img src="{{secure_asset('img/logo.png')}}" class="d-inline-block align-top" alt="logo lastar">
+                            <img src="{{secure_asset('img/logo.png')}}" class="d-inline-block align-top" alt="logo ptb">
                         </a>
                         <ul class="navbar-nav navbar-expand">
                             <li class="nav-item">
@@ -355,7 +355,7 @@
                                     </ul>
                                     <p><strong>
                                             Si vous souhaitez vous désabonner à tout moment
-                                            de recevoir de futurs email, vous pouvez nous envoyer un courriel à</strong> <a href="mailto:contact@lastar.io">contact@lastar.io</a> et nous vous retirerons rapidement de <strong>TOUTES</strong> correspondance.</p>
+                                            de recevoir de futurs email, vous pouvez nous envoyer un courriel à</strong> <a href="mailto:contact@ptb.io">contact@ptb.io</a> et nous vous retirerons rapidement de <strong>TOUTES</strong> correspondance.</p>
 
                                 </div>
                                 <span id='ourCon'></span>
@@ -364,8 +364,8 @@
                                 <p>
                                     Si vous avez des questions concernant cette politique de confidentialité, vous pouvez
                                     contactez-nous en utilisant les informations ci-dessous.</p>
-                                <p>Lastar.io</p>
-                                <p>contact@lastar.io</p>
+                                <p>Ptb.io</p>
+                                <p>contact@ptb.io</p>
                             </div>
 
                         </div>

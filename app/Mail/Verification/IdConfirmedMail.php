@@ -2,9 +2,9 @@
 
 namespace App\Mail\Verification;
 
-use App\Mail\LastarMail;
+use App\Mail\PtbMail;
 
-class IdConfirmedMail extends LastarMail
+class IdConfirmedMail extends PtbMail
 {
 
     /**
@@ -16,7 +16,7 @@ class IdConfirmedMail extends LastarMail
     {
         return $this->to($this->user->email,$this->user->full_name)
                     ->subject(trans('email.id_verification_success'))
-                    ->lastarMarkdown('verification.id_verification_success',
+                    ->ptbMarkdown('verification.id_verification_success',
                         [
                             'user' =>$this->user
                         ]);

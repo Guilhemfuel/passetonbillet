@@ -51,7 +51,7 @@ class TicketController extends BaseController
 
         $data = [ 'entities' => TicketTableResource::collection($entities),'stations'=>$stations, 'searchable' => $this->searchable, 'creatable' => $this->creatable ];
 
-        return $this->lastarView( 'admin.CRUD.index', $data );
+        return $this->ptbView( 'admin.CRUD.index', $data );
     }
 
     /**
@@ -69,7 +69,7 @@ class TicketController extends BaseController
             return redirect()->back();
         }
 
-        return $this->lastarView( 'admin.CRUD.edit', [ 'entity' => $entity ] );
+        return $this->ptbView( 'admin.CRUD.edit', [ 'entity' => $entity ] );
     }
 
 

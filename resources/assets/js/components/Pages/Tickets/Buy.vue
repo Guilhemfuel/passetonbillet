@@ -27,11 +27,11 @@
                         </datetimepicker>
                     </div>
                     <div class="col-12">
-                        <button class="btn btn-lastar-blue btn-block d-block d-md-none" @click.prevent="searchTickets">
+                        <button class="btn btn-ptb-blue btn-block d-block d-md-none" @click.prevent="searchTickets">
                             <span v-if="state!='searching'">{{lang.buy.research}}</span>
                             <loader v-else class-name="loader-btn"></loader>
                         </button>
-                        <button class="btn btn-lastar-blue d-none d-md-block mt-4 px-4 mx-auto" @click.prevent="searchTickets">
+                        <button class="btn btn-ptb-blue d-none d-md-block mt-4 px-4 mx-auto" @click.prevent="searchTickets">
                             <span v-if="state!='searching'">{{lang.buy.research}}</span>
                             <loader v-else class-name="loader-btn"></loader>
                         </button>

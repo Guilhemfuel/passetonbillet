@@ -60,7 +60,7 @@ abstract class BaseController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws PasseTonBilletException
      */
-    protected function lastarView( $viewName, $data = [] )
+    protected function ptbView( $viewName, $data = [] )
     {
         if ( $this->CRUDmodelName === null ) {
             throw new PasseTonBilletException( '$CRUDmodelName must not be null.' );
@@ -104,7 +104,7 @@ abstract class BaseController extends Controller
             $data = [ 'entities' => $entities, 'searchable' => $this->searchable, 'creatable' => $this->creatable ];
         }
 
-        return $this->lastarView( 'admin.CRUD.index', $data );
+        return $this->ptbView( 'admin.CRUD.index', $data );
     }
 
     /**
@@ -114,7 +114,7 @@ abstract class BaseController extends Controller
      */
     public function create()
     {
-        return $this->lastarView( 'admin.CRUD.create' );
+        return $this->ptbView( 'admin.CRUD.create' );
     }
 
     /**
@@ -145,7 +145,7 @@ abstract class BaseController extends Controller
             return redirect()->back();
         }
 
-        return $this->lastarView( 'admin.CRUD.edit', [ 'entity' => $entity ] );
+        return $this->ptbView( 'admin.CRUD.edit', [ 'entity' => $entity ] );
     }
 
     /**

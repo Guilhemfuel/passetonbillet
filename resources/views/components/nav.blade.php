@@ -20,12 +20,12 @@
                            href="{{route('public.ticket.sell.page')}}">@lang('nav.sell_ticket.mobile')</a>
                     </li>
                 @endif
-                @if(Route::current()->getName() != 'public.ticket.buy.page')
+                @if(Route::current()->getName() != 'public.ticket.buy.page' && Route::current()->getName() != 'home')
                     <li class="nav-item ml-2">
                         <a class="nav-link btn btn-ptb-white d-none d-sm-block mt-0"
-                           href="{{route('public.ticket.buy.page')}}">@lang('nav.buy_ticket')</a>
+                           href="{{route('home')}}">@lang('nav.buy_ticket')</a>
                         <a class="nav-link btn btn-ptb-white d-block d-sm-none mt-0"
-                           href="{{route('public.ticket.buy.page')}}">@lang('nav.buy_ticket.mobile')</a>
+                           href="{{route('home')}}">@lang('nav.buy_ticket.mobile')</a>
                     </li>
                 @endif
                 @include('components.nav-logged')

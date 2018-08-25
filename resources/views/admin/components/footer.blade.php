@@ -10,7 +10,7 @@
             {{--</ul>--}}
         {{--</div>--}}
         <p class="copyright pull-right">
-            &copy; {{date("Y")}} Lastar
+            &copy; {{date("Y")}} Ptb
         </p>
     </div>
 </footer>

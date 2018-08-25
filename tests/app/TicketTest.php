@@ -9,10 +9,10 @@ use App\User;
 use Carbon\Carbon;
 use Laracasts\Flash\Flash;
 use Laracasts\Flash\Message;
-use Tests\LastarTestCase;
+use Tests\PtbTestCase;
 use Tests\TestCase;
 
-class TicketTest extends LastarTestCase
+class TicketTest extends PtbTestCase
 {
 
     /** Make sure that apply filter function can return nothing */

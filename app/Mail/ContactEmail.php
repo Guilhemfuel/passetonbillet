@@ -29,8 +29,8 @@ class ContactEmail extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->to(config('mail.from.address'),'Lastar')
-                    ->subject('Contact Lastar: '.$this->name)
+        return $this->to(config('mail.from.address'),'Ptb')
+                    ->subject('Contact Ptb: '.$this->name)
                     ->markdown('emails.contact',
                         [
                             'name' =>$this->name,

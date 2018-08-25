@@ -17,10 +17,10 @@ use Laracasts\Flash\Flash;
 use Laracasts\Flash\Message;
 use Nexmo\Laravel\Facade\Nexmo;
 use Nexmo\Message\Client;
-use Tests\LastarTestCase;
+use Tests\PtbTestCase;
 use Tests\TestCase;
 
-class UserControllerTest extends LastarTestCase
+class UserControllerTest extends PtbTestCase
 {
 
     // Make sure user can upload id

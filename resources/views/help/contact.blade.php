@@ -9,7 +9,7 @@
                 <div class="fixed-content">
                     <nav class="navbar">
                         <a class="navbar-brand" href="{{route('home')}}">
-                            <img src="{{secure_asset('img/logo.png')}}" class="d-inline-block align-top" alt="logo lastar">
+                            <img src="{{secure_asset('img/logo.png')}}" class="d-inline-block align-top" alt="logo ptb">
                         </a>
                         <ul class="navbar-nav navbar-expand">
                             <li class="nav-item">
@@ -71,7 +71,7 @@
 
                                         <div class="col-12">
                                             <div class="text-center mx-auto" style="width: 304px;">
-                                                <button type="submit" class="btn btn-lastar-blue btn-block">Send</button>
+                                                <button type="submit" class="btn btn-ptb-blue btn-block">Send</button>
                                             </div>
                                         </div>
 

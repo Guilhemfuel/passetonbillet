@@ -3,6 +3,6 @@
 
 Your identity has just been confirmed!
 
-See you soon on Lastar!
+See you soon on Ptb!
 
 @endcomponent

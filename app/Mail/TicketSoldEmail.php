@@ -10,7 +10,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class TicketSoldEmail extends LastarMail
+class TicketSoldEmail extends PtbMail
 {
     use SerializesModels;
 
@@ -36,7 +36,7 @@ class TicketSoldEmail extends LastarMail
     {
         return $this->to($this->user->email,$this->user->full_name)
                     ->subject(trans('email.ticket_sold'))
-                    ->lastarMarkdown('ticket_sold',
+                    ->ptbMarkdown('ticket_sold',
                         [
                             'user' => $this->user,
                             'discussion'=> $this->discussion

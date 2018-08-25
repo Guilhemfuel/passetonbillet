@@ -39,11 +39,11 @@
                                             class="fa fa-check-circle pl-2" aria-hidden="true"></i>
                                 </button>
                                 @endif
-                                <button class="btn btn-block btn-lastar-blue" @click.prevent="child.profile.modalPasswordOpen=true">@lang('profile.change_password')
+                                <button class="btn btn-block btn-ptb-blue" @click.prevent="child.profile.modalPasswordOpen=true">@lang('profile.change_password')
                                 </button>
-                                <button class="btn btn-block btn-lastar-blue" @click.prevent="child.profile.modalInfoOpen=true">@lang('profile.edit_profile')
+                                <button class="btn btn-block btn-ptb-blue" @click.prevent="child.profile.modalInfoOpen=true">@lang('profile.edit_profile')
                                 </button>
-                                <button class="btn btn-block btn-lastar-blue" @click.prevent="child.profile.modalPictureUploadOpen=true">@lang('profile.change_picture')
+                                <button class="btn btn-block btn-ptb-blue" @click.prevent="child.profile.modalPictureUploadOpen=true">@lang('profile.change_picture')
                                 </button>
                             </div>
                         </div>
@@ -85,7 +85,7 @@
 
                 <modal v-cloak :is-open="child.profile.modalVerifyIdentity" @close-modal="child.profile.modalVerifyIdentity=false" title="@lang('profile.modal.verify_identity.title')">
                     <div class="modal-body text-justify pt-0">
-                        <img class="mx-auto d-block mb-3 lastar-icon" src="{{secure_asset('img/icones/lastar-icon-id.png')}}">
+                        <img class="mx-auto d-block mb-3 ptb-icon" src="{{secure_asset('img/icones/ptb-icon-id.png')}}">
                         <p>@lang('profile.modal.verify_identity.text')</p>
                         <p>@lang('profile.modal.verify_identity.list_title'):</p>
                         <ul>
@@ -98,7 +98,7 @@
                             <div class="form-group">
                                 <input class="form-control" type="file" name="scan">
                             </div>
-                            <button type="submit" class="btn btn-block btn-lastar-blue">@lang('profile.modal.change_picture.cta')</button>
+                            <button type="submit" class="btn btn-block btn-ptb-blue">@lang('profile.modal.change_picture.cta')</button>
                         </form>
                         <br>
                         <p class="text-center">@lang('profile.modal.verify_identity.delay')</p>
@@ -110,7 +110,7 @@
                 <modal v-cloak :is-open="child.profile.modalInfoOpen" @close-modal="child.profile.modalInfoOpen=false" title="@lang('profile.modal.edit_profile.title')">
                     <div class="modal-body text-justify">
                         <p>@lang('profile.modal.edit_profile.content')</p>
-                        <button onclick="$crisp.push(['do', 'chat:open'])" class="btn btn-block btn-lastar-blue">@lang('profile.modal.edit_profile.cta')</button>
+                        <button onclick="$crisp.push(['do', 'chat:open'])" class="btn btn-block btn-ptb-blue">@lang('profile.modal.edit_profile.cta')</button>
                     </div>
                 </modal>
 
@@ -119,7 +119,7 @@
                         <form method="post" action="{{route('public.profile.password.change')}}">
                             {{csrf_field()}}
                             <change-password :lang="child.profile.langChangePassword"></change-password>
-                            <button type="submit" class="btn btn-block btn-lastar-blue">@lang('profile.modal.change_password.cta')</button>
+                            <button type="submit" class="btn btn-block btn-ptb-blue">@lang('profile.modal.change_password.cta')</button>
                         </form>
                     </div>
                 </modal>
@@ -132,7 +132,7 @@
                             <div class="form-group">
                                 <input class="form-control" type="file" name="picture">
                             </div>
-                            <button type="submit" class="btn btn-block btn-lastar-blue">@lang('profile.modal.change_picture.cta')</button>
+                            <button type="submit" class="btn btn-block btn-ptb-blue">@lang('profile.modal.change_picture.cta')</button>
                         </form>
                     </div>
                 </modal>

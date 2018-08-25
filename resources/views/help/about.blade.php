@@ -9,7 +9,7 @@
                 <div class="fixed-content">
                     <nav class="navbar">
                         <a class="navbar-brand" href="{{route('home')}}">
-                            <img src="{{secure_asset('img/logo.png')}}" class="d-inline-block align-top" alt="logo lastar">
+                            <img src="{{secure_asset('img/logo.png')}}" class="d-inline-block align-top" alt="logo ptb">
                         </a>
                         <ul class="navbar-nav navbar-expand">
                             @if(!Auth::check())
