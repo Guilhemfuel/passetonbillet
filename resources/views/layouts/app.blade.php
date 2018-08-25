@@ -74,7 +74,7 @@
 <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
 @routes
 <script src="/lang/lang-{{ \App::getLocale() }}.js"></script>
-<script src="/js/app.js"></script>
+<script src="{{ mix('/js/app.js')}}"></script>
 <script type="application/javascript">
     let data = {};
     let currentPage = {

@@ -32,7 +32,6 @@ class LanguageController extends Controller
             \Cache::forget("lang-{$locale}.js");
         }
 
-
         $strings = \Cache::rememberForever("lang-{$locale}.js", function () use ($locale) {
 
             $files   = glob(resource_path('lang/' . $locale . '/*.php'));
