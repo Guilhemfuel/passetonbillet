@@ -132,6 +132,19 @@
             emitChange(value) {
                 this.$emit('change',value);
             }
+        },
+        watch: {
+            defaultVal () {
+                this.loading = true;
+
+                this.$http.get(this.route('api.stations.show', [this.defaultVal]))
+                    .then(response => {
+                        this.stations = [response.data.data];
+                        this.loading = false;
+                        this.selected = parseInt(this.defaultVal);
+                    })
+            }
         }
+
     }
 </script>
