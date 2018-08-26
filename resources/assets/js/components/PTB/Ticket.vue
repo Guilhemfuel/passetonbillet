@@ -95,7 +95,7 @@
                         <template v-if="user">
                             <a target="_blank"
                                :href="'/profile/user/'+ticket.user.hashid">{{trans('tickets.component.sold_by')}} <b>{{ticket.user.full_name}}</b>
-                                <el-tooltip class="item" effect="dark" :content="lang.user_verified"
+                                <el-tooltip class="item" effect="dark" :content="trans('tickets.component.user_verified')"
                                             placement="bottom-end">
                                     <i v-if="ticket.user.verified" aria-hidden="true"
                                        class="fa fa-check-circle text-warning"></i>
@@ -158,7 +158,7 @@
                                             placement="bottom"
                                             width="200"
                                             trigger="click"
-                                            :content="lang.copied">
+                                            :content="trans('tickets.component.copied')">
                                     </el-popover>
                                     <input ref="sharelink" readonly type="text" class="form-control"
                                            :value="route('ticket.unique.page',[ticket.hashid])" aria-describedby="basic-addon2">
@@ -206,7 +206,7 @@
                                 <p class="text-center">{{trans('tickets.component.sold_by')}}
                                     <a target="_blank" :href="'/profile/user/'+ticket.user.hashid">
                                         <b>{{ticket.user.full_name}}</b>
-                                        <el-tooltip class="item" effect="dark" :content="lang.user_verified"
+                                        <el-tooltip class="item" effect="dark" :content="trans('tickets.component.user_verified')"
                                                     placement="bottom-end">
                                             <i v-if="ticket.user.verified" aria-hidden="true"
                                                class="fa fa-check-circle text-warning"></i>
@@ -233,8 +233,8 @@
                                         <span class="input-group-addon">{{ticket.currency_symbol}}</span>
                                         <input type="text"
                                                :class="'form-control' + (errors.has('price')?' is-invalid':'')"
-                                               :aria-label="lang.price"
-                                               :placeholder="lang.price"
+                                               :aria-label="trans('tickets.component.price')"
+                                               :placeholder="trans('tickets.component.price')"
                                                v-model="priceOffer"
                                                name="price"
                                                v-validate="'required|numeric|min_value:0|max_value:'+ticket.price">
@@ -270,7 +270,6 @@
     export default {
         props: {
             ticket: {type: Object, required: true},
-            lang: {type: Object, required: true},
             // Selecting when user is selling a ticket (no in db yet, no user)
             selecting: {type: Boolean, default: false},
             // If the ticket is dislayed on the buying page
