@@ -89,7 +89,7 @@
 
             </div>
             <template v-if="state=='select' && tickets.length>1">
-                <div class="row mt-4">
+                <div class="row mt-4 px-sm-4 px-md-0">
                     <div v-for="(ticket,index) in tickets" class="col-12 col-sm-6 col-lg-6 col-xl-4" :key="index">
                         <ticket :ticket="ticket" :lang="lang.component" :selecting="true"
                                 v-on:sell="sell(ticket.id)"></ticket>
