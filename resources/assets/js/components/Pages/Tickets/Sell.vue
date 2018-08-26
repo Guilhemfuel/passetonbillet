@@ -108,7 +108,7 @@
                             <p class="card-text text-justify">
                                 {{lang.sell.details}}
                             </p>
-                            <form method="post" :action="routes.tickets.sell" ref="sell_form">
+                            <form method="post" :action="routes('public.ticket.sell.post')" ref="sell_form">
                                 <input type="hidden" name="_token" :value="csrf">
                                 <input type="hidden" name="index" :value="selectedTicket.id">
 
