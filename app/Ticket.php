@@ -121,20 +121,21 @@ class Ticket extends Model
         // Create array of possible departure stations
         if ( $departureStationParentId != null ){
             $departureStations = Station::where('parent_station_id',$departureStationParentId)->pluck('id');
-            $departureStations[] = $departureStationParentId;
+            $departureStations[] = intval($departureStationParentId);
         } else {
             $departureStations = Station::where('parent_station_id',$departureStationId)->pluck('id');
-            $departureStations[] = $departureStationParentId;
+            $departureStations[] = intval($departureStationParentId);
         }
 
         // Create array of possible arrival stations
-        if ( $departureStationParentId != null ){
-            $arrivalStations = Station::where('parent_station_id',$arrivalStationId)->pluck('id');
-            $arrivalStations[] = $arrivalStationId;
+        if ( $arrivalStationParentId != null ){
+            $arrivalStations = Station::where('parent_station_id',$arrivalStationParentId)->pluck('id');
+            $arrivalStations[] = intval($arrivalStationId);
         } else {
             $arrivalStations = Station::where('parent_station_id',$arrivalStationId)->pluck('id');
-            $arrivalStations[] = $arrivalStationId;
+            $arrivalStations[] = intval($arrivalStationId);
         }
+
 
         // Find matching trains
         $request = Train::whereIn( 'departure_city', $departureStations )
@@ -153,10 +154,8 @@ class Ticket extends Model
         foreach ( $trains as $train ) {
             if ( $train->tickets()->withoutScams() ) {
                 foreach ( $train->tickets as $ticket ) {
-                    if ( ( ! \Auth::check() ) || \Auth::user()->id != $ticket->user_id ) {
-                        if ( $ticket->sold_to_id == null ) {
-                            $tickets->push( $ticket );
-                        }
+                    if ( $ticket->sold_to_id == null ) {
+                        $tickets->push( $ticket );
                     }
                 }
             }

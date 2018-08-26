@@ -48,12 +48,14 @@
                     </div>
                 </div>
                 <div class="card-seller-info">
+                    <!-- Discuss -->
                     <template v-if="!pastTicket && !display
                         && $lodash.has(ticket, 'discussionId')
                         && $lodash.has(ticket, 'offerStatus')
                         && ticket.offerStatus == 1" >
                         <a :href="route('public.message.discussion.page',[ticket.id, ticket.discussionId])" class="btn btn-pink btn-buy btn-sm">{{trans('tickets.component.discuss')}}</a>
                     </template>
+                    <!-- Make Offer -->
                     <template v-else-if="!pastTicket && !display
                         && $lodash.has(ticket, 'discussionId')
                         && $lodash.has(ticket, 'offerStatus')
@@ -62,6 +64,7 @@
                             {{trans('tickets.component.new_offer')}}
                         </button>
                     </template>
+                    <!-- Buy/Sell/Download -->
                     <template v-else-if="!pastTicket && !display">
                         <button class="btn btn-pink btn-buy btn-sm" v-if="!selecting && buying && !offerDone" @click="editing=true">
                             {{trans('tickets.component.buy')}}
@@ -73,8 +76,10 @@
                             {{trans('tickets.component.download')}}
                         </button>
                     </template>
+                    <!-- Edit (in case of buying page, is a link-->
                     <template v-if="!pastTicket && (user != null && ticket.user && ticket.user.id == user.id) && !display">
-                        <button class="btn btn-pink btn-buy btn-sm" @click="editing=true">{{trans('tickets.component.edit')}}</button>
+                        <button class="btn btn-pink btn-buy btn-sm" @click="editing=true" v-if="!buying">{{trans('tickets.component.edit')}}</button>
+                        <a class="btn btn-pink btn-buy btn-sm" v-else :href="route('public.ticket.owned.page')">{{trans('tickets.component.edit')}}</a>
                     </template>
 
                     <div class="price" v-if="!selecting">
