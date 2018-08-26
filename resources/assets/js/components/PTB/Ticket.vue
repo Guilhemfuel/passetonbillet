@@ -52,7 +52,7 @@
                         && $lodash.has(ticket, 'discussionId')
                         && $lodash.has(ticket, 'offerStatus')
                         && ticket.offerStatus == 1" >
-                        <a :href="routes('public.message.discussion.page',[ticket.id, ticket.discussionId])" class="btn btn-pink btn-buy btn-sm">{{trans('tickets.component.discuss')}}</a>
+                        <a :href="route('public.message.discussion.page',[ticket.id, ticket.discussionId])" class="btn btn-pink btn-buy btn-sm">{{trans('tickets.component.discuss')}}</a>
                     </template>
                     <template v-else-if="!pastTicket && !display
                         && $lodash.has(ticket, 'discussionId')
@@ -161,7 +161,7 @@
                                             :content="lang.copied">
                                     </el-popover>
                                     <input ref="sharelink" readonly type="text" class="form-control"
-                                           :value="routes('ticket.unique.page',[ticket.hashid])" aria-describedby="basic-addon2">
+                                           :value="route('ticket.unique.page',[ticket.hashid])" aria-describedby="basic-addon2">
                                     <div class="input-group-append">
                                         <button v-popover:sharebtn class="btn btn-outline-primary" type="button"
                                                 @click.prevent="share()">
@@ -172,7 +172,7 @@
                             </div>
                             <div class="delete mt-4">
                                 <p class="text-center">{{trans('tickets.component.delete')}}</p>
-                                <form method="POST" :action="route('public.delete.ticket')">
+                                <form method="POST" :action="route('public.ticket.delete')">
                                     <input type="hidden" name="_method" value="DELETE">
                                     <input type="hidden" name="_token" :value="csrf">
                                     <input type="hidden" name="ticket_id" :value="ticket.id">
@@ -255,7 +255,7 @@
                         </template>
                         <template v-else-if="state=='register'">
                             <p class="text-center">{{trans('tickets.component.register')}} <br><br> <a
-                                    :href="routes('register.page')">{{trans('tickets.component.register_cta')}}</a></p>
+                                    :href="route('register.page')">{{trans('tickets.component.register_cta')}}</a></p>
                         </template>
                     </div>
 
@@ -330,7 +330,7 @@
                 this.$emit('sell', this.ticket.id);
             },
             share() {
-                var url = this.routes('ticket.unique.page',[this.ticket.hashid]);
+                var url = this.route('ticket.unique.page',[this.ticket.hashid]);
                 this.$emit('share', url);
 
                 this.$refs.sharelink.select();
@@ -350,7 +350,7 @@
                 this.$validator.validateAll().then((result) => {
                     this.state = 'offering';
                     this.errorMessage = '';
-                    this.$http.post(this.routes('api.tickets.offer'), {
+                    this.$http.post(this.route('api.tickets.offer'), {
                         price: this.priceOffer,
                         ticket_id: this.ticket.id
                     }).then(response => {

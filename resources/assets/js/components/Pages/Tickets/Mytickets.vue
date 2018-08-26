@@ -12,18 +12,18 @@
             </div>
             <div class="col-12 col-sm-6 col-md-6 col-lg-4" v-for="ticket in currentTickets" :key="ticket.id">
                 <template v-if="state==stateValues.bought">
-                    <ticket :ticket="ticket" :lang="lang.component" :user="user" :bought="true" :routes="routes"
-                            :api="api" :csrf="csrf" ></ticket>
+                    <ticket :ticket="ticket"  :bought="true"
+                            :csrf="csrf" ></ticket>
                 </template>
                 <template v-else-if="state==stateValues.sold">
-                    <ticket :ticket="ticket" :lang="lang.component" :user="user" :routes="routes" :api="api" :display="true"
+                    <ticket :ticket="ticket" :display="true"
                             :csrf="csrf"></ticket>
                 </template>
                 <template v-else-if="state==stateValues.selling">
-                    <ticket :ticket="ticket" :lang="lang.component" :user="user" :routes="routes" :api="api" :csrf="csrf"></ticket>
+                    <ticket :ticket="ticket" :csrf="csrf"></ticket>
                 </template>
                 <template v-else-if="state==stateValues.offered">
-                    <ticket :ticket="ticket" :lang="lang.component" :user="user" :routes="routes" :api="api" :csrf="csrf"></ticket>
+                    <ticket :ticket="ticket" :csrf="csrf"></ticket>
                 </template>
             </div>
             <div class="col-12">
