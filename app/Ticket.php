@@ -114,9 +114,31 @@ class Ticket extends Model
      */
     public static function applyFilters( $departureStationId, $arrivalStationId, $date, $time = null, $exactDay = false )
     {
+        // Find parent station
+        $departureStationParentId = Station::find($departureStationId)->parent_station_id;
+        $arrivalStationParentId = Station::find($arrivalStationId)->parent_station_id;
+
+        // Create array of possible departure stations
+        if ( $departureStationParentId != null ){
+            $departureStations = Station::where('parent_station_id',$departureStationParentId)->pluck('id');
+            $departureStations[] = $departureStationParentId;
+        } else {
+            $departureStations = Station::where('parent_station_id',$departureStationId)->pluck('id');
+            $departureStations[] = $departureStationParentId;
+        }
+
+        // Create array of possible arrival stations
+        if ( $departureStationParentId != null ){
+            $arrivalStations = Station::where('parent_station_id',$arrivalStationId)->pluck('id');
+            $arrivalStations[] = $arrivalStationId;
+        } else {
+            $arrivalStations = Station::where('parent_station_id',$arrivalStationId)->pluck('id');
+            $arrivalStations[] = $arrivalStationId;
+        }
+
         // Find matching trains
-        $request = Train::where( 'departure_city', $departureStationId )
-                        ->where( 'arrival_city', $arrivalStationId )
+        $request = Train::whereIn( 'departure_city', $departureStations )
+                        ->whereIn( 'arrival_city', $arrivalStations )
                         ->where( 'departure_date', $exactDay ? '=' : '>=', $date )
                         ->with( 'tickets' );
 

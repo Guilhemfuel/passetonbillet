@@ -294,7 +294,7 @@ class TicketController extends Controller
         $tickets = Ticket::applyFilters(
             $request->get( 'departure_station' ),
             $request->get( 'arrival_station' ),
-            $request->get( 'trip_date' ),
+            Carbon::createFromFormat('d/m/Y',$request->get( 'trip_date' )),
             $request->get( 'trip_time', null )
         );
 

@@ -7,6 +7,7 @@
                :name="name"
                v-validate="validation"
                :value="selected"
+               v-if="name"
         >
 
         <!-- With Icon -->
@@ -20,6 +21,8 @@
                        :placeholder="placeholder"
                        filterable
                        remote
+                       @change="emitChange"
+
             >
                 <el-option
                         v-for="station in stations"
@@ -42,6 +45,8 @@
                    :placeholder="placeholder"
                    filterable
                    remote
+                   @change="emitChange"
+
         >
             <el-option
                     v-for="station in stations"
@@ -66,8 +71,8 @@
         inject: ['$validator'],
         props: {
             label: {required: false, type: String},
-            name: {required: true, type: String},
-            defaultValue: {required: false, type: String},
+            name: {required: false, type: String},
+            defaultValue: {required: false},
             withIcon: {required: false, default: true, type: Boolean},
             className: {required: false, type: String},
             validation: {required: false, type: String},
@@ -123,6 +128,9 @@
                             this.loading = false;
                         })
                 }
+            },
+            emitChange(value) {
+                this.$emit('change',value);
             }
         }
     }

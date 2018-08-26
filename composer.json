@@ -70,12 +70,12 @@
         "post-install-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postInstall",
             "php artisan migrate --force",
-            "php artisan ptb:flush-cache"
+            "php artisan cache:clear"
         ],
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
             "php artisan migrate --force",
-            "php artisan ptb:flush-cache"
+            "php artisan cache:clear"
         ]
     },
     "config": {

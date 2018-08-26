@@ -7,6 +7,7 @@
                :name="name"
                v-validate="validation"
                :value="date"
+               v-if="name"
         >
 
         <!-- With Icon -->
@@ -23,6 +24,7 @@
                     :id="name"
                     prefix-icon=" "
                     :picker-options="pickerOptions"
+                    @change="emitChange"
             >
             </el-date-picker>
         </div>
@@ -39,6 +41,7 @@
                 :id="name"
                 prefix-icon=" "
                 :picker-options="pickerOptions"
+                @change="emitChange"
         >
         </el-date-picker>
 
@@ -54,7 +57,7 @@
         props: {
             label: {required: false, type: String},
             withIcon: {required: false, default: false, type: Boolean},
-            name: {required: true, type: String},
+            name: {required: false, type: String},
             type: {required: false, type: String},
             defaultValue: {required: false},
             defaultValueFormat: {required: false, type: String},
@@ -93,6 +96,11 @@
         data() {
             return {
                 date: null,
+            }
+        },
+        methods: {
+            emitChange(value) {
+                this.$emit('change',value);
             }
         }
     }

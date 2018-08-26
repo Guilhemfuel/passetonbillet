@@ -47,10 +47,7 @@
                     <div class="content">
                         <div class="center">
                             <h3 class="catchline">@lang('welcome.advantages.one_clic')</h3>
-                            <home-search :lang="child.welcome.ticketLang"
-                                         :routes="child.welcome.routes"
-                                         :api="child.welcome.api"
-                            ></home-search>
+                            <home-search></home-search>
                         </div>
                     </div>
                 </div>
@@ -156,7 +153,7 @@
                 <h2 class="text-center text-warning title">{{__('welcome.feedback.title')}}</h2>
             </div>
 
-           <home-buyer-selle-info></home-buyer-selle-info>
+           <home-buyer-seller-info></home-buyer-seller-info>
 
             <div class="section-FAQ" id="section-FAQ">
                 <h2 class="text-center text-warning title FAQ-title">{{__('welcome.FAQ.title')}}</h2>
@@ -279,25 +276,5 @@
 
 
 @endsection
-
-<?php
-$langTickets = Lang::get( 'tickets' );
-$routes = [
-    'tickets'  => [
-
-    ],
-    'register' => route( 'register.page' )
-];
-?>
-
-@push('vue-data')
-    <script type="application/javascript">
-        data.welcome = {
-            ticketLang: {!! json_encode($langTickets) !!},
-            routes: {!! json_encode($routes) !!},
-            stateHowItWorks: 'buyer'
-        }
-    </script>
-@endpush
 
 

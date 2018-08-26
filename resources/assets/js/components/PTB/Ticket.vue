@@ -270,10 +270,9 @@
     export default {
         props: {
             ticket: {type: Object, required: true},
-            api: {type: Object, required: false},
-            routes: {type: Object, required: false},
+            api: {type: Object, required: false},  // TODO: get rid of that!
+            routes: {type: Object, required: false}, // TODO: get rid of that!
             lang: {type: Object, required: true},
-            user: {type: Object, required: false, default: null},
             // Selecting when user is selling a ticket (no in db yet, no user)
             selecting: {type: Boolean, default: false},
             // If the ticket is dislayed on the buying page
@@ -289,6 +288,7 @@
         },
         data() {
             return {
+                user: this.$root.user,
                 date: new moment(this.ticket.train.departure_date, 'YYYY-MM-DD') || null,
                 editing: false,
                 priceOffer: this.ticket.price,

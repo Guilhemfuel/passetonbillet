@@ -57,9 +57,32 @@ class PageController extends Controller
      * Display page to sell a ticket
      *
      */
-    public function buyPage()
+    public function buyPage( Request $request )
     {
-        return view( 'tickets.buy' )->with( 'user', new UserRessource( \Auth::user(), true ) );
+        $this->validate( $request, [
+            'departure_station' => 'nullable|exists:stations,id',
+            'arrival_station'   => 'nullable|exists:stations,id',
+            'departure_date'    => 'nullable|date_format:d/m/Y'
+        ] );
+
+        if ( ! $request->has( 'departure_station' )
+             || ! $request->has( 'arrival_station' )
+             || ! $request->has( 'departure_date' ) ) {
+            return redirect()->route( 'home' );
+        }
+
+        $view = view( 'tickets.buy' );
+
+        if ( \Auth::check() ) {
+            $view = $view->with( 'user', new UserRessource( \Auth::user(), true ) );
+        }
+
+        return $view->with( 'search', [
+            "departure_station" => $request->departure_station,
+            "arrival_station"   => $request->arrival_station,
+            "trip_date"         => $request->departure_date,
+            "trip_time"         => null
+        ] );
     }
 
     /**
@@ -67,12 +90,12 @@ class PageController extends Controller
      * Display page with all tickets owned by user
      *
      */
-    public function myTicketsPage($tab=null)
+    public function myTicketsPage( $tab = null )
     {
 
         // Possibility to specify which tab is opened first
         $state = 3;
-        switch ($tab){
+        switch ( $tab ) {
             case 'selling':
                 $state = 3;
                 break;
@@ -97,7 +120,7 @@ class PageController extends Controller
                                               Discussion::DENIED,
                                               Discussion::ACCEPTED
                                           ] )
-                                      ) )->with('state',$state);
+                                      ) )->with( 'state', $state );
 
     }
 
@@ -120,12 +143,12 @@ class PageController extends Controller
         }
 
         // Mark notification of offers as read in database (as we're on page)
-        \Auth::user()->unreadNotifications->where('type',OfferNotification::class)->markAsRead();
+        \Auth::user()->unreadNotifications->where( 'type', OfferNotification::class )->markAsRead();
 
         return view( 'messages.home' )->with( 'user', new UserRessource( \Auth::user() ) )
-                                      ->with( 'offersAwaiting', DiscussionLastMessageResource::collection( $offersAwaiting->sortByDesc('updated_at') ) )
-                                      ->with( 'buyingDiscussions', DiscussionLastMessageResource::collection( $buyingDiscussions->sortByDesc('updated_at') ) )
-                                      ->with( 'sellingDiscussions', DiscussionLastMessageResource::collection( $sellingDiscussions->sortByDesc('updated_at')) );
+                                      ->with( 'offersAwaiting', DiscussionLastMessageResource::collection( $offersAwaiting->sortByDesc( 'updated_at' ) ) )
+                                      ->with( 'buyingDiscussions', DiscussionLastMessageResource::collection( $buyingDiscussions->sortByDesc( 'updated_at' ) ) )
+                                      ->with( 'sellingDiscussions', DiscussionLastMessageResource::collection( $sellingDiscussions->sortByDesc( 'updated_at' ) ) );
     }
 
     /**
@@ -153,7 +176,7 @@ class PageController extends Controller
             ] );
         } else {
             return view( 'auth.auth_ticket', [
-                'type' => 'register',
+                'type'   => 'register',
                 'ticket' => new TicketRessource( $ticket )
             ] );
         }
