@@ -42,7 +42,7 @@
                     enter-active-class="animated fadeIn"
                     leave-active-class="animated fadeOut">
             <p v-if="state=='result'" class="text-center mt-4 mb-0"><span
-                    class="text-pink">{{ticketsWithOffers.length}}</span> {{trans('tickets.buy.search_result')}}</p>
+                    class="text-primary">{{ticketsWithOffers.length}}</span> {{trans('tickets.buy.search_result')}}</p>
         </transition>
 
         <transition enter-class="pre-animated"

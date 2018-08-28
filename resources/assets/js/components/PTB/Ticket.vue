@@ -53,33 +53,33 @@
                         && $lodash.has(ticket, 'discussionId')
                         && $lodash.has(ticket, 'offerStatus')
                         && ticket.offerStatus == 1" >
-                        <a :href="route('public.message.discussion.page',[ticket.id, ticket.discussionId])" class="btn btn-pink btn-buy btn-sm">{{trans('tickets.component.discuss')}}</a>
+                        <a :href="route('public.message.discussion.page',[ticket.id, ticket.discussionId])" class="btn btn-ptb btn-buy btn-sm">{{trans('tickets.component.discuss')}}</a>
                     </template>
                     <!-- Make Offer -->
                     <template v-else-if="!pastTicket && !display
                         && $lodash.has(ticket, 'discussionId')
                         && $lodash.has(ticket, 'offerStatus')
                         && ticket.offerStatus == -1" >
-                        <button class="btn btn-pink btn-buy btn-sm" @click="editing=true">
+                        <button class="btn btn-ptb btn-buy btn-sm" @click="editing=true">
                             {{trans('tickets.component.new_offer')}}
                         </button>
                     </template>
                     <!-- Buy/Sell/Download -->
                     <template v-else-if="!pastTicket && !display">
-                        <button class="btn btn-pink btn-buy btn-sm" v-if="!selecting && buying && !offerDone" @click="editing=true">
+                        <button class="btn btn-ptb btn-buy btn-sm" v-if="!selecting && buying && !offerDone" @click="editing=true">
                             {{trans('tickets.component.buy')}}
                         </button>
-                        <button class="btn btn-pink btn-buy btn-sm" v-if="selecting" @click.prevent="sell">
+                        <button class="btn btn-ptb btn-buy btn-sm" v-if="selecting" @click.prevent="sell">
                             {{trans('tickets.component.sell')}}
                         </button>
-                        <button class="btn btn-pink btn-buy btn-sm" v-if="bought" @click="editing=true">
+                        <button class="btn btn-ptb btn-buy btn-sm" v-if="bought" @click="editing=true">
                             {{trans('tickets.component.download')}}
                         </button>
                     </template>
                     <!-- Edit (in case of buying page, is a link-->
                     <template v-if="!pastTicket && (user != null && ticket.user && ticket.user.id == user.id) && !display">
-                        <button class="btn btn-pink btn-buy btn-sm" @click="editing=true" v-if="!buying">{{trans('tickets.component.edit')}}</button>
-                        <a class="btn btn-pink btn-buy btn-sm" v-else :href="route('public.ticket.owned.page')">{{trans('tickets.component.edit')}}</a>
+                        <button class="btn btn-ptb btn-buy btn-sm" @click="editing=true" v-if="!buying">{{trans('tickets.component.edit')}}</button>
+                        <a class="btn btn-ptb btn-buy btn-sm" v-else :href="route('public.ticket.owned.page')">{{trans('tickets.component.edit')}}</a>
                     </template>
 
                     <div class="price" v-if="!selecting">
@@ -244,7 +244,7 @@
                                                name="price"
                                                v-validate="'required|numeric|min_value:0|max_value:'+ticket.price">
                                     </div>
-                                    <button class="btn btn-pink btn-block mt-2" @click.prevent="makeOffer">
+                                    <button class="btn btn-ptb btn-block mt-2" @click.prevent="makeOffer">
                                         {{trans('tickets.component.send_offer')}}
                                     </button>
 
@@ -260,7 +260,7 @@
                         </template>
                         <template v-else-if="state=='register'">
                             <p class="text-center">{{trans('tickets.component.register')}} <br><br> <a
-                                    :href="route('register.page')">{{trans('tickets.component.register_cta')}}</a></p>
+                                    :href="route('register.page')+'?source=guest-offer'">{{trans('tickets.component.register_cta')}}</a></p>
                         </template>
                     </div>
 

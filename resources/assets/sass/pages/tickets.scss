@@ -139,9 +139,9 @@ $animation-duration: 0.5s;
       text-align: center;
 
       span {
-        color: $color-purple;
+        color: $color-orange;
         font-size: 38px;
-        font-weight: 400;
+        font-weight: 700;
       }
     }
 
@@ -150,7 +150,7 @@ $animation-duration: 0.5s;
       text-transform: uppercase;
       color: white;
       font-size: 20px;
-      font-weight: 400;
+      font-weight: 700;
       margin-top: 10px;
     }
 
@@ -171,7 +171,7 @@ $animation-duration: 0.5s;
 
       .arrow {
         padding-top: 30px;
-        color: $color-pink;
+        color: white;
         padding: 0px;
 
         i {
@@ -184,7 +184,7 @@ $animation-duration: 0.5s;
       }
 
       .time {
-        color: $color-pink;
+        color: white;
         font-weight: 600;
       }
     }
@@ -197,10 +197,10 @@ $animation-duration: 0.5s;
 
     .price {
       width: 100%;
-      color: $color-purple;
+      color: black;
       text-align: center;
       font-size: 25px;
-      font-weight: 400;
+      font-weight: 600;
 
       .old-price {
         color: $color-placeholder;
@@ -212,7 +212,7 @@ $animation-duration: 0.5s;
     .seller {
       width: 100%;
       text-align: center;
-      color: $color-pink;
+      color: black;
       font-size: 14px;
       b {
         font-weight: 600;
@@ -286,7 +286,6 @@ $animation-duration: 0.5s;
           margin: 0px;
           height: auto;
           width: auto;
-          color: $color-purple;
           background-color: transparent;
           border-radius: 0px;
           font-weight: 600;

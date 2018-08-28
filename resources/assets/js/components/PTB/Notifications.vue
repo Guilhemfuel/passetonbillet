@@ -1,7 +1,7 @@
 <template>
     <div class="nav-notifications">
         <i class="fa fa-bell" @click="toggleDropdown()" aria-hidden="true"></i>
-        <span v-if="unreadCount>0" class="badge badge-pill badge-warning">{{unreadCount}}</span>
+        <span v-if="unreadCount>0" class="badge badge-pill badge-danger">{{unreadCount}}</span>
         <transition enter-active-class="animated fadeInDown"
                     leave-active-class="animated fadeOutUp"
                     v-on:afterEnter="transitionCallback">

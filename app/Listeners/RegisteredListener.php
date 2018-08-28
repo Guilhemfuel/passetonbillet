@@ -31,7 +31,8 @@ class RegisteredListener
 
         // Store event and IP
         \AppHelper::stat( 'register', [
-            'ip_adress' => $this->request->ip()
+            'source' => session()->pull('register-source', null),
+            'ip_address' => $this->request->ip()
         ],$event->user );
     }
 }

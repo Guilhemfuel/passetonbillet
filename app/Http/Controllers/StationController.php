@@ -26,10 +26,11 @@ class StationController extends Controller
         }
 
         $stations = Station::search(  $request->name )
-                           ->orderBy( 'name' )
                            ->get();
 
-        return StationRessource::collection( $stations );
+        return StationRessource::collection( $stations->sortBy(function($station) {
+            return strlen($station->name);
+        } ));
     }
 
     /**

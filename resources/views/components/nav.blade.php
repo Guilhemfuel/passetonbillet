@@ -14,10 +14,19 @@
             <ul class="navbar-nav ml-auto">
                     @if(Route::current()->getName() != 'public.ticket.sell.page')
                         <li class="nav-item">
-                            <a class="nav-link btn btn-ptb d-none d-sm-block btn-sell mt-0"
-                               href="{{route('public.ticket.sell.page')}}">@lang('nav.resell_a_ticket')</a>
-                            <a class="nav-link btn btn-ptb d-block d-sm-none mt-0"
-                               href="{{route('public.ticket.sell.page')}}">@lang('nav.sell_ticket.mobile')</a>
+                            @if(Auth::guest())
+                                <a class="nav-link btn btn-ptb d-none d-sm-block"
+                                   href="{{route('register.page')}}?source={{\App\Http\Controllers\Auth\RegisterController::SOURCE_GUEST_SELL}}"
+                                >@lang('nav.resell_a_ticket')</a>
+                                <a class="nav-link btn btn-ptb d-block d-sm-none"
+                                   href="{{route('register.page')}}?source={{\App\Http\Controllers\Auth\RegisterController::SOURCE_GUEST_SELL}}"
+                                >@lang('nav.sell_ticket.mobile')</a>
+                            @else
+                                <a class="nav-link btn btn-ptb d-none d-sm-block"
+                                   href="{{route('public.ticket.sell.page')}}">@lang('nav.resell_a_ticket')</a>
+                                <a class="nav-link btn btn-ptb d-block d-sm-none"
+                                   href="{{route('public.ticket.sell.page')}}">@lang('nav.sell_ticket.mobile')</a>
+                            @endif
                         </li>
                     @endif
                     @if(Route::current()->getName() != 'public.ticket.buy.page' && Route::current()->getName() != 'home')
@@ -31,7 +40,7 @@
                 @if(Auth::check())
                     @include('components.nav-logged')
                 @else
-                    <li class="nav-item">
+                    <li class="nav-item d-none d-sm-none d-md-block">
                         <a class="nav-link btn btn-ptb-white"
                            href="{{route('register')}}">@lang('nav.register')</a>
                     </li>

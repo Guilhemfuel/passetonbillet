@@ -17,5 +17,11 @@
         data.buy = {
             search: {!! json_encode($search) !!}
         }
+
+        // Default date is today
+        if ( data.buy.search.trip_date == null){
+            data.buy.search.trip_date = new moment().format('DD/MM/YYYY');
+        }
+
     </script>
 @endpush

@@ -66,8 +66,7 @@ class PageController extends Controller
         ] );
 
         if ( ! $request->has( 'departure_station' )
-             || ! $request->has( 'arrival_station' )
-             || ! $request->has( 'departure_date' ) ) {
+             || ! $request->has( 'arrival_station' ) ) {
             return redirect()->route( 'home' );
         }
 
@@ -80,7 +79,7 @@ class PageController extends Controller
         return $view->with( 'search', [
             "departure_station" => $request->departure_station,
             "arrival_station"   => $request->arrival_station,
-            "trip_date"         => $request->departure_date,
+            "trip_date"         => $request->get("departure_date",null),
             "trip_time"         => null
         ] );
     }
