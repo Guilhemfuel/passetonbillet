@@ -23,10 +23,10 @@
             </div>
             <div class="text-white">
                 <p>
-                    <a target="_blank" href="https://www.facebook.com/Lastar-166045200683624/">
+                    <a target="_blank" href="{{config('links.facebook')}}">
                         <i class="fa fa-2x fa-facebook text-white" aria-hidden="true"></i>
                     </a>
-                    <a target="_blank" href="https://twitter.com/lastarofficial">
+                    <a target="_blank" href="{{config('links.twitter')}}">
                         <i class="fa fa-2x fa-twitter text-white" aria-hidden="true"></i>
                     </a>
                 </p>

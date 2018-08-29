@@ -1,17 +1,19 @@
 <template>
     <div class="col-12" id="home-search">
         <div id="action-content">
-            <vue-form action="d" :csrf-disabled="true" method="GET">
+            <vue-form :action="this.route('public.ticket.buy.page')" :csrf-disabled="true" method="GET">
                 <div class="row text-left justify-content-center">
                     <input-station name="departure_station"
-                                   :label="lang.buy.inputs.homepicker.depart"
+                                   :label="trans('tickets.buy.inputs.homepicker.depart')"
                                    class-name="col-sm-3"
                                    validation="required"
+                                   default-value="4916"
                     ></input-station>
                     <input-station name="arrival_station"
-                                   :label="lang.buy.inputs.homepicker.arrival"
+                                   :label="trans('tickets.buy.inputs.homepicker.arrival')"
                                    class-name="col-sm-3"
                                    validation="required"
+                                   default-value="8267"
                     ></input-station>
                     <input-date
                             name="departure_date"
@@ -22,12 +24,14 @@
                             format="dd/MM/yyyy"
                             value-format="dd/MM/yyyy"
                             default-value-format="DD/MM/YYYY"
+                            :default-value="defaultDate"
+                            :with-icon="true"
                             :picker-options="datePickerOptions"
                     ></input-date>
 
                     <div class="col-sm-3">
                         <button class="btn btn-primary btn-input text-uppercase" id="btn-search" type="submit">
-                            {{lang.buy.research}}
+                            {{trans('tickets.buy.research')}}
                         </button>
                     </div>
                 </div>
@@ -39,8 +43,6 @@
 <script>
     export default {
         props: {
-            routes: {type: Object, required: true},
-            lang: {type: Object, required: true},
         },
         data() {
             return {
@@ -54,7 +56,11 @@
                 },
             }
         },
-        computed: {},
+        computed: {
+            defaultDate() {
+                return moment().format('DD/MM/YYYY');
+            }
+        },
         methods: {}
     }
 </script>

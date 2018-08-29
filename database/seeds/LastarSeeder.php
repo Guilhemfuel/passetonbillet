@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class LastarSeeder extends Seeder
+class PtbSeeder extends Seeder
 {
     /**
      * Run the database seeds.

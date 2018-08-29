@@ -26,7 +26,9 @@
             className: {required: false, type: String},
             validation: {required: false, type: String},
             placeholder: {required: false, type: String},
-            specialCharDisabled: {required:false, default: false, type: Boolean}
+            specialCharDisabled: {required:false, default: false, type: Boolean},
+            oldValue: {required: false, type: Boolean, default: true},
+
         },
         computed: {
             getClass(){
@@ -38,11 +40,23 @@
             actualValue(){
                 if (!this.specialCharDisabled) return this.inputValue;
                 return this.inputValue.replace( /\r?\n/gi, '' );
+            },
+            defaultVal() {
+                if (this.defaultValue != null && this.defaultValue != undefined) {
+                    return this.defaultValue;
+                }
+                if (this.oldValue && this.$root.oldInput[this.name]) {
+                    return this.$root.oldInput[this.name];
+                }
+                return null;
             }
+        },
+        mounted(){
+            this.inputValue = this.defaultVal
         },
         data() {
             return {
-                inputValue: this.defaultValue,
+                inputValue: null,
             }
         }
     }

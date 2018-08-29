@@ -78,7 +78,7 @@
         <div class="form-group">
             <label>Birthdate</label>
             <datepicker input-class="form-control"
-                        :wrapper-class="'lastar-calendar'"
+                        :wrapper-class="'ptb-calendar'"
                         :placeholder="'Birthdate'"
                         :name="'birthdate'"
                         :value="'{{isset($entity)?$entity->birthdate:(old('birthdate'))}}'"

@@ -25,9 +25,13 @@ window.Vue.use(require('vue-resource'));
 import Raven from 'raven-js';
 import RavenVue from 'raven-js/plugins/vue';
 if (local) {
-    Raven.config('https://55043330c18c47a29c0d04e79e9426be@sentry.io/305544')
-        .addPlugin(RavenVue, Vue)
-        .install();
+    Raven.config('https://55043330c18c47a29c0d04e79e9426be@sentry.io/305544', {
+        environment: 'local',
+        debug: true
+
+    })
+    .addPlugin(RavenVue, Vue)
+    .install();
 }
 /**
  * We use VeeValidator, and therefore need to set the language.
@@ -132,5 +136,8 @@ if (token) {
 }
 
 /**
- * Add support to route helper
+ * Other vue components
  */
+
+import Cleave from 'vue-cleave-component';
+Vue.use(Cleave);

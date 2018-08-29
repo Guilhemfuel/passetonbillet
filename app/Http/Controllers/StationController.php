@@ -20,14 +20,28 @@ class StationController extends Controller
      */
     public function stationSearch( Request $request )
     {
+
         if ( ! $request->name ) {
             return [];
         }
 
         $stations = Station::search(  $request->name )
-                           ->orderBy( 'name' )
                            ->get();
 
-        return StationRessource::collection( $stations );
+        return StationRessource::collection( $stations->sortBy(function($station) {
+            return strlen($station->name);
+        } ));
+    }
+
+    /**
+     * Returns a list of stations
+     *
+     * @return string
+     */
+    public function show( $stationId)
+    {
+        $station = Station::findOrFail($stationId);
+
+        return new StationRessource($station);
     }
 }

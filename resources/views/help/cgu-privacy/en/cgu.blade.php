@@ -9,7 +9,7 @@
                 <div class="fixed-content">
                     <nav class="navbar">
                         <a class="navbar-brand" href="{{route('home')}}">
-                            <img src="{{secure_asset('img/logo.png')}}" class="d-inline-block align-top" alt="logo lastar">
+                            <img src="{{secure_asset('img/logo.png')}}" class="d-inline-block align-top" alt="logo ptb">
                         </a>
                         <ul class="navbar-nav navbar-expand">
                             <li class="nav-item">
@@ -36,7 +36,7 @@
                     </nav>
                     <div class="content">
                         <div>
-                            <h2 class="text-center text-white">Terms of Service<br>Lastar.io</h2>
+                            <h2 class="text-center text-white">Terms of Service<br>Ptb.io</h2>
                             <p class="text-center text-white">
                                 Last updated: March 10, 2018
                             </p>
@@ -51,12 +51,12 @@
                                 </p>
 
                                 <p>
-                                    Lastar.io website is published by:
+                                    Ptb.io website is published by:
                                 </p>
 
                                 <p class="ml-5">
                                     Axel A. & Julien N.
-                                    <br>E-mail address: contact@lastar.io
+                                    <br>E-mail address: contact@ptb.io
 
                                     The publishing directors of the site are:
                                     Axel A. & Julien N.
@@ -64,7 +64,7 @@
                                 </p>
 
                                 <p>
-                                    Lastar.io site is hosted by:
+                                    Ptb.io site is hosted by:
                                 </p>
                                 <p class="ml-5">
                                     Heroku Inc., headquartered at 650 7th Street, San Francisco, CA <br>
@@ -75,10 +75,10 @@
                                 <h4 class="mt-5 pb-3">ARTICLE 2. PRESENTATION OF THE SITE</h4>
 
                                 <p>
-                                    The Lastar.io site aims to:
+                                    The Ptb.io site aims to:
                                 </p>
                                 <p class="ml-5">
-                                    Connect users who want to buy or sell European train tickets between them. Tickets MUST be nominative under the name of the Lastar.io user.
+                                    Connect users who want to buy or sell European train tickets between them. Tickets MUST be nominative under the name of the Ptb.io user.
                                 </p>
 
                                 <h4 class="mt-5 pb-3">ARTICLE 3. CONTACT
@@ -87,7 +87,7 @@
                                 <p>
                                     For any question or request for information about the site, or any report of illegal
                                     content or activities, the user can contact the editor at the following e-mail
-                                    address: contact@lastar.io.
+                                    address: contact@ptb.io.
                                 </p>
 
                                 <h4 class="pt-1 pb-3">
@@ -123,7 +123,7 @@
                                     suspend, limit or interrupt access to the site or to certain pages of the site. the
                                     latter to make updates, changes to its content or any other action deemed necessary
                                     for the proper functioning of the site.
-                                    <br><br>The connection and browsing on the site Lastar.io are worth full acceptance
+                                    <br><br>The connection and browsing on the site Ptb.io are worth full acceptance
                                     of these Terms of Use, whatever the technical means of access and terminals used.
                                     <br><br>These Terms apply, as necessary, any declination or extension of the site on
                                     social networks and / or community existing or future.
@@ -163,7 +163,7 @@
                                     Access to certain services is conditioned by the registration of the user.
                                     <br><br>The registration and access to the services of the site are reserved
                                     exclusively for natural persons legally capable, having completed and validated the
-                                    registration form available online on the website Lastar.io, as well as these Terms
+                                    registration form available online on the website Ptb.io, as well as these Terms
                                     of Use.
 
                                     <br><br>When registering, the user agrees to provide accurate, truthful and
@@ -174,7 +174,7 @@
                                     confirmation of his registration to his services. An e-mail address cannot be used
                                     multiple times to register for services.
 
-                                    <br><br>Any communication made by Lastar.io and its partners is therefore deemed to
+                                    <br><br>Any communication made by Ptb.io and its partners is therefore deemed to
                                     have been received and read by the user. The latter therefore undertakes to
                                     regularly consult the messages received on this e-mail address and to respond within
                                     a reasonable time if necessary.
@@ -190,7 +190,7 @@
                                     Area. The password is personal and confidential, the user agrees not to communicate
                                     it to third parties.
 
-                                    <br><br>Lastar.io reserves in any case the possibility of refusing an application
+                                    <br><br>Ptb.io reserves in any case the possibility of refusing an application
                                     for registration to the services in case of non-compliance by the User of the
                                     provisions of these Terms of Use.
 
@@ -248,19 +248,19 @@
 
                                     </li>
                                     <li> any physical problems that may occur during the exchange of European train tickets
-                                        between Lastar users;
+                                        between Ptb users;
 
                                     </li>
                                     <li> any financial problem including the non-receipt of the total or partial amount
-                                        corresponding to the selling price of an European train ticket listed on Lastar.io that
-                                        may occur during the exchange of European train tickets between users of Lastar.
+                                        corresponding to the selling price of an European train ticket listed on Ptb.io that
+                                        may occur during the exchange of European train tickets between users of Ptb.
 
                                     </li>
                                 </ul>
 
                                 <p>
                                     The publisher reminds users that the ONLY ONE UNIQUE role of the online platform
-                                    Lastar.io is to CONNECT INDIVIDUALS WISHING TO BUY OR RESELL EUROPEAN TRAIN TICKETS UNDER
+                                    Ptb.io is to CONNECT INDIVIDUALS WISHING TO BUY OR RESELL EUROPEAN TRAIN TICKETS UNDER
                                     THEIR NAME.
                                     LASTAR INC. IS NOT INVOLVED AND HAS NO RESPONSIBILITY IN ALL FINANCIAL TRANSACTIONS
                                     AND PHYSICAL AND VIRTUAL EXCHANGES AND PROBLEMS RELATED TO THE LATTERS AFTER TWO
@@ -289,7 +289,7 @@
                                 </h4>
 
                                 <p>
-                                    The site may contain hypertext links pointing to other websites on which Lastar.io
+                                    The site may contain hypertext links pointing to other websites on which Ptb.io
                                     does not exercise control. Despite the prior and regular verifications carried out
                                     by the publisher, it declines all responsibility for the content that can be found
                                     on these sites.
@@ -305,7 +305,7 @@
                                     unlawful, violent, controversial, pornographic, xenophobic or that may affect the
                                     sensitivity of the greatest number.
 
-                                    <br><br>Finally, Lastar.io reserves the right to delete at any time a hypertext link
+                                    <br><br>Finally, Ptb.io reserves the right to delete at any time a hypertext link
                                     pointing to its site, if the site considers it not in accordance with its editorial
                                     policy.
 
@@ -358,7 +358,7 @@
                                 </p>
 
                                 <p class="text-center font-italic mt-5">
-                                    The Lastar.io website wishes you an excellent navigation!
+                                    The Ptb.io website wishes you an excellent navigation!
                                 </p>
 
                             </div>

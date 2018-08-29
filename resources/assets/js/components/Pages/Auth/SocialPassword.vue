@@ -42,7 +42,7 @@
 
             <div class="form-group mt-4">
                 <div class="col-xs-12">
-                    <button type="submit" class="btn btn-lastar-blue btn-block">
+                    <button type="submit" class="btn btn-ptb-blue btn-block">
                         {{langAuth.register.title}}
                     </button>
                 </div>

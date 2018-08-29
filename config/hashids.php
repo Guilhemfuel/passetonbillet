@@ -40,7 +40,7 @@ return [
     'connections' => [
 
         'main' => [
-            'salt' => 'lastar-rocks',
+            'salt' => 'ptb-rocks',
             'length' => 8,
         ],
         'file' => [

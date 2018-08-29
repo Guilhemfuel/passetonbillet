@@ -7,9 +7,9 @@ use App\Listeners\RegisteredListener;
 use App\Mail\EmailVerification;
 use App\User;
 use Illuminate\Http\Request;
-use Tests\LastarTestCase;
+use Tests\PtbTestCase;
 
-class RegisteredListenerTest extends LastarTestCase
+class RegisteredListenerTest extends PtbTestCase
 {
     public function testRegisterEvent(){
 

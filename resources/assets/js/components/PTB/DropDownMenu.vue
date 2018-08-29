@@ -16,10 +16,6 @@
                     <i class="fa fa-user" aria-hidden="true"></i>
                     {{trans('nav.my_profile')}}
                 </el-dropdown-item>
-                <el-dropdown-item >
-                    <i class="fa fa-cog" aria-hidden="true"></i>
-                    {{trans('nav.settings')}}
-                </el-dropdown-item>
                 <el-dropdown-item command="logout">
                     <i class="fa fa-sign-out" aria-hidden="true"></i>
                     {{trans('nav.logout')}}

@@ -41,7 +41,7 @@
             ]) !!};
     </script>
     {{-- Adding Crisp Chat--}}
-    <script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="16ad47a5-b681-444a-93bf-901198e51212";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
+    <script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="243d866a-ba3b-4227-adaf-17c631d4fdb1";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
 
     @yield('head')
 </head>
@@ -74,7 +74,7 @@
 <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
 @routes
 <script src="/lang/lang-{{ \App::getLocale() }}.js"></script>
-<script src="/js/app.js"></script>
+<script src="{{ mix('/js/app.js')}}"></script>
 <script type="application/javascript">
     let data = {};
     let currentPage = {
@@ -93,7 +93,8 @@
             custom_errors: {!!  ($errors->any()?json_encode($errors->all()):'[]') !!},
             child: null,
             user: null,
-            currentPage: null
+            currentPage: null,
+            oldInput: {!! (old() != [] ? json_encode( old() ) : 'null') !!}
         },
         mounted() {
 

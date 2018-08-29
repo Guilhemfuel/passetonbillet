@@ -25,7 +25,6 @@ mix.js('resources/assets/js/app.js', 'public/js').version()
     .copyDirectory('resources/assets/fonts', 'public/fonts');
 
 
-
 if(!mix.inProduction()){
 
     mix.browserSync({

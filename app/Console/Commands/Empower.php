@@ -12,7 +12,7 @@ class Empower extends Command
      *
      * @var string
      */
-    protected $signature = 'lastar:empower {email}';
+    protected $signature = 'ptb:empower {email}';
 
     /**
      * The console command description.

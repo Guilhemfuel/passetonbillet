@@ -8,7 +8,7 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'login' => 'Se Connecter',
+    'login' => 'Connexion',
     'logout' => 'Déconnexion',
     'register'    => 'S\'inscrire',
     'home'    => 'Home',

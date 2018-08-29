@@ -11,7 +11,7 @@ return [
     'component' => [
         'buy'                    => 'Acheter',
         'sell'                   => 'Vendre ce billet',
-        'sold_by'                => 'Vendu par',
+        'sold_by'                => 'Publié par',
         'edit'                   => 'Modifier',
         'edit_ticket'            => 'Modifier le billet',
         'buy_ticket'             => 'Acheter le billet',
@@ -83,6 +83,34 @@ return [
             'success' => [
                 'code_sent'        => 'Un code vérification vous a été envoyé par SMS.',
                 'number_confirmed' => 'Féliciation! Votre numéro de téléphone est confirmé. Vous pouvez vendre vos tickets immédiatement!'
+            ]
+        ],
+
+        'manual' => [
+            'link' => 'Vous n\'avez pas de numéro de réservation? Cliquer ici pour rentrer les informations de votre billet manuellement.',
+            'title' => 'Ajout Manuel de Billet',
+            'fail_retrieval' => [
+                'title' => 'Aucun résultat trouvé pour votre combinaison nom/réservation.',
+                'message' => 'Malheuresment, nous n\'avons trouvé aucun billet. Vous pouvez ajoutez votre billet manuellement ici. Cliquez sur ce message pour essayer de trouver votre billet à l\'aide de votre numéro de réservation.'
+            ],
+            'text' => "Si vous souhaitez vendre un billet cartonné, ou que nous n'avons pas pu retrouver votre billet, il vous suffit de remplir ce formulaire.",
+            'back_link' => 'Vous avez votre numéro de réservation? Cliquez ici pour retrouver votre billet automatiquement.',
+            'form' => [
+                'title_travel' => 'Informations sur le voyage',
+                'departure_station' => 'Gare de départ',
+                'arrival_station' => 'Gare d\'arrivée',
+                'travel_date' => 'Date de voyage',
+                'train_number' => 'Numéro de train',
+                'departure_time' => "Heure de Départ",
+                'arrival_time' => "Heure d'Arrivée",
+                'title_ticket' => 'Informations sur le billet',
+                'company' => 'Agence ferroviaire',
+                'flexibility' => 'Tarif',
+                'classe' => 'Classe',
+                'currency' => 'Devise',
+                'bought_price' => 'Prix d\'achat',
+                'price' => 'Prix de vente'
+
             ]
         ]
     ],

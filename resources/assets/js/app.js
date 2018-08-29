@@ -12,10 +12,9 @@ require('./bootstrap');
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  *
- * Note that lastar uses elementUi vue components (so we import it here)
+ * Note that ptb uses elementUi vue components (so we import it here)
  */
 
-Vue.component('cleave', require('vue-cleave'));
 Vue.component('vue-select', require('vue-select'));
 Vue.component('datepicker', require('vuejs-datepicker'));
 
@@ -25,8 +24,10 @@ Vue.component('timepicker', require('./components/Inputs/Timepicker.vue'));
 Vue.component('stationpicker', require('./components/Inputs/Stationpicker.vue'));
 Vue.component('userpicker', require('./components/Inputs/Userpicker.vue'));
 Vue.component('datepicker', require('./components/Inputs/Datepicker.vue'));
-Vue.component('trippicker', require('./components/Inputs/Trippicker.vue'));
-Vue.component('datetimepicker', require('./components/Inputs/Datetimepicker.vue'));
+
+// Custom page input
+Vue.component('input-stations', require('./components/Pages/Tickets/Components/InputStations.vue'));
+Vue.component('input-date-time', require('./components/Pages/Tickets/Components/InputDateTime.vue'));
 
 /**
  * Form components
@@ -39,6 +40,7 @@ Vue.component('input-textarea-basic', require('./components/Forms/input-textarea
 Vue.component('input-select', require('./components/Forms/input-select.vue'));
 Vue.component('input-currency', require('./components/Forms/input-currency.vue'));
 Vue.component('input-date', require('./components/Forms/input-date.vue'));
+Vue.component('input-time', require('./components/Forms/input-time.vue'));
 Vue.component('input-country', require('./components/Forms/input-country.vue'));
 Vue.component('input-image', require('./components/Forms/input-image.vue'));
 Vue.component('input-station', require('./components/Forms/input-station.vue'));
@@ -74,11 +76,15 @@ Vue.component('ticket-mini', require('./components/PTB/Ticket-Mini.vue'));
  */
 Vue.component('auth', require('./components/Pages/Auth/Auth.vue'));
 Vue.component('social-password', require('./components/Pages/Auth/SocialPassword.vue'));
+
 Vue.component('sell-ticket', require('./components/Pages/Tickets/Sell.vue'));
+Vue.component('manual-sell-ticket', require('./components/Pages/Tickets/Components/ManualSell.vue'));
+
 Vue.component('buy-ticket', require('./components/Pages/Tickets/Buy.vue'));
 Vue.component('my-tickets', require('./components/Pages/Tickets/Mytickets.vue'));
 
 Vue.component('home-search', require('./components/Pages/Welcome/HomeSearch.vue'));
+Vue.component('home-buyer-seller-info', require('./components/Pages/Welcome/BuyerSellerInfo.vue'));
 
 Vue.component('messages-home', require('./components/Pages/Message/Home.vue'));
 Vue.component('discussion', require('./components/Pages/Message/Discussion.vue'));

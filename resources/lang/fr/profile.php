@@ -23,7 +23,7 @@ return [
     'modal' => [
         'edit_profile' => [
             'title' => 'Modifier votre profil',
-            'content' => 'Pour corriger ou mettre à jour une information de votre profil, contactez un membre de l\'équipe Lastar. Pour cela, cliquez sur le chat en bas à droite de votre écran, ou sur le bouton ci-dessous.',
+            'content' => 'Pour corriger ou mettre à jour une information de votre profil, contactez un membre de l\'équipe Ptb. Pour cela, cliquez sur le chat en bas à droite de votre écran, ou sur le bouton ci-dessous.',
             'cta' => 'Contactez-nous!'
         ],
         'change_password' => [

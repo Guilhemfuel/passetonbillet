@@ -117,6 +117,13 @@ html, body {
   }
 }
 
+.el-input.invalid, .el-select.invalid {
+  input.el-input__inner {
+    border-color: $color-red !important;
+  }
+}
+
+
 //
 // ==============================
 //
@@ -214,8 +221,8 @@ html, body {
   }
 }
 
-// TODO: delete lastar button
-.btn-lastar {
+// TODO: delete lastar button button
+.btn-ptb-purple {
   @extend .purple-gradient;
   color: white;
   cursor: pointer;
@@ -225,7 +232,7 @@ html, body {
   }
 }
 
-.btn-ptb-blue, .btn-lastar-blue {
+.btn-ptb-blue, .btn-ptb-blue {
   @extend .blue-gradient;
   color: white;
   cursor: pointer;
@@ -354,6 +361,7 @@ html, body {
 
 // Cards
 .card-title {
+
   margin-left: 20px;
   padding-bottom: 8px;
   font-size: 25px;
@@ -361,6 +369,11 @@ html, body {
   color: $color-gray;
 
   text-transform: uppercase;
+
+  @include media-breakpoint-down(sm) {
+    margin-top: 10px;
+  }
+
 }
 
 .card {
@@ -484,8 +497,8 @@ html, body {
           &:hover {
             color: black !important;
           }
-          .fa-bell {
-            margin-top: 0px !important;
+          &.fa-bell {
+            margin-top: 2px !important;
           }
         }
       }

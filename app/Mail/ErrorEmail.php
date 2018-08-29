@@ -29,8 +29,8 @@ class ErrorEmail extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->to(config('mail.from.address'),'Lastar')
-                    ->subject('Erreur Lastar: '.$this->title)
+        return $this->to(config('mail.from.address'),'Ptb')
+                    ->subject('Erreur Ptb: '.$this->title)
                     ->markdown('emails.error',
                         [
                             'ticket' =>$this->ticket,

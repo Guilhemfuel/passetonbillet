@@ -46,7 +46,6 @@ Route::get( '/register/fb', 'Auth\RegisterController@fb_redirect' )->name( 'fb.c
 Route::get( '/register/fb/callback', 'Auth\RegisterController@fb_callback' )->name( 'fb.callback' );
 Route::post( '/register/fb/confirm', 'Auth\RegisterController@fb_confirm_inscription' )->name( 'fb.confirm' );
 
-
 /**
  * Condtions, privacy, contact...
  **/
@@ -61,6 +60,9 @@ Route::get('/about','PageController@about')->name('about.page');
 Route::get( '/contact', 'PageController@contact' )->name( 'contact.page' );
 Route::post( '/contact', 'HelpController@contact' )->name( 'contact' );
 
+// Ticket search page
+Route::get( 'ticket/buy', 'PageController@buyPage' )->name( 'public.ticket.buy.page' );
+
 // Auth Routes
 Route::group( [ 'middleware' => 'auth', 'as' => 'public.' ], function () {
 
@@ -73,13 +75,12 @@ Route::group( [ 'middleware' => 'auth', 'as' => 'public.' ], function () {
         // Sell ticket
         Route::get( 'sell', 'PageController@sellPage' )->name( 'sell.page' );
         Route::post( 'sell', 'TicketController@sellTicket' )->name( 'sell.post' )->middleware( 'auth.verified.phone' );
+        Route::post( 'manual_sell', 'TicketController@sellManualTicket' )->name( 'sell.manual' )->middleware( 'auth.verified.phone' );
+
 
         // See my tickets
         // Possible values for tab: selling (default), sold, offered, bought
         Route::get( 'owned/{tab?}', 'PageController@myTicketsPage' )->name( 'owned.page' );
-
-        // Buy a ticket
-        Route::get( 'buy', 'PageController@buyPage' )->name( 'buy.page' );
 
         // Remove a non-sold ticket
         Route::delete( '/', 'TicketController@delete' )->name( 'delete' );
@@ -183,8 +184,10 @@ Route::blacklist(function() {
  *
  **/
 Route::group( [ 'prefix' => 'api' ], function () {
-    Route::post( 'tickets/buy', 'TicketController@buyTickets' )->name( 'api.tickets.buy' );
+    Route::get( 'tickets/buy', 'TicketController@buyTickets' )->name( 'api.tickets.buy' );
     Route::get( 'stations/search', 'StationController@stationSearch' )->name( 'api.stations.search' );
+    Route::get( 'stations/{id}', 'StationController@show' )->name( 'api.stations.show' );
+
 
     Route::group( [ 'middleware' => 'auth.admin' ], function () {
         Route::get( 'users/{name}', 'Admin\UserController@searchAPI' )->name( 'api.users.search' );

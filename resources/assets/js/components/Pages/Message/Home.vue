@@ -24,7 +24,7 @@
                             <tbody>
                             <tr v-for="offer in offersAwaiting">
                                 <th scope="col" class="text-center text-info">
-                                    <ticket-mini :discussion="offer" :lang="ticketLang"
+                                    <ticket-mini :discussion="offer"
                                                  :ticket="offer.ticket"></ticket-mini>
                                     <div class="d-sm-block d-md-none">
                                         <p class="text-center mt-3 text-primary">
@@ -88,7 +88,7 @@
                             <template v-for="offer in discussions">
                                 <tr @click="openDiscussion(offer.id)">
                                     <th scope="col" class="col-ticket">
-                                        <ticket-mini :discussion="offer" :lang="ticketLang"
+                                        <ticket-mini :discussion="offer"
                                                      :ticket="offer.ticket"></ticket-mini>
                                     </th>
                                     <th :class="{'unread':unreadDiscussion(offer),'align-middle':true,'text-center':true, 'last-message-sender':true}"

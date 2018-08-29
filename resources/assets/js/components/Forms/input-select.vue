@@ -6,9 +6,9 @@
         <input type="hidden"
                :name="name"
                v-validate="validation"
-               :value="currency"
+               :value="value"
         >
-        <el-select v-model="currency" placeholder="Select"
+        <el-select v-model="value" placeholder="Select"
                    :class="{'invalid':errors.has(name),'animated pulse':pulse&&errors.has(name)}"
         >
             <el-option
@@ -38,6 +38,7 @@
             validation: {required: false, type: String},
             placeholder: {required: false, type: String},
             options: {required: true, type: Array}, // Each item must have label and value
+            oldValue: {required: false, type: Boolean, default: true},
         },
         computed: {
             getClass(){
@@ -45,11 +46,23 @@
             },
             pulse(){
                 return this.$parent.pulse;
+            },
+            defaultVal() {
+                if (this.defaultValue != null && this.defaultValue != undefined) {
+                    return this.defaultValue;
+                }
+                if (this.oldValue && this.$root.oldInput[this.name]) {
+                    return this.$root.oldInput[this.name];
+                }
+                return null;
             }
+        },
+        mounted(){
+            this.value = this.defaultVal
         },
         data() {
             return {
-                currency: this.defaultValue,
+                value: null,
             }
         }
     }

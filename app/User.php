@@ -274,8 +274,8 @@ class User extends Authenticatable
     {
         parent::boot();
 
-        static::deleting( function ( $ticket ) {
-            $ticket->tickets()->delete();
+        static::deleting( function ( $user ) {
+            $user->tickets()->delete();
         } );
     }
 }

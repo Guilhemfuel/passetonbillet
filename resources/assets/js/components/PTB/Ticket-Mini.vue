@@ -48,7 +48,6 @@
         props: {
             ticket: {type: Object, required: true},
             discussion: {type: Object},
-            lang: {type: Object, required: true},
             user: {type: Object, required: false},
         },
         data() {

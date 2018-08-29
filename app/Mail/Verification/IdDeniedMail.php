@@ -2,9 +2,9 @@
 
 namespace App\Mail\Verification;
 
-use App\Mail\LastarMail;
+use App\Mail\PtbMail;
 
-class IdDeniedMail extends LastarMail
+class IdDeniedMail extends PtbMail
 {
 
     public $comment;
@@ -29,7 +29,7 @@ class IdDeniedMail extends LastarMail
     {
         return $this->to( $this->user->email, $this->user->full_name )
                     ->subject( trans( 'email.id_verification_fail' ) )
-                    ->lastarMarkdown( 'verification.id_verification_fail',
+                    ->ptbMarkdown( 'verification.id_verification_fail',
                         [
                             'user' => $this->user,
                             'comment' => $this->comment

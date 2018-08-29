@@ -14,7 +14,7 @@
             <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('home')}}">
-                        Back to Lastar
+                        Back to Ptb
                     </a>
                 </li>
                 <li  class="nav-item">

@@ -48,9 +48,11 @@ class Ticket extends Model
         'inbound',
         'correspondance',
         'provider',
+        'manual',
 
         // Buyer info
         'provider_code',
+        'provider_id',
         'ticket_number',
         'passbook_link',
         'buyer_email',
@@ -93,8 +95,9 @@ class Ticket extends Model
         'bought_currency' => 'required',
         'correspondance'  => 'boolean',
         'inbound'         => 'required|boolean',
+        'manual'          => 'nullable|boolean',
         'provider'        => 'required',
-        'provider_code'   => 'required|max:6',
+        'provider_code'   => 'nullable|max:6',
         'buyer_email'     => 'required|email',
         'buyer_name'      => 'required'
     ];
@@ -111,9 +114,32 @@ class Ticket extends Model
      */
     public static function applyFilters( $departureStationId, $arrivalStationId, $date, $time = null, $exactDay = false )
     {
+        // Find parent station
+        $departureStationParentId = Station::find($departureStationId)->parent_station_id;
+        $arrivalStationParentId = Station::find($arrivalStationId)->parent_station_id;
+
+        // Create array of possible departure stations
+        if ( $departureStationParentId != null ){
+            $departureStations = Station::where('parent_station_id',$departureStationParentId)->pluck('id');
+            $departureStations[] = intval($departureStationParentId);
+        } else {
+            $departureStations = Station::where('parent_station_id',$departureStationId)->pluck('id');
+            $departureStations[] = intval($departureStationParentId);
+        }
+
+        // Create array of possible arrival stations
+        if ( $arrivalStationParentId != null ){
+            $arrivalStations = Station::where('parent_station_id',$arrivalStationParentId)->pluck('id');
+            $arrivalStations[] = intval($arrivalStationId);
+        } else {
+            $arrivalStations = Station::where('parent_station_id',$arrivalStationId)->pluck('id');
+            $arrivalStations[] = intval($arrivalStationId);
+        }
+
+
         // Find matching trains
-        $request = Train::where( 'departure_city', $departureStationId )
-                        ->where( 'arrival_city', $arrivalStationId )
+        $request = Train::whereIn( 'departure_city', $departureStations )
+                        ->whereIn( 'arrival_city', $arrivalStations )
                         ->where( 'departure_date', $exactDay ? '=' : '>=', $date )
                         ->with( 'tickets' );
 
@@ -128,10 +154,8 @@ class Ticket extends Model
         foreach ( $trains as $train ) {
             if ( $train->tickets()->withoutScams() ) {
                 foreach ( $train->tickets as $ticket ) {
-                    if ( ( ! \Auth::check() ) || \Auth::user()->id != $ticket->user_id ) {
-                        if ( $ticket->sold_to_id == null ) {
-                            $tickets->push( $ticket );
-                        }
+                    if ( $ticket->sold_to_id == null ) {
+                        $tickets->push( $ticket );
                     }
                 }
             }

@@ -288,14 +288,8 @@ class Eurostar
             }
         }
 
-        \Log::debug($ticketIndex);
-
-
         $pdf = new Fpdi();
         $pageCount = $pdf->setSourceFile(StreamReader::createByString(file_get_contents($pdfUrl)));
-        // Only import the page needed.
-        \Log::debug('pagecount: '.$pageCount);
-        \Log::debug('$ticketIndex: '.($ticketIndex));
 
         if($pageCount < (1+$ticketIndex) ){
             $ticketIndex = $pageCount%($ticketIndex);

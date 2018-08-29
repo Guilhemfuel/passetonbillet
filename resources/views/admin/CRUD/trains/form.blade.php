@@ -28,7 +28,7 @@
         <div class="form-group">
             <label>Departure Date</label>
             <datepicker input-class="form-control"
-                        :wrapper-class="'lastar-calendar'"
+                        :wrapper-class="'ptb-calendar'"
                         :placeholder="'Departure Date'"
                         :name="'departure_date'"
                         :value="'{{isset($entity)?$entity->departure_date:(old('departure_date'))}}'"
@@ -39,7 +39,7 @@
         <div class="form-group">
             <label>Arrival Date</label>
             <datepicker input-class="form-control"
-                        :wrapper-class="'lastar-calendar'"
+                        :wrapper-class="'ptb-calendar'"
                         :placeholder="'Departure Date'"
                         :name="'arrival_date'"
                         :value="'{{isset($entity)?$entity->arrival_date:(old('arrival_date'))}}'"

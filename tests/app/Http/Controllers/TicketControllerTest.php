@@ -11,10 +11,10 @@ use App\User;
 use Carbon\Carbon;
 use Laracasts\Flash\Flash;
 use Laracasts\Flash\Message;
-use Tests\LastarTestCase;
+use Tests\PtbTestCase;
 use Tests\TestCase;
 
-class TicketControllerTest extends LastarTestCase
+class TicketControllerTest extends PtbTestCase
 {
     /**
      * Make sure the ajax request for tickets (given a name and booking code works)

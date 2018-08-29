@@ -18,6 +18,7 @@ class StationRessource extends Resource
             'id' => $this->id,
             'eurostar_id' => $this->eurostar_id,
             'name' => $this->name,
+            'name_country_specific' => $this->name_country_specific,
             'short_name' => $this->short_name,
             'country' => $this->country,
         ];

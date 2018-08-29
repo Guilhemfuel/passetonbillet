@@ -29,6 +29,6 @@ class HomeController extends BaseController
             'offerCount'          => Discussion::all()->count()
         ];
 
-        return $this->lastarView( 'admin.dashboard', $data );
+        return $this->ptbView( 'admin.dashboard', $data );
     }
 }

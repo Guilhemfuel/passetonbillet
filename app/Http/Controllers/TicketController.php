@@ -6,7 +6,9 @@ use App\Exceptions\EurostarException;
 use App\Exceptions\PasseTonBilletException;
 use App\Facades\AppHelper;
 use App\Facades\Sncf;
+use App\Facades\Thalys;
 use App\Http\Requests\BuyTicketsRequest;
+use App\Http\Requests\ManualTicketSellRequest;
 use App\Http\Requests\OfferRequest;
 use App\Http\Requests\SearchTicketsRequest;
 use App\Http\Requests\SellTicketRequest;
@@ -21,7 +23,7 @@ use App\Models\Statistic;
 use App\Notifications\OfferNotification;
 use App\Ticket;
 use App\Train;
-use App\Trains\Thalys;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Facades\Eurostar;
 
@@ -58,7 +60,7 @@ class TicketController extends Controller
         $oldTicket = Ticket::withScams()
                            ->whereRaw( "lower(provider_code) = ? ", strtolower( $ticket->provider_code ) )
                            ->where( 'provider', $ticket->provider )
-                           ->where('train_id', $ticket->train_id)
+                           ->where( 'train_id', $ticket->train_id )
                            ->where( 'buyer_name', $ticket->buyer_name )
                            ->where( 'ticket_number', $ticket->ticket_number )
                            ->first();
@@ -80,8 +82,70 @@ class TicketController extends Controller
             'ip_adress' => $request->ip(),
         ] );
 
-        // Now we want to generate the pdf
-        DownloadTicketPdf::dispatch( $ticket );
+        // Now we want to generate the pdf (if PDF)
+        if ( $ticket->provider == 'eurostar' && ! $ticket->manual ) {
+            DownloadTicketPdf::dispatch( $ticket );
+        }
+
+        flash( __( 'tickets.sell.success' ) )->success()->important();
+
+        return redirect()->route( 'public.ticket.owned.page' );
+    }
+
+    /**
+     *
+     * Allow user to sell a ticket simply by filling form
+     *
+     * @param Request $request
+     */
+    public function sellManualTicket( ManualTicketSellRequest $request )
+    {
+
+        // Make sure price doesn't over exceed original price
+        if ( $request->bought_price < $request->price ) {
+            flash( __( 'tickets.sell.errors.max_value' ) )->error()->important();
+
+            return redirect()->route( 'public.ticket.sell.page' );
+        }
+
+        $travelDate = Carbon::createFromFormat('m/d/Y',$request->travel_date);
+
+        // Create train
+        $train = Train::firstOrCreate( [
+            'number'         => $request->train_number,
+            'departure_date' => $travelDate,
+            'departure_time' => $request->departure_time,
+            'arrival_date'   => $travelDate,
+            'arrival_time'   => $request->arrival_time,
+            'departure_city' => $request->departure_station,
+            'arrival_city'   => $request->arrival_station
+        ] );
+
+        // Then create ticket
+        $ticket = Ticket::create( [
+            'train_id'        => $train->id,
+            'user_id'         => \Auth::id(),
+            'price'           => $request->price,
+            'bought_price'    => $request->bought_price,
+            'currency'        => $request->currency,
+            'bought_currency' => $request->currency,
+            'correspondence'  => false,
+            'inbound'         => false,
+            'manual'          => true,
+            'provider'        => $request->company,
+            'provider_code'   => null,
+            'flexibility'     => $request->flexibility,
+            'class'           => $request->classe,
+            'buyer_email'     => \Auth::user()->email,
+            'buyer_name'      => \Auth::user()->last_name
+        ] );
+
+
+        // Log the IP of the seller
+        AppHelper::stat( 'add_ticket', [
+            'ticket_id' => $ticket->id,
+            'ip_adress' => $request->ip(),
+        ] );
 
         flash( __( 'tickets.sell.success' ) )->success()->important();
 
@@ -163,6 +227,7 @@ class TicketController extends Controller
      * @param SearchTicketsRequest $request
      *
      * @return mixed
+     * @throws PasseTonBilletException
      */
     public function searchTickets( SearchTicketsRequest $request )
     {
@@ -175,7 +240,7 @@ class TicketController extends Controller
 
             try {
                 $ticketArray = Eurostar::retrieveTicket( $request->last_name, $request->booking_code );
-            } catch (PasseTonBilletException $e) {
+            } catch ( PasseTonBilletException $e ) {
                 $ticketArray = Sncf::retrieveTicket( $request->last_name, $request->booking_code );
             }
 
@@ -183,17 +248,19 @@ class TicketController extends Controller
 
         } else {
 
-            dd(\App\Facades\Thalys::retrieveTicket( \Auth::user()->last_name, $request->booking_code ));
-
             AppHelper::stat( 'retrieve_tickets', [
                 'name'         => \Auth::user()->last_name,
                 'booking_code' => $request->booking_code,
             ] );
 
             try {
-                $ticketArray = Eurostar::retrieveTicket( \Auth::user()->last_name, $request->booking_code );
-            } catch (PasseTonBilletException $e) {
                 $ticketArray = Sncf::retrieveTicket( \Auth::user()->last_name, $request->booking_code );
+            } catch ( PasseTonBilletException $e ) {
+                try {
+                    $ticketArray = Sncf::retrieveTicket( \Auth::user()->last_name, $request->booking_code );
+                } catch ( PasseTonBilletException $e ) {
+                    $ticketArray = Thalys::retrieveTicket( \Auth::user()->last_name, $request->booking_code );
+                }
             }
 
             $tickets = collect( $ticketArray );
@@ -227,7 +294,7 @@ class TicketController extends Controller
         $tickets = Ticket::applyFilters(
             $request->get( 'departure_station' ),
             $request->get( 'arrival_station' ),
-            $request->get( 'trip_date' ),
+            Carbon::createFromFormat('d/m/Y',$request->get( 'trip_date' )),
             $request->get( 'trip_time', null )
         );
 
@@ -256,7 +323,6 @@ class TicketController extends Controller
 
             return redirect()->back();
         }
-
         if ( $price > $ticket->price ) {
             flash()->error( __( 'offer.errors.over_price' ) );
 
@@ -290,6 +356,7 @@ class TicketController extends Controller
             $oldDiscussion->delete();
         }
 
+        // Finally we create the new offer
         $discussion = new Discussion( [
             'buyer_id'  => \Auth::user()->id,
             'ticket_id' => $ticket->id,

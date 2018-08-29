@@ -3,6 +3,6 @@
 
 Votre identité vient d'être confirmée!
 
-Merci pour votre confiance et à bientôt sur Lastar!
+Merci pour votre confiance et à bientôt sur Ptb!
 
 @endcomponent

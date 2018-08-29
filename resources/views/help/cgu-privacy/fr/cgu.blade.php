@@ -9,7 +9,7 @@
                 <div class="fixed-content">
                     <nav class="navbar">
                         <a class="navbar-brand" href="{{route('home')}}">
-                            <img src="{{secure_asset('img/logo.png')}}" class="d-inline-block align-top" alt="logo lastar">
+                            <img src="{{secure_asset('img/logo.png')}}" class="d-inline-block align-top" alt="logo ptb">
                         </a>
                         <ul class="navbar-nav navbar-expand">
                             <li class="nav-item">
@@ -37,7 +37,7 @@
                     <div class="content">
                         <div>
                             <h2 class="text-center text-white">CONDITIONS GÉNÉRALES D'UTILISATION DU
-                                SITE<br>Lastar.io</h2>
+                                SITE<br>Ptb.io</h2>
                             <p class="text-center text-white">
                                 Version en date du 10 Mars 2018
                             </p>
@@ -51,12 +51,12 @@
                                 </p>
 
                                 <p>
-                                    Le site Lastar.io est édité par :
+                                    Le site Ptb.io est édité par :
                                 </p>
 
                                 <p class="ml-5">
                                     Axel A. & Julien N.
-                                    <br>Adresse e-mail : contact@lastar.io
+                                    <br>Adresse e-mail : contact@ptb.io
 
                                     Les directeurs de publication du site sont :
                                     Axel A. & Julien N.
@@ -64,7 +64,7 @@
                                 </p>
 
                                 <p>
-                                    Le site Lastar.io est hébergé par :
+                                    Le site Ptb.io est hébergé par :
                                 </p>
                                 <p class="ml-5">
                                     Heroku Inc., dont le siège est situé 650 7th Street, San Francisco, CA <br>
@@ -75,12 +75,12 @@
                                 <h4 class="mt-5 pb-3">ARTICLE 2. PRÉSENTATION DU SITE</h4>
 
                                 <p>
-                                    Le site Lastar.io a pour objet :
+                                    Le site Ptb.io a pour objet :
                                 </p>
                                 <p class="ml-5">
                                     Mettre en relation des utilisateurs souhaitant acheter ou vendre des billets
                                     de train européen entre eux. Les billets doivent IMPERATIVEMENT être nominatifs sous le nom de
-                                    l'utilisateur Lastar.io.
+                                    l'utilisateur Ptb.io.
                                 </p>
 
                                 <h4 class="mt-5 pb-3">ARTICLE 3. CONTACT
@@ -89,7 +89,7 @@
                                 <p>
                                     Pour toute question ou demande d'information concernant le site, ou tout signalement
                                     de contenu ou d'activités illicites, l'utilisateur peut contacter l'éditeur à
-                                    l'adresse e-mail suivante: contact@lastar.io.
+                                    l'adresse e-mail suivante: contact@ptb.io.
                                 </p>
 
                                 <h4 class="pt-1 pb-3">
@@ -139,7 +139,7 @@
                                     tout moment suspendre, limiter ou interrompre l'accès au site ou à certaines pages
                                     de celui-ci afin de procéder à des mises à jours, des modifications de son contenu
                                     ou tout autre action jugée nécessaire au bon fonctionnement du site.
-                                    <br><br>La connexion et la navigation sur le site Lastar.io valent acceptation sans
+                                    <br><br>La connexion et la navigation sur le site Ptb.io valent acceptation sans
                                     réserve des présentes Conditions Générales d'Utilisation, quelques soient les moyens
                                     techniques d'accès et les terminaux utilisés.
                                     <br><br>Les présentes CGU s'appliquent, en tant que de besoin, à toute déclinaison
@@ -179,7 +179,7 @@
                                     L'accès à certains services est conditionné par l'inscription de l'utilisateur.
                                     <br><br>L'inscription et l'accès aux services du site sont réservés exclusivement
                                     aux personnes physiques capables juridiquement, ayant rempli et validé le formulaire
-                                    d'inscription disponible en ligne sur le site Lastar.io, ainsi que les présentes
+                                    d'inscription disponible en ligne sur le site Ptb.io, ainsi que les présentes
                                     Conditions Générales d'Utilisation.
                                     <br><br>Lors de son inscription, l'utilisateur s'engage à fournir des informations
                                     exactes, sincères et à jour sur sa personne et son état civil. L'utilisateur devra
@@ -189,7 +189,7 @@
                                     sur laquelle le site lui adressera une confirmation de son inscription à ses
                                     services. Une adresse de messagerie électronique ne peut être utilisée plusieurs
                                     fois pour s'inscrire aux services.
-                                    <br><br>Toute communication réalisée par Lastar.io et ses partenaires est en
+                                    <br><br>Toute communication réalisée par Ptb.io et ses partenaires est en
                                     conséquence réputée avoir été réceptionnée et lue par l'utilisateur. Ce dernier
                                     s'engage donc à consulter régulièrement les messages reçus sur cette adresse e-mail
                                     et à répondre dans un délai raisonnable si cela est nécessaire.
@@ -200,7 +200,7 @@
                                     <br><br>L'identifiant et le mot de passe sont modifiables en ligne par l'utilisateur
                                     dans son Espace personnel. Le mot de passe est personnel et confidentiel,
                                     l'utilisateur s'engage ainsi à ne pas le communiquer à des tiers.
-                                    <br><br>Lastar.io se réserve en tout état de cause la possibilité de refuser une
+                                    <br><br>Ptb.io se réserve en tout état de cause la possibilité de refuser une
                                     demande d'inscription aux services en cas de non-respect par l'Utilisateur des
                                     dispositions des présentes Conditions Générales d'Utilisation.
 
@@ -260,20 +260,20 @@
                                     </li>
                                     <li> de tout problème physique pouvant survenir lors de l’échange de billets
                                         de train européen entre
-                                        les utilisateurs Lastar ;
+                                        les utilisateurs Ptb ;
                                     </li>
                                     <li> de tout problème financiers incluant la non réception de la somme totale ou
                                         partiale
-                                        correspondant au prix de vente d’un billet de train européen listé sur Lastar.io pouvant
+                                        correspondant au prix de vente d’un billet de train européen listé sur Ptb.io pouvant
                                         survenir
-                                        lors de l’échange de billets de train européen entre les utilisateurs de Lastar.
+                                        lors de l’échange de billets de train européen entre les utilisateurs de Ptb.
                                     </li>
                                 </ul>
 
                                 <p>
                                     L'éditeur rappel aux utilisateurs que le SEUL est UNIQUE rôle de la plateforme en
                                     ligne
-                                    Lastar.io est de METTRE EN RELATIONS DES INDIVIDUS SOUHAITANT ACHETER OU REVENDRE
+                                    Ptb.io est de METTRE EN RELATIONS DES INDIVIDUS SOUHAITANT ACHETER OU REVENDRE
                                     DES
                                     BILLETS DE TRAIN EUROPÉEN À LEUR NOM. EN AUCUN CAS LASTAR INC. N’EST IMPLIQUÉE ET NE POSSÈDE AUCUNE
                                     REPONSABILITÉ
@@ -306,7 +306,7 @@
 
                                 <p>
                                     Le site peut contenir des liens hypertextes pointant vers d'autres sites internet
-                                    sur lesquels Lastar.io n'exerce pas de contrôle. Malgré les vérifications préalables
+                                    sur lesquels Ptb.io n'exerce pas de contrôle. Malgré les vérifications préalables
                                     et régulières réalisés par l'éditeur, celui-ci décline tout responsabilité quant aux
                                     contenus qu'il est possible de trouver sur ces sites.
                                     <br><br>L'éditeur autorise la mise en place de liens hypertextes vers toute page ou
@@ -317,7 +317,7 @@
                                     <br><br>Sont exclus de cette autorisation les sites diffusant des informations à
                                     caractère illicite, violent, polémique, pornographique, xénophobe ou pouvant porter
                                     atteinte à la sensibilité du plus grand nombre.
-                                    <br><br>Enfin, Lastar.io se réserve le droit de faire supprimer à tout moment un
+                                    <br><br>Enfin, Ptb.io se réserve le droit de faire supprimer à tout moment un
                                     lien hypertexte pointant vers son site, si le site l'estime non conforme à sa
                                     politique éditoriale.
 
@@ -367,7 +367,7 @@
                                 </p>
 
                                 <p class="text-center font-italic mt-5">
-                                    Le site Lastar.io vous souhaite une excellente navigation !
+                                    Le site Ptb.io vous souhaite une excellente navigation !
                                 </p>
 
                             </div>

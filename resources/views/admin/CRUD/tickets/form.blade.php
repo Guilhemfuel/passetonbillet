@@ -37,7 +37,7 @@
                         <div class="form-group">
                             <input class="form-control" type="file" name="ticket_pdf">
                         </div>
-                        <button type="submit" class="btn btn-block btn-lastar-blue">Upload</button>
+                        <button type="submit" class="btn btn-block btn-ptb-blue">Upload</button>
                     </form>
                 </modal>
             @endpush

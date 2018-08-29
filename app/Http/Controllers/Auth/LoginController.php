@@ -105,6 +105,6 @@ class LoginController extends Controller
     protected function authenticated(Request $request, $user)
     {
         \Session::put( 'applocale', strtolower( $user->language ) );
-        return redirect()->route('public.ticket.buy.page');
+        return redirect()->route('home');
     }
 }

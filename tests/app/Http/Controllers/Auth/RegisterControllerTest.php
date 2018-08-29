@@ -5,9 +5,9 @@ namespace Tests\app\Http\Controllers\Auth;
 use Illuminate\Support\Facades\Event;
 use App\Events\RegisteredEvent;
 use App\User;
-use Tests\LastarTestCase;
+use Tests\PtbTestCase;
 
-class RegisterControllerTest extends LastarTestCase
+class RegisterControllerTest extends PtbTestCase
 {
 
     /**

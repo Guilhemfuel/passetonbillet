@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Lastar Admin @yield('title')</title>
+    <title>Ptb Admin @yield('title')</title>
 
     <!-- Favicon  -->
     <link rel="apple-touch-icon" sizes="180x180" href="{{secure_asset('img/favicon/apple-touch-icon.png')}}">
@@ -46,7 +46,7 @@
 
                 <div class="navbar mb-3">
                     <a href="{{route('admin.home')}}" class="navbar-brand mx-auto">
-                        Lastar
+                        Ptb
                     </a>
                 </div>
 
@@ -87,7 +87,7 @@
 <script>
     const notifications = new Vue({
         el: '#app',
-        name: 'Lastar',
+        name: 'Ptb',
         data: {
             messages: {!! ( session()->has('flash_notification') && session('flash_notification')!==null?json_encode(session('flash_notification')):'[]') !!},
             custom_errors: {!!  ($errors->any()?json_encode($errors->all()):'[]') !!},

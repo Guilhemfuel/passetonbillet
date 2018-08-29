@@ -5,7 +5,7 @@ namespace Tests;
 use App\User;
 use Laracasts\Flash\Message;
 
-abstract class LastarTestCase extends TestCase
+abstract class PtbTestCase extends TestCase
 {
 
     /**

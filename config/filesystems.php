@@ -60,7 +60,7 @@ return [
             'key' => env('AWS_KEY'),
             'secret' => env('AWS_SECRET'),
             'region' =>'eu-west-2',
-            'bucket' => env('AWS_BUCKET','lastar-dev'),
+            'bucket' => env('AWS_BUCKET','ptb-dev'),
         ],
 
     ],

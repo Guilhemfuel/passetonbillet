@@ -11,7 +11,7 @@ return [
     'component' => [
         'buy'                    => 'Buy',
         'sell'                   => 'Sell this ticket',
-        'sold_by'                => 'Sold by',
+        'sold_by'                => 'Published by',
         'edit'                   => 'Edit',
         'edit_ticket'            => 'Edit ticket',
         'buy_ticket'             => 'Buy ticket',
@@ -88,9 +88,19 @@ return [
                 'number_confirmed' => 'Success! Your phone number is confirmed. You can now sell your tickets!'
             ]
         ],
-        'upload_id' => [
-            'last_step' =>''
+
+        'manual' => [
+            'link' => 'You don\'t have a booking code? Click here to manually fill your ticket details.',
+            'title' => 'Your Ticket Details',
+            'fail_retrieval' => [
+                'title' => 'No tickets found with this booking code.',
+                'message' => 'Unfortunately, we couldn\'nt find any ticket with this booking code. You can manually fill the details regarding your ticket on this page. Click on this message if you wish to retry finding your ticket with your booking code.'
+            ],
+            'text' => "If you wish to sell a print-at-station ticket, or if we couldn't retrieve your ticket with your booking code, you simply have to fill this form.",
+            'back_link' => 'You have your booking code? Click here to automatically retrive your ticket!'
+
         ]
+
     ],
     'buy'       => [
         'inputs'         => [
@@ -112,7 +122,7 @@ return [
         'research'       => 'Search',
         'search_result'  => 'ticket(s) match your criteria.',
         'safety'         => 'Safety is our number one concern! You must register to sell one of your tickets!',
-        'create_account' => 'Create a Lastar account'
+        'create_account' => 'Create a Ptb account'
     ],
     'owned'     => [
         'no_bought_tickets'      => 'You have not bought any tickets yet!',

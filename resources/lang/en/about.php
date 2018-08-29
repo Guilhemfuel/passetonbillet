@@ -10,16 +10,16 @@ return [
 
     'title' => 'About Us',
 
-    'sub_title' => 'Lastar is the first platform that allows you to safely and quickly buy and sell second hand European train tickets',
+    'sub_title' => 'Ptb is the first platform that allows you to safely and quickly buy and sell second hand European train tickets',
 
     'safer' => [
         'title' => 'WHY IS LASTAR SAFER THAN ANY OTHER TICKET EXCHANGE PLATFORMS',
         'content' => [
-            'Thanks to our algorithm, it is IMPOSSIBLE to sell a fake ticket on the platform. The only way to sell a ticket on Lastar is to enter a valid booking code.',
+            'Thanks to our algorithm, it is IMPOSSIBLE to sell a fake ticket on the platform. The only way to sell a ticket on Ptb is to enter a valid booking code.',
             'Thanks to our phone number verification system, any banned member will never be able to sell any ticket on the platform anymore. Therefore, you have the guarantee that all the users on the platform are serious and honest.',
             'You can check the track record of any user by clicking on his/her name. You will be able to see how many ticket this user has successfully sold in the past.',
             'Once the seller have received your money, you will instantly and automatically be able to download the ticket from our system.',
-            'We advise you to preferably trade with verified Lastar users as it will add an extra layer of security. A verified user means that our security algorithm will have checked that his/her personal information (name and date of birth) are the same as those on his/her official identification documents.',
+            'We advise you to preferably trade with verified Ptb users as it will add an extra layer of security. A verified user means that our security algorithm will have checked that his/her personal information (name and date of birth) are the same as those on his/her official identification documents.',
             'Your personal information (except first name and profile picture) will never be shared with any other users.'
         ]
     ],

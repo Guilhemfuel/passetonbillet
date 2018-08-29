@@ -10,16 +10,16 @@ return [
 
     'title' => 'À Propos',
 
-    'sub_title' => 'Lastar est la première plate-forme qui vous permet d\'acheter et de vendre rapidement et en toute sécurité des billets de trains européens d\'occasion',
+    'sub_title' => 'Ptb est la première plate-forme qui vous permet d\'acheter et de vendre rapidement et en toute sécurité des billets de trains européens d\'occasion',
 
     'safer' => [
         'title' => 'POURQUOI LASTAR EST PLUS SÛR QUE TOUTE AUTRE PLATEFORME D\'ÉCHANGE DE BILLETS',
         'content' => [
-            'Grâce à notre algorithme, il est IMPOSSIBLE de vendre un faux ticket sur la plateforme. La seule façon de vendre un billet sur Lastar est d\'entrer un code de réservation valide.',
+            'Grâce à notre algorithme, il est IMPOSSIBLE de vendre un faux ticket sur la plateforme. La seule façon de vendre un billet sur Ptb est d\'entrer un code de réservation valide.',
             'Grâce à notre système de vérification du numéro de téléphone, tout membre banni ne pourra plus vendre de billets sur la plateforme. Par conséquent, vous avez la garantie que tous les utilisateurs de la plate-forme sont sérieux et honnêtes.',
             'Vous pouvez vérifier les antécédents de tout utilisateur en cliquant sur son nom. Vous serez en mesure de voir combien de tickets cet utilisateur a vendu avec succès dans le passé.',
             'Une fois que le vendeur aura reçu votre argent, vous pourrez instantanément et automatiquement télécharger le ticket depuis notre système.',
-            'Nous vous conseillons de faire du commerce avec les utilisateurs Lastar vérifiés, car cela ajoutera une couche de sécurité supplémentaire. Un utilisateur vérifié signifie que notre algorithme de sécurité aura vérifié que ses informations personnelles (nom, date de naissance) sont les mêmes que celles figurant sur ses documents d\'identification officiels.',
+            'Nous vous conseillons de faire du commerce avec les utilisateurs Ptb vérifiés, car cela ajoutera une couche de sécurité supplémentaire. Un utilisateur vérifié signifie que notre algorithme de sécurité aura vérifié que ses informations personnelles (nom, date de naissance) sont les mêmes que celles figurant sur ses documents d\'identification officiels.',
             'Vos informations personnelles (à l\'exception du prénom et de la photo de profil) ne seront jamais partagées avec d\'autres utilisateurs.'
         ]
     ],
