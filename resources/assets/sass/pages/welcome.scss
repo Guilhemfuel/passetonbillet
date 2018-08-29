@@ -487,6 +487,9 @@ h1 {
 
       .first-name {
         text-transform: uppercase;
+        font-weight: bold;
+        font-size: 20px;
+        margin-top: 9px;
       }
 
       .date {
@@ -495,6 +498,7 @@ h1 {
         right: 10px;
         top: 5px;
         font-size: 14px;
+        font-weight: bold;
       }
     }
   }
