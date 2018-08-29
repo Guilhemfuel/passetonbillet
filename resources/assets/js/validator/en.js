@@ -1,4 +1,4 @@
-import localEn from 'vee-validate/dist/locale/en';
+vimport localEn from 'vee-validate/dist/locale/en';
 
 // This is the dictionary used by vee-validate.
 // Language is english.
@@ -7,29 +7,28 @@ export default Object.assign({}, localEn,
     {
         attributes: {
             'booking code': 'booking code',
-            'first_name': 'le prénom',
-            'last_name': 'le nom',
-            'email': "l'adresse email",
-            'birthdate': "la date de naissance",
-            'gender': 'le sexe',
-            'location': 'la position',
-            'phone' : 'le numéro de téléphone',
-            'password': "le mot de passe",
-            'password_confirmation': 'la confirmation du mot de passe',
-            'old_password': 'le mot de passe actuel',
+            'first_name': 'the first name',
+            'last_name': 'the name',
+            'email': "the email address",
+            'birthdate': "the date of birth",
+            'gender': "the gender",
+            'location': 'the location',
+            'phone' : 'the phone number',
+            'password': "the password",
+            'password_confirmation': 'the password confirmation'
 
-            'price': 'le prix',
-            'travel_date': 'la date de voyage',
-            'train_number': 'le numéro de train',
-            'departure_station': 'la gare de départ',
-            'arrival_station': 'la gare d\'arrivée',
-            'departure_time': "l'heure de départ",
-            'arrival_time': "l'heure d'arrivée",
-            'company': "l'agence ferroviaire",
-            'flexibility': "le tarif",
-            'classe': "la classe",
-            'currency': "la devise",
-            'bought_price': "le prix d'achat",
+            'price': 'the price',
+            'travel_date': 'the journey date',
+            'train_number': 'the train number',
+            'departure_station': 'the departure station,
+            'arrival_station': 'the arrival station',
+            'departure_time': "the departure time",
+            'arrival_time': "the arrival time",
+            'company': "the train company",
+            'flexibility': "the flexibility",
+            'classe': "the class",
+            'currency': "the currency",
+            'bought_price': "the buying price",
         },
         custom: {
             'booking_code': {
