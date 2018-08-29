@@ -100,20 +100,20 @@ return [
             'back_link' => 'You have your booking code? Click here to automatically retrive your ticket!',
 
             'form' => [
-                'title_travel' => 'Informations sur le voyage',
-                'departure_station' => 'Gare de départ',
-                'arrival_station' => 'Gare d\'arrivée',
-                'travel_date' => 'Date de voyage',
-                'train_number' => 'Numéro de train',
-                'departure_time' => "Heure de Départ",
-                'arrival_time' => "Heure d'Arrivée",
-                'title_ticket' => 'Informations sur le billet',
-                'company' => 'Agence ferroviaire',
-                'flexibility' => 'Tarif',
-                'classe' => 'Classe',
-                'currency' => 'Devise',
-                'bought_price' => 'Prix d\'achat',
-                'price' => 'Prix de vente'
+                'title_travel' => 'Travel information',
+                'departure_station' => 'Departure station',
+                'arrival_station' => 'Arrival station',
+                'travel_date' => 'Travel date',
+                'train_number' => 'Train number',
+                'departure_time' => "Departure time",
+                'arrival_time' => "Arrival time",
+                'title_ticket' => 'Ticket information',
+                'company' => 'Train company',
+                'flexibility' => 'Flexibility',
+                'classe' => 'Class',
+                'currency' => 'Currency',
+                'bought_price' => 'Buying price',
+                'price' => 'Selling price'
 
             ]
 
