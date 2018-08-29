@@ -40,7 +40,7 @@
                 @if(Auth::check())
                     @include('components.nav-logged')
                 @else
-                    <li class="nav-item d-none d-sm-none d-md-block">
+                    <li class="nav-item d-none md-sm-none d-md-block">
                         <a class="nav-link btn btn-ptb-white"
                            href="{{route('register')}}">@lang('nav.register')</a>
                     </li>
