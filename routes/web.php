@@ -200,3 +200,9 @@ Route::group( [ 'prefix' => 'api' ], function () {
         Route::post( 'messages/{ticket}/{discussion}/read', 'DiscussionController@markAsRead' )->name( 'api.discussion.read' );
     } );
 } );
+
+
+Route::get('/mailable', function () {
+
+    return new App\Mail\ContactEmail('ok','ok','ok');
+});
