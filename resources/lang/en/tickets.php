@@ -97,7 +97,25 @@ return [
                 'message' => 'Unfortunately, we couldn\'nt find any ticket with this booking code. You can manually fill the details regarding your ticket on this page. Click on this message if you wish to retry finding your ticket with your booking code.'
             ],
             'text' => "If you wish to sell a print-at-station ticket, or if we couldn't retrieve your ticket with your booking code, you simply have to fill this form.",
-            'back_link' => 'You have your booking code? Click here to automatically retrive your ticket!'
+            'back_link' => 'You have your booking code? Click here to automatically retrive your ticket!',
+
+            'form' => [
+                'title_travel' => 'Informations sur le voyage',
+                'departure_station' => 'Gare de départ',
+                'arrival_station' => 'Gare d\'arrivée',
+                'travel_date' => 'Date de voyage',
+                'train_number' => 'Numéro de train',
+                'departure_time' => "Heure de Départ",
+                'arrival_time' => "Heure d'Arrivée",
+                'title_ticket' => 'Informations sur le billet',
+                'company' => 'Agence ferroviaire',
+                'flexibility' => 'Tarif',
+                'classe' => 'Classe',
+                'currency' => 'Devise',
+                'bought_price' => 'Prix d\'achat',
+                'price' => 'Prix de vente'
+
+            ]
 
         ]
 
