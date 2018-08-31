@@ -10,42 +10,41 @@ return [
 
     'title' => 'À Propos',
 
-    'sub_title' => 'Ptb est la première plate-forme qui vous permet d\'acheter et de vendre rapidement et en toute sécurité des billets de trains européens d\'occasion',
+    'sub_title' => 'PasseTonBillet.fr est une plateforme qui vous permet d\'acheter et de revendre rapidement vos billets de trains européens d\'occasion de façon rapide, économe et sécurisée.',
 
     'safer' => [
-        'title' => 'POURQUOI LASTAR EST PLUS SÛR QUE TOUTE AUTRE PLATEFORME D\'ÉCHANGE DE BILLETS',
+        'title' => 'Pourquoi PasseTonBillet.fr est-il plus sécurisé que les autres plateformes d\'échange de billets ?',
         'content' => [
-            'Grâce à notre algorithme, il est IMPOSSIBLE de vendre un faux ticket sur la plateforme. La seule façon de vendre un billet sur Ptb est d\'entrer un code de réservation valide.',
-            'Grâce à notre système de vérification du numéro de téléphone, tout membre banni ne pourra plus vendre de billets sur la plateforme. Par conséquent, vous avez la garantie que tous les utilisateurs de la plate-forme sont sérieux et honnêtes.',
-            'Vous pouvez vérifier les antécédents de tout utilisateur en cliquant sur son nom. Vous serez en mesure de voir combien de tickets cet utilisateur a vendu avec succès dans le passé.',
-            'Une fois que le vendeur aura reçu votre argent, vous pourrez instantanément et automatiquement télécharger le ticket depuis notre système.',
-            'Nous vous conseillons de faire du commerce avec les utilisateurs Ptb vérifiés, car cela ajoutera une couche de sécurité supplémentaire. Un utilisateur vérifié signifie que notre algorithme de sécurité aura vérifié que ses informations personnelles (nom, date de naissance) sont les mêmes que celles figurant sur ses documents d\'identification officiels.',
+            'Grâce à notre recherche intelligente de billet, chaque billet mis en vente est automatiquement vérifié. Ainsi, il est IMPOSSIBLE de vendre un faux ticket sur PasseTonBillet.fr.',
+            'Grâce à notre système de double vérification (du numéro de téléphone et identité), nous garantissons que chaque utilisateur est une personne réelle et que tout membre banni ne pourra plus vendre de billets sur la plateforme. Par conséquent, vous avez la garantie que tous les utilisateurs de la plate-forme sont sérieux et honnêtes.',
+            'Vous pouvez vérifier les antécédents de tout utilisateur en cliquant sur son nom. Vous serez alors en mesure de voir combien de tickets cet utilisateur a vendu avec succès dans le passé.',
+            'Dans certains cas, une fois que le vendeur aura reçu votre argent, vous pourrez instantanément et automatiquement télécharger le ticket depuis notre système.',
             'Vos informations personnelles (à l\'exception du prénom et de la photo de profil) ne seront jamais partagées avec d\'autres utilisateurs.'
         ]
     ],
 
     'quicker' => [
-        'title' => 'POURQUOI LASTAR EST PLUS RAPIDE QUE TOUT AUTRE PLATEFORME D\'ÉCHANGE DE BILLETS',
+        'title' => 'Pourquoi PasseTonBillet.fr est-il plus rapide que les autres plateformes d\'échange de billets ?',
         'content' => [
-            'Vous pouvez créer un compte et vous connecter en un clic en utilisant Facebook Connect.',
-            'Lorsque vous voulez vendre un billet, la seule chose que vous avez à faire est d\'entrer le code de réservation et toutes les informations de votre billet seront automatiquement récupérées. Vous n\'aurez jamais à entrer toutes les informations de ticket manuellement.',
+            'Vous pouvez créer un compte et vous connecter en un seul clic en utilisant Facebook Connect.',
+            'Dans la plupart des cas, lorsque vous souhaitez mettre un billet en vente, il vous suffit d\'entrer le code de réservation et toutes les informations de votre billet seront automatiquement récupérées.',
             'Tous les billets de trains européens d\'occasion sont listés sur une seule plateforme au lieu d\'avoir à basculer entre les différentes plateformes d\'échange. Cela garantit également à nos utilisateurs un choix beaucoup plus large.',
-            'Nous avons notre propre moteur de recherche de billets qui vous permet d\'entrer vos questions aussi précisément que possible et de rechercher instantanément tous les billets disponibles.',
-            'Lorsque vous recevez l\'argent d\'un acheteur pour un de vos billets, votre billet lui sera envoyé par simple pression sur un bouton, pas besoin de lui envoyer le billet.',
-            'Vous pouvez enregistrer tous les tickets que vous avez achetés et vendus, ainsi que toutes les offres que vous avez envoyées. Tout cela sur une seule plateforme.',
+            'Nous avons notre propre moteur de recherche de billets qui vous permet d\'effectuer vos recherches de façon très précise et d\'utiliser nos différent filtres afin de trouver instantanément les billets qui vous correspondent le mieux.',
+            'Dans certains cas, lorsque vous recevez l\'argent d\'un acheteur pour un de vos billets, votre billet lui sera envoyé par simple pression sur un bouton, pas besoin de lui envoyer le billet.',
+            'Tous les billets que vous avez achetés et vendus sont enregistrés, et accessible à tout moment sur votre compte. Ainsi que toutes les offres que vous avez envoyées et reçues.',
             'Vous pouvez discuter en direct avec d\'autres utilisateurs directement via la plate-forme.',
             'Vous recevez une notification instantanément lorsque quelqu\'un accepte / refuse votre offre, vous envoie une offre ou vous envoie des messages.',
-            'Si vous recevez une offre qui ne vous satisfait pas, vous pouvez le refuser par un clic et vous ne serez même pas mis en contact avec l\'acheteur. Donc pas de perte de temps.'
+            'Si vous recevez une offre qui ne vous satisfait pas, vous pourrez la refuser d\'un seul clic et vous ne serez pas mis en contact avec l\'acheteur. Donc pas de perte de temps.'
         ]
     ],
 
     'cheaper' => [
-        'title' => 'POURQUOI LASTAR EST MOINS CHER QUE D\'AUTRES PLATEFORMES D\'ÉCHANGE DE BILLETS',
+        'title' => 'Pourquoi PasseTonBillet.fr est-il moins cher que les autres plateformes d\'échange de billets ?',
         'content' => [
-            'Lorsqu\'un vendeur met en vente un billet, notre système peut récupérer le prix initial qu\'il a payé et il est impossible de vendre le billet à un prix plus élevé que celui qu\'il a payé initialement.',
-            'Vous pouvez toujours négocier avec les acheteurs / vendeurs pour obtenir un prix qui vous satisfait, et cela par un simple clic.',
-            'Parce que notre objectif est de rassembler tous les billets de trains européens d\'occasion disponibles sur une seule plate-forme, vous aurez un choix beaucoup plus large et par conséquent une meilleure opportunité de trouver un billet correspondant à vos critères.',
-            'En raison de nos processus de sécurité avancés, vous ne serez plus jamais victime d\'une arnaque. Et cela vous permettra d\'économiser beaucoup d\'argent et de stress!'
+            'Lorsqu\'un vendeur met en vente un billet, notre système récupère le prix initial payé pour ce billet et verrouille le prix de revente à une somme égale ou inférieure à celui-ci.',
+            'Vous pouvez négocier avec les acheteurs / vendeurs pour obtenir un prix qui vous satisfait, et cela d\'un simple clic.',
+            'Notre objectif étant de rassembler tous les billets de trains européens d\'occasion disponibles sur une seule plate-forme, vous aurez un choix beaucoup plus large et par conséquent de meilleures chances de trouver un billet qui correspond à vos critères.',
+            'Grâce à notre système de sécurité avancé, nous limitons considérablement le risque d\'arnaques. Et cela vous permettra d\'économiser beaucoup d\'argent et de stress!'
         ]
     ]
 
