@@ -137,7 +137,7 @@
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-6">
-                    <ticket :ticket="selectedTicket" :lang="lang.component"
+                    <ticket :ticket="selectedTicket" :lang="lang.component" :display="true"
                             class-name="mb-0 mt-sm-4 mt-md-0 max-sized"></ticket>
                     <p class="text-center">{{lang.sell.preview}}</p>
                 </div>

@@ -37,6 +37,7 @@ class ManualTicketSellRequest extends FormRequest
             'currency'          => [ 'required', "string", "in:EUR,USD,GBP" ],
             'bought_price'      => [ 'required', "numeric" ],
             'price'             => [ 'required', "numeric", "lte:bought_price" ],
+            'cgu'               => ['required', 'accepted']
         ];
     }
 }

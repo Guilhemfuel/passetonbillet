@@ -1,16 +1,31 @@
 <template>
     <div :class="getClass">
-        <label v-if="label" :for="name">
+        <template v-if="type!='checkbox'">
+            <label v-if="label" :for="name">
+                {{label}}
+            </label>
+            <input :type="type"
+                   :class="{'form-control':true,'invalid':errors.has(name),'animated pulse':pulse&&errors.has(name)}"
+                   :id="name"
+                   :name="name"
+                   :placeholder="placeholder"
+                   v-validate="validation"
+                   v-model="inputValue"
+            >
+        </template>
+        <!-- For checkbox only (label required) -->
+        <label v-else-if="label && type=='checkbox'" :for="name">
+            <input :type="type"
+                   :class="{'form-control':true,'invalid':errors.has(name),'animated pulse':pulse&&errors.has(name)}"
+                   :id="name"
+                   :name="name"
+                   :placeholder="placeholder"
+                   v-validate="validation"
+                   v-model="inputValue"
+            >
             {{label}}
         </label>
-        <input :type="type"
-               :class="{'form-control':true,'invalid':errors.has(name),'animated pulse':pulse&&errors.has(name)}"
-               :id="name"
-               :name="name"
-               :placeholder="placeholder"
-               v-validate="validation"
-               v-model="inputValue"
-        >
+
         <small v-if="errors.has(name)" :id="name+'Error'" class="form-text text-danger">
             {{ errors.first(name) }}
         </small>

@@ -31,9 +31,9 @@
                     @endif
                     @if(Route::current()->getName() != 'public.ticket.buy.page' && Route::current()->getName() != 'home')
                         <li class="nav-item ml-2">
-                            <a class="nav-link btn btn-ptb-white d-none d-sm-block mt-0"
+                            <a class="nav-link btn btn-ptb-white d-none d-md-block mt-0"
                                href="{{route('home')}}">@lang('nav.buy_ticket')</a>
-                            <a class="nav-link btn btn-ptb-white d-block d-sm-none mt-0"
+                            <a class="nav-link btn btn-ptb-white d-block d-md-none mt-0"
                                href="{{route('home')}}">@lang('nav.buy_ticket.mobile')</a>
                         </li>
                     @endif

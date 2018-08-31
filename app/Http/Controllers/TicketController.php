@@ -97,10 +97,11 @@ class TicketController extends Controller
      * Allow user to sell a ticket simply by filling form
      *
      * @param Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function sellManualTicket( ManualTicketSellRequest $request )
     {
-
         // Make sure price doesn't over exceed original price
         if ( $request->bought_price < $request->price ) {
             flash( __( 'tickets.sell.errors.max_value' ) )->error()->important();
@@ -241,7 +242,11 @@ class TicketController extends Controller
             try {
                 $ticketArray = Eurostar::retrieveTicket( $request->last_name, $request->booking_code );
             } catch ( PasseTonBilletException $e ) {
-                $ticketArray = Sncf::retrieveTicket( $request->last_name, $request->booking_code );
+                try {
+                    $ticketArray = Sncf::retrieveTicket( $request->last_name, $request->booking_code );
+                } catch ( PasseTonBilletException $e ) {
+                    $ticketArray = Thalys::retrieveTicket( $request->last_name, $request->booking_code );
+                }
             }
 
             $tickets = collect( $ticketArray );

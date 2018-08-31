@@ -16,7 +16,7 @@
                         <vue-form class="mt-4" method="POST" :action="this.route('public.ticket.sell.manual')">
                             <div class="row">
                                 <div class="col-12">
-                                     <h4>{{trans('tickets.sell.manual.form.title_travel')}}</h4>
+                                    <h4>{{trans('tickets.sell.manual.form.title_travel')}}</h4>
                                 </div>
                                 <input-date class="col-12 col-sm-6"
                                             name="travel_date"
@@ -86,10 +86,10 @@
                                               validation="required"
                                 ></input-select>
                                 <input-currency class="col-12 col-sm-6"
-                                              name="currency"
-                                              :label="trans('tickets.sell.manual.form.currency')"
-                                              :placeholder="trans('tickets.sell.manual.form.currency')"
-                                              validation="required"
+                                                name="currency"
+                                                :label="trans('tickets.sell.manual.form.currency')"
+                                                :placeholder="trans('tickets.sell.manual.form.currency')"
+                                                validation="required"
                                 ></input-currency>
                                 <input-text class="col-12 col-sm-6"
                                             name="bought_price"
@@ -104,7 +104,12 @@
                                             validation="required|numeric">
                                 </input-text>
 
-
+                                <input-text class="col-12"
+                                            name="cgu"
+                                            type="checkbox"
+                                            :label="trans('tickets.sell.manual.form.cgu')"
+                                            validation="required">
+                                </input-text>
 
                                 <div class="col-12">
                                     <button class="btn btn-ptb btn-block">
@@ -132,8 +137,7 @@
 
 <script>
     export default {
-        props: {
-        },
+        props: {},
         data() {
             return {
                 user: this.$root.user,

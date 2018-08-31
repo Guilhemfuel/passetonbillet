@@ -32,6 +32,12 @@ if (local) {
     })
     .addPlugin(RavenVue, Vue)
     .install();
+} else {
+    Raven.config('https://55043330c18c47a29c0d04e79e9426be@sentry.io/305544', {
+        environment: 'production'
+    })
+    .addPlugin(RavenVue, Vue)
+    .install();
 }
 /**
  * We use VeeValidator, and therefore need to set the language.

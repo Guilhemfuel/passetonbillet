@@ -30,6 +30,7 @@ return [
         'register'               => 'Safety is our number one concern. Therefore, you must create an account before sending offers.',
         'register_cta'           => 'Create an account and send your offer!',
         'user_verified'          => 'We verified the identity of this user.',
+        'user_not_verified'      => 'We have not verified the identity of this user yet.',
         'discuss'                => 'Discuss',
         'new_offer'              => 'New Offer',
         'download_ticket'        => 'Download Ticket',
@@ -90,30 +91,31 @@ return [
         ],
 
         'manual' => [
-            'link' => 'You don\'t have a booking code? Click here to manually fill your ticket details.',
-            'title' => 'Your Ticket Details',
+            'link'           => 'You don\'t have a booking code? Click here to manually fill your ticket details.',
+            'title'          => 'Your Ticket Details',
             'fail_retrieval' => [
-                'title' => 'No tickets found with this booking code.',
+                'title'   => 'No tickets found with this booking code.',
                 'message' => 'Unfortunately, we couldn\'nt find any ticket with this booking code. You can manually fill the details regarding your ticket on this page. Click on this message if you wish to retry finding your ticket with your booking code.'
             ],
-            'text' => "If you wish to sell a print-at-station ticket, or if we couldn't retrieve your ticket with your booking code, you simply have to fill this form.",
-            'back_link' => 'You have your booking code? Click here to automatically retrive your ticket!',
+            'text'           => "If you wish to sell a print-at-station ticket, or if we couldn't retrieve your ticket with your booking code, you simply have to fill this form.",
+            'back_link'      => 'You have your booking code? Click here to automatically retrieve your ticket!',
 
             'form' => [
-                'title_travel' => 'Travel information',
+                'title_travel'      => 'Travel information',
                 'departure_station' => 'Departure station',
-                'arrival_station' => 'Arrival station',
-                'travel_date' => 'Travel date',
-                'train_number' => 'Train number',
-                'departure_time' => "Departure time",
-                'arrival_time' => "Arrival time",
-                'title_ticket' => 'Ticket information',
-                'company' => 'Train company',
-                'flexibility' => 'Flexibility',
-                'classe' => 'Class',
-                'currency' => 'Currency',
-                'bought_price' => 'Buying price',
-                'price' => 'Selling price'
+                'arrival_station'   => 'Arrival station',
+                'travel_date'       => 'Travel date',
+                'train_number'      => 'Train number',
+                'departure_time'    => "Departure time",
+                'arrival_time'      => "Arrival time",
+                'title_ticket'      => 'Ticket information',
+                'company'           => 'Train company',
+                'flexibility'       => 'Flexibility',
+                'classe'            => 'Class',
+                'currency'          => 'Currency',
+                'bought_price'      => 'Buying price',
+                'price'             => 'Selling price',
+                'cgu'               => 'I have read and accept the general terms and conditions. I swear that I\'m not making any profit selling this ticket.'
 
             ]
 
@@ -130,8 +132,8 @@ return [
                 'trip_date' => 'Travel date',
                 'trip_time' => 'From (Optional)'
             ],
-            'homepicker' => [
-                'depart' => 'From',
+            'homepicker'     => [
+                'depart'  => 'From',
                 'arrival' => 'To'
             ]
         ],

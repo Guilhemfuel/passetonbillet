@@ -108,6 +108,11 @@ html, body {
     opacity: 1; /* Firefox */
   }
 
+  &[type=checkbox ] {
+    width: auto;
+    display: inline-block;
+  }
+
   &.invalid {
     border-color: $color-red;
 

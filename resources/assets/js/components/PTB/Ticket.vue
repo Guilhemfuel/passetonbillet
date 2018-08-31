@@ -53,7 +53,7 @@
                         && $lodash.has(ticket, 'discussionId')
                         && $lodash.has(ticket, 'offerStatus')
                         && ticket.offerStatus == 1" >
-                        <a :href="route('public.message.discussion.page',[ticket.id, ticket.discussionId])" class="btn btn-ptb btn-buy btn-sm">{{trans('tickets.component.discuss')}}</a>
+                        <a v-if="ticket.id" :href="route('public.message.discussion.page',[ticket.id, ticket.discussionId])" class="btn btn-ptb btn-buy btn-sm">{{trans('tickets.component.discuss')}}</a>
                     </template>
                     <!-- Make Offer -->
                     <template v-else-if="!pastTicket && !display
@@ -99,11 +99,16 @@
                     <div class="seller" v-if="!selecting">
                         <template v-if="user">
                             <a target="_blank"
-                               :href="'/profile/user/'+ticket.user.hashid">{{trans('tickets.component.sold_by')}} <b>{{ticket.user.full_name}}</b>
-                                <el-tooltip class="item" effect="dark" :content="trans('tickets.component.user_verified')"
+                               :href="'/profile/user/'+ticket.user.hashid">{{publishedBy}} <b>{{ticket.user.full_name}}</b>
+                                <el-tooltip v-if="ticket.user.verified" class="item" effect="dark" :content="trans('tickets.component.user_verified')"
                                             placement="bottom-end">
-                                    <i v-if="ticket.user.verified" aria-hidden="true"
+                                    <i aria-hidden="true"
                                        class="fa fa-check-circle text-warning"></i>
+
+                                </el-tooltip>
+                                <el-tooltip v-else class="item" effect="dark" :content="trans('tickets.component.user_not_verified')"
+                                            placement="bottom-end">
+                                    <i class="fa fa-exclamation-triangle text-danger" aria-hidden="true"></i>
                                 </el-tooltip>
                             </a>
                         </template>
@@ -118,7 +123,7 @@
 
             <!-- Back of ticket -->
 
-            <div :class="{'card':true, 'card-ticket':true, 'back':true, className:className, 'past-ticket':pastTicket}">
+            <div :class="{'card':true, 'card-ticket':true, 'back':true, className:className, 'past-ticket':pastTicket}" v-if="editing">
                 <!--
 
                 =============== User modifying his ticket ===============
@@ -328,7 +333,12 @@
             },
             publishedBy: function() {
                 let trans = this.trans('tickets.component.sold_by');
-                return trans.replace('{{days}}',moment(this.ticket.created_at.date).fromNow(true));
+
+                if(this.ticket.created_at) {
+                    return trans.replace('{{days}}',moment(this.ticket.created_at.date).fromNow(true));
+                } else {
+                    return trans.replace('{{days}}',moment().fromNow(true));
+                }
             }
         },
         methods: {

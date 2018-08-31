@@ -30,6 +30,7 @@ return [
         'register'               => 'La sécurité est notre premier soucis. Ainsi, vous devez etre inscrit pour commnuniquer avec les autres membres.',
         'register_cta'           => 'Inscrivez-vous pour envoyer votre offre!',
         'user_verified'          => 'Nous avons vérifié l\'identité de cet utilisateur.',
+        'user_not_verified'      => 'Nous n\'avons pas encore vérifié l\'identité de cet utilisateur.',
         'discuss'                => 'Discuster',
         'new_offer'              => 'Nouvelle Offre',
         'download_ticket'        => 'Télécharger le billet',
@@ -109,8 +110,8 @@ return [
                 'classe' => 'Classe',
                 'currency' => 'Devise',
                 'bought_price' => 'Prix d\'achat',
-                'price' => 'Prix de vente'
-
+                'price' => 'Prix de vente',
+                'cgu' => 'Je reconnais avoir pris connaissance des conditions d\'utilisation et je les accepte sans réserves. Je m\'engage notamment à ne pas revendre le billet à un tarif plus élevé que le prix d\'achat.'
             ]
         ]
     ],
