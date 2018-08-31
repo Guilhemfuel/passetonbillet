@@ -224,10 +224,18 @@
     }
 
     .nav-item.nav-logged-part {
+
+      .user-picture {
+        cursor: pointer;
+      }
+
       .user-first-name {
+        cursor: pointer;
 
         p {
           color: white;
+          font-size: 18px;
+          font-weight: 600;
         }
         &:hover {
           p {

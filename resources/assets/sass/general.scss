@@ -480,13 +480,18 @@ html, body {
 
     .nav-item.nav-logged-part {
 
+      .user-picture {
+        cursor: pointer;
+      }
+
       .user-first-name {
 
         p {
           cursor: pointer;
           color: $color-gray;
           margin-bottom: 0px;
-          font-weight: 700;
+          font-size: 18px;
+          font-weight: 600;
         }
         &:hover {
           p {
