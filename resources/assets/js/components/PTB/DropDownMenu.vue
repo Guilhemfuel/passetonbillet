@@ -1,8 +1,10 @@
 <template>
 
-    <div class="sandwich-menu">
-        <el-dropdown trigger="click" @command="handleCommand">
-            <i class="fa fa-bars" aria-hidden="true"></i>
+    <!--<div class="sandwich-menu">-->
+        <el-dropdown class="nav-item nav-logged-part" trigger="click" @command="handleCommand">
+            <slot>
+
+            </slot>
             <el-dropdown-menu slot="dropdown" class="sandwich-menu-dropdown">
                 <el-dropdown-item command="public.ticket.owned.page">
                     <i class="fa fa-ticket" aria-hidden="true"></i>
@@ -22,7 +24,7 @@
                 </el-dropdown-item>
             </el-dropdown-menu>
         </el-dropdown>
-    </div>
+    <!--</div>-->
 
 </template>
 

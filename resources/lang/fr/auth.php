@@ -13,9 +13,18 @@ return [
     |
     */
 
-    'failed'   => 'Aucun utilisateur trouvé avec ces identifiants.',
-    'throttle' => 'Trop de tentatives de connexion. Veuillez essayer de nouveau dans :seconds secondes.',
-    'register' => [
+    'failed'       => 'Aucun utilisateur trouvé avec ces identifiants.',
+    'throttle'     => 'Trop de tentatives de connexion. Veuillez essayer de nouveau dans :seconds secondes.',
+    'common'       => [
+        'about' => 'À propos',
+        'contact' => 'Contact',
+
+        'source' => [
+            'sell' => 'Pour revendre un billet de train sur notre site, vous devez vous indentifier et créer un compte. La sécurité et la verification des billets sont essentielles sur PasseTonBillet.fr. ',
+            'buy'  => 'Pour acheter un billet de train sur notre site, vous devez vous indentifier et créer un compte. La sécurité et la verification des billets sont essentielles sur PasseTonBillet.fr. ',
+        ]
+    ],
+    'register'     => [
         'title'                  => 'Inscription',
         'manually'               => 'Inscription Manuelle',
         'first_name'             => 'Prénom',
@@ -40,13 +49,13 @@ return [
                                      <br>Pensez à vérifier dans vos spams!',
         'token_no_user'          => 'Whoops! Nous n\'avons trouvé aucun utilisateur correspondant à ce lien... Si le problème persiste, contactez-nous.',
         'account_confirmed'      => 'Félicitations! Votre compte est maintenant activé. Vous pouvez à présent vous connecter en cliquant <a href="' . route( 'login.page' ) . '">ici</a> !',
-        'fb_register' => 'Inscription avec Facebook',
+        'fb_register'            => 'Inscription avec Facebook',
 
 
         'ticketLinkMessage' => 'Inscrivez vous sur PasseTonBillet.fr pour acheter et vendre des billets de trains européens de manière sécurisée, rapide, et économe.'
 
     ],
-    'auth'     => [
+    'auth'         => [
         'title'              => 'Connexion',
         'email'              => 'Adresse e-mail',
         'password'           => 'Mot de passe',
@@ -54,16 +63,16 @@ return [
         'not_registered_yet' => 'Pas encore inscrit? Cliquez pour vous inscrire.',
         'not_confirmed'      => 'Votre compte n\'est pas encore activé. Vérifiez vos emails et cliquez sur le lien d\'activation.',
     ],
-    'reset'    => [
+    'reset'        => [
         'title'    => 'Mot de passe oublié',
         'question' => 'Mot de passe oublié? Cliquez-ici',
-        'submit' => 'Re-initialiser le mot de passe'
+        'submit'   => 'Re-initialiser le mot de passe'
     ],
     'new_password' => [
-        'title' => 'Nouveau mot de passe',
+        'title'  => 'Nouveau mot de passe',
         'submit' => 'Sauver le mot de passe'
     ],
-    'social' => [
+    'social'       => [
         'last_step_pwd' => 'Une dernière petite étape: créer votre mot de passe pour confirmer votre inscription.',
         'email_used'    => 'Cette addresse email est déjà utilisée. Si c\'est vous, utilisez votre email et votre mot de passe pour vous connecter..',
         'success'       => 'Bienvenue parmi nous! Vous pouvez désormais acheter ou vendre des billets!'

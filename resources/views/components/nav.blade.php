@@ -15,16 +15,16 @@
                     @if(Route::current()->getName() != 'public.ticket.sell.page')
                         <li class="nav-item">
                             @if(Auth::guest())
-                                <a class="nav-link btn btn-ptb d-none d-sm-block"
+                                <a class="nav-link btn btn-ptb d-none d-sm-block mt-0"
                                    href="{{route('register.page')}}?source={{\App\Http\Controllers\Auth\RegisterController::SOURCE_GUEST_SELL}}"
                                 >@lang('nav.resell_a_ticket')</a>
-                                <a class="nav-link btn btn-ptb d-block d-sm-none"
+                                <a class="nav-link btn btn-ptb d-block d-sm-none mt-0"
                                    href="{{route('register.page')}}?source={{\App\Http\Controllers\Auth\RegisterController::SOURCE_GUEST_SELL}}"
                                 >@lang('nav.sell_ticket.mobile')</a>
                             @else
-                                <a class="nav-link btn btn-ptb d-none d-sm-block"
+                                <a class="nav-link btn btn-ptb d-none d-sm-block mt-0"
                                    href="{{route('public.ticket.sell.page')}}">@lang('nav.resell_a_ticket')</a>
-                                <a class="nav-link btn btn-ptb d-block d-sm-none"
+                                <a class="nav-link btn btn-ptb d-block d-sm-none mt-0"
                                    href="{{route('public.ticket.sell.page')}}">@lang('nav.sell_ticket.mobile')</a>
                             @endif
                         </li>

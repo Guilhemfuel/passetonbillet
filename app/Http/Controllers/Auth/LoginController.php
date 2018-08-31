@@ -51,7 +51,7 @@ class LoginController extends Controller
      */
     public function showLoginForm()
     {
-        return view('auth.auth',['type'=>'login']);
+        return view('auth.auth',['type'=>'login','source'=>null]);
     }
 
     /**

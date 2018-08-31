@@ -15,6 +15,15 @@ return [
 
     'failed'       => 'These credentials do not match our records.',
     'throttle'     => 'Too many login attempts. Please try again in :seconds seconds.',
+    'common'       => [
+        'about' => 'About us',
+        'contact' => 'Contact us',
+
+        'source' => [
+            'sell' => 'You must create an account before selling a ticket on our website. Safety and ticket verification are very important on PasseTonBillet.fr.',
+            'buy'  => 'You must create an account before buying a ticket on our website. Safety and ticket verification are very important on PasseTonBillet.fr.',
+        ]
+    ],
     'register'     => [
         'title'                  => 'Register',
         'manually'               => 'Register manually',

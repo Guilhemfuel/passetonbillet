@@ -60,11 +60,14 @@ class RegisterController extends Controller
             self::SOURCE_GUEST_OFFER
         ];
 
+        $source = null;
+
         if ( $request->has( 'source' ) && in_array( $request->source, $possibleSources ) ) {
+            $source = $request->source;
             session( [ 'register-source' => $request->source ] );
         }
 
-        return view( 'auth.auth', [ 'type' => 'register', 'source' => $request->source ] );
+        return view( 'auth.auth', [ 'type' => 'register', 'source' => $source] );
     }
 
     /**

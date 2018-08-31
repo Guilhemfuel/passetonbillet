@@ -478,6 +478,7 @@ html, body {
       .user-first-name {
 
         p {
+          cursor: pointer;
           color: $color-gray;
           margin-bottom: 0px;
           font-weight: 700;
@@ -503,10 +504,11 @@ html, body {
         }
       }
 
-      .sandwich-menu {
-        .fa {
-          margin-top: 12px;
-        }
+      .caret-small {
+        margin-bottom: 0px;
+        margin-top: 10px;
+        margin-left: 5px;
+        cursor: pointer;
       }
     }
   }
