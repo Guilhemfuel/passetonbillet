@@ -10,42 +10,41 @@ return [
 
     'title' => 'About Us',
 
-    'sub_title' => 'Ptb is the first platform that allows you to safely and quickly buy and sell second hand European train tickets',
+    'sub_title' => 'PasseTonBillet.fr is a platform that allows you to quickly buy and resell your second hand European train tickets in a fast, economical and secure way.',
 
     'safer' => [
-        'title' => 'WHY IS LASTAR SAFER THAN ANY OTHER TICKET EXCHANGE PLATFORMS',
+        'title' => 'How is PassTonBillet.fr more secure than the other ticket exchange platforms?',
         'content' => [
-            'Thanks to our algorithm, it is IMPOSSIBLE to sell a fake ticket on the platform. The only way to sell a ticket on Ptb is to enter a valid booking code.',
-            'Thanks to our phone number verification system, any banned member will never be able to sell any ticket on the platform anymore. Therefore, you have the guarantee that all the users on the platform are serious and honest.',
-            'You can check the track record of any user by clicking on his/her name. You will be able to see how many ticket this user has successfully sold in the past.',
-            'Once the seller have received your money, you will instantly and automatically be able to download the ticket from our system.',
-            'We advise you to preferably trade with verified Ptb users as it will add an extra layer of security. A verified user means that our security algorithm will have checked that his/her personal information (name and date of birth) are the same as those on his/her official identification documents.',
-            'Your personal information (except first name and profile picture) will never be shared with any other users.'
+            'Thanks to our smart ticket search, every ticket put on sale is automatically checked. Thus, it is IMPOSSIBLE to sell a fake ticket on PasseTonBillet.fr.',
+            'Thanks to our double verification system (phone number and identity), we guarantee that every user is a real person and that any banned member will not be able to sell any tickets on the platform anymore. Therefore, you are guaranteed that all users of the platform are legit and honest.',
+            'You can check the background of any user by clicking on his/her name. You will then be able to see how many tickets this user has successfully sold in the past.',
+            'In some cases, once the seller has received your money, you can instantly and automatically download the ticket from our system.',
+            'Your personal information (with the exception of the first name and profile picture) will never be shared with other users.',
         ]
     ],
 
     'quicker' => [
-        'title' => 'WHY IS LASTAR QUICKER THAN ANY OTHER TICKET EXCHANGES PLATFORMS',
+        'title' => 'How is PassTonBillet.fr quicker than the other ticket exchange platforms?',
         'content' => [
-            'You can create a account and login in one click using Facebook Connect.',
-            'When you want to sell a ticket, the only thing you have to do is to enter the booking code and all your ticket information will be retreived automatically. You will never have to enter all the ticket information manually.',
-            'All the second-hand European train tickets are listed on one platform only instead of having to switch between the different exchange platforms. This also guarantee our users a much larger choice.',
-            'We have our own ticket search engine that allows you to enter your queries as precise as they can be and instantly seach for all the tickets available.',
-            'When you receive the money from a buyer for one of your ticket, your ticket will be sent to him/her just by the press of a button, no need to send him/her the ticket.',
-            'You can keep records of all the tickets you bought and sold, as well as all the offers you sent. All of this on only one platform.',
-            'You can chat in live with other users directy through the platform.',
-            'You get notified instantly when someone accepts/denies your offer, sends you an offer or messages you.',
-            'If you receive an offer that don’t satisfy you, you can deny it by a click and you won’t even be put in touch with the buyer. So no waste of time.'
+            'You can create an account and log in with only one click using Facebook Connect.',
+            'In most cases, when you want to put a ticket up for sale, just enter the booking code and all the information of your ticket will be automatically retrieved.',
+            'The fact that all the second hand European train tickets are listed on a single platform instead of having to switch between the different exchange platforms saves you a lot of time. This also guarantees our users a much wider choice.',
+            'We have our own ticket search engine that allows you to make your searches very accurately and use our different filters to instantly find the tickets that fit you best.',
+            'In some cases, when you receive money from a buyer for one of your tickets, your ticket will be sent to him/her at the touch of a button, no need to bother meeting the person or send it by email.',
+            'All tickets you have bought and sold are registered and accessible at any time on your account. As well as all the offers you have sent and received. ',
+            'You can chat live with other users directly on the platform.',
+            'You receive a notification instantly when someone accepts / refuses your offer, sends you an offer or sends you messages.',
+            'If you receive an offer that does not satisfy you, you can refuse it with one click and you will not be put in contact with the buyer. So no waste of time.',
         ]
     ],
 
     'cheaper' => [
-        'title' => 'WHY IS LASTAR CHEAPER THAN ANY OTHER TICKET EXCHANGES PLATFORMS',
+        'title' => 'How is PassTonBillet.fr more economical than the other ticket exchange platforms?',
         'content' => [
-            'When a seller puts a ticket on sale, our system can retreive the original price he/she paid for it, and it is impossible to sell the ticket at a higher price than the one he/she paid initially.',
-            'You can always negociate with buyers/sellers to get a price that satisfies you, and this just by a click.',
-            'Because we aim to gather all the second hand European train tickets available on a single platform, you will have a much broader choice and consequently a better opportunity to find a ticket that you match your criteria.',
-            'Because of our advanced security processes, you will never be scammed again. And this will save you a lot of money and stress! '
+            'When a seller sells a ticket, our system recovers the original price paid for that ticket and locks the resale price to an amount equal to or less than this one.',
+            'You can negotiate with buyers / sellers to get a price that suits you, and that with a single click.',
+            'Our goal is to collect all available European train tickets available on a single platform, so you\'ll have a much wider choice and therefore a better chance of finding a ticket that fits your criteria.',
+            'Thanks to our advanced security system, we significantly limit the risk of scams. And that will save you a lot of money and stress!',
         ]
     ]
 

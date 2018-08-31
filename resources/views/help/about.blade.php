@@ -50,12 +50,12 @@
                                         <div class="row">
                                             <div class="col-12 col-md-4 d-flex justify-content-center align-content-center">
                                                 <img class="d-sm-block d-md-none"
-                                                     src="{{secure_asset('img/icon-safe-purple.svg')}}"
+                                                     src="{{secure_asset('img/icon-safe.svg')}}"
                                                      alt="Icon safer"
                                                      style="width: 150px;"
                                                 />
                                                 <img class="d-md-block d-sm-none"
-                                                     src="{{secure_asset('img/icon-safe-purple.svg')}}"
+                                                     src="{{secure_asset('img/icon-safe.svg')}}"
                                                      alt="Icon safer"
                                                      style="width: 80%;"
                                                 />
@@ -84,12 +84,12 @@
                                             </div>
                                             <div class="col-12 col-md-4 d-flex justify-content-center align-content-center">
                                                 <img class="d-sm-block d-md-none"
-                                                     src="{{secure_asset('img/icon-quick-purple.svg')}}"
+                                                     src="{{secure_asset('img/icon-quick.svg')}}"
                                                      alt="Icon quicker"
                                                      style="width: 150px;"
                                                 />
                                                 <img class="d-md-block d-sm-none"
-                                                     src="{{secure_asset('img/icon-quick-purple.svg')}}"
+                                                     src="{{secure_asset('img/icon-quick.svg')}}"
                                                      alt="Icon quicker"
                                                      style="width: 80%;"
                                                 />
@@ -104,12 +104,12 @@
                                         <div class="row">
                                             <div class="col-12 col-md-4 d-flex justify-content-center align-content-center">
                                                 <img class="d-sm-block d-md-none"
-                                                     src="{{secure_asset('img/icon-cheaper-purple.svg')}}"
+                                                     src="{{secure_asset('img/icon-cheaper.svg')}}"
                                                      alt="Icon cheaper"
                                                      style="width: 150px;"
                                                 />
                                                 <img class="d-md-block d-sm-none"
-                                                     src="{{secure_asset('img/icon-cheaper-purple.svg')}}"
+                                                     src="{{secure_asset('img/icon-cheaper.svg')}}"
                                                      alt="Icon cheaper"
                                                      style="width: 80%;"
                                                 />
