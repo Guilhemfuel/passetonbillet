@@ -45,28 +45,29 @@ return [
 
     ],
     'sell'      => [
-        'step_1'      => 'Étape 1/2: Retrouver votre billet',
-        'description' => 'Vendre un billet est très simple et très rapide. Tout ce que vous avez à faire est d\'entrer votre nom de famille ainsi que votre numéro de réservation. Tous les tickets correspondants à cette reservation vont alors aparaître et vous n\'aurez plus qu\'à séléctionner ceux que vous souhaitez mettre en vente.',
-        'inputs'      => [
+        'step_1'            => 'Étape 1/2: Retrouver votre billet',
+        'description'       => 'Vendre un billet est très simple et très rapide. Tout ce que vous avez à faire est d\'entrer votre nom de famille ainsi que votre numéro de réservation. Tous les tickets correspondants à cette reservation vont alors aparaître et vous n\'aurez plus qu\'à séléctionner ceux que vous souhaitez mettre en vente.',
+        'inputs'            => [
             'last_name'    => 'Nom de famille associé à la reservation',
             'booking_code' => 'Référence de réservation, ex: QNUSHT',
             'price'        => 'Prix de vente',
             'notes'        => 'Vous pouvez écrire ici une description pour ce billet...'
         ],
-        'search'      => 'Chercher le(s) billet(s)',
-        'other_name'  => 'Contactez-nous pour vendre un billet associé à un autre nom.',
-        'searching'   => 'Recherche de vos billets...',
-        'select'      => 'Hooray ! Nous avons trouvé vos billets. Selectionnez le billet que vous souhaitez vendre.',
-        'step_2'      => 'Étape 2/2: Compléter les informations sur la vente',
-        'details'     => 'Nous avons presque terminé! Il ne vous reste qu\'à indiquer votre prix. Le prix de vente ne peut pas excéder le prix originel d\'achat. Vous pouvez prévisualiser vos changement directement sur le billet.',
-        'submit'      => 'Vendre le billet',
-        'preview'     => 'Prévisualisation du billet',
-        'errors'      => [
+        'search'            => 'Chercher le(s) billet(s)',
+        'other_name'        => 'Contactez-nous pour vendre un billet associé à un autre nom.',
+        'help_booking_code' => 'Cette référence se trouve sur votre confirmation de reservation / commande ou sur votre billet après "Dossier" ou "PNR" et est composé de 6 caractères.',
+        'searching'         => 'Recherche de vos billets...',
+        'select'            => 'Hooray ! Nous avons trouvé vos billets. Selectionnez le billet que vous souhaitez vendre.',
+        'step_2'            => 'Étape 2/2: Compléter les informations sur la vente',
+        'details'           => 'Nous avons presque terminé! Il ne vous reste qu\'à indiquer votre prix. Le prix de vente ne peut pas excéder le prix originel d\'achat. Vous pouvez prévisualiser vos changement directement sur le billet.',
+        'submit'            => 'Vendre le billet',
+        'preview'           => 'Prévisualisation du billet',
+        'errors'            => [
             'max_value' => 'Whoops ! Le prix de revente ne peut être supérieur au prix d\'achat ! Essayez encore avec un prix plus bas.',
             'duplicate' => 'Whoops ! Ce billet a déjà été mis en vente...',
             'search'    => 'Whoops ! Aucun billet trouvé... Essayez à nouveau, et si le problème persiste, contactez-nous.'
         ],
-        'success'     => 'Hooray! Votre billet est maintenant disponible à l\'achat ! Merci de votre confiance !',
+        'success'           => 'Hooray! Votre billet est maintenant disponible à l\'achat ! Merci de votre confiance !',
 
         'confirm_number' => [
             'last_step'        => 'Une dernière petite étape! Parce que la sécurité est notre mission numéro une, vous devez renseigner votre numéro de téléphone avant de pouvoir vendre un billet. Vous allez recevoir un SMS de confirmation dans les prochaines secondes. Et vous pourrez vendre votre billet!',

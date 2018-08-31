@@ -47,28 +47,29 @@ return [
 
     ],
     'sell'      => [
-        'step_1'      => 'Step 1/2: find your ticket',
-        'description' => 'Selling a ticket is very easy and super quick. All we need to do is to enter your name and your booking code. All the tickets corresponding to your specific booking will appear and you only have to select those that you want to sell.',
-        'inputs'      => [
+        'step_1'            => 'Step 1/2: find your ticket',
+        'description'       => 'Selling a ticket is very easy and super quick. All we need to do is to enter your name and your booking code. All the tickets corresponding to your specific booking will appear and you only have to select those that you want to sell.',
+        'inputs'            => [
             'last_name'    => 'Last name of any passenger',
             'booking_code' => 'Booking code, eg: QNUSHT',
             'price'        => 'Selling price',
             'notes'        => 'Your can write notes here about this ticket...'
         ],
-        'search'      => 'Search for ticket(s)',
-        'other_name'  => 'Contact us to sell a ticket with another name.',
-        'searching'   => 'Searching for your tickets...',
-        'select'      => 'Hooray ! We found your tickets. Select the ticket you want to sell.',
-        'step_2'      => 'Step 2/2: Fill selling details',
-        'details'     => 'We\'re almost done! Just enter your selling price. Note that selling price can\'t exceed original price. You can preview your changes directly on the ticket.',
-        'submit'      => 'Sell ticket',
-        'preview'     => 'Ticket Preview',
-        'errors'      => [
+        'search'            => 'Search for ticket(s)',
+        'other_name'        => 'Contact us to sell a ticket with another name.',
+        'help_booking_code' => 'This code can be found on your booking/order confirmation email, after "Booking Reference" or "PNR", and is 6 characters long.',
+        'searching'         => 'Searching for your tickets...',
+        'select'            => 'Hooray ! We found your tickets. Select the ticket you want to sell.',
+        'step_2'            => 'Step 2/2: Fill selling details',
+        'details'           => 'We\'re almost done! Just enter your selling price. Note that selling price can\'t exceed original price. You can preview your changes directly on the ticket.',
+        'submit'            => 'Sell ticket',
+        'preview'           => 'Ticket Preview',
+        'errors'            => [
             'max_value' => 'Whoops! Selling price can\'t exceed original price ! Try again with a lower price.',
             'duplicate' => 'Whoops! This ticket is already on sale...',
             'search'    => 'Whoops! No tickets were found... Try again and if the issue persists please contact us.'
         ],
-        'success'     => 'Hooray! Your ticket is now on the market ! Thank you for your trust !',
+        'success'           => 'Hooray! Your ticket is now on the market ! Thank you for your trust !',
 
         'confirm_number' => [
             'last_step'        => 'One last step! Because safety is our number one mission, we need to verify your phone number. We will send you a verification code via a text message, and you\'ll then be able to sell your ticket!',
