@@ -25,6 +25,17 @@ return [
     'help' => [
         'before_icon' => 'If you have any querries or issues, please contact us using the chat',
         'after_icon'  => 'or by email.'
+    ],
+
+    'review' => [
+        'thanks' => 'Thank you for leaving a review !',
+        'link' => 'You like PasseTonBillet.fr? Let us know, click here !',
+        'modal' => [
+            'title' => 'Leave us a review',
+            'text' => 'You like PasseTonBillet.fr? Let us know !',
+            'placeholder' => 'Your review',
+            'send' => 'Send'
+        ]
     ]
 
 

@@ -54,15 +54,11 @@
             },
             defaultVal() {
                 if (this.defaultValue != null && this.defaultValue != undefined) {
-                    console.log('no');
-
                     return this.defaultValue;
                 }
                 if (this.oldValue && this.$root.oldInput[this.name]) {
-                    console.log('ok');
                     return this.$root.oldInput[this.name];
                 }
-                console.log('null');
 
                 return null;
             }

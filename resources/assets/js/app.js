@@ -66,6 +66,7 @@ Vue.component('dropdown-menu', require('./components/PTB/DropDownMenu.vue'));
 /**
  * PTB specific components
  */
+Vue.component('reviews', require('./components/PTB/Review.vue'));
 Vue.component('notifications', require('./components/PTB/Notifications.vue'));
 Vue.component('settings', require('./components/PTB/Settings.vue'));
 Vue.component('ticket', require('./components/PTB/Ticket.vue'));

@@ -161,8 +161,8 @@
             <div class="section-feedback" id="section-feedback">
                 <h2 class="text-center text-warning title">{{__('welcome.feedback.title')}}</h2>
 
-                <div class="container">
-                    <div class="row">
+                <div class="container-fluid">
+                    <div class="row px-5">
                         <div class="px-2 col-12 col-sm-6 col-md-4 mt-4">
                             <div class="card card-review ">
                                 <div class="card-body">
@@ -238,8 +238,10 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
+                <reviews></reviews>
             </div>
 
             <home-buyer-seller-info></home-buyer-seller-info>

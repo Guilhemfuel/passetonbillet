@@ -96,7 +96,8 @@ return [
         'contact' => 'Contact',
         'partners'   => 'Partenaires',
         'conditions' => 'Conditions d\'utilisation',
-        'privacy'    => 'Politique de Confidentialité'
+        'privacy'    => 'Politique de Confidentialité',
+        'feedback' => 'Donner votre avis'
     ]
 
 

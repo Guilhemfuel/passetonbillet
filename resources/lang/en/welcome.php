@@ -96,7 +96,9 @@ return [
         'contact'    => 'Contact',
         'partners'   => 'Partners',
         'conditions' => 'Terms',
-        'privacy'    => 'Privacy'
+        'privacy'    => 'Privacy',
+        'feedback' => 'Leave your feedback'
+
 
     ]
 

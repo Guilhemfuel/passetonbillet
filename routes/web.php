@@ -201,6 +201,10 @@ Route::group( [ 'prefix' => 'api' ], function () {
         // Discussion api routes
         Route::post( 'messages/{ticket}/{discussion}', 'DiscussionController@sendMessage' )->name( 'api.discussion.send' );
         Route::post( 'messages/{ticket}/{discussion}/read', 'DiscussionController@markAsRead' )->name( 'api.discussion.read' );
+
+        // Reviews
+        Route::post( 'reviews', 'API\ReviewController@store' )->name( 'api.reviews.store' );
+
     } );
 } );
 
