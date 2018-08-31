@@ -108,7 +108,7 @@
                             </a>
                         </template>
                         <template v-else>
-                            {{trans('tickets.component.sold_by')}} <b>{{ticket.user.full_name}}</b> <i v-if="ticket.user.verified"
+                            {{publishedBy}} <b>{{ticket.user.full_name}}</b> <i v-if="ticket.user.verified"
                                                                                  aria-hidden="true"
                                                                                  class="fa fa-check-circle text-warning"></i>
                         </template>
@@ -285,7 +285,6 @@
             bought: {type: Boolean, default: false},
             csrf: {type: String, required: false},
 
-
             className: '',
         },
         data() {
@@ -327,6 +326,10 @@
                 }
                 return false;
             },
+            publishedBy: function() {
+                let trans = this.trans('tickets.component.sold_by');
+                return trans.replace('{{days}}',moment(this.ticket.created_at.date).fromNow(true));
+            }
         },
         methods: {
             sell() {

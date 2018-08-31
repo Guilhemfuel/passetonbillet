@@ -11,7 +11,7 @@ return [
     'component' => [
         'buy'                    => 'Buy',
         'sell'                   => 'Sell this ticket',
-        'sold_by'                => 'Published by',
+        'sold_by'                => 'Published {{days}} ago by',
         'edit'                   => 'Edit',
         'edit_ticket'            => 'Edit ticket',
         'buy_ticket'             => 'Buy ticket',

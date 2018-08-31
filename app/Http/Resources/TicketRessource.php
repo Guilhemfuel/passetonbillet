@@ -32,6 +32,7 @@ class TicketRessource extends Resource
             'inbound'                => $this->inbound,
             'buyer'                  => $this->sold_to_id ? new UserRessource( $this->buyer ) : null,
             'provider'               => $this->provider,
+            'created_at'             => $this->created_at,
 
             // Only for seller
             'ticket_number' => $this->when( \Auth::check() && \Auth::user()->id == $this->user_id, $this->ticket_number ),

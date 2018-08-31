@@ -31,8 +31,10 @@ class TicketFullRessource extends Resource
             'buyer' => $this->sold_to_id?new UserRessource($this->buyer):null,
             'download_link' => route('public.ticket.download',['ticket_id'=>$this->id]),
             'passbook_link' => $this->passbook_link,
+            'created_at'             => $this->created_at,
 
-             // Only for seller
+
+            // Only for seller
             'ticket_number' => $this->when( \Auth::check() && \Auth::user()->id == $this->user_id, $this->ticket_number ),
 
         ];
