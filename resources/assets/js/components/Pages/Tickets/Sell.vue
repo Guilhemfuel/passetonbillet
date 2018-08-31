@@ -108,31 +108,39 @@
                             <p class="card-text text-justify">
                                 {{lang.sell.details}}
                             </p>
-                            <form method="post" :action="route('public.ticket.sell.post')" ref="sell_form">
-                                <input type="hidden" name="_token" :value="csrf">
+                            <vue-form method="post" :action="route('public.ticket.sell.post')" ref="sell_form">
                                 <input type="hidden" name="index" :value="selectedTicket.id">
 
-                                <div class="input-group">
-                                    <!-- Todo: ajouter l'option de la currency-->
-                                    <span class="input-group-addon">{{selectedTicket.bought_currency_symbol}}</span>
-                                    <input type="text" :class="'form-control' + (errors.has('price')?' is-invalid':'')"
-                                           :aria-label="lang.sell.inputs.price"
-                                           :placeholder="lang.sell.inputs.price"
-                                           v-model="selectedTicket.price"
-                                           name="price"
-                                           v-validate="'required|numeric|max_value:'+selectedTicket.bought_price">
+                                <div class="form-group">
+                                    <label>{{lang.sell.inputs.price}}</label>
+                                    <div class="input-group">
+                                        <!-- Todo: ajouter l'option de la currency-->
+                                        <span class="input-group-addon">{{selectedTicket.bought_currency_symbol}}</span>
+                                        <input type="text"
+                                               :class="'form-control' + (errors.has('price')?' is-invalid':'')"
+                                               :aria-label="lang.sell.inputs.price"
+                                               :placeholder="lang.sell.inputs.price"
+                                               v-model="selectedTicket.price"
+                                               name="price"
+                                               v-validate="'required|numeric|max_value:'+selectedTicket.bought_price">
+                                    </div>
+                                    <span v-if="errors.has('price')" class="invalid-feedback">{{ errors.first('price')
+                                        }}</span>
                                 </div>
-                                <span v-if="errors.has('price')" class="invalid-feedback">{{ errors.first('price')
-                                    }}</span>
 
-                                <!--<textarea class="form-control mt-4" :placeholder="lang.sell.inputs.notes"-->
-                                <!--name="notes"></textarea>-->
+                                <input-text
+                                        name="cgu"
+                                        type="checkbox"
+                                        :label="trans('tickets.sell.manual.form.cgu')"
+                                        validation="required">
+                                </input-text>
+
                                 <button type="submit" class="btn btn-ptb btn-block mt-4"
                                         :disabled="selectedTicket.bought_price < selectedTicket.price"
-                                        @click.prevent="sellTicket">
+                                >
                                     {{lang.sell.submit}}
                                 </button>
-                            </form>
+                            </vue-form>
                         </div>
                     </div>
                 </div>
@@ -212,20 +220,16 @@
                 this.selectedTicket.price = Math.floor(this.selectedTicket.bought_price);
                 this.state = 'selling_details';
             },
-            sellTicket() {
-                this.$validator.validateAll().then((result) => {
-                    if (result) {
-                        this.$refs.sell_form.submit();
-                    }
-                });
-            },
             manual(message = false) {
                 if (message) {
                     let notification = this.$notify({
                         title: this.trans('tickets.sell.manual.fail_retrieval.title'),
                         message: this.trans('tickets.sell.manual.fail_retrieval.message'),
                         type: 'warning',
-                        onClick: () => {this.state='input';notification.close()}
+                        onClick: () => {
+                            this.state = 'input';
+                            notification.close()
+                        }
                     });
 
                 }
