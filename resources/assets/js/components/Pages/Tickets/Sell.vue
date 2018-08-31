@@ -6,9 +6,9 @@
 
         <template v-if="state!='manual'">
 
-            <h4 class="card-title mb-0" v-if="state=='input'">{{lang.sell.title}}</h4>
-            <h4 class="card-title mb-0" v-else-if="state=='select'">{{lang.sell.your_tickets}}</h4>
-            <h4 class="card-title mb-0" v-else-if="state=='searching'">{{lang.sell.searching}}</h4>
+            <h4 class="card-title mb-3" v-if="state=='input'">{{lang.sell.step_1}}</h4>
+            <h4 class="card-title mb-3" v-else-if="state=='select'">{{lang.sell.step_2}}</h4>
+            <h4 class="card-title mb-3" v-else-if="state=='searching'">{{lang.sell.searching}}</h4>
 
             <div class="card" v-if="startCardVisible">
                 <div class="card-body">
@@ -99,10 +99,12 @@
 
             <!-- selling details and confirm sale -->
             <div class="row" v-if="state=='selling_details'">
-                <div class="col-sm-12 col-md-6">
+                <div class="col-12 mb-3">
                     <h4 class="card-title mb-0">
-                        {{lang.sell.details_title}}
+                        {{lang.sell.step_2}}
                     </h4>
+                </div>
+                <div class="col-sm-12 col-md-6">
                     <div class="card">
                         <div class="card-body">
                             <p class="card-text text-justify">
