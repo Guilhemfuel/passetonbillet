@@ -55,8 +55,6 @@ class Station extends Model
 
         static::addGlobalScope( 'suggestable', function ( \Illuminate\Database\Eloquent\Builder $builder ) {
             $builder->where( 'is_suggestable', true );
-            $builder->whereNotNull( 'uic' );
-
         } );
     }
 

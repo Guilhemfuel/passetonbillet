@@ -14,7 +14,7 @@
             </button>
         </div>
         <transition name="el-fade-in">
-            <div class="container" v-if="state=='buyer'">
+            <div class="container" v-show="state=='buyer'">
                 <div class="row">
                     <div class="col-12 col-md-6 col-lg-3 col-sm-6 mt-3">
                         <img class="svg-icon"
@@ -52,7 +52,7 @@
             </div>
         </transition>
         <transition name="el-fade-in">
-            <div class="container" v-if="state=='seller'" v-cloak>
+            <div class="container" v-show="state=='seller'" v-cloak>
                 <div class="row">
                     <div class="col-12 col-md-6 col-lg-3 col-sm-6 mt-3">
                         <img class="svg-icon"
