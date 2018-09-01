@@ -252,7 +252,7 @@
                     <input type="checkbox" class="read-more-state" id="post-1"/>
                     <ul class="read-more-wrap">
                         <label for="post-1" class="questions">
-                            <li class="question">{{__('welcome.FAQ.Q1')}}</li>
+                            <li class="question"> {{__('welcome.FAQ.Q1')}}</li>
                             <li class="answer">{{__('welcome.FAQ.A1')}}</li>
                         </label>
                     </ul>
@@ -261,7 +261,7 @@
                     <input type="checkbox" class="read-more-state" id="post-2"/>
                     <ul class="read-more-wrap">
                         <label for="post-2" class="questions">
-                            <li class="question">{{__('welcome.FAQ.Q2')}}</li>
+                            <li class="question"> {{__('welcome.FAQ.Q2')}}</li>
                             <li class="answer">{{__('welcome.FAQ.A2')}}</li>
                         </label>
                     </ul>
@@ -270,7 +270,7 @@
                     <input type="checkbox" class="read-more-state" id="post-3"/>
                     <ul class="read-more-wrap">
                         <label for="post-3" class="questions">
-                            <li class="question">{{__('welcome.FAQ.Q3')}}</li>
+                            <li class="question"> {{__('welcome.FAQ.Q3')}}</li>
                             <li class="answer">{{__('welcome.FAQ.A3')}}</li>
                         </label>
                     </ul>
@@ -279,7 +279,7 @@
                     <input type="checkbox" class="read-more-state" id="post-4"/>
                     <ul class="read-more-wrap">
                         <label for="post-4" class="questions">
-                            <li class="question">{{__('welcome.FAQ.Q4')}}</li>
+                            <li class="question"> {{__('welcome.FAQ.Q4')}}</li>
                             <li class="answer">{{__('welcome.FAQ.A4')}}</li>
                         </label>
                     </ul>
