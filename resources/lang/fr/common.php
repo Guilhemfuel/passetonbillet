@@ -26,4 +26,15 @@ return [
         'after_icon'  => 'ou par email.'
     ],
 
+    'review' => [
+        'thanks' => 'Merci de d\'avoir pris le temps de laisser votre avis !',
+        'link' => 'Vous aimez PasseTonBillet.fr? Faites le nous savoir, cliquez-ici !',
+        'modal' => [
+            'title' => 'Laissez nous votre avis',
+            'text' => 'Vous aimez PasseTonBillet.fr? Faites le nous savoir!',
+            'placeholder' => 'Votre avis',
+            'send' => 'Envoyer'
+        ]
+    ]
+
 ];

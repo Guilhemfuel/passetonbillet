@@ -643,3 +643,14 @@ $animation-duration: 0.3s;
     width: 12px;
   }
 }
+
+// Review modal
+.review-modal {
+  .el-rate {
+    height: 25px;
+
+    .el-rate__icon {
+      font-size: 25px;
+    }
+  }
+}

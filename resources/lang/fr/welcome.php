@@ -31,8 +31,8 @@ return [
 	                   • Si l’offre n’est pas acceptée vous pouvez faire une nouvelle offre.',
             ],
         'send'=> [
-            'title' => 'Recevez le billet',
-            'text' => 'Une fois d’accord, envoyez l’argent et votre ticket vous sera envoyé dès que le vendeur aura reçu votre argent !',
+            'title' => 'Transaction',
+            'text' => 'Les modalités sont entièrement libres entre l\'acheteur et le vendeur !',
              ],
         'sell'=> [
             'title' => 'Mettez votre billet en vente',
@@ -47,8 +47,8 @@ return [
             'text' => 'Lorsque vous accepterez une offre pour votre billet, une conversation avec l’acheteur se créera automatiquement dans laquelle vous pourrez choisir  le moyen de paiement qui vous convient le mieux à tous les deux.',
         ],
         'send2'=> [
-            'title' => 'Envoyez le ticket',
-            'text' => 'Une fois l’argent de l’acheteur reçu, vous n’aurez plus qu’à lui envoyer le billet !',
+            'title' => 'Transaction',
+            'text' => 'Les modalités sont entièrement libres entre l\'acheteur et le vendeur !',
         ],
         'buttons'=> [
             'buyer' => 'Acheteur',
@@ -96,7 +96,8 @@ return [
         'contact' => 'Contact',
         'partners'   => 'Partenaires',
         'conditions' => 'Conditions d\'utilisation',
-        'privacy'    => 'Politique de Confidentialité'
+        'privacy'    => 'Politique de Confidentialité',
+        'feedback' => 'Donner votre avis'
     ]
 
 

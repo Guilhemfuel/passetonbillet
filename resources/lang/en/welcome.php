@@ -31,8 +31,8 @@ return [
 	                    • If the offer is not accepted you can make a new offer.',
         ],
         'send'    => [
-            'title' => 'Receive the ticket',
-            'text'  => 'Once agreed, send the money and your ticket will be sent to you as soon as the seller has received your money!',
+            'title' => 'Transaction',
+            'text'  => 'Seller and Buyer can both agree on their favorite transaction method.',
         ],
         'sell'    => [
             'title' => 'Put your ticket on sale',
@@ -47,8 +47,8 @@ return [
             'text'  => 'When you accept an offer for your ticket, a conversation with the buyer will be automatically created in which you can choose the means of payment that suits best both you and the buyer.',
         ],
         'send2'   => [
-            'title' => 'Send the ticket ',
-            'text'  => 'Once the buyer\'s money is received, you just have to send the ticket!',
+            'title' => 'Transaction',
+            'text'  => 'Seller and Buyer can both agree on their favorite transaction method.',
         ],
         'buttons' => [
             'buyer'  => 'Buyer',
@@ -96,7 +96,9 @@ return [
         'contact'    => 'Contact',
         'partners'   => 'Partners',
         'conditions' => 'Terms',
-        'privacy'    => 'Privacy'
+        'privacy'    => 'Privacy',
+        'feedback' => 'Leave your feedback'
+
 
     ]
 
