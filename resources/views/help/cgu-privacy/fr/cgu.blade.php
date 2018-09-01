@@ -36,338 +36,232 @@
                     </nav>
                     <div class="content">
                         <div>
-                            <h2 class="text-center text-white">CONDITIONS GÉNÉRALES D'UTILISATION DU
-                                SITE<br>Ptb.io</h2>
+                            <h2 class="text-center text-white">CONDITIONS GÉNÉRALES D'UTILISATION DE WWW.PASSETONBILLET.FR</h2>
                             <p class="text-center text-white">
-                                Version en date du 10 Mars 2018
+                                Version actuelle publiée le 01/09/2018 <br>
+                                Version actuelle entrant en vigueur le 01/09/2018
                             </p>
                             <div class="container container-over-bg p-5 mt-3 text-justify">
+                                <p> Le présent site internet passetonbillet.fr est édité par CB INNOVATION, société par actions simplifiée, au capital de 27 500 euros, immatriculée au Registre du Commerce et des Sociétés de Lyon, sous le numéro RCS 513 007 880, dont le siège est situé 27 route de limonest, 69 450, Saint Cyr au mont d’or.</p>
 
-                                <h4 class="mt-3 pb-3">ARTICLE 1. INFORMATIONS LÉGALES</h4>
+                                <br>
 
-                                <p>En vertu de l'article 6 de la Loi n° 2004-575 du 21 juin 2004 pour la confiance dans
-                                    l'économie numérique, il est précisé dans cet article l'identité des différents
-                                    intervenants dans le cadre de sa réalisation et de son suivi.
+                                <h4 class="mt-3 pb-3">PREAMBULE</h4>
+
+                                <p>CB INNOVATION a développé une Plateforme en ligne sur le Site accessible à l’adresse www.passetonbillet.fr.
+                                    Cette Plateforme est destinée à proposer aux Utilisateurs, un service de mise de recherche et de publication de billets d’occasion pour le train.
+                                    Nous vous remercions de lire attentivement les présentes CGU car elles contiennent des informations importantes concernant les droits et obligations des Utilisateurs. Elles incluent différentes limitations et exclusions, ainsi que des obligations relatives au respect des lois et réglementations applicables.
+                                    Sauf conditions particulières relatives à un service ou à une offre, tout nouveau service ou modification de service en place et/ou produit par la société CB INNOVATION sera soumis aux présentes Conditions d'Utilisation.
                                 </p>
+
+                                <br>
+
+                                <h4 class="mt-3 pb-3">ACCEPTATION DES CGU</h4>
+
+                                <h5 class="mt-3 pb-3">Acceptation</h5>
+                                <p>L’Utilisateur ne peut bénéficier des Services qui lui sont proposés sur la Plateforme que sous réserve de l’acceptation des présentes CGU. L’Utilisateur ne peut utiliser le Service sans avoir préalablement pris connaissance et accepté les CGU lors de son inscription sur la Plateforme.
+                                    L’acceptation des présentes CGU sous forme d’une « case à cocher » constitue la preuve que l’Utilisateur a pris connaissance via le Site desdites dispositions et vaut acceptation des présentes CGU.
+                                    Les présentes CGU sont disponibles et accessibles en ligne via le Site.
+                                    L’Utilisateur déclare avoir obtenu de la part de PasseTonBillet  toutes les informations nécessaires quant aux Services proposés et adhérer sans réserve aux présentes CGU.
+                                    L’Utilisateur dispose de la faculté de sauvegarder et d’imprimer les présentes CGU en utilisant les fonctionnalités standards de son navigateur ou de son ordinateur.
+                                </p>
+
+                                <h5 class="mt-3 pb-3">Opposabilité</h5>
+                                <p>Les présentes CGU entrent en vigueur à la date de leur mise en ligne et sont opposables dès leur acceptation par l’Utilisateur, lors de son inscription à l’Espace Membre.
+                                    Les présentes CGU sont opposables pendant toute la durée d’utilisation des Services et jusqu’à ce que de nouvelles CGU les remplacent.
+                                    Les CGU figurant en ligne sur la Plateforme prévalent sur toute version imprimée de date antérieure.
+                                    Les présentes CGU annulent et remplacent toute version antérieure.
+                                    L’Utilisateur peut à tout moment renoncer à utiliser les Services et la Plateforme mais reste engagé sur toute utilisation antérieure.
+                                </p>
+
+                                <h5 class="mt-3 pb-3">Modification</h5>
+                                <p>PasseTonBillet se réserve le droit, à sa seule discrétion, à tout moment et sans préavis, d'adapter ou de modifier les présentes CGU. Les modifications des présentes CGU seront notifiées aux Utilisateurs par le biais d’une fenêtre « pop in ». Si l’Utilisateur est en désaccord avec cette nouvelle version des CGU notifiée, il pourra librement cesser l’utilisation des Services.
+                                    La nouvelle version des CGU sera publiée sur le Site.
+                                    PasseTonBillet  informera chaque Utilisateur par courrier électronique à l’adresse renseignée sur le Compte Membre de toute modification des présentes CGU au plus tôt 30 (trente) jours avant leur entrée en vigueur.
+                                    L’Utilisateur pourra émettre des observations à la nouvelle version des CGU dans les 30 (trente) jours suivant la réception de la notification des modifications des CGU. Passé ce délai, les nouvelles CGU seront réputées avoir été acceptées par l’Utilisateur.
+                                    Lorsqu’un Utilisateur n’accepte pas les nouvelles CGU, il devra immédiatement arrêter d’utiliser le Site.
+                                    En tout état de cause, à défaut d’observations, les nouvelles CGU seront réputées acceptées par l’Utilisateur qui, au moment de la prochaine location, acceptera expressément les CGU par le biais d’une case à cocher.
+                                </p>
+
+                                <br>
+
+                                <h4 class="mt-3 pb-3">ARTICLE 1. OBJET</h4>
+
+                                <p>Passetonbillet.fr est un site qui propose un certain nombre de services d’hébergement et de diffusion d’annonces de revente de billets et de mise en relation destinées aux particuliers. Le présent document a pour objet de déterminer les conditions générales d’utilisation du site internet « passetonbillet.fr». (Ci-après désignés les « Conditions d’Utilisation »). L’utilisateur désigne toute personne qui accède au Site PasseTonBillet (ci-après designé « l’Utilisateur ») Le site internet ci-après « Site » désigne le site accessible à l’adresse http://www.passetonbillet.fr. Tout Utilisateur ne respectant pas les dispositions prevues par les présentes Conditions d'Utilisation peut se voir retirer immédiatement l'accès aux services du Site, sans indemnité ni préavis. L’utilisation du site Internet « passetonbillet.fr » et des services qui y sont proposés suppose l’acceptation expresse, pleine et entière par l’utilisateur des présentes Conditions d’Utilisation. Les Conditions d’Utilisation pourront être révisées et mises à jour à tout moment, sans avertissement préalable. L’utilisateur est invité à les consulter à chacune de ses connexions au Site PasseTonBillet.
+                                </p>
+
+                                <h4 class="mt-5 pb-3">ARTICLE 2. UTILISATION ET INSCRIPTION A PASSETONBILLET</h4>
 
                                 <p>
-                                    Le site Ptb.io est édité par :
+                                    L’accès à certaines fonctionnalités nécessite la création d’un compte. Vous garantissez que les données que vous nous communiquez sont exactes et conformes à la réalité. Après votre inscription vous disposez d’un identifiant et d’un mot de passe personnel et confidentiel. En aucun cas, vous ne devez divulguer ses informations, garantissant la confidentialité de votre navigation. PasseTonBillet ne saurait être responsable de la perte de ces éléments d’identification. Vous êtes le seul responsable de l’utilisation frauduleuse ou non par des tiers de vos identifiants et mots de passe. L’utilisateur est informé qu’il demeure entièrement responsable du respect du caractère confidentiel des mots de passe associés à tout compte lui permettant d’avoir accès à PasseTonBillet. Toute inscription jugée mauvaise pourra être supprimée par PasseTonBillet sans avoir à prévenir l‘Utilisateur inscrits au préalable. Pour s’inscrire, tout Utilisateur doit être majeur ou mineur émancipé de 18 ans au minimum ou alors utiliser le Site sous la stricte responsabilité d’un majeur surveillant la navigation de celui-ci.
                                 </p>
 
-                                <p class="ml-5">
-                                    Axel A. & Julien N.
-                                    <br>Adresse e-mail : contact@ptb.io
-
-                                    Les directeurs de publication du site sont :
-                                    Axel A. & Julien N.
-
-                                </p>
+                                <h4 class="mt-5 pb-3">ARTICLE 3. ANNONCES, CONDITIONS DE DIFFUSION ET TRANSACTIONS</h4>
 
                                 <p>
-                                    Le site Ptb.io est hébergé par :
-                                </p>
-                                <p class="ml-5">
-                                    Heroku Inc., dont le siège est situé 650 7th Street, San Francisco, CA <br>
-                                    Numéro de téléphone : +33 1 (877) 563-4311
-
+                                    L'annonceur reconnaît être l'auteur unique et exclusif du texte de l'annonce. A défaut, il déclare disposer de tous les droits et autorisations nécessaires à la parution de l'annonce. PasseTonBillet est un intermédiaire technique au sens de l’article 6.1.2 de la loi pour la confiance en l’économie numérique dit « LCEN » du 21 juin 2004 et permet l’hébergement et la diffusion d’Annonces sur le site qu’elle édite et n'intervient qu'en cette qualité entre l’Utilisateur et les Annonceurs. L'annonce est diffusée sous la responsabilité exclusive de l'annonceur et PasseTonBillet n’intervient aucunement dans la rédaction et la publication des annonces. Les annonces doivent porter exclusivement sur des billets valables et authentiques et ne doivent pas indiquer de mentions fausses ou trompeuses. Tout utilisateur qui utilise le service de mise en ligne d’annonces de revente de billets certifie que l'annonce est conforme à l'ensemble des dispositions légales et réglementaires en vigueur et respecte les droits des tiers. Les annonces doivent se conformer à l’intégralité du droit en vigueur en France, et en particulier à la loi du 27 juin 1919, relative à la répression du trafic des billets de théâtre, selon laquelle la revente de billets bénéficiant de subventions publiques n'est autorisée que si le prix de revente n'excède pas le prix qui figure sur ces billets. Ainsi, il est rappelé à tous les utilisateurs du site, que le fait de vendre ou de céder des billets a un prix supérieur à la valeur faciale du billet est constitutif d’une infraction et d’une violation de la loi et des conditions d’utilisation.
                                 </p>
 
-                                <h4 class="mt-5 pb-3">ARTICLE 2. PRÉSENTATION DU SITE</h4>
-
+                                <h5 class="mt-3 pb-3">Diffusion des annonces</h5>
                                 <p>
-                                    Le site Ptb.io a pour objet :
-                                </p>
-                                <p class="ml-5">
-                                    Mettre en relation des utilisateurs souhaitant acheter ou vendre des billets
-                                    de train européen entre eux. Les billets doivent IMPERATIVEMENT être nominatifs sous le nom de
-                                    l'utilisateur Ptb.io.
-                                </p>
+                                    Il appartient au seul Utilisateur souhaitant vendre ou acheter un billet de se renseigner auprès de l'émetteur du billet pour connaître l'ensemble des conditions de transférabilité en vigueur. Il est rappelé qu’en toute circonstance, la cession des billets se fait aux risques et périls du cédant et du cessionnaire.
+                                    CB INNOVATION décline, dans la limite de ce qui est autorisé par les dispositions légales d’ordre public, toute responsabilité quant aux Contenus Utilisateurs, à la licéité des articles proposés à la vente ou aux conditions de vente elles mêmes.
+                                    Par conséquent, CB INNOVATION ne pourra, être tenu responsable directement ou indirectement en cas d’insatisfaction ou de préjudice subi par le vendeur ou l'acheteur d’un billet, et ce à quelque titre que ce soit.
 
-                                <h4 class="mt-5 pb-3">ARTICLE 3. CONTACT
-                                </h4>
-
-                                <p>
-                                    Pour toute question ou demande d'information concernant le site, ou tout signalement
-                                    de contenu ou d'activités illicites, l'utilisateur peut contacter l'éditeur à
-                                    l'adresse e-mail suivante: contact@ptb.io.
+                                <p> Pour publier une annonce sur le Site, l'Utilisateur s'engage à s'être préalablement assuré que le billet mis en vente respecte les conditions de la revente de billets de transports ferroviaires, en particulier les éléments suivants :</p>
+                                <li>il est interdit de vendre un billet à un prix supérieur à la valeur faciale du  billet acheté </li>
+                                <li>les informations présente dans une annonce publiées par les Utilisateurs doivent strictement correspondre à celles figurant sur le billet mise en vente par l’Utilisateur </li>
+                                <li>la vente de billes doit avoir lieu entre particuliers et doit respecter toute autre condition générale ou particulière concernant la cession du billet.</li>
                                 </p>
 
-                                <h4 class="pt-1 pb-3">
-                                    ARTICLE 4. ACCEPTATION DES CONDITIONS D'UTILISATION
-                                </h4>
-
-                                <p>
-                                    L'accès et l'utilisation du site sont soumis à l'acceptation et au respect des
-                                    présentes Conditions Générales d'Utilisation.
-                                    <br><br>L'éditeur se réserve le droit de modifier, à tout moment et sans préavis, le
-                                    site et des services ainsi que les présentes CGU, notamment pour s'adapter aux
-                                    évolutions du site par la mise à disposition de nouvelles fonctionnalités ou la
-                                    suppression ou la modification de fonctionnalités existantes.
-                                    <br><br>Il est donc conseillé à l'utilisateur de se référer avant toute navigation à
-                                    la dernière version des CGU, accessible à tout moment sur le site. En cas de
-                                    désaccord avec les CGU, aucun usage du site ne saurait être effectué par
-                                    l'utilisateur.
+                                <p> Les utilisateurs vendeurs s’engagent à:
+                                </p>
+                                <li>ne pas revendre ou tenter de revendre les 'e-billet/m-billet SNCF ou les Confirmation e-billet SNCF/Mémo e-billet sous forme de billet "classique" qui sont nominatifs et incessibles dès leur achat. Dans le cas où un acheteur aurait, sans le savoir racheté un e-billet SNCF, une confirmation e-billet SNCF, un mémo e-billet SNCF il devra lui être remboursé par le vendeur.
+                                </li>
+                                <li>avertir les acheteurs des risques encourus à voyager avec des billets Eurostar, Thalys Ticketless, IZY Thalys qui peuvent faire l'objet de contrôle d'identité car ils sont nominatifs et incessibles.</li>
+                                <li>
+                                    rembourser l'acheteur du prix qu'ils auront reçu pour leur billet en cas de contrôle ayant obligé l'acheteur à annuler son voyage ou à racheter un billet au prix fort.
+                                </li>
+                                <li>
+                                    reporter exactement et complètement les données indiquées sur le billet ou la commande du billet qu'ils mettent en vente (trajet, date, heure, prix payé, conditions d'utilisation, ...)
+                                </li>
+                                <li>
+                                    ne pas céder un billet à un prix plus élevé que celui indiqué sur ce même billet.
+                                </li>
+                                <br>
+                                <p>Les informations données par le vendeur le sont sous sa seule responsabilité et le site se réserve la possibilité de les modifier ou de les retirer de la vente, voire de ne pas mettre en vente le billet, si elles ne sont pas conformes à la charte,
                                 </p>
 
-                                <h4 class="mt-5 pb-3">
-                                    ARTICLE 4. ACCEPTATION DES CONDITIONS D'UTILISATION
-                                </h4>
+                                <li>
+                                    faire parvenir le plus rapidement possible le billet cédé à son destinataire dès lors qu’ils en ont reçu le paiement, suivant les modalités d’échange convenues entre les parties,
+                                </li>
+                                <li>
+                                    ne pas utiliser les numéros de téléphone et les e-mails des acheteurs pour un autre usage que celui prévu par l’utilisation du site,
+                                </li>
+                                <li>
+                                    retirer de la vente les billets qu’ils y ont déposés dès qu’ils se sont engagés à les vendre à un acheteur
+                                </li>
+                                <li>
+                                    ne pas revendre aux acheteurs les ayant contactés par l'intermédiaire du site, des billets qui n'auraient pas fait l'objet d'un dépôt sur le site. Dans ce cas le site ne peut en aucune manière être tenu pour responsable de la validité de ces billets qu'il n'est pas en mesure de contrôler.
+                                </li>
 
-                                <p>
-                                    L'accès et l'utilisation du site sont soumis à l'acceptation et au respect des
-                                    présentes Conditions Générales d'Utilisation.
-                                    <br><br>L'éditeur se réserve le droit de modifier, à tout moment et sans préavis, le
-                                    site et des services ainsi que les présentes CGU, notamment pour s'adapter aux
-                                    évolutions du site par la mise à disposition de nouvelles fonctionnalités ou la
-                                    suppression ou la modification de fonctionnalités existantes.
-                                    <br><br>Il est donc conseillé à l'utilisateur de se référer avant toute navigation à
-                                    la dernière version des CGU, accessible à tout moment sur le site. En cas de
-                                    désaccord avec les CGU, aucun usage du site ne saurait être effectué par
-                                    l'utilisateur.
-                                </p>
+                                <br>
 
-                                <h4 class="mt-5 pb-3">
-                                    ARTICLE 5. ACCÈS ET NAVIGATION
-                                </h4>
-
-                                <p>
-                                    L'accès au site et son utilisation sont réservés aux personnes âgées au minimum de
-                                    16 ans. L'éditeur sera en droit de demander une justification de l'âge de
-                                    l'utilisateur, et ce par tout moyen.
-                                    <br><br>L'éditeur met en œuvre les solutions techniques à sa disposition pour
-                                    permettre l'accès au site 24 heures sur 24, 7 jours sur 7. Il pourra néanmoins à
-                                    tout moment suspendre, limiter ou interrompre l'accès au site ou à certaines pages
-                                    de celui-ci afin de procéder à des mises à jours, des modifications de son contenu
-                                    ou tout autre action jugée nécessaire au bon fonctionnement du site.
-                                    <br><br>La connexion et la navigation sur le site Ptb.io valent acceptation sans
-                                    réserve des présentes Conditions Générales d'Utilisation, quelques soient les moyens
-                                    techniques d'accès et les terminaux utilisés.
-                                    <br><br>Les présentes CGU s'appliquent, en tant que de besoin, à toute déclinaison
-                                    ou extension du site sur les réseaux sociaux et/ou communautaires existants ou à
-                                    venir.
-                                </p>
-
-                                <h4 class="mt-5 pb-3">
-                                    ARTICLE 6. GESTION DU SITE
-                                </h4>
-
-                                <p>
-                                    Pour la bonne gestion du site, l'éditeur pourra à tout moment :<br>
-                                <ul>
-                                    <li>suspendre, interrompre ou limiter l'accès à tout ou partie du site, réserver
-                                        l'accès au site, ou à certaines parties du site, à une catégorie déterminée
-                                        d'internaute ;
-                                    </li>
-                                    <li>supprimer toute information pouvant en perturber le fonctionnement ou entrant en
-                                        contravention avec les lois nationales ou internationales, ou avec les règles de
-                                        la Nétiquette ;
-                                    </li>
-                                    <li>suspendre le site afin de procéder à des mises à jour.</li>
-                                </ul>
-
-                                </p>
-
-                                <h4 class="mt-5 pb-3">
-                                    ARTICLE 7. SERVICES RÉSERVÉS AUX UTILISATEURS INSCRITS
-                                </h4>
-
-                                <h5 class="pb-3">
-                                    7.1 INSCRIPTION
+                                <h5>Modalités d'échange et transaction
                                 </h5>
 
-                                <p>
-                                    L'accès à certains services est conditionné par l'inscription de l'utilisateur.
-                                    <br><br>L'inscription et l'accès aux services du site sont réservés exclusivement
-                                    aux personnes physiques capables juridiquement, ayant rempli et validé le formulaire
-                                    d'inscription disponible en ligne sur le site Ptb.io, ainsi que les présentes
-                                    Conditions Générales d'Utilisation.
-                                    <br><br>Lors de son inscription, l'utilisateur s'engage à fournir des informations
-                                    exactes, sincères et à jour sur sa personne et son état civil. L'utilisateur devra
-                                    en outre procéder à une vérification régulière des données le concernant afin d'en
-                                    conserver l'exactitude.
-                                    <br><br>L'utilisateur doit ainsi fournir impérativement une adresse e-mail valide,
-                                    sur laquelle le site lui adressera une confirmation de son inscription à ses
-                                    services. Une adresse de messagerie électronique ne peut être utilisée plusieurs
-                                    fois pour s'inscrire aux services.
-                                    <br><br>Toute communication réalisée par Ptb.io et ses partenaires est en
-                                    conséquence réputée avoir été réceptionnée et lue par l'utilisateur. Ce dernier
-                                    s'engage donc à consulter régulièrement les messages reçus sur cette adresse e-mail
-                                    et à répondre dans un délai raisonnable si cela est nécessaire.
-                                    <br><br>Une seule inscription aux services du site est admise par personne physique.
-                                    <br><br>L'utilisateur se voit attribuer un identifiant lui permettant d'accéder à un
-                                    espace dont l'accès lui est réservé (ci-après "Espace personnel"), en complément de
-                                    la saisie de son mot de passe.
-                                    <br><br>L'identifiant et le mot de passe sont modifiables en ligne par l'utilisateur
-                                    dans son Espace personnel. Le mot de passe est personnel et confidentiel,
-                                    l'utilisateur s'engage ainsi à ne pas le communiquer à des tiers.
-                                    <br><br>Ptb.io se réserve en tout état de cause la possibilité de refuser une
-                                    demande d'inscription aux services en cas de non-respect par l'Utilisateur des
-                                    dispositions des présentes Conditions Générales d'Utilisation.
+                                <li>
+                                    elles sont à la convenance des parties. Elle se déroule directement entre le cédant et le cessionnaire. PasseTonBillet n'intervient pas dans la transaction, de même qu’elle n’agit pas en tant qu’intermédiaire.
+                                </li>
+                                <li>
+                                    dans le cas d'échange par courrier, le site laisse le vendeur et l'acheteur libres d'utiliser la procédure qui leur convient.
+                                </li>
 
+                                <p>Conseils aux acheteurs:
                                 </p>
 
-                                <h5 class="mt-3 pb-3">
-                                    7.2 DÉSINSCRIPTION
+                                <li>
+                                    refusez de payer plus cher que le prix indiqué sur l'annonce et sur le billet,
+                                </li>
+                                <li>
+                                    n'hésitez pas à avertir le modérateur du site si le vendeur veut vous faire payer plus cher que le prix payé indiqué sur le billet
+                                </li>
+                                <li>
+                                    dans le cas d'un paiement avant envoi du billet, veillez à obtenir l'identité précise du vendeur (nom, prénom, adresse, téléphone, e-mail) et évitez les systèmes de paiement "anonymes" type "mandat cash" ou WESTERN UNION par ex.)
+                                </li>
+
+                                <p>Soyez très prudents lorsqu'il s'agit de billets imprimés Ouigo, Izy Thalys, Thello ou Eurostar car, même si le vendeur vous donne la référence de dossier vous permettant de créer et d'imprimer votre billet, il peut l'utiliser à votre insu pour échanger/modifier le billet, voir le revendre à plusieurs personne et faire en sorte que celui que vous avez en main devienne invalide.
+                                </p>
+
+                                <p>Nous avons constaté des escroqueries avec les billets Eurostar Paris-Londres ou Londres-Paris "imprimé" et nous déconseillons fortement de les racheter sans s'assurer de l'identité du vendeur.
+                                </p>
+
+                                <h5>Limitation de responsabilité
                                 </h5>
 
-                                <p>
-                                    L'utilisateur régulièrement inscrit pourra à tout moment demander sa désinscription
-                                    en se rendant sur la page dédiée dans son Espace personnel. Toute désinscription du
-                                    site sera effective immédiatement après que l'utilisateur ait rempli le formulaire
-                                    prévu à cet effet.
+                                <p>PasseTonBillet ne sera tenu en aucun cas à réparation, pécuniaire ou en nature, du fait d'erreurs ou d'omissions dans la composition ou la traduction d'une annonce, ou de défaut de parution de quelque nature que ce soit. De tels événements ne pourront en aucun cas ouvrir droit à une indemnisation sous quelque forme que ce soit. Comme rappelé, PasseTonBillet agit comme hébergeur d’annonces de vente de billets et ne peut être poursuivi sur le contenu des échanges, ni sur les suites qui leur seraient éventuellement données, sous quelque forme que ce soit. La responsabilité de PasseTonBillet en tant qu’intermédiaire technique ne peut être engagée qu’après avoir été notifié du caractère illicite du contenu diffusé sur le site. C’est ce qui conduira PasseTonBillet, sur simple notification faite dans les termes de l’article 6.I-5 de cette loi à propos des contenus litigieux et qui sont donc soit prohibés, soit portant atteinte aux droits de la personne et de la propriété intellectuelle, à procéder de son seul chef et par autorité au retrait des annonces correspondantes. PasseTonBillet ne peut être tenu responsable d'aucun préjudice subi par un Utilisateur dans le cadre d'une utilisation anormale des services de PasseTonBillet.
                                 </p>
 
-                                <h4 class="mt-5 pb-3">
-                                    ARTICLE 8. RESPONSABILITÉS
+                                    <h4 class="pt-1 pb-3">
+                                        ARTICLE 4. EXCLUSION DE GARANTIES
                                 </h4>
 
                                 <p>
-                                    L'éditeur n'est responsable que du contenu qu'il a lui-même édité.
-                                    L'éditeur n'est pas responsable :
+                                    Le site passetonbillet.fr ne saurait garantir les éléments suivants:
                                 </p>
-                                <ul>
-                                    <li>
-                                        en cas de problématiques ou défaillances techniques, informatiques ou de
-                                        compatibilité
-                                        du site avec un matériel ou logiciel quel qu'il soit ;
-                                    </li>
-                                    <li> des dommages directs ou indirects, matériels ou immatériels, prévisibles ou
-                                        imprévisibles résultant de l'utilisation ou des difficultés d'utilisation du
-                                        site ou de
-                                        ses services ;
-                                    </li>
-                                    <li> des caractéristiques intrinsèques de l'Internet, notamment celles relatives au
-                                        manque
-                                        de fiabilité et au défaut de sécurisation des informations y circulant ;
-                                    </li>
-                                    <li> des contenus ou activités illicites utilisant son site et ce, sans qu'il en ait
-                                        pris
-                                        dûment connaissance au sens de la Loi n° 2004-575 du 21 juin 2004 pour la
-                                        confiance dans
-                                        l'économie numérique et la Loi n°2004-801 du 6 août 2004 relative à la
-                                        protection des
-                                        personnes physiques à l'égard de traitement de données à caractère personnel;
-                                    </li>
-                                    <li> de la vente d’un faux billet de train européen entre les utilisateurs empêchant un
-                                        acheteur de
-                                        prendre le train indiqué sur le billet acheté ;
-                                    </li>
-                                    <li> de la vente d’un billet de train européen en plusieurs exemplaires entre les
-                                        utilisateurs
-                                        empêchant un acheteur de prendre le train indiqué sur le billet acheté ;
-                                    </li>
-                                    <li> de tout problème légal impliquant l’achat et la revente de billets de train européen ;
-                                    </li>
-                                    <li> de tout problème physique pouvant survenir lors de l’échange de billets
-                                        de train européen entre
-                                        les utilisateurs Ptb ;
-                                    </li>
-                                    <li> de tout problème financiers incluant la non réception de la somme totale ou
-                                        partiale
-                                        correspondant au prix de vente d’un billet de train européen listé sur Ptb.io pouvant
-                                        survenir
-                                        lors de l’échange de billets de train européen entre les utilisateurs de Ptb.
-                                    </li>
-                                </ul>
-
-                                <p>
-                                    L'éditeur rappel aux utilisateurs que le SEUL est UNIQUE rôle de la plateforme en
-                                    ligne
-                                    Ptb.io est de METTRE EN RELATIONS DES INDIVIDUS SOUHAITANT ACHETER OU REVENDRE
-                                    DES
-                                    BILLETS DE TRAIN EUROPÉEN À LEUR NOM. EN AUCUN CAS LASTAR INC. N’EST IMPLIQUÉE ET NE POSSÈDE AUCUNE
-                                    REPONSABILITÉ
-                                    DANS TOUTES LES TRANSACTIONS FINANCIÈRES ET ÉCHANGES PHYSIQUES ET VIRTUELS AINSI QUE
-                                    LES
-                                    PROBLÈMES LIÉS À CES DERNIERS APRÈS QUE DEUX UTILISATEURS DE LA PLATEFORME N’AIENT
-                                    ÉTÉ
-                                    MIS EN RELATIONS À TRAVERS LE SITE LASTAR.IO.
-                                    Par ailleurs, le site ne saurait garantir l'exactitude, la complétude, et
-                                    l'actualité
-                                    des informations qui y sont diffusées.
-                                    <br><br>
-                                    L'utilisateur est responsable :
-                                </p>
-
-                                <ul>
-                                    <li>de la protection de son matériel et de ses données ;
-                                    </li>
-                                    <li>de l'utilisation qu'il fait du site ou de ses services ;
-                                    </li>
-                                    <li>s'il ne respecte ni la lettre, ni l'esprit des présentes CGU.
-                                    </li>
-                                </ul>
-
+                                <li>
+                                    Que l'utilisation des services sera ininterrompue, rapide, sécurisée ou exempte d'erreurs.
+                                </li>
+                                <li>
+                                    Que toute information que vous obtiendrez suite à l'utilisation du site PasseTonBillet sera exacte ou fiable.
+                                </li>
+                                <li>
+                                    Que l’utilisation ou le résultat de l’utilisation du site PasseTonBillet sera correct, exact, opportun ou autrement fiable.
+                                </li>
+                                <p>Aucune garantie, condition ou autre stipulation y compris toute garantie implicite concernant la qualité satisfaisante, la convenance à un usage particulier ou la conformité à la description donnée ne s'applique à PasseTonBillet.
                                 </p>
 
                                 <h4 class="mt-5 pb-3">
-                                    ARTICLE 9. LIENS HYPERTEXTES
+                                    ARTICLE 5. PROPRIETE INTELLECTUELLE
                                 </h4>
 
                                 <p>
-                                    Le site peut contenir des liens hypertextes pointant vers d'autres sites internet
-                                    sur lesquels Ptb.io n'exerce pas de contrôle. Malgré les vérifications préalables
-                                    et régulières réalisés par l'éditeur, celui-ci décline tout responsabilité quant aux
-                                    contenus qu'il est possible de trouver sur ces sites.
-                                    <br><br>L'éditeur autorise la mise en place de liens hypertextes vers toute page ou
-                                    document de son site sous réserve que la mise en place de ces liens ne soit pas
-                                    réalisée à des fins commerciales ou publicitaires.
-                                    <br><br>En outre, l'information préalable de l'éditeur du site est nécessaire avant
-                                    toute mise en place de lien hypertexte.
-                                    <br><br>Sont exclus de cette autorisation les sites diffusant des informations à
-                                    caractère illicite, violent, polémique, pornographique, xénophobe ou pouvant porter
-                                    atteinte à la sensibilité du plus grand nombre.
-                                    <br><br>Enfin, Ptb.io se réserve le droit de faire supprimer à tout moment un
-                                    lien hypertexte pointant vers son site, si le site l'estime non conforme à sa
-                                    politique éditoriale.
-
+                                    L'ensemble des éléments constituant le Site (Modules, charte graphique, application, textes, graphismes, logiciels, photographies, images, vidéos, sons, plans, noms, logos, créations et œuvres protégeables diverses, bases de données, etc...) ainsi que le Site lui-même, relèvent des législations françaises et internationales sur le droit d'auteur et sur les droits voisins du droit d'auteur (notamment les articles L122-4 et L122-5. du Code de la Propriété Intellectuelle). Toute utilisation non expressément et préalablement autorisée d'éléments du Site par PasseTonBillet est constitutif d’une violation de ses droits de propriété intellectuels et constitue une contrefaçon. Elle peut aussi entraîner une violation des droits à l'image, droits des personnes ou de tous autres droits et réglementations en vigueur.
                                 </p>
 
                                 <h4 class="mt-5 pb-3">
-                                    ARTICLE 10. COOKIES
+                                    ARTICLE 6. PROTECTION DES DONNÉES PERSONNELLES
                                 </h4>
 
                                 <p>
-                                    Le site a éventuellement recours aux techniques de "cookies" lui permettant de
-                                    traiter des statistiques et des informations sur le trafic, de faciliter la
-                                    navigation et d'améliorer le service pour le confort de l'utilisateur, lequel peut
-                                    s'opposer à l'enregistrement de ces "cookies" en configurant son logiciel de
-                                    navigation.
+                                    Conformément à la loi n°78-17 du 6 janvier 1978, dite « Informatique et libertés », PasseTonBillet a fait l'objet d'une déclaration auprès de la Commission Nationale de l'Informatique et des Libertés (C.N.I.L) sous le numéro: 1371661. Conformément à l'article 27 de la loi n°78-17 du 6 janvier 1978, vous disposez à tout moment d'un droit d'accès et de rectification des données vous concernant. Pour exercer ces droits, les Utilisateurs du Site Internet PasseTonBillet sont invités à adresser un email à l’adresse : contact@passetonbillet.fr
                                 </p>
 
                                 <h4 class="mt-5 pb-3">
-                                    ARTICLE 11. PROPRIÉTÉ INTELLECTUELLE
+                                    ARTICLE 7. NULLITE
                                 </h4>
 
                                 <p>
-                                    La structuration du site mais aussi les textes, graphiques, images, photographies,
-                                    sons, vidéos et applications informatiques qui le composent sont la propriété de
-                                    l'éditeur et sont protégés comme tels par les lois en vigueur au titre de la
-                                    propriété intellectuelle.
-                                    <br><br>Toute représentation, reproduction, adaptation ou exploitation partielle ou totale
-                                    des contenus, marques déposées et services proposés par le site, par quelque procédé
-                                    que ce soit, sans l'autorisation préalable, expresse et écrite de l'éditeur, est
-                                    strictement interdite et serait susceptible de constituer une contrefaçon au sens
-                                    des articles L. 335-2 et suivants du Code de la propriété intellectuelle. Et ce, à
-                                    l'exception des éléments expressément désignés comme libres de droits sur le site.
-                                    <br><br>L'accès au site ne vaut pas reconnaissance d'un droit et, de manière générale, ne
-                                    confère aucun droit de propriété intellectuelle relatif à un élément du site,
-                                    lesquels restent la propriété exclusive de l'éditeur.
-                                    <br><br>Il est interdit à l'utilisateur d'introduire des données sur le site qui
-                                    modifieraient ou qui seraient susceptibles d'en modifier le contenu ou l'apparence.
-
+                                    Si une ou plusieurs dispositions des présentes Conditions d’Utilisation sont tenues pour non valides ou déclarées comme telles en application d'une loi, d'un règlement ou à la suite d'une décision devenue définitive d'une juridiction compétente, les autres stipulations des présentes Conditions d’Utilisation garderont toute leur force et leur portée. Dans cette hypothèse PasseTonBillet s’engage à supprimer et remplacer immédiatement ledit article par une autre clause juridiquement valide.
                                 </p>
 
                                 <h4 class="mt-5 pb-3">
-                                    ARTICLE 12. LOI APPLICABLE ET JURIDICTION COMPÉTENTE
+                                    ARTICLE 8. TITRE
                                 </h4>
 
                                 <p>
-                                    Les présentes Conditions Générales d'Utilisation sont régies par la loi française. En cas de différend et à défaut d'accord amiable, le litige sera porté devant les tribunaux français conformément aux règles de compétence en vigueur.
+                                    En cas de difficulté d'interprétation entre le titre et le chapitre de l’un quelconque des articles et l'une quelconque des clauses, les titres seront réputés non-écrits.
                                 </p>
+
+                                <h4 class="mt-5 pb-3">
+                                    ARTICLE 9. DROIT APPLICABLE – ATTRIBUTION DE JURIDICTION
+                                </h4>
+
+                                <p>
+                                    Les présentes Conditions d'Utilisation sont régies, interprétées et appliquées par le droit français. La langue d'interprétation est la langue française en cas de contestation sur la signification d'un terme ou d'une disposition des présentes Conditions d'Utilisation. Tout désaccord ou litige n'ayant pu trouver une issue transactionnelle sera porté devant les tribunaux compétents. PasseTonBillet n'est pas compétent pour régler les litiges qui pourraient naître entre les Utilisateurs.
+                                </p>
+
+                                <br>
+                                <br>
+
+                                <h5>Informations légales</h5>
+
+                                <br>
+                                <p>Nom de domaine: passetonbillet.fr</p>
+                                <br>
+                                <p>Editeur: CB INNOVATION SAS</p>
+                                <br>
+                                <p>Contact: contact(at)passetonbillet.fr</p>
+                                <br>
+                                <p>Hébergeur:</p>
+                                <p>SAS OVH - https://www.ovh.com</p>
+                                <p>2 rue Kellermann</p>
+                                <p>BP 80157</p>
+                                <p>59100 Roubaix</p>
+
 
                                 <p class="text-center font-italic mt-5">
-                                    Le site Ptb.io vous souhaite une excellente navigation !
+                                    L'équipe PasseTonBillet.fr vous souhaite une excellente navigation !
                                 </p>
 
                             </div>

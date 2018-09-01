@@ -36,330 +36,219 @@
                     </nav>
                     <div class="content">
                         <div>
-                            <h2 class="text-center text-white">Terms of Service<br>Ptb.io</h2>
+                            <h2 class="text-center text-white">TERMS AND CONDITIONS OF USE OF WWW.PASSETONBILLET.FR</h2>
                             <p class="text-center text-white">
-                                Last updated: March 10, 2018
+                                Current version published on 01/09/2018 <br>
+                                Current version effective 01/09/2018
                             </p>
                             <div class="container container-over-bg p-5 mt-3 text-justify">
+                                <p> This website passetonbillet.fr is published by CB INNOVATION, a simplified joint-stock company with a capital of 27,500 euros, registered with the Trade and Companies Register of Lyon, under the number RCS 513 007 880, whose registered office is located 27 route de limonest, 69 450, Saint Cyr to the golden mount. </p>
+                                <br>
 
-                                <h4 class="mt-3 pb-3">ARTICLE 1. LEGAL INFORMATION
-                                </h4>
+                                <h4 class="mt-3 pb-3">PREAMBLE</h4>
 
-                                <p>Under Article 6 of Law No. 2004-575 of 21 June 2004 on confidence in the digital
-                                    economy, this article specifies the identity of the various parties involved in its
-                                    implementation and monitoring.
+                                <p>CB INNOVATION has developed an online platform on the Website accessible at www.passetonbillet.fr.
+                                   This Platform is intended to offer Users a service of placing search and publication of used tickets for the train.
+                                   We thank you for reading carefully these Terms because they contain important information concerning the rights and obligations of Users. They include various limitations and exclusions, as well as obligations regarding compliance with applicable laws and regulations.
+                                   Unless special conditions relating to a service or an offer, any new service or modification of service in place and / or produced by the company CB INNOVATION will be subject to these Terms of Use. nouveau service ou modification de service en place et/ou produit par la société CB INNOVATION sera soumis aux présentes Conditions d'Utilisation.
                                 </p>
+
+                                <br>
+
+                                <h4 class="mt-3 pb-3">ACCEPTANCE OF TERMS</h4>
+
+                                <h5 class="mt-3 pb-3">Acceptance</h5>
+                                <p>The User may benefit from the Services offered on the Platform only subject to the acceptance of these Terms. The User may not use the Service without having first read and accepted the TOS when registering on the Platform.
+                                   The acceptance of these Terms in the form of a "checkbox" constitutes proof that the User has read through the Site these provisions and is acceptance of these Terms.
+                                   These Terms are available and accessible online via the Site.
+                                   The User declares to have obtained from PasseTonBillet all the necessary information concerning the Services offered and to adhere without reserve to these Terms of Use.
+                                   The User has the option to save and print these Terms using the standard features of his browser or computer.
+                                </p>
+
+                                <h5 class="mt-3 pb-3">Enforceability</h5>
+                                <p>These Terms come into effect on the date of their online publication and are binding upon their acceptance by the User, when registering for the Member Area.
+                                  These Terms are enforceable for the duration of use of the Services and until new Terms replace them.
+                                  The online terms and conditions on the Platform take precedence over any printed version of the previous date.
+                                   These Terms and Conditions cancel and replace any previous version.
+                                  The User may at any time waive the use of the Services and the Platform but remains committed to any previous use.
+                                </p>
+
+                                <h5 class="mt-3 pb-3">Change</h5>
+                                <p>PasseTonBillet reserves the right, in its sole discretion, at any time and without notice, to adapt or modify these Terms. Changes to these Terms will be notified to Users through a "pop in" window. If the User disagrees with this new version of the notified TOS, he may freely stop using the Services.
+                                  The new version of the Terms will be published on the Site.
+                                  PasseTonBillet will inform each User by e-mail to the address indicated on the Member Account of any modification of these Terms and Conditions no earlier than 30 (thirty) days before their entry into force.
+                                  The User may make comments to the new version of the GTU within 30 (thirty) days of receipt of notification of changes to the Terms of Use. After this period, the new Terms will be deemed to have been accepted by the User.
+                                  When a User does not accept the new Terms, he must immediately stop using the Site.
+                                  In any case, in the absence of observations, the new Terms will be deemed accepted by the User who, at the time of the next rental, will expressly accept the Terms by means of a check box.
+                                </p>
+
+                                <br>
+
+                                <h4 class="mt-3 pb-3">ARTICLE 1: OBJECT</h4>
+
+                                <p>Passetonbillet.fr is a site that offers a number of hosting services and distribution of ads resale tickets and linking for individuals. The purpose of this document is to determine the general conditions of use of the "passetonbillet.fr" website. (Hereinafter referred to as the "Terms of Use"). The user designates any person who accesses the Site PassTonBillet (hereinafter referred to as "the User") The website below "Site" means the site accessible at the address http://www.passetonbillet.fr. Any User who does not comply with the provisions of these Terms of Use may be immediately withdrawn access to the services of the Site, without compensation or notice. The use of the website "passetonbillet.fr" and the services offered therein implies the express and complete acceptance by the user of these Terms of Use. The Terms of Use may be revised and updated at any time without notice. The user is invited to consult them at each of his connections to the PasseTonBillet Site. </p>
+
+                                <h4 class="mt-5 pb-3">ARTICLE 2. USE AND REGISTRATION IN PASSETONBILLET</h4>
 
                                 <p>
-                                    Ptb.io website is published by:
-                                </p>
+                                    Access to certain features requires the creation of an account. You warrant that the data you provide to us is accurate and truthful. After your registration you have a personal and confidential username and password. In any case, you must not divulge its information, guaranteeing the confidentiality of your navigation. PasseTonBillet can not be responsible for the loss of these identifiers. You are solely responsible for the fraudulent use or misuse by third parties of your identifiers and passwords. The user is informed that he remains entirely responsible for the respect of the confidentiality of the passwords associated with any account allowing him to have access to PasseTonBillet. Any registration deemed to be bad may be removed by PasseTonBillet without having to notify the registered User beforehand. To register, any User must be at least 18 years of age, or at least 18 years old, or use the Site under the strict responsibility of a major who supervises the navigation of the Site.    </p>
 
-                                <p class="ml-5">
-                                    Axel A. & Julien N.
-                                    <br>E-mail address: contact@ptb.io
-
-                                    The publishing directors of the site are:
-                                    Axel A. & Julien N.
-
-                                </p>
+                                <h4 class="mt-5 pb-3">ARTICLE 3. ADVERTISEMENTS, CONDITIONS OF DISTRIBUTION AND TRANSACTIONS</h4>
 
                                 <p>
-                                    Ptb.io site is hosted by:
-                                </p>
-                                <p class="ml-5">
-                                    Heroku Inc., headquartered at 650 7th Street, San Francisco, CA <br>
-                                    Phone number: +33 1 (877) 563-4311
+                                    The advertiser acknowledges being the sole and exclusive author of the ad text. Otherwise, it declares to have all the rights and authorizations necessary for the publication of the announcement. PasseTonBillet is a technical intermediary within the meaning of Article 6.1.2 of the law for confidence in the digital economy known as "LCEN" of June 21, 2004 and allows the hosting and dissemination of advertisements on the site it edits and intervenes only in this quality between the User and the Advertisers. The advertisement is distributed under the exclusive responsibility of the advertiser and PasseTonBillet does not intervene in the drafting and publication of advertisements. Advertisements must relate exclusively to valid and genuine tickets and must not contain false or misleading information. Any user who uses the ticket resale posting service certifies that the advertisement complies with all legal and regulatory provisions in force and respects the rights of third parties. The advertisements must conform to the entirety of the law in force in France, and in particular to the law of June 27th, 1919, relating to the suppression of the traffic of theater tickets, according to which the resale of tickets benefiting from public subsidies does not is authorized only if the resale price does not exceed the price shown on these notes. Thus, all users of the site are reminded that the fact of selling or selling tickets at a price higher than the face value of the ticket constitutes an offense and a violation of the law and the conditions of the ticket. 'use.   </p>
 
-                                </p>
-
-                                <h4 class="mt-5 pb-3">ARTICLE 2. PRESENTATION OF THE SITE</h4>
-
+                                <h5 class="mt-3 pb-3">Broadcast ads</h5>
                                 <p>
-                                    The Ptb.io site aims to:
-                                </p>
-                                <p class="ml-5">
-                                    Connect users who want to buy or sell European train tickets between them. Tickets MUST be nominative under the name of the Ptb.io user.
+                                    It is the sole User wishing to sell or buy a ticket to inquire with the issuer of the ticket to find out all the conditions of transferability in force. It is recalled that in all circumstances, the transfer of the notes is at the risk and peril of the transferor and the transferee.
+                                   CB INNOVATION declines, within the limits of what is authorized by the legal provisions of public order, any responsibility as for the User Content, the legality of the articles proposed for sale or the conditions of sale themselves.
+                                  Therefore, CB INNOVATION can not, be held responsible directly or indirectly in case of dissatisfaction or damage suffered by the seller or the buyer of a ticket, and for any reason whatsoever.
+
+                                <p> To publish an advertisement on the Site, the User undertakes to have previously made sure that the ticket offered for sale complies with the conditions of the resale of railway tickets, in particular the following elements:</p>
+                                <li>it is forbidden to sell a ticket at a price higher than the face value of the purchased ticket</li>
+                                <li>the information contained in an advertisement published by the Users must strictly correspond to those appearing on the ticket offered for sale by the User</li>
+                                <li>the sale of marbles must take place between individuals and must comply with any other general or specific condition concerning the transfer of the ticket.</li>
                                 </p>
 
-                                <h4 class="mt-5 pb-3">ARTICLE 3. CONTACT
-                                </h4>
-
-                                <p>
-                                    For any question or request for information about the site, or any report of illegal
-                                    content or activities, the user can contact the editor at the following e-mail
-                                    address: contact@ptb.io.
+                                <p> Selling users commit themselves to:
                                 </p>
+                                <li>ndo not resell or attempt to resell 'e-ticket / m-SNCF ticket or Confirmation e-SNCF ticket / Memo e-ticket form of ticket "classic" which are nominative and non-transferable from their purchase. In the event that a buyer has unknowingly bought an SNCF e-ticket, a SNCF e-ticket confirmation, a memo e-SNCF ticket must be refunded by the seller. </li>
+                                <li>warn buyers of the risks involved in traveling with Eurostar, Thalys Ticketless, IZY Thalys tickets which can be subject to identity checks as they are registered and non-transferable.</li>
+                                <li>
+                                    refund the buyer of the price they have received for their ticket in the event of a check which obliged the buyer to cancel his trip or to buy a ticket at a high price.
+                                </li>
+                                <li>
+                                    report exactly and completely the data indicated on the ticket or the order of the ticket that they offer for sale (journey, date, time, price paid, conditions of use, ...)
+                                </li>
+                                <li>
+                                    ne pas céder un billet à un prix plus élevé que celui indiqué sur ce même billet.
+                                </li>
+                                <br>
+                                <p>The information given by the seller is under his sole responsibility and the site reserves the right to modify or withdraw the sale, or even not to sell the ticket, if they are not in compliance with the charter,
+                                </p>
+
+                                <li>
+                                    send the transferred ticket as soon as possible to the addressee as soon as it has been paid for it, according to the terms of exchange agreed between the parties,
+                                </li>
+                                <li>
+                                    not to use the telephone numbers and the emails of the buyers for a use other than that envisaged by the use of the site,
+                                </li>
+                                <li>
+                                    withdraw from the sale the notes they have deposited there as soon as they have committed to sell them to a buyer
+                                </li>
+                                <li>
+                                    not to resell to the buyers having contacted them through the site, tickets which would not have been the subject of a deposit on the site. In this case the site can not in any way be held responsible for the validity of these tickets that it can not control.
+                                </li>
+
+                                <br>
+
+                                <h5>Terms of exchange and transaction
+                                </h5>
+
+                                <li>
+                                    they are at the convenience of the parties. It takes place directly between the transferor and the transferee. PassTonBillet does not intervene in the transaction, nor does it act as an intermediary.
+                                </li>
+                                <li>
+                                    in the case of exchange by mail, the site allows the seller and the buyer free to use the procedure that suits them.
+                                </li>
+
+                                <p>Tips for buyers:
+                                </p>
+
+                                <li>
+                                    refuse to pay more than the price listed on the ad and on the ticket,
+                                </li>
+                                <li>
+                                    do not hesitate to inform the moderator of the site if the seller wants you to pay more than the price paid indicated on the ticket
+                                </li>
+                                <li>
+                                    in the case of a payment before sending the ticket, be sure to obtain the exact identity of the seller (name, first name, address, telephone, e-mail) and avoid payment systems "anonymous" type "money order" or WESTERN UNION for example)
+                                </li>
+
+                                <p>Be very careful when it comes to printed tickets Ouigo, Izy Thalys, Thello or Eurostar because, even if the seller gives you the file reference allowing you to create and print your ticket, he can use it to your unknowingly to exchange / modify the ticket, to sell it to several people and to make sure that the one you have in hand becomes invalid.    </p>
+
+                                <p>We have found scams with the Eurostar Paris-London or London-Paris "printed" tickets and we strongly advise against redeeming them without ascertaining the identity of the seller.
+                                </p>
+
+                                <h5>Limitation of liability
+                                </h5>
+
+                                <p>PasseTonBillet will not be held under any circumstances to reparation, pecuniary or in kind, due to errors or omissions in the composition or translation of an advertisement, or lack of publication of any kind whatsoever. Such events will not be eligible for compensation in any form whatsoever. As recalled, PasseTonBillet acts as host of ads for ticket sales and can not be pursued on the content of the exchanges, or on the consequences that may be given, in any form whatsoever. PasseTonBillet's liability as a technical intermediary may only be engaged after being notified of the unlawful nature of the content disseminated on the site. That is what will lead PasseTonBillet, on simple notification made in the terms of article 6.I-5 of this law about the disputed contents and which are therefore either prohibited or violating the rights of the person and the intellectual property, to proceed on its own and by authority to the withdrawal of the corresponding advertisements. PasseTonBillet can not be held responsible for any damage suffered by a User in the context of abnormal use of PasseTonBillet services.           </p>
 
                                 <h4 class="pt-1 pb-3">
-                                    ARTICLE 4. ACCEPTANCE OF TERMS OF USE
+                                    ARTICLE 4. EXCLUSION OF GUARANTEES
                                 </h4>
 
                                 <p>
-                                    Access and use of the site are subject to acceptance and compliance with these Terms
-                                    of Use.
-                                    <br><br>The publisher reserves the right to modify, at any time and without notice,
-                                    the site
-                                    and the services as well as the present TOU, in particular to adapt to the
-                                    evolutions of the site by the provision of new functionalities or the deletion or
-                                    the modification of existing features.
-                                    <br><br>It is therefore advisable for the user to refer before any navigation to the
-                                    latest
-                                    version of the Terms, accessible at any time on the site. In case of disagreement
-                                    with the TOU, no use of the site can be made by the user.
-
+                                    The site passetonbillet.fr can not guarantee the following elements:
                                 </p>
-
-
-                                <h4 class="mt-5 pb-3">
-                                    ARTICLE 5. ACCESS AND NAVIGATION
-                                </h4>
-
-                                <p>
-                                    Access to the site and its use are reserved for persons aged at least 16 years old.
-                                    The publisher will be entitled to request a justification of the age of the user, by
-                                    any means.
-                                    <br><br>The publisher implements the technical solutions at his disposal to allow
-                                    access to the site 24 hours a day, 7 days a week. He may nevertheless at any time
-                                    suspend, limit or interrupt access to the site or to certain pages of the site. the
-                                    latter to make updates, changes to its content or any other action deemed necessary
-                                    for the proper functioning of the site.
-                                    <br><br>The connection and browsing on the site Ptb.io are worth full acceptance
-                                    of these Terms of Use, whatever the technical means of access and terminals used.
-                                    <br><br>These Terms apply, as necessary, any declination or extension of the site on
-                                    social networks and / or community existing or future.
+                                <li>
+                                    That the use of the services will be uninterrupted, fast, secure or error-free.
+                                </li>
+                                <li>
+                                    That any information that you will obtain following the use of the PasseTonBillet site will be exact or reliable.
+                                </li>
+                                <li>
+                                    That the use or result of the use of the PasseTonBillet website will be correct, accurate, timely or otherwise reliable.
+                                </li>
+                                <p>No warranty, condition or other stipulation including any implied warranties of satisfactory quality, fitness for a particular purpose or compliance with the description shall apply to PasseTonBillet.
                                 </p>
 
                                 <h4 class="mt-5 pb-3">
-                                    ARTICLE 6. SITE MANAGEMENT
+                                    ARTICLE 5. INTELLECTUAL PROPERTY
                                 </h4>
 
                                 <p>
-                                    For the good management of the site, the publisher can at any time:
-                                    <br>
-                                <ul>
-                                    <li>suspend, interrupt or limit access to all or part of the site, reserve access to
-                                        the site, or parts of the site, to a specific category of user;
+                                    All the elements constituting the Site (Modules, graphic chart, application, texts, graphics, software, photographs, images, videos, sounds, plans, names, logos, creations and various protectable works, databases, etc ... ) and the Site itself, are subject to French and international legislation on copyright and rights related to copyright (in particular Articles L122-4 and L122-5 of the Code of Intellectual Property). . Any use not expressly and previously authorized elements of the Site by PasseTonBillet constitutes a violation of its intellectual property rights and constitutes an infringement. It may also result in a violation of image rights, rights of persons or any other rights and regulations in force.          </p>
 
-                                    </li>
-                                    <li>to delete any information that could disrupt its operation or that contravenes
-                                        national or international laws or Netiquette rules;
+                                <h4 class="mt-5 pb-3">
+                                    ARTICLE 6. PROTECTION OF PERSONAL DATA
+                                </h4>
 
-                                    </li>
-                                    <li>suspend the site in order to carry out updates.
-                                    </li>
-                                </ul>
+                                <p>
+                                    In accordance with the law n ° 78-17 of 6 January 1978, known as "Informatique et Libertés", PasseTonBillet has been the subject of a declaration to the Commission Nationale Informatique et Libertés (CNIL) under the number: 1371661. Pursuant to Article 27 of Law No. 78-17 of 6 January 1978, you have at any time a right to access and rectify data concerning you. To exercise these rights, Users of the PasseTonBillet Website are invited to send an email to the address: contact@passetonbillet.fr                                </p>
 
+                                <h4 class="mt-5 pb-3">
+                                    ARTICLE 7. NULLITY
+                                </h4>
+
+                                <p>
+                                    If one or more provisions of these Terms of Use are held to be invalid or declared as such pursuant to a law, regulation or following a decision become final from a competent jurisdiction, the other stipulations these Terms of Use will retain all their strength and scope. In this case, PasseTonBillet undertakes to immediately delete and replace the said article with another legally valid clause.                                </p>
+
+                                <h4 class="mt-5 pb-3">
+                                    ARTICLE 8. TITLE                                </h4>
+
+                                <p>
+                                    In case of difficulty of interpretation between the title and the chapter of any of the articles and any of the clauses, the titles will be considered as not written.
                                 </p>
 
                                 <h4 class="mt-5 pb-3">
-                                    ARTICLE 7. SERVICES RESERVED FOR REGISTERED USERS
-                                </h4>
-
-                                <h5 class="pb-3">
-                                    7.1 REGISTRATION
-                                </h5>
+                                    ARTICLE 9. APPLICABLE LAW - JURISDICTION                                </h4>
 
                                 <p>
-                                    Access to certain services is conditioned by the registration of the user.
-                                    <br><br>The registration and access to the services of the site are reserved
-                                    exclusively for natural persons legally capable, having completed and validated the
-                                    registration form available online on the website Ptb.io, as well as these Terms
-                                    of Use.
+                                    These Terms of Use are governed, interpreted and applied by French law. The language of interpretation is the French language in case of dispute over the meaning of a term or a provision of these Terms of Use. Any disagreement or dispute that could not find a transactional outcome will be brought before the competent courts. PasseTonBillet is not competent to settle disputes that may arise between Users.                                </p>
 
-                                    <br><br>When registering, the user agrees to provide accurate, truthful and
-                                    up-to-date information about his person and his marital status. The user will also
-                                    have to regularly check the data concerning him in order to preserve its accuracy.
+                                <br>
+                                <br>
 
-                                    <br><br>The user must provide a valid e-mail address, on which the site will send a
-                                    confirmation of his registration to his services. An e-mail address cannot be used
-                                    multiple times to register for services.
+                                <h5>legal information</h5>
 
-                                    <br><br>Any communication made by Ptb.io and its partners is therefore deemed to
-                                    have been received and read by the user. The latter therefore undertakes to
-                                    regularly consult the messages received on this e-mail address and to respond within
-                                    a reasonable time if necessary.
+                                <br>
+                                <p>Domain Name: passetonbillet.fr</p>
+                                <br>
+                                <p>Publisher: CB INNOVATION SAS</p>
+                                <br>
+                                <p>Contact: contact (at) passetonbillet.fr</p>
+                                <br>
+                                <p>Host:</p>
+                                <p>SAS OVH - https://www.ovh.com</p>
+                                <p>2 rue Kellermann</p>
+                                <p>BP 80157</p>
+                                <p>59100 Roubaix</p>
 
-                                    <br><br>Only one registration for the services of the site is admitted by natural
-                                    person.
-
-                                    <br><br>The user is assigned an identifier allowing him to access a space whose
-                                    access is reserved for him (hereinafter "Personal Area"), in addition to entering
-                                    his password.
-
-                                    <br><br>The username and password can be modified online by the user in his Personal
-                                    Area. The password is personal and confidential, the user agrees not to communicate
-                                    it to third parties.
-
-                                    <br><br>Ptb.io reserves in any case the possibility of refusing an application
-                                    for registration to the services in case of non-compliance by the User of the
-                                    provisions of these Terms of Use.
-
-
-                                </p>
-
-                                <h5 class="mt-3 pb-3">
-                                    7.2 DISINSCRIPTION
-                                </h5>
-
-                                <p>
-                                    The regularly registered user may at any time request unsubscription by visiting the
-                                    dedicated page in his Personal Area. Any unsubscription from the site will be
-                                    effective immediately after the user has completed the form provided for this
-                                    purpose.
-
-
-                                </p>
-
-                                <h4 class="mt-5 pb-3">
-                                    ARTICLE 8. RESPONSIBILITIES
-                                </h4>
-
-                                <p>
-                                    The publisher is only responsible for the content he has edited himself.
-                                    The publisher is not responsible :
-                                </p>
-                                <ul>
-                                    <li>
-                                        in case of issues or technical, computer or compatibility problems of the site
-                                        with any hardware or software;
-                                    </li>
-                                    <li> direct or indirect, material or immaterial, foreseeable or unforeseeable damage
-                                        resulting from the use or difficulties of use of the site or its services;
-
-                                    </li>
-                                    <li> intrinsic characteristics of the Internet, particularly those relating to
-                                        unreliability and lack of security of information circulating there;
-
-                                    </li>
-                                    <li> unlawful content or activities using his site without his having been duly
-                                        informed within the meaning of Law No. 2004-575 of 21 June 2004 on Confidence in
-                                        the Digital Economy and Law No. 2004- 801 of 6 August 2004 on the protection of
-                                        individuals with regard to the processing of personal data;
-                                    </li>
-                                    <li> the sale of a fake European train ticket between the users preventing a buyer from
-                                        taking the train indicated on the purchased ticket;
-
-                                    </li>
-                                    <li> the sale of a European train ticket in multiple copies between the users preventing a
-                                        buyer from taking the train indicated on the purchased ticket;
-
-                                    </li>
-                                    <li> any legal problem involving the purchase and resale of European train tickets;
-
-                                    </li>
-                                    <li> any physical problems that may occur during the exchange of European train tickets
-                                        between Ptb users;
-
-                                    </li>
-                                    <li> any financial problem including the non-receipt of the total or partial amount
-                                        corresponding to the selling price of an European train ticket listed on Ptb.io that
-                                        may occur during the exchange of European train tickets between users of Ptb.
-
-                                    </li>
-                                </ul>
-
-                                <p>
-                                    The publisher reminds users that the ONLY ONE UNIQUE role of the online platform
-                                    Ptb.io is to CONNECT INDIVIDUALS WISHING TO BUY OR RESELL EUROPEAN TRAIN TICKETS UNDER
-                                    THEIR NAME.
-                                    LASTAR INC. IS NOT INVOLVED AND HAS NO RESPONSIBILITY IN ALL FINANCIAL TRANSACTIONS
-                                    AND PHYSICAL AND VIRTUAL EXCHANGES AND PROBLEMS RELATED TO THE LATTERS AFTER TWO
-                                    USERS OF THE PLATFORM HAVE BEEN CONNECTED TOGETHER THROUGH THE LASTAR.IO WEBSITE.
-                                    <br><br>Furthermore, the site can not guarantee the accuracy, completeness, and
-                                    timeliness of the information that is disseminated.
-                                    <br><br>The user is responsible for:
-
-                                </p>
-
-                                <ul>
-                                    <li>the protection of his equipment and data;
-
-                                    </li>
-                                    <li>the use he makes of the site or its services;
-                                    </li>
-                                    <li>if it does not respect the letter or the spirit of these Terms of Use.
-
-                                    </li>
-                                </ul>
-
-                                </p>
-
-                                <h4 class="mt-5 pb-3">
-                                    ARTICLE 9. HYPERTEXT LINKS
-                                </h4>
-
-                                <p>
-                                    The site may contain hypertext links pointing to other websites on which Ptb.io
-                                    does not exercise control. Despite the prior and regular verifications carried out
-                                    by the publisher, it declines all responsibility for the content that can be found
-                                    on these sites.
-
-                                    <br><br>The publisher authorizes the setting up of hypertext links to any page or
-                                    document of his site provided that the establishment of these links is not carried
-                                    out for commercial or advertising purposes.
-
-                                    <br><br>In addition, the prior information of the publisher of the site is necessary
-                                    before setting up any hypertext link.
-
-                                    <br><br>This authorization does not cover sites that disseminate information that is
-                                    unlawful, violent, controversial, pornographic, xenophobic or that may affect the
-                                    sensitivity of the greatest number.
-
-                                    <br><br>Finally, Ptb.io reserves the right to delete at any time a hypertext link
-                                    pointing to its site, if the site considers it not in accordance with its editorial
-                                    policy.
-
-                                </p>
-
-                                <h4 class="mt-5 pb-3">
-                                    ARTICLE 10. COOKIES
-                                </h4>
-
-                                <p>
-                                    The site may use "cookies" techniques to process traffic statistics and information,
-                                    facilitate navigation and improve the service for the convenience of the user, who
-                                    may oppose the use of cookies. registration of these "cookies" by configuring its
-                                    browser software.
-                                </p>
-
-                                <h4 class="mt-5 pb-3">
-                                    ARTICLE 11. PROPRIÉTÉ INTELLECTUELLE
-                                </h4>
-
-                                <p>
-                                    The structure of the site but also the texts, graphics, images, photographs, sounds,
-                                    videos and computer applications that compose it are the property of the publisher
-                                    and are protected as such by the laws in force under the intellectual property.
-
-                                    <br><br>Any representation, reproduction, adaptation or partial or total use of the
-                                    contents, trademarks and services offered by the site, by any means whatsoever,
-                                    without the prior express written permission of the publisher, is strictly
-                                    prohibited and would be susceptible to constitute an infringement within the meaning
-                                    of articles L. 335-2 and following of the Code of the intellectual property. With
-                                    the exception of items expressly designated as royalty-free on the site.
-
-                                    <br><br>Access to the site does not constitute recognition of a right and, in
-                                    general, does not confer any intellectual property rights relating to an element of
-                                    the site, which remain the exclusive property of the publisher.
-
-                                    <br><br>It is forbidden for the user to enter data on the site that modifies or is
-                                    likely to modify its content or appearance.
-
-                                </p>
-
-                                <h4 class="mt-5 pb-3">
-                                    ARTICLE 12. APPLICABLE LAW AND COMPETENT JURISDICTION
-                                </h4>
-
-                                <p>
-                                    These Terms of Use are governed by French law. In case of dispute and failing
-                                    amicable agreement, the dispute will be brought before the French courts in
-                                    accordance with the rules of jurisdiction in force.
-                                </p>
 
                                 <p class="text-center font-italic mt-5">
-                                    The Ptb.io website wishes you an excellent navigation!
-                                </p>
+                                    The PasseTonBillet.fr team wishes you an excellent navigation!                                </p>
 
                             </div>
                         </div>
