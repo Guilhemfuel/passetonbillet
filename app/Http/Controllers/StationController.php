@@ -64,6 +64,19 @@ class StationController extends Controller
 
         $stations = Station::whereIn( 'id', $keys )->get();
 
+        return $this->sortResults($stations,$name,$secundName);
+    }
+
+    /**
+     * Sort given stations
+     *
+     * @param      $stations
+     * @param      $name
+     * @param null $secundName
+     *
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
+    private function sortResults($stations,$name,$secundName=null) {
         // Find parent station
         $parentStation = [];
         $maxParentStation = [
