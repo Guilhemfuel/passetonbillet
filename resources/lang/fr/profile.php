@@ -17,6 +17,8 @@ return [
     'member_since' => 'Membre depuis le ',
     'number_tickets_successfully_sold' => 'Tickets vendus avec succès',
     'by' => 'par',
+    'only_you' => 'Informations privées du profil',
+
 
     'stats_title' => 'Statistiques',
 

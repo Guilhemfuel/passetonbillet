@@ -8,14 +8,14 @@
     <title>PasseTonBillet @yield('title')</title>
 
     <!-- Favicon  -->
-    <link rel="apple-touch-icon" sizes="180x180" href="{{secure_asset('img/favicon/apple-touch-icon.png')}}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{secure_asset('img/favicon/favicon-32x32.png')}}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{secure_asset('img/favicon/favicon-16x16.png')}}">
-    <link rel="manifest" href="{{secure_asset('img/favicon/site.webmanifest')}}">
-    <link rel="mask-icon" href="{{secure_asset('img/favicon/safari-pinned-tab.svg')}}" color="#5bbad5">
-    <link rel="shortcut icon" href="{{secure_asset('img/favicon/favicon.ico')}}">
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="msapplication-config" content="{{secure_asset('img/favicon/browserconfig.xml')}}">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-touch-icon.png?v=2">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png?v=2">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16x16.png?v=2">
+    <link rel="manifest" href="img/favicon/site.webmanifest?v=2">
+    <link rel="mask-icon" href="img/favicon/safari-pinned-tab.svg?v=2" color="#FF9600">
+    <link rel="shortcut icon" href="img/favicon/favicon.ico?v=2">
+    <meta name="msapplication-TileColor" content="#ff9600">
+    <meta name="msapplication-config" content="img/favicon/browserconfig.xml?v=2">
     <meta name="theme-color" content="#ffffff">
 
     <!-- Google Property -->
@@ -23,6 +23,9 @@
 
     <!-- Facebook MetaTags -->
     <meta property="fb:app_id" content="{{env('FB_APP_ID')}}"/>
+    <meta property="og:title" content="Passe Ton Billet" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="{{secure_asset('img/preview-fb.png')}}" />
 
     <!-- Pusher App id-->
     <meta name="pusher:app_key" content="{{env('PUSHER_APP_KEY')}}"/>
