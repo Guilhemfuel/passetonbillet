@@ -1,39 +1,12 @@
-@extends('layouts.app')
+@extends('layouts.dashboard')
 
-@section('content')
+@section('dashboard-content')
 
     <div class="privacy-page">
 
         <div class="section-header">
-            <div class="first-section" style="background-image: url('{{secure_asset('img/bg/3.jpg')}}');">
+            <div class="first-section">
                 <div class="fixed-content">
-                    <nav class="navbar">
-                        <a class="navbar-brand" href="{{route('home')}}">
-                            <img src="{{secure_asset('img/logo.png')}}" class="d-inline-block align-top" alt="logo ptb">
-                        </a>
-                        <ul class="navbar-nav navbar-expand">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('login')}}">@lang('nav.login')</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('register')}}">@lang('nav.register')</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#" onclick="$crisp.push(['do', 'chat:open'])">
-                                    <i class="fa fa-question-circle" aria-hidden="true"></i>
-                                </a>
-                            </li>
-                            @if (App::isLocale('fr'))
-                                <a class="nav-link" href="{{route('lang','en')}}">
-                                    <span class="flag-icon flag-icon-gb"></span>
-                                </a>
-                            @else
-                                <a class="nav-link" href="{{route('lang','fr')}}">
-                                    <span class="flag-icon flag-icon-fr"></span>
-                                </a>
-                            @endif
-                        </ul>
-                    </nav>
                     <div class="content">
                         <div>
                             <h2 class="text-center text-white">Mentions légales
@@ -46,7 +19,6 @@
                             <div class="container container-over-bg p-5 mt-3 text-justify">
 
                                 <h5 class="mt-3 pb-3">I. INFORMATIONS LÉGALES
-
                                 </h5>
 
                                 <div>
