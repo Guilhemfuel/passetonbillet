@@ -1,5 +1,5 @@
 <nav class="navbar navbar-light navbar-expand" id="nav-bar">
-    <div class="container-fluid">
+    <div class="container">
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
