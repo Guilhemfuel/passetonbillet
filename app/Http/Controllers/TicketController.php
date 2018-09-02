@@ -136,7 +136,6 @@ class TicketController extends Controller
             'buyer_name'      => \Auth::user()->last_name
         ] );
 
-
         // Log the IP of the seller
         AppHelper::stat( 'add_ticket', [
             'ticket_id' => $ticket->id,

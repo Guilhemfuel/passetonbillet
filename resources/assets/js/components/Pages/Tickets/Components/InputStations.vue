@@ -39,10 +39,12 @@
             }
         },
         methods: {
-            changeDeparture() {
+            changeDeparture(station) {
+                this.departStation = station;
                 this.$emit('change-departure',this.departStation);
             },
-            changeArrival() {
+            changeArrival(station) {
+                this.arrivalStation = station;
                 this.$emit('change-arrival',this.arrivalStation);
             },
             swap() {

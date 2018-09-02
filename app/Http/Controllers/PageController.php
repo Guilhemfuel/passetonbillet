@@ -8,7 +8,6 @@ use App\Facades\Eurostar;
 use App\Http\Resources\DiscussionCollectionResource;
 use App\Http\Resources\DiscussionLastMessageResource;
 use App\Http\Resources\StationRessource;
-use App\Http\Resources\TicketFullRessource;
 use App\Http\Resources\TicketRessource;
 use App\Http\Resources\UserRessource;
 use App\Models\Discussion;
@@ -112,7 +111,7 @@ class PageController extends Controller
 
         return view( 'tickets.owned' )->with( 'user', new UserRessource( \Auth::user() ) )
                                       ->with( 'tickets', TicketRessource::collection( \Auth::user()->tickets ) )
-                                      ->with( 'boughtTickets', TicketFullRessource::collection( \Auth::user()->boughtTickets ) )
+                                      ->with( 'boughtTickets', TicketRessource::collection( \Auth::user()->boughtTickets ) )
                                       ->with( 'offerSent', DiscussionLastMessageResource::collection( \Auth::user()->offers
                                           ->whereIn( 'status', [
                                               Discussion::AWAITING,

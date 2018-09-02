@@ -242,7 +242,6 @@ class Eurostar
             }
         }
 
-
         // Now retrieve and save passbook url
         $ticket->passbook_link = $decoded['etapBooking']['ticketsData']['passbook'][$ticket->eurostar_ticket_number];
         $ticket->save();

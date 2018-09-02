@@ -4,7 +4,7 @@
             <div class="content">
                 <div class="station">
                     <p class="station-short">
-                        {{ticket.train.departure_city.short_name.substr(2, 5)}}
+                        {{ticket.train.departure_city.name.replace(/\s/g, '').substr(0, 3)}}.
                     </p>
                     <p class="time">
                         {{departure_time}}
@@ -12,11 +12,11 @@
                 </div>
                 <div class="date">
                     <span class="day">{{date.format('D')}}</span>
-                    <span class="month">{{date.format('MMMM')}}</span>
+                    <span class="month">{{date.format('MMM')}}</span>
                 </div>
                 <div class="station">
                     <p class="station-short">
-                        {{ticket.train.arrival_city.short_name.substr(2, 5)}}
+                        {{ticket.train.arrival_city.name.replace(/\s/g, '').substr(0, 3)}}.
                     </p>
                     <p class="time">
                         {{arrival_time}}
@@ -48,10 +48,10 @@
         props: {
             ticket: {type: Object, required: true},
             discussion: {type: Object},
-            user: {type: Object, required: false},
         },
         data() {
             return {
+                user: this.$root.user,
                 date: new moment(this.ticket.train.departure_date, 'YYYY-MM-DD') || null,
                 editing: false,
                 priceOffer: this.ticket.price,

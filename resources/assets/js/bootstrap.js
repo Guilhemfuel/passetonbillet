@@ -5,7 +5,7 @@
 var host = window.location.hostname;
 var local = false;
 
-if(host != 'passetonbillet.com') {
+if(host != 'passetonbillet.fr') {
     local = true;
 }
 
@@ -24,15 +24,7 @@ window.Vue.use(require('vue-resource'));
 
 import Raven from 'raven-js';
 import RavenVue from 'raven-js/plugins/vue';
-if (local) {
-    Raven.config('https://55043330c18c47a29c0d04e79e9426be@sentry.io/305544', {
-        environment: 'local',
-        debug: true
-
-    })
-    .addPlugin(RavenVue, Vue)
-    .install();
-} else {
+if (!local) {
     Raven.config('https://55043330c18c47a29c0d04e79e9426be@sentry.io/305544', {
         environment: 'production'
     })
