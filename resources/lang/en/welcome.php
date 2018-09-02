@@ -97,9 +97,8 @@ return [
         'partners'   => 'Partners',
         'conditions' => 'Terms',
         'privacy'    => 'Privacy',
-        'feedback' => 'Leave your feedback'
-
-
+        'feedback' => 'Leave your feedback',
+        'provider_disclaimer' => 'The brands SNCF, OuiSNCF, OUIGOSNCF, TGV, Prem\'s, Eurostar, Thalys are not the property of PasseTonBillet. These proprietary terms are only used for clarity purposes.'
     ]
 
 

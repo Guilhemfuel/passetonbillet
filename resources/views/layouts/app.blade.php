@@ -25,7 +25,7 @@
     <meta property="fb:app_id" content="{{env('FB_APP_ID')}}"/>
     <meta property="og:title" content="Passe Ton Billet" />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="{{secure_asset('img/preview-fb.png')}}" />
+    <meta property="og:image" content="{{secure_asset('img/preview-fb.jpg')}}" />
 
     <!-- Pusher App id-->
     <meta name="pusher:app_key" content="{{env('PUSHER_APP_KEY')}}"/>

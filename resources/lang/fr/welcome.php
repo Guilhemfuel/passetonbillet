@@ -97,7 +97,8 @@ return [
         'partners'   => 'Partenaires',
         'conditions' => 'Conditions d\'utilisation',
         'privacy'    => 'Politique de Confidentialité',
-        'feedback' => 'Donner votre avis'
+        'feedback' => 'Donner votre avis',
+        'provider_disclaimer' => ' Les marques SNCF, OuiSNCF, OUIGOSNCF, TGV, Prem\'s, Eurostar, Thalys ne sont pas la propriété de PasseTonBillet. Ces termes propriétaires ne sont utilisés que dans un souci de clarté.'
     ]
 
 
