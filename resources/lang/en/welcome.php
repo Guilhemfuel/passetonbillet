@@ -64,7 +64,7 @@ return [
         ],
         'cheaper'   => [
             'title' => 'So Cheap',
-            'text'  => 'To make us forgive for making you wait for months, the new version of Passetonbillet.com is a first time 100% free for all buyers and sellers.'
+            'text'  => 'Passetonbillet.com 100% free for all buyers and sellers. No ads, no commissions on tickets, pure happiness.'
         ],
         'safer'     => [
             'title' => 'So Safe',
@@ -72,7 +72,7 @@ return [
         ],
         '10years'   => [
             'title' => '10 Years of Experience',
-            'text'  => 'PasseTonBillet.fr is the first used train ticket resale site created. It is now 10 years that he listens and improves continuously to meet the expectations of its users.'
+            'text'  => 'PasseTonBillet exists since 10 years with the only purpose to offer you the cheapest ticket on the market.'
         ],
         'more_info' => 'More info'
     ],

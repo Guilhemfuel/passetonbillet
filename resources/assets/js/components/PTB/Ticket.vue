@@ -76,7 +76,7 @@
                             {{trans('tickets.component.sell')}}
                         </button>
                         <button class="btn btn-ptb btn-buy btn-sm" v-if="bought" @click="editing=true">
-                            {{trans('tickets.component.download')}}
+                            {{trans('tickets.component.infos')}}
                         </button>
                     </template>
                     <!-- Edit (in case of buying page, is a link-->
@@ -153,8 +153,8 @@
                         <div class="card-seller-info card-buying text-center">
                             <p class="text-center">
                                 <a v-if="ticket.id"
-                                   :href="route('public.message.discussion.page',[ticket.id, ticket.discussionId])"
-                                   class="btn btn-ptb btn-buy btn-sm">{{trans('tickets.component.discuss')}}</a>
+                                   :href="route('public.message.discussion.page',[ticket.id, ticket.discussion_id])"
+                                   class="btn btn-ptb btn-sm">{{trans('tickets.component.discuss')}}</a>
                             </p>
                         </div>
                     </template>

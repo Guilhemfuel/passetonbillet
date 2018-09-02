@@ -64,7 +64,7 @@ return [
         ],
         'cheaper' => [
             'title' => '100% Gratuit',
-            'text' => 'Pour nous faire pardonner de vous avoir fait patienter pendant des mois, la nouvelle version de Passetonbillet.com est un premier temps 100% gratuit pour tous les acheteurs et vendeurs.'
+            'text' => 'Passetonbillet.com est 100% gratuit pour les acheteurs et les vendeurs. Pas de pub, pas de commissions sur les billets, que du bonheur.'
         ],
         'safer' => [
             'title' => 'Plus Sécurisé',
@@ -72,7 +72,7 @@ return [
         ],
         '10years' => [
             'title' => '10 Ans d\'Experience',
-            'text' => 'PasseTonBillet.fr est le premier site de revente de billets de trains d’occasion créé. Cela fait maintenant 10 ans qu’il est à l’écoute et s’améliore continuellement afin de satisfaire les attentes de ses utilisateurs.'
+            'text' => 'PasseTonBillet existe depuis 10 ans avec pour seule ambition de vous proposer des billets les moins chers du marché.'
         ],
         'more_info' => 'En savoir plus'
     ],

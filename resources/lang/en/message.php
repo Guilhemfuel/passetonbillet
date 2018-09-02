@@ -25,29 +25,23 @@ return [
         'sold_disc_ended' => 'Ticket was sold to someone else. The discussion ended.',
         'bought_from'     => 'You bought this ticket from',
         'sold_to'         => 'You sold this ticket to',
-        'cta_sell_to'     => 'Send this ticket to',
+        'cta_sell_to'     => 'Transaction Done',
         'cancel'          => 'Cancel',
 
         'modal_title' => 'How does it work?',
-        'modal_explanation_buyer'  => [
-            'part_one' => 'The unique purpose of the chat is for you and the buyer to agree on the best payment method and to share the relevant payment information.<br>
-                        Once you receive the money from the buyer, you MUST click on the button "Send this ticket to ',
-            'part_two' => '". The buyer will then automatically receive your ticket, so no need to worry about anything else ! 😄'
-        ],
+        'modal_explanation_buyer' => 'The unique purpose of the chat is for you and the buyer to agree on the best payment method and to share the relevant payment information.<br>
+                        Once you receive the money from the buyer, you must send the ticket through the agreed method. You then only have to click on the button "Transaction Done"!',
         'modal_explanation_seller' => 'The unique purpose of the chat is for you and the seller to agree on the best payment method and to share the relevant payment information.<br>
-                        Once the seller receives your payment, she/he will simply click on a button and we will send you the ticket by email! It\'s that simple ! 😄',
+                        Once the seller receives your payment, she/he will will send you the ticket through the agreed method. The seller wil then have to click on the "Transaction Done" button, and we\'ll mark this ticket as sold.',
         'modal_open_chat'          => 'A question? A doubt? Click here to chat with us!',
         'modal_close_understand'   => 'I understand !',
 
-        'explanation_buyer'  => 'Reminder: the unique purpose of the chat is for the buyer and the seller to agree on the best payment method. We will send you the ticket as soon as the seller will have received the money.',
-        'explanation_seller' => 'Reminder: the unique purpose of the chat is for the buyer and the seller to agree on the best payment method. Click on the button "Send this ticket to X" above as soon as you received the payment from the buyer. The buyer will then automatically receive your ticket.',
+        'disclaimer'  => 'Passe Ton Billet is only designed to put you in contact with tickets buyers and sellers. Passe Ton Billet denies every responsability related to the transaction.',
 
         'modal_sell' => [
-            'part_1' => 'You are about to send this ticket to',
-            'part_2' => 'Make sure to click there, only once you received the payment.',
-            'part_3' => 'will then automatically receive your ticket.',
-        ]
-
+            'part_1' => 'You are about to mark this ticket as sold to',
+            'part_2' => 'Make sure to click there, only once you received the payment and sent the ticket.',
+        ],
 
     ],
 

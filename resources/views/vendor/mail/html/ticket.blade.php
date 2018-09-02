@@ -34,29 +34,4 @@
             </table>
         </td>
     </tr>
-    @if(isset($discussion))
-        <tr class="footer">
-            <td>
-                <table width="100%" cellpadding="0" cellspacing="0">
-                    <tr>
-                        <td style="padding:13px; text-align: center">
-                            <a style="color:white; text-decoration: none;" href="{{route('public.ticket.download',['ticket_id'=>$ticket->id])}}">{{$lang=='fr'?'Télécharger le billet':'Download ticket'}}</a>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    @endif
 </table>
-
-@if(isset($discussion))
-<table width="100%" cellpadding="0" cellspacing="0">
-    <tr class="header">
-        <a href="{{$ticket->passbook_link}}">
-            <img style="display: block;margin: auto;width:154px; margin-top: 20px;"
-                 src="{{secure_asset('/img/mail/apple_wallet.png')}}">
-        </a>
-    </tr>
-</table>
-@endif
-

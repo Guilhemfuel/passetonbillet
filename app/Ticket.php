@@ -247,6 +247,11 @@ class Ticket extends Model
         $this->attributes['provider'] = $value;
     }
 
+    public function getDiscussionSoldAttribute()
+    {
+        return $this->discussions()->where('buyer_id',$this->buyer->id)->first();
+    }
+
     /**
      * RELATIONSHIPS
      */

@@ -186,12 +186,6 @@ class DiscussionController extends Controller
             return redirect()->route('public.message.home.page');
         }
 
-        // Make sure ticket was not created by us
-        if (!$ticket->eurostar_ticket_number) {
-            flash(__('common.error').' This ticket can\'t be sold.')->error();
-            return redirect()->back();
-        }
-
         $discussion->status = Discussion::SOLD;
         $ticket->sold_to_id = $discussion->buyer->id;
         $ticket->save();
