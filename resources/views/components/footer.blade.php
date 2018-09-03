@@ -1,6 +1,6 @@
 <div class="section-footer">
     <div class="container">
-        <p class="text-center text-white pt-4">PasseTonBillet ©</p>
+        <p class="text-center text-white pt-4">PasseTonBillet © - Les Billets des uns font le bonheur des autres</p>
         <div class="footer-content row">
 
             <div class="text-white col-sm-11 col-10">

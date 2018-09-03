@@ -18,6 +18,8 @@ class UserController extends BaseController
     protected $CRUDmodelName = 'users';
     protected $CRUDsingularEntityName = 'User';
 
+    protected $creatable = false;
+
     protected $model = User::class;
 
     /**

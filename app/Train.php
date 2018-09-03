@@ -37,9 +37,9 @@ class Train extends Model
 
     public static $rules = [
         'number'         => 'required|numeric',
-        'departure_date' => 'required|date',
+        'departure_date' => 'required|date_format:d/m/Y',
         'departure_time' => 'required',
-        'arrival_date'   => 'required|date',
+        'arrival_date'   => 'required|date_format:d/m/Y',
         'arrival_time'   => 'required',
         'departure_city' => 'required|exists:stations,id|different:arrival_city',
         'arrival_city'   => 'required|exists:stations,id|different:departure_city'

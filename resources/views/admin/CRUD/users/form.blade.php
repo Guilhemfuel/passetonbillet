@@ -76,13 +76,16 @@
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
-            <label>Birthdate</label>
-            <datepicker input-class="form-control"
-                        :wrapper-class="'ptb-calendar'"
-                        :placeholder="'Birthdate'"
-                        :name="'birthdate'"
-                        :value="'{{isset($entity)?$entity->birthdate:(old('birthdate'))}}'"
-            ></datepicker>
+            <input-date
+                    name="birthdate"
+                    class-name="col-xs-12"
+                    label="Birthdate"
+                    validation="date_format:DD/MM/YYYY"
+                    placeholder="DD/MM/YYYY"
+                    format="dd/MM/yyyy"
+                    value-format="dd/MM/yyyy"
+                    default-value="{{isset($entity)?$entity->birthdate:(old('birthdate'))}}"
+                    default-value-format="DD/MM/YYYY"></input-date>
         </div>
     </div>
     <div class="col-md-6">

@@ -37,7 +37,11 @@
     <!-- Styles -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
           integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
+    @section('main_css_file')
+        <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
+    @show
+
+
     <script>
         window.Laravel = {!! json_encode([
                 'csrfToken' => csrf_token(),
@@ -77,7 +81,11 @@
 <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
 @routes
 <script src="/lang/lang-{{ \App::getLocale() }}.js"></script>
+
+@section('main_js_file')
 <script src="{{ mix('/js/app.js')}}"></script>
+@show
+
 <script type="application/javascript">
     let data = {};
     let currentPage = {

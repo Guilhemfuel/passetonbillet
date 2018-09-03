@@ -11,6 +11,8 @@
                    :placeholder="placeholder"
                    v-validate="validation"
                    v-model="inputValue"
+                   @change="emitChange"
+                   @input="emitInput"
             >
         </template>
         <!-- For checkbox only (label required) -->
@@ -22,6 +24,8 @@
                    :placeholder="placeholder"
                    v-validate="validation"
                    v-model="inputValue"
+                   @change="emitChange"
+                   @input="emitInput"
             >
             {{label}}
         </label>
@@ -70,6 +74,14 @@
             return {
                 inputValue: null,
             }
-        }
+        },
+        methods: {
+            emitChange() {
+                this.$emit('change',this.inputValue);
+            },
+            emitInput(value) {
+                this.$emit('input',this.inputValue);
+            }
+        },
     }
 </script>

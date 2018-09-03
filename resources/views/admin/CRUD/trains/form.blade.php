@@ -10,59 +10,72 @@
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
-            <label>Departure city</label>
-            <stationpicker :name="'departure_city'"
-                           :default-value="'{{isset($entity)?$entity->departure_city:(old('departure_city'))}}'"></stationpicker>
+            <input-station name="departure_city"
+                           label="Departure city"
+                           validation="required"
+                           :with-icon="false"
+                           default-value="{{isset($entity)?$entity->departure_city:(old('departure_city'))}}"
+            ></input-station>
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group">
-            <label>Arrival city</label>
-            <stationpicker :name="'arrival_city'"
-                           :default-value="'{{isset($entity)?$entity->arrival_city:(old('arrival_city'))}}'"></stationpicker>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-6">
-        <div class="form-group">
-            <label>Departure Date</label>
-            <datepicker input-class="form-control"
-                        :wrapper-class="'ptb-calendar'"
-                        :placeholder="'Departure Date'"
-                        :name="'departure_date'"
-                        :value="'{{isset($entity)?$entity->departure_date:(old('departure_date'))}}'"
-            ></datepicker>
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="form-group">
-            <label>Arrival Date</label>
-            <datepicker input-class="form-control"
-                        :wrapper-class="'ptb-calendar'"
-                        :placeholder="'Departure Date'"
-                        :name="'arrival_date'"
-                        :value="'{{isset($entity)?$entity->arrival_date:(old('arrival_date'))}}'"
-            ></datepicker>
+            <input-station name="arrival_city"
+                           label="Arrival city"
+                           validation="required"
+                           :with-icon="false"
+                           default-value="{{isset($entity)?$entity->arrival_city:(old('arrival_city'))}}"
+            ></input-station>
         </div>
     </div>
 </div>
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
-            <label>Departure Time</label>
-            <timepicker :name="'departure_time'"
-                        :value="'{{isset($entity)?$entity->departure_time_js:(old('departure_time'))}}'"
-                        :placeholder="'Departure time'"></timepicker>
+            <input-date
+                    name="departure_date"
+                    label="Departure Date"
+                    validation="date_format:DD/MM/YYYY"
+                    placeholder="DD/MM/YYYY"
+                    format="dd/MM/yyyy"
+                    value-format="dd/MM/yyyy"
+                    default-value="{{isset($entity)?$entity->departure_date:(old('departure_date'))}}"
+                    default-value-format="DD/MM/YYYY"></input-date>
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group">
-            <label>Arrival Time</label>
-            <timepicker :name="'arrival_time'"
-                        :value="'{{isset($entity)?$entity->arrival_time_js:(old('arrival_time'))}}'"
-                        :placeholder="'Arrival time'"
-            ></timepicker>
+            <input-date
+                    name="arrival_date"
+                    label="Arrival Date"
+                    validation="date_format:DD/MM/YYYY"
+                    placeholder="DD/MM/YYYY"
+                    format="dd/MM/yyyy"
+                    value-format="dd/MM/yyyy"
+                    default-value="{{isset($entity)?$entity->arrival_date:(old('arrival_date'))}}"
+                    default-value-format="DD/MM/YYYY"></input-date>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <input-time name="departure_time"
+                        label="Departure time"
+                        placeholder="12:00"
+                        validation="required"
+                        default-value="{{isset($entity)?$entity->departure_time:(old('departure_time'))}}"
+            ></input-time>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <input-time name="arrival_time"
+                        label="Arrival Time"
+                        placeholder="12:00"
+                        validation="required"
+                        default-value="{{isset($entity)?$entity->arrival_time:(old('arrival_time'))}}"
+            ></input-time>
         </div>
     </div>
 </div>

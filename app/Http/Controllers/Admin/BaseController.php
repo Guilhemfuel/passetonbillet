@@ -114,7 +114,12 @@ abstract class BaseController extends Controller
      */
     public function create()
     {
-        return $this->ptbView( 'admin.CRUD.create' );
+        if ($this->creatable){
+            return $this->ptbView( 'admin.CRUD.create' );
+        } else {
+            flash()->error('You can\'t create this entity');
+            return redirect()->back();
+        }
     }
 
     /**

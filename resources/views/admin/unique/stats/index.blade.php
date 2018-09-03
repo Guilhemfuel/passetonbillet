@@ -1,10 +1,10 @@
 @extends('admin.layouts.app')
 
-@section('title')
+@section('admin-title')
     - Statistics
 @endsection
 
-@section('content')
+@section('admin-content')
 
     <div id="unique-admin" class="statistics">
         <div class="card">

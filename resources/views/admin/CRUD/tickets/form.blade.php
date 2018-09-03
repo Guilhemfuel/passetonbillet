@@ -1,67 +1,15 @@
 
 {{-- Additional Buttton--}}
+@push('additional-btn')
+    @if(!$entity->scam)
+    <a class="btn btn-danger btn-fill btn-sm mr-3" href="{{route('tickets.scam',$entity->id)}}">
+        <i class="fa fa-ban" aria-hidden="true"></i>
+        Mark as Scam
+    </a>
+    @endif
+@endpush
 
-@if($entity->eurostar_ticket_number)
-    {{-- IF REAL TICKET --}}
-    @push('additional-btn')
-        @if(!$entity->scam)
-        <a class="btn btn-danger btn-fill btn-sm mr-3" href="{{route('tickets.scam',$entity->id)}}">
-            <i class="fa fa-ban" aria-hidden="true"></i>
-            Mark as Scam
-        </a>
-        @endif
-        @if($entity->pdf_downloaded)
-        <a class="btn btn-info btn-fill btn-sm mr-3" target="_blank" href="{{route('public.ticket.download',['ticket_id'=>$entity->id])}}">
-            <i class="fa fa-file-pdf-o" aria-hidden="true"></i> Download ticket
-        </a>
-        @else
-        <button class="btn btn-info btn-fill btn-sm mr-3" type="button" disabled>
-            <i class="fa fa-file-pdf-o" aria-hidden="true"></i> Download ticket
-        </button>
-        @endif
-        @if(!$entity->passed)
-        <button class="btn btn-primary btn-fill btn-sm mr-3" @click.prevent="child.ticket.uploadPdfModal = true">
-            <i class="fa fa-cloud-upload" aria-hidden="true"></i>
-            Manually Upload PDF
-        </button>
-        <a class="btn btn-warning btn-fill btn-sm" href="{{route('tickets.redownload',['ticket_id'=>$entity->id])}}">
-            <i class="fa fa-cloud-download" aria-hidden="true"></i> Retry donwloading ticket
-        </a>
-
-            @push('additional-content')
-                {{-- Modal here so that pdf form is in the right place (not in the update form)--}}
-                <modal v-cloak :is-open="child.ticket.uploadPdfModal"  @close-modal="child.ticket.uploadPdfModal = false"
-                       title="Manually upload ticket PDF">
-                    <form method="post" action="{{route('tickets.manual_upload',$entity->id)}}" enctype="multipart/form-data" id="pdfForm">
-                        {{csrf_field()}}
-                        <div class="form-group">
-                            <input class="form-control" type="file" name="ticket_pdf">
-                        </div>
-                        <button type="submit" class="btn btn-block btn-ptb-blue">Upload</button>
-                    </form>
-                </modal>
-            @endpush
-
-            @push('vue-data')
-                {{--Modal here to avoid being in edition form--}}
-                <script type="application/javascript">
-                    data.ticket = {
-                        uploadPdfModal: false
-                    }
-                </script>
-            @endpush
-        @endif
-    @endpush
-@endif
-
-{{-- Fake ticket --}}
-@if($entity->eurostar_ticket_number==null)
-<div class="row text-bold">
-    <div class="col">
-    <h3 class="text-danger  text-center">FAKE</h3>
-    </div>
-</div>
-@elseif($entity->scam)
+@if($entity->scam)
     <div class="row text-bold">
         <div class="col">
             <h3 class="text-danger  text-center">SCAM</h3>
@@ -77,7 +25,6 @@
 
 {{-- Form --}}
 
-@if($entity->eurostar_ticket_number)
 <div class="row">
     <div class="col-md-3">
         <div class="form-group">
@@ -125,67 +72,19 @@
     </div>
     <div class="col-md-4">
         <div class="form-group">
-            <label>Eurostar Code</label>
+            <label>Booking Code</label>
             <input type="text" class="form-control" placeholder="Booking code"
-                   value="{{$entity->eurostar_code}}" name="eurostar_code" disabled>
+                   value="{{$entity->provider_code}}" name="provider_code" disabled>
         </div>
     </div>
 </div>
 
-@else
-    <div class="row">
-        <div class="col-md-4">
-            <div class="form-group">
-                <label><a href="{{route('trains.edit',['id'=>$entity->train->id])}}">Train Number</a></label>
-                <input type="text" class="form-control" placeholder="Train number"
-                       value="{{$entity->train->number}}">
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label>Departure city</label>
-                <input type="text" class="form-control" name="departure_city" placeholder="Departure city"
-                       value="{{$entity->train->departureCity->name}}" disabled="">
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label>Arrival city</label>
-                <input type="text" class="form-control" name="arrival_city" placeholder="Arrival city"
-                       value="{{$entity->train->arrivalCity->name}}" disabled>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="form-group">
-                <label>Buyer Name</label>
-                <input type="text" class="form-control" placeholder="Buyer last name"
-                       value="{{$entity->buyer_name}}" name="buyer_name">
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label>Buyer Email</label>
-                <input type="text" class="form-control" placeholder="Buyer email address"
-                       value="{{$entity->buyer_email}}" name="buyer_email">
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label>Eurostar Code</label>
-                <input type="text" class="form-control" placeholder="Booking code"
-                       value="{{$entity->eurostar_code}}" name="eurostar_code">
-            </div>
-        </div>
-    </div>
-@endif
 <div class="row">
     <div class="col-md-3">
         <div class="form-group">
             <label>Ticket Number</label>
             <input type="text" class="form-control"
-                   value="{{$entity->eurostar_ticket_number}}" disabled>
+                   value="{{$entity->ticket_number}}" disabled>
         </div>
     </div>
     <div class="col-md-3">

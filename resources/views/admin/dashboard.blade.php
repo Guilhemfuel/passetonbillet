@@ -1,11 +1,11 @@
 @extends('admin.layouts.app')
 
 
-@section('title')
+@section('admin-title')
     - Home
 @endsection
 
-@section('content')
+@section('admin-content')
 
     <div class="row">
 
@@ -55,9 +55,7 @@
             <div class="card">
                 <div class="card-header">
                     <h4 class="title text-center">{{$stationCount}}<br>
-                        <a href="{{route('stations.index')}}" class="stat-link">
-                            <i class="fa fa-globe fa-2x"></i>
-                        </a>
+                        <i class="fa fa-globe fa-2x"></i>
                     </h4>
                 </div>
                 <div class="card-body text-center">
