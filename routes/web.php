@@ -205,7 +205,3 @@ Route::group( [ 'prefix' => 'api' ], function () {
 } );
 
 
-Route::get('/mailable', function () {
-
-    return new App\Mail\ContactEmail('ok','ok','ok');
-});

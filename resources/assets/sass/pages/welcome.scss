@@ -66,6 +66,7 @@
       background-position: center center;
       min-height: 80vh;
       display: flex;
+      background-size: cover;
 
       .fixed-content {
         flex: 1;
@@ -486,7 +487,6 @@ h1 {
       }
 
       .first-name {
-        text-transform: uppercase;
         font-weight: bold;
         font-size: 20px;
         margin-top: 9px;
