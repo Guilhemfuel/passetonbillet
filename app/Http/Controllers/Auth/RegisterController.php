@@ -202,7 +202,7 @@ class RegisterController extends Controller
             'picture'
         ] )->scopes( [
             'email',
-            'user_birthday'
+//            'user_birthday'
         ] )->redirect();
     }
 
@@ -217,7 +217,7 @@ class RegisterController extends Controller
                 'last_name',
                 'email',
                 'gender',
-                'birthday',
+//                'birthday',
                 'locale',
                 'picture'
             ] )->user();
