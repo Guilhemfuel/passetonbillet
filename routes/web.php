@@ -139,7 +139,7 @@ Route::group( [ 'prefix' => 'ticket', 'as' => 'ticket.' ], function () {
  * Admin routes
  **/
 Route::blacklist(function() {
-    Route::group( [ 'prefix' => 'lastadmin', 'middleware' => 'auth.admin' ], function () {
+    Route::group( [ 'prefix' => 'ptbadmin', 'middleware' => 'auth.admin' ], function () {
         Route::get( '/', 'Admin\HomeController@home' )->name( 'admin.home' );
 
         Route::resource( 'users', 'Admin\UserController' );
