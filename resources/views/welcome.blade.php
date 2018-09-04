@@ -166,15 +166,38 @@
                         <div class="px-2 col-12 col-sm-6 col-md-4 mt-4">
                             <div class="card card-review ">
                                 <div class="card-body">
-                                    <img class="picture"
-                                         src="https://graph.facebook.com/v3.0/10155459972011994/picture?type=normal"
+                                    <img src="{{secure_asset('img/ninie.jpg')}}" class="picture"
+                                    alt="user profile picture"/>
+
+                                    <p class="date">
+                                        Aujourd'hui
+                                    </p>
+                                    <h4 class="first-name">
+                                        Eugénie
+                                    </h4>
+                                    <el-rate
+                                            :value="5"
+                                            disabled
+                                            text-color="#FF9600"
+                                    >
+                                    </el-rate>
+                                    <p class="comment">
+                                        ‘A peine inscrite j'ai déjà vendu mon A/R Paris Londres. Super site!!’
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="px-2 col-12 col-sm-6 col-md-4 mt-4">
+                            <div class="card card-review">
+                                <div class="card-body">
+                                    <img src="{{secure_asset('img/balou.jpg')}}" class="picture"
                                          alt="user profile picture"/>
 
                                     <p class="date">
                                         Aujourd'hui
                                     </p>
                                     <h4 class="first-name">
-                                        Julien
+                                        Balthazar
                                     </h4>
                                     <el-rate
                                             :value="5"
@@ -191,15 +214,14 @@
                         <div class="px-2 col-12 col-sm-6 col-md-4 mt-4">
                             <div class="card card-review">
                                 <div class="card-body">
-                                    <img class="picture"
-                                         src="https://graph.facebook.com/v3.0/10155459972011994/picture?type=normal"
+                                    <img src="{{secure_asset('img/kristelle.jpg')}}" class="picture"
                                          alt="user profile picture"/>
 
                                     <p class="date">
-                                        Aujourd'hui
+                                        Hier
                                     </p>
                                     <h4 class="first-name">
-                                        Julien
+                                        Kristelle
                                     </h4>
                                     <el-rate
                                             :value="5"
@@ -208,32 +230,7 @@
                                     >
                                     </el-rate>
                                     <p class="comment">
-                                        ‘Tout s’est super bien passé, je réutiliserai le site pour sûr !’
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="px-2 col-12 col-sm-6 col-md-4 mt-4">
-                            <div class="card card-review">
-                                <div class="card-body">
-                                    <img class="picture"
-                                         src="https://graph.facebook.com/v3.0/10155459972011994/picture?type=normal"
-                                         alt="user profile picture"/>
-
-                                    <p class="date">
-                                        Aujourd'hui
-                                    </p>
-                                    <h4 class="first-name">
-                                        Julien
-                                    </h4>
-                                    <el-rate
-                                            :value="5"
-                                            disabled
-                                            text-color="#FF9600"
-                                    >
-                                    </el-rate>
-                                    <p class="comment">
-                                        ‘Tout s’est super bien passé, je réutiliserai le site pour sûr !’
+                                        ‘Enfin une plateforme sécurisée, bien mieux que les groupes Facebook !’
                                     </p>
                                 </div>
                             </div>
