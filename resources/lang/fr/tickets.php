@@ -45,6 +45,8 @@ return [
 
     ],
     'sell'      => [
+        'title' => 'Vendre un billet',
+
         'step_1'            => 'Étape 1/2: Retrouver votre billet',
         'description'       => 'Vendre un billet est très simple et très rapide. Tout ce que vous avez à faire est d\'entrer votre nom de famille ainsi que votre numéro de réservation. Tous les tickets correspondants à cette reservation vont alors aparaître et vous n\'aurez plus qu\'à séléctionner ceux que vous souhaitez mettre en vente.',
         'inputs'            => [
