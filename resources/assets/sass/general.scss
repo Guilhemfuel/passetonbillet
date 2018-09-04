@@ -191,6 +191,10 @@ html, body {
   background: linear-gradient(to bottom right, $color-blue, $color-neon); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
+.orange-gradient {
+  @include orange-gradient(1);
+}
+
 //
 // ==============================
 //
@@ -376,7 +380,7 @@ html, body {
   text-transform: uppercase;
 
   @include media-breakpoint-down(sm) {
-    margin-top: 10px;
+    margin-top: 30px;
   }
 
 }
@@ -480,13 +484,18 @@ html, body {
 
     .nav-item.nav-logged-part {
 
+      .user-picture {
+        cursor: pointer;
+      }
+
       .user-first-name {
 
         p {
           cursor: pointer;
           color: $color-gray;
           margin-bottom: 0px;
-          font-weight: 700;
+          font-size: 18px;
+          font-weight: 600;
         }
         &:hover {
           p {

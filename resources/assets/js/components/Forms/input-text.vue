@@ -11,6 +11,8 @@
                    :placeholder="placeholder"
                    v-validate="validation"
                    v-model="inputValue"
+                   @change="emitChange"
+                   @input="emitInput"
             >
         </template>
         <!-- For checkbox only (label required) -->
@@ -22,6 +24,8 @@
                    :placeholder="placeholder"
                    v-validate="validation"
                    v-model="inputValue"
+                   @change="emitChange"
+                   @input="emitInput"
             >
             {{label}}
         </label>
@@ -54,15 +58,11 @@
             },
             defaultVal() {
                 if (this.defaultValue != null && this.defaultValue != undefined) {
-                    console.log('no');
-
                     return this.defaultValue;
                 }
                 if (this.oldValue && this.$root.oldInput[this.name]) {
-                    console.log('ok');
                     return this.$root.oldInput[this.name];
                 }
-                console.log('null');
 
                 return null;
             }
@@ -74,6 +74,14 @@
             return {
                 inputValue: null,
             }
-        }
+        },
+        methods: {
+            emitChange() {
+                this.$emit('change',this.inputValue);
+            },
+            emitInput(value) {
+                this.$emit('input',this.inputValue);
+            }
+        },
     }
 </script>

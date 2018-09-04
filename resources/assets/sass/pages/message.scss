@@ -19,11 +19,6 @@
   }
 
   .card {
-    &.card-awaiting-offers {
-      @include media-breakpoint-down(sm) {
-        margin-top: 25px;
-      }
-    }
 
     .card-header {
       @extend .purple-gradient;
@@ -224,7 +219,7 @@
         padding: 5px 10px;
 
         &.msg-sent {
-          background-color: $color-purple;
+          background-color: $color-orange;
           color: $color-white;
           word-wrap: break-word;
           box-sizing: content-box;

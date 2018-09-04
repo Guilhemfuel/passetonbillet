@@ -54,7 +54,6 @@ class Ticket extends Model
         'provider_code',
         'provider_id',
         'ticket_number',
-        'passbook_link',
         'buyer_email',
         'buyer_name',
 
@@ -124,7 +123,7 @@ class Ticket extends Model
             $departureStations[] = intval($departureStationParentId);
         } else {
             $departureStations = Station::where('parent_station_id',$departureStationId)->pluck('id');
-            $departureStations[] = intval($departureStationParentId);
+            $departureStations[] = intval($departureStationId);
         }
 
         // Create array of possible arrival stations
@@ -136,6 +135,7 @@ class Ticket extends Model
             $arrivalStations[] = intval($arrivalStationId);
         }
 
+//        dd($departureStationParentId,$departureStations,$arrivalStations);
 
         // Find matching trains
         $request = Train::whereIn( 'departure_city', $departureStations )
@@ -219,18 +219,6 @@ class Ticket extends Model
 
 //{"fareFlexibility":{"1":{"code":"1","value":"Non Flexible"},"2":{"code":"2","value":"Semi Flexible"},"3":{"code":"3","value":"Fully Flexible"},"7":{"code":"7","value":"Off Peak"},"8":{"code":"8","value":"Advance"},"9":{"code":"9","value":"Anytime"}},"classOfService":{"B":{"code":"B","value":"Standard"},"H":{"code":"H","value":"Standard Premier"},"A":{"code":"A","value":"Business Premier"},"2":{"code":"2","value":"Standard Class"},"1":{"code":"1","value":"First Class"}}}
 
-    public function getPdfFileNameAttribute()
-    {
-        return \Vinkla\Hashids\Facades\Hashids::connection( 'file' )->encode( $this->id ) . md5( $this->buyer_name . $this->eurostar_code ) . '.pdf';
-    }
-
-    public function getPdfDownloadedAttribute()
-    {
-        $filePath = 'pdf/tickets/' . $this->pdf_file_name;
-
-        return \Storage::disk( 's3' )->exists( $filePath );
-    }
-
     public function getStatusAttribute()
     {
         if ( $this->scam ) {
@@ -257,6 +245,11 @@ class Ticket extends Model
             throw new PasseTonBilletException("Provider ${value} unknown.");
         }
         $this->attributes['provider'] = $value;
+    }
+
+    public function getDiscussionSoldAttribute()
+    {
+        return $this->discussions()->where('buyer_id',$this->buyer->id)->first();
     }
 
     /**

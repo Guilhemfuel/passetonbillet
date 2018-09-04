@@ -17,6 +17,7 @@ return [
     'member_since' => 'Member since ',
     'number_tickets_successfully_sold' => 'Tickets successfully sold',
     'by' => 'by',
+    'only_you' => 'Private profile information',
 
     'stats_title' => 'Statistics',
 

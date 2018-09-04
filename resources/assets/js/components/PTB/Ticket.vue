@@ -52,34 +52,41 @@
                     <template v-if="!pastTicket && !display
                         && $lodash.has(ticket, 'discussionId')
                         && $lodash.has(ticket, 'offerStatus')
-                        && ticket.offerStatus == 1" >
-                        <a v-if="ticket.id" :href="route('public.message.discussion.page',[ticket.id, ticket.discussionId])" class="btn btn-ptb btn-buy btn-sm">{{trans('tickets.component.discuss')}}</a>
+                        && ticket.offerStatus == 1">
+                        <a v-if="ticket.id"
+                           :href="route('public.message.discussion.page',[ticket.id, ticket.discussionId])"
+                           class="btn btn-ptb btn-buy btn-sm">{{trans('tickets.component.discuss')}}</a>
                     </template>
                     <!-- Make Offer -->
                     <template v-else-if="!pastTicket && !display
                         && $lodash.has(ticket, 'discussionId')
                         && $lodash.has(ticket, 'offerStatus')
-                        && ticket.offerStatus == -1" >
+                        && ticket.offerStatus == -1">
                         <button class="btn btn-ptb btn-buy btn-sm" @click="editing=true">
                             {{trans('tickets.component.new_offer')}}
                         </button>
                     </template>
                     <!-- Buy/Sell/Download -->
                     <template v-else-if="!pastTicket && !display">
-                        <button class="btn btn-ptb btn-buy btn-sm" v-if="!selecting && buying && !offerDone" @click="editing=true">
+                        <button class="btn btn-ptb btn-buy btn-sm" v-if="!selecting && buying && !offerDone"
+                                @click="editing=true">
                             {{trans('tickets.component.buy')}}
                         </button>
                         <button class="btn btn-ptb btn-buy btn-sm" v-if="selecting" @click.prevent="sell">
                             {{trans('tickets.component.sell')}}
                         </button>
                         <button class="btn btn-ptb btn-buy btn-sm" v-if="bought" @click="editing=true">
-                            {{trans('tickets.component.download')}}
+                            {{trans('tickets.component.infos')}}
                         </button>
                     </template>
                     <!-- Edit (in case of buying page, is a link-->
-                    <template v-if="!pastTicket && (user != null && ticket.user && ticket.user.id == user.id) && !display">
-                        <button class="btn btn-ptb btn-buy btn-sm" @click="editing=true" v-if="!buying">{{trans('tickets.component.edit')}}</button>
-                        <a class="btn btn-ptb btn-buy btn-sm" v-else :href="route('public.ticket.owned.page')">{{trans('tickets.component.edit')}}</a>
+                    <template
+                            v-if="!pastTicket && (user != null && ticket.user && ticket.user.id == user.id) && !display">
+                        <button class="btn btn-ptb btn-buy btn-sm" @click="editing=true" v-if="!buying">
+                            {{trans('tickets.component.edit')}}
+                        </button>
+                        <a class="btn btn-ptb btn-buy btn-sm" v-else
+                           :href="route('public.ticket.owned.page')">{{trans('tickets.component.edit')}}</a>
                     </template>
 
                     <div class="price" v-if="!selecting">
@@ -100,13 +107,15 @@
                         <template v-if="user">
                             <a target="_blank"
                                :href="'/profile/user/'+ticket.user.hashid">{{publishedBy}} <b>{{ticket.user.full_name}}</b>
-                                <el-tooltip v-if="ticket.user.verified" class="item" effect="dark" :content="trans('tickets.component.user_verified')"
+                                <el-tooltip v-if="ticket.user.verified" class="item" effect="dark"
+                                            :content="trans('tickets.component.user_verified')"
                                             placement="bottom-end">
                                     <i aria-hidden="true"
                                        class="fa fa-check-circle text-warning"></i>
 
                                 </el-tooltip>
-                                <el-tooltip v-else class="item" effect="dark" :content="trans('tickets.component.user_not_verified')"
+                                <el-tooltip v-else class="item" effect="dark"
+                                            :content="trans('tickets.component.user_not_verified')"
                                             placement="bottom-end">
                                     <i class="fa fa-exclamation-triangle text-danger" aria-hidden="true"></i>
                                 </el-tooltip>
@@ -114,8 +123,8 @@
                         </template>
                         <template v-else>
                             {{publishedBy}} <b>{{ticket.user.full_name}}</b> <i v-if="ticket.user.verified"
-                                                                                 aria-hidden="true"
-                                                                                 class="fa fa-check-circle text-warning"></i>
+                                                                                aria-hidden="true"
+                                                                                class="fa fa-check-circle text-warning"></i>
                         </template>
                     </div>
                 </div>
@@ -123,13 +132,13 @@
 
             <!-- Back of ticket -->
 
-            <div :class="{'card':true, 'card-ticket':true, 'back':true, className:className, 'past-ticket':pastTicket}" v-if="editing">
-                <!--
+            <div :class="{'card':true, 'card-ticket':true, 'back':true, className:className, 'past-ticket':pastTicket}"
+                 v-if="editing">
+                <!-----------
 
-                =============== User modifying his ticket ===============
+                 User bought ticket
 
-                -->
-                <!-- A ticket for an offer that was denied is in same state as buying-->
+                  --------->
                 <template v-if="!(buying || ($lodash.has(ticket, 'discussionId')
                         && $lodash.has(ticket, 'offerStatus')
                         && ticket.offerStatus == -1 &&!pastTicket))">
@@ -142,25 +151,30 @@
                             <p class="float-center text-center mb-0 edit-title">{{trans('tickets.component.infos')}}</p>
                         </div>
                         <div class="card-seller-info card-buying text-center">
-                            <a target="_blank" class="btn btn-ptb" :href="ticket.download_link">{{trans('tickets.component.download_ticket')}}</a>
-                            <div class="mt-3">
-                                <a :href="ticket.passbook_link">
-                                    <img style="width: 150px" src="/img/mail/apple_wallet.png">
-                                </a>
-                            </div>
+                            <p class="text-center">
+                                <a v-if="ticket.id"
+                                   :href="route('public.message.discussion.page',[ticket.id, ticket.discussion_id])"
+                                   class="btn btn-ptb btn-sm">{{trans('tickets.component.discuss')}}</a>
+                            </p>
                         </div>
                     </template>
                     <template v-else>
-                        <!-- Modify your own ticket -->
+                        <!--
+
+                       =============== User modifying his ticket ===============
+
+                       -->
                         <div class="card-travel-info">
                             <a href="#" class="float-left" @click.prevent="editing=false"><i
                                     class="fa fa-chevron-circle-left"
                                     aria-hidden="true"></i></a>
                             <p class="float-center text-center mb-0 edit-title">{{trans('tickets.component.edit_ticket')}}</p>
                         </div>
-                        <div class="card-seller-info card-buying" v-if="(user != null && ticket.user &&  ticket.user.id == user.id)">
+                        <div class="card-seller-info card-buying"
+                             v-if="(user != null && ticket.user &&  ticket.user.id == user.id)">
                             <div class="share">
-                                <p class="text-center" v-if="ticket.eurostar_ticket_number">{{trans('tickets.component.eurostar_ticket_number')}}: {{ticket.eurostar_ticket_number}}</p>
+                                <p class="text-center" v-if="ticket.eurostar_ticket_number">
+                                    {{trans('tickets.component.eurostar_ticket_number')}}: {{ticket.eurostar_ticket_number}}</p>
                                 <p class="text-center">{{trans('tickets.component.share')}}:</p>
                                 <div class="input-group">
                                     <el-popover
@@ -171,7 +185,8 @@
                                             :content="trans('tickets.component.copied')">
                                     </el-popover>
                                     <input ref="sharelink" readonly type="text" class="form-control"
-                                           :value="route('ticket.unique.page',[ticket.hashid])" aria-describedby="basic-addon2">
+                                           :value="route('ticket.unique.page',[ticket.hashid])"
+                                           aria-describedby="basic-addon2">
                                     <div class="input-group-append">
                                         <button v-popover:sharebtn class="btn btn-outline-primary" type="button"
                                                 @click.prevent="share()">
@@ -186,7 +201,9 @@
                                     <input type="hidden" name="_method" value="DELETE">
                                     <input type="hidden" name="_token" :value="csrf">
                                     <input type="hidden" name="ticket_id" :value="ticket.id">
-                                    <button class="btn btn-danger mx-auto d-block mt-3">{{trans('tickets.component.delete_cta')}}</button>
+                                    <button class="btn btn-danger mx-auto d-block mt-3">
+                                        {{trans('tickets.component.delete_cta')}}
+                                    </button>
                                 </form>
                             </div>
                         </div>
@@ -197,12 +214,14 @@
                 =============== User buying the ticket ===============
 
                 -->
+                <!-- A ticket for an offer that was denied is in same state as buying-->
                 <template v-else>
                     <div class="card-travel-info">
                         <a href="#" class="float-left text-white" @click.prevent="editing=false"><i
                                 class="fa fa-chevron-circle-left"
                                 aria-hidden="true"></i></a>
-                        <p class="float-center text-center mb-0 edit-title">{{trans('tickets.component.buy_ticket')}}</p>
+                        <p class="float-center text-center mb-0 edit-title">
+                            {{trans('tickets.component.buy_ticket')}}</p>
                     </div>
                     <div class="card-seller-info card-buying">
                         <template v-if="state=='default'">
@@ -213,10 +232,12 @@
                             <p class="text-center"><span class="train-time">{{arrival_time}}</span>
                                 {{ticket.train.arrival_city.name}}</p>
                             <template v-if="user">
-                                <p class="text-center">{{trans('tickets.component.sold_by')}}
+                                <!-- Authentificated user buyting ticket -->
+                                <p class="text-center">{{publishedBy}}
                                     <a target="_blank" :href="'/profile/user/'+ticket.user.hashid">
                                         <b>{{ticket.user.full_name}}</b>
-                                        <el-tooltip class="item" effect="dark" :content="trans('tickets.component.user_verified')"
+                                        <el-tooltip class="item" effect="dark"
+                                                    :content="trans('tickets.component.user_verified')"
                                                     placement="bottom-end">
                                             <i v-if="ticket.user.verified" aria-hidden="true"
                                                class="fa fa-check-circle text-warning"></i>
@@ -225,7 +246,8 @@
                                 </p>
                             </template>
                             <template v-else>
-                                <p class="text-center">{{trans('tickets.component.sold_by')}} <b
+                                <!-- Unanthitificated user -->
+                                <p class="text-center">{{publishedBy}} <b
                                         class="text-primary">{{ticket.user.full_name}}  <i v-if="ticket.user.verified"
                                                                                            aria-hidden="true"
                                                                                            class="fa fa-check-circle text-warning"></i></b>
@@ -254,7 +276,9 @@
                                     </button>
 
                                 </div>
-                                <p class="text-center mt-2">{{trans('tickets.component.if_interested')}}</p>
+                                <div class="col-12">
+                                    <p class="text-center mt-2">{{trans('tickets.component.if_interested')}}</p>
+                                </div>
                             </form>
                         </template>
                         <div v-else-if="state=='offering'">
@@ -265,7 +289,8 @@
                         </template>
                         <template v-else-if="state=='register'">
                             <p class="text-center">{{trans('tickets.component.register')}} <br><br> <a
-                                    :href="route('register.page')+'?source=guest-offer'">{{trans('tickets.component.register_cta')}}</a></p>
+                                    :href="route('register.page')+'?source=guest-offer'">{{trans('tickets.component.register_cta')}}</a>
+                            </p>
                         </template>
                     </div>
 
@@ -306,10 +331,10 @@
             if (this.offerDone) {
                 this.state == 'offered';
             }
-            if (!this.ticket.currency){
+            if (!this.ticket.currency) {
                 this.ticket.currency = this.ticket.bought_currency;
             }
-            if (!this.ticket.currency_symbol){
+            if (!this.ticket.currency_symbol) {
                 this.ticket.currency_symbol = this.ticket.bought_currency_symbol;
             }
         },
@@ -323,21 +348,21 @@
             pastTicket: function () {
                 var now = moment();
                 var departure = moment(this.ticket.train.departure_date + ' ' + this.departure_time, 'YYYY-MM-DD HH:mm');
-                return now.isAfter(departure.subtract(2,'h'))
+                return now.isAfter(departure.subtract(2, 'h'))
             },
             offerDone: function () {
                 if (this.buying && this.user) {
-                    return this.user.offers_sent && Array.isArray(this.user.offers_sent) && this.user.offers_sent.length>0 && this.user.offers_sent.map(a => a.ticket_id).includes(this.ticket.id);
+                    return this.user.offers_sent && Array.isArray(this.user.offers_sent) && this.user.offers_sent.length > 0 && this.user.offers_sent.map(a => a.ticket_id).includes(this.ticket.id);
                 }
                 return false;
             },
-            publishedBy: function() {
+            publishedBy: function () {
                 let trans = this.trans('tickets.component.sold_by');
 
-                if(this.ticket.created_at) {
-                    return trans.replace('{{days}}',moment(this.ticket.created_at.date).fromNow(true));
+                if (this.ticket.created_at) {
+                    return trans.replace('{{days}}', moment(this.ticket.created_at.date).fromNow(true));
                 } else {
-                    return trans.replace('{{days}}',moment().fromNow(true));
+                    return trans.replace('{{days}}', moment().fromNow(true));
                 }
             }
         },
@@ -347,7 +372,7 @@
                 this.$emit('sell', this.ticket.id);
             },
             share() {
-                var url = this.route('ticket.unique.page',[this.ticket.hashid]);
+                var url = this.route('ticket.unique.page', [this.ticket.hashid]);
                 this.$emit('share', url);
 
                 this.$refs.sharelink.select();
@@ -375,10 +400,10 @@
                         if (response.ok) {
                             this.state = 'offered';
                             this.ticket.offerStatus = 0;
-                            if (this.$lodash.has(this.ticket, 'discussionId')){
+                            if (this.$lodash.has(this.ticket, 'discussionId')) {
                                 this.editing = false;
                             }
-                            this.$emit('make-offer',{
+                            this.$emit('make-offer', {
                                 price: this.priceOffer,
                                 ticket_id: this.ticket.id
                             });

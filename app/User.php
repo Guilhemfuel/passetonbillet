@@ -180,12 +180,6 @@ class User extends Authenticatable
         return $count;
     }
 
-    public function getMemberSinceAttribute()
-    {
-        $date = new Carbon($this->created_at);
-        return __('profile.member_since').$date->toFormattedDateString();
-    }
-
     public function getBannedAttribute()
     {
         return $this->status == self::STATUS_BANNED_USER;

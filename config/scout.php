@@ -90,6 +90,10 @@ return [
 
     'tntsearch' => [
         'storage'  => storage_path('tntsearch'),
+        'fuzziness' => true,
+        'fuzzy' => [
+            'distance' => 2
+        ],
     ],
 
 ];

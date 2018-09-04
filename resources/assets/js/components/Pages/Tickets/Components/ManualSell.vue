@@ -95,13 +95,16 @@
                                             name="bought_price"
                                             :label="trans('tickets.sell.manual.form.bought_price')"
                                             :placeholder="trans('tickets.sell.manual.form.bought_price')"
-                                            validation="required|numeric">
+                                            validation="required|numeric"
+                                            v-model="boughtPrice"
+                                >
                                 </input-text>
                                 <input-text class="col-12 col-sm-6"
                                             name="price"
                                             :label="trans('tickets.sell.manual.form.price')"
                                             :placeholder="trans('tickets.sell.manual.form.price')"
-                                            validation="required|numeric">
+                                            :validation="'required|max_value:'+boughtPrice"
+                                >
                                 </input-text>
 
                                 <input-text class="col-12"
@@ -142,7 +145,7 @@
             return {
                 user: this.$root.user,
                 state: 'form',
-                form: {},
+                boughtPrice: 0,
                 datePickerOptions: {
                     disabledDate: function (myDate) {
                         // Disable all date before today

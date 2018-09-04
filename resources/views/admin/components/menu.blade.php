@@ -35,14 +35,6 @@
     </a>
 </li>
 
-
-<li  class="{{ substr(Route::currentRouteName(),0,9) == 'stations.'? 'active':'' }}">
-    <a href="{{route('stations.index')}}">
-        <i class="fa fa-globe"></i>
-        Stations
-    </a>
-</li>
-
 <li  class="{{  substr(Route::currentRouteName(),0,7) == 'trains.'? 'active':'' }}">
     <a href="{{route('trains.index')}}">
         <i class="fa fa-train"></i>

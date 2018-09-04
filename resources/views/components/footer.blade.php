@@ -1,8 +1,10 @@
 <div class="section-footer">
     <div class="container">
-        <p class="text-center text-white pt-4">PasseTonBillet ©</p>
-        <div class="footer-content">
-            <div class="text-white">
+        <p class="text-center text-white pt-4">PasseTonBillet © - Les Billets des uns font le bonheur des autres</p>
+        <div class="footer-content row">
+
+            <div class="text-white col-sm-11 col-10">
+                <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-4 col-12">
                         <a class="text-white" href="{{route("about.page")}}">@lang('welcome.footer.about')</a>
@@ -20,8 +22,9 @@
                         <a class="text-white" href="{{route('privacy.page')}}">@lang('welcome.footer.privacy')</a>
                     </div>
                 </div>
+                </div>
             </div>
-            <div class="text-white">
+            <div class="text-white col-sm-1 col-2">
                 <p>
                     <a target="_blank" href="{{config('links.facebook')}}">
                         <i class="fa fa-2x fa-facebook text-white" aria-hidden="true"></i>
@@ -30,6 +33,10 @@
                         <i class="fa fa-2x fa-twitter text-white" aria-hidden="true"></i>
                     </a>
                 </p>
+            </div>
+
+            <div class="col-12">
+                <p class="text-disclaimer p-3 pb-0">@lang('welcome.footer.provider_disclaimer')</p>
             </div>
 
         </div>

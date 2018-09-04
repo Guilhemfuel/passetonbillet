@@ -21,7 +21,7 @@
                             <div class="col-sm-12 col-md-5 col-lg-4">
                                 <div class="align-middle">
                                     <h4 class="text-center text-full-name">{{$user->full_name}}</h4>
-                                    <h5 class="text-center">{{$user->member_since}}</h5>
+                                    <h5 class="text-center" v-cloak>@{{ this.trans('profile.member_since') }} @{{this.$moment(user.created_at.date).format('LL')}}</h5>
                                     @if($user->location)
                                         <h5 class="text-center">{{$user->location}}</h5>
                                     @endif
@@ -29,6 +29,7 @@
                                         <h5 class="text-center">@lang('profile.account_verified') <i class="fa fa-check-circle text-warning" aria-hidden="true"></i></h5>
                                     @endif
                                     <br>
+                                    <p class="private-limit">@lang("profile.only_you")</p>
                                     <h5 class="text-center">{{$user->phone}}</h5>
                                     <h5 class="text-center">{{$user->email}}</h5>
                                 </div>

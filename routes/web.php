@@ -139,7 +139,7 @@ Route::group( [ 'prefix' => 'ticket', 'as' => 'ticket.' ], function () {
  * Admin routes
  **/
 Route::blacklist(function() {
-    Route::group( [ 'prefix' => 'lastadmin', 'middleware' => 'auth.admin' ], function () {
+    Route::group( [ 'prefix' => 'ptbadmin', 'middleware' => 'auth.admin' ], function () {
         Route::get( '/', 'Admin\HomeController@home' )->name( 'admin.home' );
 
         Route::resource( 'users', 'Admin\UserController' );
@@ -155,7 +155,6 @@ Route::blacklist(function() {
             Route::post( '/manual-upload/{ticket_id}', 'Admin\TicketController@pdfManualUpload' )->name( 'manual_upload' );
         } );
 
-        Route::resource( 'stations', 'Admin\StationController' );
         Route::resource( 'trains', 'Admin\TrainController' );
 
         Route::resource( 'offers', 'Admin\DiscussionController' );
@@ -201,6 +200,10 @@ Route::group( [ 'prefix' => 'api' ], function () {
         // Discussion api routes
         Route::post( 'messages/{ticket}/{discussion}', 'DiscussionController@sendMessage' )->name( 'api.discussion.send' );
         Route::post( 'messages/{ticket}/{discussion}/read', 'DiscussionController@markAsRead' )->name( 'api.discussion.read' );
+
+        // Reviews
+        Route::post( 'reviews', 'API\ReviewController@store' )->name( 'api.reviews.store' );
+
     } );
 } );
 

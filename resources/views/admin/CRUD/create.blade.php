@@ -1,11 +1,11 @@
 @extends('admin.layouts.app')
 
 
-@section('title')
+@section('admin-title')
     - Create {{$entitySingleName}}
 @endsection
 
-@section('content')
+@section('admin-content')
 
     <div class="crud-table">
 

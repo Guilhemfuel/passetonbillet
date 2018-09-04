@@ -1,10 +1,10 @@
 @extends('admin.layouts.app')
 
-@section('title')
+@section('admin-title')
     - ID Verification
 @endsection
 
-@section('content')
+@section('admin-content')
 
     <div id="unique-admin" class="id-verification">
         <div class="card">

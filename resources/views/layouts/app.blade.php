@@ -8,14 +8,14 @@
     <title>PasseTonBillet @yield('title')</title>
 
     <!-- Favicon  -->
-    <link rel="apple-touch-icon" sizes="180x180" href="{{secure_asset('img/favicon/apple-touch-icon.png')}}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{secure_asset('img/favicon/favicon-32x32.png')}}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{secure_asset('img/favicon/favicon-16x16.png')}}">
-    <link rel="manifest" href="{{secure_asset('img/favicon/site.webmanifest')}}">
-    <link rel="mask-icon" href="{{secure_asset('img/favicon/safari-pinned-tab.svg')}}" color="#5bbad5">
-    <link rel="shortcut icon" href="{{secure_asset('img/favicon/favicon.ico')}}">
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="msapplication-config" content="{{secure_asset('img/favicon/browserconfig.xml')}}">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-touch-icon.png?v=2">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png?v=2">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16x16.png?v=2">
+    <link rel="manifest" href="img/favicon/site.webmanifest?v=2">
+    <link rel="mask-icon" href="img/favicon/safari-pinned-tab.svg?v=2" color="#FF9600">
+    <link rel="shortcut icon" href="img/favicon/favicon.ico?v=2">
+    <meta name="msapplication-TileColor" content="#ff9600">
+    <meta name="msapplication-config" content="img/favicon/browserconfig.xml?v=2">
     <meta name="theme-color" content="#ffffff">
 
     <!-- Google Property -->
@@ -23,6 +23,9 @@
 
     <!-- Facebook MetaTags -->
     <meta property="fb:app_id" content="{{env('FB_APP_ID')}}"/>
+    <meta property="og:title" content="Passe Ton Billet" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="{{secure_asset('img/preview-fb.jpg')}}" />
 
     <!-- Pusher App id-->
     <meta name="pusher:app_key" content="{{env('PUSHER_APP_KEY')}}"/>
@@ -34,7 +37,11 @@
     <!-- Styles -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
           integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
+    @section('main_css_file')
+        <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
+    @show
+
+
     <script>
         window.Laravel = {!! json_encode([
                 'csrfToken' => csrf_token(),
@@ -74,7 +81,11 @@
 <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
 @routes
 <script src="/lang/lang-{{ \App::getLocale() }}.js"></script>
+
+@section('main_js_file')
 <script src="{{ mix('/js/app.js')}}"></script>
+@show
+
 <script type="application/javascript">
     let data = {};
     let currentPage = {

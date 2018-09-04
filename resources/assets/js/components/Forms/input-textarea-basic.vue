@@ -9,6 +9,7 @@
                :id="name"
                :placeholder="placeholder"
                v-model="inputValue"
+               @input="emitInput"
         ></textarea>
         <small v-if="errors.has(name)" :id="name+'Error'" class="form-text text-danger">
             {{ errors.first(name) }}
@@ -58,6 +59,11 @@
             return {
                 inputValue: null,
             }
-        }
+        },
+        methods: {
+            emitInput (e) {
+                this.$emit('input', this.inputValue)
+            }
+        },
     }
 </script>

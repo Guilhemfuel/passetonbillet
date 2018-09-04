@@ -1,387 +1,156 @@
-@extends('layouts.app')
+@extends('layouts.dashboard')
 
-@section('content')
+@section('dashboard-content')
 
     <div class="privacy-page">
 
         <div class="section-header">
-            <div class="first-section" style="background-image: url('{{secure_asset('img/bg/3.jpg')}}');">
+            <div class="first-section">
                 <div class="fixed-content">
-                    <nav class="navbar">
-                        <a class="navbar-brand" href="{{route('home')}}">
-                            <img src="{{secure_asset('img/logo.png')}}" class="d-inline-block align-top" alt="logo ptb">
-                        </a>
-                        <ul class="navbar-nav navbar-expand">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('login')}}">@lang('nav.login')</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('register')}}">@lang('nav.register')</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#" onclick="$crisp.push(['do', 'chat:open'])">
-                                    <i class="fa fa-question-circle" aria-hidden="true"></i>
-                                </a>
-                            </li>
-                            @if (App::isLocale('fr'))
-                                <a class="nav-link" href="{{route('lang','en')}}">
-                                    <span class="flag-icon flag-icon-gb"></span>
-                                </a>
-                            @else
-                                <a class="nav-link" href="{{route('lang','fr')}}">
-                                    <span class="flag-icon flag-icon-fr"></span>
-                                </a>
-                            @endif
-                        </ul>
-                    </nav>
                     <div class="content">
                         <div>
-                            <h2 class="text-center text-white">Privacy Policy</h2>
+                            <h2 class="text-center text-white">Privacy Policy
+                            </h2>
                             <p class="text-center text-white">
-                                Last updated: March 10, 2018
+                                Current version published on 01/09/2018<br>
+                                Current version effective 01/09/2018
+
                             </p>
                             <div class="container container-over-bg p-5 mt-3 text-justify">
 
-                                <h4 class="mt-3 pb-3">How We Collect and Use Your Information
-                                </h4>
+                                <h5 class="mt-3 pb-3">I. LEGAL INFORMATION
+
+                                </h5>
 
                                 <div>
-                                    <p>This privacy policy has been compiled to better serve those
-                                        who are concerned with how their 'Personally Identifiable Information' (PII) is
-                                        being used online. PII, as described in US privacy law and information security,
-                                        is information that can be used on its own or with other information to
-                                        identify, contact, or locate a single person, or to identify an individual in
-                                        context. Please read our privacy policy carefully to get a clear understanding
-                                        of how we collect, use, protect or otherwise handle your Personally Identifiable
-                                        Information in accordance with our website.</p>
-                                    <p class='grayText'><strong>What personal information do we collect from the
-                                            people that visit our blog, website or app?</strong></p>
-                                    <p>When ordering or registering on our site, as appropriate, you
-                                        may be asked to enter your name, email address, mailing address, phone number,
-                                        City or other details to help you with your experience.
+                                    <p>This site is published by CB INNOVATION, a simplified joint-stock company, with a capital of 27,500 euros, registered with the Trade and Companies Register of Lyon, under the number RCS 513 007 880, whose head office is located at 27 route de limonest, 69 450, Saint Cyr to the Golden Mount. </ P> <br>
+                                    <p>The Director of the publication of the website is Mr. Cyril Benhamou, President of the company CB INNOVATION.
+                                    </p>
+                                    <br>
+                                    <p>CB INNOVATION is subject to French law.</p>
+                                    <br>
+
+                                    <h5>II. TERMS OF USE OF THE SITE
+                                    </h5>
+                                    <p>
+                                    <li>The user acknowledges having read this document and agrees to respect it.
+                                    </li>
+                                    <li>The user acknowledges having the skills and means necessary to access and use this site.
+                                    </li>
+                                    <li>The user acknowledges having verified that the computer configuration used contains no viruses and is in perfect working order.
+                                    </li>
+                                    <li>
+                                        CB INNOVATION makes every effort to offer users information or tools that are available and verified but can not be held responsible for errors, lack of availability of features or the presence of viruses on its site.                                    </li>
+                                    <li>The information provided by CB INNOVATION is indicative and can not relieve the user of a complementary and personalized analysis.
+                                    </li>
+                                    <li>CB INNOVATION can not guarantee the accuracy, the completeness, the timeliness of the information diffused on its site.
+                                    </li>
+                                    <li>The information on the site is provided as general information.
+                                    </li>
+                                    <li>CB INNOVATION makes every effort to ensure the accuracy and veracity of the information contained on the site and can not be held responsible for any damage that may be caused by the use of this site.
+                                    </li>
+                                    <li>CB INNOVATION uses reliable sources to ensure that the information available on the site is accurate and regularly updated.
+                                    </li>
+                                    <li>CB INNOVATION reserves the right to delete, change or modify this site at any time and without notice.
+                                    </li>
+                                    <li>CB INNOVATION can not be held responsible for any damage, including damages resulting from the transmission of documents on the Internet.
+                                    </li>
+                                    <li>CB INNOVATION reserves the right to revise, delete, modify, validate or change, in whole or in part, any content sent to the website or displayed on it.
+                                    </li>
+                                    <li>As a result, the user acknowledges using this information under his exclusive responsibility.
+                                    </li>
+                                    </p>
+                                    <br>
+
+                                    <h5>III. COMPUTING AND FREEDOM
+                                    </h5>
+
+                                    <p>
+                                    <li>In application of the law n ° 78-17 of January 6th, 1978 modified, relative to the computing, the files and the liberties, the web site was the object of a declaration near the National Commission of the Computer science and freedoms (www.cnil.fr).
+                                    </li>
+                                    <li>The user is informed in particular, in accordance with Article 32 of the Data Protection Act of 6 January 1978 as amended, that CB INNOVATION, as data controller, implements a processing of personal data whose main purposes managing the registration of the user to the community site, sending newsletters.    </li>
+                                    <li>Some of the collected data may be communicated to its partners for prospecting purposes.
+                                    </li>
+                                    <li>Fields marked with an asterisk are required. If there is no answer or if the information provided is incorrect, CB INNOVATION will not be able to process your request.
+                                    </li>
+                                    <li>The user is informed that he has a right of access, interrogation, and rectification that allows him, if necessary, to rectify, complete, update, lock or erase his personal data that are inaccurate, incomplete, equivocal, out of date or whose collection, use, disclosure or storage is prohibited.   </li>
+                                    <li>The user also has the right to oppose the processing of his data for legitimate reasons as well as a right to object to this data being used for commercial prospecting purposes.
+                                    </li>
+                                    <li>All these rights are exercised by mail with a copy of an identity document bearing a signature:
+                                    </li>
+                                    <li>at the following address: CB INNOVATION 27 route de limonest, 69 450, Saint Cyr at the mont d'or.
+                                    </li>
+                                    <li>ou par mail à l'adresse suivante : contact@passetonbillet.fr.
+                                    </li>
+                                    </p>
+                                    <br>
+
+                                    <h5>IV. COOKIE
+                                    </h5>
+
+                                    <p>
+                                    <li>The user is informed that during his visits to the site, one or more cookies may be automatically installed on his browser.
+                                    </li>
+                                    <li>The cookie is a block of data used to record information about the user's navigation on the site.
+                                    </li>
+                                    <li>The setting of the browser software makes it possible to inform of the presence of one or more cookies and possibly to refuse it.
+                                    </li>
+                                    <li>The user can, if he wishes, enable or disable the use of cookies by selecting the appropriate settings of his browser.
+                                    </li>
+                                    <li>Generally, this parameter is found in the "Tools", "Parameters" tabs.
+                                    </li>
+                                    <li>It is not possible to provide detailed and up-to-date information on these setting items that are under the exclusive control and authority of the navigational software vendors.
+                                    </li>
+                                    <li>For information, users may have additional information:</li>
+                                    <li>publishers of their browser software on their website;</li>
+                                    <li>more generally on the Cnil website at www.cnil.fr using the keyword "cookies" in search engines.</li>
+                                    <li>The user is informed that such deactivation could prevent the use of certain features of the site.
+                                    </li>
+                                    <li>The user has a right of access, withdrawal and modification of personal data communicated through cookies under the conditions indicated above.
+                                    </li>
+                                    <li>The user is required to respect the provisions of the Data Protection Act of 6 January 1978, the violation of which is punishable by criminal penalties.
+                                    </li>
+                                    <li>In particular, he must abstain, with regard to the personal information to which he accedes or may access, from any collection, any misuse in a general way, of any act likely to infringe on the private life or the reputation of people.
+                                    </li>
+                                    </p>
+                                    <br>
+
+                                    <h5>V. HYPERLINKS
+                                    </h5>
+
+                                    <p>
+                                    <li>The hypertext links set up within the framework of the website to other resources on the Internet, and particularly to its partners, have been the subject of a prior written and express authorization.</li>
+                                    <li>CB INNOVATION can not be responsible for the access by the users by the hypertext links set up within the framework of the website towards other resources present on the network.
+                                    </li>
+                                    <li>CB INNOVATION declines any responsibility as for the contents of the information provided on these resources present on the network under the activation of the hypertext links.
+                                    </li>
+                                    <li>The user can not set up a hypertext link to this site without the express prior authorization of CB INNOVATION.
+                                    </li>
+                                    <li>Under no circumstances may this authorization be described as an implicit agreement of affiliation.
+                                    </li>
+                                    <li>In any case, the hypertext links to the website must be removed at first request from CB INNOVATION.
+                                    </li>
+                                    </p>
+                                    <br>
+
+                                    <h5>VI. APPLICABLE LAW
+                                    </h5>
+                                    <p>French law is applicable both for the rules of form and substance.
                                     </p>
 
-                                    <p class='grayText'><strong>When do we collect information?</strong></p>
-                                    <p>We collect information from you when you register on our
-                                        site, place an order, subscribe to a newsletter, respond to a survey, fill out a
-                                        form, Use Live Chat, Open a Support Ticket or enter information on our site.
-                                    </p>
 
-                                    <p class='grayText'><strong>How do we use your information? </strong></p>
-                                    <p> We may use the information we collect from you when you
-                                        register, make a purchase, sign up for our newsletter, respond to a survey or
-                                        marketing communication, surf the website, or use certain other site features in
-                                        the following ways:</p>
-                                    <ul>
-                                        <li>To
-                                            personalize your experience and to allow us to deliver the type of content
-                                            and
-                                            product offerings in which you are most interested.
-                                        </li>
-                                        <li>To
-                                            improve our website in order to better serve you.
-                                        </li>
-                                        <li>To
-                                            allow us to better service you in responding to your customer service
-                                            requests.
-                                        </li>
-                                        <li>To
-                                            administer a contest, promotion, survey or other site feature.
-                                        </li>
-                                        <li>To
-                                            quickly process your transactions.
-                                        </li>
-                                        <li>To ask
-                                            for ratings and reviews of services or products
-                                        </li>
-                                        <li>To
-                                            follow up with them after correspondence (live chat, email or phone
-                                            inquiries)
-                                        </li>
-                                    </ul>
-                                    <span id='infoPro'></span>
-                                    <div class='grayText'><strong>How do we protect your information?</strong></div>
-                                    <p>We do not use vulnerability scanning and/or scanning to PCI
-                                        standards.
-                                    </p>
-                                    <p>We only provide articles and information. We never ask for
-                                        credit card numbers.
-                                    </p>
-                                    <p>We do not use Malware Scanning.</p>
-                                    <p>Your personal information is contained behind secured
-                                        networks and is only accessible by a limited number of persons who have special
-                                        access rights to such systems, and are required to keep the information
-                                        confidential. In addition, all sensitive/credit information you supply is
-                                        encrypted via Secure Socket Layer (SSL) technology.
-                                    </p>
-
-                                    <p>We implement a variety of security measures when a user
-                                        places an order enters, submits, or accesses their information to maintain the
-                                        safety of your personal information.
-                                    </p>
-
-                                    <p>All transactions are processed through a gateway provider and
-                                        are not stored or processed on our servers.
-                                    </p>
-                                    <span id='coUs'></span>
-                                    <p class='grayText'><strong>Do we use 'cookies'?</strong></p>
-                                    <p>Yes. Cookies are small files that a site or its service
-                                        provider transfers to your computer's hard drive through your Web browser (if
-                                        you allow) that enables the site's or service provider's systems to recognize
-                                        your browser and capture and remember certain information. For instance, we use
-                                        cookies to help us remember and process the items in your shopping cart. They
-                                        are also used to help us understand your preferences based on previous or
-                                        current site activity, which enables us to provide you with improved services.
-                                        We also use cookies to help us compile aggregate data about site traffic and
-                                        site interaction so that we can offer better site experiences and tools in the
-                                        future.
-                                    </p>
-                                    <p><strong>We use cookies to:</strong></p>
-                                    <ul>
-                                        <li>Help
-                                            remember and process the items in the shopping cart.
-                                        </li>
-                                        <li>Understand and save user's preferences for future visits.
-                                        </li>
-                                        <li>Keep
-                                            track of advertisements.
-                                        </li>
-                                        <li>
-                                            Compile aggregate data about site traffic and site interactions in order to
-                                            offer better site experiences and tools in the future. We may also use
-                                            trusted
-                                            third-party services that track this information on our behalf.
-                                        </li>
-                                    </ul>
-                                    <p>You can choose to have your computer warn you each time a
-                                        cookie is being sent, or you can choose to turn off all cookies. You do this
-                                        through your browser settings. Since browser is a little different, look at your
-                                        browser's Help Menu to learn the correct way to modify your cookies.</p>
-                                    <p><strong>If users disable cookies in their
-                                            browser:</strong></p>
-
-                                    <p>If you turn cookies off, Some of the features that make your
-                                        site experience more efficient may not function properly.Some of the features
-                                        that make your site experience more efficient and may not function properly.
-                                    </p>
-                                    <span id='trDi'></span>
-                                    <div class='grayText'><strong>Third-party disclosure</strong></div>
-                                    <p>We do not sell, trade, or otherwise transfer to outside
-                                        parties your Personally Identifiable Information.
-                                    </p>
-                                    <span id='trLi'></span>
-                                    <p class='grayText'><strong>Third-party links</strong></p>
-                                    <p>Occasionally, at our discretion, we may include or offer
-                                        third-party products or services on our website. These third-party sites have
-                                        separate and independent privacy policies. We therefore have no responsibility
-                                        or liability for the content and activities of these linked sites. Nonetheless,
-                                        we seek to protect the integrity of our site and welcome any feedback about
-                                        these sites.
-                                    </p>
-                                    {{--<p class='grayText'><strong>Google</strong></p>--}}
-                                    {{--<p>Google's advertising requirements can be summed up by--}}
-                                    {{--Google's Advertising Principles. They are put in place to provide a positive--}}
-                                    {{--experience for users.--}}
-                                    {{--https://support.google.com/adwordspolicy/answer/1316548?hl=en </p>--}}
-                                    {{--<p>We use Google AdSense Advertising on our website.</p>--}}
-                                    {{--<p>Google, as a third-party vendor, uses cookies to serve--}}
-                                    {{--ads on our site. Google's use of the DART cookie enables it to serve ads to our--}}
-                                    {{--users based on previous visits to our site and other sites on the Internet.--}}
-                                    {{--Users may opt-out of the use of the DART cookie by visiting the Google Ad and--}}
-                                    {{--Content Network privacy policy.</p>--}}
-                                    {{--<p><strong>We have implemented the following:</strong></p>--}}
-                                    {{--<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>&bull;</strong>--}}
-                                    {{--Remarketing with Google AdSense--}}
-                                    {{--</p>--}}
-                                    {{--<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>&bull;</strong> Google--}}
-                                    {{--Display Network Impression Reporting--}}
-                                    {{--</p>--}}
-                                    {{--<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>&bull;</strong>--}}
-                                    {{--Demographics and Interests Reporting--}}
-                                    {{--</p>--}}
-                                    {{--<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>&bull;</strong>--}}
-                                    {{--DoubleClick Platform Integration</p>--}}
-
-                                    {{--<p>We, along with third-party vendors such as Google use--}}
-                                    {{--first-party cookies (such as the Google Analytics cookies) and third-party--}}
-                                    {{--cookies (such as the DoubleClick cookie) or other third-party identifiers--}}
-                                    {{--together to compile data regarding user interactions with ad impressions and--}}
-                                    {{--other ad service functions as they relate to our website.--}}
-                                    {{--</p>--}}
-                                    {{--<p><strong>Opting out:</strong>Users can set preferences--}}
-                                    {{--for how Google advertises to you using the Google Ad Settings page.--}}
-                                    {{--Alternatively, you can opt out by visiting the Network Advertising Initiative--}}
-                                    {{--Opt Out page or by using the Google Analytics Opt Out Browser add on.--}}
-                                    {{--</p>--}}
-                                    <span id='calOppa'></span>
-                                    <p class='grayText'><strong>California Online Privacy Protection Act</strong>
-                                    </p>
-                                    <p>CalOPPA is the first state law in the nation to require
-                                        commercial websites and online services to post a privacy policy. The law's
-                                        reach stretches well beyond California to require any person or company in the
-                                        United States (and conceivably the world) that operates websites collecting
-                                        Personally Identifiable Information from California consumers to post a
-                                        conspicuous privacy policy on its website stating exactly the information being
-                                        collected and those individuals or companies with whom it is being shared. - See
-                                        more at:
-                                        <a target="_blank" href="http://consumercal.org/california-online-privacy-protection-act-caloppa/#sthash.0FdRbT51.dpuf">http://consumercal.org/california-online-privacy-protection-act-caloppa/#sthash.0FdRbT51.dpuf</a>
-                                    </p>
-                                    <p>According to CalOPPA, we agree to the
-                                        following:</p>
-                                    <ul>
-                                        <li>Users can visit our site anonymously.</li>
-                                        <li>Once this privacy policy is created, we will add a link to it
-                                            on our home page or as a minimum, on the first significant page after
-                                            entering
-                                            our website.
-                                        </li>
-                                        <li>Our Privacy Policy link includes the word 'Privacy' and can
-                                            easily be found on the page specified above.
-                                        </li>
-                                    </ul>
-
-                                    <p>You will be notified of any Privacy Policy changes:</p>
-                                    <ul>
-                                        <li>On our
-                                            Privacy Policy Page
-                                        </li>
-                                        <li>Via email
-                                        </li>
-                                    </ul>
-                                    <p>Can change your personal information:</p>
-                                    <ul>
-                                        <li>By
-                                            emailing us
-                                        </li>
-                                        <li>By
-                                            logging in to your account
-                                        </li>
-                                        <li>By
-                                            chatting with us or by sending us a support ticket
-                                        </li>
-                                    </ul>
-                                    <p><strong>How does our site handle Do Not Track
-                                            signals?</strong></p>
-                                    <p>We honor Do Not Track signals and Do Not Track, plant
-                                        cookies, or use advertising when a Do Not Track (DNT) browser mechanism is in
-                                        place.
-                                    </p>
-                                    <p><strong>Does our site allow third-party behavioral
-                                            tracking?</strong></p>
-                                    <p>It's also important to note that we allow third-party
-                                        behavioral tracking
-                                    </p>
-                                    <span id='coppAct'></span>
-                                    <p class='grayText'><strong>COPPA (Children Online Privacy Protection
-                                            Act)</strong></p>
-                                    <p>When it comes to the collection of personal information from
-                                        children under the age of 13 years old, the Children's Online Privacy Protection
-                                        Act (COPPA) puts parents in control. The Federal Trade Commission, United
-                                        States' consumer protection agency, enforces the COPPA Rule, which spells out
-                                        what operators of websites and online services must do to protect children's
-                                        privacy and safety online.</p>
-                                    <p>We do not specifically market to children under the age of 13
-                                        years old.
-                                    </p>
-                                    <p>Do we let third-parties, including ad networks or plug-ins
-                                        collect PII from children under 13?
-                                    </p>
-                                    <span id='ftcFip'></span>
-                                    <p class='grayText'><strong>Fair Information Practices</strong></p>
-                                    <p>The Fair Information Practices Principles form the backbone
-                                        of privacy law in the United States and the concepts they include have played a
-                                        significant role in the development of data protection laws around the globe.
-                                        Understanding the Fair Information Practice Principles and how they should be
-                                        implemented is critical to comply with the various privacy laws that protect
-                                        personal information.</p>
-                                    <p><strong>In order to be in line with Fair Information
-                                            Practices we will take the following responsive action, should a data breach
-                                            occur:</strong></p>
-                                    <div class="ml-5">
-                                        <p>We will notify you via email</p>
-                                        <ul>
-                                            <li>Within
-                                                7 business days
-                                            </li></ul>
-                                        <p>We will notify the users via in-site notification</p>
-                                        <ul>
-                                            <li>Within
-                                                7 business days
-                                            </li></ul>
-                                    </div>
-                                    <p>We also agree to the Individual Redress Principle which
-                                        requires that individuals have the right to legally pursue enforceable rights
-                                        against data collectors and processors who fail to adhere to the law. This
-                                        principle requires not only that individuals have enforceable rights against
-                                        data users, but also that individuals have recourse to courts or government
-                                        agencies to investigate and/or prosecute non-compliance by data processors.
-                                    </p>
-                                    <span id='canSpam'></span>
-                                    <p class='grayText'><strong>CAN SPAM Act</strong></p>
-                                    <p>The CAN-SPAM Act is a law that sets the rules for commercial
-                                        email, establishes requirements for commercial messages, gives recipients the
-                                        right to have emails stopped from being sent to them, and spells out tough
-                                        penalties for violations.</p>
-                                    <p><strong>We collect your email address in order to:</strong>
-                                    </p>
-                                    <ul>
-                                        <li>Send
-                                            information, respond to inquiries, and/or other requests or questions
-                                        </li>
-                                        <li>
-                                            Process orders and to send information and updates pertaining to orders.
-                                        </li>
-                                        <li>Send
-                                            you additional information related to your product and/or service
-                                        </li>
-                                        <li>Market
-                                            to our mailing list or continue to send emails to our clients after the original
-                                            transaction has occurred.
-                                        </li>
-                                    </ul>
-                                    <p><strong>To be in accordance with CANSPAM, we agree to the
-                                            following:</strong></p>
-                                    <ul>
-                                        <li>Not
-                                            use false or misleading subjects or email addresses.
-                                        </li>
-                                        <li>
-                                            Identify the message as an advertisement in some reasonable way.
-                                        </li>
-                                        <li>
-                                            Include the physical address of our business or site headquarters.
-                                        </li>
-                                        <li>
-                                            Monitor third-party email marketing services for compliance, if one is used.
-                                        </li>
-                                        <li>Honor
-                                            opt-out/unsubscribe requests quickly.
-                                        </li>
-                                        <li>Allow
-                                            users to unsubscribe by using the link at the bottom of each email.
-                                        </li>
-                                    </ul>
-                                    <p><strong>If at any time you would like to unsubscribe from
-                                            receiving future emails, you can email us at</strong> <a href="mailto:contact@ptb.io">contact@ptb.io</a> and we will promptly remove you from <strong>ALL</strong> correspondence.</p>
 
                                 </div>
-                                <span id='ourCon'></span>
-                                <p class='grayText'><strong>Contacting Us</strong></p>
-                                <p>If there are any questions regarding this privacy policy, you may
-                                    contact us using the information below.</p>
-                                <p>Ptb.io</p>
-                                <p>contact@ptb.io</p>
-                            </div>
 
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+
+            @include('components.footer')
         </div>
-
-
-        @include('components.footer')
-    </div>
 
 
 @endsection

@@ -31,8 +31,8 @@ return [
 	                    • If the offer is not accepted you can make a new offer.',
         ],
         'send'    => [
-            'title' => 'Receive the ticket',
-            'text'  => 'Once agreed, send the money and your ticket will be sent to you as soon as the seller has received your money!',
+            'title' => 'Transaction',
+            'text'  => 'Seller and Buyer can both agree on their favorite transaction method.',
         ],
         'sell'    => [
             'title' => 'Put your ticket on sale',
@@ -47,8 +47,8 @@ return [
             'text'  => 'When you accept an offer for your ticket, a conversation with the buyer will be automatically created in which you can choose the means of payment that suits best both you and the buyer.',
         ],
         'send2'   => [
-            'title' => 'Send the ticket ',
-            'text'  => 'Once the buyer\'s money is received, you just have to send the ticket!',
+            'title' => 'Transaction',
+            'text'  => 'Seller and Buyer can both agree on their favorite transaction method.',
         ],
         'buttons' => [
             'buyer'  => 'Buyer',
@@ -64,7 +64,7 @@ return [
         ],
         'cheaper'   => [
             'title' => 'So Cheap',
-            'text'  => 'To make us forgive for making you wait for months, the new version of Passetonbillet.com is a first time 100% free for all buyers and sellers.'
+            'text'  => 'Passetonbillet.com 100% free for all buyers and sellers. No ads, no commissions on tickets, pure happiness.'
         ],
         'safer'     => [
             'title' => 'So Safe',
@@ -72,7 +72,7 @@ return [
         ],
         '10years'   => [
             'title' => '10 Years of Experience',
-            'text'  => 'PasseTonBillet.fr is the first used train ticket resale site created. It is now 10 years that he listens and improves continuously to meet the expectations of its users.'
+            'text'  => 'PasseTonBillet exists since 10 years with the only purpose to offer you the cheapest ticket on the market.'
         ],
         'more_info' => 'More info'
     ],
@@ -96,8 +96,9 @@ return [
         'contact'    => 'Contact',
         'partners'   => 'Partners',
         'conditions' => 'Terms',
-        'privacy'    => 'Privacy'
-
+        'privacy'    => 'Privacy',
+        'feedback' => 'Leave your feedback',
+        'provider_disclaimer' => 'The brands SNCF, OuiSNCF, OUIGOSNCF, TGV, Prem\'s, Eurostar, Thalys are not the property of PasseTonBillet. These proprietary terms are only used for clarity purposes.'
     ]
 
 

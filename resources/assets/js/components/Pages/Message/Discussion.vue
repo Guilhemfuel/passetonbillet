@@ -4,31 +4,30 @@
         'seller':(user.id == discussion.ticket.user.id),'buyer':(user.id != discussion.ticket.user.id)}">
         <modal :is-open="modalSellOpen"  :title="'Vendre ce billet à '+correspondant.full_name" @close-modal="modalSellOpen=false" v-if="!sold">
             <p>
-                {{lang.discussions.modal_sell.part_1}} {{correspondant.full_name}}. {{lang.discussions.modal_sell.part_2}}. {{correspondant.full_name}} {{lang.discussions.modal_sell.part_3}}.
+                {{trans('message.discussions.modal_sell.part_1')}} {{correspondant.full_name}}. {{trans('message.discussions.modal_sell.part_2')}}.
             </p>
-            <form class="hidden" method="post" ref="sellForm" :action="routes.sell">
+            <form class="hidden" method="post" ref="sellForm" :action="this.route('public.message.discussion.sell',[discussion.ticket.id,discussion.id])">
                 <input type="hidden" name="_token" :value="csrf">
             </form>
             <div class="btn-rack">
-                <button class="btn btn-success" @click="$refs.sellForm.submit()">{{lang.discussions.cta_sell_to}} {{correspondant.full_name}}</button>
-                <button class="btn btn-danger" @click="modalSellOpen=false">{{lang.discussions.cancel}}</button>
+                <button class="btn btn-success" @click="$refs.sellForm.submit()">{{trans('message.discussions.cta_sell_to')}}</button>
+                <button class="btn btn-danger" @click="modalSellOpen=false">{{trans('message.discussions.cancel')}}</button>
             </div>
         </modal>
-        <modal :is-open="modalInfo" :title="lang.discussions.modal_title"  @close-modal="closeInfoModal" v-if="modalInfo" :button-close="false">
+        <modal :is-open="modalInfo" :title="trans('message.discussions.modal_title')"  @close-modal="closeInfoModal" v-if="modalInfo" :button-close="false">
             <div class="container-fluid">
                 <div class="row">
                     <p class="text-justify" v-if="user.id == discussion.ticket.user.id">
-                        <span v-html="lang.discussions.modal_explanation_buyer.part_one"></span>{{discussion.buyer.full_name}}
-                        <span v-html="lang.discussions.modal_explanation_buyer.part_two"></span>
+                        <span v-html="trans('message.discussions.modal_explanation_buyer')"></span>
                     </p>
                     <p class="text-justify" v-html="" v-else>
-                        <span v-html="lang.discussions.modal_explanation_seller"></span>
+                        <span v-html="trans('message.discussions.modal_explanation_seller')"></span>
                     </p>
                     <a style="width: 100%;" class="text-center mt-3" href="#" onclick="$crisp.push(['do', 'chat:show']);$crisp.push(['do', 'chat:open'])">
-                        {{lang.discussions.modal_open_chat}}
+                        {{trans('message.discussions.modal_open_chat')}}
                     </a>
                     <button class="btn btn-primary btn-block mt-1" @click="closeInfoModal">
-                        {{lang.discussions.modal_close_understand}}
+                        {{trans('message.discussions.modal_close_understand')}}
                     </button>
                 </div>
             </div>
@@ -51,49 +50,44 @@
                 </div>
                 <div class="col-md-4 d-sm-none d-none d-md-flex align-items-center justify-content-center" v-if="!sold && user.id == discussion.ticket.user.id">
                     <div>
-                        <button class="btn btn-primary mx-auto" @click="modalSellOpen=true"> {{lang.discussions.cta_sell_to}} {{correspondant.full_name}}</button><br>
-                        <p class="text-center"><a href="#" @click.prevent="modalInfo=true">{{lang.discussions.modal_title}}</a></p>
+                        <button class="btn btn-primary mx-auto" @click="modalSellOpen=true"> {{trans('message.discussions.cta_sell_to')}}</button><br>
+                        <p class="text-center"><a href="#" @click.prevent="modalInfo=true">{{trans('message.discussions.modal_title')}}</a></p>
                     </div>
                 </div>
                 <div class="col-md-4 d-sm-none d-none d-md-flex align-items-center justify-content-center" v-if="!sold && user.id != discussion.ticket.user.id">
-                    <p class="text-center"><a href="#" @click.prevent="modalInfo=true">{{lang.discussions.modal_title}}</a></p>
+                    <p class="text-center"><a href="#" @click.prevent="modalInfo=true">{{trans('message.discussions.modal_title')}}</a></p>
                 </div>
 
                 <template v-if="sold">
                     <div class="col-8 col-md-4 col-sm-6 d-flex align-items-center justify-content-center flex-column" v-if="sold_here">
                         <h3 class="text-center">Deal!</h3>
                         <p class="text-center" v-if="user.id == discussion.ticket.user.id">
-                            {{lang.discussions.sold_to}} {{correspondant.first_name}}<br>
+                            {{trans('message.discussions.sold_to')}} {{correspondant.first_name}}<br>
                         </p>
                         <p class="text-center" v-else>
-                            {{lang.discussions.bought_from}} {{correspondant.first_name}}<br>
+                            {{trans('message.discussions.bought_from')}} {{correspondant.first_name}}<br>
                         </p>
                     </div>
                     <div class="col-8 col-md-4 col-sm-6 d-flex align-items-center justify-content-center flex-column" v-else>
                         <p class="text-center">
-                            {{lang.discussions.sold_to_so_else}}
+                            {{trans('message.discussions.sold_to_so_else')}}
                         </p>
                     </div>
                 </template>
                 <div class="col-md-4 col-12 d-flex align-items-center justify-content-center flex-column py-3 py-sm-0 pb-sm-3" v-if="sold">
-                    <ticket-mini :discussion="discussion" :ticket="discussion.ticket" :lang="ticketLang" :user="user"></ticket-mini>
+                    <ticket-mini :discussion="discussion" :ticket="discussion.ticket"></ticket-mini>
                 </div>
                 <div class="col-md-4 col-sm-6 col-8 d-flex align-items-center justify-content-center flex-column py-3 py-sm-0 pb-sm-3" v-else>
-                    <ticket-mini :discussion="discussion" :ticket="discussion.ticket" :lang="ticketLang" :user="user"></ticket-mini>
+                    <ticket-mini :discussion="discussion" :ticket="discussion.ticket"></ticket-mini>
                 </div>
                 <div class="col-sm-12 d-md-none p-0" v-if="!sold && user.id == discussion.ticket.user.id">
-                    <button @click="modalSellOpen=true" class="btn btn-ptb-blue btn-block btn-header">{{lang.discussions.cta_sell_to}} {{correspondant.full_name}}</button>
+                    <button @click="modalSellOpen=true" class="btn btn-ptb-blue btn-block btn-header">{{trans('message.discussions.cta_sell_to')}}</button>
                 </div>
             </div>
         </div>
         <div :class="{'messages':true, 'row':true, 'shadow':topShadow, 'archived':(sold && !sold_here)}" v-on:scroll="onScroll" id="messages">
             <p class="text-center px-4 reminder" v-if="!sold">
-                <template v-if="user.id == discussion.ticket.user.id">
-                    {{lang.discussions.explanation_seller}}
-                </template>
-                <template v-else>
-                    {{lang.discussions.explanation_buyer}}
-                </template>
+                    {{trans('message.discussions.disclaimer')}}
             </p>
             <template v-for="message in discussion.messages">
                 <div class="msg-container">
@@ -105,7 +99,7 @@
                 </div>
             </template>
             <p class="text-center" v-if="(sold && !sold_here)">
-                {{lang.discussions.sold_disc_ended}}
+                {{trans('message.discussions.sold_disc_ended')}}
             </p>
         </div>
         <div class="input" v-if="!(sold && !sold_here)">
@@ -113,7 +107,7 @@
         @keyup.enter.prevent="sendMessage"></textarea>
         <button class="btn btn-ptb-blue" @click="sendMessage">
         <template v-if="state!='sending'">
-        {{lang.discussions.send}}
+        {{trans('message.discussions.send')}}
         </template>
         <template v-else>
         <loader :class-name="'mx-auto white'"></loader>
@@ -127,36 +121,30 @@
 <script>
     export default {
         props: {
-            api: {type: Object, required: true},
-            routes: {type: Object, required: true},
-            lang: {type: Object, required: true},
-            ticketLang: {type: Object, required: true},
-            user: {type: Object, required: true},
-            csrf: {type: String, required: true},
             discussionDefault: {type: Object, required: true},
-
         },
         data() {
             return {
+                csrf: window.csrf,
                 state: 'default',
                 discussion: this.discussionDefault,
                 inputMessage: '',
                 topShadow: false,
                 modalSellOpen: false,
                 modalTicketOpened: false,
-                modalInfo: false
+                modalInfo: false,
+                user: this.$root.user,
             }
         },
         computed: {
             sendUrl: function () {
-                return this.api.send.replace('ticket_id', this.discussion.ticket.id).replace('discussion_id', this.discussion.id);
+                return this.route('api.discussion.send',[this.discussion.ticket.id,this.discussion.id]);
             },
             profileUrl: function () {
-                return this.routes.profile.replace('user_id', this.correspondant.hashid);
+                return this.route('public.profile.stanger',this.correspondant.hashid);
             },
             readUrl: function () {
-                return this.api.read.replace('ticket_id', this.discussion.ticket.id)
-                    .replace('discussion_id', this.discussion.id);
+                return this.route('api.discussion.read',[this.discussion.ticket.id,this.discussion.id]);
             },
             correspondant: function () {
                 if (this.user.id == this.discussion.buyer.id) {

@@ -1,44 +1,15 @@
-@extends('layouts.app')
+@extends('layouts.dashboard')
 
-@section('content')
+@section('dashboard-content')
 
     <div class="cgu-page">
 
         <div class="section-header">
-            <div class="first-section" style="background-image: url('{{secure_asset('img/bg/3.jpg')}}');">
+            <div class="first-section">
                 <div class="fixed-content">
-                    <nav class="navbar">
-                        <a class="navbar-brand" href="{{route('home')}}">
-                            <img src="{{secure_asset('img/logo.png')}}" class="d-inline-block align-top" alt="logo ptb">
-                        </a>
-                        <ul class="navbar-nav navbar-expand">
-                            @if(!Auth::check())
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{route('login')}}">@lang('nav.login')</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{route('register')}}">@lang('nav.register')</a>
-                                </li>
-                            @endif
-                            <li class="nav-item">
-                                <a class="nav-link" href="#" onclick="$crisp.push(['do', 'chat:open'])">
-                                    <i class="fa fa-question-circle" aria-hidden="true"></i>
-                                </a>
-                            </li>
-                            @if (App::isLocale('fr'))
-                                <a class="nav-link" href="{{route('lang','en')}}">
-                                    <span class="flag-icon flag-icon-gb"></span>
-                                </a>
-                            @else
-                                <a class="nav-link" href="{{route('lang','fr')}}">
-                                    <span class="flag-icon flag-icon-fr"></span>
-                                </a>
-                            @endif
-                        </ul>
-                    </nav>
                     <div class="content">
                         <div>
-                            <h2 class="text-center text-white">@lang('about.title')</h2>
+                            <h2 class="text-center text-white mt-3">@lang('about.title')</h2>
 
                             <div class="container container-over-bg p-5 mt-5 text-justify">
 

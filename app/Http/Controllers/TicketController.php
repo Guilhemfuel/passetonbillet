@@ -82,11 +82,6 @@ class TicketController extends Controller
             'ip_adress' => $request->ip(),
         ] );
 
-        // Now we want to generate the pdf (if PDF)
-        if ( $ticket->provider == 'eurostar' && ! $ticket->manual ) {
-            DownloadTicketPdf::dispatch( $ticket );
-        }
-
         flash( __( 'tickets.sell.success' ) )->success()->important();
 
         return redirect()->route( 'public.ticket.owned.page' );
@@ -140,7 +135,6 @@ class TicketController extends Controller
             'buyer_email'     => \Auth::user()->email,
             'buyer_name'      => \Auth::user()->last_name
         ] );
-
 
         // Log the IP of the seller
         AppHelper::stat( 'add_ticket', [

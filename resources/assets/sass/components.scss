@@ -441,6 +441,11 @@ $animation-duration: 0.3s;
     a:hover {
       border-bottom: 1px solid;
     }
+
+    .text-disclaimer {
+      font-size: 12px;
+      color: white;
+    }
   }
 }
 
@@ -641,5 +646,16 @@ $animation-duration: 0.3s;
   .fa {
     margin-right: 15px;
     width: 12px;
+  }
+}
+
+// Review modal
+.review-modal {
+  .el-rate {
+    height: 25px;
+
+    .el-rate__icon {
+      font-size: 25px;
+    }
   }
 }

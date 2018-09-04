@@ -2,9 +2,8 @@
 
 @section('content')
 
-
     <div id="dashboard" class="row">
-        <div class="col bg-light-gray" id="main-content">
+        <div class="col bg-light-gray p-0" id="main-content">
 
             @include('components.nav')
 

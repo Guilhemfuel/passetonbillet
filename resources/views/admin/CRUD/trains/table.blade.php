@@ -14,10 +14,10 @@
             <tr>
                 <td>{{$entity->number?$entity->number:'-'}}</td>
                 <td>
-                    <a href="{{route('stations.edit',$entity->departureCity->id)}}">{{$entity->departureCity->name_en?$entity->departureCity->name_en:'-'}}</a>
+                   {{$entity->departureCity->name}}
                 </td>
                 <td>
-                    <a href="{{route('stations.edit',$entity->arrivalCity->id)}}">{{$entity->arrivalCity->name_en?$entity->arrivalCity->name_en:'-'}}</a>
+                   {{$entity->arrivalCity->name}}
                 </td>
                 <td>{{$entity->departure_date?$entity->departure_date:'-'}}</td>
                 <td>{{$entity->departure_time?$entity->departure_time:'-'}}</td>

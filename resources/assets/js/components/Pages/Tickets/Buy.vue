@@ -117,8 +117,6 @@
                 this.state = 'searching';
                 this.$http.get(this.route('api.tickets.buy'),  {params: this.search})
                     .then(response => {
-                        console.log(response);
-
                         function compare(a, b) {
                             if (a.train.departure_date < b.train.departure_date)
                                 return -1;

@@ -67,7 +67,8 @@ var Ziggy = {
             "uri": "api\/messages\/{ticket}\/{discussion}\/read",
             "methods": ["POST"],
             "domain": null
-        }
+        },
+        "api.reviews.store": {"uri": "api\/reviews", "methods": ["POST"], "domain": null}
     },
     baseUrl: 'https://ptb.nahum/',
     baseProtocol: 'https',

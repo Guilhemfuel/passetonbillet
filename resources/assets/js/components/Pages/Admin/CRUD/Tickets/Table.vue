@@ -45,15 +45,11 @@
             <el-table-column
                     prop="departure_city"
                     label="From"
-                    :filters="stationsFilters"
-                    :filter-method="filterHandler"
             >
             </el-table-column>
             <el-table-column
                     prop="arrival_city"
                     label="To"
-                    :filters="stationsFilters"
-                    :filter-method="filterHandler"
             >
             </el-table-column>
             <el-table-column
@@ -63,7 +59,6 @@
             >
                 <template slot-scope="scope">
                     {{scope.row.price}} {{scope.row.currency}}
-
                 </template>
             </el-table-column>
             <el-table-column
@@ -106,7 +101,6 @@
     export default {
         props: {
             tickets: {type: Array, required: true},
-            stations: {type: Array, required: true},
         },
         data() {
             return {
@@ -126,7 +120,6 @@
                 url.select();
 
                 document.execCommand("Copy");
-                console.log(url.value);
                 window.getSelection().removeAllRanges();
 
             },
@@ -140,16 +133,6 @@
             }
         },
         computed: {
-            stationsFilters() {
-                let stationsFilters = [];
-                for(let i=0;i<this.stations.length;i++){
-                    stationsFilters.push({
-                        text: this.stations[i],
-                        value: this.stations[i]
-                    })
-                }
-                return stationsFilters;
-            },
             searchedTickets() {
                 let filtered = [];
                 for (let i = 0; i < this.tickets.length; i++) {

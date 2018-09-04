@@ -49,7 +49,7 @@
             validation: {required: false, type: String},
             placeholder: {required: false, type: String},
             oldValue: {required: false, type: Boolean, default: true},
-
+            defaultValue: {required: false, type: String}
         },
         computed: {
             getClass(){
@@ -62,7 +62,7 @@
                 if (this.defaultValue != null && this.defaultValue != undefined) {
                     return this.defaultValue;
                 }
-                if (this.oldValue && this.$root.oldInput[this.name]) {
+                if (this.oldValue && this.$root.oldInput) {
                     return this.$root.oldInput[this.name];
                 }
                 return null;

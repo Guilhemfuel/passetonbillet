@@ -45,10 +45,20 @@
                                         <!--Reference number-->
                                     </div>
                                     <div class="col-xs-12 form-group">
+                                        <el-tooltip class="item"
+                                                    effect="dark"
+                                                    :content="lang.sell.help_booking_code"
+                                                    placement="top"
+                                                    v-model="tooltipBookingCode"
+                                                    :manual="true">
+
                                         <input id="booking_code" type="text"
                                                :class="{'form-control': true, 'is-invalid': errors.has('booking_code') }"
                                                name="booking_code" required v-validate="'required|max:6|min:6'"
-                                               :placeholder="lang.sell.inputs.booking_code" v-model="form.booking_code">
+                                               :placeholder="lang.sell.inputs.booking_code" v-model="form.booking_code"
+                                                @focus="tooltipBookingCode = true" @blur="tooltipBookingCode = false"
+                                        >
+                                        </el-tooltip>
                                         <span v-if="errors.has('booking_code')"
                                               class="invalid-feedback">{{ errors.first('booking_code')}}</span>
 
@@ -172,6 +182,7 @@
                 form: {last_name: this.user.last_name, _token: this.csrf},
                 tickets: [],
                 selectedTicket: {},
+                tooltipBookingCode: false
             }
         },
         computed: {

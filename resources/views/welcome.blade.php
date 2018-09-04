@@ -161,8 +161,8 @@
             <div class="section-feedback" id="section-feedback">
                 <h2 class="text-center text-warning title">{{__('welcome.feedback.title')}}</h2>
 
-                <div class="container">
-                    <div class="row">
+                <div class="container-fluid">
+                    <div class="row px-5">
                         <div class="px-2 col-12 col-sm-6 col-md-4 mt-4">
                             <div class="card card-review ">
                                 <div class="card-body">
@@ -235,8 +235,10 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
+                <reviews></reviews>
             </div>
 
             <home-buyer-seller-info></home-buyer-seller-info>
@@ -247,7 +249,7 @@
                     <input type="checkbox" class="read-more-state" id="post-1"/>
                     <ul class="read-more-wrap">
                         <label for="post-1" class="questions">
-                            <li class="question">{{__('welcome.FAQ.Q1')}}</li>
+                            <li class="question"> {{__('welcome.FAQ.Q1')}}</li>
                             <li class="answer">{{__('welcome.FAQ.A1')}}</li>
                         </label>
                     </ul>
@@ -256,7 +258,7 @@
                     <input type="checkbox" class="read-more-state" id="post-2"/>
                     <ul class="read-more-wrap">
                         <label for="post-2" class="questions">
-                            <li class="question">{{__('welcome.FAQ.Q2')}}</li>
+                            <li class="question"> {{__('welcome.FAQ.Q2')}}</li>
                             <li class="answer">{{__('welcome.FAQ.A2')}}</li>
                         </label>
                     </ul>
@@ -265,7 +267,7 @@
                     <input type="checkbox" class="read-more-state" id="post-3"/>
                     <ul class="read-more-wrap">
                         <label for="post-3" class="questions">
-                            <li class="question">{{__('welcome.FAQ.Q3')}}</li>
+                            <li class="question"> {{__('welcome.FAQ.Q3')}}</li>
                             <li class="answer">{{__('welcome.FAQ.A3')}}</li>
                         </label>
                     </ul>
@@ -274,7 +276,7 @@
                     <input type="checkbox" class="read-more-state" id="post-4"/>
                     <ul class="read-more-wrap">
                         <label for="post-4" class="questions">
-                            <li class="question">{{__('welcome.FAQ.Q4')}}</li>
+                            <li class="question"> {{__('welcome.FAQ.Q4')}}</li>
                             <li class="answer">{{__('welcome.FAQ.A4')}}</li>
                         </label>
                     </ul>

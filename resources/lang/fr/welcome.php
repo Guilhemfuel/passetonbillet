@@ -31,8 +31,8 @@ return [
 	                   • Si l’offre n’est pas acceptée vous pouvez faire une nouvelle offre.',
             ],
         'send'=> [
-            'title' => 'Recevez le billet',
-            'text' => 'Une fois d’accord, envoyez l’argent et votre ticket vous sera envoyé dès que le vendeur aura reçu votre argent !',
+            'title' => 'Transaction',
+            'text' => 'Les modalités sont entièrement libres entre l\'acheteur et le vendeur !',
              ],
         'sell'=> [
             'title' => 'Mettez votre billet en vente',
@@ -47,8 +47,8 @@ return [
             'text' => 'Lorsque vous accepterez une offre pour votre billet, une conversation avec l’acheteur se créera automatiquement dans laquelle vous pourrez choisir  le moyen de paiement qui vous convient le mieux à tous les deux.',
         ],
         'send2'=> [
-            'title' => 'Envoyez le ticket',
-            'text' => 'Une fois l’argent de l’acheteur reçu, vous n’aurez plus qu’à lui envoyer le billet !',
+            'title' => 'Transaction',
+            'text' => 'Les modalités sont entièrement libres entre l\'acheteur et le vendeur !',
         ],
         'buttons'=> [
             'buyer' => 'Acheteur',
@@ -64,7 +64,7 @@ return [
         ],
         'cheaper' => [
             'title' => '100% Gratuit',
-            'text' => 'Pour nous faire pardonner de vous avoir fait patienter pendant des mois, la nouvelle version de Passetonbillet.com est un premier temps 100% gratuit pour tous les acheteurs et vendeurs.'
+            'text' => 'Passetonbillet.com est 100% gratuit pour les acheteurs et les vendeurs. Pas de pub, pas de commissions sur les billets, que du bonheur.'
         ],
         'safer' => [
             'title' => 'Plus Sécurisé',
@@ -72,7 +72,7 @@ return [
         ],
         '10years' => [
             'title' => '10 Ans d\'Experience',
-            'text' => 'PasseTonBillet.fr est le premier site de revente de billets de trains d’occasion créé. Cela fait maintenant 10 ans qu’il est à l’écoute et s’améliore continuellement afin de satisfaire les attentes de ses utilisateurs.'
+            'text' => 'PasseTonBillet existe depuis 10 ans avec pour seule ambition de vous proposer des billets les moins chers du marché.'
         ],
         'more_info' => 'En savoir plus'
     ],
@@ -96,7 +96,9 @@ return [
         'contact' => 'Contact',
         'partners'   => 'Partenaires',
         'conditions' => 'Conditions d\'utilisation',
-        'privacy'    => 'Politique de Confidentialité'
+        'privacy'    => 'Politique de Confidentialité',
+        'feedback' => 'Donner votre avis',
+        'provider_disclaimer' => ' Les marques SNCF, OuiSNCF, OUIGOSNCF, TGV, Prem\'s, Eurostar, Thalys ne sont pas la propriété de PasseTonBillet. Ces termes propriétaires ne sont utilisés que dans un souci de clarté.'
     ]
 
 
