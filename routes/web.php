@@ -139,7 +139,7 @@ Route::group( [ 'prefix' => 'ticket', 'as' => 'ticket.' ], function () {
  * Admin routes
  **/
 Route::blacklist(function() {
-    Route::group( [ 'prefix' => 'ptbadmin', 'middleware' => 'auth.admin' ], function () {
+    Route::group( [ 'prefix' => 'p', 'middleware' => 'auth.admin' ], function () {
         Route::get( '/', 'Admin\HomeController@home' )->name( 'admin.home' );
 
         Route::resource( 'users', 'Admin\UserController' );
@@ -155,6 +155,7 @@ Route::blacklist(function() {
             Route::post( '/manual-upload/{ticket_id}', 'Admin\TicketController@pdfManualUpload' )->name( 'manual_upload' );
         } );
 
+        Route::resource( 'stations', 'Admin\StationController' );
         Route::resource( 'trains', 'Admin\TrainController' );
 
         Route::resource( 'offers', 'Admin\DiscussionController' );

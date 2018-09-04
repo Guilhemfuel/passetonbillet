@@ -55,7 +55,7 @@
                     </nav>
                     <div class="content">
                         <div class="center">
-                            <h3 class="catchline">@lang('welcome.advantages.one_clic')</h3>
+                            <h3 class="catchline">{!! __('welcome.advantages.one_clic') !!}</h3>
                             <home-search></home-search>
                         </div>
                     </div>
@@ -82,6 +82,14 @@
                                 </div>
                                 <div class="card-body">
                                     <h5 class="card-title">Paris <span class="arrow"></span> Londres</h5>
+                                </div>
+                            </a>
+                            <a class="card card-trip" href="{{route('public.ticket.buy.page')}}?departure_station=8267&arrival_station=4916">
+                                <div class="card-img-top-background"
+                                     style="background-image: url('img/cities/paris-2.jpeg')">
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Londres <span class="arrow"></span> Paris</h5>
                                 </div>
                             </a>
                             <a class="card card-trip" href="{{route('public.ticket.buy.page')}}?departure_station=4916&arrival_station=4718">
@@ -246,50 +254,51 @@
 
             <home-buyer-seller-info></home-buyer-seller-info>
 
-            <div class="section-FAQ" id="section-FAQ">
-                <h2 class="text-center text-warning title FAQ-title">{{__('welcome.FAQ.title')}}</h2>
-                <div>
-                    <input type="checkbox" class="read-more-state" id="post-1"/>
-                    <ul class="read-more-wrap">
-                        <label for="post-1" class="questions">
-                            <li class="question"> {{__('welcome.FAQ.Q1')}}</li>
-                            <li class="answer">{{__('welcome.FAQ.A1')}}</li>
-                        </label>
-                    </ul>
-                </div>
-                <div>
-                    <input type="checkbox" class="read-more-state" id="post-2"/>
-                    <ul class="read-more-wrap">
-                        <label for="post-2" class="questions">
-                            <li class="question"> {{__('welcome.FAQ.Q2')}}</li>
-                            <li class="answer">{{__('welcome.FAQ.A2')}}</li>
-                        </label>
-                    </ul>
-                </div>
-                <div>
-                    <input type="checkbox" class="read-more-state" id="post-3"/>
-                    <ul class="read-more-wrap">
-                        <label for="post-3" class="questions">
-                            <li class="question"> {{__('welcome.FAQ.Q3')}}</li>
-                            <li class="answer">{{__('welcome.FAQ.A3')}}</li>
-                        </label>
-                    </ul>
-                </div>
-                <div>
-                    <input type="checkbox" class="read-more-state" id="post-4"/>
-                    <ul class="read-more-wrap">
-                        <label for="post-4" class="questions">
-                            <li class="question"> {{__('welcome.FAQ.Q4')}}</li>
-                            <li class="answer">{{__('welcome.FAQ.A4')}}</li>
-                        </label>
-                    </ul>
-                </div>
-                <div class="button">
-                    <button id="btn-seemore" class="text-uppercase">
-                        {{__('welcome.FAQ.buttons.seemore')}}
-                    </button>
-                </div>
-            </div>
+            {{--<div class="section-FAQ" id="section-FAQ">--}}
+                {{--<h2 class="text-center text-warning title FAQ-title">{{__('welcome.FAQ.title')}}</h2>--}}
+                {{--<div>--}}
+                    {{--<input type="checkbox" class="read-more-state" id="post-1"/>--}}
+                    {{--<ul class="read-more-wrap">--}}
+                        {{--<label for="post-1" class="questions">--}}
+                            {{--<li class="question"> {{__('welcome.FAQ.Q1')}}</li>--}}
+                            {{--<li class="answer">{{__('welcome.FAQ.A1')}}</li>--}}
+                        {{--</label>--}}
+                    {{--</ul>--}}
+                {{--</div>--}}
+                {{--<div>--}}
+                    {{--<input type="checkbox" class="read-more-state" id="post-2"/>--}}
+                    {{--<ul class="read-more-wrap">--}}
+                        {{--<label for="post-2" class="questions">--}}
+                            {{--<li class="question"> {{__('welcome.FAQ.Q2')}}</li>--}}
+                            {{--<li class="answer">{{__('welcome.FAQ.A2')}}</li>--}}
+                        {{--</label>--}}
+                    {{--</ul>--}}
+                {{--</div>--}}
+                {{--<div>--}}
+                    {{--<input type="checkbox" class="read-more-state" id="post-3"/>--}}
+                    {{--<ul class="read-more-wrap">--}}
+                        {{--<label for="post-3" class="questions">--}}
+                            {{--<li class="question"> {{__('welcome.FAQ.Q3')}}</li>--}}
+                            {{--<li class="answer">{{__('welcome.FAQ.A3')}}</li>--}}
+                        {{--</label>--}}
+                    {{--</ul>--}}
+                {{--</div>--}}
+                {{--<div>--}}
+                    {{--<input type="checkbox" class="read-more-state" id="post-4"/>--}}
+                    {{--<ul class="read-more-wrap">--}}
+                        {{--<label for="post-4" class="questions">--}}
+                            {{--<li class="question"> {{__('welcome.FAQ.Q4')}}</li>--}}
+                            {{--<li class="answer">{{__('welcome.FAQ.A4')}}</li>--}}
+                        {{--</label>--}}
+                    {{--</ul>--}}
+                {{--</div>--}}
+                {{--<div class="button">--}}
+                    {{--<button id="btn-seemore" class="text-uppercase">--}}
+                        {{--{{__('welcome.FAQ.buttons.seemore')}}--}}
+                    {{--</button>--}}
+                {{--</div>--}}
+            {{--</div>--}}
+
             <div>
                 @include('components.footer')
 

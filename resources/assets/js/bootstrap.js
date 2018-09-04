@@ -25,7 +25,7 @@ window.Vue.use(require('vue-resource'));
 import Raven from 'raven-js';
 import RavenVue from 'raven-js/plugins/vue';
 if (!local) {
-    Raven.config('https://55043330c18c47a29c0d04e79e9426be@sentry.io/305544', {
+    Raven.config('https://e9ebbd88548a441288393c457ec90441@sentry.io/3235', {
         environment: 'production'
     })
     .addPlugin(RavenVue, Vue)
