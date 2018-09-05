@@ -68,22 +68,25 @@ class Handler extends ExceptionHandler
      */
     public function render( $request, Exception $exception )
     {
-        if ( ($exception instanceof EurostarException || $exception instanceof SncfException)
+        if ( ($exception instanceof PasseTonBilletException)
              && \App::environment() != 'local'
              && !$request->expectsJson()
         ) {
             $errorMsg = 'Train Error: ' . $exception->getMessage();
 
-            return \Redirect::back()->withInput( $request->input() )->with( 'eurostar_error', $errorMsg );
+            return \Redirect::back()->withInput( $request->input() )->with( 'ptb_error', $errorMsg );
         }
 
         if ( \App::environment() != 'local' && app()->bound( 'sentry' ) && $this->sentryShouldReport( $exception )  ){
             return response()->view('errors.500', [
                 'sentryID' => $this->sentryID,
             ], 500);
-        } else {
-            return parent::render( $request, $exception );
+        } elseif (config('app.debug') && app()->environment() != 'production') {
+            return $this->handleWhoopsies($request, $exception);
         }
+
+        return parent::render( $request, $exception );
+
     }
 
     /**
@@ -118,4 +121,45 @@ class Handler extends ExceptionHandler
 
         return $this->shouldReport($exception);
     }
+
+    /**
+     * @param $request
+     * @param Exception $exception
+     *
+     * @return \Illuminate\Http\Response|mixed
+     */
+    protected function handleWhoopsies($request, Exception $exception)
+    {
+        if ($request->ajax()) {
+            return $this->renderJsonExceptionWithWhoops();
+        } else {
+            return $this->renderExceptionWithWhoops($exception);
+        }
+    }
+
+    /**
+     * @return mixed
+     */
+    protected function renderJsonExceptionWithWhoops()
+    {
+        $whoops = new \Whoops\Run;
+        return $whoops->pushHandler(new \Whoops\Handler\JsonResponseHandler());
+    }
+    /**
+     * Render an exception using Whoops.
+     *
+     * @param  \Exception $exception
+     *
+     * @return \Illuminate\Http\Response
+     */
+    protected function renderExceptionWithWhoops(Exception $exception)
+    {
+        $whoops = new \Whoops\Run;
+        $handler = new \Whoops\Handler\PrettyPageHandler();
+        $handler->setEditor(config('app.editor'));
+        $whoops->pushHandler($handler);
+        return new \Illuminate\Http\Response($whoops->handleException($exception), $exception->getStatusCode(),
+            $exception->getHeaders());
+    }
+
 }

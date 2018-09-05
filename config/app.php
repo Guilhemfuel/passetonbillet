@@ -130,7 +130,7 @@ return [
      |  Chosen editor
      |
      */
-    'editor'    => env( 'APP_EDITOR', 'phpstorm' ),
+    'editor'    => env( 'APP_EDITOR', null ),
 
     /*
     |--------------------------------------------------------------------------
