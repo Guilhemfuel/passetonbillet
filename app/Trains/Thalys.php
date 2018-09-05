@@ -128,8 +128,8 @@ class Thalys
                 'form_params' => [
                     'lg'                => 'en',
                     'country'           => 'be',
-                    'popup_billets_pnr' => 'SXNAHL',
-                    'popup_billets_nom' => 'nahum'
+                    'popup_billets_pnr' => $referenceNumber,
+                    'popup_billets_nom' => $lastName
                 ],
                 'cookies'     => $cookiesJar
             ]
