@@ -253,7 +253,7 @@ class TicketController extends Controller
             ] );
 
             try {
-                $ticketArray = Sncf::retrieveTicket( \Auth::user()->last_name, $request->booking_code );
+                $ticketArray = Eurostar::retrieveTicket( \Auth::user()->last_name, $request->booking_code );
             } catch ( PasseTonBilletException $e ) {
                 try {
                     $ticketArray = Sncf::retrieveTicket( \Auth::user()->last_name, $request->booking_code );
