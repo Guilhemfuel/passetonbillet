@@ -20,7 +20,7 @@
     <meta name="theme-color" content="#ffffff">
 
     <!-- Google Property -->
-    <meta name="google-site-verification" content="mQnchiDIveHJDE4UymB434pfuLl3DFTAS5x8cXWFHWg" />
+    <meta name="google-site-verification" content="eN7pduFxfHHZ9eabZcZJiRBqASkZLzbcIOotd9HvQq8" />
 
     <!-- Facebook MetaTags -->
     <meta property="fb:app_id" content="{{env('FB_APP_ID')}}"/>
