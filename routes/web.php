@@ -174,6 +174,10 @@ Route::blacklist(function() {
             Route::get( '/', 'Admin\StatsController@index' )->name( 'stats.index' );
         } );
 
+        Route::group( [ 'prefix' => 'logs' ], function () {
+            Route::get( '/', 'Admin\HomeController@logs' )->name( 'logs.index' );
+        } );
+
     } );
 });
 

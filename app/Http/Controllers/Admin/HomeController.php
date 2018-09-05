@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Discussion;
+use App\Models\Statistic;
 use App\Models\Verification\IdVerification;
 use App\Station;
 use App\Ticket;
@@ -30,5 +31,12 @@ class HomeController extends BaseController
         ];
 
         return $this->ptbView( 'admin.dashboard', $data );
+    }
+
+    public function logs()
+    {
+        return view('admin.unique.logs.index',[
+           'logs' => Statistic::latest()->limit(200)->get()
+        ]);
     }
 }

@@ -84,7 +84,7 @@
                     placeholder="DD/MM/YYYY"
                     format="dd/MM/yyyy"
                     value-format="dd/MM/yyyy"
-                    default-value="{{isset($entity)?$entity->birthdate:(old('birthdate'))}}"
+                    default-value="{{isset($entity)?$entity->birthdate->format('d/m/Y'):(old('birthdate'))}}"
                     default-value-format="DD/MM/YYYY"></input-date>
         </div>
     </div>

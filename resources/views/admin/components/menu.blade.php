@@ -53,3 +53,11 @@
     </a>
 </li>
 
+<li  class="{{substr(Route::currentRouteName(),0,5) == 'logs.'? 'active':'' }}">
+    <a href="{{route('logs.index')}}">
+        <i class="fa fa-terminal"></i>
+        Logs
+    </a>
+</li>
+
+

@@ -15,7 +15,7 @@ class User extends Authenticatable
 {
     use Notifiable, SearchableTrait, SoftDeletes;
 
-    protected $dates = [ 'deleted_at' ];
+    protected $dates = [ 'deleted_at', 'birthdate' ];
 
     const STATUS_BANNED_USER = -100;
     const STATUS_USER = 1;
@@ -157,6 +157,10 @@ class User extends Authenticatable
 
     public function getIdVerifiedAttribute(){
         return ($this->idVerification!==null&&$this->idVerification->accepted) ?:false;
+    }
+
+    public function setBirthdateAttribute($value) {
+        $this->attributes['birthdate'] = Carbon::createFromFormat('d/m/Y',$value);
     }
 
     /**

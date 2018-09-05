@@ -103,7 +103,7 @@ class RegisterController extends Controller
         $user = User::create( [
             'first_name' => $data['first_name'],
             'last_name'  => $data['last_name'],
-            'birthdate'  => isset( $data['birthdate'] ) ? \AppHelper::dbDate( $data['birthdate'] ) : null,
+            'birthdate'  => $data['birthdate'],
             'language'   => strtoupper( session( 'applocale' ) ),
             'gender'     => isset( $data['gender'] ) ? $data['gender'] : null,
             'location'   => isset( $data['location'] ) ? $data['location'] : null,
