@@ -12,6 +12,8 @@
 |
 */
 
+Route::redirect('/html', '/', 301);
+
 // Home Page
 Route::get( '/', 'PageController@home' )->name( 'home' );
 
