@@ -27,7 +27,7 @@
     <meta property="og:title" content="PasseTonBillet" />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="{{secure_asset('img/preview-fb.jpg')}}" />
-    <meta property="og:description" content="How much does culture influence creative thinking?" />
+    <meta property="og:description" content="PasseTonBillet : leader sur l'achat et revente de billet de train entre particulier depuis 10 ans. Le seul site 100% gratuit, sans comissions." />
 
     <!-- Pusher App id-->
     <meta name="pusher:app_key" content="{{env('PUSHER_APP_KEY')}}"/>
