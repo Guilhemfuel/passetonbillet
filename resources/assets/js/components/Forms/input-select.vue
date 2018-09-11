@@ -8,7 +8,7 @@
                v-validate="validation"
                :value="value"
         >
-        <el-select v-model="value" placeholder="Select"
+        <el-custom-select v-model="value" placeholder="Select"
                    :class="{'invalid':errors.has(name),'animated pulse':pulse&&errors.has(name)}"
         >
             <el-option
@@ -19,7 +19,7 @@
                     :id="item.value">
                 {{item.label}}
             </el-option>
-        </el-select>
+        </el-custom-select>
         <small v-if="errors.has(name)" :id="name+'Error'" class="form-text text-danger">
             {{ errors.first(name) }}
         </small>
@@ -27,7 +27,13 @@
 </template>
 
 <script>
+
+    import ElCustomSelect from '../Overrides/select.vue';
+
     export default {
+        components: {
+            'el-custom-select': ElCustomSelect,
+        },
         inject: ['$validator'],
         props: {
             label: {required: false, type: String},

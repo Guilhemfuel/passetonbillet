@@ -14,7 +14,7 @@
 
         <div :class="{'animated pulse':pulse&&errors.has(name),'icon-form':true}" v-if="withIcon">
             <i class="fa fa-map-marker text-primary" aria-hidden="true"></i>
-            <el-select v-model="selected" placeholder="Select"
+            <el-custom-select v-model="selected" placeholder="Select"
                        :class="{'invalid':errors.has(name)}"
                        :remote-method="remoteMethod"
                        :loading="loading"
@@ -33,12 +33,12 @@
                     {{station.name}} <span class="specific-name"
                                            v-if="station.name_country_specific">({{station.name_country_specific}})</span>
                 </el-option>
-            </el-select>
+            </el-custom-select>
         </div>
 
         <!-- Without Icon -->
 
-        <el-select v-else v-model="selected" placeholder="Select"
+        <el-custom-select v-else v-model="selected" placeholder="Select"
                    :class="{'invalid':errors.has(name),'animated pulse':pulse&&errors.has(name)}"
                    :remote-method="remoteMethod"
                    :loading="loading"
@@ -58,7 +58,7 @@
                 {{station.name}} <span class="specific-name"
                                        v-if="station.name_country_specific">({{station.name_country_specific}})</span>
             </el-option>
-        </el-select>
+        </el-custom-select>
 
         <small v-if="errors.has(name)" :id="name+'Error'" class="form-text text-danger">
             {{ errors.first(name) }}
@@ -67,7 +67,13 @@
 </template>
 
 <script>
+    import ElCustomSelect from '../Overrides/select.vue';
+
+
     export default {
+        components: {
+            'el-custom-select': ElCustomSelect,
+        },
         inject: ['$validator'],
         props: {
             label: {required: false, type: String},

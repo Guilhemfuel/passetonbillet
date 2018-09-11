@@ -87,6 +87,7 @@ window.moment = moment;
 window.Vue.prototype.$lodash = require('lodash');
 window.Vue.prototype.$moment = moment;
 window.Vue.prototype.route = route;
+window.Vue.prototype.$mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
 /**
  *
