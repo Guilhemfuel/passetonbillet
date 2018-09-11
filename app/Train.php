@@ -82,11 +82,11 @@ class Train extends BaseModel
     }
 
     public function getCarbonDepartureDateAttribute(){
-        return Carbon::createFromFormat('Y-m-d H:i:s', $this->departure_date.' '.$this->departure_time);
+        return Carbon::createFromFormat('Y-m-d H:i:s', $this->departure_date->format('Y-m-d').' '.$this->departure_time);
     }
 
     public function getCarbonArrivalDateAttribute(){
-        return Carbon::createFromFormat('Y-m-d H:i:s', $this->arrival_date.' '.$this->arrival_time);
+        return Carbon::createFromFormat('Y-m-d H:i:s', $this->arrival_date->format('Y-m-d').' '.$this->arrival_time);
     }
 
     /**
