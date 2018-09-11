@@ -11,6 +11,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
+use Laravel\Socialite\Two\InvalidStateException;
 
 
 class RegisterController extends Controller
@@ -67,7 +68,7 @@ class RegisterController extends Controller
             session( [ 'register-source' => $request->source ] );
         }
 
-        return view( 'auth.auth', [ 'type' => 'register', 'source' => $source] );
+        return view( 'auth.auth', [ 'type' => 'register', 'source' => $source ] );
     }
 
     /**
@@ -87,6 +88,7 @@ class RegisterController extends Controller
             'location'   => 'string|nullable',
             'email'      => 'required|email|max:255|unique:users',
             'password'   => 'required|min:8|confirmed',
+            'cgu'        => 'required|accepted'
         ] );
     }
 
@@ -202,7 +204,6 @@ class RegisterController extends Controller
             'picture'
         ] )->scopes( [
             'email',
-//            'user_birthday'
         ] )->redirect();
     }
 
@@ -217,12 +218,10 @@ class RegisterController extends Controller
                 'last_name',
                 'email',
                 'gender',
-//                'birthday',
                 'locale',
                 'picture'
             ] )->user();
         } catch ( \Exception $e ) {
-            throw $e;
             flash( __( 'common.error' ) )->error();
 
             return redirect()->route( 'register.page' );
@@ -236,11 +235,13 @@ class RegisterController extends Controller
         }
 
         // If fb id doesn't exist in db, we are going to create it, so we make sure that email isn't used
-        $user = User::withTrashed()->where( 'email', $providerUser->user['email'] )->first();
-        if ( $user ) {
-            flash()->error( __( 'auth.social.email_used' ) )->important();
+        if ( isset( $providerUser->user['email'] ) ) {
+            $user = User::withTrashed()->where( 'email', $providerUser->user['email'] )->first();
+            if ( $user ) {
+                flash()->error( __( 'auth.social.email_used' ) )->important();
 
-            return redirect()->route( 'login.page' );
+                return redirect()->route( 'login.page' );
+            }
         }
 
         session()->put( 'fb_user', $providerUser );
@@ -258,6 +259,8 @@ class RegisterController extends Controller
         // If validation error redirect to register page
         $validator = Validator::make( $request->all(), [
             'password' => 'required|min:8|confirmed',
+            'email'    => 'required|email',
+            'cgu'      => 'required|accepted'
         ] );
         if ( $validator->fails() ) {
             return redirect()
@@ -291,7 +294,7 @@ class RegisterController extends Controller
             'language'   => strtoupper( session( 'applocale' ) ),
             'gender'     => isset( $userData->user['gender'] ) ? ( $userData->user['gender'] == 'male' ? 1 : 0 ) : null,
             'location'   => null,
-            'email'      => $userData->user['email'],
+            'email'      => $request->email,
             'picture'    => $userData->avatar
         ] );
         $user->email_verified = true;

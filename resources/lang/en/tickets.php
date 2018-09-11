@@ -117,7 +117,7 @@ return [
                 'currency'          => 'Currency',
                 'bought_price'      => 'Buying price',
                 'price'             => 'Selling price',
-                'cgu'               => 'I have read and accept the general terms and conditions. I swear that I\'m not making any profit selling this ticket.'
+                'cgu'               => 'I have read and accept the <a href="' . route( 'cgu.page' ) . '" target="blank" >general terms and conditions</a>. I swear that I\'m not making any profit selling this ticket.'
 
             ]
 

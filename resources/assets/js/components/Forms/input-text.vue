@@ -27,7 +27,7 @@
                    @change="emitChange"
                    @input="emitInput"
             >
-            {{label}}
+            <span class="pl-1" v-html="label"></span>
         </label>
 
         <small v-if="errors.has(name)" :id="name+'Error'" class="form-text text-danger">
@@ -60,7 +60,7 @@
                 if (this.defaultValue != null && this.defaultValue != undefined) {
                     return this.defaultValue;
                 }
-                if (this.oldValue && this.$root.oldInput[this.name]) {
+                if (this.oldValue && this.$root.oldInput && this.$root.oldInput[this.name]) {
                     return this.$root.oldInput[this.name];
                 }
 

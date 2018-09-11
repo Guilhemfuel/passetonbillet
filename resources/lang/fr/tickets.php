@@ -113,7 +113,7 @@ return [
                 'currency'          => 'Devise',
                 'bought_price'      => 'Prix d\'achat',
                 'price'             => 'Prix de vente',
-                'cgu'               => 'Je reconnais avoir pris connaissance des conditions d\'utilisation et je les accepte sans réserves. Je m\'engage notamment à ne pas revendre le billet à un tarif plus élevé que le prix d\'achat.'
+                'cgu'               => 'Je reconnais avoir pris connaissance des <a href="' . route( 'cgu.page' ) . '" target="blank" >conditions d\'utilisation</a> et je les accepte sans réserves. Je m\'engage notamment à ne pas revendre le billet à un tarif plus élevé que le prix d\'achat.'
             ]
         ]
     ],

@@ -50,7 +50,7 @@ return [
         'token_no_user'          => 'Whoops! Nous n\'avons trouvé aucun utilisateur correspondant à ce lien... Si le problème persiste, contactez-nous.',
         'account_confirmed'      => 'Félicitations! Votre compte est maintenant activé. Vous pouvez à présent vous connecter en cliquant <a href="' . route( 'login.page' ) . '">ici</a> !',
         'fb_register'            => 'Inscription avec Facebook',
-
+        'cgu'               => 'Je reconnais avoir pris connaissance des <a href="' . route( 'cgu.page' ) . '" target="blank">conditions d\'utilisation</a> et je les accepte sans réserves.',
 
         'ticketLinkMessage' => 'Inscrivez vous sur PasseTonBillet.fr pour acheter et vendre des billets de trains européens de manière sécurisée, rapide, et économe.'
 

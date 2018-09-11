@@ -34,6 +34,8 @@ class TicketController extends Controller
      * @param SellTicketRequest $request
      *
      * Save ticket and make it available to buy
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function sellTicket( SellTicketRequest $request )
     {

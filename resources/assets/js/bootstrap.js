@@ -86,8 +86,18 @@ if (lang === 'fr') {
 window.moment = moment;
 window.Vue.prototype.$lodash = require('lodash');
 window.Vue.prototype.$moment = moment;
-window.Vue.prototype.trans = string => window.Vue.prototype.$lodash.get(window.i18n, string);
 window.Vue.prototype.route = route;
+
+/**
+ *
+ * Language
+ *
+ */
+
+window.Vue.prototype.trans = string => {
+    return window.Vue.prototype.$lodash.get(window.i18n, string);
+};
+
 
 /**
  *

@@ -1,7 +1,7 @@
 <template>
     <div class="review mt-2" v-if="this.user && !submitted">
-        <p class="text-center mb-0">
-            <a href="#"
+        <p class="text-center mb-0 pt-3">
+            <a href="#" class="font-weight-bold"
                @click.prevent="modalReviewOpened=true">{{trans('common.review.link')}}</a>
         </p>
         <modal :is-open="modalReviewOpened"
@@ -12,7 +12,7 @@
             <vue-form class="container-fluid" :callback="sendReview">
                 <div class="row">
                     <div class="col-12">
-                        <p>{{trans('common.review.modal.text')}}</p>
+                        <p  class="font-weight-bold text-center">{{trans('common.review.modal.text')}}</p>
                     </div>
                     <div class="col-12 mb-4 text-center">
                         <el-rate v-model="review.mark"

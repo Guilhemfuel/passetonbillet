@@ -12,6 +12,15 @@
         >
             <input type="hidden" name="_token" :value="csrf"/>
 
+            <input-text type="email"
+                        :default-value="user.user.email"
+                        validation="required|email"
+                        name="email"
+                        label="Email Address"
+                        placeholder="Email Address">
+
+            </input-text>
+
             <div class="col-xs-12 form-group">
                 <label for="password"
                        class="control-label">{{langProfile.modal.change_password.component.password}}
@@ -22,7 +31,8 @@
                        name="password"
                        v-validate="'required|min:8'"
                        required :placeholder="langProfile.modal.change_password.component.password">
-                <span v-cloak v-if="errors.has('password')" class="invalid-feedback d-inline">{{ errors.first('password') }}</span>
+                <span v-cloak v-if="errors.has('password')"
+                      class="invalid-feedback d-inline">{{ errors.first('password') }}</span>
 
             </div>
 
@@ -37,8 +47,15 @@
                        required
                        :placeholder="langProfile.modal.change_password.component.password_confirm">
                 <span v-cloak
-                      :class="{'invalid-feedback':true,'d-inline':errors.has('password_confirmation')}">{{ errors.first('password_confirmation') }}</span>
+                      :class="{'invalid-feedback':true,'d-inline':errors.has('password_confirmation')}">{{ errors.first('password_confirmation')
+                    }}</span>
             </div>
+
+            <input-text name="cgu"
+                        type="checkbox"
+                        :label="trans('auth.register.cgu')"
+                        validation="required">
+            </input-text>
 
             <div class="form-group mt-4">
                 <div class="col-xs-12">

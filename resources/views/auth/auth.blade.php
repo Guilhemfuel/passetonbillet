@@ -29,9 +29,9 @@
         <div class="col-12 col-sm-6 left-panel">
             <div class="content">
                 <a href="{{route('home')}}"><img class="logo mx-auto" src="{{secure_asset('img/logo.png')}}"></a>
-                @if($source==\App\Http\Controllers\Auth\RegisterController::SOURCE_GUEST_OFFER)
+                @if(isset($source) && $source==\App\Http\Controllers\Auth\RegisterController::SOURCE_GUEST_OFFER)
                     <p class="text-white text-center my-4">@lang('auth.common.source.buy')</p>
-                @elseif($source==\App\Http\Controllers\Auth\RegisterController::SOURCE_GUEST_SELL)
+                @elseif(isset($source) && $source==\App\Http\Controllers\Auth\RegisterController::SOURCE_GUEST_SELL)
                     <p class="text-white text-center my-4">@lang('auth.common.source.sell')</p>
                 @else
                     <div class="actions btn-rack mt-4">

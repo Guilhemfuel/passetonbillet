@@ -25,7 +25,8 @@ class SellTicketRequest extends FormRequest
     {
         return [
             'price' => 'required|numeric',
-            'index' => 'required|numeric'
+            'index' => 'required|numeric',
+            'cgu' => 'required|accepted'
         ];
     }
 }

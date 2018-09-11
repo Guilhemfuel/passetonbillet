@@ -16,7 +16,7 @@ return [
     'failed'       => 'These credentials do not match our records.',
     'throttle'     => 'Too many login attempts. Please try again in :seconds seconds.',
     'common'       => [
-        'about' => 'About us',
+        'about'   => 'About us',
         'contact' => 'Contact us',
 
         'source' => [
@@ -49,7 +49,8 @@ return [
                                      <br>If you don\'t find the email please check your junk mail folder.',
         'token_no_user'          => 'Whoops! We didn\'t find any user corresponding to this link... If the issue persist please contact us.',
         'account_confirmed'      => 'Congratulations! Your account is now activated. You can already login by clicking <a href="' . route( 'login.page' ) . '">here</a> !',
-        'fb_register' => 'Register with Facebook',
+        'fb_register'            => 'Register with Facebook',
+        'cgu'                    => 'I have read and accept the <a href="' . route( 'cgu.page' ) . '" target="blank" >general terms and conditions</a>.',
 
         'ticketLinkMessage' => 'Register now on PasseTonBillet.fr to be able to buy and sell European trains tickets in a safe, quick, and cheap way.'
     ],
