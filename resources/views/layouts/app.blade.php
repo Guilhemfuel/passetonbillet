@@ -81,7 +81,8 @@
 
 <!-- Scripts -->
 <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
-@routes
+<?php echo app(Tightenco\Ziggy\BladeRouteGenerator::class)->generate(); ?>
+
 <script src="/lang/lang-{{ \App::getLocale() }}.js"></script>
 
 @section('main_js_file')
