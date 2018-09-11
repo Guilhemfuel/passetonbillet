@@ -39,7 +39,7 @@
                     placeholder="DD/MM/YYYY"
                     format="dd/MM/yyyy"
                     value-format="dd/MM/yyyy"
-                    default-value="{{isset($entity)?$entity->departure_date:(old('departure_date'))}}"
+                    default-value="{{isset($entity)&&$entity->departure_date!=null?$entity->departure_date->format('d/m/Y'):(old('departure_date'))}}"
                     default-value-format="DD/MM/YYYY"></input-date>
         </div>
     </div>
@@ -52,7 +52,7 @@
                     placeholder="DD/MM/YYYY"
                     format="dd/MM/yyyy"
                     value-format="dd/MM/yyyy"
-                    default-value="{{isset($entity)?$entity->arrival_date:(old('arrival_date'))}}"
+                    default-value="{{isset($entity)&&$entity->arrival_date!=null?$entity->arrival_date->format('d/m/Y'):(old('arrival_date'))}}"
                     default-value-format="DD/MM/YYYY"></input-date>
         </div>
     </div>
