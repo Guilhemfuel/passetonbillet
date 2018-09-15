@@ -152,8 +152,8 @@ class Sncf
 
         $trainNumber = $data["segments"][0]['trainNumber'];
 
-        $departureDateTime = new Carbon($data["arrivalDate"]);
-        $arrivalDateTime = new Carbon($data["departureDate"]);
+        $departureDateTime = new Carbon($data["departureDate"]);
+        $arrivalDateTime = new Carbon($data["arrivalDate"]);
 
         $trainDepartureStation = null;
         $trainArrivalStation = null;
