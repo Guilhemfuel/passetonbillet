@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('advanced_title')
+    <title>Acheter et revendre des billets de train pas cher avec PasseTonBillet.fr</title>
+@endsection
+
 @section('content')
 
     <div class="welcome-page">
@@ -19,12 +23,9 @@
                         <ul class="navbar-nav navbar-expand">
                             <li class="nav-item">
                                 @if(Auth::guest())
-                                    <a class="nav-link btn btn-ptb d-none d-sm-none d-md-block"
+                                    <a class="nav-link btn btn-ptb"
                                        href="{{route('register.page')}}?source={{\App\Http\Controllers\Auth\RegisterController::SOURCE_GUEST_SELL}}"
                                     >@lang('nav.resell_a_ticket')</a>
-                                    <a class="nav-link btn btn-ptb d-sm-block d-md-none"
-                                       href="{{route('register.page')}}?source={{\App\Http\Controllers\Auth\RegisterController::SOURCE_GUEST_SELL}}"
-                                    >@lang('nav.sell_ticket.mobile')</a>
                                 @else
                                     <a class="nav-link btn btn-ptb d-none d-sm-none d-md-block"
                                        href="{{route('public.ticket.sell.page')}}">@lang('nav.resell_a_ticket')</a>
@@ -33,19 +34,11 @@
                                 @endif
                             </li>
                             @if (Auth::guest())
-                                <li class="nav-item d-none d-sm-none d-md-block">
-                                    <a class="nav-link btn btn-ptb-white"
-                                       href="{{route('register')}}">@lang('nav.register')</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link register  btn btn-ptb-border"
-                                       href="{{route('login')}}">@lang('nav.login')</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link nav-help" href="#" onclick="$crisp.push(['do', 'chat:open'])">
-                                        <i class="fa fa-question-circle" aria-hidden="true"></i>
-                                    </a>
-                                </li>
+                                <dropdown-menu v-cloak>
+                                    <div class="nav-item menu-unlogged mr-3">
+                                        <i class="fa fa-bars" aria-hidden="true"></i>
+                                    </div>
+                                </dropdown-menu>
 
                             @else
                                 @include('components.nav-logged')
@@ -314,7 +307,8 @@
             function checkScroll() {
                 let scroll = window.scrollY;
 
-                if (scroll > 200) {
+                // On mobile only 20 pix are enough
+                if ( (scroll > 200 && !window.Vue.prototype.$mobile) || (scroll > 20 && window.Vue.prototype.$mobile ) ) {
                     document.getElementById('nav').classList.remove("pos-top");
                 }
                 else {

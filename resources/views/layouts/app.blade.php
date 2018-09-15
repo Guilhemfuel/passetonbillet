@@ -5,7 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
 
-    <title>PasseTonBillet @yield('title')</title>
+    @section('advanced_title')
+        <title>PasseTonBillet @yield('title')</title>
+    @show
+
     <meta name="description" content="PasseTonBillet : leader sur l'achat et revente de billet de train entre particulier depuis 10 ans. Le seul site 100% gratuit, sans comissions." />
 
     <!-- Favicon  -->

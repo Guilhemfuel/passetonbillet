@@ -10,8 +10,6 @@
         computed: {
 
             readonly() {
-                console.log('mobile',this.$mobile);
-
                 if (this.$mobile) {
                     return false;
                 }

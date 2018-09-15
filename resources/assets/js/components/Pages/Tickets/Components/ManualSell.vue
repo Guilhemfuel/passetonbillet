@@ -32,7 +32,7 @@
                                             name="train_number"
                                             :label="trans('tickets.sell.manual.form.train_number')"
                                             :placeholder="trans('tickets.sell.manual.form.train_number')"
-                                            validation="required">
+                                            validation="required|numeric">
                                 </input-text>
                                 <input-station name="departure_station"
                                                :label="trans('tickets.sell.manual.form.departure_station')"

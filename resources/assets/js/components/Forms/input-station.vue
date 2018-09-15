@@ -96,7 +96,7 @@
                 if (this.defaultValue != null && this.defaultValue != undefined) {
                     return this.defaultValue;
                 }
-                if (this.oldValue && this.$root.oldInput[this.name]) {
+                if (this.oldValue && this.$root.oldInput && this.$root.oldInput[this.name]) {
                     return this.$root.oldInput[this.name];
                 }
                 return null;

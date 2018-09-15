@@ -106,7 +106,7 @@ class TicketController extends Controller
             return redirect()->route( 'public.ticket.sell.page' );
         }
 
-        $travelDate = Carbon::createFromFormat('m/d/Y',$request->travel_date);
+        $travelDate = Carbon::createFromFormat('d/m/Y',$request->travel_date);
 
         // Create train
         $train = Train::firstOrCreate( [

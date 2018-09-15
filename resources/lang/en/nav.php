@@ -12,6 +12,7 @@ return [
     'logout'             => 'Logout',
     'register'           => 'Register',
     'home'               => 'Home',
+    'help'               => 'Help',
     'messages'           => 'Messages',
     'messages.mobile'    => 'Messages',
     'my_tickets'         => 'My tickets',
@@ -26,15 +27,15 @@ return [
     'settings'           => 'Settings',
 
     'dropdowns' => [
-    'settings' => [
-        'title' => 'Settings',
-        'items' => [
-            'profile' => 'Edit my profil',
-            'admin'   => 'Admin',
-            'logout'  => 'Logout'
+        'settings' => [
+            'title' => 'Settings',
+            'items' => [
+                'profile' => 'Edit my profil',
+                'admin'   => 'Admin',
+                'logout'  => 'Logout'
+            ]
         ]
-    ]
-],
+    ],
 
     'hello' => 'Hello'
 

@@ -12,47 +12,30 @@
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
-                    @if(Route::current()->getName() != 'public.ticket.sell.page')
-                        <li class="nav-item">
-                            @if(Auth::guest())
-                                <a class="nav-link btn btn-ptb d-none d-sm-block mt-0"
-                                   href="{{route('register.page')}}?source={{\App\Http\Controllers\Auth\RegisterController::SOURCE_GUEST_SELL}}"
-                                >@lang('nav.resell_a_ticket')</a>
-                                <a class="nav-link btn btn-ptb d-block d-sm-none mt-0"
-                                   href="{{route('register.page')}}?source={{\App\Http\Controllers\Auth\RegisterController::SOURCE_GUEST_SELL}}"
-                                >@lang('nav.sell_ticket.mobile')</a>
-                            @else
-                                <a class="nav-link btn btn-ptb d-none d-sm-block mt-0"
-                                   href="{{route('public.ticket.sell.page')}}">@lang('nav.resell_a_ticket')</a>
-                                <a class="nav-link btn btn-ptb d-block d-sm-none mt-0"
-                                   href="{{route('public.ticket.sell.page')}}">@lang('nav.sell_ticket.mobile')</a>
-                            @endif
-                        </li>
-                    @endif
-                    @if(Route::current()->getName() != 'public.ticket.buy.page' && Route::current()->getName() != 'home')
-                        <li class="nav-item ml-2">
-                            <a class="nav-link btn btn-ptb-white d-none d-md-block mt-0"
-                               href="{{route('home')}}">@lang('nav.buy_ticket')</a>
-                            <a class="nav-link btn btn-ptb-white d-block d-md-none mt-0"
-                               href="{{route('home')}}">@lang('nav.buy_ticket.mobile')</a>
-                        </li>
-                    @endif
+                @if(Route::current()->getName() != 'public.ticket.sell.page')
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-ptb d-none d-sm-block mt-0"
+                           href="{{route('public.ticket.sell.page')}}">@lang('nav.resell_a_ticket')</a>
+                        <a class="nav-link btn btn-ptb d-block d-sm-none mt-0"
+                           href="{{route('public.ticket.sell.page')}}">@lang('nav.sell_ticket.mobile')</a>
+                    </li>
+                @endif
+                @if(Route::current()->getName() != 'public.ticket.buy.page' && Route::current()->getName() != 'home')
+                    <li class="nav-item ml-2">
+                        <a class="nav-link btn btn-ptb-white d-none d-md-block mt-0"
+                           href="{{route('home')}}">@lang('nav.buy_ticket')</a>
+                        <a class="nav-link btn btn-ptb-white d-block d-md-none mt-0"
+                           href="{{route('home')}}">@lang('nav.buy_ticket.mobile')</a>
+                    </li>
+                @endif
                 @if(Auth::check())
                     @include('components.nav-logged')
                 @else
-                    <li class="nav-item d-none md-sm-none d-md-block">
-                        <a class="nav-link btn btn-ptb-white"
-                           href="{{route('register')}}">@lang('nav.register')</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link register  btn btn-ptb-border"
-                           href="{{route('login')}}">@lang('nav.login')</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link nav-help" href="#" onclick="$crisp.push(['do', 'chat:open'])">
-                            <i class="fa fa-question-circle" aria-hidden="true"></i>
-                        </a>
-                    </li>
+                    <dropdown-menu v-cloak>
+                        <div class="nav-item mr-3">
+                            <i class="fa fa-bars" aria-hidden="true"></i>
+                        </div>
+                    </dropdown-menu>
                 @endif
             </ul>
         </div>

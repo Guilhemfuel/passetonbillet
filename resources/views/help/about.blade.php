@@ -20,15 +20,15 @@
                                     <div class="container-fluid">
                                         <div class="row">
                                             <div class="col-12 col-md-4 d-flex justify-content-center align-content-center">
-                                                <img class="d-sm-block d-md-none"
+                                                <img class="d-block d-md-none"
                                                      src="{{secure_asset('img/icon-safe.svg')}}"
                                                      alt="Icon safer"
                                                      style="width: 150px;"
                                                 />
-                                                <img class="d-md-block d-sm-none"
+                                                <img class="d-none d-md-block"
                                                      src="{{secure_asset('img/icon-safe.svg')}}"
                                                      alt="Icon safer"
-                                                     style="width: 80%;"
+                                                     style="width: 60%;"
                                                 />
                                             </div>
                                             <div class="col-12 col-md-8">
@@ -54,15 +54,15 @@
                                                 </ul>
                                             </div>
                                             <div class="col-12 col-md-4 d-flex justify-content-center align-content-center">
-                                                <img class="d-sm-block d-md-none"
+                                                <img class="d-block d-md-none"
                                                      src="{{secure_asset('img/icon-quick.svg')}}"
                                                      alt="Icon quicker"
                                                      style="width: 150px;"
                                                 />
-                                                <img class="d-md-block d-sm-none"
+                                                <img class="d-none d-md-block"
                                                      src="{{secure_asset('img/icon-quick.svg')}}"
                                                      alt="Icon quicker"
-                                                     style="width: 80%;"
+                                                     style="width: 60%;"
                                                 />
                                             </div>
                                         </div>
@@ -74,15 +74,15 @@
                                     <div class="container-fluid">
                                         <div class="row">
                                             <div class="col-12 col-md-4 d-flex justify-content-center align-content-center">
-                                                <img class="d-sm-block d-md-none"
+                                                <img class="d-block d-md-none"
                                                      src="{{secure_asset('img/icon-cheaper.svg')}}"
                                                      alt="Icon cheaper"
                                                      style="width: 150px;"
                                                 />
-                                                <img class="d-md-block d-sm-none"
+                                                <img class="d-none d-md-block"
                                                      src="{{secure_asset('img/icon-cheaper.svg')}}"
                                                      alt="Icon cheaper"
-                                                     style="width: 80%;"
+                                                     style="width: 60%;"
                                                 />
                                             </div>
                                             <div class="col-12 col-md-8">

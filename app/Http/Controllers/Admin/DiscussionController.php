@@ -42,43 +42,6 @@ class DiscussionController extends BaseController
         return redirect()->route($this->CRUDmodelName);
     }
 
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        $entity = Discussion::find($id);
-        if (!$entity){
-            \Session::flash('danger','Entity not found!');
-            flash()->error('Ticket not found!');
-            return redirect()->back();
-        }
-        $this->validate($request,[
-            'mark_as_sold' => 'required|'
-        ]);
-
-        // Sold to first admin
-        if ($request->mark_as_sold) {
-            $admin = User::where('status',100)->first();
-            $ticket = $entity->ticket;
-            $ticket->sold_to_id = $admin->id;
-            $ticket->save();
-
-            flash()->success('Ticket sold to '.$admin->full_name);
-
-        } else {
-            flash()->info('Nothing changed to offer.');
-        }
-
-        return redirect()->route($this->CRUDmodelName.'.edit',$entity->id);
-
-    }
-
     /**
      * Update the specified resource in storage.
      *

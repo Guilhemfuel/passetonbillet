@@ -482,6 +482,15 @@ html, body {
     .nav-item {
       display: flex;
       align-items: center;
+
+      > .fa {
+        font-size: 25px;
+        cursor: pointer;
+
+        &:hover {
+          color: $color-orange;
+        }
+      }
     }
 
     .nav-item.nav-logged-part {

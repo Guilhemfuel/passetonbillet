@@ -151,6 +151,19 @@
         }
       }
 
+      .nav-item.menu-unlogged {
+        font-size: 25px;
+
+        > .fa {
+          cursor: pointer;
+          color: white !important;
+
+          &:hover {
+            color: $color-orange !important;
+          }
+        }
+      }
+
       &:not(.pos-top) {
         background-color: white;
         color: black;
@@ -164,6 +177,18 @@
         }
 
         .nav-item {
+
+          &.menu-unlogged {
+            > .fa {
+              cursor: pointer;
+
+              color: $color-dark-gray !important;
+
+              &:hover {
+                color: $color-orange !important;
+              }
+            }
+          }
 
           .user-first-name {
 
