@@ -152,13 +152,13 @@
 </script>
 @stack('scripts')
 <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-125236195-1"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-125827385-1"></script>
 <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
 
-    gtag('config', 'UA-125236195-1');
+    gtag('config', 'UA-125827385-1');
 
     @if(Auth::check())
     gtag('set', {'user_id': {{Auth::user()->id}} }); // Set the user ID using signed-in user_id.
