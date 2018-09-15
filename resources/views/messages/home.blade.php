@@ -5,7 +5,7 @@
 @endsection
 
 @section('dashboard-content')
-    <div class="container-fluid">
+    <div class="container">
         <div class="row" id="messages-home">
             <messages-home :lang="child.messages_home.lang"
                            :user="child.messages_home.user"

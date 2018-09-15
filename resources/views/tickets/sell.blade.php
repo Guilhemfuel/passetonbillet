@@ -5,7 +5,7 @@
 @endsection
 
 @section('dashboard-content')
-    <div class="container-fluid">
+    <div class="container">
         <div class="row" id="sell-ticket">
             @if(Auth::user()->phone_verified)
 

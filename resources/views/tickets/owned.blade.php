@@ -5,7 +5,7 @@
 @endsection
 
 @section('dashboard-content')
-    <div class="container-fluid">
+    <div class="container">
         <div class="row" id="owned-tickets">
             <my-tickets :lang="child.owned_tickets.lang" :user="user" :tickets="child.owned_tickets.tickets" :bought-tickets="child.owned_tickets.boughtTickets"
                         :offer-sent="child.owned_tickets.offerSent" :api="child.owned_tickets.api"

@@ -5,7 +5,7 @@
 @endsection
 
 @section('dashboard-content')
-    <div class="container-fluid">
+    <div class="container">
         <div class="row" id="buy-ticket">
             <buy-ticket :default-search="child.buy.search"></buy-ticket>
         </div>
