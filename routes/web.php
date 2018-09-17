@@ -13,7 +13,7 @@
 */
 
 // Robot.txt
-//Route::get('/robots.txt',
+Route::get('/robots.txt','RobotController@index');
 
 Route::redirect('/html', '/', 301);
 Route::redirect('/revendre-billet-train', '/', 301);
