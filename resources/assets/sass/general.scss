@@ -587,3 +587,28 @@ html, body {
     }
   }
 }
+
+
+//
+// ==============================
+//
+// Cookie consent
+//
+// ==============================
+//
+.js-cookie-consent {
+  position: fixed;
+  width: 100%;
+  bottom: 0px;
+  background-color: $color-orange;
+  z-index: 3000;
+  padding: 20px;
+  text-align: center;
+  color: white;
+
+  .btn {
+    backgroud-color: white;
+    color: black;
+    border: none;
+  }
+}

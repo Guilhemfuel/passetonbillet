@@ -3,13 +3,15 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <meta name="viewport"
+          content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width"/>
 
     @section('advanced_title')
         <title>PasseTonBillet @yield('title')</title>
     @show
 
-    <meta name="description" content="PasseTonBillet : leader sur l'achat et revente de billet de train entre particulier depuis 10 ans. Le seul site 100% gratuit, sans comissions." />
+    <meta name="description"
+          content="PasseTonBillet : leader sur l'achat et revente de billet de train entre particulier depuis 10 ans. Le seul site 100% gratuit, sans comissions."/>
 
     <!-- Favicon  -->
     <link rel="apple-touch-icon" sizes="180x180" href="{{secure_asset('img/favicon/apple-touch-icon.png?v=2')}}">
@@ -23,14 +25,15 @@
     <meta name="theme-color" content="#ffffff">
 
     <!-- Google Property -->
-    <meta name="google-site-verification" content="plz3_qbBsOX7Cb8I7FvDpQ9dPNHKhlzDuHDRzsefXbY" />
+    <meta name="google-site-verification" content="plz3_qbBsOX7Cb8I7FvDpQ9dPNHKhlzDuHDRzsefXbY"/>
 
     <!-- Facebook MetaTags -->
     <meta property="fb:app_id" content="{{env('FB_APP_ID')}}"/>
-    <meta property="og:title" content="PasseTonBillet" />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="{{secure_asset('img/preview-fb.jpg')}}" />
-    <meta property="og:description" content="PasseTonBillet : leader sur l'achat et revente de billet de train entre particulier depuis 10 ans. Le seul site 100% gratuit, sans comissions." />
+    <meta property="og:title" content="PasseTonBillet"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:image" content="{{secure_asset('img/preview-fb.jpg')}}"/>
+    <meta property="og:description"
+          content="PasseTonBillet : leader sur l'achat et revente de billet de train entre particulier depuis 10 ans. Le seul site 100% gratuit, sans comissions."/>
 
     <!-- Pusher App id-->
     <meta name="pusher:app_key" content="{{env('PUSHER_APP_KEY')}}"/>
@@ -53,7 +56,15 @@
             ]) !!};
     </script>
     {{-- Adding Crisp Chat--}}
-    <script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="243d866a-ba3b-4227-adaf-17c631d4fdb1";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
+    <script type="text/javascript">window.$crisp = [];
+        window.CRISP_WEBSITE_ID = "243d866a-ba3b-4227-adaf-17c631d4fdb1";
+        (function () {
+            d = document;
+            s = d.createElement("script");
+            s.src = "https://client.crisp.chat/l.js";
+            s.async = 1;
+            d.getElementsByTagName("head")[0].appendChild(s);
+        })();</script>
 
     @yield('head')
 </head>
@@ -72,24 +83,23 @@
 </div>
 
 @if(Auth::user())
-<script type="application/javascript">
-    {{-- If user is connected, pass information to crisp --}}
-    $crisp.push(["set", "user:email", "{{Auth::user()->email}}"])
-    $crisp.push(["set", "user:nickname", "{{Auth::user()->full_name}}"])
-    $crisp.push(["set", "user:avatar", "{{Auth::user()->picture}}"])
-
-
-</script>
+    <script type="application/javascript">
+        {{-- If user is connected, pass information to crisp --}}
+        $crisp.push(["set", "user:email", "{{Auth::user()->email}}"])
+        $crisp.push(["set", "user:nickname", "{{Auth::user()->full_name}}"])
+        $crisp.push(["set", "user:avatar", "{{Auth::user()->picture}}"])
+    </script>
 @endif
+
 
 <!-- Scripts -->
 <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
-<?php echo app(Tightenco\Ziggy\BladeRouteGenerator::class)->generate(); ?>
+<?php echo app( Tightenco\Ziggy\BladeRouteGenerator::class )->generate(); ?>
 
 <script src="/lang/lang-{{ \App::getLocale() }}.js"></script>
 
 @section('main_js_file')
-<script src="{{ mix('/js/app.js')}}"></script>
+    <script src="{{ mix('/js/app.js')}}"></script>
 @show
 
 <script type="application/javascript">
@@ -119,9 +129,9 @@
             for (var i = 0; i < this.messages.length; i++) {
                 this.$message({
                     message: this.messages[i].message,
-                    type: this.messages[i].level=='danger'?'error':this.messages[i].level,
+                    type: this.messages[i].level == 'danger' ? 'error' : this.messages[i].level,
                     showClose: true,
-                    duration: this.messages[i].important?0:10000,
+                    duration: this.messages[i].important ? 0 : 10000,
                     dangerouslyUseHTMLString: true
                 });
             }
@@ -132,7 +142,7 @@
             }
             errorsMessage += '</ul>';
 
-            if ( this.custom_errors.length>0) {
+            if (this.custom_errors.length > 0) {
                 this.$message({
                     dangerouslyUseHTMLString: true,
                     message: errorsMessage,
@@ -143,7 +153,7 @@
             }
 
         },
-        created: function() {
+        created: function () {
             this.child = data;
             this.currentPage = currentPage;
             this.user = userData;
@@ -151,11 +161,19 @@
     });
 </script>
 @stack('scripts')
+
+@include('cookieConsent::index')
+
+
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-125827385-1"></script>
 <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
     gtag('js', new Date());
 
     gtag('config', 'UA-125827385-1');
