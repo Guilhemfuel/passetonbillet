@@ -12,6 +12,9 @@
 |
 */
 
+// Robot.txt
+//Route::get('/robots.txt',
+
 Route::redirect('/html', '/', 301);
 Route::redirect('/revendre-billet-train', '/', 301);
 Route::redirect('/html/revendre-billet-train', '/', 301);
