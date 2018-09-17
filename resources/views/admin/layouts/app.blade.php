@@ -12,7 +12,7 @@
 
 
     <div class="row m-0" id="app">
-        <div class="sidebar  {{App::environment()=='local'?'purple-gradient':'orange-gradient'}}  col-md-3 col-sm-4 p-0">
+        <div class="sidebar  {{App::environment()!='production'?'purple-gradient':'orange-gradient'}}  col-md-3 col-sm-4 p-0">
 
             <div class="navbar mb-3">
                 <a href="{{route('admin.home')}}" class="navbar-brand mx-auto">

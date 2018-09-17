@@ -62,6 +62,7 @@
     <div class="col-md-6">
         <div class="form-group">
             <label>Language</label>
+
             <select class="form-control" name="language">
                 <option value="FR" {{isset($entity)?($entity->language=='FR'?'selected':''):(old('language')=='FR'?'selected':'')}}>
                     French
@@ -105,6 +106,7 @@
         </div>
     </div>
 </div>
+
 
 
 {{------------ Additional content --------------}}
