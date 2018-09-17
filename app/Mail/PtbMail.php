@@ -19,7 +19,7 @@ abstract class PtbMail extends Mailable
      *
      * @return void
      */
-    public function __construct(User $user, Ticket $ticket = null)
+    public function __construct( User $user, Ticket $ticket = null )
     {
         $this->user = $user;
         $this->ticket = $ticket;
@@ -32,26 +32,29 @@ abstract class PtbMail extends Mailable
      */
     public function build()
     {
-        return $this->view('view.name');
+        return $this->view( 'view.name' );
     }
 
     /**
      * Override send function to store email
      */
-    public function send(MailerContract $mailer)
+    public function send( MailerContract $mailer )
     {
         // Email is normally sent
-        parent::send($mailer);
+        parent::send( $mailer );
 
         // We store the fact that it was sent
-        foreach ($this->to as $recipient){
-            $user = User::where('email',$recipient['address'])->first();
-            if (!$user) continue;
+        foreach ( $this->to as $recipient ) {
+            $user = User::where( 'email', $recipient['address'] )->first();
+            if ( ! $user ) {
+                continue;
+            }
 
-            $emailSent = new EmailSent(['user_id'=>$user->id,
-                                        'ticket_id'=>$this->ticket?$this->ticket->id:null,
-                                        'email_class'=>get_class($this)
-            ]);
+            $emailSent = new EmailSent( [
+                'user_id'     => $user->id,
+                'ticket_id'   => $this->ticket ? $this->ticket->id : null,
+                'email_class' => get_class( $this )
+            ] );
             $emailSent->save();
         }
     }
@@ -59,13 +62,14 @@ abstract class PtbMail extends Mailable
     /**
      * Depending on user's language send the translated email
      */
-    public function ptbMarkdown($view,$data=[]){
-        if(strtolower( $this->user->language ) == 'fr'){
-            $view = 'emails.fr.'.$view;
+    public function ptbMarkdown( $view, $data = [] )
+    {
+        if ( strtolower( $this->user->language ) == 'en' ) {
+            $view = 'emails.en.' . $view;
         } else {
-            $view = 'emails.en.'.$view;
+            $view = 'emails.fr.' . $view;
         }
 
-        return $this->markdown($view,$data);
+        return $this->markdown( $view, $data );
     }
 }
