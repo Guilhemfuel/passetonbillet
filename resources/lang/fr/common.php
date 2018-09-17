@@ -35,6 +35,11 @@ return [
             'placeholder' => 'Votre avis',
             'send' => 'Envoyer'
         ]
-    ]
+    ],
+
+    'cookie_consent' => [
+        'button' => 'J\'accepte',
+        'text' => 'PasseTonBillet.fr utilise des cookies afin de vous offir la meilleure expérience possible.'
+    ],
 
 ];

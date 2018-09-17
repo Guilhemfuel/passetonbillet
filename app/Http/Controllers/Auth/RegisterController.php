@@ -279,7 +279,7 @@ class RegisterController extends Controller
         }
 
         // Make sure email isn't already used
-        $user = User::withTrashed()->where( 'email', $userData->user['email'] )->first();
+        $user = User::withTrashed()->where( 'email', $request->email )->first();
         if ( $user ) {
             flash()->error( __( 'auth.social.email_used' ) )->important();
 
