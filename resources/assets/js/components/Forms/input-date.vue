@@ -25,6 +25,7 @@
                     prefix-icon=" "
                     :picker-options="pickerOptions"
                     @change="emitChange"
+                    @input="emitInput"
             >
             </el-date-picker>
         </div>
@@ -42,6 +43,7 @@
                 prefix-icon=" "
                 :picker-options="pickerOptions"
                 @change="emitChange"
+                @input="emitInput"
         >
         </el-date-picker>
 
@@ -101,6 +103,9 @@
         methods: {
             emitChange(value) {
                 this.$emit('change',value);
+            },
+            emitInput(value) {
+                this.$emit('input',value);
             }
         }
     }

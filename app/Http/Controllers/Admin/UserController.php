@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Resources\UserRessource;
 use App\Models\Verification\IdVerification;
 use App\Notifications\Verification\IdConfirmed;
 use App\Notifications\Verification\IdDenied;
@@ -37,7 +38,7 @@ class UserController extends BaseController
         $user->status = - 1;
         $user->save();
 
-        flash()->success($this->CRUDsingularEntityName . ' created!');
+        flash()->success( $this->CRUDsingularEntityName . ' created!' );
 
         return redirect()->route( $this->CRUDmodelName . '.edit', $user->id );
     }
@@ -61,7 +62,7 @@ class UserController extends BaseController
         $user->update( $request->all() );
         $user->save();
 
-        flash()->success($this->CRUDsingularEntityName . ' updated!');
+        flash()->success( $this->CRUDsingularEntityName . ' updated!' );
 
         return redirect()->route( $this->CRUDmodelName . '.edit', $user->id );
     }
@@ -71,51 +72,61 @@ class UserController extends BaseController
      */
     public function getOldestIdCheck()
     {
-        $idCheck = IdVerification::where('accepted',null)->oldest()->first();
+        $idCheck = IdVerification::where( 'accepted', null )->oldest()->first();
 
         if ( $idCheck == null ) {
 
-            flash('No id check is awaiting.')->error();
+            flash( 'No id check is awaiting.' )->error();
 
             return redirect()->route( 'admin.home' );
         }
 
-        return view( 'admin.unique.verification.id' )->with( [ 'user' => $idCheck->user ] );
+        return view( 'admin.unique.verification.id' )->with(
+            [
+                'user'   => $idCheck->user,
+                'jsUser' => new UserRessource($idCheck->user)
+            ] );
     }
 
     // ---------- Ban User -------
 
-    public function banUser(Request $request, $id)
+    public function banUser( Request $request, $id )
     {
         $user = User::find( $id );
         if ( ! $user ) {
             \Session::flash( 'danger', 'Entity not found!' );
+
             return redirect()->back();
         }
 
-        if ($user->status != User::STATUS_USER) {
+        if ( $user->status != User::STATUS_USER ) {
             \Session::flash( 'danger', 'Only active user (non admin) can be banned!' );
+
             return redirect()->back();
         }
 
         $user->status = User::STATUS_BANNED_USER;
         $user->save();
 
-        flash('User banned.')->success();
+        flash( 'User banned.' )->success();
+
         return redirect()->route( $this->CRUDmodelName . '.edit', $user->id );
     }
 
     // ----------- Impersonate ------
 
-    public function impersonate(Request $request, $id){
+    public function impersonate( Request $request, $id )
+    {
         $user = User::find( $id );
         if ( ! $user ) {
             \Session::flash( 'danger', 'Entity not found!' );
+
             return redirect()->back();
         }
 
-        auth()->login($user);
-        return redirect()->route('home');
+        auth()->login( $user );
+
+        return redirect()->route( 'home' );
     }
 
     // ----------- ID Verification -----------
@@ -126,14 +137,17 @@ class UserController extends BaseController
     public function acceptIdVerification( Request $request )
     {
         $request->validate( [
-            'verification_id' => 'required|exists:id_verifications,id'
+            'verification_id' => 'required|exists:id_verifications,id',
+            'birthdate' => 'required|date_format:d/m/Y',
+            'first_name' => 'required',
+            'last_name' => 'required',
         ] );
 
         $idVerif = IdVerification::find( $request->verification_id );
 
-        if ($idVerif->accepted!=null){
+        if ( $idVerif->accepted != null ) {
 
-            flash()->error('ID confirmation already done!');
+            flash()->error( 'ID confirmation already done!' );
 
             return redirect()->route( 'id_check.oldest' );
         }
@@ -143,7 +157,10 @@ class UserController extends BaseController
 
         $idVerif->user->notify( new IdConfirmed() );
 
-        flash()->success('ID confirmed!');
+        // Now we update user info
+        $idVerif->user->update($request->except('verification_id'));
+
+        flash()->success( 'ID confirmed!' );
 
         return redirect()->route( 'id_check.oldest' );
     }
@@ -160,9 +177,9 @@ class UserController extends BaseController
 
         $idVerif = IdVerification::find( $request->verification_id );
 
-        if ($idVerif->accepted!=null){
+        if ( $idVerif->accepted != null ) {
 
-            flash()->error('ID confirmation already done!');
+            flash()->error( 'ID confirmation already done!' );
 
             return redirect()->route( 'id_check.oldest' );
         }
@@ -171,11 +188,11 @@ class UserController extends BaseController
         $idVerif->comment = $request->comment;
         $idVerif->save();
 
-        $idVerif->user->notify( new IdDenied($idVerif->comment) );
+        $idVerif->user->notify( new IdDenied( $idVerif->comment ) );
 
         $idVerif->delete();
 
-        flash()->success('ID successfully Denied!');
+        flash()->success( 'ID successfully Denied!' );
 
         return redirect()->route( 'id_check.oldest' );
     }

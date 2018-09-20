@@ -10,6 +10,7 @@ return [
 
     'title' => 'Mon profil',
     'account_verify' => 'Vérifier votre compte',
+    'verification_pending' => 'Vérification du profil en cours',
     'account_verified' => 'Identité vérifée',
     'change_password' => 'Changer le mot de passe',
     'change_picture' => 'Changer la photo de profil',
