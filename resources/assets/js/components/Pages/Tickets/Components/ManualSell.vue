@@ -197,6 +197,10 @@
                         value: 'Normal'
                     },
                     {
+                        label: 'Carte Jeune',
+                        value: 'Carte Jeune'
+                    },
+                    {
                         label: 'Autre',
                         value: 'Autre'
                     }

@@ -81,8 +81,9 @@
 
             >
                 <template slot-scope="scope">
-                    <button class="btn btn-sm btn-primary btn-fill" @click="share(scope.row.id)">
-                        <i class="fa fa-clipboard" aria-hidden="true"></i>
+                    <button :class="{'btn btn-sm btn-fill':true, 'btn-primary':scope.row.id!=copied, 'btn-success':scope.row.id==copied}" @click="share(scope.row.id)">
+                        <i class="fa fa-clipboard" aria-hidden="true" v-if="scope.row.id!=copied"></i>
+                        <i class="fa fa-check" aria-hidden="true" v-else></i>
                     </button>
                     <a class="btn btn-sm btn-info btn-fill" :href="scope.row.edit_link">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
@@ -104,7 +105,8 @@
         },
         data() {
             return {
-                searchValue: ''
+                searchValue: '',
+                copied: null
             }
         },
         methods: {
@@ -113,15 +115,29 @@
                 return row[property] === value;
             },
             share(id) {
-                let url = document.getElementById('share-'+id);
-                var range = document.createRange();
-                range.selectNode(url);
-                window.getSelection().addRange(range);
-                url.select();
+                const copyToClipboard = str => {
+                    const el = document.createElement('textarea');  // Create a <textarea> element
+                    el.value = str;                                 // Set its value to the string that you want copied
+                    el.setAttribute('readonly', '');                // Make it readonly to be tamper-proof
+                    el.style.position = 'absolute';
+                    el.style.left = '-9999px';                      // Move outside the screen to make it invisible
+                    document.body.appendChild(el);                  // Append the <textarea> element to the HTML document
+                    const selected =
+                        document.getSelection().rangeCount > 0        // Check if there is any content selected previously
+                            ? document.getSelection().getRangeAt(0)     // Store selection if found
+                            : false;                                    // Mark as false to know no selection existed before
+                    el.select();                                    // Select the <textarea> content
+                    document.execCommand('copy');                   // Copy - only works as a result of a user action (e.g. click events)
+                    document.body.removeChild(el);                  // Remove the <textarea> element
+                    if (selected) {                                 // If a selection existed before copying
+                        document.getSelection().removeAllRanges();    // Unselect everything on the HTML document
+                        document.getSelection().addRange(selected);   // Restore the original selection
+                    }
+                };
 
-                document.execCommand("Copy");
-                window.getSelection().removeAllRanges();
+                this.copied = id;
 
+                copyToClipboard(document.getElementById('share-'+id).value);
             },
             tableRowClassName({row, rowIndex}) {
                 if (row.status === 'sold') {

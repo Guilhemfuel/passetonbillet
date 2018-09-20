@@ -10,6 +10,7 @@ return [
 
     'title' => 'My profile',
     'account_verify' => 'Verify my account',
+    'verification_pending' => 'Account Verification Pending',
     'account_verified' => 'Identity verified',
     'change_password' => 'Change password',
     'edit_profile' => 'Edit your information',

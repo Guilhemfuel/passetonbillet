@@ -16,14 +16,33 @@
 
                 <h4>User Details:</h4>
                 <div class="row user-info">
-                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                        <p>Full Name: <a target="_blank" href="{{route('users.edit',$user->id)}}">{{$user->full_name}}</a></p>
+                    <div class="col-12">
+                        <a target="_blank" href="{{route('users.edit',$user->id)}}">Link to full profile of {{$user->full_name}}</a>
                     </div>
                     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                        <p>Birthdate: {{$user->birthdate}}</p>
+                        <input-text type="text" name="temp_first_name"
+                                    label="First Name" v-model="child.id_check.verifUser.first_name"
+                                    :default-value="child.id_check.verifUser.first_name"
+                        ></input-text>
                     </div>
                     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                        <p>Location: {{$user->location?:'-'}}</p>
+                        <input-text type="text" name="temp_last_name"
+                                    label="Last Name" v-model="child.id_check.verifUser.last_name"
+                                    :default-value="child.id_check.verifUser.last_name"
+                        ></input-text>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                        <input-date
+                                name="temp_birthdate"
+                                v-model="child.id_check.verifUser.birthdate"
+                                label="Birthdate"
+                                validation="date_format:DD/MM/YYYY"
+                                placeholder="DD/MM/YYYY"
+                                format="dd/MM/yyyy"
+                                value-format="dd/MM/yyyy"
+                                v-model="child.id_check.verifUser.birthdate"
+                                default-value="{{isset($user)&&$user->birthdate!=null?$user->birthdate->format('d/m/Y'):""}}"
+                                default-value-format="DD/MM/YYYY"></input-date>
                     </div>
                     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                         <img class="img-fluid" src="{{$user->picture}}" alt="user_pp"/>
@@ -44,6 +63,10 @@
                 <div class="btn-rack mt-5 action-buttons">
                     <form method="post" action="{{route('id_check.accept')}}">
                         {{csrf_field()}}
+                        <input type="hidden" name="first_name" :value="child.id_check.verifUser.first_name">
+                        <input type="hidden" name="birthdate" :value="child.id_check.verifUser.birthdate">
+                        <input type="hidden" name="last_name" :value="child.id_check.verifUser.last_name">
+
                         <input type="hidden" name="verification_id" value="{{$user->idVerification->id}}">
                         <button type="submit" class="btn btn-success">Accept ID Verification</button>
                     </form>
@@ -68,7 +91,8 @@
 @push('vue-data')
     <script type="application/javascript">
         data.id_check = {
-            denyModalOpened: false
+            denyModalOpened: false,
+            verifUser: {!! json_encode($jsUser) !!}
         }
     </script>
 @endpush

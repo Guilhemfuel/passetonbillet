@@ -104,27 +104,26 @@
                         <span>{{ticket.bought_currency_symbol}}{{ticket.bought_price}}</span>
                     </div>
                     <div class="seller" v-if="!selecting">
-                        <template v-if="user">
+                        <template>
                             <a target="_blank"
-                               :href="'/profile/user/'+ticket.user.hashid">{{publishedBy}} <b>{{ticket.user.full_name}}</b>
+                               :href="'/profile/user/'+ticket.user.hashid">
+
+                                <p class="mb-0 d-inline">
+                                    {{publishedBy}} <b>{{ticket.user.full_name}}</b>
+                                </p>
                                 <el-tooltip v-if="ticket.user.verified" class="item" effect="dark"
                                             :content="trans('tickets.component.user_verified')"
                                             placement="bottom-end">
                                     <i aria-hidden="true"
-                                       class="fa fa-check-circle text-warning"></i>
+                                       class="fa fa-check-circle text-success verif-status"></i>
 
                                 </el-tooltip>
                                 <el-tooltip v-else class="item" effect="dark"
                                             :content="trans('tickets.component.user_not_verified')"
                                             placement="bottom-end">
-                                    <i class="fa fa-exclamation-triangle text-danger" aria-hidden="true"></i>
+                                    <i class="fa fa-exclamation-triangle text-danger verif-status" aria-hidden="true"></i>
                                 </el-tooltip>
                             </a>
-                        </template>
-                        <template v-else>
-                            {{publishedBy}} <b>{{ticket.user.full_name}}</b> <i v-if="ticket.user.verified"
-                                                                                aria-hidden="true"
-                                                                                class="fa fa-check-circle text-warning"></i>
                         </template>
                     </div>
                 </div>

@@ -233,6 +233,11 @@ $animation-duration: 0.5s;
         margin-bottom: 5px;
       }
     }
+
+    .verif-status {
+      vertical-align: top;
+      font-size: 20px;
+    }
   }
 
   &.card-ticket-small {

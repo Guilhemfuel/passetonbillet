@@ -67,7 +67,7 @@ class User extends Authenticatable
         'first_name'    => 'required',
         'last_name'     => 'required',
         'gender'        => 'required|numeric',
-        'phone'         => 'required',
+        'phone'         => 'required|unique:phone',
         'phone_country' => 'required',
         'birthdate'     => 'required|date',
         'language'      => 'required',
@@ -278,6 +278,7 @@ class User extends Authenticatable
 
         static::deleting( function ( $user ) {
             $user->tickets()->delete();
+            $user->idVerification()->delete();
         } );
     }
 }

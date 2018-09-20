@@ -74,7 +74,7 @@ class Discussion extends Model
             'users.first_name'       => 8,
             'users.last_name'       => 8,
             'users.email'           => 8,
-            'tickets.eurostar_code' => 10,
+            'tickets.provider_code' => 10,
         ],
         'joins'   => [
             'tickets' => [ 'discussions.ticket_id', 'tickets.id' ],
