@@ -252,6 +252,12 @@ class Ticket extends Model
         return $this->discussions()->where('buyer_id',$this->buyer->id)->first();
     }
 
+    public function getDescriptionAttribute() {
+        return __('common.ticket.name'). ' '
+               . $this->train->departureCity->name . ' → '
+               . $this->train->arrivalCity->name . ' | '. $this->train->departure_date->format('j M');
+    }
+
     /**
      * RELATIONSHIPS
      */

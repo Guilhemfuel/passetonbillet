@@ -170,13 +170,14 @@ class PageController extends Controller
         if ( \Auth::check() ) {
             // If the user is connected, we redirect him to the seller's page
             return redirect()->route( 'public.profile.stanger', [
-                'user_id' => \Vinkla\Hashids\Facades\Hashids::encode( $ticket->user_id )
-            ] );
+                'user_id' => \Vinkla\Hashids\Facades\Hashids::encode( $ticket->user_id ),
+            ]);
         } else {
             return view( 'auth.auth_ticket', [
                 'type'   => 'register',
-                'ticket' => new TicketRessource( $ticket )
-            ] );
+                'ticket' => new TicketRessource( $ticket ),
+                'pageTitle' => $ticket->description
+            ]);
         }
     }
 

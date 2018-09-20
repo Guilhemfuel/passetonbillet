@@ -175,45 +175,6 @@ class TicketController extends Controller
 
     }
 
-    /**
-     * Redirects to the link to download the pdf of a ticket
-     *
-     * @param Request $request
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function downloadTicket( $ticket_id )
-    {
-        $ticket = Ticket::find( $ticket_id );
-        // Make sure allowed user
-        if ( ! \Auth::user()->isAdmin() || ! $ticket || $ticket->passed ) {
-            if ( $ticket->buyer->id != \Auth::user()->id ) {
-                flash( __( 'common.error' ) )->error()->important();
-
-                return redirect()->route( 'public.ticket.owned.page' );
-            }
-        }
-
-        // Check if file exists
-        $filePath = 'pdf/tickets/' . $ticket->pdf_file_name;
-        if ( ! \Storage::disk( 's3' )->exists( $filePath ) ) {
-            flash( __( 'common.error' ) )->error()->important();
-
-            return redirect()->route( 'public.ticket.owned.page' );
-        }
-
-        // Store stat
-        AppHelper::stat( 'download_pdf', [
-            'ticket_id' => $ticket_id
-        ] );
-
-        $url = \Storage::disk( 's3' )->temporaryUrl(
-            $filePath, now()->addMinutes( 5 )
-        );
-
-        return redirect( $url );
-    }
-
     /////////////////////////
     /// API
     /////////////////////////

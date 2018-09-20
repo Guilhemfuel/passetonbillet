@@ -2,26 +2,33 @@
 
 @php
     // display the correct page name
-    $pageName = '';
+    $pageLang = '';
     switch ($type){
         case 'password_reset':
-            $pageName = 'auth.reset.title';
+            $pageLang = 'auth.reset.title';
             break;
 
         case 'login':
-            $pageName = 'auth.auth.title';
+            $pageLang = 'auth.auth.title';
             break;
 
         case 'register':
-            $pageName = 'auth.register.title';
+            $pageLang = 'auth.register.title';
             break;
 
     }
 @endphp
 
-@section('title')
-    - @lang($pageName)
-@endsection
+{{-- If a ticket is given, we change page title --}}
+@if(!isset($pageTitle))
+    @section('title')
+        - @lang($pageLang)
+    @endsection
+@else
+    @section('advanced_title')
+        <title>{{$pageTitle}}</title>
+    @endsection
+@endif
 
 @section('content')
 

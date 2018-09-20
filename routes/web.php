@@ -118,7 +118,7 @@ Route::group( [ 'middleware' => 'auth', 'as' => 'public.' ], function () {
      **/
     Route::group( [ 'prefix' => 'profile', 'as' => 'profile.' ], function () {
 
-        Route::get( '/user/{user_id}', 'PageController@profileStranger' )->name( 'stanger' );
+        Route::get( '/user/{user_id}/', 'PageController@profileStranger' )->name( 'stanger' );
         Route::get( '/', 'PageController@profile' )->name( 'home' );
 
         Route::post( 'phone/add', 'UserController@addPhone' )->name( 'phone.add' );
