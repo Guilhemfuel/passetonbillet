@@ -78,7 +78,7 @@ class PageController extends Controller
         return $view->with( 'search', [
             "departure_station" => $request->departure_station,
             "arrival_station"   => $request->arrival_station,
-            "trip_date"         => $request->get("departure_date",null),
+            "trip_date"         => $request->get( "departure_date", null ),
             "trip_time"         => null
         ] );
     }
@@ -171,16 +171,28 @@ class PageController extends Controller
             // If the user is connected, we redirect him to the seller's page
             return redirect()->route( 'public.profile.stanger', [
                 'user_id' => \Vinkla\Hashids\Facades\Hashids::encode( $ticket->user_id ),
-            ]);
+            ] );
         } else {
             return view( 'auth.auth_ticket', [
-                'type'   => 'register',
-                'ticket' => new TicketRessource( $ticket ),
-                'pageTitle' => $ticket->description
-            ]);
+                'type'      => 'register',
+                'ticket'    => new TicketRessource( $ticket ),
+                'pageImagePreview' => route('image.ticket.preview',$ticket_id),
+                'pageTitle' => $ticket->description,
+            ] );
         }
     }
 
+    /**
+     * Returns an image for a given ticket
+     */
+    public function ticketPreview( Request $request, $ticket_id )
+    {
+        $ticket = Ticket::findOrFail(
+            \Vinkla\Hashids\Facades\Hashids::decode( $ticket_id )[0]
+        );
+
+        return \App\Facades\ImageHelper::ticketPreview( $ticket )->response('png');
+    }
 
     /**
      * ============================ Profile Pages ============================

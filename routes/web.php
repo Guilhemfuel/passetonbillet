@@ -141,6 +141,16 @@ Route::group( [ 'prefix' => 'ticket', 'as' => 'ticket.' ], function () {
     Route::get( '/{ticket_id}', 'PageController@ticketUnique' )->name( 'unique.page' );
 } );
 
+/**
+ *
+ * Ticket unique - Register for guests, offer for members
+ *
+ */
+
+Route::group( [ 'prefix' => 'img', 'as' => 'image.' ], function () {
+    Route::get( '/ticket/{ticket_id}.png', 'PageController@ticketPreview' )->name( 'ticket.preview' );
+} );
+
 
 /**
  * Admin routes

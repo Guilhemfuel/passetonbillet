@@ -196,6 +196,14 @@ class Ticket extends Model
         return $this->train->carbon_departure_date->lt( $now );
     }
 
+    public function getFullPriceAttribute() {
+        if ($this->currency == 'EUR') {
+            return $this->price.'€';
+        } else {
+            return $this->currency_symbol . $this->price;
+        }
+    }
+
     public function getCurrencySymbolAttribute()
     {
         return $this->getSymbolCurrency( $this->currency );
@@ -253,8 +261,7 @@ class Ticket extends Model
     }
 
     public function getDescriptionAttribute() {
-        return __('common.ticket.name'). ' '
-               . $this->train->departureCity->name . ' → '
+        return  $this->train->departureCity->name . ' → '
                . $this->train->arrivalCity->name . ' | '. $this->train->departure_date->format('j M');
     }
 

@@ -12,6 +12,7 @@ return [
         'buy'                    => 'Acheter',
         'sell'                   => 'Vendre ce billet',
         'sold_by'                => 'Publié il y a {{days}} par',
+        'sold_by_sm'             => 'Publié par',
         'edit'                   => 'Modifier',
         'edit_ticket'            => 'Modifier le billet',
         'buy_ticket'             => 'Acheter le billet',

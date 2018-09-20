@@ -33,6 +33,12 @@
     @endsection
 @endif
 
+@if( isset($pageImagePreview))
+    @section('advanced_og_image')
+        <meta property="og:image" content="{{$pageImagePreview}}"/>
+    @endsection
+@endif
+
 @section('content')
 
     <div class="row auth" id="authComponent">

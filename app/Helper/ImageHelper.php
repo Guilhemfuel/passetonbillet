@@ -3,6 +3,7 @@
 
 namespace App\Helper;
 
+use App\Ticket;
 use Carbon\Carbon;
 use Intervention\Image\Facades\Image;
 
@@ -106,6 +107,79 @@ class ImageHelper
         $bucket = \Config::get( 'filesystems.disks.s3.bucket' );
 
         return \Storage::disk( 's3' )->url( $path );
+    }
+
+    /**
+     * Returns an image for a given ticket
+     *
+     * @param Ticket $ticket
+     */
+    public function ticketPreview(Ticket $ticket) {
+
+        $img = \Image::make(file_get_contents(resource_path('assets/img/empty-ticket.png')));
+
+        // Write day
+        $img->text($ticket->train->departure_date->format('d'),600,160,function($font) {
+            $font->file(resource_path('assets/fonts/DINCondensed-Bold.ttf'));
+            $font->size(90);
+            $font->color('#FF9601');
+            $font->align('center');
+        });
+
+        // Write Month
+        $img->text($ticket->train->departure_date->format('F'),600,270,function($font) {
+            $font->file(resource_path('assets/fonts/DINCondensed-Bold.ttf'));
+            $font->size(60);
+            $font->color('#FFFFFF');
+            $font->align('center');
+        });
+
+        // Write seller
+        $img->text(__('tickets.component.sold_by_sm').' '.$ticket->user->full_name,1000,110,function($font) {
+            $font->file(resource_path('assets/fonts/DINCondensed-Bold.ttf'));
+            $font->size(40);
+            $font->color('#FFFFFF');
+            $font->align('center');
+        });
+
+        // Write Stations
+        $img->text($ticket->train->departureCity->name,236,370,function($font) {
+            $font->file(resource_path('assets/fonts/DINCondensed-Bold.ttf'));
+            $font->size(45);
+            $font->color('#FFFFFF');
+            $font->align('center');
+        });
+        $img->text($ticket->train->arrivalCity->name,956,370,function($font) {
+            $font->file(resource_path('assets/fonts/DINCondensed-Bold.ttf'));
+            $font->size(45);
+            $font->color('#FFFFFF');
+            $font->align('center');
+        });
+
+        // Write times
+        $img->text(substr($ticket->train->departure_time,0,5),236,410,function($font) {
+            $font->file(resource_path('assets/fonts/DINCondensed-Bold.ttf'));
+            $font->size(35);
+            $font->color('#FFFFFF');
+            $font->align('center');
+        });
+        $img->text(substr($ticket->train->arrival_time,0,5),956,410,function($font) {
+            $font->file(resource_path('assets/fonts/DINCondensed-Bold.ttf'));
+            $font->size(35);
+            $font->color('#FFFFFF');
+            $font->align('center');
+        });
+
+        // And price
+        $img->text($ticket->full_price,600,570,function($font) {
+            $font->file(resource_path('assets/fonts/DINCondensed-Bold.ttf'));
+            $font->size(80);
+            $font->color('#5D5C5D');
+            $font->align('center');
+        });
+
+        return $img;
+
     }
 
 }
