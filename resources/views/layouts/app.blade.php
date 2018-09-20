@@ -37,6 +37,9 @@
     @show
     @section('advanced_og_image')
         <meta property="og:image" content="{{secure_asset('img/preview-fb.jpg')}}"/>
+        <meta property="og:image:width" content="1200"/>
+        <meta property="og:image:height" content="630"/>
+
     @show
 
     <!-- Pusher App id-->
