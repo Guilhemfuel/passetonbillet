@@ -28,6 +28,9 @@
     @section('advanced_title')
         <title>{{$pageTitle}}</title>
     @endsection
+    @section('advanced_og_title')
+        <meta property="og:title" content="{{$pageTitle}}"/>
+    @endsection
 @endif
 
 @section('content')

@@ -29,7 +29,9 @@
 
     <!-- Facebook MetaTags -->
     <meta property="fb:app_id" content="{{env('FB_APP_ID')}}"/>
-    <meta property="og:title" content="Achat & Revente de billets de train d'occasion"/>
+    @section('advanced_og_title')
+        <meta property="og:title" content="Achat & Revente de billets de train d'occasion"/>
+    @show
     <meta property="og:type" content="website"/>
     <meta property="og:image" content="{{secure_asset('img/preview-fb.jpg')}}"/>
     <meta property="og:description"
