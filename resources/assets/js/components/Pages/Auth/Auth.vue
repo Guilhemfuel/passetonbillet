@@ -73,7 +73,9 @@
                     enter-active-class="animated fadeInDownBig"
                     leave-active-class="animated fadeOutUpBig">
             <div v-if="type==states.register" class="content">
-                <h1 class="text-dark">{{trans('auth.register.title')}}</h1>
+                <h1 class="text-dark" v-if="!ticketUniquePage">{{trans('auth.register.title')}}</h1>
+                <h1 class="text-dark" v-else>{{trans('auth.register.title_ticket')}}</h1>
+
                 <p>
                     <a href="#" class="a" @click.prevent="openLogin()">{{trans('auth.register.already_registered')}}</a>
                 </p>
@@ -416,6 +418,11 @@
                     }, 15);
             }
 
+        },
+        computed: {
+            ticketUniquePage() {
+                return this.$parent.currentPage.name == "ticket.unique.page";
+            }
         }
     }
 </script>

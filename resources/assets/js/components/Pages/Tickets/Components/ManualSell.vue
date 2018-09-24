@@ -40,6 +40,8 @@
                                                validation="required"
                                                class="col-12 col-sm-6"
                                                :with-icon="false"
+                                               v-model="departureStation"
+                                               @change="changeStations"
                                 ></input-station>
                                 <input-station name="arrival_station"
                                                :label="trans('tickets.sell.manual.form.arrival_station')"
@@ -47,6 +49,9 @@
                                                validation="required"
                                                class="col-12 col-sm-6"
                                                :with-icon="false"
+                                               v-model="arrivalStation"
+                                               @change="changeStations"
+
                                 ></input-station>
                                 <input-time class="col-12 col-sm-6"
                                             name="departure_time"
@@ -70,6 +75,7 @@
                                               :placeholder="trans('tickets.sell.manual.form.company')"
                                               :options="providers"
                                               validation="required"
+                                              @input="changeProvider"
                                 ></input-select>
                                 <input-select class="col-12 col-sm-6"
                                               name="flexibility"
@@ -123,14 +129,6 @@
                         </vue-form>
                     </div>
                 </transition>
-
-                <!--<transition enter-class="pre-animated"-->
-                <!--enter-active-class="animated fadeIn"-->
-                <!--leave-active-class="animated fadeOut">-->
-                <!--<div v-if="state=='select'">-->
-                <!---->
-                <!--</div>-->
-                <!--</transition>-->
 
             </div>
 
@@ -226,6 +224,53 @@
                         label: 'Standard Premier',
                         value: 'Standard Premier'
                     }
+                ],
+                departureStation: null,
+                arrivalStation: null,
+
+                eurostarStationsIds: [
+                    // London
+                    5892, 7840, 8172, 8260, 8263, 8265, 8266, 8267, 8268, 8269, 8270, 8273, 8274, 22654, 25012, 25717, 25718, 25722, 25814,
+
+                    // Ebbsfleet
+                    8224,
+
+                    // Ashford
+                    8155, 8154,
+
+                    // Disney
+                    4819, 4757,
+
+                    // Lille Europe
+                    4652, 123, 1326, 4616, 4653,
+
+                    // Paris
+                    4916, 4917, 4919, 4920, 4921, 4922, 4923, 4924, 23599, 34616, 34617, 34618, 34619,
+
+                    // Calais
+                    1417, 148, 1419,
+
+                    // Avignon
+                    489, 171, 485,
+
+                    // Lyon
+                    4718, 3652, 4022, 4676, 4677, 4699, 4717,
+
+                    // Moutiers
+                    23615, 5038,
+
+                    // Bourg St Maurice
+                    5028,
+
+                    // Marseille
+                    4790,  4116, 4117, 4723, 4791, 4947, 4948, 4949, 23020,
+
+                    // Bruxelles
+                    5974, 5893, 5971, 17738,
+
+                    // Amsterdam
+                    8657, 5894, 8609, 8643,
+
                 ]
             }
         },
@@ -233,6 +278,33 @@
         methods: {
             automaticTicketRetrieval() {
                 this.$emit('automatic-retrieval');
+            },
+            changeProvider(provider) {
+                if (provider == 'eurostar') {
+
+                    let notification = this.$notify({
+                        message: this.trans('tickets.sell.manual.eurostar_back_to_automatic'),
+                        type: 'warning',
+                        onClick: () => {
+                            notification.close()
+                        }
+                    });
+
+                    this.automaticTicketRetrieval();
+                }
+            },
+            changeStations() {
+                if (this.eurostarStationsIds.includes(this.arrivalStation) && this.eurostarStationsIds.includes(this.departureStation)) {
+                    let notification = this.$notify({
+                        message: this.trans('tickets.sell.manual.eurostar_back_to_automatic'),
+                        type: 'warning',
+                        onClick: () => {
+                            notification.close()
+                        }
+                    });
+
+                    this.automaticTicketRetrieval();
+                }
             }
         }
     }

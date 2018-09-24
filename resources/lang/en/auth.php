@@ -26,6 +26,7 @@ return [
     ],
     'register'     => [
         'title'                  => 'Register',
+        'title_ticket'           => 'Register to buy this ticket',
         'manually'               => 'Register manually',
         'first_name'             => 'First Name',
         'last_name'              => 'Last Name',

@@ -55,7 +55,6 @@
                 </div>
                 <div>
                     <ticket :ticket="child.auth.ticket" :lang="child.auth.langTickets.component" class-name="mb-0 mt-4 max-sized no-border"></ticket>
-                    <p class="text-center mt-3 text-white">{{__('common.ticket.buy_now')}}</p>
                 </div>
             </div>
         </div>

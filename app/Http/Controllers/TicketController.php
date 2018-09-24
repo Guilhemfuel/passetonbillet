@@ -29,6 +29,113 @@ use App\Facades\Eurostar;
 
 class TicketController extends Controller
 {
+    /**
+     * List of eurostar station id in DB
+     */
+    const EUROSTAR_STATIONS_IDS = [
+        // London
+        5892,
+        7840,
+        8172,
+        8260,
+        8263,
+        8265,
+        8266,
+        8267,
+        8268,
+        8269,
+        8270,
+        8273,
+        8274,
+        22654,
+        25012,
+        25717,
+        25718,
+        25722,
+        25814,
+
+        // Ebbsfleet
+        8224,
+
+        // Ashford
+        8155,
+        8154,
+
+        // Disney
+        4819,
+        4757,
+
+        // Lille Europe
+        4652,
+        123,
+        1326,
+        4616,
+        4653,
+
+        // Paris
+        4916,
+        4917,
+        4919,
+        4920,
+        4921,
+        4922,
+        4923,
+        4924,
+        23599,
+        34616,
+        34617,
+        34618,
+        34619,
+
+        // Calais
+        1417,
+        148,
+        1419,
+
+        // Avignon
+        489,
+        171,
+        485,
+
+        // Lyon
+        4718,
+        3652,
+        4022,
+        4676,
+        4677,
+        4699,
+        4717,
+
+        // Moutiers
+        23615,
+        5038,
+
+        // Bourg St Maurice
+        5028,
+
+        // Marseille
+        4790,
+        4116,
+        4117,
+        4723,
+        4791,
+        4947,
+        4948,
+        4949,
+        23020,
+
+        // Bruxelles
+        5974,
+        5893,
+        5971,
+        17738,
+
+        // Amsterdam
+        8657,
+        5894,
+        8609,
+        8643,
+    ];
 
     /**
      * @param SellTicketRequest $request
@@ -106,7 +213,13 @@ class TicketController extends Controller
             return redirect()->route( 'public.ticket.sell.page' );
         }
 
-        $travelDate = Carbon::createFromFormat('d/m/Y',$request->travel_date);
+        if ( $this->isEurostarTicket($request->all()) ) {
+            flash( __( 'tickets.sell.errors.manual_eurostar' ) )->error()->important();
+
+            return redirect()->route( 'public.ticket.sell.page' );
+        }
+
+        $travelDate = Carbon::createFromFormat( 'd/m/Y', $request->travel_date );
 
         // Create train
         $train = Train::firstOrCreate( [
@@ -147,6 +260,19 @@ class TicketController extends Controller
         flash( __( 'tickets.sell.success' ) )->success()->important();
 
         return redirect()->route( 'public.ticket.owned.page' );
+    }
+
+    /**
+     * Once the request was validated we ensure it's not a eurostar ticket
+     */
+    private function isEurostarTicket( array $data )
+    {
+        if ($data['company'] == 'eurostar'
+            || (in_array($data['departure_station'],self::EUROSTAR_STATIONS_IDS)
+            && in_array($data['arrival_station'],self::EUROSTAR_STATIONS_IDS) )) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -256,7 +382,7 @@ class TicketController extends Controller
         $tickets = Ticket::applyFilters(
             $request->get( 'departure_station' ),
             $request->get( 'arrival_station' ),
-            Carbon::createFromFormat('d/m/Y',$request->get( 'trip_date' )),
+            Carbon::createFromFormat( 'd/m/Y', $request->get( 'trip_date' ) ),
             $request->get( 'trip_time', null )
         );
 

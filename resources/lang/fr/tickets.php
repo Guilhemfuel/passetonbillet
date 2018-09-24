@@ -66,9 +66,10 @@ return [
         'submit'            => 'Vendre le billet',
         'preview'           => 'Prévisualisation du billet',
         'errors'            => [
-            'max_value' => 'Whoops ! Le prix de revente ne peut être supérieur au prix d\'achat ! Essayez encore avec un prix plus bas.',
-            'duplicate' => 'Whoops ! Ce billet a déjà été mis en vente...',
-            'search'    => 'Whoops ! Aucun billet trouvé... Essayez à nouveau, et si le problème persiste, contactez-nous.'
+            'max_value'       => 'Whoops ! Le prix de revente ne peut être supérieur au prix d\'achat ! Essayez encore avec un prix plus bas.',
+            'manual_eurostar' => 'Whoops! Vous ne pouvez pas utiliser le formulaire de vente manuel pour vendre un billet eurostar.',
+            'duplicate'       => 'Whoops ! Ce billet a déjà été mis en vente...',
+            'search'          => 'Whoops ! Aucun billet trouvé... Essayez à nouveau, et si le problème persiste, contactez-nous.'
         ],
         'success'           => 'Hooray! Votre billet est maintenant disponible à l\'achat ! Merci de votre confiance !',
 
@@ -99,7 +100,10 @@ return [
             ],
             'text'           => "Si vous souhaitez vendre un billet cartonné, ou que nous n'avons pas pu retrouver votre billet, il vous suffit de remplir ce formulaire.",
             'back_link'      => 'Vous avez votre numéro de réservation? Cliquez ici pour retrouver votre billet automatiquement.',
-            'form'           => [
+
+            'eurostar_back_to_automatic' => 'Merci de passer par le formulaire de vente automatique pour vendre un billet eurostar.',
+
+            'form' => [
                 'title_travel'      => 'Informations sur le voyage',
                 'departure_station' => 'Gare de départ',
                 'arrival_station'   => 'Gare d\'arrivée',

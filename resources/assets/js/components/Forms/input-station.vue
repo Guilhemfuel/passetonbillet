@@ -22,6 +22,7 @@
                        filterable
                        remote
                        @change="emitChange"
+                          @input="emitInput"
 
             >
                 <el-option
@@ -46,6 +47,7 @@
                    filterable
                    remote
                    @change="emitChange"
+                      @input="emitInput"
 
         >
             <el-option
@@ -137,6 +139,9 @@
             },
             emitChange(value) {
                 this.$emit('change',value);
+            },
+            emitInput(value) {
+                this.$emit('input',value);
             }
         },
         watch: {

@@ -69,6 +69,7 @@ return [
         'preview'           => 'Ticket Preview',
         'errors'            => [
             'max_value' => 'Whoops! Selling price can\'t exceed original price ! Try again with a lower price.',
+            'manual_eurostar' => 'Whoops! You can\'t use the manual form to sell eurostar tickets.',
             'duplicate' => 'Whoops! This ticket is already on sale...',
             'search'    => 'Whoops! No tickets were found... Try again and if the issue persists please contact us.'
         ],
@@ -102,6 +103,8 @@ return [
             ],
             'text'           => "If you wish to sell a print-at-station ticket, or if we couldn't retrieve your ticket with your booking code, you simply have to fill this form.",
             'back_link'      => 'You have your booking code? Click here to automatically retrieve your ticket!',
+
+            'eurostar_back_to_automatic' => 'Please use the automatic form to sell a Eurostar ticket.',
 
             'form' => [
                 'title_travel'      => 'Travel information',

@@ -26,6 +26,7 @@ return [
     ],
     'register'     => [
         'title'                  => 'Inscription',
+        'title_ticket'           => 'Inscrivez-vous pour acheter ce billet',
         'manually'               => 'Inscription Manuelle',
         'first_name'             => 'Prénom',
         'last_name'              => 'Nom',

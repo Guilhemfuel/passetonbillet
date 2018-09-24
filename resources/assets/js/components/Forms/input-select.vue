@@ -10,13 +10,17 @@
         >
         <el-custom-select v-model="value" placeholder="Select"
                    :class="{'invalid':errors.has(name),'animated pulse':pulse&&errors.has(name)}"
+                  @change="emitChange"
+                @input="emitInput"
         >
             <el-option
                     v-for="item in options"
                     :key="item.value"
                     :label="item.label"
                     :value="item.value"
-                    :id="item.value">
+                    :id="item.value"
+                    :disabled="( item.disabled != null && item.disabled != undefined ) ? item.disabled : false"
+            >
                 {{item.label}}
             </el-option>
         </el-custom-select>
@@ -43,7 +47,7 @@
             className: {required: false, type: String},
             validation: {required: false, type: String},
             placeholder: {required: false, type: String},
-            options: {required: true, type: Array}, // Each item must have label and value
+            options: {required: true, type: Array}, // Each item must have label and value (can have disabled)
             oldValue: {required: false, type: Boolean, default: true},
         },
         computed: {
@@ -70,6 +74,14 @@
             return {
                 value: null,
             }
-        }
+        },
+        methods: {
+            emitChange() {
+                this.$emit('change',this.value);
+            },
+            emitInput(value) {
+                this.$emit('input',this.value);
+            }
+        },
     }
 </script>
