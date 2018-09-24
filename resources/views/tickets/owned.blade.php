@@ -40,7 +40,11 @@
 @push('vue-data')
 
     <script type="text/javascript">
-        data.owned_tickets = {
+        @if (session('addedTicket'))
+            currentPage.data.addedTicket = {!! json_encode(session('addedTicket')) !!}
+        @endif
+
+            data.owned_tickets = {
             lang: {!!json_encode($lang)!!},
             tickets: {!! json_encode($tickets) !!},
             boughtTickets:  {!! json_encode($boughtTickets) !!},

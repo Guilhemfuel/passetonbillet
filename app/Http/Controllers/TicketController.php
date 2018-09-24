@@ -193,7 +193,8 @@ class TicketController extends Controller
 
         flash( __( 'tickets.sell.success' ) )->success()->important();
 
-        return redirect()->route( 'public.ticket.owned.page' );
+        return redirect()->route( 'public.ticket.owned.page' )
+                         ->with(['addedTicket'=> new TicketRessource($ticket)]);
     }
 
     /**
@@ -259,7 +260,8 @@ class TicketController extends Controller
 
         flash( __( 'tickets.sell.success' ) )->success()->important();
 
-        return redirect()->route( 'public.ticket.owned.page' );
+        return redirect()->route( 'public.ticket.owned.page' )
+            ->with(['addedTicket'=> new TicketRessource($ticket)]);
     }
 
     /**
