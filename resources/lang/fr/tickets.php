@@ -25,6 +25,7 @@ return [
         'booking_name'           => 'Nom de réservation',
         'delete'                 => 'Vous ne voulez plus vendre ce billet?',
         'share'                  => 'Lien de partage du billet',
+        'share_btn'              => 'Partager',
         'copied'                 => 'Lien copié dans le presse-papier.',
         'delete_cta'             => 'Retirer le billet',
         'offer_sent'             => 'Le vendeur a bien reçu votre offre! Il vous recontactera si il est interessé.',
@@ -42,6 +43,16 @@ return [
             'awaiting' => 'En Attente',
             'accepted' => 'Acceptée',
             'refused'  => 'Refusée'
+        ],
+
+        'share_modal' => [
+            'title' => 'Vendez votre billet plus rapidement en le publiant sur Facebook!',
+            'step_1' => '1. Partagez le avec vos amis sur votre compte Facebook',
+            'step_2' => '2. Parlez en sur notre groupe Eurostar et ses 50 000 membres',
+            'share_on_fb' => 'Partager sur facebook',
+            'text_link' => 'Votre lien de partage direct',
+            'copy_link' => 'Copier le lien',
+            'our_fb_group' => 'Publiez votre lien direct de billet sur notre groupe :'
         ],
 
     ],

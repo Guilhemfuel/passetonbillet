@@ -24,7 +24,7 @@
                             :csrf="csrf"></ticket>
                 </template>
                 <template v-else-if="state==stateValues.selling">
-                    <ticket :ticket="ticket" :csrf="csrf"></ticket>
+                    <ticket :ticket="ticket" :csrf="csrf" :share-modal-default="justSold(ticket)"></ticket>
                 </template>
                 <template v-else-if="state==stateValues.offered">
                     <ticket :ticket="ticket" :csrf="csrf"></ticket>
@@ -166,6 +166,15 @@
                         break;
                 }
 
+            },
+            /**
+             * Return true if on page because this ticket was just added to be sold on PTB
+             * @param ticket
+             * @returns {*|boolean}
+             */
+            justSold(ticket) {
+                return this.$root.currentPage.data.addedTicket
+                    && this.$root.currentPage.data.addedTicket.id == ticket.id
             }
 
         },

@@ -25,6 +25,7 @@ return [
         'booking_name'           => 'Booking name',
         'delete'                 => 'You don\'t want to sell this ticket anymore?',
         'share'                  => 'Link to share this ticket',
+        'share_btn'              => 'Share',
         'copied'                 => 'Link copied to clipboard.',
         'delete_cta'             => 'Remove ticket',
         'offer_sent'             => 'Seller received your offer! If interested, he\'ll contact you.',
@@ -45,6 +46,15 @@ return [
             'refused'  => 'Refused'
         ],
 
+        'share_modal' => [
+            'title' => 'Sell your ticket much faster by publishing it on facebook!',
+            'step_1' => '1. Share the ticket with your friends on your facebook account',
+            'step_2' => '2. Publish it on our facebook group with more than 50 000 members',
+            'share_on_fb' => 'Share it on facebook',
+            'text_link' => 'Your direct sharing link',
+            'copy_link' => 'Copy Link',
+            'our_fb_group' => 'Post your direct sharing link on our group: '
+        ],
 
     ],
     'sell'      => [

@@ -34,6 +34,7 @@ class UserRessource extends Resource
         }
     }
 
+
     /**
      * Transform the resource into an array.
      *

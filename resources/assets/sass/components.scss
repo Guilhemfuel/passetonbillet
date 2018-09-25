@@ -168,12 +168,12 @@ $animation-duration: 0.3s;
   .modal-content {
     border-radius: 0px;
     border: 0px;
-    margin-top: 20%;
+    margin-top: 10%;
   }
 
   .modal-body {
     overflow: scroll;
-    max-height: 70vh;
+    max-height: 80vh;
   }
 
   .fade-enter, .fade-leave-to {

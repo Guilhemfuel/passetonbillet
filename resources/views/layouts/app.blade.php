@@ -76,6 +76,18 @@
 </head>
 
 <body>
+
+{{-- Facebook --}}
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&autoLogAppEvents=1&version=v3.1&appId=2544208985804652';
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
+
 <div id="app">
 
     @if(session('login'))
@@ -171,7 +183,7 @@
 @include('cookieConsent::index')
 
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
+<!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-125827385-1"></script>
 <script>
     window.dataLayer = window.dataLayer || [];

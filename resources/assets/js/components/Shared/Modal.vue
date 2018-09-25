@@ -34,18 +34,18 @@
     import _ from 'lodash';
 
     export default {
-        date(){
-            return {
-                fullyOpened: this.isOpen  // True when opening transition is over
-            }
-        },
         props: {
-            isOpen: {type: Boolean, required: true},
+            isOpen: {type: Boolean, required: true, default: false},
             closeOnOutsideClick: {type: Boolean, default: true, required: false},
             buttonClose: {type: Boolean, default: true, required: false},
             title: {type: String, required: false},
             footer: {type: String, required: false},
             modalClass: {type: String, default: ''}
+        },
+        date(){
+            return {
+                fullyOpened: this.isOpen != undefined ? this.isOpen : false // True when opening transition is over
+            }
         },
         methods: {
             outsideClick(){
@@ -64,34 +64,19 @@
         },
         directives: {
             'click-outside': {
-                bind: function(el, binding, vNode) {
-                    // Provided expression must evaluate to a function.
-                    if (typeof binding.value !== 'function') {
-                        const compName = vNode.context.name
-                        let warn = `[Vue-click-outside:] provided expression '${binding.expression}' is not a function, but has to be`
-                        if (compName) { warn += `Found in component '${compName}'` }
-
-                        console.warn(warn)
-                    }
-                    // Define Handler and cache it on the element
-                    const bubble = binding.modifiers.bubble
-                    const handler = (e) => {
-                        if (bubble || (!el.contains(e.target) && el !== e.target)) {
-                            binding.value(e)
+                bind: function (el, binding, vnode) {
+                    el.clickOutsideEvent = function (event) {
+                        // here I check that click was outside the el and his childrens
+                        if (!(el == event.target || el.contains(event.target))) {
+                            // and if it did, call method provided in attribute value
+                            vnode.context[binding.expression](event);
                         }
-                    }
-                    el.__vueClickOutside__ = handler
-
-                    // add Event Listeners
-                    document.addEventListener('click', handler)
+                    };
+                    document.body.addEventListener('click', el.clickOutsideEvent)
                 },
-
-                unbind: function(el, binding) {
-                    // Remove Event Listeners
-                    document.removeEventListener('click', el.__vueClickOutside__)
-                    el.__vueClickOutside__ = null
-
-                }
+                unbind: function (el) {
+                    document.body.removeEventListener('click', el.clickOutsideEvent)
+                },
             }
         }
     }
