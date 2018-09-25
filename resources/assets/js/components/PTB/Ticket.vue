@@ -351,7 +351,10 @@
                             <p class="text-center mt-4">{{trans('tickets.component.share_modal.our_fb_group')}}</p>
 
                             <div class="fb-group" data-href="https://www.facebook.com/groups/eurostarpassetonbillet/"
-                                 data-width="300" data-show-social-context="true" data-show-metadata="false"></div>
+                                 data-width="300" data-show-social-context="true" data-show-metadata="false" v-if="ticket.provider=='eurostar'"></div>
+
+                            <div class="fb-group" data-href="https://www.facebook.com/groups/reventebilletprems/"
+                                 data-width="300" data-show-social-context="true" data-show-metadata="false" v-else></div>
 
                         </div>
                     </div>
