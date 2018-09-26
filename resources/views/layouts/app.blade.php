@@ -30,6 +30,7 @@
     <!-- Facebook MetaTags -->
     <meta property="fb:app_id" content="{{env('FB_APP_ID')}}"/>
     <meta property="og:type" content="website"/>
+    <meta property="og:url" content="{{url()->full()}}"/>
     <meta property="og:description"
           content="Leader sur l'achat et la revente de billets de train entre particuliers depuis 10 ans. Le seul site 100% gratuit, sans commissions."/>
     @section('advanced_og_title')
@@ -79,13 +80,27 @@
 
 {{-- Facebook --}}
 <div id="fb-root"></div>
-<script>(function(d, s, id) {
+<script>
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId      : '{your-app-id}',
+            cookie     : true,
+            xfbml      : true,
+            version    : '{api-version}'
+        });
+
+        FB.AppEvents.logPageView();
+
+    };
+
+    (function(d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) return;
         js = d.createElement(s); js.id = id;
         js.src = 'https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&autoLogAppEvents=1&version=v3.1&appId=2544208985804652';
         fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));</script>
+    }(document, 'script', 'facebook-jssdk'));
+</script>
 
 
 <div id="app">

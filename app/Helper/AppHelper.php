@@ -4,6 +4,7 @@
 namespace App\Helper;
 
 use App\Models\Statistic;
+use Carbon\Carbon;
 
 class AppHelper
 {
@@ -61,8 +62,23 @@ class AppHelper
             $dailyCount = $filterClosure($dailyCount);
         }
 
+        $today = Carbon::now();
+        $aMonthAgo = Carbon::now()->subMonth();
 
-        return $dailyCount->pluck( 'count', 'date' );
+        $data = $dailyCount->pluck( 'count', 'date' )->toArray();
+
+        // Add 0 to missing dates
+        while ($today->format('Y-m-d') != $aMonthAgo->format('Y-m-d')) {
+            if (!isset($data[$today->format('Y-m-d')])) {
+                $data[$today->format('Y-m-d')] = 0;
+            }
+            $today->subDay();
+        }
+
+        // Sort by date and reverse
+        ksort($data);
+        return array_reverse( $data);
+
     }
 
 }
