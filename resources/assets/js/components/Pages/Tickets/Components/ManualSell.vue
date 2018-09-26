@@ -228,7 +228,7 @@
                 departureStation: null,
                 arrivalStation: null,
 
-                eurostarStationsIds: [
+                ukStationsIds: [
                     // London
                     5892, 7840, 8172, 8260, 8263, 8265, 8266, 8267, 8268, 8269, 8270, 8273, 8274, 22654, 25012, 25717, 25718, 25722, 25814,
 
@@ -237,7 +237,9 @@
 
                     // Ashford
                     8155, 8154,
+                ],
 
+                eurostarStationsIds: [
                     // Disney
                     4819, 4757,
 
@@ -294,7 +296,9 @@
                 }
             },
             changeStations() {
-                if (this.eurostarStationsIds.includes(this.arrivalStation) && this.eurostarStationsIds.includes(this.departureStation)) {
+                if ( (this.ukStationsIds.includes(this.arrivalStation) && this.eurostarStationsIds.includes(this.departureStation))
+                    || (this.eurostarStationsIds.includes(this.arrivalStation) && this.ukStationsIds.includes(this.departureStation))
+                ) {
                     let notification = this.$notify({
                         message: this.trans('tickets.sell.manual.eurostar_back_to_automatic'),
                         type: 'warning',

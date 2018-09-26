@@ -29,10 +29,11 @@ use App\Facades\Eurostar;
 
 class TicketController extends Controller
 {
+
     /**
-     * List of eurostar station id in DB
+     * List of UK eurostar stations
      */
-    const EUROSTAR_STATIONS_IDS = [
+    const UK_EUROSTAR_STATIONS_DB = [
         // London
         5892,
         7840,
@@ -60,6 +61,12 @@ class TicketController extends Controller
         // Ashford
         8155,
         8154,
+    ];
+
+    /**
+     * List of eurostar station id in DB
+     */
+    const EUROSTAR_STATIONS_IDS = [
 
         // Disney
         4819,
@@ -270,8 +277,11 @@ class TicketController extends Controller
     private function isEurostarTicket( array $data )
     {
         if ($data['company'] == 'eurostar'
-            || (in_array($data['departure_station'],self::EUROSTAR_STATIONS_IDS)
-            && in_array($data['arrival_station'],self::EUROSTAR_STATIONS_IDS) )) {
+            || (in_array($data['departure_station'],self::UK_EUROSTAR_STATIONS_DB)
+            && in_array($data['arrival_station'],self::EUROSTAR_STATIONS_IDS) )
+            || (in_array($data['arrival_station'],self::UK_EUROSTAR_STATIONS_DB)
+                && in_array($data['departure_station'],self::EUROSTAR_STATIONS_IDS) )
+        ) {
             return true;
         }
         return false;
