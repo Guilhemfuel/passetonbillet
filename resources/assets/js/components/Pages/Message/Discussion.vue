@@ -85,9 +85,11 @@
                 </div>
             </div>
         </div>
+
+
         <div :class="{'messages':true, 'row':true, 'shadow':topShadow, 'archived':(sold && !sold_here)}" v-on:scroll="onScroll" id="messages">
-            <p class="text-center px-4 reminder" v-if="!sold">
-                    {{trans('message.discussions.disclaimer')}}
+            <p class="text-center px-4 reminder" v-if="discussion.ticket.provider == 'eurostar'">
+                    {{trans('message.discussions.disclaimer_eurostar')}}
             </p>
             <template v-for="message in discussion.messages">
                 <div class="msg-container">

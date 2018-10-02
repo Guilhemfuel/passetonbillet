@@ -41,7 +41,8 @@ return [
         'modal_open_chat'          => 'Une question? Un doute? Clickez-ici pour discuter avec la team!',
         'modal_close_understand'   => 'Compris !',
 
-        'disclaimer'  => 'Passe Ton Billet n\'est pas intermédiaire, mais permet uniquement de mettre en contact des vendeurs & acheteurs de billets. Passe Ton Billet décline toute responsabilité dans la transaction de vente.',
+        'disclaimer'  => 'Passe Ton Billet n\'est pas un intermédiaire, mais permet uniquement de mettre en contact des vendeurs & acheteurs de billets. Passe Ton Billet décline toute responsabilité dans la transaction de vente.',
+        'disclaimer_eurostar'  => 'Des contrôles peuvent parfois être effectués en gare pour les billets Eurostar. Si le nom sur le billet ne correspond pas à celui qui figure sur le passeport, l\'accès au train peut-être refusé.',
 
         'modal_sell' => [
             'part_1' => 'Vous vous apprêtez à marquer ce billet comme vendu à',

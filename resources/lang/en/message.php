@@ -37,6 +37,8 @@ return [
         'modal_close_understand'   => 'I understand !',
 
         'disclaimer'  => 'Passe Ton Billet is only designed to put you in contact with tickets buyers and sellers. Passe Ton Billet denies every responsability related to the transaction.',
+        'disclaimer_eurostar'  => 'Identity check may happen rarely for eurostar tickets. If the name on the provided ID does not match with the name on the ticket, access to train may be refused.',
+
 
         'modal_sell' => [
             'part_1' => 'You are about to mark this ticket as sold to',

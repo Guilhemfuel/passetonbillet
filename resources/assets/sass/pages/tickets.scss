@@ -217,6 +217,7 @@ $animation-duration: 0.5s;
   }
 
   .card-seller-info {
+    height: 100px;
     padding: 20px;
     position: relative;
 
@@ -484,6 +485,15 @@ $animation-duration: 0.5s;
             $function: 'ease'
     );
   }
+
+  .row-ticket {
+    justify-content: space-evenly;
+  }
+
+  .row-item-ticket {
+    max-width: 320px;
+  }
+
 
 }
 

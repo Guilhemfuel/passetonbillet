@@ -15,14 +15,14 @@
         <div :class="{'animated pulse':pulse&&errors.has(name),'icon-form':true}" v-if="withIcon">
             <i class="fa fa-map-marker text-primary" aria-hidden="true"></i>
             <el-custom-select v-model="selected" placeholder="Select"
-                       :class="{'invalid':errors.has(name)}"
-                       :remote-method="remoteMethod"
-                       :loading="loading"
-                       :placeholder="placeholder"
-                       filterable
-                       remote
-                       @change="emitChange"
-                          @input="emitInput"
+                              :class="{'invalid':errors.has(name)}"
+                              :remote-method="remoteMethod"
+                              :loading="loading"
+                              :placeholder="placeholder"
+                              filterable
+                              remote
+                              @change="emitChange"
+                              @input="emitInput"
 
             >
                 <el-option
@@ -40,14 +40,14 @@
         <!-- Without Icon -->
 
         <el-custom-select v-else v-model="selected" placeholder="Select"
-                   :class="{'invalid':errors.has(name),'animated pulse':pulse&&errors.has(name)}"
-                   :remote-method="remoteMethod"
-                   :loading="loading"
-                   :placeholder="placeholder"
-                   filterable
-                   remote
-                   @change="emitChange"
-                      @input="emitInput"
+                          :class="{'invalid':errors.has(name),'animated pulse':pulse&&errors.has(name)}"
+                          :remote-method="remoteMethod"
+                          :loading="loading"
+                          :placeholder="placeholder"
+                          filterable
+                          remote
+                          @change="emitChange"
+                          @input="emitInput"
 
         >
             <el-option
@@ -107,7 +107,8 @@
         data() {
             return {
                 loading: false,
-                stations: [],
+                stations: this.$root.currentPage.data.defaultStations != null ?
+                    this.$root.currentPage.data.defaultStations : [],
                 selected: null,
                 sourceUrl: this.route('api.stations.search'),
             }
@@ -116,16 +117,40 @@
             let defaultId = this.defaultVal;
 
             if (defaultId != null) {
-                this.loading = true;
 
-                this.$http.get(this.route('api.stations.show', [defaultId]))
-                    .then(response => {
-                        this.stations = [response.data.data];
-                        this.loading = false;
-                        this.selected = parseInt(defaultId);
-                    })
+                if (this.$root.currentPage.data.defaultStations != null) {
+
+                    let station = this.$root.currentPage.data.defaultStations.find((element) => {
+                        return element.id == defaultId;
+                    });
+
+                    if (station == null) {
+                        this.loading = true;
+
+                        this.$http.get(this.route('api.stations.show', [defaultId]))
+                            .then(response => {
+                                this.stations += [response.data.data];
+                                this.loading = false;
+                                this.selected = parseInt(defaultId);
+                            })
+                    } else {
+                        this.selected = station.id;
+                    }
+
+                } else {
+
+                    this.loading = true;
+
+                    this.$http.get(this.route('api.stations.show', [defaultId]))
+                        .then(response => {
+                            this.stations = [response.data.data];
+                            this.loading = false;
+                            this.selected = parseInt(defaultId);
+                        })
+                }
             }
-        },
+        }
+        ,
         methods: {
             remoteMethod(query) {
                 if (query !== '') {
@@ -136,16 +161,19 @@
                             this.loading = false;
                         })
                 }
-            },
-            emitChange(value) {
-                this.$emit('change',value);
-            },
-            emitInput(value) {
-                this.$emit('input',value);
             }
-        },
+            ,
+            emitChange(value) {
+                this.$emit('change', value);
+            }
+            ,
+            emitInput(value) {
+                this.$emit('input', value);
+            }
+        }
+        ,
         watch: {
-            defaultVal () {
+            defaultVal() {
                 this.loading = true;
 
                 this.$http.get(this.route('api.stations.show', [this.defaultVal]))

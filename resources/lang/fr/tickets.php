@@ -48,7 +48,7 @@ return [
         'share_modal' => [
             'title' => 'Vendez votre billet plus rapidement en le publiant sur Facebook!',
             'step_1' => '1. Partagez le avec vos amis sur votre compte Facebook',
-            'step_2' => '2. Parlez en sur notre groupe Eurostar et ses 50 000 membres',
+            'step_2' => '2. Parlez en sur notre groupe Facebook',
             'share_on_fb' => 'Partager sur facebook',
             'text_link' => 'Votre lien de partage direct',
             'copy_link' => 'Copier le lien',

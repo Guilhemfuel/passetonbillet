@@ -385,6 +385,8 @@ $routes = [
             routes: {!! json_encode($routes) !!},
             stateHowItWorks: 'buyer'
         }
+
+        currentPage.data.defaultStations = {!! json_encode($defaultStations) !!}
     </script>
 @endpush
 

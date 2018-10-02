@@ -51,7 +51,7 @@ class Thalys
         // France
         233, // Aix
         485, // Avignon
-        1129, // Paris gare du nord
+        4922, // Paris gare du nord
         4653, // Lille europe
         4791, // Marseille
         5614, // Valence TGV
@@ -120,6 +120,7 @@ class Thalys
         $referenceNumber = strtoupper( $referenceNumber );
 
         $cookiesJar = new CookieJar();
+
         $response = $this->client->request(
             'POST',
             $this->retrieveURL,
@@ -136,6 +137,7 @@ class Thalys
         );
 
         $decoded = json_decode( (string) $response->getBody(), true );
+
 
         if ( ! isset( $decoded['status'] ) || $decoded['status'] != "SUCCESS" ) {
             throw new ThalysException( 'Nothing found with this name/code combination.' );
@@ -312,6 +314,14 @@ class Thalys
         $bestMatch = null;
         $matchValue = 0;
 
+//        // Hard code Paris
+//        if ( strpos( strtolower($stationName), 'paris'  ) !== false ) {
+//            dd(Station::find(1129));
+//            return Station::find(1129);
+//
+//        }
+
+        // Otherwise find best match
         foreach ( $stations as $station ) {
             $tempMatchValue = 0;
             similar_text( $stationName, $station->name, $tempMatchValue );

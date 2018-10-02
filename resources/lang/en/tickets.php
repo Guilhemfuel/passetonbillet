@@ -49,7 +49,7 @@ return [
         'share_modal' => [
             'title' => 'Sell your ticket much faster by publishing it on facebook!',
             'step_1' => '1. Share the ticket with your friends on your facebook account',
-            'step_2' => '2. Publish it on our facebook group with more than 50 000 members',
+            'step_2' => '2. Publish it on our facebook group ',
             'share_on_fb' => 'Share it on facebook',
             'text_link' => 'Your direct sharing link',
             'copy_link' => 'Copy Link',

@@ -48,8 +48,8 @@
         <transition enter-class="pre-animated"
                     enter-active-class="animated fadeInUpBig"
                     leave-active-class="animated fadeOut">
-            <div class="row mt-4" v-if="ticketsWithOffers.length > 0">
-                <div class="col-12 col-sm-12 col-md-6 col-lg-4 px-5 px-sm-5 px-md-3" v-for="ticket in ticketsWithOffers"
+            <div class="row mt-4 row-ticket" v-if="ticketsWithOffers.length > 0">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4 px-5 px-sm-5 px-md-3 row-item-ticket" v-for="ticket in ticketsWithOffers"
                      :key="ticket.id">
                     <ticket :ticket="ticket"
                             :buying="true"

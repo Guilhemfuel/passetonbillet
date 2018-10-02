@@ -27,8 +27,23 @@ class PageController extends Controller
 
     public function home()
     {
+        $defaultStationsId = [
+            8267, 5974, 4718, 4790, 4916
+        ];
 
-        return view( 'welcome' );
+        // Order of stations
+        $defaultStations = collect([
+            Station::find(4916),
+            Station::find(8267),
+            Station::find(5974),
+            Station::find(4718),
+            Station::find(4790),
+
+        ]);
+
+        return view( 'welcome' )->with([
+            'defaultStations' => StationRessource::collection( $defaultStations )
+        ]);
     }
 
     /**
