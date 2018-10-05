@@ -20,7 +20,7 @@ class Handler extends ExceptionHandler
         \Symfony\Component\HttpKernel\Exception\HttpException::class,
         \Illuminate\Database\Eloquent\ModelNotFoundException::class,
         \Illuminate\Session\TokenMismatchException::class,
-        \Illuminate\Validation\ValidationException::class,
+//        \Illuminate\Validation\ValidationException::class,
     ];
 
     /**
@@ -51,7 +51,7 @@ class Handler extends ExceptionHandler
      */
     public function report( Exception $exception )
     {
-        if ( \App::environment() != 'local' && app()->bound( 'sentry' ) && $this->sentryShouldReport( $exception ) ) {
+        if ( \App::environment() == 'production' && app()->bound( 'sentry' ) && $this->sentryShouldReport( $exception ) ) {
             $this->sentryID = app( 'sentry' )->captureException( $exception );
         }
 
@@ -68,21 +68,34 @@ class Handler extends ExceptionHandler
      */
     public function render( $request, Exception $exception )
     {
-        if ( ($exception instanceof PasseTonBilletException)
+
+        /*
+         * PasseTonBilletException
+         */
+        if ( ( $exception instanceof PasseTonBilletException )
              && \App::environment() != 'local'
-             && !$request->expectsJson()
+             && ! $request->expectsJson()
         ) {
             $errorMsg = 'Train Error: ' . $exception->getMessage();
 
             return \Redirect::back()->withInput( $request->input() )->with( 'ptb_error', $errorMsg );
         }
 
-        if ( \App::environment() != 'local' && app()->bound( 'sentry' ) && $this->sentryShouldReport( $exception )  ){
-            return response()->view('errors.500', [
+        /*
+         * Sentry Debug
+         */
+        if ( \App::environment() == 'production' && app()->bound( 'sentry' ) && $this->sentryShouldReport( $exception ) ) {
+            return response()->view( 'errors.500', [
                 'sentryID' => $this->sentryID,
-            ], 500);
-        } elseif (config('app.debug') && app()->environment() != 'production') {
-            return $this->handleWhoopsies($request, $exception);
+            ], 500 );
+
+        }
+
+        /*
+         * Debug whoops
+         */
+        elseif ( config( 'app.debug' ) && app()->environment() != 'production' ) {
+            return $this->handleWhoopsies( $request, $exception );
         }
 
         return parent::render( $request, $exception );
@@ -115,25 +128,31 @@ class Handler extends ExceptionHandler
      */
     protected function sentryShouldReport( $exception )
     {
-        foreach ($this->sentryDontReport as $exceptionClass ){
-            if ($exception instanceof $exceptionClass) return false;
+        if ( \App::environment() != 'production' ) {
+            return false;
         }
 
-        return $this->shouldReport($exception);
+        foreach ( $this->sentryDontReport as $exceptionClass ) {
+            if ( $exception instanceof $exceptionClass ) {
+                return false;
+            }
+        }
+
+        return $this->shouldReport( $exception );
     }
 
     /**
-     * @param $request
+     * @param           $request
      * @param Exception $exception
      *
      * @return \Illuminate\Http\Response|mixed
      */
-    protected function handleWhoopsies($request, Exception $exception)
+    protected function handleWhoopsies( $request, Exception $exception )
     {
-        if ($request->ajax()) {
+        if ( $request->ajax() ) {
             return $this->renderJsonExceptionWithWhoops();
         } else {
-            return $this->renderExceptionWithWhoops($exception);
+            return $this->renderExceptionWithWhoops( $exception );
         }
     }
 
@@ -143,8 +162,10 @@ class Handler extends ExceptionHandler
     protected function renderJsonExceptionWithWhoops()
     {
         $whoops = new \Whoops\Run;
-        return $whoops->pushHandler(new \Whoops\Handler\JsonResponseHandler());
+
+        return $whoops->pushHandler( new \Whoops\Handler\JsonResponseHandler() );
     }
+
     /**
      * Render an exception using Whoops.
      *
@@ -152,14 +173,15 @@ class Handler extends ExceptionHandler
      *
      * @return \Illuminate\Http\Response
      */
-    protected function renderExceptionWithWhoops(Exception $exception)
+    protected function renderExceptionWithWhoops( Exception $exception )
     {
         $whoops = new \Whoops\Run;
         $handler = new \Whoops\Handler\PrettyPageHandler();
-        $handler->setEditor(config('app.editor'));
-        $whoops->pushHandler($handler);
-        return new \Illuminate\Http\Response($whoops->handleException($exception), $exception->getStatusCode(),
-            $exception->getHeaders());
+        $handler->setEditor( config( 'app.editor' ) );
+        $whoops->pushHandler( $handler );
+
+        return new \Illuminate\Http\Response( $whoops->handleException( $exception ), $exception->getStatusCode(),
+            $exception->getHeaders() );
     }
 
 }

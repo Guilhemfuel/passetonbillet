@@ -8,6 +8,7 @@ use Laracasts\Flash\Message;
 abstract class PtbTestCase extends TestCase
 {
 
+
     /**
      * =========
      * ---- Shortcut to be a specific user
@@ -16,16 +17,16 @@ abstract class PtbTestCase extends TestCase
 
     public function beAUser($state = ''){
         if ($state == '') {
-            $user = factory(User::class)->create();
+            $user = factory(\App\User::class)->create();
         } else {
-            $user = factory(User::class)->states($state)->create();
+            $user = factory(\App\User::class)->states($state)->create();
         }
         $this->actingAs($user);
         return $this;
     }
 
     public function beAnAdmin(){
-        $user = factory(User::class)->states('admin')->create();
+        $user = factory(\App\User::class)->states('admin')->create();
         $this->actingAs($user);
         return $this;
     }

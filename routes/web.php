@@ -53,6 +53,13 @@ Route::get( '/register/fb', 'Auth\RegisterController@fb_redirect' )->name( 'fb.c
 Route::get( '/register/fb/callback', 'Auth\RegisterController@fb_callback' )->name( 'fb.callback' );
 Route::post( '/register/fb/confirm', 'Auth\RegisterController@fb_confirm_inscription' )->name( 'fb.confirm' );
 
+
+/**
+ * WebHooks
+ */
+
+Route::get('/fb/webhook','Chatbot\MessengerController@verifyWebhook')->name('fb.chatbot.webhook.verify');
+
 /**
  * Condtions, privacy, contact...
  **/

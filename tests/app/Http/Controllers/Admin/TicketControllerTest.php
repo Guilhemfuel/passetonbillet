@@ -4,56 +4,57 @@ namespace Tests\app\Http\Controllers\Admin;
 
 use Faker\Factory;
 use App\Ticket;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class TicketControllerTest extends BaseControllerTest
 {
 
-    public function setUp()
+    public function setUp(  )
     {
         parent::setUp();
+        $this->beAnAdmin();
 
         $this->basePath = $this->basePath . 'tickets';
-        $this->beAnAdmin();
+
+        // Create some tickets
+        factory( Ticket::class , 10)->create();
+
     }
 
     /**
-     * Data provider to test that all views are displayed without errors
+     *  Test views work
      */
-    public function urlDataProvider()
+    public function testViews( )
     {
-        $this->setUp();
 
-        $station = Ticket::inRandomOrder()->first();
+        $ticket = Ticket::inRandomOrder()->first();
 
-        // Ticket can't be created
-        return [
-            'Admin Ticket Home'   => [ '/', 'Tickets' ],
-            'Admin Edit Ticket'   => [ '/' . $station->id . '/edit', 'Edit Ticket' ],
+        $tests = [
+              '/' => 'Tickets' ,
+             '/' . $ticket->id . '/edit' =>  'Edit Ticket',
         ];
+
+        foreach ($tests as $url => $toSee) {
+            $this->get( $this->basePath . $url )->assertSuccessful()->assertSee( $toSee );
+        }
     }
 
     /**
-     * @dataProvider urlDataProvider
-     */
-    public function testViews( $url, $toSee )
-    {
-        $this->get( $this->basePath . $url )->assertSuccessful()->assertSee( $toSee );
-    }
-
-    /**
-     * Test create a fake ticket
+     * Test can't create a ticket
      */
     public function testCreateTicket()
     {
+        factory( Ticket::class , 10)->create();
+
         // Create fake ticket
         $ticketCount = Ticket::all()->count();
-        $this->beAnAdmin();
-        $response = $this->get(route('tickets.create') );
-        $ticket = Ticket::orderByDesc('created_at')->first();
 
-        $response->assertRedirect( route('tickets.edit',$ticket->id ));
+        $response = $this->beAnAdmin()->get(route('tickets.create') );
 
-        $this->assertEquals($ticketCount + 1,Ticket::all()->count() );
+        $response->assertRedirect( route('tickets.index'));
+
+        // No tickets were created
+        $this->assertEquals($ticketCount ,Ticket::all()->count() );
     }
 
 
@@ -79,8 +80,7 @@ class TicketControllerTest extends BaseControllerTest
      */
     public function testUpdateTicket()
     {
-        $ticket = factory( Ticket::class )->make();
-        $ticket->save();
+        $ticket = factory( Ticket::class )->create();
         $newTicketData = factory( Ticket::class )->make();
 
         // Update Ticket

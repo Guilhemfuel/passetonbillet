@@ -9,10 +9,12 @@ use App\User;
 use Carbon\Carbon;
 use Laracasts\Flash\Flash;
 use Laracasts\Flash\Message;
+use Psy\Test\ParserTestCase;
 use Tests\LastarTestCase;
+use Tests\PtbTestCase;
 use Tests\TestCase;
 
-class ForbidBannedUsersMiddlewareTest extends LastarTestCase
+class ForbidBannedUsersMiddlewareTest extends PtbTestCase
 {
 
     /**

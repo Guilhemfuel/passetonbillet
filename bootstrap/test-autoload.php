@@ -38,30 +38,27 @@ try {
     $connection->query( "CREATE DATABASE " . $database );
     $connection = null;
 
-    echo "\nAdding unaccent extension...\n";
-    // Create extension unaccent
-    $connection = new PDO( $connectionString, $username, $password );
-    $connection->query( "CREATE EXTENSION unaccent;" );
-    $connection = null;
 } catch ( PDOException $Exception ) {
     echo "\n \033[31m There was an error while dropping and recreating database. Please make sure you have a phpunit.xml file filled with the required information.\033[0m \n\n";
     echo $Exception->getMessage();
     echo $Exception->getTraceAsString();
     die();
 }
+echo "Done.\n";
 
 echo "Migrating...\n";
-if ( ! exec( 'php artisan migrate:refresh', $output ) ) {
+if ( ! exec( 'php artisan migrate', $output ) ) {
     echo "\e[31m There was an error migrating the database:\e[0m \n";
     echo implode( "\n", $output );
     die();
 }
 
-echo "Seeding...\n";
-if ( ! exec( 'php artisan db:seed', $output ) ) {
-    echo "\e[31m There was an error while seeding testing database:\e[0m \n";
-    echo implode( "\n", $output );
-    die();
-}
+//
+//echo "Seeding...\n";
+//if ( ! exec( 'php artisan db:seed --class=PtbSeeder ', $output ) ) {
+//    echo "\e[31m There was an error while seeding testing database:\e[0m \n";
+//    echo implode( "\n", $output );
+//    die();
+//}
 
 echo "Tests bootstrapped.\n\n";

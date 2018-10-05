@@ -63,15 +63,20 @@
             ]) !!};
     </script>
     {{-- Adding Crisp Chat--}}
-    <script type="text/javascript">window.$crisp = [];
+    <script type="text/javascript">
+        window.$crisp = [];
         window.CRISP_WEBSITE_ID = "243d866a-ba3b-4227-adaf-17c631d4fdb1";
+        CRISP_RUNTIME_CONFIG = {
+            locale : "{{ \App::getLocale() }}"
+        };
         (function () {
             d = document;
             s = d.createElement("script");
             s.src = "https://client.crisp.chat/l.js";
             s.async = 1;
             d.getElementsByTagName("head")[0].appendChild(s);
-        })();</script>
+        })();
+    </script>
 
     @yield('head')
 </head>

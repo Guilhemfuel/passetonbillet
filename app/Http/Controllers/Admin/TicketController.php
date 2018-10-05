@@ -20,7 +20,7 @@ class TicketController extends BaseController
     protected $CRUDsingularEntityName = 'Ticket';
 
     protected $model = Ticket::class;
-    protected $creatable = true;
+    protected $creatable = false;
     protected $searchable = false;
     protected $paginable = false;
 
@@ -78,20 +78,9 @@ class TicketController extends BaseController
      */
     public function create()
     {
-        $ticket = factory( Ticket::class )->make();
-        $admin = User::where( 'status', 100 )->first();
-        if ( ! $admin ) {
-            flash( 'No admin found!' )->error();
+        flash()->error( "You can't create an admin." );
 
-            return redirect()->back();
-        }
-
-        $ticket->user_id = $admin->id;
-        $ticket->save();
-
-        flash()->success( $this->CRUDsingularEntityName . ' created! Admin owner is: ' . $admin->full_name );
-
-        return redirect()->route( $this->CRUDmodelName . '.edit', $ticket->id );
+        return redirect()->route( $this->CRUDmodelName . '.index');
     }
 
     /**

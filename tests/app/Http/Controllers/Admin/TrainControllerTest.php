@@ -15,6 +15,9 @@ class TrainControllerTest extends BaseControllerTest
 
         $this->basePath = $this->basePath . 'trains';
         $this->beAnAdmin();
+
+        // Create some trains
+        factory( Train::class , 10)->create();
     }
 
     /**
@@ -50,18 +53,23 @@ class TrainControllerTest extends BaseControllerTest
 
         // Create train
         $trainArray = $this->postableTrain($train);
-        $response = $this->post( $this->basePath, $trainArray );
 
-        $insertedId = Train::orderBy( 'id', 'DESC' )->first()->id;
+        $response = $this->json('POST', $this->basePath, $trainArray );
+
+        $insertedTrain = Train::orderBy( 'id', 'DESC' )->first();
 
         $response->assertStatus( 302 );
-        $response->assertRedirect( $this->basePath . '/' . $insertedId . '/edit' );
+        $response->assertRedirect( $this->basePath . '/' . $insertedTrain->id . '/edit' );
 
         // Train datetime is converted to time only, to keep it simple we just don't search
         unset($trainArray['arrival_time']);
         unset($trainArray['departure_time']);
 
-        $this->assertDatabaseHas( 'trains', $trainArray );
+        // Check few values
+        $this->assertEquals($insertedTrain->number,$trainArray['number']);
+        $this->assertEquals($insertedTrain->departure_date->format('d/m/Y'),$trainArray['departure_date']);
+        $this->assertEquals($insertedTrain->arrival_date->format('d/m/Y'),$trainArray['arrival_date']);
+
     }
 
     /**
@@ -110,8 +118,11 @@ class TrainControllerTest extends BaseControllerTest
         $faker = Factory::create();
 
         $trainArray = $train->toArray();
-        $trainArray['arrival_time'] = $faker->dateTimeThisMonth()->format('Y-m-d H:i:s');
-        $trainArray['departure_time'] =  $faker->dateTimeThisMonth()->format('Y-m-d H:i:s');
+        $trainArray['departure_date'] = $train->departure_date->format('d/m/Y');
+        $trainArray['arrival_date'] = $train->arrival_date->format('d/m/Y');
+
+        $trainArray['arrival_time'] = $faker->dateTimeThisMonth()->format('H:i:s');
+        $trainArray['departure_time'] =  $faker->dateTimeThisMonth()->format('H:i:s');
 
         return $trainArray;
     }

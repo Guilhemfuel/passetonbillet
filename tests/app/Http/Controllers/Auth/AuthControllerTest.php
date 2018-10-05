@@ -6,8 +6,9 @@ use Illuminate\Support\Facades\Event;
 use App\Events\RegisteredEvent;
 use App\User;
 use Tests\LastarTestCase;
+use Tests\PtbTestCase;
 
-class LoginControllerTest extends LastarTestCase
+class LoginControllerTest extends PtbTestCase
 {
 
     /**

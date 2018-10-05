@@ -13,9 +13,10 @@ use Carbon\Carbon;
 use Laracasts\Flash\Flash;
 use Laracasts\Flash\Message;
 use Tests\LastarTestCase;
+use Tests\PtbTestCase;
 use Tests\TestCase;
 
-class DiscussionControllerTest extends LastarTestCase
+class DiscussionControllerTest extends PtbTestCase
 {
 
     public function testDenyOffer()
