@@ -134,7 +134,7 @@
                                                :placeholder="lang.sell.inputs.price"
                                                v-model="selectedTicket.price"
                                                name="price"
-                                               v-validate="'required|numeric|max_value:'+selectedTicket.bought_price">
+                                               v-validate="'required|numeric|min_value:0|max_value:'+maxPrice">
                                     </div>
                                     <span v-if="errors.has('price')" class="invalid-feedback">{{ errors.first('price')
                                         }}</span>
@@ -148,7 +148,7 @@
                                 </input-text>
 
                                 <button type="submit" class="btn btn-ptb btn-block mt-4"
-                                        :disabled="selectedTicket.bought_price < selectedTicket.price"
+                                        :disabled="maxPrice < selectedTicket.price"
                                 >
                                     {{lang.sell.submit}}
                                 </button>
@@ -189,6 +189,16 @@
             startCardVisible: function () {
                 return ['input', 'searching', 'select'].includes(this.state);
             },
+            maxPrice: function() {
+                if (this.selectedTicket.provider == 'eurostar'
+                && this.selectedTicket.bought_price == 0 ) {
+                    /**
+                     * Snap eurostar
+                     */
+                    return 70;
+                }
+                return this.selectedTicket.bought_price;
+            }
         },
         methods: {
             search() {

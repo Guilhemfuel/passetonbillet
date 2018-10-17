@@ -165,7 +165,13 @@ class TicketController extends Controller
         $ticket = $tickets[ $request->index ];
 
         // Make sure price doesn't over exceed original price
-        if ( $ticket->bought_price < $request->price ) {
+        if ($ticket->provider == 'eurostar' && $ticket->bought_price == 0){
+            if ($request->price > 70) {
+                flash( __( 'tickets.sell.errors.max_value' ) )->error()->important();
+
+                return redirect()->route( 'public.ticket.sell.page' );
+            }
+        } else if ( $ticket->bought_price < $request->price ) {
             flash( __( 'tickets.sell.errors.max_value' ) )->error()->important();
 
             return redirect()->route( 'public.ticket.sell.page' );
