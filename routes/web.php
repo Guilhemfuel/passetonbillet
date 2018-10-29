@@ -58,7 +58,7 @@ Route::post( '/register/fb/confirm', 'Auth\RegisterController@fb_confirm_inscrip
  * WebHooks
  */
 
-Route::get('/fb/webhook','Chatbot\MessengerController@verifyWebhook')->name('fb.chatbot.webhook.verify');
+//Route::get('/fb/webhook','Chatbot\MessengerController@verifyWebhook')->name('fb.chatbot.webhook.verify');
 
 /**
  * Condtions, privacy, contact...

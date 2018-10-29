@@ -384,6 +384,21 @@ h1 {
   }
 }
 
+.section-petition {
+  background-color: $color-orange;
+  color: white;
+
+  h2.title {
+    color: white;
+  }
+
+  .btn {
+    text-transform: uppercase;
+    color: $color-orange !important;
+    font-weight: bold;
+  }
+}
+
 .section-favorites {
   background-color: $color-greybg;
   width: 100%;
