@@ -72,13 +72,17 @@ class Handler extends ExceptionHandler
         /*
          * PasseTonBilletException
          */
-        if ( ( $exception instanceof PasseTonBilletException )
-             && \App::environment() != 'local'
-             && ! $request->expectsJson()
-        ) {
-            $errorMsg = 'Train Error: ' . $exception->getMessage();
+        if ( $exception instanceof PasseTonBilletException) {
 
-            return \Redirect::back()->withInput( $request->input() )->with( 'ptb_error', $errorMsg );
+            if ($request->expectsJson()) {
+                return response([
+                    'status' => 'error',
+                    'message' => $exception->getMessage()
+                ],500);
+            } else {
+                flash()->error($exception->getMessage());
+                return \Redirect::back()->withInput( $request->input() )->with( 'ptb_error', $exception->getMessage() );
+            }
         }
 
         /*

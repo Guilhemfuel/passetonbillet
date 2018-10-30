@@ -23,14 +23,15 @@ class UserRessource extends Resource
 
         if ( $includeOffers ) {
             $this->offersDone = $this->offers
-                ->whereIn('status',[Discussion::AWAITING,Discussion::DENIED,Discussion::ACCEPTED])
-                ->map(function ($item) {
+                ->whereIn( 'status', [ Discussion::AWAITING, Discussion::DENIED, Discussion::ACCEPTED ] )
+                ->map( function ( $item ) {
                     return [
-                        'id'=>$item['id'],
+                        'id'        => $item['id'],
                         'ticket_id' => $item['ticket_id'],
-                        'status' => $item['status'],
-                        'price' => $item['price']];
-                });
+                        'status'    => $item['status'],
+                        'price'     => $item['price']
+                    ];
+                } )->toArray();
         }
     }
 
@@ -47,10 +48,10 @@ class UserRessource extends Resource
         return [
             'id'                   => $this->id,
             'created_at'           => $this->created_at,
-            'hashid'               => Hashids::encode($this->id),
+            'hashid'               => Hashids::encode( $this->id ),
             'first_name'           => $this->first_name,
-            'last_name'            => $this->when(\Auth::check() && \Auth::user()->isAdmin() || \Auth::check() && $this->id == \Auth::id(), $this->last_name),
-            'birthdate'            => $this->when(\Auth::check() && \Auth::user()->isAdmin(), $this->birthdate!=null?$this->birthdate->format('d/m/Y'):null),
+            'last_name'            => $this->when( \Auth::check() && \Auth::user()->isAdmin() || \Auth::check() && $this->id == \Auth::id(), $this->last_name ),
+            'birthdate'            => $this->when( \Auth::check() && \Auth::user()->isAdmin(), $this->birthdate != null ? $this->birthdate->format( 'd/m/Y' ) : null ),
             'full_name'            => $this->full_name,
             'location'             => $this->location,
             'picture'              => $this->picture,

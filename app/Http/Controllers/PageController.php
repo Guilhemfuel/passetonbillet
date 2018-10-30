@@ -87,7 +87,8 @@ class PageController extends Controller
         $view = view( 'tickets.buy' );
 
         if ( \Auth::check() ) {
-            $view = $view->with( 'user', new UserRessource( \Auth::user(), true ) );
+//            dd( (new UserRessource( \Auth::user(), true ))->toArray($request));
+            $view = $view->with( 'userData', new UserRessource( \Auth::user(), true ) );
         }
 
         return $view->with( 'search', [
