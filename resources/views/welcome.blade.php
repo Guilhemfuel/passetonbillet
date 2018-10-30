@@ -57,6 +57,7 @@
             <div class="section-petition p-5" id="section-petition">
                 <h2 class="title text-center">Soutenez la revente de billets de train</h2>
                 <h5 class="text-center mb-0">
+                    {{--TODO: traduction--}}
                     La SNCF ne délivre plus que des E-billets nominatifs sur les TGV et Intercités. Une pétition a été mise en place pour demander à la SCNF de permettre le changement de nom sur les E-Billets SNCF.<br><br>
                     <a href="https://www.change.org/p/guillaume-p%C3%A9py-sncf-pour-permettre-le-changement-de-nom-des-billets-prem-s-sncf" target="_blank" class="btn btn-white text-center">Signer la pétition</a>
                 </h5>
