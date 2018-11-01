@@ -14,11 +14,11 @@
                    :class="{'invalid':errors.has(name),'animated pulse':pulse&&errors.has(name)}">
             <el-option
                     v-for="country in countries"
-                    :key="country.code"
-                    :label="country.name"
-                    :value="country.code">
-                <span style="float: left">{{ country.name }}</span>
-                <span style="float: right; color: #8492a6; font-size: 13px">{{ country.code }}</span>
+                    :key="country.code_iso3"
+                    :label="country.name_fr"
+                    :value="country.code_iso3">
+                <span style="float: left">{{ country.name_fr }}</span>
+                <span style="float: right; color: #8492a6; font-size: 13px">{{ country.name_en }}</span>
             </el-option>
         </el-select>
         <small v-if="errors.has(name)" :id="name+'Error'" class="form-text text-danger">
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-    import countries from '../../data/countries.json';
+    import countries from '../../../data/countries.json';
 
     export default {
         inject: ['$validator'],
@@ -55,7 +55,7 @@
                 if (this.defaultValue != null && this.defaultValue != undefined) {
                     return this.defaultValue;
                 }
-                if (this.oldValue && this.$root.oldInput[this.name]) {
+                if (this.oldValue && this.$root.oldInput && this.$root.oldInput[this.name]) {
                     return this.$root.oldInput[this.name];
                 }
                 return null;

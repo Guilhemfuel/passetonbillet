@@ -7,11 +7,17 @@
 @section('dashboard-content')
     <div class="container">
         <div class="row" id="sell-ticket">
+
+
+
             @if(Auth::user()->phone_verified)
 
                 @if (Auth::user()->id_uploaded)
                     <sell-ticket :api="child.sell_tickets.api" :lang="child.sell_tickets.lang" :user="user" :routes="child.sell_tickets.routes"></sell-ticket>
                 @else
+
+                    {{-- Verify identity--}}
+
                     <div class="col-sm-12">
                         <h4 class="card-title mb-0">@lang('tickets.sell.title')</h4>
                         <div class="card">
@@ -25,13 +31,24 @@
                                             <li>{{$item}}</li>
                                         @endforeach
                                     </ul>
-                                    <form method="post" action="{{route('public.profile.id.upload')}}" enctype="multipart/form-data">
-                                        {{csrf_field()}}
+                                    <vue-form method="POST" action="{{route('public.profile.id.upload')}}"
+                                              enctype="multipart/form-data">
                                         <div class="form-group">
                                             <input class="form-control" type="file" name="scan">
                                         </div>
-                                        <button type="submit" class="btn btn-block btn-ptb-blue">@lang('profile.modal.change_picture.cta')</button>
-                                    </form>
+                                        <input-country name="country"
+                                                       label="{{__('profile.modal.verify_identity.country')}}"
+                                                       validation="required"
+                                                       placeholder="{{__('profile.modal.verify_identity.country')}}"
+                                        ></input-country>
+                                        <input-select name="type"
+                                                      label="@lang('profile.modal.verify_identity.type')"
+                                                      validation="required"
+                                                      placeholder="@lang('profile.modal.verify_identity.type')"
+                                                      :options="child.sell_tickets.optionsType"
+                                        ></input-select>
+                                        <button type="submit" class="btn btn-block btn-ptb-blue">@lang('profile.modal.verify_identity.cta')</button>
+                                    </vue-form>
                                     <br>
                                     <p class="text-center">@lang('profile.modal.verify_identity.delay')</p>
                                 </div>
@@ -41,6 +58,8 @@
                     </div>
                 @endif
             @else
+
+                {{-- Verify Phone--}}
 
                 @if(!Auth::user()->phone_verification_sent)
                     <div class="col-sm-12">
@@ -76,6 +95,9 @@
                         </div>
                     </div>
                 @else
+
+                    {{-- Enter code received by sms--}}
+
                     <div class="col-sm-12">
                         <h4 class="card-title mb-0">@lang('tickets.sell.title')</h4>
                         <div class="card">
@@ -164,6 +186,20 @@
             },
             lang: {!!json_encode($lang)!!},
             routes: {!! json_encode($routes) !!},
+            optionsType: {!! json_encode([
+                [
+                    'label' =>  __("profile.modal.verify_identity.list_id.driving_license"),
+                    'value' => 'driving_license'
+                ],
+                 [
+                    'label' =>  __("profile.modal.verify_identity.list_id.id_card"),
+                    'value' => 'id'
+                ],
+                 [
+                    'label' =>  __("profile.modal.verify_identity.list_id.passport"),
+                    'value' => 'passport'
+                ]
+            ]) !!},
 
             resendNumberModalOpen: false
         }

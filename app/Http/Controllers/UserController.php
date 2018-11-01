@@ -24,10 +24,6 @@ class UserController extends Controller
      */
     public function uploadId( Request $request )
     {
-        $this->validate($request, [
-            'scan' => 'required|file|max:5000|mimes:jpeg,jpg,bmp,png,gif,svg,pdf'
-        ] );
-
         // Make sure user isn't verified or does not have a pending verification
         if($request->user()->id_verified || $request->user()->idVerification!=null){
             flash( __( 'profile.modal.verify_identity.error' ) )->error();
@@ -35,9 +31,12 @@ class UserController extends Controller
             return redirect()->route( 'public.profile.home' );
         }
 
+        $data = $request->all();
+        $data['user_id'] = \Auth::id();
 
-        // Store PDF or Image (resize images)
-        $scan = $request->scan;
+        \Validator::make($data,IdVerification::rules() )->validate();
+
+        $scan = $data['scan'];
         $scanFileType = $scan->getClientOriginalExtension();
         if (strtolower($scanFileType ) === 'pdf') {
             \Storage::disk('s3')->putFileAs('/'.self::ID_PATH.'/', $scan,IdVerification::userIdFileName(\Auth::user(),$scanFileType));
@@ -47,7 +46,9 @@ class UserController extends Controller
 
         $idVerif = new IdVerification( [
             'user_id' => \Auth::user()->id,
-            'scan'    => self::ID_PATH.'/'.IdVerification::userIdFileName(\Auth::user(),$scanFileType)
+            'scan'    => self::ID_PATH.'/'.IdVerification::userIdFileName(\Auth::user(),$scanFileType),
+            'type'    => $request->get('type'),
+            'country' => $request->get('country')
         ] );
         $idVerif->save();
 

@@ -30,6 +30,21 @@
                     <i class="fa fa-lock" aria-hidden="true"></i>
                     Admin
                 </el-dropdown-item>
+
+                <template v-if="locale=='fr'">
+                    <el-dropdown-item command="en">
+                        <span class="flag-icon flag-icon-gb"></span>
+                        English
+                    </el-dropdown-item>
+                </template>
+                <template v-else>
+                    <el-dropdown-item command="fr">
+                        <span class="flag-icon flag-icon-fr"></span>
+                        Français
+                    </el-dropdown-item>
+                </template>
+
+
                 <el-dropdown-item command="logout">
                     <i class="fa fa-sign-out" aria-hidden="true"></i>
                     {{trans('nav.logout')}}
@@ -51,6 +66,18 @@
                     <i class="fa fa-question-circle" aria-hidden="true"></i>
                     {{trans('nav.help')}}
                 </el-dropdown-item>
+                <template v-if="locale=='fr'">
+                    <el-dropdown-item command="en">
+                        <span class="flag-icon flag-icon-gb"></span>
+                        English
+                    </el-dropdown-item>
+                </template>
+                <template v-else>
+                    <el-dropdown-item command="fr">
+                        <span class="flag-icon flag-icon-fr"></span>
+                        Français
+                    </el-dropdown-item>
+                </template>
             </template>
         </el-dropdown-menu>
     </el-dropdown>
@@ -63,7 +90,8 @@
         data() {
             return {
                 user: this.$root.user,
-                opened: false
+                opened: false,
+                locale: window.locale
             }
         },
         methods: {
@@ -75,6 +103,12 @@
                 } else if (command == 'help') {
                     $crisp.push(['do', 'chat:open']);
                     this.opened = false;
+                    return;
+                } else if (command == 'fr') {
+                    window.location.href = this.route('lang',['fr']);
+                    return;
+                } else if (command == 'en') {
+                    window.location.href = this.route('lang',['en']);
                     return;
                 }
 

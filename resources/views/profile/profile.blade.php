@@ -101,6 +101,8 @@
                 </div>
 
                 {{-- Modals --}}
+
+                {{-- ID VERIFICATION MODAL --}}
                 @if(!Auth::user()->id_verified && Auth::user()->idVerification == null)
 
                     <modal v-cloak :is-open="child.profile.modalVerifyIdentity"
@@ -116,21 +118,33 @@
                                     <li>{{$item}}</li>
                                 @endforeach
                             </ul>
-                            <form method="post" action="{{route('public.profile.id.upload')}}"
-                                  enctype="multipart/form-data">
-                                {{csrf_field()}}
+                            <vue-form method="POST" action="{{route('public.profile.id.upload')}}"
+                                      enctype="multipart/form-data">
                                 <div class="form-group">
                                     <input class="form-control" type="file" name="scan">
                                 </div>
+                                <input-country name="country"
+                                               label="{{__('profile.modal.verify_identity.country')}}"
+                                               validation="required"
+                                               placeholder="{{__('profile.modal.verify_identity.country')}}"
+                                ></input-country>
+                                <input-select name="type"
+                                              label="@lang('profile.modal.verify_identity.type')"
+                                              validation="required"
+                                              placeholder="@lang('profile.modal.verify_identity.type')"
+                                              :options="child.profile.optionsType"
+                                ></input-select>
                                 <button type="submit"
-                                        class="btn btn-block btn-ptb-blue">@lang('profile.modal.change_picture.cta')</button>
-                            </form>
+                                        class="btn btn-block btn-ptb-blue">@lang('profile.modal.verify_identity.cta')</button>
+                            </vue-form>
                             <br>
                             <p class="text-center">@lang('profile.modal.verify_identity.delay')</p>
                         </div>
                     </modal>
 
                 @endif
+
+                {{-- MODAL INFO --}}
 
                 <modal v-cloak :is-open="child.profile.modalInfoOpen" @close-modal="child.profile.modalInfoOpen=false"
                        title="@lang('profile.modal.edit_profile.title')">
@@ -140,6 +154,8 @@
                                 class="btn btn-block btn-ptb-blue">@lang('profile.modal.edit_profile.cta')</button>
                     </div>
                 </modal>
+
+                {{-- MODAL PASSWORD --}}
 
                 <modal v-cloak :is-open="child.profile.modalPasswordOpen"
                        @close-modal="child.profile.modalPasswordOpen=false"
@@ -153,6 +169,8 @@
                         </form>
                     </div>
                 </modal>
+
+                {{-- MODAL PICTURE --}}
 
                 <modal v-cloak :is-open="child.profile.modalPictureUploadOpen"
                        @close-modal="child.profile.modalPictureUploadOpen=false"
@@ -207,7 +225,21 @@ $api = [
             langChangePassword: {!! json_encode($langPasswordModal) !!},
             tickets: {!! isset($tickets)?json_encode($tickets):"null" !!},
             ticketsAPI: {!! json_encode($api) !!},
-            langTickets: {!! json_encode($langTickets) !!}
+            langTickets: {!! json_encode($langTickets) !!},
+            optionsType: {!! json_encode([
+                [
+                    'label' =>  __("profile.modal.verify_identity.list_id.driving_license"),
+                    'value' => 'driving_license'
+                ],
+                 [
+                    'label' =>  __("profile.modal.verify_identity.list_id.id_card"),
+                    'value' => 'id'
+                ],
+                 [
+                    'label' =>  __("profile.modal.verify_identity.list_id.passport"),
+                    'value' => 'passport'
+                ]
+            ]) !!}
         }
     </script>
 @endpush

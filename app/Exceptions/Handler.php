@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Validation\ValidationException;
 
 
 class Handler extends ExceptionHandler
@@ -68,6 +69,7 @@ class Handler extends ExceptionHandler
      */
     public function render( $request, Exception $exception )
     {
+
 
         /*
          * PasseTonBilletException
@@ -153,8 +155,9 @@ class Handler extends ExceptionHandler
      */
     protected function handleWhoopsies( $request, Exception $exception )
     {
-        if ( $request->ajax() ) {
-            return $this->renderJsonExceptionWithWhoops();
+
+        if ( $request->ajax() || $request->expectsJson() ) {
+            return $this->renderJsonExceptionWithWhoops($exception);
         } else {
             return $this->renderExceptionWithWhoops( $exception );
         }
@@ -163,11 +166,17 @@ class Handler extends ExceptionHandler
     /**
      * @return mixed
      */
-    protected function renderJsonExceptionWithWhoops()
+    protected function renderJsonExceptionWithWhoops(Exception $exception)
     {
         $whoops = new \Whoops\Run;
+        $handler = new \Whoops\Handler\JsonResponseHandler;
+        $whoops->pushHandler( $handler );
 
-        return $whoops->pushHandler( new \Whoops\Handler\JsonResponseHandler() );
+        return new \Illuminate\Http\Response(
+            $whoops->handleException( $exception ),
+            $exception->getStatusCode(),
+            $exception->getHeaders()
+        );
     }
 
     /**
@@ -184,8 +193,15 @@ class Handler extends ExceptionHandler
         $handler->setEditor( config( 'app.editor' ) );
         $whoops->pushHandler( $handler );
 
-        return new \Illuminate\Http\Response( $whoops->handleException( $exception ), $exception->getStatusCode(),
-            $exception->getHeaders() );
+        if ($exception instanceof ValidationException) {
+            $handler->addDataTable('Validation Errors',$exception->validator->getMessageBag()->toArray());
+        }
+
+        return new \Illuminate\Http\Response(
+            $whoops->handleException( $exception ),
+            $exception->getStatusCode(),
+            $exception->getHeaders()
+        );
     }
 
 }

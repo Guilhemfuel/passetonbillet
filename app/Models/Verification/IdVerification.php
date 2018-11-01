@@ -2,13 +2,21 @@
 
 namespace App\Models\Verification;
 
+use App\Rules\Country;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Validation\Rule;
 
 class IdVerification extends Model
 {
     use SoftDeletes;
+
+    const DOCUMENT_TYPES = [
+        'driving_license',
+        'id',
+        'passport'
+    ];
 
     public $table = 'id_verifications';
 
@@ -16,7 +24,9 @@ class IdVerification extends Model
         'user_id',
         'scan',
         'accepted',
-        'comment'
+        'comment',
+        'country',
+        'type',
     ];
 
     /**
@@ -28,30 +38,40 @@ class IdVerification extends Model
         'user_id'  => 'integer',
         'scan'     => 'string',
         'accepted' => 'boolean',
-        'comment'  => 'string'
+        'comment'  => 'string',
+        'country'  => 'string',
+        'type'     => 'string',
     ];
 
     /**
      * Validation rules
-     *
-     * @var array
      */
-    public static $rules = [
-        'user_id' => 'required|exists:users,id',
-        'scan'    => 'required',
-    ];
+    public static function rules( $merge = [] )
+    {
+        return array_merge( [
+            'user_id' => 'exists:users,id',
+            'scan'    => 'required',
+            'country' => [ 'required', new Country() ],
+            'type'    => [ 'required','in:'.implode( ',', static::DOCUMENT_TYPES ) ]
+        ], $merge );
+    }
 
     /**
      * Static
      */
 
-    public static function awaitingCount(){
-        return static::where('accepted',null)->count();
+    public static function awaitingCount()
+    {
+        return static::where( 'accepted', null )->count();
     }
 
-    public static function userIdFileName(User $user, $fileType){
-        if ($fileType!='pdf') $fileType = 'jpg';
-        return \Vinkla\Hashids\Facades\Hashids::connection('file')->encode($user->id).md5($user->full_name).'.'.$fileType;
+    public static function userIdFileName( User $user, $fileType )
+    {
+        if ( $fileType != 'pdf' ) {
+            $fileType = 'jpg';
+        }
+
+        return \Vinkla\Hashids\Facades\Hashids::connection( 'file' )->encode( $user->id ) . md5( $user->full_name ) . '.' . $fileType;
     }
 
     /**
@@ -59,12 +79,14 @@ class IdVerification extends Model
      */
 
 
-    public function getIsPdfAttribute(){
-        return substr($this->attributes['scan'],-3) == 'pdf';
+    public function getIsPdfAttribute()
+    {
+        return substr( $this->attributes['scan'], - 3 ) == 'pdf';
     }
 
-    public function getScanAttribute($value){
-        return \Storage::disk('s3')->temporaryUrl(ltrim($value, '/'),now()->addMinutes(5));
+    public function getScanAttribute( $value )
+    {
+        return \Storage::disk( 's3' )->temporaryUrl( ltrim( $value, '/' ), now()->addMinutes( 5 ) );
     }
 
 

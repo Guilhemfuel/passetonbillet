@@ -55,9 +55,11 @@ return [
             'list_title' => 'Identification documents accepted',
             'list_id' => [
                 'passport' => 'Passport',
-                'id_card' => 'Identity card',
+                'id_card' => 'ID card',
                 'driving_license' => 'Driving license'
             ],
+            'country' => 'Country of issue',
+            'type' => 'Type of document',
             'cta' => 'Verify my identity',
             'delay' => 'The identity verification usually takes place within 24 hours, but you\'ll be able to sell a ticket as soon as you uploaded it.',
             'error' => 'An error occurred when we tried to download your identity document. Please try again. Contact us if the problem persists.',

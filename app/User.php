@@ -116,7 +116,7 @@ class User extends Authenticatable
 
     public function getFullNameAttribute()
     {
-        if (\App::environment()=='testing' || (\Auth::check() && (\Auth::user()->id == $this->id || \Auth::user()->isAdmin() ))){
+        if (\App::environment()=='testing' || (\Auth::check() && \Auth::user()->isAdmin() )){
             return ucfirst( $this->first_name ) . ' ' . ucfirst( $this->last_name );
         }
         return ucfirst( $this->first_name ) . ' ' . substr(ucfirst( $this->last_name ),0,1).'.';

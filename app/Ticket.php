@@ -135,16 +135,15 @@ class Ticket extends Model
             $arrivalStations[] = intval($arrivalStationId);
         }
 
-//        dd($departureStationParentId,$departureStations,$arrivalStations);
-
         // Find matching trains
         $request = Train::whereIn( 'departure_city', $departureStations )
                         ->whereIn( 'arrival_city', $arrivalStations )
                         ->where( 'departure_date', $exactDay ? '=' : '>=', $date )
+                        ->where('departure_time', '>=', Carbon::now()->toTimeString() )
                         ->with( 'tickets' );
 
         if ( $time ) {
-            $request = $request->where( 'departure_time', '>=', $time );
+            $request = $request->where( 'departure_time', '>=', $time.':00' );
         }
 
         $trains = $request->orderBy( 'departure_time' )->get();
