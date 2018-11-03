@@ -6,6 +6,7 @@ use App\Http\Resources\UserRessource;
 use App\Models\Verification\IdVerification;
 use App\Notifications\Verification\IdConfirmed;
 use App\Notifications\Verification\IdDenied;
+use App\Rules\Country;
 use App\User;
 use Illuminate\Hashing\BcryptHasher;
 use Illuminate\Http\Request;
@@ -141,6 +142,8 @@ class UserController extends BaseController
             'birthdate' => 'required|date_format:d/m/Y',
             'first_name' => 'required',
             'last_name' => 'required',
+            'type' => [ 'required','in:'.implode( ',', IdVerification::DOCUMENT_TYPES ) ],
+            'country' => [ 'required', new Country() ],
         ] );
 
         $idVerif = IdVerification::find( $request->verification_id );
@@ -152,13 +155,15 @@ class UserController extends BaseController
             return redirect()->route( 'id_check.oldest' );
         }
 
+        $idVerif->type = $request->get('type');
+        $idVerif->country = $request->get('country');
         $idVerif->accepted = true;
         $idVerif->save();
 
         $idVerif->user->notify( new IdConfirmed() );
 
         // Now we update user info
-        $idVerif->user->update($request->except('verification_id'));
+        $idVerif->user->update($request->except(['verification_id','type','country']));
 
         flash()->success( 'ID confirmed!' );
 

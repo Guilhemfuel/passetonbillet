@@ -47,6 +47,25 @@
                     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                         <img class="img-fluid" src="{{$user->picture}}" alt="user_pp"/>
                     </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                        <input-select name="type"
+                                      label="@lang('profile.modal.verify_identity.type')"
+                                      validation="required"
+                                      placeholder="@lang('profile.modal.verify_identity.type')"
+                                      :options="child.id_check.optionsType"
+                                      v-model="child.id_check.idVeryfing.type"
+                                      :default-value="child.id_check.idVeryfing.type"
+                        ></input-select>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                        <input-country name="country"
+                                       label="{{__('profile.modal.verify_identity.country')}}"
+                                       validation="required"
+                                       placeholder="{{__('profile.modal.verify_identity.country')}}"
+                                       :default-value="child.id_check.idVeryfing.country"
+                                       v-model="child.id_check.idVeryfing.country"
+                        ></input-country>
+                    </div>
                 </div>
                 <h4>Uploaded Id:</h4>
                 <div class="row">
@@ -66,6 +85,9 @@
                         <input type="hidden" name="first_name" :value="child.id_check.verifUser.first_name">
                         <input type="hidden" name="birthdate" :value="child.id_check.verifUser.birthdate">
                         <input type="hidden" name="last_name" :value="child.id_check.verifUser.last_name">
+                        <input type="hidden" name="type" :value="child.id_check.idVeryfing.type">
+                        <input type="hidden" name="country" :value="child.id_check.idVeryfing.country">
+
 
                         <input type="hidden" name="verification_id" value="{{$user->idVerification->id}}">
                         <button type="submit" class="btn btn-success">Accept ID Verification</button>
@@ -92,7 +114,22 @@
     <script type="application/javascript">
         data.id_check = {
             denyModalOpened: false,
-            verifUser: {!! json_encode($jsUser) !!}
+            verifUser: {!! json_encode($jsUser) !!},
+            optionsType: {!! json_encode([
+                [
+                    'label' =>  __("profile.modal.verify_identity.list_id.driving_license"),
+                    'value' => 'driving_license'
+                ],
+                 [
+                    'label' =>  __("profile.modal.verify_identity.list_id.id_card"),
+                    'value' => 'id'
+                ],
+                 [
+                    'label' =>  __("profile.modal.verify_identity.list_id.passport"),
+                    'value' => 'passport'
+                ]
+            ]) !!},
+            idVeryfing: {!! json_encode($user->idVerification) !!}
         }
     </script>
 @endpush

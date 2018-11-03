@@ -11,7 +11,10 @@
         <el-select v-model="country" filterable
                    :id="name"
                    :placeholder="placeholder"
-                   :class="{'invalid':errors.has(name),'animated pulse':pulse&&errors.has(name)}">
+                   :class="{'invalid':errors.has(name),'animated pulse':pulse&&errors.has(name)}"
+                   @change="emitChange"
+                   @input="emitInput"
+        >
             <el-option
                     v-for="country in countries"
                     :key="country.code_iso3"
@@ -69,6 +72,14 @@
                 country: null,
                 countries: countries
             }
-        }
+        },
+        methods: {
+            emitChange() {
+                this.$emit('change',this.country);
+            },
+            emitInput(value) {
+                this.$emit('input',this.country);
+            }
+        },
     }
 </script>
