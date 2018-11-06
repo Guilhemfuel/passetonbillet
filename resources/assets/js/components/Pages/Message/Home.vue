@@ -6,20 +6,31 @@
             {{lang.empty}}
         </div>
 
+        <!-- Awaiting offers -->
+
         <template v-if="offersAwaiting.length > 0">
+
+            <!-- Modal to deny an offer -->
+            <DenyOfferModal :offer="offerBeingDenied"
+                            :is-open="denyOfferModal"
+                            @close-modal="denyOfferModal=false;offerBeingDenied=null"
+            ></DenyOfferModal>
+
+            <!--Table list of currenct offers-->
+
             <h4 class="card-title mb-0">{{lang.awaiting_offers.title}}</h4>
 
-            <div class="card card-awaiting-offers">
+            <div class="card card-awaiting-offers mb-3">
                 <div class="card-body card-messages">
                     <div class="awaiting_offers">
                         <div class="table-responsive">
                             <table class="table table-hover table-offers">
                                 <thead>
                                 <tr>
-                                    <th scope="col" class="text-center d-none d-md-table-cell">Ticket</th>
-                                    <th scope="col" class="d-none d-md-table-cell">Buyer Name</th>
-                                    <th scope="col" class="text-center d-none d-md-table-cell">Price</th>
-                                    <th scope="col" class="text-center d-none d-md-table-cell">Actions</th>
+                                    <th scope="col" class="text-center d-none d-md-table-cell">{{trans('message.awaiting_offers.table.ticket')}}</th>
+                                    <th scope="col" class="d-none d-md-table-cell">{{trans('message.awaiting_offers.table.buyer')}}</th>
+                                    <th scope="col" class="text-center d-none d-md-table-cell">{{trans('message.awaiting_offers.table.price')}}</th>
+                                    <th scope="col" class="text-center d-none d-md-table-cell">{{trans('message.awaiting_offers.table.actions')}}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -51,16 +62,12 @@
                                         <button class="btn btn-success" @click.prevent="acceptOffer(offer.id)">
                                             {{lang.awaiting_offers.accept}}
                                         </button>
-                                        <button class="btn btn-danger" @click.prevent="denyOffer(offer.id)">
+                                        <button class="btn btn-danger" @click.prevent="denyOffer(offer)">
                                             {{lang.awaiting_offers.deny}}
                                         </button>
                                         <!--<i class="fa fa-check" aria-hidden="true" @click.prevent="acceptOffer(offer.id)"></i>-->
                                         <!--<i class="fa fa-times" aria-hidden="true" @click.prevent="denyOffer(offer.id)"></i>-->
                                     </th>
-                                    <form method="post" :id="'deny-'+offer.id" :action="routes.deny_offer">
-                                        <input type="hidden" name="_token" :value="csrf">
-                                        <input type="hidden" name="discussion_id" :value="offer.id"/>
-                                    </form>
                                     <form method="post" :id="'accept-'+offer.id" :action="routes.accept_offer">
                                         <input type="hidden" name="_token" :value="csrf">
                                         <input type="hidden" name="discussion_id" :value="offer.id"/>
@@ -74,6 +81,8 @@
             </div>
         </template>
 
+        <!-- Current Discussions -->
+
         <template v-if="discussions.length > 0">
             <h4 class="card-title mb-0">{{lang.discussions.title}}</h4>
 
@@ -84,9 +93,9 @@
                             <table class="table table-hover table-discussion">
                                 <thead>
                                 <tr>
-                                    <th scope="col" class="text-center">Ticket</th>
-                                    <th scope="col" class="text-center">Name</th>
-                                    <th scope="col">Last message</th>
+                                    <th scope="col" class="text-center">{{trans('message.discussions.table.ticket')}}</th>
+                                    <th scope="col" class="text-center">{{trans('message.discussions.table.name')}}</th>
+                                    <th scope="col">{{trans('message.discussions.table.last_message')}}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -118,6 +127,8 @@
 </template>
 
 <script>
+    import DenyOfferModal from './components/DenyOffer.vue'
+
     export default {
         props: {
             api: {required: true},
@@ -132,7 +143,9 @@
         data() {
             return {
                 state: 'default',
-                csrf: window.csrf
+                csrf: window.csrf,
+                offerBeingDenied: null,
+                denyOfferModal: false
             }
         },
         computed: {
@@ -157,8 +170,9 @@
                 }
                 return false;
             },
-            denyOffer(id) {
-                document.getElementById("deny-" + id).submit();
+            denyOffer(offer) {
+                this.offerBeingDenied = offer;
+                this.denyOfferModal = true;
             },
             acceptOffer(id) {
                 document.getElementById("accept-" + id).submit();
@@ -172,6 +186,9 @@
             openDiscussion: function (discussion_id) {
                 document.getElementById('discussion-link-' + discussion_id).click();
             }
+        },
+        components: {
+            DenyOfferModal
         }
     }
 </script>

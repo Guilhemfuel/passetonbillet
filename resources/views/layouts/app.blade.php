@@ -124,7 +124,7 @@
     <script type="application/javascript">
         {{-- If user is connected, pass information to crisp --}}
         $crisp.push(["set", "user:email", "{{Auth::user()->email}}"])
-        $crisp.push(["set", "user:nickname", "{{Auth::user()->full_name}}"])
+        $crisp.push(["set", "user:nickname", "{{Auth::user()->first_name.' '.Auth::user()->last_name}}"])
         $crisp.push(["set", "user:avatar", "{{Auth::user()->picture}}"])
     </script>
 @endif

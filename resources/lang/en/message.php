@@ -15,7 +15,46 @@ return [
         'confirm_denial_message' => 'This offer was successfully denied.',
         'confirm_accept'         => 'Offer accepted! Start discussing details now.',
         'accept'                 => 'Accept',
-        'deny'                   => 'Deny'
+        'deny'                   => 'Deny',
+
+        'table' => [
+            'ticket'  => 'Ticket',
+            'buyer'   => 'Buyer Name',
+            'price'   => 'Price',
+            'actions' => 'Actions'
+        ],
+
+        'deny_modal' => [
+            'title' => 'Deny an offer',
+            'already_sold'         => [
+                'text_offers'     => 'Have you already sold your ticket? Awesome! Please let us know who\'s the buyer, so that we can mark your ticket as sold.
+                    If you click on "I sold this ticket somewhere else", your ticket will be completely removed from PasseTonBillet.',
+                'text_no_offers'  => 'You have not accepted any offers yet for this ticket. Click on "I sold this ticket somewhere else" to completely remove this ticket from PasseTonBillet.',
+                'sold_to'         => 'Sold to',
+                'sold_else_where' => 'I sold this ticket somewhere else',
+            ],
+            'sold_else_where'      => [
+                'text'               => 'If you sold this ticket on PasseTonBillet, <b>DO NOT CLICK</b> the button below and please let us know who did you sell it to.
+                This will help us manage status of currenct transactions, and more importantly it will <b>increase your reputation</b> on PasseTonBillet!
+                Indeed, The number of tickets you successfully sold that is displayed on your profile, will increase 👍',
+                'sold_on_ptb_button' => 'Whoops, I sold this ticket to someone else on PasseTonBillet',
+                'sold_else_where'    => 'I confirm that I sold this ticket somewhere else',
+            ],
+            'not_for_sale_anymore' => [
+                'text'               => 'If you sold this ticket on PasseTonBillet, <b>DO NOT CLICK</b> the button below and please let us know who did you sell it to.
+                This will help us manage status of currenct transactions, and more importantly it will <b>increase your reputation</b> on PasseTonBillet!
+                Indeed, The number of tickets you successfully sold that is displayed on your profile, will increase 👍',
+                'sold_on_ptb_button' => 'Whoops, I sold this ticket to someone else on PasseTonBillet',
+                'confirm_button'     => 'I don\'t want to sell this ticket anymore'
+            ],
+            'find_reason'          => [
+                'text'                => 'Do you really wish to deny this offer? If so, please let us know why!',
+                'low_price_button'    => 'Price is too low',
+                'already_sold_button' => 'I have already sold this ticket',
+                'not_for_sale_button' => 'I don\'t want to sell this ticket anymore'
+            ],
+            'cancel_button'        => 'Whoops, I don\'t to deny this offer'
+        ]
     ],
 
     'discussions' => [
@@ -28,16 +67,22 @@ return [
         'cta_sell_to'     => 'Transaction Done',
         'cancel'          => 'Cancel',
 
-        'modal_title' => 'How does it work?',
-        'modal_explanation_buyer' => 'The unique purpose of the chat is for you and the buyer to agree on the best payment method and to share the relevant payment information.<br>
+        'table' => [
+            'ticket'       => 'Ticket',
+            'buyer'        => 'Name',
+            'last_message' => 'Last Message',
+        ],
+
+        'modal_title'              => 'How does it work?',
+        'modal_explanation_buyer'  => 'The unique purpose of the chat is for you and the buyer to agree on the best payment method and to share the relevant payment information.<br>
                         Once you receive the money from the buyer, you must send the ticket through the agreed method. You then only have to click on the button "Transaction Done"!',
         'modal_explanation_seller' => 'The unique purpose of the chat is for you and the seller to agree on the best payment method and to share the relevant payment information.<br>
                         Once the seller receives your payment, she/he will will send you the ticket through the agreed method. The seller wil then have to click on the "Transaction Done" button, and we\'ll mark this ticket as sold.',
         'modal_open_chat'          => 'A question? A doubt? Click here to chat with us!',
         'modal_close_understand'   => 'I understand !',
 
-        'disclaimer'  => 'Passe Ton Billet is only designed to put you in contact with tickets buyers and sellers. Passe Ton Billet denies every responsability related to the transaction.',
-        'disclaimer_eurostar'  => 'Identity check may happen rarely for eurostar tickets. If the name on the provided ID does not match with the name on the ticket, access to train may be refused.',
+        'disclaimer'          => 'Passe Ton Billet is only designed to put you in contact with tickets buyers and sellers. Passe Ton Billet denies every responsability related to the transaction.',
+        'disclaimer_eurostar' => 'Identity check may happen rarely for eurostar tickets. If the name on the provided ID does not match with the name on the ticket, access to train may be refused.',
 
 
         'modal_sell' => [

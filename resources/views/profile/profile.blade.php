@@ -32,8 +32,10 @@
                                                         class="fa fa-check-circle text-warning" aria-hidden="true"></i>
                                             </h5>
                                         @endif
+                                        <h5 class="text-center">{{$user->tickets()->whereNotNull('sold_to_id')->count()}} @lang('profile.number_tickets_successfully_sold')</h5>
                                         <br>
                                         <p class="private-limit">@lang("profile.only_you")</p>
+                                        <h5 class="text-center">{{$user->last_name}}</h5>
                                         <h5 class="text-center">{{$user->phone}}</h5>
                                         <h5 class="text-center">{{$user->email}}</h5>
                                     </div>
@@ -54,6 +56,9 @@
                                     @endif
                                     <button class="btn btn-block btn-ptb-blue"
                                             @click.prevent="child.profile.modalPasswordOpen=true">@lang('profile.change_password')
+                                    </button>
+                                    <button class="btn btn-block btn-ptb-blue"
+                                            @click.prevent="child.profile.modalNameOpen=true">@lang('profile.change_name')
                                     </button>
                                     <button class="btn btn-block btn-ptb-blue"
                                             @click.prevent="child.profile.modalInfoOpen=true">@lang('profile.edit_profile')
@@ -144,6 +149,15 @@
 
                 @endif
 
+                {{-- MODAL NAME --}}
+
+                <modal v-cloak :is-open="child.profile.modalNameOpen" @close-modal="child.profile.modalNameOpen=false"
+                       title="@lang('profile.modal.change_name.title')">
+                    <div class="modal-body text-justify">
+                        <p>{!! __('profile.modal.change_name.content') !!}</p>
+                    </div>
+                </modal>
+
                 {{-- MODAL INFO --}}
 
                 <modal v-cloak :is-open="child.profile.modalInfoOpen" @close-modal="child.profile.modalInfoOpen=false"
@@ -221,6 +235,7 @@ $api = [
             modalInfoOpen: false,
             modalPasswordOpen: false,
             modalPictureUploadOpen: false,
+            modalNameOpen: false,
             modalVerifyIdentity: false,
             langChangePassword: {!! json_encode($langPasswordModal) !!},
             tickets: {!! isset($tickets)?json_encode($tickets):"null" !!},

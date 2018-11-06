@@ -310,8 +310,6 @@ class TicketController extends Controller
             return redirect()->route( 'public.ticket.owned.page' );
         }
 
-        // for each tickets
-
         $ticket->delete();
         flash( __( 'tickets.delete.success' ) )->success()->important();
 

@@ -13,19 +13,27 @@ return [
     'verification_pending' => 'Account Verification Pending',
     'account_verified' => 'Identity verified',
     'change_password' => 'Change password',
+    'change_name' => 'Change your name',
     'edit_profile' => 'Edit your information',
     'change_picture' => 'Change profile picture',
     'member_since' => 'Member since ',
-    'number_tickets_successfully_sold' => 'Tickets successfully sold',
+    'number_tickets_successfully_sold' => 'Ticket(s) successfully sold',
     'by' => 'by',
     'only_you' => 'Private profile information',
 
     'stats_title' => 'Statistics',
 
     'modal' => [
+        'change_name' => [
+          'title'=> 'Name change',
+          'content' => 'Your name is automatically corrected when your account is verified.</br><ul>
+<li>I have not yet requested a verification for my account: If you have not verified your account, please do so by clicking on the \'Verify my account\'. Your name will automatically be corrected.</li>
+<li>The verification of my account is in progress: If you have already submitted a copy of one of your identity documents for the verification of your account, please wait. The verification is usually done within a few minutes (maximum 24 hours). Your name will automatically be corrected once the verification process will be completed. (Please contact us in the live chat only in case of emergency)</li>
+<li>My account is already verified but my name is still incorrect: in that case, please contact us via the live chat. We will correct it for you.</li></ul>'
+        ],
         'edit_profile' => [
             'title' => 'Edit your profile',
-            'content' => 'If you want to edit some information on your profile, please contact us using the live chat tool on the bottom right corner of your screen, or by clicking on the button below.',
+            'content' => 'If you want to edit some information on your profile, other than your name, please contact us using the live chat tool on the bottom right corner of your screen, or by clicking on the button below.',
             'cta' => 'Contact us!'
         ],
         'change_password' => [

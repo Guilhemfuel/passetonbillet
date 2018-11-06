@@ -1,7 +1,7 @@
 @component('mail::message')
 # Hello  {{$user->first_name}} !
 
-Quelqu'un vous a envoyé une offre pour ce billet:
+Vous avez reçu une offre pour ce billet:
 
 @component('mail::ticket',['ticket'=>$ticket, 'lang'=>'fr'])
 @endcomponent

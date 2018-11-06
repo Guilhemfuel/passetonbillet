@@ -223,8 +223,11 @@ Route::group( [ 'prefix' => 'api' ], function () {
 
     Route::group( [ 'middleware' => 'auth' ], function () {
         Route::get( 'notifications', 'UserController@getNotifications' )->name( 'api.notifications' );
+
+        // Ticket api routes
         Route::post( 'ticket/search', 'TicketController@searchTickets' )->name( 'api.tickets.search' );
         Route::post( 'ticket/offer', 'TicketController@makeAnOffer' )->name( 'api.tickets.offer' );
+        Route::get( 'ticket/{ticket}/offers/', 'API\TicketController@getOffers' )->name( 'api.tickets.offers' );
 
         // Discussion api routes
         Route::post( 'messages/{ticket}/{discussion}', 'DiscussionController@sendMessage' )->name( 'api.discussion.send' );
