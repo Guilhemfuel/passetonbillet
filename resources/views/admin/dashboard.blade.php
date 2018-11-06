@@ -33,7 +33,21 @@
                     </h4>
                 </div>
                 <div class="card-body text-center">
-                    Tickets
+                    Total Tickets
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3 col-xs-6 pt-4">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="title text-center">{{$currentTicketCount}}<br>
+                        <a href="{{route('tickets.index')}}" class="stat-link">
+                            <i class="fa fa-ticket fa-2x"></i>
+                        </a>
+                    </h4>
+                </div>
+                <div class="card-body text-center">
+                    Current Tickets
                 </div>
             </div>
         </div>

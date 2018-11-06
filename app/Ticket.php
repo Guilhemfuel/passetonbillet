@@ -139,14 +139,20 @@ class Ticket extends Model
         $request = Train::whereIn( 'departure_city', $departureStations )
                         ->whereIn( 'arrival_city', $arrivalStations )
                         ->where( 'departure_date', $exactDay ? '=' : '>=', $date )
-                        ->where('departure_time', '>=', Carbon::now()->toTimeString() )
+                        ->where(function($query){
+                            $query->where('departure_time', '>=', Carbon::now()->addHours(2)->toTimeString() )
+                                ->orWhere('departure_date','>', Carbon::now());
+                        })
                         ->with( 'tickets' );
 
         if ( $time ) {
-            $request = $request->where( 'departure_time', '>=', $time.':00' );
+            $request = $request->where( 'departure_time', '>=', $time.':00' )
+                               ->orWhere('departure_date','>',Carbon::now());
         }
 
         $trains = $request->orderBy( 'departure_time' )->get();
+
+//        dd($trains->pluck('number'));
 
         // Collect tickets for each of the trains
         $tickets = collect();
