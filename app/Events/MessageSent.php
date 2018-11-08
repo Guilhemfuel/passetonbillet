@@ -35,7 +35,7 @@ class MessageSent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('discussion.'.$this->message->discussion->id);
+        return new PrivateChannel('discussion.'.$this->message->discussion_id);
     }
 
 }
