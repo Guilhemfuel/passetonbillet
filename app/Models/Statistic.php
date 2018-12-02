@@ -9,12 +9,17 @@ class Statistic extends Model
 {
     use SoftDeletes;
 
-    protected $dates = [ 'deleted_at','created_at' ];
+    protected $dates = [ 'deleted_at', 'created_at' ];
 
     protected $fillable = [
         'user_id',
         'action',
         'data'
+    ];
+
+    protected $casts = [
+        'user_id' => 'integer',
+        'data'    => 'array'
     ];
 
     /**

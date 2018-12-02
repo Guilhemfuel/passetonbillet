@@ -53,7 +53,9 @@ return [
         'fb_register'            => 'Register with Facebook',
         'cgu'                    => 'I have read and accept the <a href="' . route( 'cgu.page' ) . '" target="blank" >general terms and conditions</a>.',
 
-        'ticketLinkMessage' => 'Register now on PasseTonBillet.fr to be able to buy and sell European trains tickets in a safe, quick, and cheap way.'
+        'ticketLinkMessage' => 'Register now on PasseTonBillet.fr to be able to buy and sell European trains tickets in a safe, quick, and cheap way.',
+
+        'deny_location' => 'We currently do not accept new registration. Please try again in a few days.'
     ],
     'auth'         => [
         'title'              => 'Login',
@@ -75,7 +77,7 @@ return [
     'social'       => [
         'last_step_pwd' => 'One last step before you can access your account: set a password!',
         'email_used'    => 'A user is already using this email address. If it\'s you please login using your email and password.',
-        'success'       => 'Welcome! You can now buy or sell tickets!'
+        'success'       => 'Welcome! Last step to confirm your account: Your <b>check your emails</b> and <b>click the link to activate it</b>.'
     ]
 
 ];

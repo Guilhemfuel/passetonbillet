@@ -90,14 +90,14 @@ Route::group( [ 'middleware' => 'auth', 'as' => 'public.' ], function () {
         Route::get( 'sell', 'PageController@sellPage' )->name( 'sell.page' );
         Route::post( 'sell', 'TicketController@sellTicket' )->name( 'sell.post' )->middleware( 'auth.verified.phone' );
         Route::post( 'manual_sell', 'TicketController@sellManualTicket' )->name( 'sell.manual' )->middleware( 'auth.verified.phone' );
-
+        Route::post('edit/{ticket_id}','TicketController@changeTicketPrice')->name('edit')->middleware( 'auth.verified.phone' );
 
         // See my tickets
         // Possible values for tab: selling (default), sold, offered, bought
         Route::get( 'owned/{tab?}', 'PageController@myTicketsPage' )->name( 'owned.page' );
 
         // Remove a non-sold ticket
-        Route::delete( '/', 'TicketController@delete' )->name( 'delete' );
+        Route::delete( '/', 'TicketController@deleteOrSell' )->name( 'delete_or_sell' );
 
         // Download ticket
         Route::get( 'download/{ticket_id}', 'TicketController@downloadTicket' )->name( 'download' );

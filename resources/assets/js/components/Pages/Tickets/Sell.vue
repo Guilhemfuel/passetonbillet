@@ -10,6 +10,7 @@
             <h4 class="card-title mb-3" v-else-if="state=='select'">{{lang.sell.step_2}}</h4>
             <h4 class="card-title mb-3" v-else-if="state=='searching'">{{lang.sell.searching}}</h4>
 
+            <!-- NAME + REFERENCE -->
             <div class="card" v-if="startCardVisible">
                 <div class="card-body">
                     <transition enter-class="pre-animated"
@@ -75,6 +76,8 @@
 
                     </transition>
 
+                    <!-- LOADING -->
+
                     <transition enter-class="pre-animated"
                                 enter-active-class="animated fadeIn"
                                 leave-active-class="animated fadeOut">
@@ -84,6 +87,8 @@
                             </div>
                         </div>
                     </transition>
+
+                    <!-- SELECT TICKET -->
 
                     <transition enter-class="pre-animated"
                                 enter-active-class="animated fadeIn"
@@ -98,6 +103,9 @@
                 </div>
 
             </div>
+
+            <!-- SELECT TICKET -->
+
             <template v-if="state=='select' && tickets.length>1">
                 <div class="row mt-4 px-sm-4 px-md-0">
                     <div v-for="(ticket,index) in tickets" class="col-12 col-sm-6 col-lg-6 col-xl-4" :key="index">

@@ -1,52 +1,52 @@
 <template>
     <div class="col-12">
 
+        <div class="card-title text-center mb-0">{{trans('tickets.owned.title')}}</div>
+
         <div class="row">
             <div class="col-12 text-center py-3">
                 <div class="mx-auto">
                     <el-radio-group v-model="state" class="mr-2" :label="state" @change="rerender">
-                        <el-radio-button :label="stateValues.selling">{{lang.owned.selling}}</el-radio-button>
-                        <el-radio-button :label="stateValues.sold">{{lang.owned.sold}}</el-radio-button>
+                        <el-radio-button :label="stateValues.selling">{{trans('tickets.owned.selling')}}</el-radio-button>
+                        <el-radio-button :label="stateValues.sold">{{trans('tickets.owned.sold')}}</el-radio-button>
                     </el-radio-group>
                     <el-radio-group v-model="state" class="ml-2" :label="state" @change="rerender">
-                        <el-radio-button :label="stateValues.offered">{{lang.owned.offers_sent}}</el-radio-button>
-                        <el-radio-button :label="stateValues.bought">{{lang.owned.bought}}</el-radio-button>
+                        <el-radio-button :label="stateValues.offered">{{trans('tickets.owned.offers_sent')}}</el-radio-button>
+                        <el-radio-button :label="stateValues.bought">{{trans('tickets.owned.bought')}}</el-radio-button>
                     </el-radio-group>
                 </div>
             </div>
             <div class="col-12 col-sm-6 col-md-6 col-lg-4" v-for="ticket in currentTickets" :key="ticket.id">
                 <template v-if="state==stateValues.bought">
-                    <ticket :ticket="ticket" :bought="true"
-                            :csrf="csrf"></ticket>
+                    <ticket :ticket="ticket" :bought="true"></ticket>
                 </template>
                 <template v-else-if="state==stateValues.sold">
-                    <ticket :ticket="ticket" :display="true"
-                            :csrf="csrf"></ticket>
+                    <ticket :ticket="ticket" :display="true"></ticket>
                 </template>
                 <template v-else-if="state==stateValues.selling">
-                    <ticket :ticket="ticket" :csrf="csrf" :share-modal-default="justSold(ticket)"></ticket>
+                    <ticket :ticket="ticket"  :share-modal-default="justSold(ticket)"></ticket>
                 </template>
                 <template v-else-if="state==stateValues.offered">
-                    <ticket :ticket="ticket" :csrf="csrf"></ticket>
+                    <ticket :ticket="ticket"></ticket>
                 </template>
             </div>
             <div class="col-12">
                 <p class="text-center" v-if="currentTickets.length==0">
                     <template v-if="state==stateValues.bought">
-                        {{lang.owned.no_bought_tickets}} <a
-                            :href="routes.tickets.buy_page">{{lang.owned.no_bought_tickets_cta}}</a>
+                        {{trans('tickets.owned.no_bought_tickets')}} <a
+                            :href="route('public.ticket.buy.page')">{{trans('tickets.owned.no_bought_tickets_cta')}}</a>
                     </template>
                     <template v-else-if="state==stateValues.sold">
-                        {{lang.owned.no_sold_tickets}} <a
-                            :href="routes.tickets.buy_page">{{lang.owned.no_sold_tickets_cta}}</a>
+                        {{trans('tickets.owned.no_sold_tickets')}} <a
+                            :href="route('public.ticket.sell.page')">{{trans('tickets.owned.no_sold_tickets_cta')}}</a>
                     </template>
                     <template v-else-if="state==stateValues.selling">
-                        {{lang.owned.no_selling_tickets}} <a
-                            :href="routes.tickets.sell_page">{{lang.owned.no_selling_tickets_cta}}</a>
+                        {{trans('tickets.owned.no_selling_tickets')}} <a
+                            :href="route('public.ticket.buy.page')">{{trans('tickets.owned.no_selling_tickets_cta')}}</a>
                     </template>
                     <template v-else-if="state==stateValues.offered">
-                        {{lang.owned.no_offered_tickets}} <a
-                            :href="routes.tickets.sell_page">{{lang.owned.no_selling_tickets_cta}}</a>
+                        {{trans('tickets.owned.no_offered_tickets')}} <a
+                            :href="route('public.ticket.buy.page')">{{trans('tickets.owned.no_bought_tickets_cta')}}</a>
                     </template>
                 </p>
             </div>
@@ -62,10 +62,7 @@
             tickets: {type: Array, required: true},
             boughtTickets: {type: Array, required: true},
             offerSent: {type: Array, required: true},
-            routes: {type: Object, required: true},
-            api: {type: Object, required: true},
             lang: {type: Object, required: true},
-            user: {type: Object, required: true},
             defaultState: {required: true},
 
             stateValues: {
@@ -81,7 +78,6 @@
         },
         data() {
             return {
-                csrf: window.csrf,
                 state: this.defaultState,
                 rerenderer: 0
             }
@@ -91,8 +87,8 @@
                 var ticketsToReturn = [];
                 for (var i = 0; i < this.tickets.length; i++) {
                     var now = moment();
-                    var departure = moment(this.tickets[i].train.departure_date, 'YYYY-MM-DD');
-                    if (!now.isAfter(departure) && this.tickets[i].buyer == null) {
+                    var departure = moment(this.tickets[i].train.departure_date + this.tickets[i].train.departure_time, 'YYYY-MM-DD HH:mm:ss');
+                    if (!now.isSameOrAfter(departure) && this.tickets[i].buyer == null) {
                         ticketsToReturn.push(this.tickets[i])
                     }
                 }
@@ -101,8 +97,6 @@
             soldTickets: function () {
                 var ticketsToReturn = [];
                 for (var i = 0; i < this.tickets.length; i++) {
-                    var now = moment();
-                    var departure = moment(this.tickets[i].train.departure_date, 'YYYY-MM-DD');
                     if (this.tickets[i].buyer != null) {
                         ticketsToReturn.push(this.tickets[i])
                     }

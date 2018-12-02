@@ -131,7 +131,6 @@
 
 
 <!-- Scripts -->
-<script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
 <?php echo app( Tightenco\Ziggy\BladeRouteGenerator::class )->generate(); ?>
 
 <script src="/lang/lang-{{ \App::getLocale() }}.js"></script>
@@ -161,7 +160,7 @@
             currentPage: null,
             oldInput: {!! (old() != [] ? json_encode( old() ) : 'null') !!}
         },
-        mounted() {
+        mounted: function() {
 
             // Display Messages
             for (var i = 0; i < this.messages.length; i++) {

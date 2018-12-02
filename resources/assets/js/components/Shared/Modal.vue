@@ -15,7 +15,9 @@
                             <button type="button" class="close"  @click="closeModal" v-if="!title">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <slot></slot>
+                            <template v-if="isOpen">
+                                <slot></slot>
+                            </template>
                         </div>
                         <div class="modal-footer" v-if="footer">
                             {{footer}}

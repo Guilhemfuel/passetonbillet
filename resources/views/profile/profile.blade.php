@@ -128,17 +128,17 @@
                                 <div class="form-group">
                                     <input class="form-control" type="file" name="scan">
                                 </div>
-                                <input-country name="country"
-                                               label="{{__('profile.modal.verify_identity.country')}}"
-                                               validation="required"
-                                               placeholder="{{__('profile.modal.verify_identity.country')}}"
-                                ></input-country>
                                 <input-select name="type"
                                               label="@lang('profile.modal.verify_identity.type')"
                                               validation="required"
                                               placeholder="@lang('profile.modal.verify_identity.type')"
                                               :options="child.profile.optionsType"
                                 ></input-select>
+                                <input-country name="country"
+                                               label="{{__('profile.modal.verify_identity.country')}}"
+                                               validation="required"
+                                               placeholder="{{__('profile.modal.verify_identity.country')}}"
+                                ></input-country>
                                 <button type="submit"
                                         class="btn btn-block btn-ptb-blue">@lang('profile.modal.verify_identity.cta')</button>
                             </vue-form>

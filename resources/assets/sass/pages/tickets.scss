@@ -55,6 +55,7 @@ $animation-duration: 0.5s;
   }
 
   &.front {
+    box-shadow: 0px 10px 30px #d4d4d466;
     z-index: 2;
     /* for firefox 31 */
     transform: rotateY(0deg);
@@ -65,6 +66,7 @@ $animation-duration: 0.5s;
   }
 
   &.back {
+    box-shadow: 0px 10px 30px #d4d4d466;
     transform: rotateY(180deg);
     position: absolute;
     top: 0;
@@ -495,16 +497,4 @@ $animation-duration: 0.5s;
   }
 
 
-}
-
-// My ticket component
-#owned-tickets {
-
-  @include media-breakpoint-down(sm) {
-    padding: 15px;
-  }
-
-  @include media-breakpoint-up(md) {
-    padding: 0px;
-  }
 }

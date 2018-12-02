@@ -9,35 +9,37 @@ return [
     */
 
     'component' => [
-        'buy'                    => 'Acheter',
-        'sell'                   => 'Vendre ce billet',
-        'sold_by'                => 'Publié il y a {{days}} par',
-        'sold_by_sm'             => 'Publié par',
-        'edit'                   => 'Modifier',
-        'edit_ticket'            => 'Modifier le billet',
-        'buy_ticket'             => 'Acheter le billet',
-        'your_offer'             => 'Votre offre',
-        'price'                  => 'Prix',
-        'send_offer'             => 'Envoyer l\'offre',
-        'if_interested'          => 'Le vendeur vous contactera s\'il est interessé.',
-        'infos'                  => 'Infos',
-        'booking_code'           => 'Numéro de réservation',
-        'booking_name'           => 'Nom de réservation',
-        'delete'                 => 'Vous ne voulez plus vendre ce billet?',
-        'share'                  => 'Lien de partage du billet',
-        'share_btn'              => 'Partager',
-        'copied'                 => 'Lien copié dans le presse-papier.',
-        'delete_cta'             => 'Retirer le billet',
-        'offer_sent'             => 'Le vendeur a bien reçu votre offre! Il vous recontactera si il est interessé.',
-        'register'               => 'La sécurité est notre premier soucis. Ainsi, vous devez etre inscrit pour commnuniquer avec les autres membres.',
-        'register_cta'           => 'Inscrivez-vous pour envoyer votre offre!',
-        'user_verified'          => 'Nous avons vérifié l\'identité de cet utilisateur.',
-        'user_not_verified'      => 'Nous n\'avons pas encore vérifié l\'identité de cet utilisateur.',
-        'discuss'                => 'Discuster',
-        'new_offer'              => 'Nouvelle Offre',
-        'download_ticket'        => 'Télécharger le billet',
-        'download'               => 'Télécharger',
-        'eurostar_ticket_number' => 'Numéro du billet',
+        'buy'                       => 'Acheter',
+        'sell'                      => 'Vendre ce billet',
+        'sold_by'                   => 'Publié il y a {{days}} par',
+        'sold_by_sm'                => 'Publié par',
+        'edit'                      => 'Modifier',
+        'edit_ticket'               => 'Modifier le billet',
+        'buy_ticket'                => 'Acheter le billet',
+        'your_offer'                => 'Votre offre',
+        'price'                     => 'Prix',
+        'send_offer'                => 'Envoyer l\'offre',
+        'if_interested'             => 'Le vendeur vous contactera s\'il est interessé.',
+        'infos'                     => 'Infos',
+        'booking_code'              => 'Numéro de réservation',
+        'booking_name'              => 'Nom de réservation',
+        'delete'                    => 'Vous ne voulez plus vendre ce billet?',
+        'share'                     => 'Lien de partage du billet',
+        'share_btn'                 => 'Partager',
+        'copied'                    => 'Lien copié dans le presse-papier.',
+        'edit_price_cta'            => 'Modifier le prix',
+        'delete_cta'                => 'Supprimer le billet',
+        'offer_sent'                => 'Le vendeur a bien reçu votre offre! Il vous recontactera si il est interessé.',
+        'register'                  => 'La sécurité est notre premier soucis. Ainsi, vous devez etre inscrit pour commnuniquer avec les autres membres.',
+        'register_cta'              => 'Inscrivez-vous pour envoyer votre offre!',
+        'user_verified'             => 'Nous avons vérifié l\'identité de cet utilisateur.',
+        'user_verification_pending' => 'Vérification de l\'identité de l\'utilisateur en cours.',
+        'user_not_verified'         => 'Nous n\'avons pas encore vérifié l\'identité de cet utilisateur.',
+        'discuss'                   => 'Discuster',
+        'new_offer'                 => 'Nouvelle Offre',
+        'download_ticket'           => 'Télécharger le billet',
+        'download'                  => 'Télécharger',
+        'eurostar_ticket_number'    => 'Numéro du billet',
 
         'status' => [
             'awaiting' => 'En Attente',
@@ -46,14 +48,50 @@ return [
         ],
 
         'share_modal' => [
-            'title' => 'Vendez votre billet plus rapidement en le publiant sur Facebook!',
-            'step_1' => '1. Partagez le avec vos amis sur votre compte Facebook',
-            'step_2' => '2. Parlez en sur notre groupe Facebook',
-            'share_on_fb' => 'Partager sur facebook',
-            'text_link' => 'Votre lien de partage direct',
-            'copy_link' => 'Copier le lien',
+            'title'        => 'Vendez votre billet plus rapidement en le publiant sur Facebook!',
+            'step_1'       => '1. Partagez le avec vos amis sur votre compte Facebook',
+            'step_2'       => '2. Parlez en sur notre groupe Facebook',
+            'share_on_fb'  => 'Partager sur facebook',
+            'text_link'    => 'Votre lien de partage direct',
+            'copy_link'    => 'Copier le lien',
             'our_fb_group' => 'Publiez votre lien direct de billet sur notre groupe :'
         ],
+
+        'delete_modal' => [
+            'already_sold'         => [
+                'text_offers'     => 'Vous avez déjà vendu votre billet? Génial! Merci de nous indiquer ci-dessous qui est l\'acheteur afin que l\'on puisse marquer votre billet comme vendu.
+                    Si vous cliquer sur "J\'ai vendu le billet ailleurs", le billet sera complétement supprimé du site.',
+                'text_no_offers'  => 'Vous n\'avez pas encore accepter d\'offres sur PasseTonBillet. Cliquez sur "J\'ai vendu le billet ailleurs" pour complétement supprimer le billet de PasseTonBillet.',
+                'sold_to'         => 'Vendu à',
+                'sold_else_where' => 'J\'ai vendu le billet ailleurs',
+            ],
+            'sold_else_where'      => [
+                'text'               => 'Si vous avez vendu ce billet sur PasseTonBillet, <b>NE CLIQUEZ PAS</b> sur le bouton de confirmation ci-dessous mais faîtes nous plutot savoir à qui vous l\'avez vendu.
+                Cela vous nous aide à gérer le statut des transactions en cours, mais surtout celà vous permet d\'avoir une meilleure réputation sur PasseTonBillet!
+                En effet, le nombre de billet vendu avec succès sur votre profil augmentera 👍',
+                'sold_on_ptb_button' => 'Oups, j\'ai vendu le billet à quelqu\'un sur le site',
+                'sold_else_where'    => 'Je confirme que j\'ai vendu le billet ailleurs',
+            ],
+            'not_for_sale_anymore' => [
+                'text'               => 'Si vous avez vendu ce billet sur PasseTonBillet, <b>NE CLIQUEZ PAS</b> sur le bouton ci-dessous mais faîtes nous plutot savoir à qui vous l\'avez vendu.
+                Cela vous nous aide à gérer le statut des transactions en cours, mais surtout celà vous permet d\'avoir <b>une meilleure réputation</b> sur PasseTonBillet!
+                En effet, le nombre de billet vendu avec succès sur votre profil augmentera 👍',
+                'sold_on_ptb_button' => 'Oups, j\'ai vendu le billet à quelqu\'un sur le site',
+                'confirm_button'     => 'Je ne veux plus vendre ce billet'
+            ],
+            'find_reason'          => [
+                'text'                => 'Êtes vous certain de vouloir supprimer ce billet? Si oui merci de nous indiquer pourquoi ci dessous.',
+                'already_sold_button' => 'J\'ai déjà vendu ce billet',
+                'not_for_sale_button' => 'Je ne souhaite plus vendre ce billet'
+            ],
+            'cancel_button'        => 'Oups, je ne veux pas le supprimer'
+        ],
+
+        'edit_price_modal' => [
+            'title' => 'Modifier le prix du billet',
+            'text' => 'Vous pouvez modifier le prix de votre billet à tout instant. Tout comme lors de la mise en vente de celui-ci, le prix de ne peut excéder le prix originel d\'achat.',
+            'submit' => 'Modifier le prix'
+        ]
 
     ],
     'sell'      => [
@@ -156,6 +194,7 @@ return [
         'create_account' => 'Inscrivez-vous et envoyez votre offre!'
     ],
     'owned'     => [
+        'title'                  => 'Mes Billets',
         'no_bought_tickets'      => 'Vous n\'avez pas encore acheté de billet!',
         'no_bought_tickets_cta'  => 'Cliquez-ici pour acheter un billet.',
         'no_sold_tickets'        => 'Vous n\'avez pas encore vendu de billet!',
@@ -170,6 +209,8 @@ return [
         'offers_sent'            => 'Offres envoyées',
 
     ],
+    'updated'   => 'Billet mis à jour avec succès.',
+
     'delete'    => [
         'success' => 'Votre ticket a bien été supprimé.'
     ],

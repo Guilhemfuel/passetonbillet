@@ -136,6 +136,13 @@
                                            class="fa fa-check-circle text-success verif-status"></i>
 
                                     </el-tooltip>
+                                    <el-tooltip v-else-if="ticket.user.verification_pending" class="item" effect="dark"
+                                                :content="trans('tickets.component.user_verification_pending')"
+                                                placement="bottom-end">
+                                        <i aria-hidden="true"
+                                           class="fa fa-clock-o text-gold verif-status"></i>
+
+                                    </el-tooltip>
                                     <el-tooltip v-else class="item" effect="dark"
                                                 :content="trans('tickets.component.user_not_verified')"
                                                 placement="bottom-end">
@@ -193,17 +200,12 @@
                             </div>
                             <div class="card-seller-info card-buying"
                                  v-if="(user != null && ticket.user &&  ticket.user.id == user.id)">
-                                <div class="delete mt-4">
-                                    <p class="text-center">{{trans('tickets.component.delete')}}</p>
-                                    <form method="POST" :action="route('public.ticket.delete')">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <input type="hidden" name="_token" :value="csrf">
-                                        <input type="hidden" name="ticket_id" :value="ticket.id">
-                                        <button class="btn btn-danger mx-auto d-block mt-3">
-                                            {{trans('tickets.component.delete_cta')}}
-                                        </button>
-                                    </form>
-                                </div>
+                                <button class="btn btn-ptb mx-auto d-block mt-3" @click="modalEditPriceOpen=true">
+                                    {{trans('tickets.component.edit_price_cta')}}
+                                </button>
+                                <button class="btn btn-danger mx-auto d-block mt-3" @click="modalDeleteOpen=true">
+                                    {{trans('tickets.component.delete_cta')}}
+                                </button>
                             </div>
                         </template>
                     </template>
@@ -244,7 +246,7 @@
                                     </p>
                                 </template>
                                 <template v-else>
-                                    <!-- Unanthitificated user -->
+                                    <!-- Unauthificated user -->
                                     <p class="text-center">{{publishedBy}} <b
                                             class="text-primary">{{ticket.user.full_name}}  <i
                                             v-if="ticket.user.verified"
@@ -359,17 +361,25 @@
                         </div>
                     </div>
                 </div>
-
             </template>
-
-
         </modal>
+
+        <edit-ticket :ticket="ticket"
+                     :modal-edit-price-open="modalEditPriceOpen"
+                     :modal-delete-open="modalDeleteOpen"
+                     @close-modal="modalEditPriceOpen=false;modalDeleteOpen=false;"
+        ></edit-ticket>
     </div>
 
 </template>
 
 <script>
+    import EditTicket from './components/EditTicket.vue'
+
     export default {
+        components: {
+          'edit-ticket': EditTicket
+        },
         props: {
             ticket: {type: Object, required: true},
             // Selecting when user is selling a ticket (no in db yet, no user)
@@ -380,8 +390,6 @@
             display: {type: Boolean, default: false},
 
             bought: {type: Boolean, default: false},
-            csrf: {type: String, required: false},
-
             className: '',
 
             shareModalDefault: {type: Boolean, default: false},
@@ -394,7 +402,9 @@
                 priceOffer: this.ticket.price,
                 state: 'default',
                 errorMessage: '',
-                shareModalOpen: this.shareModalDefault
+                shareModalOpen: this.shareModalDefault,
+                modalDeleteOpen: false,
+                modalEditPriceOpen: false
             }
         },
         mounted() {

@@ -2,6 +2,7 @@
 
     <div :class="{'col-12':true, 'discussion':true, 'p-0':true, 'sold':sold, 'sold-here':sold_here,
         'seller':(user.id == discussion.ticket.user.id),'buyer':(user.id != discussion.ticket.user.id)}">
+        <!-- Modal confirm sold here -->
         <modal :is-open="modalSellOpen"  :title="'Vendre ce billet à '+correspondant.full_name" @close-modal="modalSellOpen=false" v-if="!sold">
             <p>
                 {{trans('message.discussions.modal_sell.part_1')}} {{correspondant.full_name}}. {{trans('message.discussions.modal_sell.part_2')}}.
@@ -14,6 +15,7 @@
                 <button class="btn btn-danger" @click="modalSellOpen=false">{{trans('message.discussions.cancel')}}</button>
             </div>
         </modal>
+        <!-- Modal explanations -->
         <modal :is-open="modalInfo" :title="trans('message.discussions.modal_title')"  @close-modal="closeInfoModal" v-if="modalInfo" :button-close="false">
             <div class="container-fluid">
                 <div class="row">
@@ -50,7 +52,7 @@
                 </div>
                 <div class="col-md-4 d-sm-none d-none d-md-flex align-items-center justify-content-center" v-if="!sold && user.id == discussion.ticket.user.id">
                     <div>
-                        <button class="btn btn-primary mx-auto" @click="modalSellOpen=true"> {{trans('message.discussions.cta_sell_to')}}</button><br>
+                        <button class="btn btn-primary mx-auto" @click="modalSellOpen=true"> {{trans('message.discussions.cta_sell_to')}} {{discussion.ticket.user.full_name}}</button><br>
                         <p class="text-center"><a href="#" @click.prevent="modalInfo=true">{{trans('message.discussions.modal_title')}}</a></p>
                     </div>
                 </div>
@@ -228,7 +230,11 @@
 
             // Check if modal info should be opened for user (at least one message sent)
             let countMessages = this.messages.filter((msg) => msg.sender_id === this.user.id).length;
-            if (countMessages==0) this.modalInfo = true;
+            if (countMessages==0) {
+                this.modalInfo = true;
+                // Hide it automatically after 15 sec
+                setTimeout(()=>{this.modalInfo = false; }, 15000);
+            }
 
         },
         watch: {

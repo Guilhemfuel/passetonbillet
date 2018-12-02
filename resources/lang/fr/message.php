@@ -12,7 +12,7 @@ return [
         'title'                  => 'Offres en attente',
         'confirm_denial_message' => 'Cette offre a bien été refusé.',
         'confirm_accept'         => 'Offre acceptée ! Commencer la discussion dès maintenant.',
-        'accept'                 => 'Accepter',
+        'accept'                 => 'Discuter',
         'deny'                   => 'Refuser',
 
         'table' => [
@@ -66,7 +66,7 @@ return [
         'sold_disc_ended' => 'Le billet a été vendu à une autre personne. La discussion est terminée.',
         'bought_from'     => 'Vous avez acheté ce billet à',
         'sold_to'         => 'Vous avez vendu ce billet à',
-        'cta_sell_to'     => 'Transaction terminée',
+        'cta_sell_to'     => 'Billet vendu à',
         'cancel'          => 'Annuler',
 
         'table' => [

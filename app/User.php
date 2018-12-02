@@ -159,6 +159,10 @@ class User extends Authenticatable
         return ($this->idVerification!==null&&$this->idVerification->accepted) ?:false;
     }
 
+    public function getIdVerificationPendingAttribute(){
+        return $this->idVerification!==null && $this->idVerification->accepted == null;
+    }
+
     public function setBirthdateAttribute($value) {
         try {
             $this->attributes['birthdate'] = Carbon::createFromFormat( 'd/m/Y', $value );
@@ -238,6 +242,11 @@ class User extends Authenticatable
     public function emailsReceived()
     {
         return $this->hasMany( 'App\Models\EmailSent','user_id' );
+    }
+
+    public function stats()
+    {
+        return $this->hasMany('App\Models\Statistic');
     }
 
     /**

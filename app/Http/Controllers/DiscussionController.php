@@ -58,7 +58,7 @@ class DiscussionController extends Controller
         // If ticket was sold to someone else
         if ($request->has('discussion_where_sold_id')) {
             // No need to mark discussion as denied, call to markAsSold will do it
-            $result = $this->markTicketAsSold($request,$discussion->ticket_id,$request->discussion_where_sold_id);
+            $result = self::markTicketAsSold($request,$discussion->ticket_id,$request->discussion_where_sold_id);
             if ( $result === true ) {
                 flash( __( 'message.success.sold' ) )->success()->important();
 
@@ -84,8 +84,8 @@ class DiscussionController extends Controller
             flash( __( 'tickets.delete.success' ) )->success()->important();
 
             return redirect()->route( 'public.ticket.owned.page' );
-
         }
+
         // Simply deny offer
         else {
             $discussion->status = Discussion::DENIED;
@@ -138,7 +138,7 @@ class DiscussionController extends Controller
     /**
      * If discussion is not active, deal with it
      */
-    public function checkIfDiscussionActive( Request $request, $ticket, $discussion )
+    public static function checkIfDiscussionActive( Request $request, $ticket, $discussion )
     {
 
         // Make sure discussion belongs to ticket
@@ -191,7 +191,7 @@ class DiscussionController extends Controller
             return redirect()->route( 'public.message.home.page' );
         }
 
-        if ( ! $this->checkIfDiscussionActive( $request, $ticket, $discussion ) ) {
+        if ( ! self::checkIfDiscussionActive( $request, $ticket, $discussion ) ) {
             return redirect()->route( 'public.message.home.page' );
         }
 
@@ -223,7 +223,7 @@ class DiscussionController extends Controller
     public function sell( Request $request, $ticket_id, $discussion_id )
     {
 
-        $result = $this->markTicketAsSold( $request, $ticket_id, $discussion_id );
+        $result = self::markTicketAsSold( $request, $ticket_id, $discussion_id );
 
         if ( $result === true ) {
             flash( __( 'message.success.sold' ) )->success()->important();
@@ -251,7 +251,7 @@ class DiscussionController extends Controller
      *
      * @return array|bool
      */
-    private function markTicketAsSold( $request, $ticket_id, $discussion_id )
+    public static function markTicketAsSold( $request, $ticket_id, $discussion_id )
     {
         $discussion = Discussion::find( $discussion_id );
         if ( ! $discussion ) {
@@ -268,7 +268,7 @@ class DiscussionController extends Controller
             ];
         }
 
-        if ( ! $this->checkIfDiscussionActive( $request, $ticket, $discussion ) ) {
+        if ( ! self::checkIfDiscussionActive( $request, $ticket, $discussion ) ) {
             return [
                 'message' => __( 'common.error' ),
                 'url'     => route( 'public.message.home.page' )
@@ -317,7 +317,7 @@ class DiscussionController extends Controller
             'message' => 'required|string'
         ] );
 
-        if ( ! $this->checkIfDiscussionActive( $request, $ticket, $discussion ) ) {
+        if ( ! self::checkIfDiscussionActive( $request, $ticket, $discussion ) ) {
             return response( [
                 'status'  => 'error',
                 'message' => __( 'message.errors.something' )
@@ -373,7 +373,7 @@ class DiscussionController extends Controller
             return redirect()->route( 'public.message.home.page' );
         }
 
-        if ( ! $this->checkIfDiscussionActive( $request, $ticket, $discussion ) ) {
+        if ( ! self::checkIfDiscussionActive( $request, $ticket, $discussion ) ) {
             return redirect()->route( 'public.message.home.page' );
         }
 

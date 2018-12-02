@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\EmailConfirmedEvent;
 use App\Events\RegisteredEvent;
+use App\Notifications\WelcomeNotification;
 use App\User;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
@@ -92,6 +94,19 @@ class RegisterController extends Controller
         ] );
     }
 
+    /**
+     * Only accepts requests from Europe
+     */
+    public function checkCountryOfRequest(Request $request) {
+        $information = geoip($request->ip());
+
+        $forbiddenCountries = ['Ivory Coast'];
+
+        if ( in_array( $information['country'], $forbiddenCountries  ) ) {
+            return false;
+        }
+        return true;
+    }
 
     /**
      * Create a new user instance after a valid registration.
@@ -130,6 +145,13 @@ class RegisterController extends Controller
     public function register( Request $request )
     {
         $this->validator( $request->all() )->validate();
+
+        // Check location of IP for scammers
+        if (!$this->checkCountryOfRequest($request)) {
+            flash(__('auth.register.deny_location'))->error();
+            return redirect()->route('home');
+        }
+
         $user = $this->create( $request->all() );
 
         // Registered event triggered (used for email verification...)
@@ -177,6 +199,10 @@ class RegisterController extends Controller
         $user->email_token = null;
 
         if ( $user->save() ) {
+
+            // Send welcome email to user
+            $user->notify( (new WelcomeNotification() )->delay(now()->addMinutes(5)));
+
             flash( __( 'auth.register.account_confirmed' ) )->success()->important();
 
             return redirect()->route( 'home' );
@@ -286,7 +312,13 @@ class RegisterController extends Controller
             return redirect()->route( 'login.page' );
         }
 
-        // Create user with an email already verified
+        // Check location of IP for scammers
+        if (!$this->checkCountryOfRequest($request)) {
+            flash(__('auth.register.deny_location'))->error();
+            return redirect()->route('home');
+        }
+
+        // Create user - now need for email account validation
         $user = User::make( [
             'first_name' => $userData->user['first_name'],
             'last_name'  => $userData->user['last_name'],
@@ -297,9 +329,8 @@ class RegisterController extends Controller
             'email'      => $request->email,
             'picture'    => $userData->avatar
         ] );
-        $user->email_verified = true;
-        $user->status = 1;
-        $user->email_token = null;
+        $user->status = 0;
+        $user->email_token = str_random( random_int( 40, 100 ) );
         $user->password = bcrypt( $request->password );
         $user->fb_id = session()->pull( 'fb_user_id' );
         $user->save();
@@ -307,7 +338,6 @@ class RegisterController extends Controller
         // Registered event triggered (used for email verification...)
         event( new RegisteredEvent( $user ) );
 
-        auth()->login( $user );
         flash()->success( __( 'auth.social.success' ) );
 
         return redirect()->route( 'home' );

@@ -30,6 +30,8 @@ use App\Facades\Eurostar;
 class TicketController extends Controller
 {
 
+    const LIMIT_OFFERS_PER_DAY = 6;
+
     /**
      * List of UK eurostar stations
      */
@@ -165,8 +167,8 @@ class TicketController extends Controller
         $ticket = $tickets[ $request->index ];
 
         // Make sure price doesn't over exceed original price
-        if ($ticket->provider == 'eurostar' && $ticket->bought_price == 0){
-            if ($request->price > 70) {
+        if ( $ticket->provider == 'eurostar' && $ticket->bought_price == 0 ) {
+            if ( $request->price > 70 ) {
                 flash( __( 'tickets.sell.errors.max_value' ) )->error()->important();
 
                 return redirect()->route( 'public.ticket.sell.page' );
@@ -201,13 +203,13 @@ class TicketController extends Controller
         // Log the IP of the seller
         AppHelper::stat( 'add_ticket', [
             'ticket_id' => $ticket->id,
-            'ip_adress' => $request->ip(),
+            'ip_address' => $request->ip(),
         ] );
 
         flash( __( 'tickets.sell.success' ) )->success()->important();
 
         return redirect()->route( 'public.ticket.owned.page' )
-                         ->with(['addedTicket'=> new TicketRessource($ticket)]);
+                         ->with( [ 'addedTicket' => new TicketRessource( $ticket ) ] );
     }
 
     /**
@@ -227,7 +229,7 @@ class TicketController extends Controller
             return redirect()->route( 'public.ticket.sell.page' );
         }
 
-        if ( $this->isEurostarTicket($request->all()) ) {
+        if ( $this->isEurostarTicket( $request->all() ) ) {
             flash( __( 'tickets.sell.errors.manual_eurostar' ) )->error()->important();
 
             return redirect()->route( 'public.ticket.sell.page' );
@@ -274,7 +276,7 @@ class TicketController extends Controller
         flash( __( 'tickets.sell.success' ) )->success()->important();
 
         return redirect()->route( 'public.ticket.owned.page' )
-            ->with(['addedTicket'=> new TicketRessource($ticket)]);
+                         ->with( [ 'addedTicket' => new TicketRessource( $ticket ) ] );
     }
 
     /**
@@ -282,36 +284,113 @@ class TicketController extends Controller
      */
     private function isEurostarTicket( array $data )
     {
-        if ($data['company'] == 'eurostar'
-            || (in_array($data['departure_station'],self::UK_EUROSTAR_STATIONS_DB)
-            && in_array($data['arrival_station'],self::EUROSTAR_STATIONS_IDS) )
-            || (in_array($data['arrival_station'],self::UK_EUROSTAR_STATIONS_DB)
-                && in_array($data['departure_station'],self::EUROSTAR_STATIONS_IDS) )
+        if ( $data['company'] == 'eurostar'
+             || ( in_array( $data['departure_station'], self::UK_EUROSTAR_STATIONS_DB )
+                  && in_array( $data['arrival_station'], self::EUROSTAR_STATIONS_IDS ) )
+             || ( in_array( $data['arrival_station'], self::UK_EUROSTAR_STATIONS_DB )
+                  && in_array( $data['departure_station'], self::EUROSTAR_STATIONS_IDS ) )
         ) {
             return true;
         }
+
         return false;
     }
 
     /**
      * Remove a ticket currently looking for a buyer
      */
-    public function delete( Request $request )
+    public function deleteOrSell( Request $request )
     {
         $this->validate( $request, [
-            'ticket_id' => 'required|exists:tickets,id'
+            'ticket_id'                => 'required|exists:tickets,id',
+            'delete_ticket'            => 'boolean',
+            'discussion_where_sold_id' => 'exists:discussions,id'
         ] );
 
-        // Make sure that ticket is valid, and that user is the owner of the ticket
-        $ticket = Ticket::find( $request->ticket_id );
-        if ( ! $ticket || $ticket->passed || $ticket->sold_to_id != null || \Auth::user()->id != $ticket->user_id ) {
+        // Ticket can't be deleted and marked as sold as same time
+        if ( $request->has( 'delete_ticket' ) && $request->has( 'discussion_where_sold_id' ) ) {
             flash( __( 'common.error' ) )->error()->important();
 
             return redirect()->route( 'public.ticket.owned.page' );
         }
 
-        $ticket->delete();
-        flash( __( 'tickets.delete.success' ) )->success()->important();
+        // Check ticket exists, is not passed, is not sold and belongs to user
+        $ticket = Ticket::find( $request->ticket_id );
+        if ( ! $ticket || $ticket->user_id != \Auth::id() || $ticket->passed || $ticket->sold_to_id != null ) {
+            flash( __( 'common.error' ) )->error()->important();
+
+            return redirect()->route( 'public.ticket.owned.page' );
+        }
+
+        // If ticket was sold to someone else
+        if ( $request->has( 'discussion_where_sold_id' ) ) {
+            // No need to mark discussion as denied, call to markAsSold will do it
+            $result = DiscussionController::markTicketAsSold( $request, $ticket->id, $request->discussion_where_sold_id );
+            if ( $result === true ) {
+                flash( __( 'message.success.sold' ) )->success()->important();
+
+                return redirect()->route( 'public.message.discussion.page', [
+                    $ticket->id,
+                    $request->discussion_where_sold_id
+                ] );
+            } else {
+                flash( $result['message'] )->error()->important();
+
+                return redirect( $result['url'] );
+            }
+        } // Delete ticket (no need to deny offer)
+        elseif ( $request->has( 'delete_ticket' ) ) {
+            $ticket->delete();
+            flash( __( 'tickets.delete.success' ) )->success()->important();
+
+            return redirect()->route( 'public.ticket.owned.page' );
+        } // Should not go through there: either sold or deleted
+        else {
+            flash( __( 'common.error' ) )->error()->important();
+
+            return redirect()->route( 'public.ticket.owned.page' );
+        }
+
+    }
+
+    /**
+     * Change ticket price
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function changeTicketPrice( Request $request, $ticket_id )
+    {
+        $this->validate( $request, [
+            'price' => 'required'
+        ] );
+
+        // Check ticket exists, is not passed, is not sold and belongs to user
+        $ticket = Ticket::find( $ticket_id );
+        if ( ! $ticket || $ticket->user_id != \Auth::id() || $ticket->passed || $ticket->sold_to_id != null ) {
+            flash( __( 'common.error' ) )->error()->important();
+
+            return redirect()->route( 'public.ticket.owned.page' );
+        }
+
+
+        // Check price (special case for eurostar snap)
+        if ( $ticket->provider == 'eurostar' && $ticket->bought_price == 0 ) {
+            if ( $request->price > 70 ) {
+                flash( __( 'tickets.sell.errors.max_value' ) )->error()->important();
+
+                return redirect()->route( 'public.ticket.sell.page' );
+            }
+        } else if ( $ticket->bought_price < $request->price ) {
+            flash( __( 'tickets.sell.errors.max_value' ) )->error()->important();
+
+            return redirect()->route( 'public.ticket.sell.page' );
+        }
+
+        $ticket->price = $request->price;
+        $ticket->save();
+        flash( __( 'tickets.updated' ) )->success()->important();
 
         return redirect()->route( 'public.ticket.owned.page' );
 
@@ -399,7 +478,7 @@ class TicketController extends Controller
             $request->get( 'departure_station' ),
             $request->get( 'arrival_station' ),
             Carbon::createFromFormat( 'd/m/Y', $request->get( 'trip_date' ) ),
-            $request->get( 'trip_time', Carbon::now()->format('hh:mm') )
+            $request->get( 'trip_time', Carbon::now()->format( 'hh:mm' ) )
         );
 
         return TicketRessource::collection( $tickets );
@@ -416,28 +495,20 @@ class TicketController extends Controller
         $price = $request->price;
 
         if ( ! $ticket ) {
-            flash()->error( __( 'offer.errors.ticket_not_found' ) );
-
-            return redirect()->back();
+            throw new PasseTonBilletException(  __( 'offer.errors.ticket_not_found' ) );
         }
 
         // Price verification
         if ( $price <= 0 ) {
-            flash()->error( __( 'offer.errors.price_null' ) );
-
-            return redirect()->back();
+            throw new PasseTonBilletException(  __( 'offer.errors.price_null' ) );
         }
         if ( $price > $ticket->price ) {
-            flash()->error( __( 'offer.errors.over_price' ) );
-
-            return redirect()->back();
+            throw new PasseTonBilletException(   __( 'offer.errors.over_price' ));
         }
 
         // User verification (not owner)
         if ( \Auth::user()->id == $ticket->user->id ) {
-            flash()->error( __( 'offer.errors.ticket_owned' ) );
-
-            return redirect()->back();
+            throw new PasseTonBilletException( __( 'offer.errors.ticket_owned' ) );
         }
 
         // User verification (no existing offer)
@@ -450,6 +521,14 @@ class TicketController extends Controller
                                         ] )->count();
         if ( $oldDiscussionCount > 0 ) {
             throw new PasseTonBilletException( __( 'offer.errors.offer_already_done' ) );
+        }
+
+        // Now check number of offer done in the last 24 hours
+        $offersToday = Discussion::where('buyer_id', \Auth::user()->id )
+            ->where('created_at','>',now()->subDay(1))->count();
+
+        if ($offersToday >= self::LIMIT_OFFERS_PER_DAY) {
+            throw new PasseTonBilletException( __('offer.errors.daily_limit') );
         }
 
         // Now if there was an offer denied before, we soft delete it

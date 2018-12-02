@@ -58,7 +58,7 @@
                 <button class="btn btn-ptb-blue btn-block my-2" @click="alreadySold()">{{trans('message.awaiting_offers.deny_modal.find_reason.already_sold_button')}}</button>
                 <button class="btn btn-ptb-blue btn-block my-2" @click="notForSaleAnymore()">{{trans('message.awaiting_offers.deny_modal.find_reason.not_for_sale_button')}}</button>
                 <button class="btn btn-outline-orange btn-block my-2" @click="closeModal()">
-                    Oups, je ne veux pas refuser l'offre
+                    {{trans('message.awaiting_offers.deny_modal.cancel_button')}}
                 </button>
             </template>
 

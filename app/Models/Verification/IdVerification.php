@@ -50,7 +50,7 @@ class IdVerification extends Model
     {
         return array_merge( [
             'user_id' => 'exists:users,id',
-            'scan'    => 'required',
+            'scan'    => 'required|max:10240',
             'country' => [ 'required', new Country() ],
             'type'    => [ 'required','in:'.implode( ',', static::DOCUMENT_TYPES ) ]
         ], $merge );

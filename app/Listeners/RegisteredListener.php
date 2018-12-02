@@ -8,7 +8,7 @@ use App\Mail\EmailVerification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Http\Request;
 
-class RegisteredListener
+class RegisteredListener implements ShouldQueue
 {
 
     public function __construct(Request $request)
@@ -24,10 +24,8 @@ class RegisteredListener
      */
     public function handle(RegisteredEvent $event)
     {
-        // If user registered with email
-        if (!$event->user->fb_id) {
-            \Mail::to( $event->user )->send( new EmailVerification( $event->user ) );
-        }
+        // Send verification email
+        \Mail::to( $event->user )->send( new EmailVerification( $event->user ) );
 
         // Store event and IP
         \AppHelper::stat( 'register', [

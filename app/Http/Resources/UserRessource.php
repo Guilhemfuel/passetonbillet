@@ -58,6 +58,7 @@ class UserRessource extends Resource
             'email'                => $this->email,
             'language'             => $this->language,
             'verified'             => $this->id_verified,
+            'verification_pending' => $this->id_verification_pending,
             'admin'                => $this->isAdmin(),
             'unread_notifications' => count( $this->unreadNotifications ),
             'offers_sent'          => $this->when( $this->offersDone != [], $this->offersDone ),

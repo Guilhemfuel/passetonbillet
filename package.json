@@ -10,6 +10,7 @@
     "postinstall": "npm run production"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.0.0",
     "ajv": "^6.3.0",
     "animate-sass": "^0.8.2",
     "animatewithsass": "^3.2.1",

@@ -9,35 +9,37 @@ return [
     */
 
     'component' => [
-        'buy'                    => 'Buy',
-        'sell'                   => 'Sell this ticket',
-        'sold_by'                => 'Published {{days}} ago by',
-        'sold_by_sm'             => 'Published by',
-        'edit'                   => 'Edit',
-        'edit_ticket'            => 'Edit ticket',
-        'buy_ticket'             => 'Buy ticket',
-        'your_offer'             => 'Your offer',
-        'price'                  => 'Price',
-        'send_offer'             => 'Send offer',
-        'if_interested'          => 'The seller will contact you soon if interested.',
-        'infos'                  => 'Infos',
-        'booking_code'           => 'Booking code',
-        'booking_name'           => 'Booking name',
-        'delete'                 => 'You don\'t want to sell this ticket anymore?',
-        'share'                  => 'Link to share this ticket',
-        'share_btn'              => 'Share',
-        'copied'                 => 'Link copied to clipboard.',
-        'delete_cta'             => 'Remove ticket',
-        'offer_sent'             => 'Seller received your offer! If interested, he\'ll contact you.',
-        'register'               => 'Safety is our number one concern. Therefore, you must create an account before sending offers.',
-        'register_cta'           => 'Create an account and send your offer!',
-        'user_verified'          => 'We verified the identity of this user.',
-        'user_not_verified'      => 'We have not verified the identity of this user yet.',
-        'discuss'                => 'Discuss',
-        'new_offer'              => 'New Offer',
-        'download_ticket'        => 'Download Ticket',
-        'download'               => 'Download',
-        'eurostar_ticket_number' => 'Ticket number',
+        'buy'                       => 'Buy',
+        'sell'                      => 'Sell this ticket',
+        'sold_by'                   => 'Published {{days}} ago by',
+        'sold_by_sm'                => 'Published by',
+        'edit'                      => 'Edit',
+        'edit_ticket'               => 'Edit ticket',
+        'buy_ticket'                => 'Buy ticket',
+        'your_offer'                => 'Your offer',
+        'price'                     => 'Price',
+        'send_offer'                => 'Send offer',
+        'if_interested'             => 'The seller will contact you soon if interested.',
+        'infos'                     => 'Infos',
+        'booking_code'              => 'Booking code',
+        'booking_name'              => 'Booking name',
+        'delete'                    => 'You don\'t want to sell this ticket anymore?',
+        'share'                     => 'Link to share this ticket',
+        'share_btn'                 => 'Share',
+        'copied'                    => 'Link copied to clipboard.',
+        'edit_price_cta'            => 'Change Price',
+        'delete_cta'                => 'Remove ticket',
+        'offer_sent'                => 'Seller received your offer! If interested, he\'ll contact you.',
+        'register'                  => 'Safety is our number one concern. Therefore, you must create an account before sending offers.',
+        'register_cta'              => 'Create an account and send your offer!',
+        'user_verified'             => 'We verified the identity of this user.',
+        'user_verification_pending' => 'We are currently veryfing the identity of this user.',
+        'user_not_verified'         => 'We have not verified the identity of this user yet.',
+        'discuss'                   => 'Discuss',
+        'new_offer'                 => 'New Offer',
+        'download_ticket'           => 'Download Ticket',
+        'download'                  => 'Download',
+        'eurostar_ticket_number'    => 'Ticket number',
 
 
         'status' => [
@@ -47,14 +49,50 @@ return [
         ],
 
         'share_modal' => [
-            'title' => 'Sell your ticket much faster by publishing it on facebook!',
-            'step_1' => '1. Share the ticket with your friends on your facebook account',
-            'step_2' => '2. Publish it on our facebook group ',
-            'share_on_fb' => 'Share it on facebook',
-            'text_link' => 'Your direct sharing link',
-            'copy_link' => 'Copy Link',
+            'title'        => 'Sell your ticket much faster by publishing it on facebook!',
+            'step_1'       => '1. Share the ticket with your friends on your facebook account',
+            'step_2'       => '2. Publish it on our facebook group ',
+            'share_on_fb'  => 'Share it on facebook',
+            'text_link'    => 'Your direct sharing link',
+            'copy_link'    => 'Copy Link',
             'our_fb_group' => 'Post your direct sharing link on our group: '
         ],
+
+        'delete_modal' => [
+            'already_sold'         => [
+                'text_offers'     => 'Have you already sold your ticket? Awesome! Please let us know who\'s the buyer, so that we can mark your ticket as sold.
+                    If you click on "I sold this ticket somewhere else", your ticket will be completely removed from PasseTonBillet.',
+                'text_no_offers'  => 'You have not accepted any offers yet for this ticket. Click on "I sold this ticket somewhere else" to completely remove this ticket from PasseTonBillet.',
+                'sold_to'         => 'Sold to',
+                'sold_else_where' => 'I sold this ticket somewhere else',
+            ],
+            'sold_else_where'      => [
+                'text'               => 'If you sold this ticket on PasseTonBillet, <b>DO NOT CLICK</b> the button below and please let us know who did you sell it to.
+                This will help us manage status of currenct transactions, and more importantly it will <b>increase your reputation</b> on PasseTonBillet!
+                Indeed, The number of tickets you successfully sold that is displayed on your profile, will increase 👍',
+                'sold_on_ptb_button' => 'Whoops, I sold this ticket to someone else on PasseTonBillet',
+                'sold_else_where'    => 'I confirm that I sold this ticket somewhere else',
+            ],
+            'not_for_sale_anymore' => [
+                'text'               => 'If you sold this ticket on PasseTonBillet, <b>DO NOT CLICK</b> the button below and please let us know who did you sell it to.
+                This will help us manage status of currenct transactions, and more importantly it will <b>increase your reputation</b> on PasseTonBillet!
+                Indeed, The number of tickets you successfully sold that is displayed on your profile, will increase 👍',
+                'sold_on_ptb_button' => 'Whoops, I sold this ticket to someone else on PasseTonBillet',
+                'confirm_button'     => 'I don\'t want to sell this ticket anymore'
+            ],
+            'find_reason'          => [
+                'text'                => 'Do you really wish to delete this ticket? If so, please let us know why!',
+                'already_sold_button' => 'I have already sold this ticket',
+                'not_for_sale_button' => 'I don\'t want to sell this ticket anymore'
+            ],
+            'cancel_button'        => 'Whoops, I don\'t want to remove it'
+        ],
+
+        'edit_price_modal' => [
+            'title' => 'Edit price of your ticket',
+            'text' => 'You can change the price of your ticket at any moment. Just as when you put it on PasseTonBiller for the first time, the price can\'t exceed the original price.',
+            'submit' => 'Save Changes'
+        ]
 
     ],
     'sell'      => [
@@ -78,10 +116,10 @@ return [
         'submit'            => 'Sell ticket',
         'preview'           => 'Ticket Preview',
         'errors'            => [
-            'max_value' => 'Whoops! Selling price can\'t exceed original price ! Try again with a lower price.',
+            'max_value'       => 'Whoops! Selling price can\'t exceed original price ! Try again with a lower price.',
             'manual_eurostar' => 'Whoops! You can\'t use the manual form to sell eurostar tickets.',
-            'duplicate' => 'Whoops! This ticket is already on sale...',
-            'search'    => 'Whoops! No tickets were found... Try again and if the issue persists please contact us.'
+            'duplicate'       => 'Whoops! This ticket is already on sale...',
+            'search'          => 'Whoops! No tickets were found... Try again and if the issue persists please contact us.'
         ],
         'success'           => 'Hooray! Your ticket is now on the market ! Thank you for your trust !',
 
@@ -161,6 +199,7 @@ return [
         'create_account' => 'Create a Ptb account'
     ],
     'owned'     => [
+        'title'                  => 'My Tickets',
         'no_bought_tickets'      => 'You have not bought any tickets yet!',
         'no_bought_tickets_cta'  => 'Click here to buy a ticket.',
         'no_sold_tickets'        => 'You have not sold any tickets yet!',
@@ -174,6 +213,7 @@ return [
         'selling'                => 'Selling',
         'offers_sent'            => 'Offers Sent',
     ],
+    'updated'   => 'Ticket successfully updated.',
     'delete'    => [
         'success' => 'Your ticket was successfully deleted.'
     ],

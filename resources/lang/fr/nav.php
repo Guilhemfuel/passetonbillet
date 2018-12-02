@@ -14,8 +14,8 @@ return [
     'home'     => 'Home',
     'help'     => 'Aide',
 
-    'messages'           => 'Messages',
-    'messages.mobile'    => 'Messages',
+    'messages'           => 'Offres',
+    'messages.mobile'    => 'Offres',
     'my_tickets'         => 'Mes billets',
     'my_tickets.mobile'  => 'Billets',
     'sell_ticket'        => 'Vendre un billet',

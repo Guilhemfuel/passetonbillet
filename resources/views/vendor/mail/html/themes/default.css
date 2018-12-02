@@ -7,7 +7,7 @@ body, body *:not(html):not(style):not(br):not(tr):not(code) {
 
 body {
     background: white;
-    color: $color-dark-gray;
+    color: #4A4A4A;
     height: 100%;
     hyphens: auto;
     line-height: 1.4;
@@ -18,7 +18,6 @@ body {
     -webkit-hyphens: auto;
     -webkit-text-size-adjust: none;
     word-break: break-all;
-    word-break: break-word;
 }
 
 p,

@@ -53,6 +53,7 @@ return [
         'fb_register'            => 'Inscription avec Facebook',
         'cgu'               => 'Je reconnais avoir pris connaissance des <a href="' . route( 'cgu.page' ) . '" target="blank">conditions d\'utilisation</a> et je les accepte sans réserves.',
 
+        'deny_location' => 'Nous n\'acceptons temporairement plus de nouvelles inscriptions. Merci d\'éssayer à nouveau dans quelques jours!',
         'ticketLinkMessage' => 'Inscrivez vous sur PasseTonBillet.fr pour acheter et vendre des billets de trains européens de manière sécurisée, rapide, et économe.'
 
     ],
@@ -76,7 +77,8 @@ return [
     'social'       => [
         'last_step_pwd' => 'Une dernière petite étape: créer votre mot de passe pour confirmer votre inscription.',
         'email_used'    => 'Cette addresse email est déjà utilisée. Si c\'est vous, utilisez votre email et votre mot de passe pour vous connecter..',
-        'success'       => 'Bienvenue parmi nous! Vous pouvez désormais acheter ou vendre des billets!'
+        'success'       => 'Bienvenue parmi nous! Dernière étape: <b>veuillez consulter vos mails</b> et cliquer sur le <b>lien d\'activation</b> que nous venons de vous envoyer.
+                                     <br>Pensez à vérifier dans vos spams!'
     ]
 
 ];

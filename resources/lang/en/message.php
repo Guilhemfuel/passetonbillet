@@ -14,7 +14,7 @@ return [
         'title'                  => 'Awaiting offers',
         'confirm_denial_message' => 'This offer was successfully denied.',
         'confirm_accept'         => 'Offer accepted! Start discussing details now.',
-        'accept'                 => 'Accept',
+        'accept'                 => 'Discuss',
         'deny'                   => 'Deny',
 
         'table' => [
@@ -53,7 +53,7 @@ return [
                 'already_sold_button' => 'I have already sold this ticket',
                 'not_for_sale_button' => 'I don\'t want to sell this ticket anymore'
             ],
-            'cancel_button'        => 'Whoops, I don\'t to deny this offer'
+            'cancel_button'        => 'Whoops, I don\'t want to deny this offer'
         ]
     ],
 
@@ -64,7 +64,7 @@ return [
         'sold_disc_ended' => 'Ticket was sold to someone else. The discussion ended.',
         'bought_from'     => 'You bought this ticket from',
         'sold_to'         => 'You sold this ticket to',
-        'cta_sell_to'     => 'Transaction Done',
+        'cta_sell_to'     => 'Sold to',
         'cancel'          => 'Cancel',
 
         'table' => [

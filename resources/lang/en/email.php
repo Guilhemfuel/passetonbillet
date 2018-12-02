@@ -17,6 +17,7 @@ return [
     'ticket_sold'             => 'You received a ticket',
 
     'message' => 'You received a new message',
+    'welcome' => 'Welcome to PasseTonBillet',
 
     'contact_success' => 'Message sent! We\'ll contact you as soon as possible!'
 
