@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Events\EmailConfirmedEvent;
 use App\Events\RegisteredEvent;
 use App\Notifications\WelcomeNotification;
 use App\User;

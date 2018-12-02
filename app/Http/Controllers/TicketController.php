@@ -30,7 +30,7 @@ use App\Facades\Eurostar;
 class TicketController extends Controller
 {
 
-    const LIMIT_OFFERS_PER_DAY = 6;
+    const LIMIT_OFFERS_PER_DAY = 8;
 
     /**
      * List of UK eurostar stations
