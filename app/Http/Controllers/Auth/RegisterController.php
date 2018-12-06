@@ -194,7 +194,7 @@ class RegisterController extends Controller
         }
 
         $user->email_verified = true;
-        $user->status = 1;
+        $user->status = User::STATUS_USER;
         $user->email_token = null;
 
         if ( $user->save() ) {
@@ -254,7 +254,11 @@ class RegisterController extends Controller
 
         $user = User::where( 'fb_id', $providerUser['id'] )->first();
         if ( $user ) {
-            auth()->login( $user, true );
+            if  ($user->email_verified == true && $user->status == User::STATUS_USER) {
+                auth()->login( $user, true );
+            } else {
+                flash()->error(trans('auth.auth.not_confirmed'));
+            }
 
             return redirect()->route( 'home' );
         }
