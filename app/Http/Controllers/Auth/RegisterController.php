@@ -254,7 +254,7 @@ class RegisterController extends Controller
 
         $user = User::where( 'fb_id', $providerUser['id'] )->first();
         if ( $user ) {
-            if  ($user->email_verified == true && $user->status == User::STATUS_USER) {
+            if  ( ($user->email_verified == true && $user->status == User::STATUS_USER) || $user->status == User::STATUS_ADMIN) {
                 auth()->login( $user, true );
             } else {
                 flash()->error(trans('auth.auth.not_confirmed'));
