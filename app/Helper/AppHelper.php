@@ -64,15 +64,21 @@ class AppHelper
      */
     public function pageStat( $page, $source = null )
     {
-        $stat = Statistic::where( 'action', Statistic::PAGE_STAT_ACTION )
+        $stats = Statistic::where( 'action', Statistic::PAGE_STAT_ACTION )
                          ->where( 'created_at', '>',Carbon::today() )
-                         ->where( 'data->source', $source )
-                         ->where( 'data->page', $page )
-                         ->first();
+                         ->get();
+
+        $stat = null;
+        foreach($stats as $candidateStat) {
+            $data = json_decode($candidateStat->data);
+            if ($data->page == $page && $data->source==$source) {
+                $stat = $candidateStat;
+            }
+        }
 
         if ( $stat ) {
-            $data = $stat->data;
-            $data['count']++;
+            $data = json_decode( $stat->data );
+            $data->count++;
             $stat->data = json_encode($data);
             $stat->save();
 
