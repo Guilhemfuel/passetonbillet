@@ -22,15 +22,21 @@ class RegisteredEvent
     public $source;
 
     /**
+     * Ip used to register
+     */
+    public $ip;
+
+    /**
      * Create a new event instance.
      *
      * @param  \Illuminate\Contracts\Auth\Authenticatable $user
      *
      * @return void
      */
-    public function __construct( $user, $source )
+    public function __construct( $user, $source, $ip )
     {
         $this->user = $user;
         $this->source = $source;
+        $this->ip = $ip;
     }
 }

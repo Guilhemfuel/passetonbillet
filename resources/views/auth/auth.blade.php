@@ -31,21 +31,18 @@
             <div class="content">
                 <a href="{{route('home')}}"><img class="logo mx-auto" src="{{secure_asset('img/logo.png')}}"></a>
                 @if(isset($source) && $source==\App\Http\Controllers\Auth\RegisterController::SOURCE_GUEST_OFFER)
-                    <p class="text-white text-center my-4">@lang('auth.common.source.buy')</p>
+                    <p class="text-white text-center mt-4">@lang('auth.common.source.buy')</p>
                 @elseif(isset($source) && $source==\App\Http\Controllers\Auth\RegisterController::SOURCE_GUEST_SELL)
-                    <p class="text-white text-center my-4">@lang('auth.common.source.sell')</p>
+                    <p class="text-white text-center mt-4">@lang('auth.common.source.sell')</p>
                 @elseif(isset($source) && $source==\App\Http\Controllers\Auth\RegisterController::SOURCE_FB_GROUP)
-                    <h4 class="text-white text-center my-4 fb-title">{!! __('auth.common.source.fb_title') !!}
+                    <h4 class="text-white text-center mt-4 fb-title">{!! __('auth.common.source.fb_title') !!}
                     </h4>
-                    <p class="text-white text-center my-4">{!! __('auth.common.source.fb') !!}</p>
-                    <div class="actions btn-rack mt-4">
-                        <a href="{{route('help.page')}}" class="btn btn-outline-white">
-                            @lang('auth.common.help')
+                    <p class="text-white text-center mt-4 text-fb">{!! __('auth.common.source.fb') !!}</p>
+                    <p class="mt-5 text-center help-link">
+                        <a href="{{route('help.page')}}" class="text-white">
+                            @lang('auth.common.help_link')
                         </a>
-                        <button class="btn btn-white" @click.prevent="openCrisp()">
-                            @lang('auth.common.contact')
-                        </button>
-                    </div>
+                    </p>
                 @else
                     <div class="actions btn-rack mt-4">
                         <a href="{{route('help.page')}}" class="btn btn-outline-white">

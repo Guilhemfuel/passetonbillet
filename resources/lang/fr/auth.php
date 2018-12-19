@@ -18,6 +18,7 @@ return [
     'common'       => [
         'contact' => 'Contact',
         'help'  => 'Aide',
+        'help_link' => 'Une question? Besoin d\'aide? Clickez-ici !',
 
         'source' => [
             'sell' => 'Pour revendre un billet de train sur notre site, vous devez vous indentifier et créer un compte. La sécurité et la verification des billets sont essentielles sur PasseTonBillet.fr. ',

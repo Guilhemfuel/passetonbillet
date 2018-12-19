@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\EurostarAPI\Eurostar as EurostarSrc;
 use App\Exceptions\PasseTonBilletException;
+use App\Facades\AppHelper;
 use App\Facades\Eurostar;
 use App\Http\Resources\DiscussionCollectionResource;
 use App\Http\Resources\DiscussionLastMessageResource;
@@ -188,6 +189,9 @@ class PageController extends Controller
                 'user_id' => \Vinkla\Hashids\Facades\Hashids::encode( $ticket->user_id ),
             ] );
         } else {
+            session( [ 'register-source' => 'ticket-preview' ] );
+            AppHelper::pageStat('register','ticket-preview');
+
             return view( 'auth.auth_ticket', [
                 'type'      => 'register',
                 'ticket'    => new TicketRessource( $ticket ),

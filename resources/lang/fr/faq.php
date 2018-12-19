@@ -9,7 +9,7 @@ return [
     */
 
 
-    'title'   => 'Help',
+    'title'   => 'Aide',
     'questions' => [
         [
             'title' => 'Comment acheter un billet ?',

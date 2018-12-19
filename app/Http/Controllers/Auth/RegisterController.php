@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Events\RegisteredEvent;
+use App\Facades\AppHelper;
 use App\Models\Statistic;
 use App\Notifications\WelcomeNotification;
 use App\User;
@@ -32,6 +33,7 @@ class RegisterController extends Controller
     const SOURCE_GUEST_SELL = 'guest-sell';
     const SOURCE_GUEST_OFFER = 'guest-offer';
     const SOURCE_FB_GROUP = 'group-fb';
+    const SOURCE_TICKET_PREVIEW = 'ticket-preview';
 
     use RegistersUsers;
 
@@ -77,7 +79,8 @@ class RegisterController extends Controller
         $possibleSources = [
             self::SOURCE_GUEST_SELL,
             self::SOURCE_GUEST_OFFER,
-            self::SOURCE_FB_GROUP
+            self::SOURCE_FB_GROUP,
+            self::SOURCE_TICKET_PREVIEW
         ];
 
         $source = null;
@@ -85,6 +88,9 @@ class RegisterController extends Controller
         if ( $request->has( 'source' ) && in_array( $request->source, $possibleSources ) ) {
             $source = $request->source;
             session( [ 'register-source' => $request->source ] );
+            AppHelper::pageStat('register',$source);
+        } else {
+            AppHelper::pageStat('register');
         }
 
         return view( 'auth.auth', [ 'type' => 'register', 'source' => $source ] );
@@ -176,7 +182,7 @@ class RegisterController extends Controller
 
         // Registered event triggered (used for email verification, logs...)
         $source = session()->pull('register-source', null);
-        event( new RegisteredEvent( $user, $source ) );
+        event( new RegisteredEvent( $user, $source, $request->ip() ) );
 
         return $this->registered( $request, $user );
     }
@@ -367,7 +373,7 @@ class RegisterController extends Controller
 
         // Registered event triggered (used for email verification...)
         $source = session()->pull('register-source', null);
-        event( new RegisteredEvent( $user, $source ) );
+        event( new RegisteredEvent( $user, $source, $request->ip() ) );
 
         flash()->success( __( 'auth.social.success' ) );
 

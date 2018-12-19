@@ -18,6 +18,7 @@ return [
     'common'       => [
         'contact' => 'Contact us',
         'help'    => 'Help',
+        'help_link' => 'A question? Need help? Click here !',
 
         'source' => [
             'sell'     => 'You must create an account before selling a ticket on our website. Safety and ticket verification are very important on PasseTonBillet.fr.',
@@ -78,7 +79,7 @@ return [
     ],
     'social'       => [
         'last_step_pwd' => 'One last step before you can access your account: verify your information ands set a password!<br><br>
-          Please make sure that your <b>real name</b> is below as it will be used to check your tickets. We will also <b>send your notifications to the email address</b> filled below !',
+          Please make sure that your <b>real name</b> is below as it will be used to check your tickets. We will also send your notifications to the email address ',
         'email_used'    => 'A user is already using this email address. If it\'s you please login using your email and password.',
         'success'       => 'Welcome! Last step to confirm your account: Your <b>check your emails</b> and <b>click the link to activate it</b>.'
     ]

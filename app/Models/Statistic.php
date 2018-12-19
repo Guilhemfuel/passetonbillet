@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Statistic extends Model
 {
+
+    const PAGE_STAT_ACTION = 'page_stat';
+
     use SoftDeletes;
 
     protected $dates = [ 'deleted_at', 'created_at' ];
