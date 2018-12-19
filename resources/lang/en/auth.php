@@ -16,12 +16,14 @@ return [
     'failed'       => 'These credentials do not match our records.',
     'throttle'     => 'Too many login attempts. Please try again in :seconds seconds.',
     'common'       => [
-        'about'   => 'About us',
         'contact' => 'Contact us',
+        'help'    => 'Help',
 
         'source' => [
-            'sell' => 'You must create an account before selling a ticket on our website. Safety and ticket verification are very important on PasseTonBillet.fr.',
-            'buy'  => 'You must create an account before buying a ticket on our website. Safety and ticket verification are very important on PasseTonBillet.fr.',
+            'sell'     => 'You must create an account before selling a ticket on our website. Safety and ticket verification are very important on PasseTonBillet.fr.',
+            'buy'      => 'You must create an account before buying a ticket on our website. Safety and ticket verification are very important on PasseTonBillet.fr.',
+            'fb_title' => '100% Free, Fast and Secure',
+            'fb'       => 'Put your ticket for sale <b>now</b> on PasseTonBillet.fr and receive a <b>personalized link</b> to share it on facebook groups !'
         ]
     ],
     'register'     => [
@@ -75,7 +77,8 @@ return [
         'submit' => 'Save new password'
     ],
     'social'       => [
-        'last_step_pwd' => 'One last step before you can access your account: set a password!',
+        'last_step_pwd' => 'One last step before you can access your account: verify your information ands set a password!<br><br>
+          Please make sure that your <b>real name</b> is below as it will be used to check your tickets. We will also <b>send your notifications to the email address</b> filled below !',
         'email_used'    => 'A user is already using this email address. If it\'s you please login using your email and password.',
         'success'       => 'Welcome! Last step to confirm your account: Your <b>check your emails</b> and <b>click the link to activate it</b>.'
     ]

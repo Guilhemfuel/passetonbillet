@@ -26,19 +26,32 @@
 @section('content')
 
     <div class="row auth">
-        <div class="col-12 col-sm-6 left-panel">
+        <div class="col-12 col-sm-6 left-panel
+            {{$source==\App\Http\Controllers\Auth\RegisterController::SOURCE_FB_GROUP?'fb-register':''}}">
             <div class="content">
                 <a href="{{route('home')}}"><img class="logo mx-auto" src="{{secure_asset('img/logo.png')}}"></a>
                 @if(isset($source) && $source==\App\Http\Controllers\Auth\RegisterController::SOURCE_GUEST_OFFER)
                     <p class="text-white text-center my-4">@lang('auth.common.source.buy')</p>
                 @elseif(isset($source) && $source==\App\Http\Controllers\Auth\RegisterController::SOURCE_GUEST_SELL)
                     <p class="text-white text-center my-4">@lang('auth.common.source.sell')</p>
+                @elseif(isset($source) && $source==\App\Http\Controllers\Auth\RegisterController::SOURCE_FB_GROUP)
+                    <h4 class="text-white text-center my-4 fb-title">{!! __('auth.common.source.fb_title') !!}
+                    </h4>
+                    <p class="text-white text-center my-4">{!! __('auth.common.source.fb') !!}</p>
+                    <div class="actions btn-rack mt-4">
+                        <a href="{{route('help.page')}}" class="btn btn-outline-white">
+                            @lang('auth.common.help')
+                        </a>
+                        <button class="btn btn-white" @click.prevent="openCrisp()">
+                            @lang('auth.common.contact')
+                        </button>
+                    </div>
                 @else
                     <div class="actions btn-rack mt-4">
-                        <a href="{{route('about.page')}}" class="btn btn-outline-white">
-                            @lang('auth.common.about')
+                        <a href="{{route('help.page')}}" class="btn btn-outline-white">
+                            @lang('auth.common.help')
                         </a>
-                        <button class="btn btn-white" onclick="$crisp.push(['do', 'chat:open'])">
+                        <button class="btn btn-white" @click.prevent="openCrisp()">
                             @lang('auth.common.contact')
                         </button>
                     </div>
@@ -66,6 +79,7 @@
                           :old="child.auth.old"
                           :token="child.auth.token"
                           :default-email="child.auth.defaultEmail"
+                          source="{{$source}}"
                     ></auth>
                 </div>
             </div>

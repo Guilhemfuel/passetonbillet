@@ -2,7 +2,7 @@
     <div>
         <img class="profile-picture rounded-circle mx-auto" :src="user.avatar">
         <h2 class="text-center txt-primary mt-2">Hello {{user.user.first_name}}!</h2>
-        <p class="mt-3">{{langAuth.social.last_step_pwd}}</p>
+        <p class="mt-3" v-html="langAuth.social.last_step_pwd"></p>
         <form role="form"
               method="POST"
               id="pwd-form"
@@ -11,6 +11,23 @@
               ref="form"
         >
             <input type="hidden" name="_token" :value="csrf"/>
+
+            <input-text type="text"
+                        :default-value="user.user.first_name"
+                        validation="required"
+                        name="first_name"
+                        :label="trans('auth.register.first_name')"
+                        :placeholder="trans('auth.register.first_name')">
+            </input-text>
+
+            <input-text type="text"
+                        :default-value="user.user.last_name"
+                        validation="required"
+                        name="last_name"
+                        :label="trans('auth.register.last_name')"
+                        :placeholder="trans('auth.register.last_name')">
+
+            </input-text>
 
             <input-text type="email"
                         :default-value="user.user.email"

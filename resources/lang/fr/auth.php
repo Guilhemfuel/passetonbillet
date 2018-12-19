@@ -16,12 +16,14 @@ return [
     'failed'       => 'Aucun utilisateur trouvé avec ces identifiants.',
     'throttle'     => 'Trop de tentatives de connexion. Veuillez essayer de nouveau dans :seconds secondes.',
     'common'       => [
-        'about' => 'À propos',
         'contact' => 'Contact',
+        'help'  => 'Aide',
 
         'source' => [
             'sell' => 'Pour revendre un billet de train sur notre site, vous devez vous indentifier et créer un compte. La sécurité et la verification des billets sont essentielles sur PasseTonBillet.fr. ',
             'buy'  => 'Pour acheter un billet de train sur notre site, vous devez vous indentifier et créer un compte. La sécurité et la verification des billets sont essentielles sur PasseTonBillet.fr. ',
+            'fb_title' => '100% Gratuit, Efficace et Sécurisé',
+            'fb' => 'Mettez votre billet en vente sur PasseTonBillet.fr <b>maintenant</b> et recevez un <b>lien personalisé</b> pour le partager sur les groupes facebook !'
         ]
     ],
     'register'     => [
@@ -75,7 +77,8 @@ return [
         'submit' => 'Sauver le mot de passe'
     ],
     'social'       => [
-        'last_step_pwd' => 'Une dernière petite étape: créer votre mot de passe pour confirmer votre inscription.',
+        'last_step_pwd' => 'Une dernière petite étape: vérifiez vos informations et créez votre mot de passe pour confirmer votre inscription ! <br><br>
+        Merci de bien mettre <b>votre nom réel</b> ci-dessous, car c\'est celui que nous utiliserons pour vérifier vos billets. Nous enverrons également vos <b>notifications à l\'addresse email</b> renseignée ci-dessous !',
         'email_used'    => 'Cette addresse email est déjà utilisée. Si c\'est vous, utilisez votre email et votre mot de passe pour vous connecter..',
         'success'       => 'Bienvenue parmi nous! Dernière étape: <b>veuillez consulter vos mails</b> et cliquer sur le <b>lien d\'activation</b> que nous venons de vous envoyer.
                                      <br>Pensez à vérifier dans vos spams!'

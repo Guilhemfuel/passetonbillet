@@ -92,6 +92,10 @@ return [
         'modal_sell' => [
             'part_1' => 'Vous vous apprêtez à marquer ce billet comme vendu à',
             'part_2' => 'Ne valider qu\'une fois le paiement reçu et le billet envoyé',
+            'important'=> [
+                'title' => 'IMPORTANT',
+                'text' => 'Merci de bien vérifier que vous avez bien reçu le paiement de l’acheteur sur votre compte correspondant et de ne pas vous contenter d’une capture d’écran de confirmation ou d’un email Paypal envoyé par l’acheteur.'
+            ]
         ]
     ],
 
@@ -115,7 +119,7 @@ return [
             'sell' => [
                 'first_part'  => 'Vous êtes sur le point de marqué ce ticket comme vendu.',
                 'secund_part' => 'Veuillez vous assurer de ne cliquer ici uniquement après avoir reçu le paiement de l\'acheteur.',
-                'third_part'  => 'va automatiquement recevoir votre billet.'
+                'third_part'  => 'va automatiquement recevoir votre billet.',
             ]
         ]
     ]

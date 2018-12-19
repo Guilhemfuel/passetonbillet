@@ -78,6 +78,9 @@ Vue.component('ticket-mini', require('./components/PTB/Ticket-Mini.vue'));
 Vue.component('auth', require('./components/Pages/Auth/Auth.vue'));
 Vue.component('social-password', require('./components/Pages/Auth/SocialPassword.vue'));
 
+Vue.component('help', require('./components/Pages/Help/Faq.vue'));
+
+
 Vue.component('sell-ticket', require('./components/Pages/Tickets/Sell.vue'));
 Vue.component('manual-sell-ticket', require('./components/Pages/Tickets/Components/ManualSell.vue'));
 

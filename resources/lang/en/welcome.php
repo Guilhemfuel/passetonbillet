@@ -76,20 +76,6 @@ return [
         ],
         'more_info' => 'More info'
     ],
-    'FAQ'        => [
-        'title'   => 'WE ANSWERS YOUR QUESTIONS',
-        'Q1'      => 'Why is PasseTonBillet.fr safer than its competitors ?',
-        'A1'      => 'Answer to the question',
-        'Q2'      => 'Why is PasseTonBillet.fr safer than its competitors ?',
-        'A2'      => 'Answer to the question',
-        'Q3'      => 'Why is PasseTonBillet.fr safer than its competitors ?',
-        'A3'      => 'Answer to the question',
-        'Q4'      => 'Why is PasseTonBillet.fr safer than its competitors ?',
-        'A4'      => 'Answer to the question',
-        'buttons' => [
-            'seemore' => 'Go to help center',
-        ],
-    ],
     'footer'     => [
         'about'      => 'About us',
         'help'       => 'Help',

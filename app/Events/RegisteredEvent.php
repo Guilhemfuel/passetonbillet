@@ -17,13 +17,20 @@ class RegisteredEvent
     public $user;
 
     /**
+     * Source of register.
+     */
+    public $source;
+
+    /**
      * Create a new event instance.
      *
-     * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
+     * @param  \Illuminate\Contracts\Auth\Authenticatable $user
+     *
      * @return void
      */
-    public function __construct($user)
+    public function __construct( $user, $source )
     {
         $this->user = $user;
+        $this->source = $source;
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Events\RegisteredEvent;
+use App\Models\Statistic;
 use App\Notifications\WelcomeNotification;
 use App\User;
 use App\Http\Controllers\Controller;
@@ -30,6 +31,7 @@ class RegisterController extends Controller
 
     const SOURCE_GUEST_SELL = 'guest-sell';
     const SOURCE_GUEST_OFFER = 'guest-offer';
+    const SOURCE_FB_GROUP = 'group-fb';
 
     use RegistersUsers;
 
@@ -51,6 +53,21 @@ class RegisterController extends Controller
     }
 
     /**
+     * Get redirect route after login depending on user source or other attributes.
+     */
+    public function redirectRoute( $user )
+    {
+//        if ( session()->has( 'register-source' ) ) {
+//            $source = session()->get('register-source');
+//        } else {
+//            $source = $user->stats()->where('action','register')->first();
+//            $source = $source->data['source'];
+//        }
+
+        return $this->redirectRoute;
+    }
+
+    /**
      * Show the application registration form.
      *
      * @return \Illuminate\Http\Response
@@ -59,7 +76,8 @@ class RegisterController extends Controller
     {
         $possibleSources = [
             self::SOURCE_GUEST_SELL,
-            self::SOURCE_GUEST_OFFER
+            self::SOURCE_GUEST_OFFER,
+            self::SOURCE_FB_GROUP
         ];
 
         $source = null;
@@ -96,14 +114,16 @@ class RegisterController extends Controller
     /**
      * Only accepts requests from Europe
      */
-    public function checkCountryOfRequest(Request $request) {
-        $information = geoip($request->ip());
+    public function checkCountryOfRequest( Request $request )
+    {
+        $information = geoip( $request->ip() );
 
-        $forbiddenCountries = ['Ivory Coast'];
+        $forbiddenCountries = [ 'Ivory Coast' ];
 
-        if ( in_array( $information['country'], $forbiddenCountries  ) ) {
+        if ( in_array( $information['country'], $forbiddenCountries ) ) {
             return false;
         }
+
         return true;
     }
 
@@ -146,15 +166,17 @@ class RegisterController extends Controller
         $this->validator( $request->all() )->validate();
 
         // Check location of IP for scammers
-        if (!$this->checkCountryOfRequest($request)) {
-            flash(__('auth.register.deny_location'))->error();
-            return redirect()->route('home');
+        if ( ! $this->checkCountryOfRequest( $request ) ) {
+            flash( __( 'auth.register.deny_location' ) )->error();
+
+            return redirect()->route( 'home' );
         }
 
         $user = $this->create( $request->all() );
 
-        // Registered event triggered (used for email verification...)
-        event( new RegisteredEvent( $user ) );
+        // Registered event triggered (used for email verification, logs...)
+        $source = session()->pull('register-source', null);
+        event( new RegisteredEvent( $user, $source ) );
 
         return $this->registered( $request, $user );
     }
@@ -173,7 +195,7 @@ class RegisterController extends Controller
 
         flash( __( 'auth.register.success_email_redirect' ) )->success()->important();
 
-        return redirect()->route( $this->redirectRoute );
+        return redirect()->route( $this->redirectRoute( $user ) );
     }
 
     /**
@@ -200,7 +222,7 @@ class RegisterController extends Controller
         if ( $user->save() ) {
 
             // Send welcome email to user
-            $user->notify( (new WelcomeNotification() )->delay(now()->addMinutes(5)));
+            $user->notify( ( new WelcomeNotification() )->delay( now()->addMinutes( 5 ) ) );
 
             flash( __( 'auth.register.account_confirmed' ) )->success()->important();
 
@@ -254,10 +276,10 @@ class RegisterController extends Controller
 
         $user = User::where( 'fb_id', $providerUser['id'] )->first();
         if ( $user ) {
-            if  ( ($user->email_verified == true && $user->status == User::STATUS_USER) || $user->status == User::STATUS_ADMIN) {
+            if ( ( $user->email_verified == true && $user->status == User::STATUS_USER ) || $user->status == User::STATUS_ADMIN ) {
                 auth()->login( $user, true );
             } else {
-                flash()->error(trans('auth.auth.not_confirmed'));
+                flash()->error( trans( 'auth.auth.not_confirmed' ) );
             }
 
             return redirect()->route( 'home' );
@@ -285,8 +307,11 @@ class RegisterController extends Controller
      */
     public function fb_confirm_inscription( Request $request )
     {
+
         // If validation error redirect to register page
         $validator = Validator::make( $request->all(), [
+            'first_name' => 'required',
+            'last_name' => 'required',
             'password' => 'required|min:8|confirmed',
             'email'    => 'required|email',
             'cgu'      => 'required|accepted'
@@ -316,15 +341,16 @@ class RegisterController extends Controller
         }
 
         // Check location of IP for scammers
-        if (!$this->checkCountryOfRequest($request)) {
-            flash(__('auth.register.deny_location'))->error();
-            return redirect()->route('home');
+        if ( ! $this->checkCountryOfRequest( $request ) ) {
+            flash( __( 'auth.register.deny_location' ) )->error();
+
+            return redirect()->route( 'home' );
         }
 
         // Create user - now need for email account validation
         $user = User::make( [
-            'first_name' => $userData->user['first_name'],
-            'last_name'  => $userData->user['last_name'],
+            'first_name' => $request->get('first_name'),
+            'last_name'  => $request->get('last_name'),
             'birthdate'  => isset( $userData->user['birthday'] ) ? \AppHelper::dbDate( $userData->user['birthday'] ) : null,
             'language'   => strtoupper( session( 'applocale' ) ),
             'gender'     => isset( $userData->user['gender'] ) ? ( $userData->user['gender'] == 'male' ? 1 : 0 ) : null,
@@ -338,8 +364,10 @@ class RegisterController extends Controller
         $user->fb_id = session()->pull( 'fb_user_id' );
         $user->save();
 
+
         // Registered event triggered (used for email verification...)
-        event( new RegisteredEvent( $user ) );
+        $source = session()->pull('register-source', null);
+        event( new RegisteredEvent( $user, $source ) );
 
         flash()->success( __( 'auth.social.success' ) );
 

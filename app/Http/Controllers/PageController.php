@@ -274,6 +274,14 @@ class PageController extends Controller
     }
 
     /**
+     * Display the help page
+     */
+    public function help()
+    {
+        return view( 'help.help' );
+    }
+
+    /**
      * Display the Terms page
      */
     public function cgu()

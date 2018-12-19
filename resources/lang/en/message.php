@@ -88,6 +88,10 @@ return [
         'modal_sell' => [
             'part_1' => 'You are about to mark this ticket as sold to',
             'part_2' => 'Make sure to click there, only once you received the payment and sent the ticket.',
+            'important'=> [
+                'title' => 'IMPORTANT',
+                'text' => 'Please you make sure you receive the funds on your account. A simple screenshot or a confirmation email is not enough!'
+            ]
         ],
 
     ],
@@ -112,7 +116,6 @@ return [
             'sell' => [
                 'first_part'  => 'You are about to mark this ticket as sold to',
                 'secund_part' => 'Make sure to click there only once you received the payment',
-                'third_part'  => 'will then automatically receive your ticket'
             ]
         ]
     ]

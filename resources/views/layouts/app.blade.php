@@ -76,6 +76,7 @@
             s.async = 1;
             d.getElementsByTagName("head")[0].appendChild(s);
         })();
+        $crisp.push(['do', 'chat:hide']);
     </script>
 
     @yield('head')
@@ -83,10 +84,10 @@
 
 <body>
 
-{{-- Facebook --}}
 <div id="fb-root"></div>
 <script>
-    window.fbAsyncInit = function() {
+    {{-- Facebook --}}
+        window.fbAsyncInit = function() {
         FB.init({
             appId      : '2544208985804652',
             cookie     : true,
@@ -158,7 +159,16 @@
             child: null,
             user: null,
             currentPage: null,
-            oldInput: {!! (old() != [] ? json_encode( old() ) : 'null') !!}
+            oldInput: {!! (old() != [] ? json_encode( old() ) : 'null') !!},
+        },
+        methods: {
+            openCrisp(e) {
+                window.$crisp.push(['do', 'chat:show']);
+                window.$crisp.push(['do', 'chat:open']);
+            },
+            closeCrisp(e) {
+                window.$crisp.push(['do', 'chat:hide']);
+            }
         },
         mounted: function() {
 

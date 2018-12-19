@@ -1,0 +1,26 @@
+
+#help-age {
+  .faq-component {
+    .search {
+      input {
+        border-radius: 20px;
+        padding-left: 15px;
+        padding-right: 15px;
+      }
+    }
+
+    .questions {
+      .question {
+
+        .title {
+          font-weight: 700;
+        }
+
+        background-color: $color-greybg;
+        padding: 15px;
+        border-radius: 14px;
+        margin-bottom: 14px;
+      }
+    }
+  }
+}

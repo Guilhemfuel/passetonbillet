@@ -252,50 +252,50 @@
 
             <home-buyer-seller-info></home-buyer-seller-info>
 
-            {{--<div class="section-FAQ" id="section-FAQ">--}}
-                {{--<h2 class="text-center text-warning title FAQ-title">{{__('welcome.FAQ.title')}}</h2>--}}
-                {{--<div>--}}
-                    {{--<input type="checkbox" class="read-more-state" id="post-1"/>--}}
-                    {{--<ul class="read-more-wrap">--}}
-                        {{--<label for="post-1" class="questions">--}}
-                            {{--<li class="question"> {{__('welcome.FAQ.Q1')}}</li>--}}
-                            {{--<li class="answer">{{__('welcome.FAQ.A1')}}</li>--}}
-                        {{--</label>--}}
-                    {{--</ul>--}}
-                {{--</div>--}}
-                {{--<div>--}}
-                    {{--<input type="checkbox" class="read-more-state" id="post-2"/>--}}
-                    {{--<ul class="read-more-wrap">--}}
-                        {{--<label for="post-2" class="questions">--}}
-                            {{--<li class="question"> {{__('welcome.FAQ.Q2')}}</li>--}}
-                            {{--<li class="answer">{{__('welcome.FAQ.A2')}}</li>--}}
-                        {{--</label>--}}
-                    {{--</ul>--}}
-                {{--</div>--}}
-                {{--<div>--}}
-                    {{--<input type="checkbox" class="read-more-state" id="post-3"/>--}}
-                    {{--<ul class="read-more-wrap">--}}
-                        {{--<label for="post-3" class="questions">--}}
-                            {{--<li class="question"> {{__('welcome.FAQ.Q3')}}</li>--}}
-                            {{--<li class="answer">{{__('welcome.FAQ.A3')}}</li>--}}
-                        {{--</label>--}}
-                    {{--</ul>--}}
-                {{--</div>--}}
-                {{--<div>--}}
-                    {{--<input type="checkbox" class="read-more-state" id="post-4"/>--}}
-                    {{--<ul class="read-more-wrap">--}}
-                        {{--<label for="post-4" class="questions">--}}
-                            {{--<li class="question"> {{__('welcome.FAQ.Q4')}}</li>--}}
-                            {{--<li class="answer">{{__('welcome.FAQ.A4')}}</li>--}}
-                        {{--</label>--}}
-                    {{--</ul>--}}
-                {{--</div>--}}
-                {{--<div class="button">--}}
-                    {{--<button id="btn-seemore" class="text-uppercase">--}}
-                        {{--{{__('welcome.FAQ.buttons.seemore')}}--}}
-                    {{--</button>--}}
-                {{--</div>--}}
-            {{--</div>--}}
+            <div class="section-FAQ" id="section-FAQ">
+                <h2 class="text-center text-warning title FAQ-title">{{__('welcome.FAQ.title')}}</h2>
+                <div>
+                    <input type="checkbox" class="read-more-state" id="post-1"/>
+                    <ul class="read-more-wrap">
+                        <label for="post-1" class="questions">
+                            <li class="question"> {{__('faq.questions')[0]['title']}}</li>
+                            <li class="answer">{!! __('faq.questions')[0]['content'] !!}</li>
+                        </label>
+                    </ul>
+                </div>
+                <div>
+                    <input type="checkbox" class="read-more-state" id="post-2"/>
+                    <ul class="read-more-wrap">
+                        <label for="post-2" class="questions">
+                            <li class="question"> {{__('faq.questions')[1]['title']}}</li>
+                            <li class="answer">{!! __('faq.questions')[1]['content'] !!}</li>
+                        </label>
+                    </ul>
+                </div>
+                <div>
+                    <input type="checkbox" class="read-more-state" id="post-3"/>
+                    <ul class="read-more-wrap">
+                        <label for="post-3" class="questions">
+                            <li class="question"> {{__('faq.questions')[2]['title']}}</li>
+                            <li class="answer">{!! __('faq.questions')[2]['content'] !!}</li>
+                        </label>
+                    </ul>
+                </div>
+                <div>
+                    <input type="checkbox" class="read-more-state" id="post-4"/>
+                    <ul class="read-more-wrap">
+                        <label for="post-4" class="questions">
+                            <li class="question"> {{__('faq.questions')[3]['title']}}</li>
+                            <li class="answer">{!! __('faq.questions')[3]['content'] !!}</li>
+                        </label>
+                    </ul>
+                </div>
+                <div class="button">
+                    <a id="btn-seemore" class="btn text-uppercase" href="{{route('help.page')}}">
+                        {{__('welcome.FAQ.buttons.seemore')}}
+                    </a>
+                </div>
+            </div>
 
             <div>
                 @include('components.footer')

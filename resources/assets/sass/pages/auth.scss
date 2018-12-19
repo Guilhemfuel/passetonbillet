@@ -71,6 +71,17 @@
     background-color: #4A4A4A;
     background-blend-mode: multiply;
     background-image: url('/img/bg/auth.jpg');
+
+    &.fb-register {
+      background-color: $color-facebook;
+      background-image: none;
+
+      .fb-title {
+        font-weight: 600;
+      }
+    }
+
+
   }
 
   // Inputs

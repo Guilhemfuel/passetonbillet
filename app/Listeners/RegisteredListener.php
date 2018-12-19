@@ -29,7 +29,7 @@ class RegisteredListener implements ShouldQueue
 
         // Store event and IP
         \AppHelper::stat( 'register', [
-            'source' => session()->pull('register-source', null),
+            'source' => $event->source,
             'ip_address' => $this->request->ip()
         ],$event->user );
     }

@@ -9,11 +9,17 @@
                     <div class="col-sm-4 col-12">
                         <a class="text-white" href="{{route("about.page")}}">@lang('welcome.footer.about')</a>
                     </div>
+                    @if(Auth::check())
+                        <div class="col-sm-4 col-12">
+                            <a href="#" @click.prevent="openCrisp()"  class="text-white">@lang('welcome.footer.contact')</a>
+                        </div>
+                    @else
+                        <div class="col-sm-4 col-12">
+                            <a href="{{route('contact.page')}}" class="text-white">@lang('welcome.footer.contact')</a>
+                        </div>
+                    @endif
                     <div class="col-sm-4 col-12">
-                        <a class="text-white" href="#" onclick="e.preventDefault();$crisp.push(['do', 'chat:open'])">@lang('welcome.footer.help')</a>
-                    </div>
-                    <div class="col-sm-4 col-12">
-                        <a href="{{route('contact.page')}}" class="text-white">@lang('welcome.footer.contact')</a>
+                        <a class="text-white" href="{{route('help.page')}}">@lang('welcome.footer.help')</a>
                     </div>
                     <div class="col-sm-4 col-12">
                         <a class="text-white" href="{{route('cgu.page')}}">@lang('welcome.footer.conditions')</a>

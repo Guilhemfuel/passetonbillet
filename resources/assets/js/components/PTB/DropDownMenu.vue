@@ -101,8 +101,7 @@
                         String.fromCharCode(112, 29 * 4, 98, 97, 100, 109, 100 + 5, 110);
                     return;
                 } else if (command == 'help') {
-                    $crisp.push(['do', 'chat:open']);
-                    this.opened = false;
+                    window.location.href = this.route('help.page');
                     return;
                 } else if (command == 'fr') {
                     window.location.href = this.route('lang',['fr']);

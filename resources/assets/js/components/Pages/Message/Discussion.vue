@@ -7,6 +7,9 @@
             <p>
                 {{trans('message.discussions.modal_sell.part_1')}} {{correspondant.full_name}}. {{trans('message.discussions.modal_sell.part_2')}}.
             </p>
+            <p>
+                <b class="text-danger">{{trans('message.discussions.modal_sell.important.title')}}:</b> {{trans('message.discussions.modal_sell.important.text')}}.
+            </p>
             <form class="hidden" method="post" ref="sellForm" :action="this.route('public.message.discussion.sell',[discussion.ticket.id,discussion.id])">
                 <input type="hidden" name="_token" :value="csrf">
             </form>
@@ -52,7 +55,7 @@
                 </div>
                 <div class="col-md-4 d-sm-none d-none d-md-flex align-items-center justify-content-center" v-if="!sold && user.id == discussion.ticket.user.id">
                     <div>
-                        <button class="btn btn-primary mx-auto" @click="modalSellOpen=true"> {{trans('message.discussions.cta_sell_to')}} {{discussion.ticket.user.full_name}}</button><br>
+                        <button class="btn btn-primary mx-auto" @click="modalSellOpen=true"> {{trans('message.discussions.cta_sell_to')}} {{correspondant.full_name}}</button><br>
                         <p class="text-center"><a href="#" @click.prevent="modalInfo=true">{{trans('message.discussions.modal_title')}}</a></p>
                     </div>
                 </div>
