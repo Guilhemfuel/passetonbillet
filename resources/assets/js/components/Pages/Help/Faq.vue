@@ -2,9 +2,9 @@
     <div class="container faq-component">
 
         <div class="row">
-            <div class="col-12 col-sm-10 col-md-8 mx-auto mt-3">
-                <div class="search">
-                    <input-text name="Search" :placeholder="trans('faq.search.placeholder')" v-model="search"></input-text>
+            <div class="col-12 col-sm-10 col-md-8 mx-auto">
+                <div class="search p-4">
+                    <input-text name="Search" :placeholder="trans('faq.search_placeholder')" v-model="search"></input-text>
                 </div>
             </div>
         </div>
@@ -15,7 +15,7 @@
                 <div class="questions">
                     <div class="question" v-for="question in filteredQuestions" v-if="filteredQuestions.length>0">
                         <h5 class="title" v-html=" question.title"></h5>
-                        <p class="content text-justify" v-html="question.content"></p>
+                        <div class="question-content text-justify" v-html="question.content"></div>
                     </div>
 
                     <p class="text-center" v-if="filteredQuestions.length == 0">

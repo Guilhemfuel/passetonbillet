@@ -10,10 +10,13 @@ return [
 
 
     'title'   => 'Help',
+    'no_result' => 'No result match your search.',
+    'no_answer' => 'You have not found an answer to your question? Click here to contact us !',
+    'search_placeholder' => 'What are you looking for ?',
     'questions' => [
         [
             'title' => 'Comment acheter un billet ?',
-            'content'=>'Pour acheter un billet, vous devez d’abord créer un compte, puis choisir le billet qui vous intéresse, soit en utilisant le moteur de recherche de la plateforme, soit en cliquant sur un lien direct de billet.<br> 
+            'content'=>'<div>Pour acheter un billet, vous devez d’abord créer un compte, puis choisir le billet qui vous intéresse, soit en utilisant le moteur de recherche de la plateforme, soit en cliquant sur un lien direct de billet.<br> 
             Une fois que vous avez trouvé un billet qui vous intéresse, vous devez faire une offre inférieure ou égale au prix de revente du billet. Le vendeur du billet va alors être automatiquement notifié, et pourra accepter ou refuser votre offre:
             <ul><li>S’il accepte votre offre, vous serez alors notifié par email et une conversation avec le vendeur sera alors automatiquement créée dans ‘Offres’ dans laquelle vous pourrez vous mettre d’accord sur le moyen de paiement et le type de remise qui vous convient le mieux à tous les deux. Une fois que le billet a été envoyé, vous devez impérativement demander au vendeur de cliquer sur ‘Transaction terminée’ pour retirer le billet de la vente et signaler qu’il vous a bien été vendu.</li><li>S’il refuse votre offre, vous pourrez alors faire une contre-offre à un prix supérieur à celui proposé lors de la première offre ou tout simplement choisir un autre billet. 
             </li></ul>',
