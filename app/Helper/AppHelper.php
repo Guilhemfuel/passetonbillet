@@ -73,18 +73,18 @@ class AppHelper
         if ( $stat ) {
             $data = $stat->data;
             $data['count']++;
-            $stat->data = $data;
+            $stat->data = json_encode($data);
             $stat->save();
 
             return $stat;
         } else {
             return Statistic::create( [
                 'action' => Statistic::PAGE_STAT_ACTION,
-                'data'   => [
+                'data'   => json_encode([
                     'page' => $page,
                     'source' => $source,
                     'count' => 1
-                ]
+                ])
             ] );
         }
     }
