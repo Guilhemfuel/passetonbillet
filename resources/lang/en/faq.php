@@ -9,42 +9,475 @@ return [
     */
 
 
-    'title'   => 'Help',
-    'no_result' => 'No result match your search.',
-    'no_answer' => 'You have not found an answer to your question? Click here to contact us !',
+    'title'              => 'Help',
+    'no_result'          => 'No result match your search.',
+    'no_answer'          => 'You have not found an answer to your question? Click here to contact us !',
     'search_placeholder' => 'What are you looking for ?',
-    'questions' => [
+    'questions'          => [
         [
-            'title' => 'Comment acheter un billet ?',
-            'content'=>'<div>Pour acheter un billet, vous devez d’abord créer un compte, puis choisir le billet qui vous intéresse, soit en utilisant le moteur de recherche de la plateforme, soit en cliquant sur un lien direct de billet.<br> 
-            Une fois que vous avez trouvé un billet qui vous intéresse, vous devez faire une offre inférieure ou égale au prix de revente du billet. Le vendeur du billet va alors être automatiquement notifié, et pourra accepter ou refuser votre offre:
-            <ul><li>S’il accepte votre offre, vous serez alors notifié par email et une conversation avec le vendeur sera alors automatiquement créée dans ‘Offres’ dans laquelle vous pourrez vous mettre d’accord sur le moyen de paiement et le type de remise qui vous convient le mieux à tous les deux. Une fois que le billet a été envoyé, vous devez impérativement demander au vendeur de cliquer sur ‘Transaction terminée’ pour retirer le billet de la vente et signaler qu’il vous a bien été vendu.</li><li>S’il refuse votre offre, vous pourrez alors faire une contre-offre à un prix supérieur à celui proposé lors de la première offre ou tout simplement choisir un autre billet. 
-            </li></ul>',
-            'tags' => ['acheter','buy','ticket','buy ticket','acheter un billet', 'offre']
+            'title'   => 'How to resell a ticket ?',
+            'content' => 'To resell a ticket, you must first create an account, then click on ‘Resell a ticket‘ at the top right of the screen. Simply enter the booking reference of your ticket and it will appear. If you have multiple tickets under the same reservation, you can choose the one you want to resell by differentiating them with the unique ticket number. Once you have chosen the ticket you want to resell, you just have to enter the price at which you want to resell it and click on "Resell". Once your ticket for sale, it is visible to all other users of PasseTonBillet.fr. These can make bids worth less or equal to the resale price. When you receive an offer from a potential buyer, you will then be notified immediately via email. You can then accept or decline the offer by going to ‘Offers‘.
+            <ul><li>If you accept an offer, a conversation with the potential buyer will then be automatically created in which you can agree on the means of payment that suits you best to both. Once you have received payment from the buyer, you must click on ‘Completed transaction‘ at the top of the conversation with the buyer to whom you sold the ticket. This will send the PDF of the single ticket directly to the buyer, and will remove your ticket from the sale. You will also be credited with a successful resale!
+                </li><li>If you reject an offer, you must choose the reason for which you did so and the buyer will be notified, he can make a counter-offer if the ticket is still available.</li></ul>
+            <br><b>IMPORTANT: Please check that you have received payment from the buyer on your account and not just a confirmation screenshot or a Paypal email sent by the buyer.</b>',
+            'tags'    => [
+                'revendre',
+                'vendre',
+                'ticket',
+                'sell ticket',
+                'vendre un billet',
+                'comment',
+                'offer',
+                'have to',
+                'dois-je'
+            ]
         ],
         [
-            'title' => 'Est-il possible de contacter un vendeur directement ?',
-            'content'=> 'Non, pour des raisons de sécurité, il n’est pas possible de contacter un vendeur directement. Le seul moyen de contacter un vendeur de la plateforme est dans les conversations créées dans ‘Offres’ une fois que le vendeur a accepté votre offre. Nous ne communiquerons en aucun cas les numéros de téléphone des vendeurs.',
-            'tags' => ['contacter','contact','seller','vendeur','contact directly', 'contacter directment']
-        ],
-//        [
-//            'title' => 'Comment créer une alerte pour un billet ?',
-//            'content'=> 'Pour créer une alerte pour un billet, il vous suffit d’effectuer une recherche pour le trajet de votre choix, puis de cliquer sur ‘Créer une alerte’ en haut des résultats de la recherche. Entrez votre adresse email ainsi que les critères de votre recherche, et l’alerte sera automatiquement créée. Vous serez alors immédiatement notifié par email lorsqu’un vendeur mettre en vente un billet qui correspond à ce que vous recherchez. Si vous avez déjà un compte, vous pouvez retrouver vos alertes et les modifier ou en créer de nouvelles en allant dans ‘Mes Alertes’.'
-//        ],
-        [
-            'title' => 'Je me suis connecté avec Facebook, mon nom de famille est incorrect. Comment puis-je le changer ?',
-            'content'=> 'Pas d’inquiétude, si vous avez déjà soumis une copie d’une pièce d’identité pour vérification votre nom, prénom et date de naissance seront automatiquement mis à jour avec vos informations officielles. Si ce n’est toujours pas le cas après vérification de votre profil, merci de nous contacter directement. Si vous n’avez pas encore soumis une copie d’une pièce d’identité pour vérification de votre compte, nous invitons à le faire en allant dans ‘Mon Profil’ > ‘Vérifier mon compte’.',
-            'tags' => ['facebook connect','connexion avec facebook','nom','surname','change surname', 'family name','change family name','nom de famille','changer nom de famille']
-        ],
-        [
-            'title' => 'Comment puis-je voir combien de billets un vendeur a vendu avec succès ?',
-            'content'=> 'Il vous suffit de cliquer sur son nom dans la partie inférieur (blanche) d’un billet. Vous aurez alors accès à toutes les informations disponibles sur le vendeur. ',
-            'tags' => ['seller','vendeur','combien de billets vendu','how many ticket sold','trust seller', 'fiabilité vendeur']
+            'title'   => 'Is it possible to contact a buyer directly ?',
+            'content' => 'No, for security reasons, it is not possible to contact a buyer directly. The only way to contact a buyer is in conversations created in ‘Offers‘ once you have accepted his offer. We will not communicate the phone numbers of buyers.',
+            'tags'    => [
+                'contacter',
+                'contact',
+                'seller',
+                'vendeur',
+                'contact directly',
+                'contacter directment',
+                'rapidement',
+                'rapide',
+                'quicker',
+                'quick'
+            ]
         ],
         [
-            'title' => 'Quels sont les moyens de paiement conseillés pour les transactions ?',
-            'content'=> 'Par soucis de sécurité et de rapidité nous conseillons d’utiliser Paypal, Revolut ou Lydia pour toutes les transactions. Les virements bancaires entre comptes ANGLAIS sont également conseillés. Les virement bancaires à partir d’un/vers un compte Français prennent plusieurs jours à arriver et sont donc déconseillés. ',
-            'tags' => ['payment','paiement','moyen de paiement','bank','banque', 'argent','money']
+            'title'   => 'I have several tickets under the same reservation, how can I choose which one I want to resell ?',
+            'content' => 'Each e-ticket generated by Eurostar, SNCF or Thalys has a unique number consisting of 9 digits (‘ticket number‘) present below the bar code. On PasseTonBillet.fr, when you enter the number of a reservation containing several tickets, all the tickets under this same reservation will appear. In the top right corner of each ticket you will see his ‘ticket number‘. So you can choose the specific ticket you want to resell.',
+            'tags'    => [
+                'choisir',
+                'choose',
+                'select',
+                'plusieurs',
+                'couple',
+                'AR',
+                'A/R',
+                'return',
+                'ticket',
+                'tickets',
+                'billets',
+                'billet',
+                'different',
+                'same',
+                'même',
+                'reservation',
+                'booking'
+            ]
+        ],
+        [
+            'title'   => 'What are the recommended payment methods for transactions ?',
+            'content' => 'For the sake of security and speed we recommend using Paypal, Revolut or Lydia for all transactions. Bank transfers between ENGLISH accounts are also advised. Bank transfers from / to a French account take several days to arrive and are therefore not recommended.',
+            'tags'    => [
+                'payment',
+                'paiement',
+                'moyen de paiement',
+                'bank',
+                'banque',
+                'argent',
+                'money',
+                'paypal',
+                'revolut',
+                'monzo',
+                'transfer',
+                'wire',
+                'virement',
+                'transaction'
+            ]
+        ],
+        [
+            'title'   => 'How to send my ticket to the buyer ?',
+            'content' => 'When you have received payment from a buyer for your ticket, simply click on ‘Completed Transaction‘ at the top of the conversation with this buyer. The buyer will automatically receive your single ticket, which will be immediately removed from the sale and all conversations with other buyers interested in this ticket will be terminated.
+            <br><b>IMPORTANT: Please check that you have received payment from the buyer on your account and not just a confirmation screenshot or a Paypal email sent by the buyer.</b>',
+            'tags'    => [
+                'send',
+                'envoyer',
+                'billet',
+                'ticket',
+                'transférer',
+                'transfer',
+                'mail',
+                'email',
+                'facebook'
+            ]
+        ],
+        [
+            'title'   => 'Why can’t I resell my ticket more than the original purchase price ?',
+            'content' => 'It is illegal to resell a train ticket while making a financial profit. In addition, the goal of PasseTonBillet.fr is to offer low price tickets for every day of the year. <br><b>IMPORTANT: It is totally illegal for a seller to charge a higher price for his ticket than the one he accepted the offer for. If you seller asks a buyer to pay a higher price than the price agreed on the offer accepted, whatever the reason (several offers for the same ticket, additional costs due to changes, etc ...), the seller will be immediately banned.</b>',
+            'tags'    => [
+                'prix',
+                'price',
+                'billet',
+                'ticket',
+                'money',
+                'argent',
+                'cher',
+                'supérieur',
+                'inférieur',
+                'higher',
+                'lower'
+            ]
+        ],
+        [
+            'title'   => 'Why the maximum resale price allowed does not take into account my extra charges due to a ticket modification beforehand ?',
+            'content' => 'The maximum legal resale price is the INITIAL purchase price. It does not take into account the various costs of changes that may occur once the ticket purchased.',
+            'tags'    => [
+                'prix',
+                'price',
+                'billet',
+                'ticket',
+                'money',
+                'argent',
+                'cher',
+                'supérieur',
+                'inférieur',
+                'higher',
+                'lower'
+            ]
+        ],
+        [
+            'title'   => 'I logged in with Facebook, my last name is incorrect so the system cannot find a ticket. How can I change it ?',
+            'content' => 'Do not worry, your name will automatically be updated when checking your account. If you have already submitted a copy of an ID for verification, please wait a few minutes, and your account will be verified. If this is still not the case after checking your profile, please contact us directly. If you have not yet submitted a copy of an ID to verify your account, we invite you to do so by going to ‘My Profile‘> ‘Check My Account‘.',
+            'tags'    => [ 'nom', 'name', 'Facebook', 'change', 'update', 'find', 'corriger', 'fix', 'famille', 'last' ]
+        ],
+        [
+            'title'   => 'Can I sell a round trip together ?',
+            'content' => 'No, to increase the chances of reselling your tickets, each ticket is sold separately on PasseTonBillet.fr.',
+            'tags'    => [
+                'AR',
+                'A/R',
+                'aller',
+                'retour',
+                'deux',
+                'billets',
+                'tickets',
+                'return',
+                'one way',
+                'simple',
+                'aller'
+            ]
+        ],
+        [
+            'title'   => 'Can I resell a ticket that is not under my name ?',
+            'content' => 'For security reasons, it is not possible to resell a ticket originally purchased under another name. If you want to sell a ticket belonging to one of your relatives and you have all his personal information and a copy of one of his ID, we invite you to create an account and manage the sale for one -this. If this is not the case, you can always put it on sale on our dedicated Facebook group which contains more than 50,000 buyers and resellers: https://www.facebook.com/groups/eurostarpassetonbillet/',
+            'tags'    => [
+                'nom',
+                'name',
+                'Facebook',
+                'change',
+                'update',
+                'find',
+                'corriger',
+                'fix',
+                'famille',
+                'last',
+                'pas',
+                'mon',
+                'not',
+                'different',
+                'mine',
+                'mien'
+            ]
+        ],
+        [
+            'title'   => 'Is it risky to share my bank details in a conversation ?',
+            'content' => 'No. Simply holding a bank account or an IBAN does not allow you to debit your account. Only credit it. The mere possession of this information is not worth a debit authorization.',
+            'tags'    => [
+                'RIB',
+                'bank',
+                'risky',
+                'risque',
+                'info',
+                'details',
+                'banque',
+                'IBAN',
+                'sort',
+                'code',
+                'account',
+                'number'
+            ]
+        ],
+        [
+            'title'   => 'How can I change the price of a ticket I‘m selling ?',
+            'content' => 'To change the price of a ticket you sell, go to ‘My Tickets‘, then click the ‘Edit‘ button on the ticket you want to change, then choose the new price at which you want to resell the ticket.',
+            'tags'    => [ 'modifier', 'edit', 'price', 'prix', 'billet', 'ticket', 'on', 'sale', 'en', 'vente' ]
+        ],
+        [
+            'title'   => 'How can I delete a ticket that I resell or indicate that it has been sold outside of PasseTonBillet.fr ?',
+            'content' => 'If a ticket you are reselling is no longer available, it is imperative that you delete it immediately. To delete it, go to ‘My Tickets‘, then click ‘Edit‘ on the ticket you want to delete, then click ‘Delete Ticket‘. Finally choose the reason why you want to remove it from PasseTonBillet.fr and it will be immediately removed from the sale.
+            <br><b>IMPORTANT: Do not delete a ticket that has been sold on PasseTonBillet.fr, you simply have to click on ‘Transaction Completed‘ at the top of the conversation with the buyer of this ticket and your ticket will be automatically removed from the sale and marked as sold.</b>',
+            'tags'    => [
+                'supprimer',
+                'delete',
+                'remove',
+                'cancel',
+                'sold',
+                'vendu',
+                'autre',
+                'part',
+                'somewhere',
+                'else'
+            ]
+        ],
+        [
+            'title'   => 'What is a direct ticket sharing link ?',
+            'content' => 'A direct link to ticket sharing, is an internet link created specifically for your ticket for sale and that allows you to share it easily on social networks or other sites. If a user is interested in your ticket, he will only have to click on the link and will be able to make you an offer directly for your ticket !',
+            'tags'    => [
+                'lien',
+                'directe',
+                'direct',
+                'link',
+                'share',
+                'partager',
+                'groupe',
+                'group',
+                'Facebook',
+                'send',
+                'envoyer',
+                'billet',
+                'ticket'
+            ]
+        ],
+        [
+            'title'   => 'How to get a direct share link for my ticket ?',
+            'content' => 'To get your direct share link for a ticket you are reselling, go to ‘My Tickets‘ and click on the ‘Share‘ button at the top left of the ticket you want to share. Then click on ‘Copy link‘ so you can paste it where you want it! We recommend posting it on all Eurostar ticket reselling Facebook groups to maximize your chances of reselling your ticket quickly!',
+            'tags'    => [
+                'lien',
+                'directe',
+                'direct',
+                'link',
+                'share',
+                'partager',
+                'groupe',
+                'group',
+                'Facebook',
+                'send',
+                'envoyer',
+                'billet',
+                'ticket'
+            ]
+        ],
+        [
+            'title'   => 'How to buy a ticket ?',
+            'content' => 'To purchase a ticket, you must first create an account, then choose the ticket that interests you, either by using the platform‘s search engine or by clicking on a direct ticket link. Once you have found a ticket that interests you, you must make an offer that is less than or equal to the resale price of the ticket. The seller of the ticket will then be automatically notified, and may accept or refuse your offer:
+            <ul><li>If he accepts your offer, you will be notified by email and a conversation with the seller will be automatically created in ‘Offers‘ in which you can agree on the payment method that suits you best to both. . Once the seller has received your payment, he will simply have to click on "Completed Transaction" at the top of your conversation and you will automatically receive his single ticket by email. The ticket will also be automatically withdrawn from the sale and the other conversations concerning this ticket will be finished.</li><li>If the seller refuses your offer, you can then make a counter-offer at a price higher than the one proposed at the first offer or just choose another ticket.</li></ul>
+            <br><b>IMPORTANT: bidding for a ticket does not commit you to having to buy it. So you can bid on multiple tickets at once.</b>',
+            'tags'    => [
+                'acheter',
+                'buy',
+                'ticket',
+                'buy ticket',
+                'acheter un billet',
+                'offre',
+                'offer',
+                'have to',
+                'dois-je'
+            ]
+        ],
+        [
+            'title'   => 'Is it possible to contact a seller directly ?',
+            'content' => 'No, for security reasons, it is not possible to contact a seller directly. The only way to contact a vendor of the platform is in conversations created in ‘Offers‘ once the seller has accepted your offer. We will not communicate the vendors‘ phone numbers',
+            'tags'    => [
+                'contacter',
+                'contact',
+                'seller',
+                'vendeur',
+                'contact directly',
+                'contacter directment',
+                'rapidement',
+                'rapide',
+                'quicker',
+                'quick'
+            ]
+        ],
+        [
+            'title'   => 'I signed in with Facebook, my last name is incorrect. How can I change it ?',
+            'content' => 'Do not worry, if you have already submitted a copy of an ID for verification your name, surname and date of birth will be automatically updated with your official information. If this is still not the case after checking your profile, please contact us directly.
+                If you have not yet submitted a copy of an ID to verify your account, we invite you to do so by going to ‘My Profile‘> ‘Check My Account‘.',
+            'tags'    => [
+                'facebook connect',
+                'connexion avec facebook',
+                'nom',
+                'surname',
+                'change surname',
+                'family name',
+                'change family name',
+                'nom de famille',
+                'changer nom de famille',
+                'changer nom',
+                'mauvais',
+                'incorrect'
+            ]
+        ],
+        [
+            'title'   => 'How can I see how many tickets a seller has sold successfully ?',
+            'content' => 'Just click on the seller‘s name in the lower (white) part of a ticket. You will then have access to all available information about the seller.',
+            'tags'    => [
+                'seller',
+                'vendeur',
+                'combien de billets vendu',
+                'how many ticket sold',
+                'trust seller',
+                'fiabilité vendeur',
+                'sécurité',
+                'safety',
+                'safe',
+                'check',
+                'vérifier'
+            ]
+        ],
+        [
+            'title'   => 'How to create an alert for a ticket ?',
+            'content' => 'To create an alert for a ticket, simply search for the desired trip and click ‘Create Alert‘ at the top of the search results. Enter your email address and the criteria for your search, and the alert will be automatically created. You will then be notified immediately by email when a seller sells a ticket that matches what you are looking for.
+                If you already have an account, you can find your alerts and edit or create new ones by going to ‘My Alerts‘.',
+            'tags'    => [
+                'créer',
+                'create',
+                'notify',
+                'notification',
+                'alert',
+                'alerte',
+                'alerts',
+                'alertes',
+                'notifié',
+                'recherche',
+                'introuvable',
+                'know',
+                'when',
+                'new',
+                'savoir',
+                'quand',
+                'nouveau',
+                'pas'
+            ]
+        ],
+        [
+            'title'   => 'How to receive my ticket ?',
+            'content' => 'When the seller has received your payment for his ticket, all you need to do is click on ‘Completed Transaction‘ at the top of the conversation with you. You will automatically receive your ticket by email and it will be immediately removed from the sale and all conversations with other buyers interested in this ticket will be terminated.
+                <br><b>IMPORTANT: Please check that you have received payment from the buyer on your account and not just a confirmation screenshot or a Paypal email sent by the buyer.',
+            'tags'    => [ 'recevoir', 'receive', 'get', 'my', 'ticket', 'mon', 'billet', 'mail', 'buy', 'acheter' ]
+        ],
+        [
+            'title'   => 'How can I be sure that tickets for sale are valid ?',
+            'content' => 'Each ticket sold on the PasseTonBillet.fr is pre-verified in the database of the ticket provider concerned (Eurostar, Thalys or SNCF). We verify that the ticket exists and is valid, as well as the fact that it has been purchased by the user who wishes to resell it on PasseTonBillet.fr.',
+            'tags'    => [
+                'certain',
+                'know',
+                'secure',
+                'security',
+                'safe',
+                'sécurisé',
+                'sécurisée',
+                'sécurité',
+                'valid',
+                'valide',
+                'billet',
+                'ticket'
+            ]
+        ],
+        [
+            'title'   => 'Why are profiles verified ?',
+            'content' => 'Each seller is subject to an identity verification, so that we can confirm that the information registered (name, first name and date of birth) are correct.',
+            'tags'    => [
+                'verification',
+                'vérification',
+                'check',
+                'ID',
+                'identity',
+                'identité',
+                'profil',
+                'compte',
+                'validé',
+                'valide',
+                'name'
+            ]
+        ],
+        [
+            'title'   => 'An unverified seller sells a ticket that interests me, should I make an offer ?',
+            'content' => 'We do not recommend making offers to unverified users as this means that we have not been able to verify the seller‘s information. However, you can see if the seller is being checked, and in this case there is no sign of suspicion and his profile should be checked in a few minutes.',
+            'tags'    => [
+                'verification',
+                'vérification',
+                'check',
+                'ID',
+                'identity',
+                'identité',
+                'profil',
+                'compte',
+                'validé',
+                'valide',
+                'name'
+            ]
+        ],
+        [
+            'title'   => 'How can I be sure that the seller will send me the ticket once he has received my payment ?',
+            'content' => 'We take the safety of our users very seriously. Once the payment received, the seller must imperatively click on the button ‘Transaction Completed‘, it will automatically send the ticket to the buyer. If a seller does not follow the rules of the ticket, we will ban it permanently, and report it to the police directly.',
+            'tags'    => [
+                'certain',
+                'for',
+                'sure',
+                'security',
+                'sécurité',
+                'recevoir',
+                'receive',
+                'send',
+                'envoyer',
+                'billet',
+                'ticket',
+                'seller',
+                'vendeur'
+            ]
+        ],
+        [
+            'title'   => 'Can I cancel or modify an offer already sent to a buyer ?',
+            'content' => 'No, once an offer is submitted, it can not be edited or canceled. But do not worry, sending an offer does not commit you to buy the ticket. Therefore if the seller accepts your offer, just tell him that you are no longer interested in his ticket in the conversation that will be automatically created.
+                If the seller refuses your offer, but you still want to buy the ticket, you can submit a new offer.',
+            'tags'    => [ 'annuler', 'cancel', 'edit', 'modifier', 'offre', 'offer' ]
+        ],
+        [
+            'title'   => 'Is the site really 100% free ?',
+            'content' => 'Yes ! The site is 100% free for all sellers and buyers, we take no charge during the entire resale process.',
+            'tags'    => [ 'gratuit', 'free', 'fees', 'frais', 'payant', 'pay', 'money' ]
+        ],
+        [
+            'title'   => 'How to report a suspicious user ?',
+            'content' => 'If you meet a suspicious user, thank you to let us know very quickly on the live chat or by email to contact@passetonbillet.fr. We will investigate as soon as possible to ensure the safety of our users.',
+            'tags'    => [
+                'signaler',
+                'report',
+                'scam',
+                'fraud',
+                'issue',
+                'fraudeur',
+                'fake',
+                'faux',
+                'problem',
+                'issue',
+                'problème'
+            ]
+        ],
+        [
+            'title'   => 'Why is it important to chat in conversations created by PasseTonBillet.fr ?',
+            'content' => 'It is imperative to discuss in conversations created by the platform so that we can access the exchanges between users and intervene in case of problems.',
+            'tags'    => [
+                'signaler',
+                'report',
+                'scam',
+                'fraud',
+                'issue',
+                'fraudeur',
+                'fake',
+                'faux',
+                'problem',
+                'issue',
+                'problème'
+            ]
         ],
     ]
 
