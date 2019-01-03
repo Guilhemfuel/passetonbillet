@@ -4,12 +4,12 @@
         <div class="selector">
             <button id="btn-buyer"
                     :class="{'text-uppercase':true,'selected':state=='buyer'}"
-                    @click.prevent="state='buyer';buttonClicked=true">
+                    @click.prevent="state='buyer'">
                 {{trans('welcome.howitworks.buttons.buyer')}}
             </button>
             <button id="btn-seller"
                     :class="{'text-uppercase':true,'selected':state=='seller'}"
-                    @click.prevent="state='seller';buttonClicked=true">
+                    @click.prevent="state='seller'">
                 {{trans('welcome.howitworks.buttons.seller')}}
             </button>
         </div>
@@ -98,23 +98,10 @@
         data() {
             return {
                 state: 'buyer',
-                buttonClicked: false
             }
         },
         mounted() {
-            let switchState = () => {
-                if (!this.buttonClicked) {
-                    if (this.state == 'buyer') {
-                        this.state = 'seller';
-                    } else {
-                        this.state = 'buyer';
-                    }
-                }
-            }
 
-            setInterval(function () {
-                switchState();
-            }, 5000);
         },
         computed: {},
         methods: {}

@@ -11,7 +11,7 @@ return [
 
     'title'              => 'Aide',
     'no_result'          => 'Aucun résultat ne correspond à votre recherche.',
-    'no_answer'          => 'Vous n\'avez pas trouvé une réponse à votre question ? Clickez ici pour nous contacter !',
+    'no_answer'          => 'Vous n\'avez pas trouvé une réponse à votre question ? Clicker ici pour nous contacter !',
     'search_placeholder' => 'Que cherchez-vous ?',
 
     'questions' => [
@@ -158,11 +158,6 @@ return [
                 'higher',
                 'lower'
             ]
-        ],
-        [
-            'title'   => 'Je me suis connecté avec Facebook, mon nom de famille est incorrect donc le système ne retrouve pas billet. Comment puis-je le changer ?',
-            'content' => 'Pas d’inquiétude, votre nom sera automatiquement mis à jour lors de la vérification de votre compte. Si vous avez déjà soumis une copie d’une pièce d’identité pour vérification, merci de patienter quelques minutes, et votre compte sera vérifié. Si ce n’est toujours pas le cas après vérification de votre profil, merci de nous contacter directement. Si vous n’avez pas encore soumis une copie d’une pièce d’identité pour vérification de votre compte, nous invitons à le faire en allant dans ‘Mon Profil’ > ‘Vérifier mon compte’.',
-            'tags'    => [ 'nom', 'name', 'Facebook', 'change', 'update', 'find', 'corriger', 'fix', 'famille', 'last' ]
         ],
         [
             'title'   => 'Puis-je revendre un aller retour ensemble ? ',

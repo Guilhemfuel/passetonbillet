@@ -53,6 +53,13 @@
             >
             </el-table-column>
             <el-table-column
+                    prop="provider"
+                    label="Provider"
+                    :filters="[{value:'sncf',text:'Sncf'},{value:'eurostar',text:'Eurostar'},{value:'thalys',text:'Thalys'}]"
+                    :filter-method="filterHandler"
+            >
+            </el-table-column>
+            <el-table-column
                     label="Price"
                     sortable
                     prop="price"

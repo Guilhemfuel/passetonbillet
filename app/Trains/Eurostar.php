@@ -208,17 +208,17 @@ class Eurostar
         // We first want to get the authorization code for this, as it has to be freshly emitted by eurostar
         $response = $this->client->request(
             'GET',
-            $this->retrieveURL . $ticket->eurostar_code . '/' . $ticket->buyer_name . '?locale=uk-en',
+            $this->retrieveURL . $ticket->provider_code . '/' . $ticket->buyer_name . '?locale=uk-en',
             [ 'http_errors' => false ]
         );
 
-        if ( ! isset( json_decode( (string) $response->getBody(), true )['booking'] ) ) {
-            throw new EurostarException( 'Nothing found with this name/code combination.' );
+        // Handle errors (if there isn't a trip from a station to another one)
+        if ( $response->getStatusCode() != 200 ) {
+            throw new EurostarException( 'Please try again later.' );
         }
 
-        // Handle errors (if there isn't a trip from a station to another one)
-        if ( $response->getStatusCode() == 500 ) {
-            throw new EurostarException( 'Please try again later.' );
+        if ( ! isset( json_decode( (string) $response->getBody(), true )['booking'] ) ) {
+            throw new EurostarException( 'Nothing found with this name/code combination.' );
         }
 
         $decoded = json_decode( (string) $response->getBody(), true )['booking'];
@@ -235,7 +235,7 @@ class Eurostar
             // Fill the number of ticket seen for each passenger
             isset($passengersIndex[$ticketData['passengerId']])?$passengersIndex[$ticketData['passengerId']]++:$passengersIndex[$ticketData['passengerId']]=0;
 
-            if ( $ticketData['ticketNumber'] == $ticket->eurostar_ticket_number ) {
+            if ( $ticketData['ticketNumber'] == $ticket->ticket_number ) {
                 $passengerId = $ticketData['passengerId'];
                 // Order of ticket for this passenger
                 $ticketIndex = $passengersIndex[$ticketData['passengerId']];
@@ -243,13 +243,14 @@ class Eurostar
         }
 
         // Now retrieve and save passbook url
-        $ticket->passbook_link = $decoded['etapBooking']['ticketsData']['passbook'][$ticket->eurostar_ticket_number];
-        $ticket->save();
+        // TODO: reactivate passbook
+        // $ticket->passbook_link = $decoded['etapBooking']['ticketsData']['passbook'][$ticket->ticket_number];
+        // $ticket->save();
 
         // Now that we retrieved passenger id, we simply need to do a post to retrieve and download the ticket
         $response = $this->client->request(
             'POST',
-            $this->pdfURL . $ticket->eurostar_code . '/passengers/' . $passengerId . '/tickets?pos=GBZXA',
+            $this->pdfURL . $ticket->provider_code . '/passengers/' . $passengerId . '/tickets?pos=GBZXA',
             [
                 'body' => \GuzzleHttp\json_encode([
                     "type"     => "PAH",
@@ -258,7 +259,7 @@ class Eurostar
                 ]),
                 'headers' => [
                     'Accept'        => 'application/json, text/plain, */*',
-                    'x-apikey'      => config( 'eurostar.eurostar.api_key_web' ),
+                    'x-apikey'      => config( 'trains.eurostar.api_key_web' ),
                     'Authorization' => $accessToken,
                     'cid'           => str_random( 20 ),
                     'User-Agent'    => null,

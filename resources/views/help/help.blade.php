@@ -8,7 +8,7 @@
             <div class="first-section">
                 <div class="fixed-content">
                     <div class="content">
-                        <div>
+                        <div class="container-fluid">
                             <h2 class="text-center text-white mt-5">@lang('faq.title')</h2>
 
                             <help></help>

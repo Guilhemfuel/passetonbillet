@@ -22,9 +22,7 @@ Route::redirect('/html/revendre-billet-train', '/', 301);
 // Home Page
 Route::get( '/', 'PageController@home' )->name( 'home' );
 
-Route::get( '/home', function(){
-    return redirect()->route('home');
-})->name( 'home-redirect' );
+Route::get( '/home', 'PageController@homeRedirect')->name('home-redirect' );
 
 // Lang
 Route::get( 'lang/lang-{locale}.js', 'LanguageController@getLangJsFile' )->name( 'lang.js' );
@@ -203,6 +201,11 @@ Route::blacklist(function() {
 
         Route::group( [ 'prefix' => 'logs' ], function () {
             Route::get( '/', 'Admin\HomeController@logs' )->name( 'logs.index' );
+        } );
+
+        Route::group( [ 'prefix' => 'warnings' ], function () {
+            Route::get( '/', 'Admin\WarningController@index' )->name( 'warnings.index' );
+            Route::get( '/done/{warning}', 'Admin\WarningController@markAsDone' )->name( 'warnings.mark_as_done' );
         } );
 
     } );

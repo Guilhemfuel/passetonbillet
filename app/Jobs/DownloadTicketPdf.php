@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Mail\ContactEmail;
 use App\Mail\ErrorEmail;
+use App\Models\AdminWarning;
 use App\User;
 use Exception;
 use App\Facades\Eurostar;
@@ -25,7 +26,7 @@ class DownloadTicketPdf implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(Ticket $ticket)
+    public function __construct( Ticket $ticket )
     {
         $this->ticket = $ticket;
     }
@@ -37,17 +38,36 @@ class DownloadTicketPdf implements ShouldQueue
      */
     public function handle()
     {
-        Eurostar::downloadAndReuploadPDF($this->ticket);
+        switch ( $this->ticket->provider ) {
+            case 'eurostar':
+                Eurostar::downloadAndReuploadPDF( $this->ticket );
+                break;
+            case 'sncf':
+                echo 'ok';
+                break;
+            case 'thalys':
+                echo 'ok';
+                break;
+        }
     }
 
     /**
      * The job failed to process.
      *
-     * @param  Exception  $exception
+     * @param  Exception $exception
+     *
      * @return void
      */
-    public function failed(Exception $exception)
+    public function failed( Exception $exception )
     {
-        \Mail::to(User::where('status',100)->first())->send(new ErrorEmail($this->ticket,'PDF Download failed'));
+        AdminWarning::create( [
+            'action' => AdminWarning::ACTION_PDF_DOWNLOAD_FAILED,
+            'link'   => route( 'tickets.edit', $this->ticket->id ),
+            'data'   => [
+                'Exception' => trim( $exception->getMessage() ),
+                'File'      => trim( $exception->getFile() ),
+                'Line'      => trim( $exception->getLine() )
+            ]
+        ] );
     }
 }

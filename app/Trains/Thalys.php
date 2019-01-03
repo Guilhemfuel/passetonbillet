@@ -335,4 +335,16 @@ class Thalys
         return $bestMatch;
     }
 
+    /**
+     * Download the ticket PDF from Thalys, and store it on S3
+     * Also update ticket with the passbook_link
+     */
+    public function downloadAndReuploadPDF( Ticket $ticket )
+    {
+
+
+        return true;
+
+    }
+
 }

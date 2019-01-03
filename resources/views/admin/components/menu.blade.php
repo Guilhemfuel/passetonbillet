@@ -53,6 +53,18 @@
     </a>
 </li>
 
+<?php
+    $awaitingWarning = \App\Models\AdminWarning::awaitingCount();
+?>
+
+<li  class="{{substr(Route::currentRouteName(),0,9) == 'warnings.'? 'active':'' }}">
+    <a href="{{route('warnings.index')}}">
+        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+        Warnings @if($awaitingWarning>0)<span class="badge badge-pill badge-light">{{$awaitingWarning}}</span>@endif
+    </a>
+</li>
+
+
 <li  class="{{substr(Route::currentRouteName(),0,5) == 'logs.'? 'active':'' }}">
     <a href="{{route('logs.index')}}">
         <i class="fa fa-terminal"></i>

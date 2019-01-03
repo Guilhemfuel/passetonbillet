@@ -12,11 +12,12 @@ return [
     ],
 
     'sncf' => [
-        'booking_url' => env('SNCF_BOOKING','https://en.oui.sncf/vsa/api/order/{country}/{name}/{booking_code}?source=vsa'),
+        'booking_url' => env( 'SNCF_BOOKING', 'https://en.oui.sncf/vsa/api/order/{country}/{name}/{booking_code}?source=vsa' ),
+        'pdf_url'     => env( 'SNCF_PDF', 'https://ebillet.voyages-sncf.com/ticketingServices/public/e-ticket/' )
     ],
 
     'thalys' => [
-        'base_url' => env('THALYS_BASE_URL','https://www.thalys.com/'),
-        'booking_url' => env('THALYS_BOOKING','https://www.thalys.com/?ajax=Services_PopinRecuperation'),
+        'base_url'    => env( 'THALYS_BASE_URL', 'https://www.thalys.com/' ),
+        'booking_url' => env( 'THALYS_BOOKING', 'https://www.thalys.com/?ajax=Services_PopinRecuperation' ),
     ]
 ];

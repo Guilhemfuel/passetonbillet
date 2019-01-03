@@ -152,8 +152,6 @@ class Ticket extends Model
 
         $trains = $request->orderBy( 'departure_time' )->get();
 
-//        dd($trains->pluck('number'));
-
         // Collect tickets for each of the trains
         $tickets = collect();
         foreach ( $trains as $train ) {
@@ -245,6 +243,10 @@ class Ticket extends Model
                 return 'selling';
             }
         }
+    }
+
+    public function getPdfFileNameAttribute(){
+        return \Vinkla\Hashids\Facades\Hashids::connection('file')->encode($this->id).md5($this->buyer_name.$this->eurostar_code).'.pdf';
     }
 
     public function getScamAttribute()

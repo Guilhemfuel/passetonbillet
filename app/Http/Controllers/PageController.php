@@ -47,6 +47,10 @@ class PageController extends Controller
         ]);
     }
 
+    public function homeRedirect() {
+        return redirect()->route('home');
+    }
+
     /**
      * ============================ Tickets Pages ============================
      * Sell
@@ -172,12 +176,11 @@ class PageController extends Controller
      */
     public function ticketUnique( Request $request, $ticket_id )
     {
-        $ticket = Ticket::findOrFail(
+        $ticket = Ticket::find(
             \Vinkla\Hashids\Facades\Hashids::decode( $ticket_id )[0]
         );
 
-        // We don't display past tickets
-        if ( $ticket->passed ) {
+        if (!$ticket || $ticket->passed) {
             flash( __( "tickets.errors.passed" ) )->error();
 
             return redirect( 'home' );

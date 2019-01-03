@@ -26,6 +26,7 @@ use App\Train;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Facades\Eurostar;
+use Mockery\Exception;
 
 class TicketController extends Controller
 {
@@ -198,13 +199,23 @@ class TicketController extends Controller
         $ticket->price = $request->price;
         $ticket->currency = $ticket->bought_currency;
         $ticket->user_notes = $request->notes;
-        $ticket->save();
+        // TODO: uncomment below
+//        $ticket->save();
+//
+//        // Log the IP of the seller
+//        AppHelper::stat( 'add_ticket', [
+//            'ticket_id' => $ticket->id,
+//            'ip_address' => $request->ip(),
+//        ] );
 
-        // Log the IP of the seller
-        AppHelper::stat( 'add_ticket', [
-            'ticket_id' => $ticket->id,
-            'ip_address' => $request->ip(),
-        ] );
+        // Now we want to generate the pdf
+        try {
+            Thalys::downloadAndReuploadPDF( $ticket );
+        } catch (\Exception $exception) {
+            dd($exception);
+        }
+
+//        DownloadTicketPdf::dispatch( $ticket );
 
         flash( __( 'tickets.sell.success' ) )->success()->important();
 

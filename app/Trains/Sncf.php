@@ -32,6 +32,7 @@ class Sncf
     public function __construct( Client $customClient = null )
     {
         $this->retrieveURL = config( 'trains.sncf.booking_url' );
+        $this->pdfURL = config( 'trains.sncf.pdf_url' );
         // wrap Guzzle Client in order to throw a EurostarException instead of a ClientException on a request
         $this->client = new class( $customClient )
         {
@@ -47,12 +48,12 @@ class Sncf
 
                 $this->client = new Client( [
                     'headers' => [
-                        'Content-type' => 'application/json',
-                        'Accept'       => 'application/json',
+                        'Content-type'    => 'application/json',
+                        'Accept'          => 'application/json',
                         'Accept-Language' => 'fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7',
-                        'Cache-Control' => 'no-cache',
-                        'Connection' => 'keep-alive',
-                        'Host' => 'en.oui.sncf'
+                        'Cache-Control'   => 'no-cache',
+                        'Connection'      => 'keep-alive',
+                        'Host'            => 'en.oui.sncf'
                     ],
                 ] );
             }
@@ -83,30 +84,30 @@ class Sncf
      */
     public function retrieveTicket( $lastName, $referenceNumber, $past = false )
     {
-        $referenceNumber = strtoupper($referenceNumber);
+        $referenceNumber = strtoupper( $referenceNumber );
 
-        $url = str_replace('{name}',$lastName,$this->retrieveURL);
-        $url = str_replace('{booking_code}',$referenceNumber,$url);
+        $url = str_replace( '{name}', $lastName, $this->retrieveURL );
+        $url = str_replace( '{booking_code}', $referenceNumber, $url );
 
         // Try for each version of SNCF website
-        foreach ( ['fr_FR','en_UK'] as $country){
+        foreach ( [ 'fr_FR', 'en_UK' ] as $country ) {
 
             $response = $this->client->request(
                 'GET',
-                str_replace('{country}',$country,$url),
+                str_replace( '{country}', $country, $url ),
                 [ 'http_errors' => false ]
             );
 
             $decoded = json_decode( (string) $response->getBody(), true );
 
-            if ( ! isset( $decoded['status'] ) || $decoded['status'] != "SUCCESS"  ) {
+            if ( ! isset( $decoded['status'] ) || $decoded['status'] != "SUCCESS" ) {
                 continue;
             } else {
                 break;
             }
         }
 
-        if ( ! isset( $decoded['status'] ) || $decoded['status'] != "SUCCESS"  ) {
+        if ( ! isset( $decoded['status'] ) || $decoded['status'] != "SUCCESS" ) {
             throw new SncfException( 'Nothing found with this name/code combination.' );
         }
 
@@ -116,11 +117,11 @@ class Sncf
         }
 
         $decoded = $decoded["order"];
-        $trainData = $decoded["trainFolders"][$referenceNumber];
+        $trainData = $decoded["trainFolders"][ $referenceNumber ];
 
         // Find tickets
         $transactionId = $trainData["transactionIds"][0];
-        $price = $decoded ["transactions"][$transactionId]["amount"];
+        $price = $decoded ["transactions"][ $transactionId ]["amount"];
         $buyerEmail = $decoded['initialContact']['emailAddress'];
         $currency = "EUR";
 
@@ -146,14 +147,14 @@ class Sncf
         // Check if correspondance
         $correspondance = false;
 
-        if (count($data["segments"]) > 2 ) {
+        if ( count( $data["segments"] ) > 2 ) {
             $correspondance = true;
         }
 
         $trainNumber = $data["segments"][0]['trainNumber'];
 
-        $departureDateTime = new Carbon($data["departureDate"]);
-        $arrivalDateTime = new Carbon($data["arrivalDate"]);
+        $departureDateTime = new Carbon( $data["departureDate"] );
+        $arrivalDateTime = new Carbon( $data["arrivalDate"] );
 
         $trainDepartureStation = null;
         $trainArrivalStation = null;
@@ -169,18 +170,18 @@ class Sncf
         }
 
         // You can sell ticket max two hours before train!
-        if ( $past || $departureDateTime->copy()->modify('-2 hour') >= new \DateTime() ) {
+        if ( $past || $departureDateTime->copy()->modify( '-2 hour' ) >= new \DateTime() ) {
             // We don't consider past tickets
 
             // Create train
             $train = Train::firstOrCreate(
                 [
                     'number'         => $trainNumber,
-                    'departure_date' => $departureDateTime->format(self::DATE_FORMAT_DB),
-                    'departure_time' => $departureDateTime->format(self::TIME_FORMAT_DB),
+                    'departure_date' => $departureDateTime->format( self::DATE_FORMAT_DB ),
+                    'departure_time' => $departureDateTime->format( self::TIME_FORMAT_DB ),
                     'departure_city' => $trainDepartureStation->id,
-                    'arrival_date'   => $arrivalDateTime->format(self::DATE_FORMAT_DB),
-                    'arrival_time'   => $arrivalDateTime->format(self::TIME_FORMAT_DB),
+                    'arrival_date'   => $arrivalDateTime->format( self::DATE_FORMAT_DB ),
+                    'arrival_time'   => $arrivalDateTime->format( self::TIME_FORMAT_DB ),
                     'arrival_city'   => $trainArrivalStation->id
                 ]
             );
@@ -209,6 +210,87 @@ class Sncf
         }
 
         return null;
+    }
+
+    /**
+     * Download the ticket PDF from sncf, and store it on S3
+     * Also update ticket with the passbook_link
+     */
+    public function downloadAndReuploadPDF( Ticket $ticket )
+    {
+
+        $referenceNumber = strtoupper( $ticket->provider_code );
+
+        $url = str_replace( '{name}', $ticket->buyer_name, $this->retrieveURL );
+        $url = str_replace( '{booking_code}', $referenceNumber, $url );
+
+        foreach ( [ 'fr_FR', 'en_UK' ] as $country ) {
+
+            $response = $this->client->request(
+                'GET',
+                str_replace( '{country}', $country, $url ),
+                [ 'http_errors' => false ]
+            );
+
+            $decoded = json_decode( (string) $response->getBody(), true );
+
+            if ( ! isset( $decoded['status'] ) || $decoded['status'] != "SUCCESS" ) {
+                continue;
+            } else {
+                break;
+            }
+        }
+
+        // Handle errors (if there isn't a trip from a station to another one)
+        if ( $response->getStatusCode() != 200 ) {
+            throw new SncfException( 'Please try again later.' );
+        }
+
+        if ( ! isset( $decoded['status'] ) || $decoded['status'] != "SUCCESS" ) {
+            throw new SncfException( 'Nothing found with this name/code combination.' );
+        }
+
+        $decoded = json_decode( (string) $response->getBody(), true );
+
+        // Find creation date and replace it
+        $creationDate = $decoded['order']['trainFolders'][ $referenceNumber ]['creationDate'];
+        $creationDate = str_replace( ':', '', $creationDate );
+        $creationDate = str_replace( '-', '', $creationDate );
+        $creationDate = str_replace( 'T', '', $creationDate );
+        $creationDate = substr($creationDate, 0, -2);
+
+        $data = [
+            "lang"    => "FR",
+            "pnrRefs" => [
+                [
+                    "pnrLocator"    => $referenceNumber,
+                    "creationDate"  => $creationDate,
+                    "passengerName" => strtoupper( $ticket->buyer_name )
+                ]
+            ],
+            "market"  => "VSC",
+            "caller"  => "VSA_FR"
+        ];
+
+        // Now that we retrieved passenger id, we simply need to do a post to retrieve and download the ticket
+        $response = $this->client->request(
+            'POST',
+            $this->pdfURL,
+            [
+                'body'    => json_encode( $data ),
+                'headers' => [
+                    'Accept'       => 'application/json, text/plain, */*',
+                    'Content-Type' => 'application/json',
+                    'Origin'       => 'https://www.oui.sncf',
+                    'Referer'      => ' https://www.oui.sncf/monvoyage',
+                ]
+            ]
+        );
+
+        \Storage::disk('s3')->put('pdf/tickets/'.$ticket->pdf_file_name, (string) $response->getBody());
+
+        return true;
+
     }
 
 }

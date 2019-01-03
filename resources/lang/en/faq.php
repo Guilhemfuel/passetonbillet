@@ -142,11 +142,6 @@ return [
             ]
         ],
         [
-            'title'   => 'I logged in with Facebook, my last name is incorrect so the system cannot find a ticket. How can I change it ?',
-            'content' => 'Do not worry, your name will automatically be updated when checking your account. If you have already submitted a copy of an ID for verification, please wait a few minutes, and your account will be verified. If this is still not the case after checking your profile, please contact us directly. If you have not yet submitted a copy of an ID to verify your account, we invite you to do so by going to ‘My Profile‘> ‘Check My Account‘.',
-            'tags'    => [ 'nom', 'name', 'Facebook', 'change', 'update', 'find', 'corriger', 'fix', 'famille', 'last' ]
-        ],
-        [
             'title'   => 'Can I sell a round trip together ?',
             'content' => 'No, to increase the chances of reselling your tickets, each ticket is sold separately on PasseTonBillet.fr.',
             'tags'    => [

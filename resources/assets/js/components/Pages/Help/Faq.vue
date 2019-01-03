@@ -9,7 +9,7 @@
             </div>
         </div>
 
-        <div class="row container-over-bg p-5 mt-3 ">
+        <div class="row container-over-bg p-0 pt-3 p-sm-3 p-md-5 pt-md-5  mt-3 ">
             <div class="col-12">
 
                 <div class="questions">
