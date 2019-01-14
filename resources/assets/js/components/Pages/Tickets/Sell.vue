@@ -2,10 +2,6 @@
     <div class="col-12">
         <!-- Input and ticket selecting -->
 
-        <manual-sell-ticket v-if="state=='manual'" v-on:automatic-retrieval="state='input'"></manual-sell-ticket>
-
-        <template v-if="state!='manual'">
-
             <h4 class="card-title mb-3" v-if="state=='input'">{{lang.sell.step_1}}</h4>
             <h4 class="card-title mb-3" v-else-if="state=='select'">{{lang.sell.step_2}}</h4>
             <h4 class="card-title mb-3" v-else-if="state=='searching'">{{lang.sell.searching}}</h4>
@@ -68,9 +64,6 @@
                                         {{lang.sell.search}}
                                     </button>
                                 </form>
-                                <div class="col-12 mt-2 text-center">
-                                    <a href="#" @click.prevent="manual()">{{trans('tickets.sell.manual.link')}}</a>
-                                </div>
                             </div>
                         </div>
 
@@ -170,7 +163,6 @@
                     <p class="text-center">{{lang.sell.preview}}</p>
                 </div>
             </div>
-        </template>
     </div>
 
 </template>
@@ -234,14 +226,23 @@
                                     }
                                 }
                             }, response => {
-                                this.manual(true);
+                                this.$notify({
+                                    title: this.trans('tickets.sell.manual.fail_retrieval.title'),
+                                    message: this.trans('tickets.sell.manual.fail_retrieval.message'),
+                                    type: 'warning',
+                                });
+                                this.state = 'input';
                                 return;
                             });
-                        this.loading = false;
 
                     }
                 }, response => {
-                    this.manual(true);
+                    this.$notify({
+                        title: this.trans('tickets.sell.manual.fail_retrieval.title'),
+                        message: this.trans('tickets.sell.manual.fail_retrieval.message'),
+                        type: 'warning',
+                    });
+                    this.state = 'input';
                 });
             },
             sell(id) {
@@ -251,21 +252,6 @@
                 this.selectedTicket.price = Math.floor(this.selectedTicket.bought_price);
                 this.state = 'selling_details';
             },
-            manual(message = false) {
-                if (message) {
-                    let notification = this.$notify({
-                        title: this.trans('tickets.sell.manual.fail_retrieval.title'),
-                        message: this.trans('tickets.sell.manual.fail_retrieval.message'),
-                        type: 'warning',
-                        onClick: () => {
-                            this.state = 'input';
-                            notification.close()
-                        }
-                    });
-
-                }
-                this.state = 'manual';
-            }
         }
     }
 </script>

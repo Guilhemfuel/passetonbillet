@@ -122,6 +122,68 @@ class TicketController extends BaseController
         return redirect()->route( $this->CRUDmodelName . '.edit', $ticket->id );
     }
 
+    /**
+     * Re-deownload a pdf for a ticket
+     *
+     * @param  \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function redownload( Request $request, $ticket_id )
+    {
+        $ticket = Ticket::find( $ticket_id );
+        if ( ! $ticket ) {
+            flash()->error( 'Ticket not found!' );
+
+            return redirect()->back();
+        }
+
+        if ($ticket->passed){
+            flash()->error( 'Can\'t redownload pdf of past ticket!' );
+
+            return redirect()->back();
+        }
+
+        DownloadTicketPdf::dispatch( $ticket );
+
+        flash()->success( 'Done! Pdf should be updated in less than 5 minutes.' );
+
+        return redirect()->route( $this->CRUDmodelName . '.edit', $ticket->id );
+    }
+
+    /**
+     * Manually upload a pdf for a ticket
+     *
+     * @param  \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function pdfManualUpload( Request $request, $ticket_id )
+    {
+        $ticket = Ticket::find( $ticket_id );
+        if ( ! $ticket ) {
+            flash()->error( 'Ticket not found!' );
+
+            return redirect()->back();
+        }
+
+        if ($ticket->passed){
+            flash()->error( 'Can\'t upload pdf of past ticket!' );
+
+            return redirect()->back();
+        }
+
+        $request->validate( [
+            'ticket_pdf' => 'required|file|max:5000|mimes:pdf'
+        ] );
+
+        \Storage::disk('s3')->putFileAs('pdf/tickets/', $request->ticket_pdf,$ticket->pdf_file_name);
+
+        flash()->success( 'Done! Pdf uplodaded.' );
+
+        return redirect()->route( $this->CRUDmodelName . '.edit', $ticket->id );
+    }
+
     // ---------- Mark as Fraud -------
 
     public function markAsFraud(Request $request, $id)

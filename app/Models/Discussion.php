@@ -111,7 +111,11 @@ class Discussion extends Model
 
     public function getSellerAttribute()
     {
-        return $this->ticket->user;
+        if ($this->ticket) {
+            return $this->ticket->user;
+        }
+        dd($this->id);
+        return null;
     }
 
     /**

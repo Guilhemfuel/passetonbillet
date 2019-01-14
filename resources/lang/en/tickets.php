@@ -147,7 +147,7 @@ return [
             'title'          => 'Your Ticket Details',
             'fail_retrieval' => [
                 'title'   => 'No tickets found with this booking code.',
-                'message' => 'Unfortunately, we couldn\'nt find any ticket with this booking code. You can manually fill the details regarding your ticket on this page. Click on this message if you wish to retry finding your ticket with your booking code.'
+                'message' => 'Unfortunately, we couldn\'nt find any ticket with this booking code.'
             ],
             'text'           => "If you wish to sell a print-at-station ticket, or if we couldn't retrieve your ticket with your booking code, you simply have to fill this form.",
             'back_link'      => 'You have your booking code? Click here to automatically retrieve your ticket!',

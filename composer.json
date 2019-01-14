@@ -1,9 +1,15 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "name": "PTB/PasseTonBillet",
+    "description": "L'application web du site PasseTonBillet.",
+    "keywords": ["ticket", "PasseTonBillet","train","travel"],
     "license": "MIT",
     "type": "project",
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://www.setasign.com/downloads/"
+        }
+    ],
     "require": {
         "php": ">=7",
         "ext-bcmath": "*",
@@ -34,6 +40,8 @@
         "sentry/sentry-laravel": "^0.8.0",
         "setasign/fpdf": "1.8.1",
         "setasign/fpdi": "^2.0",
+        "setasign/fpdi_pdf-parser": "2.0.4",
+        "spatie/browsershot": "^3.26",
         "spatie/laravel-cookie-consent": "^2.4",
         "teamtnt/laravel-scout-tntsearch-driver": "^3.1",
         "tightenco/ziggy": "^0.6.7",

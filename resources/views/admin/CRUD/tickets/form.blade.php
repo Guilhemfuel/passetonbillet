@@ -1,11 +1,54 @@
 
-{{-- Additional Buttton--}}
+{{-- Additional Butttons--}}
 @push('additional-btn')
     @if(!$entity->scam)
-    <a class="btn btn-danger btn-fill btn-sm mr-3" href="{{route('tickets.scam',$entity->id)}}">
+    <a class="btn btn-danger btn-fill btn-sm mr-3 mt-2" href="{{route('tickets.scam',$entity->id)}}">
         <i class="fa fa-ban" aria-hidden="true"></i>
         Mark as Scam
     </a>
+    @endif
+    @if($entity->pdf_downloaded)
+    <a class="btn btn-info btn-fill btn-sm mr-3 mt-2" target="_blank" href="{{route('public.ticket.download',['ticket_id'=>$entity->id])}}">
+        <i class="fa fa-file-pdf-o" aria-hidden="true"></i> Download ticket
+    </a>
+    @else
+    <button class="btn btn-info btn-fill btn-sm mr-3 mt-2" type="button" disabled>
+        <i class="fa fa-file-pdf-o" aria-hidden="true"></i> Download ticket
+    </button>
+    @endif
+    @if(!$entity->passed)
+    <button class="btn btn-primary btn-fill btn-sm mr-3 mt-2" @click.prevent="child.ticket.uploadPdfModal = true">
+        <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+        Manually Upload PDF
+    </button>
+    @if(!$entity->pdf_downloaded)
+    <a class="btn btn-warning btn-fill btn-sm mt-2" href="{{route('tickets.redownload',['ticket_id'=>$entity->id])}}">
+        <i class="fa fa-cloud-download" aria-hidden="true"></i> Retry downloading ticket
+    </a>
+    @endif
+
+        @push('additional-content')
+            {{-- Modal here so that pdf form is in the right place (not in the update form)--}}
+            <modal v-cloak :is-open="child.ticket.uploadPdfModal"  @close-modal="child.ticket.uploadPdfModal = false"
+                   title="Manually upload ticket PDF">
+                <form method="post" action="{{route('tickets.manual_upload',$entity->id)}}" enctype="multipart/form-data" id="pdfForm">
+                    {{csrf_field()}}
+                    <div class="form-group">
+                        <input class="form-control" type="file" name="ticket_pdf">
+                    </div>
+                    <button type="submit" class="btn btn-block btn-ptb-blue">Upload</button>
+                </form>
+            </modal>
+        @endpush
+
+        @push('vue-data')
+            {{--Modal here to avoid being in edition form--}}
+            <script type="application/javascript">
+                data.ticket = {
+                    uploadPdfModal: false
+                }
+            </script>
+        @endpush
     @endif
 @endpush
 

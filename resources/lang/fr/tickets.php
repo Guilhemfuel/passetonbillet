@@ -145,7 +145,7 @@ return [
             'title'          => 'Ajout Manuel de Billet',
             'fail_retrieval' => [
                 'title'   => 'Aucun résultat trouvé pour votre combinaison nom/réservation.',
-                'message' => 'Malheuresment, nous n\'avons trouvé aucun billet. Vous pouvez ajoutez votre billet manuellement ici. Cliquez sur ce message pour essayer de trouver votre billet à l\'aide de votre numéro de réservation.'
+                'message' => 'Malheuresment, nous n\'avons trouvé aucun billet.'
             ],
             'text'           => "Si vous souhaitez vendre un billet cartonné, ou que nous n'avons pas pu retrouver votre billet, il vous suffit de remplir ce formulaire.",
             'back_link'      => 'Vous avez votre numéro de réservation? Cliquez ici pour retrouver votre billet automatiquement.',

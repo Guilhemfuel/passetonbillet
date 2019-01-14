@@ -199,90 +199,16 @@ class TicketController extends Controller
         $ticket->price = $request->price;
         $ticket->currency = $ticket->bought_currency;
         $ticket->user_notes = $request->notes;
-        // TODO: uncomment below
-//        $ticket->save();
-//
-//        // Log the IP of the seller
-//        AppHelper::stat( 'add_ticket', [
-//            'ticket_id' => $ticket->id,
-//            'ip_address' => $request->ip(),
-//        ] );
-
-        // Now we want to generate the pdf
-        try {
-            Thalys::downloadAndReuploadPDF( $ticket );
-        } catch (\Exception $exception) {
-            dd($exception);
-        }
-
-//        DownloadTicketPdf::dispatch( $ticket );
-
-        flash( __( 'tickets.sell.success' ) )->success()->important();
-
-        return redirect()->route( 'public.ticket.owned.page' )
-                         ->with( [ 'addedTicket' => new TicketRessource( $ticket ) ] );
-    }
-
-    /**
-     *
-     * Allow user to sell a ticket simply by filling form
-     *
-     * @param Request $request
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function sellManualTicket( ManualTicketSellRequest $request )
-    {
-        // Make sure price doesn't over exceed original price
-        if ( $request->bought_price < $request->price ) {
-            flash( __( 'tickets.sell.errors.max_value' ) )->error()->important();
-
-            return redirect()->route( 'public.ticket.sell.page' );
-        }
-
-        if ( $this->isEurostarTicket( $request->all() ) ) {
-            flash( __( 'tickets.sell.errors.manual_eurostar' ) )->error()->important();
-
-            return redirect()->route( 'public.ticket.sell.page' );
-        }
-
-        $travelDate = Carbon::createFromFormat( 'd/m/Y', $request->travel_date );
-
-        // Create train
-        $train = Train::firstOrCreate( [
-            'number'         => $request->train_number,
-            'departure_date' => $travelDate,
-            'departure_time' => $request->departure_time,
-            'arrival_date'   => $travelDate,
-            'arrival_time'   => $request->arrival_time,
-            'departure_city' => $request->departure_station,
-            'arrival_city'   => $request->arrival_station
-        ] );
-
-        // Then create ticket
-        $ticket = Ticket::create( [
-            'train_id'        => $train->id,
-            'user_id'         => \Auth::id(),
-            'price'           => $request->price,
-            'bought_price'    => $request->bought_price,
-            'currency'        => $request->currency,
-            'bought_currency' => $request->currency,
-            'correspondence'  => false,
-            'inbound'         => false,
-            'manual'          => true,
-            'provider'        => $request->company,
-            'provider_code'   => null,
-            'flexibility'     => $request->flexibility,
-            'class'           => $request->classe,
-            'buyer_email'     => \Auth::user()->email,
-            'buyer_name'      => \Auth::user()->last_name
-        ] );
+        $ticket->save();
 
         // Log the IP of the seller
         AppHelper::stat( 'add_ticket', [
-            'ticket_id' => $ticket->id,
-            'ip_adress' => $request->ip(),
+            'ticket_id'  => $ticket->id,
+            'ip_address' => $request->ip(),
         ] );
+
+        // Download pdf
+        DownloadTicketPdf::dispatch( $ticket );
 
         flash( __( 'tickets.sell.success' ) )->success()->important();
 
@@ -407,6 +333,43 @@ class TicketController extends Controller
 
     }
 
+    /**
+     * Redirects to the link to download the pdf of a ticket
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function downloadTicket( $ticket_id )
+    {
+        $ticket = Ticket::find( $ticket_id );
+        // Make sure allowed user
+        if ( ! $ticket || $ticket->passed || ( /*todo: uncomment this $ticket->buyer->id != \Auth::user()->id && */ ! \Auth::user()->isAdmin() ) ) {
+            flash( __( 'common.error' ) )->error()->important();
+
+            return redirect()->route( 'public.ticket.owned.page' );
+        }
+
+        // Check if file exists
+        $filePath = 'pdf/tickets/' . $ticket->pdf_file_name;
+        if ( ! \Storage::disk( 's3' )->exists( $filePath ) ) {
+            flash( __( 'common.error' ) )->error()->important();
+
+            return redirect()->route( 'public.ticket.owned.page' );
+        }
+
+        // Store stat
+        AppHelper::stat( 'download_pdf', [
+            'ticket_id' => $ticket_id
+        ] );
+
+        $url = \Storage::disk( 's3' )->temporaryUrl(
+            $filePath, now()->addMinutes( 5 )
+        );
+
+        return redirect( $url );
+    }
+
     /////////////////////////
     /// API
     /////////////////////////
@@ -506,15 +469,15 @@ class TicketController extends Controller
         $price = $request->price;
 
         if ( ! $ticket ) {
-            throw new PasseTonBilletException(  __( 'offer.errors.ticket_not_found' ) );
+            throw new PasseTonBilletException( __( 'offer.errors.ticket_not_found' ) );
         }
 
         // Price verification
         if ( $price <= 0 ) {
-            throw new PasseTonBilletException(  __( 'offer.errors.price_null' ) );
+            throw new PasseTonBilletException( __( 'offer.errors.price_null' ) );
         }
         if ( $price > $ticket->price ) {
-            throw new PasseTonBilletException(   __( 'offer.errors.over_price' ));
+            throw new PasseTonBilletException( __( 'offer.errors.over_price' ) );
         }
 
         // User verification (not owner)
@@ -535,11 +498,11 @@ class TicketController extends Controller
         }
 
         // Now check number of offer done in the last 24 hours
-        $offersToday = Discussion::where('buyer_id', \Auth::user()->id )
-            ->where('created_at','>',now()->subDay(1))->count();
+        $offersToday = Discussion::where( 'buyer_id', \Auth::user()->id )
+                                 ->where( 'created_at', '>', now()->subDay( 1 ) )->count();
 
-        if ($offersToday >= self::LIMIT_OFFERS_PER_DAY) {
-            throw new PasseTonBilletException( __('offer.errors.daily_limit') );
+        if ( $offersToday >= self::LIMIT_OFFERS_PER_DAY ) {
+            throw new PasseTonBilletException( __( 'offer.errors.daily_limit' ) );
         }
 
         // Now if there was an offer denied before, we soft delete it

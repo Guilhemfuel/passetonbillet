@@ -17,8 +17,12 @@ class AppHelper
         return date( 'Y-m-d', strtotime( $date ) );
     }
 
-    public function removeAccents( String $string )
+    public function removeAccents( $string )
     {
+        if ( $string == null ) {
+            return null;
+        }
+
         $search = explode( ",", "ç,æ,œ,á,é,í,ó,ú,à,è,ì,ò,ù,ä,ë,ï,ö,ü,ÿ,â,ê,î,ô,û,å,e,i,ø,u" );
         $replace = explode( ",", "c,ae,oe,a,e,i,o,u,a,e,i,o,u,a,e,i,o,u,y,a,e,i,o,u,a,e,i,o,u" );
 
@@ -65,32 +69,32 @@ class AppHelper
     public function pageStat( $page, $source = null )
     {
         $stats = Statistic::where( 'action', Statistic::PAGE_STAT_ACTION )
-                         ->where( 'created_at', '>',Carbon::today() )
-                         ->get();
+                          ->where( 'created_at', '>', Carbon::today() )
+                          ->get();
 
         $stat = null;
-        foreach($stats as $candidateStat) {
-            $data = json_decode($candidateStat->data);
-            if ($data->page == $page && $data->source==$source) {
+        foreach ( $stats as $candidateStat ) {
+            $data = json_decode( $candidateStat->data );
+            if ( $data->page == $page && $data->source == $source ) {
                 $stat = $candidateStat;
             }
         }
 
         if ( $stat ) {
             $data = json_decode( $stat->data );
-            $data->count++;
-            $stat->data = json_encode($data);
+            $data->count ++;
+            $stat->data = json_encode( $data );
             $stat->save();
 
             return $stat;
         } else {
             return Statistic::create( [
                 'action' => Statistic::PAGE_STAT_ACTION,
-                'data'   => json_encode([
-                    'page' => $page,
+                'data'   => json_encode( [
+                    'page'   => $page,
                     'source' => $source,
-                    'count' => 1
-                ])
+                    'count'  => 1
+                ] )
             ] );
         }
     }

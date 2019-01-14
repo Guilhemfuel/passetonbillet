@@ -34,7 +34,7 @@
                                         @if($warning->data!=[])
                                             <pretty-json
                                                     :deep="0"
-                                                    :data="JSON.parse('{{ json_encode($warning->data) }}')"
+                                                    :data="{{ json_encode($warning->data) }}"
                                             >
                                             </pretty-json>
                                         @else
@@ -97,7 +97,7 @@
                                         @if($warning->data!=[])
                                             <pretty-json
                                                     :deep="0"
-                                                    :data="JSON.parse('{{ json_encode($warning->data) }}')"
+                                                    :data="{{ json_encode($warning->data) }}"
                                             >
                                             </pretty-json>
                                         @else

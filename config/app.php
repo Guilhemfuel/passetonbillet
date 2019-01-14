@@ -252,8 +252,6 @@ return [
         //Added
         'Socialite'   => Laravel\Socialite\Facades\Socialite::class,
         'Debugbar'    => Barryvdh\Debugbar\Facade::class,
-
-
     ],
 
 ];

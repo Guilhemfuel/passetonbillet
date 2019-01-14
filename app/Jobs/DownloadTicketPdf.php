@@ -2,6 +2,8 @@
 
 namespace App\Jobs;
 
+use App\Facades\Sncf;
+use App\Facades\Thalys;
 use App\Mail\ContactEmail;
 use App\Mail\ErrorEmail;
 use App\Models\AdminWarning;
@@ -43,10 +45,10 @@ class DownloadTicketPdf implements ShouldQueue
                 Eurostar::downloadAndReuploadPDF( $this->ticket );
                 break;
             case 'sncf':
-                echo 'ok';
+                Sncf::downloadAndReuploadPDF( $this->ticket );
                 break;
             case 'thalys':
-                echo 'ok';
+                Thalys::downloadAndReuploadPDF( $this->ticket );
                 break;
         }
     }

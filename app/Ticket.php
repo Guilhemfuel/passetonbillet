@@ -249,6 +249,11 @@ class Ticket extends Model
         return \Vinkla\Hashids\Facades\Hashids::connection('file')->encode($this->id).md5($this->buyer_name.$this->eurostar_code).'.pdf';
     }
 
+    public function getPdfDownloadedAttribute(){
+        $filePath = 'pdf/tickets/'.$this->pdf_file_name;
+        return \Storage::disk('s3')->exists($filePath);
+    }
+
     public function getScamAttribute()
     {
         return $this->marked_as_fraud_at != null;
@@ -266,6 +271,8 @@ class Ticket extends Model
     {
         return $this->discussions()->where('buyer_id',$this->buyer->id)->first();
     }
+
+
 
     public function getDescriptionAttribute() {
         return  $this->train->departureCity->name . ' → '

@@ -173,11 +173,17 @@ class RegisterController extends Controller
 
         // Check location of IP for scammers
         if ( ! $this->checkCountryOfRequest( $request ) ) {
+
             flash( __( 'auth.register.deny_location' ) )->error();
+            // Store event and IP
+            \AppHelper::stat( 'location_denied', [
+                'email' => $request->email,
+                'ip_address' => $request->ip()
+            ]);
 
             return redirect()->route( 'home' );
         }
-
+        
         $user = $this->create( $request->all() );
 
         // Registered event triggered (used for email verification, logs...)

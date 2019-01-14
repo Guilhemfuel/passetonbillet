@@ -286,6 +286,9 @@ class User extends Authenticatable
         parent::boot();
 
         static::deleting( function ( $user ) {
+            foreach ($user->all_offers as $offer) {
+                $offer->delete();
+            }
             $user->tickets()->delete();
             $user->idVerification()->delete();
         } );

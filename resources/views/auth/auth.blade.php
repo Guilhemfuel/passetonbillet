@@ -27,7 +27,7 @@
 
     <div class="row auth">
         <div class="col-12 col-sm-6 left-panel
-            {{$source==\App\Http\Controllers\Auth\RegisterController::SOURCE_FB_GROUP?'fb-register':''}}">
+            {{(isset($source) && $source==\App\Http\Controllers\Auth\RegisterController::SOURCE_FB_GROUP)?'fb-register':''}}">
             <div class="content">
                 <a href="{{route('home')}}"><img class="logo mx-auto" src="{{secure_asset('img/logo.png')}}"></a>
                 @if(isset($source) && $source==\App\Http\Controllers\Auth\RegisterController::SOURCE_GUEST_OFFER)
@@ -76,7 +76,7 @@
                           :old="child.auth.old"
                           :token="child.auth.token"
                           :default-email="child.auth.defaultEmail"
-                          source="{{$source}}"
+                          source="{{isset($source)?$source:''}}"
                     ></auth>
                 </div>
             </div>

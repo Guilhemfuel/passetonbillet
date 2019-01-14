@@ -90,7 +90,6 @@ Route::group( [ 'middleware' => 'auth', 'as' => 'public.' ], function () {
         // Sell ticket
         Route::get( 'sell', 'PageController@sellPage' )->name( 'sell.page' );
         Route::post( 'sell', 'TicketController@sellTicket' )->name( 'sell.post' )->middleware( 'auth.verified.phone' );
-        Route::post( 'manual_sell', 'TicketController@sellManualTicket' )->name( 'sell.manual' )->middleware( 'auth.verified.phone' );
         Route::post('edit/{ticket_id}','TicketController@changeTicketPrice')->name('edit')->middleware( 'auth.verified.phone' );
 
         // See my tickets

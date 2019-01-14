@@ -44,10 +44,10 @@
                         @include('admin.CRUD.'.$model.'.form')
 
                         <div class="crud-form-bottom">
-                            <button class="btn btn-success btn-fill btn-sm mr-3" type="submit">
+                            <button class="btn btn-success btn-fill btn-sm mr-3 mt-2" type="submit">
                                 <i class="fa fa-floppy-o"></i> Update entity
                             </button>
-                            <div class="pull-right">
+                            <div class="ml-auto d-inline">
                              @stack('additional-btn')
                             </div>
                         </div>

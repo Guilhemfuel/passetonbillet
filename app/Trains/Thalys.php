@@ -20,6 +20,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Cookie\CookieJar;
 use GuzzleHttp\Exception\ClientException;
 use DiDom\Document;
+use Spatie\Browsershot\Browsershot;
 
 class Thalys
 {
@@ -65,6 +66,9 @@ class Thalys
     public function __construct( Client $customClient = null )
     {
         $this->retrieveURL = config( 'trains.thalys.booking_url' );
+        $this->preparePDFurl = config( 'trains.thalys.prepare_pdf_url' );
+        $this->pdfUrl = config( 'trains.thalys.pdf_url' );
+
         // wrap Guzzle Client in order to throw a EurostarException instead of a ClientException on a request
         $this->client = new class( $customClient )
         {
@@ -88,6 +92,7 @@ class Thalys
                         'Origin'       => 'https://www.thalys.com',
                         'Referer'      => 'https://www.thalys.com/be/en/'
                     ],
+                    'cookies' => true
                 ] );
             }
 
@@ -247,9 +252,9 @@ class Thalys
         $tempInfoTravel = $ticketInfo->find( '.id_wrapper' )[0]->find( '.line_client' );
         $flexibility = $tempInfoTravel[1]->text();
 
-        $price = floatval( preg_replace('/\D/', '', $tempInfoTravel[2]->text()) );
+        $price = floatval( preg_replace( '/\D/', '', $tempInfoTravel[2]->text() ) );
 
-        switch (substr($tempInfoTravel[2]->text(),-1)){
+        switch ( substr( $tempInfoTravel[2]->text(), - 1 ) ) {
             case '$':
                 $currency = 'USD';
                 break;
@@ -341,10 +346,49 @@ class Thalys
      */
     public function downloadAndReuploadPDF( Ticket $ticket )
     {
+        $url = $this->preparePDFurl;
+        $url = str_replace( '{ticket_id}', $ticket->provider_id, $url );
+        $url = str_replace( '{reference}', $ticket->provider_code, $url );
+        $url = str_replace( '{name}', $ticket->buyer_name, $url );
 
+        $jar = new CookieJar;
+
+        // Prelimary request to get cookie
+        $response = $this->client->request( 'GET',
+            $url,
+            [
+                'http_errors' => false,
+                'headers'     => [
+                    'Accept-Encoding' => "gzip, deflate, br",
+                    'Accept'          => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+                    'User-Agent'      => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36',
+                ]
+            ] );
+
+        if ( $response->getStatusCode() != 200 ) {
+            throw new ThalysException( 'Error during preliminary step to retrieve PDF.' );
+        }
+
+        // Now get pdf
+        $response = $this->client->request( 'GET',
+            $this->pdfUrl,
+            [
+                'http_errors' => false,
+                'headers'     => [
+                    'Accept-Encoding' => "gzip, deflate, br",
+                    'Accept'          => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+                    'User-Agent'      => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36',
+                ]
+            ] );
+
+
+        $html = mb_convert_encoding( $response->getBody( true )->getContents(), 'HTML-ENTITIES', 'UTF-8' );
+
+        $pdf = Browsershot::html( $html )->emulateMedia('print')->pdf();
+
+        \Storage::disk( 's3' )->put( 'pdf/tickets/' . $ticket->pdf_file_name, (string) $pdf );
 
         return true;
-
     }
 
 }
