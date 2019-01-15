@@ -137,10 +137,10 @@ class AppHelper
             $today->subDay();
         }
 
-        // Sort by date and reverse
+        // Sort by date
         ksort( $data );
 
-        return array_reverse( $data );
+        return $data ;
 
     }
 
