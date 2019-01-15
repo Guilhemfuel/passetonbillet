@@ -17,14 +17,14 @@
             </div>
 
             <div class="col-12 col-lg-6 mt-4">
-                <h4 class="text-center">Tickets Added</h4>
+                <h4 class="text-center">Tickets Sold</h4>
                 <div class="chart">
                     <line-chart :dataset="dailyTicketSoldCount" v-if="isMounted"></line-chart>
                 </div>
             </div>
 
             <div class="col-12 col-lg-6 mt-4 ">
-                <h4 class="text-center">Tickets Sold</h4>
+                <h4 class="text-center">Tickets Added</h4>
                 <div class="chart">
                     <line-chart :dataset="dailyTicketCount" v-if="isMounted"></line-chart>
                 </div>
