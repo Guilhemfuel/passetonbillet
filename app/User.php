@@ -155,6 +155,17 @@ class User extends Authenticatable
         return $this->phoneVerification != null;
     }
 
+    public function getPhoneCountryCodeAttribute(  )
+    {
+        $countryCodes = [
+            'FR' => 33,
+            'GB' => 44,
+            'BE' => 32
+        ];
+
+        return $countryCodes[$this->phone_country];
+    }
+
     public function getIdVerifiedAttribute(){
         return ($this->idVerification!==null&&$this->idVerification->accepted) ?:false;
     }

@@ -445,7 +445,8 @@ class TicketController extends Controller
             'departure_station' => $request->departure_station,
             'arrival_station'   => $request->arrival_station,
             'trip_date'         => $request->trip_date,
-            'trip_time'         => $request->trip_time
+            'trip_time'         => $request->trip_time,
+            'ip_address'        => $request->ip()
         ] );
 
         $tickets = Ticket::applyFilters(

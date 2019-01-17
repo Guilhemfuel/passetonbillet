@@ -23,6 +23,8 @@ class Eurostar
 {
     private $retrieveURL;
     private $pdfURL;
+    private $authBookingURL;
+    private $updatePassengersURL;
     private $client;
 
     const PROVIDER = 'eurostar';
@@ -35,6 +37,9 @@ class Eurostar
     {
         $this->retrieveURL = config( 'trains.eurostar.booking_url' );
         $this->pdfURL = config( 'trains.eurostar.pdf_url' );
+        $this->authBookingURL = config( 'trains.eurostar.auth_booking_url' );
+        $this->updatePassengersURL = config( 'trains.eurostar.update_passengers_url' );
+
         // wrap Guzzle Client in order to throw a EurostarException instead of a ClientException on a request
         $this->client = new class( $customClient )
         {
@@ -83,7 +88,7 @@ class Eurostar
      */
     public function retrieveTicket( $lastName, $referenceNumber, $past = false )
     {
-        $referenceNumber = strtoupper($referenceNumber);
+        $referenceNumber = strtoupper( $referenceNumber );
 
         $response = $this->client->request(
             'GET',
@@ -156,7 +161,7 @@ class Eurostar
         }
 
         // You can sell ticket max two hours before train!
-        if ( $past || (  (new \DateTime(  $trainDepartureDate.' '. $trainDepartureTime  ))->modify('-2 hour') >= new \DateTime() ) ) {
+        if ( $past || ( ( new \DateTime( $trainDepartureDate . ' ' . $trainDepartureTime ) )->modify( '-2 hour' ) >= new \DateTime() ) ) {
             // We don't consider past tickets
 
             // Create train
@@ -227,18 +232,19 @@ class Eurostar
         $ticketIndex = 0;
         $passengersIndex = [];
 
-        if(!isset($decoded['etapBooking']['ticketsData'])){
-            \Log::debug($decoded);
+        if ( ! isset( $decoded['etapBooking']['ticketsData'] ) ) {
+            // Data was not filled regading travellers on eurostar website, so he have to fill it
+            $this->fillPassengerInformation( $ticket );
         }
 
         foreach ( $decoded['etapBooking']['ticketsData']['tickets'] as $ticketData ) {
             // Fill the number of ticket seen for each passenger
-            isset($passengersIndex[$ticketData['passengerId']])?$passengersIndex[$ticketData['passengerId']]++:$passengersIndex[$ticketData['passengerId']]=0;
+            isset( $passengersIndex[ $ticketData['passengerId'] ] ) ? $passengersIndex[ $ticketData['passengerId'] ] ++ : $passengersIndex[ $ticketData['passengerId'] ] = 0;
 
             if ( $ticketData['ticketNumber'] == $ticket->ticket_number ) {
                 $passengerId = $ticketData['passengerId'];
                 // Order of ticket for this passenger
-                $ticketIndex = $passengersIndex[$ticketData['passengerId']];
+                $ticketIndex = $passengersIndex[ $ticketData['passengerId'] ];
             }
         }
 
@@ -252,16 +258,16 @@ class Eurostar
             'POST',
             $this->pdfURL . $ticket->provider_code . '/passengers/' . $passengerId . '/tickets?pos=GBZXA',
             [
-                'body' => \GuzzleHttp\json_encode([
+                'body'    => \GuzzleHttp\json_encode( [
                     "type"     => "PAH",
                     "language" => "en",
                     "combine"  => false
-                ]),
+                ] ),
                 'headers' => [
                     'Accept'        => 'application/json, text/plain, */*',
                     'x-apikey'      => config( 'trains.eurostar.api_key_web' ),
                     'Authorization' => $accessToken,
-                    'cid'           => str_random( 20 ),
+                    'cid'           => 'myb-' . strtoupper( str_random( 5 ) ) . '-' . strtoupper( str_random( 5 ) ),
                     'User-Agent'    => null,
                 ]
             ]
@@ -279,28 +285,119 @@ class Eurostar
         $decoded = json_decode( (string) $response->getBody(), true )['tickets'];
         try {
             $pdfUrl = $decoded[ $ticketIndex ]['url'];
-        } catch (\Exception $exception) {
-            if (count($decoded)==1){
-                $pdfUrl = $decoded[ 0 ]['url'];
+        } catch ( \Exception $exception ) {
+            if ( count( $decoded ) == 1 ) {
+                $pdfUrl = $decoded[0]['url'];
             } else {
-                \Log::error('Error while finding pdf.... '.print_r($decoded));
+                \Log::error( 'Error while finding pdf.... ' . print_r( $decoded ) );
+
                 return false;
             }
         }
 
         $pdf = new Fpdi();
-        $pageCount = $pdf->setSourceFile(StreamReader::createByString(file_get_contents($pdfUrl)));
+        $pageCount = $pdf->setSourceFile( StreamReader::createByString( file_get_contents( $pdfUrl ) ) );
 
-        if($pageCount < (1+$ticketIndex) ){
-            $ticketIndex = $pageCount%($ticketIndex);
+        if ( $pageCount < ( 1 + $ticketIndex ) ) {
+            $ticketIndex = $pageCount % ( $ticketIndex );
         }
-        $page = $pdf->importPage(1+$ticketIndex);
+        $page = $pdf->importPage( 1 + $ticketIndex );
         $pdf->AddPage();
-        $pdf->useTemplate($page);
+        $pdf->useTemplate( $page );
 
-        \Storage::disk('s3')->put('pdf/tickets/'.$ticket->pdf_file_name, (string) $pdf->Output("S"));
+        \Storage::disk( 's3' )->put( 'pdf/tickets/' . $ticket->pdf_file_name, (string) $pdf->Output( "S" ) );
 
         return true;
+    }
+
+    /**
+     * It is not possible to download a pdf if the passengers details were not filled.
+     * This methods does it automatically using information seller on his PTB profile
+     *
+     * @param Ticket $ticket
+     */
+    private function fillPassengerInformation( Ticket $ticket )
+    {
+
+
+        // First we simulate a connection to the web-app to retrieve a valid access token for this booking.
+        // We also need to retrieve all passengers
+        $response = $this->client->request(
+            'POST',
+            $this->authBookingURL,
+            [
+                'body'    => \GuzzleHttp\json_encode( [
+                    "pnr"      => $ticket->provider_code,
+                    "lastName" => $ticket->buyer_name,
+                ] ),
+                'headers' => [
+                    'Accept'     => 'application/json, text/plain, */*',
+                    'x-apikey'   => config( 'trains.eurostar.api_key_web' ),
+                    'cid'        => 'myb-' . strtoupper( str_random( 5 ) ) . '-' . strtoupper( str_random( 5 ) ),
+                    'User-Agent' => null,
+                ]
+            ]
+        );
+
+        // Handle errors (if there isn't a trip from a station to another one)
+        if ( $response->getStatusCode() == 500 ) {
+            throw new EurostarException( 'Please try again later.' );
+        }
+
+        if ( ! isset( json_decode( (string) $response->getBody(), true )['accessToken'] ) ) {
+            throw new EurostarException( 'Nothing found for this passenger.' );
+        }
+
+        $decoded = json_decode( (string) $response->getBody(), true );
+        $accessToken = $decoded['accessToken']['token'];
+        $passengers = $decoded['booking']['passengers'];
+
+
+        // Now we build the data to post (one update per passenger, using details of ptb account)
+        $data = [
+            'updates' => []
+        ];
+        foreach ( $passengers as $passenger ) {
+            $data['updates'][] = [
+                "id"     => $passenger['id'],
+                "update" => [
+                    "email"  => $ticket->user->email,
+                    "phone"  => [
+                        "countryCode" => $ticket->user->phone_country_code,
+                        "number"      => substr( $ticket->user->phone, 1 )
+                    ],
+                    "infant" => [
+                        "firstName" => "",
+                        "lastName"  => ""
+                    ]
+                ]
+            ];
+        }
+
+        // Now we send the passenger data update to the eurostar server
+        $response = $this->client->request(
+            'PUT',
+            str_replace( '{booking_code}', $ticket->provider_code, $this->updatePassengersURL ),
+            [
+                'body'    => \GuzzleHttp\json_encode( $data ),
+                'headers' => [
+                    'Accept'        => 'application/json, text/plain, */*',
+                    'x-apikey'      => config( 'trains.eurostar.api_key_web' ),
+                    'cid'           => 'myb-' . strtoupper( str_random( 5 ) ) . '-' . strtoupper( str_random( 5 ) ),
+                    'User-Agent'    => null,
+                    'Authorization' => $accessToken,
+                    'referer'       => 'https://managebooking.eurostar.com/',
+                    'origin'        => 'https://managebooking.eurostar.com'
+                ]
+            ]
+        );
+
+        if ( $response->getStatusCode() != 200 ) {
+            throw new EurostarException( 'Error while updating passenger(s) information.' );
+        }
+
+        return true;
+
     }
 
 }

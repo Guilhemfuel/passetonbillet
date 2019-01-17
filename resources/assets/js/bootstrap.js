@@ -176,3 +176,4 @@ if (token) {
 
 import Cleave from 'vue-cleave-component';
 Vue.use(Cleave);
+
