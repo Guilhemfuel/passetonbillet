@@ -26,6 +26,7 @@
 
     <!-- Google Property -->
     <meta name="google-site-verification" content="plz3_qbBsOX7Cb8I7FvDpQ9dPNHKhlzDuHDRzsefXbY"/>
+    <meta name="google-site-verification" content="Gltyd7fyRExsh2Bv0myMl7RJlg2BPcnf72pwex4S3GE" />
 
     <!-- Facebook MetaTags -->
     <meta property="fb:app_id" content="{{env('FB_APP_ID')}}"/>
