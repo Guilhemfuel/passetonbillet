@@ -246,7 +246,7 @@ class Ticket extends Model
     }
 
     public function getPdfFileNameAttribute(){
-        return \Vinkla\Hashids\Facades\Hashids::connection('file')->encode($this->id).md5($this->buyer_name.$this->eurostar_code).'.pdf';
+        return \Vinkla\Hashids\Facades\Hashids::connection('file')->encode($this->id).md5($this->buyer_name.$this->provider_code).'.pdf';
     }
 
     public function getPdfDownloadedAttribute(){

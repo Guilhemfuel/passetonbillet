@@ -11,7 +11,7 @@
     @show
 
     <meta name="description"
-          content="PasseTonBillet : leader sur l'achat et revente de billet de train entre particulier depuis 10 ans. Le seul site 100% gratuit, sans comissions."/>
+          content="PasseTonBillet : Leader sur l'achat et la revente de billets de train entre particuliers depuis 10 ans. Le seul site 100% gratuit, sans commissions."/>
 
     <!-- Favicon  -->
     <link rel="apple-touch-icon" sizes="180x180" href="{{secure_asset('img/favicon/apple-touch-icon.png?v=2')}}">
