@@ -59,7 +59,7 @@ return [
             'driver' => 's3',
             'key' => env('AWS_KEY'),
             'secret' => env('AWS_SECRET'),
-            'region' =>'eu-west-3',
+            'region' => env('AWS_REGION','eu-west-3'),
             'bucket' => env('AWS_BUCKET','passetonbillet'),
         ],
 
