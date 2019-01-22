@@ -16,7 +16,8 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         Commands\UpdateTrains::class,
         Commands\Empower::class,
-        Commands\AnonymiseData::class
+        Commands\AnonymiseData::class,
+        Commands\DownloadAllMissingTicketPdfs::class
     ];
 
     /**
