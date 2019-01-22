@@ -299,7 +299,7 @@ class Eurostar
         $pageCount = $pdf->setSourceFile( StreamReader::createByString( file_get_contents( $pdfUrl ) ) );
 
         if ( $pageCount < ( 1 + $ticketIndex ) ) {
-            $ticketIndex = $pageCount % ( $ticketIndex );
+            $ticketIndex = $ticketIndex %  $pageCount ;
         }
         $page = $pdf->importPage( 1 + $ticketIndex );
         $pdf->AddPage();
