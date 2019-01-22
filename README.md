@@ -14,7 +14,6 @@ Train ticket resales
     - Php7.3-mysql
     - Php7.3-bcmath
 5. PostgreSQL (May also work with MySQL but untested)
-6. Redis (Optional)
 
 ## Setting up the dev environment
 ( Thanks to J for the tips ;) )
