@@ -47,3 +47,14 @@ $ valet link
 $ valet secure
 ```
 Open a browser at https://PTB.test or look at the file routes/web.php for the full list of URI routes
+
+## Coding Practices & Process
+
+### New features
+Working on a new feature? Here is how to proceed:
+* When working on a feature, we create a new branch. If the feature is related to a Trello card (most likely it will always be the case), you open the trello card in your browser, and find the id + name of the card. For instance if I open a card and find that the url is `https://trello.com/c/93WXWmyu/193-revert-a-ticket-sold` then I use `193-revert-a-ticket-sold` as a name for my branch.
+* I try to name commits correctly so it’s easy to follow, then I push my branch to github.
+* Finally I create a pull request to the master branch, and set someone as reviewer for it. If possible, and if needed, try to add a quick description of the work done, and the strategy adopted. Make sure to merge master on this branch before creating the pull request so that there is no conflicts when the time to merge comes.
+* Then if there is some feedback, or some changes are required, I do them, re-push to update the pull request and let the reviewer know it was updated.
+* Then hourray! Code is merged to master (either by reviewer, or by the creator of the branch if asked by reviewer) and branch previously created is closed.
+
