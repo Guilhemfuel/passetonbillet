@@ -30,6 +30,7 @@
     <a class="btn btn-outline-purple btn-fill btn-sm mt-2" href="{{route('tickets.revert_status',['ticket_id'=>$entity->id])}}">
          <i class="fa fa-step-backward" aria-hidden="true"></i> Revert ticket status
     </a>
+    @endif
 
 
         @push('additional-content')
