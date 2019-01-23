@@ -231,6 +231,7 @@ class Eurostar
         $accessToken = $decoded['etapBooking']['accessToken'];
         $ticketIndex = 0;
         $passengersIndex = [];
+        $passengerId = null;
 
         if ( ! isset( $decoded['etapBooking']['ticketsData'] ) ) {
             // Data was not filled regading travellers on eurostar website, so he have to fill it
