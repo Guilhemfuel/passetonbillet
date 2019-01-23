@@ -10,6 +10,7 @@
 namespace App\Trains;
 
 use App\Exceptions\SncfException;
+use App\Facades\AppHelper;
 use App\Ticket;
 use Carbon\Carbon;
 use Exception;
@@ -265,7 +266,7 @@ class Sncf
                 [
                     "pnrLocator"    => $referenceNumber,
                     "creationDate"  => $creationDate,
-                    "passengerName" => strtoupper( $ticket->buyer_name )
+                    "passengerName" => strtoupper( AppHelper::removeAccents( $ticket->buyer_name) )
                 ]
             ],
             "market"  => "VSC",

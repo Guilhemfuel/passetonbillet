@@ -231,6 +231,7 @@ class Eurostar
         $accessToken = $decoded['etapBooking']['accessToken'];
         $ticketIndex = 0;
         $passengersIndex = [];
+        $passengerId = null;
 
         if ( ! isset( $decoded['etapBooking']['ticketsData'] ) ) {
             // Data was not filled regading travellers on eurostar website, so he have to fill it
@@ -299,7 +300,7 @@ class Eurostar
         $pageCount = $pdf->setSourceFile( StreamReader::createByString( file_get_contents( $pdfUrl ) ) );
 
         if ( $pageCount < ( 1 + $ticketIndex ) ) {
-            $ticketIndex = $pageCount % ( $ticketIndex );
+            $ticketIndex = $ticketIndex %  $pageCount ;
         }
         $page = $pdf->importPage( 1 + $ticketIndex );
         $pdf->AddPage();

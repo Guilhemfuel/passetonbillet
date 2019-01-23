@@ -114,40 +114,40 @@ class Ticket extends Model
     public static function applyFilters( $departureStationId, $arrivalStationId, $date, $time = null, $exactDay = false )
     {
         // Find parent station
-        $departureStationParentId = Station::find($departureStationId)->parent_station_id;
-        $arrivalStationParentId = Station::find($arrivalStationId)->parent_station_id;
+        $departureStationParentId = Station::find( $departureStationId )->parent_station_id;
+        $arrivalStationParentId = Station::find( $arrivalStationId )->parent_station_id;
 
         // Create array of possible departure stations
-        if ( $departureStationParentId != null ){
-            $departureStations = Station::where('parent_station_id',$departureStationParentId)->pluck('id');
-            $departureStations[] = intval($departureStationParentId);
+        if ( $departureStationParentId != null ) {
+            $departureStations = Station::where( 'parent_station_id', $departureStationParentId )->pluck( 'id' );
+            $departureStations[] = intval( $departureStationParentId );
         } else {
-            $departureStations = Station::where('parent_station_id',$departureStationId)->pluck('id');
-            $departureStations[] = intval($departureStationId);
+            $departureStations = Station::where( 'parent_station_id', $departureStationId )->pluck( 'id' );
+            $departureStations[] = intval( $departureStationId );
         }
 
         // Create array of possible arrival stations
-        if ( $arrivalStationParentId != null ){
-            $arrivalStations = Station::where('parent_station_id',$arrivalStationParentId)->pluck('id');
-            $arrivalStations[] = intval($arrivalStationId);
+        if ( $arrivalStationParentId != null ) {
+            $arrivalStations = Station::where( 'parent_station_id', $arrivalStationParentId )->pluck( 'id' );
+            $arrivalStations[] = intval( $arrivalStationId );
         } else {
-            $arrivalStations = Station::where('parent_station_id',$arrivalStationId)->pluck('id');
-            $arrivalStations[] = intval($arrivalStationId);
+            $arrivalStations = Station::where( 'parent_station_id', $arrivalStationId )->pluck( 'id' );
+            $arrivalStations[] = intval( $arrivalStationId );
         }
 
         // Find matching trains
         $request = Train::whereIn( 'departure_city', $departureStations )
                         ->whereIn( 'arrival_city', $arrivalStations )
                         ->where( 'departure_date', $exactDay ? '=' : '>=', $date )
-                        ->where(function($query){
-                            $query->where('departure_time', '>=', Carbon::now()->addHours(2)->toTimeString() )
-                                ->orWhere('departure_date','>', Carbon::now());
-                        })
+                        ->where( function ( $query ) {
+                            $query->where( 'departure_time', '>=', Carbon::now()->addHours( 2 )->toTimeString() )
+                                  ->orWhere( 'departure_date', '>', Carbon::now() );
+                        } )
                         ->with( 'tickets' );
 
         if ( $time ) {
-            $request = $request->where( 'departure_time', '>=', $time.':00' )
-                               ->orWhere('departure_date','>',Carbon::now());
+            $request = $request->where( 'departure_time', '>=', $time . ':00' )
+                               ->orWhere( 'departure_date', '>', Carbon::now() );
         }
 
         $trains = $request->orderBy( 'departure_time' )->get();
@@ -199,9 +199,10 @@ class Ticket extends Model
         return $this->train->carbon_departure_date->lt( $now );
     }
 
-    public function getFullPriceAttribute() {
-        if ($this->currency == 'EUR') {
-            return $this->price.'€';
+    public function getFullPriceAttribute()
+    {
+        if ( $this->currency == 'EUR' ) {
+            return $this->price . '€';
         } else {
             return $this->currency_symbol . $this->price;
         }
@@ -245,13 +246,16 @@ class Ticket extends Model
         }
     }
 
-    public function getPdfFileNameAttribute(){
-        return \Vinkla\Hashids\Facades\Hashids::connection('file')->encode($this->id).md5($this->buyer_name.$this->provider_code).'.pdf';
+    public function getPdfFileNameAttribute()
+    {
+        return \Vinkla\Hashids\Facades\Hashids::connection( 'file' )->encode( $this->id ) . md5( $this->buyer_name . $this->provider_code ) . '.pdf';
     }
 
-    public function getPdfDownloadedAttribute(){
-        $filePath = 'pdf/tickets/'.$this->pdf_file_name;
-        return \Storage::disk('s3')->exists($filePath);
+    public function getPdfDownloadedAttribute()
+    {
+        $filePath = 'pdf/tickets/' . $this->pdf_file_name;
+
+        return \Storage::disk( 's3' )->exists( $filePath );
     }
 
     public function getScamAttribute()
@@ -261,22 +265,22 @@ class Ticket extends Model
 
     public function setProviderAttribute( $value )
     {
-        if (!in_array($value,self::PROVIDERS)){
-            throw new PasseTonBilletException("Provider ${value} unknown.");
+        if ( ! in_array( $value, self::PROVIDERS ) ) {
+            throw new PasseTonBilletException( "Provider ${value} unknown." );
         }
         $this->attributes['provider'] = $value;
     }
 
     public function getDiscussionSoldAttribute()
     {
-        return $this->discussions()->where('buyer_id',$this->buyer->id)->first();
+        return $this->discussions()->where( 'buyer_id', $this->buyer->id )->first();
     }
 
 
-
-    public function getDescriptionAttribute() {
-        return  $this->train->departureCity->name . ' → '
-               . $this->train->arrivalCity->name . ' | '. $this->train->departure_date->format('j M');
+    public function getDescriptionAttribute()
+    {
+        return $this->train->departureCity->name . ' → '
+               . $this->train->arrivalCity->name . ' | ' . $this->train->departure_date->format( 'j M' );
     }
 
     /**
@@ -301,6 +305,39 @@ class Ticket extends Model
     public function buyer()
     {
         return $this->belongsTo( 'App\User', 'sold_to_id' );
+    }
+
+    /**
+     * Static
+     */
+
+    /**
+     * Returns all tickets currently available on PTB (not sold, not passed)
+     *
+     * @return Collection
+     */
+    public static function currentTickets()
+    {
+        // Get current ticket count
+        $currentTrains = Train::where( function ( $query ) {
+            $query->where( 'departure_time', '>=', Carbon::now()->addHours( 2 )->toTimeString() )
+                  ->where( 'departure_date', Carbon::now() );
+        } )
+                              ->orWhere( 'departure_date', '>', Carbon::now() )
+                              ->with( 'tickets' )->get();
+
+        $currentTickets = collect();
+        foreach ( $currentTrains as $train ) {
+            if ( $train->tickets()->withoutScams() ) {
+                foreach ( $train->tickets as $ticket ) {
+                    if ( $ticket->sold_to_id == null ) {
+                        $currentTickets->push( $ticket );
+                    }
+                }
+            }
+        }
+
+        return $currentTickets;
     }
 
     /**

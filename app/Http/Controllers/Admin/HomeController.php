@@ -21,28 +21,10 @@ class HomeController extends BaseController
 
     public function home()
     {
-        // Get current ticket count
-        $currentTrains = Train::where(function($query){
-                            $query->where('departure_time', '>=', Carbon::now()->addHours(2)->toTimeString() )
-                                  ->where('departure_date', Carbon::now());
-                        })
-                        ->orWhere('departure_date','>', Carbon::now())
-                        ->with( 'tickets' )->get();
-
-        $currentTickets = collect();
-        foreach ( $currentTrains as $train ) {
-            if ( $train->tickets()->withoutScams() ) {
-                foreach ( $train->tickets as $ticket ) {
-                    if ( $ticket->sold_to_id == null ) {
-                        $currentTickets->push( $ticket );
-                    }
-                }
-            }
-        }
 
         $data = [
             'ticketCount'         => Ticket::all()->count(),
-            'currentTicketCount'  => $currentTickets->count(),
+            'currentTicketCount'  => Ticket::currentTickets()->count(),
             'ticketSoldCount'     => Ticket::whereNotNull('sold_to_id')->count(),
             'trainCount'      => Train::all()->count(),
             'userCount'           => User::all()->count(),
