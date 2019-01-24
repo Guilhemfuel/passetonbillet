@@ -109,7 +109,7 @@
             <div class="card">
                 <div class="card-header">
                     <h4 class="title text-center"><br>
-                        <a href="{{route('eyeWitness.index')}}" class="stat-link">
+                        <a href="/eyewitness" class="stat-link">
                             <i class="fa fa-eye fa-2x"></i>
                         </a>
                     </h4>

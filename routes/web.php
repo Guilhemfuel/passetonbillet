@@ -202,10 +202,6 @@ Route::blacklist(function() {
             Route::get( '/', 'Admin\HomeController@logs' )->name( 'logs.index' );
         } );
 
-        Route::group( [ 'prefix' => 'system' ], function () {
-            Route::get( '/', 'Admin\HomeController@eyeWitness' )->name( 'eyeWitness.index' );
-        } );
-
         Route::group( [ 'prefix' => 'warnings' ], function () {
             Route::get( '/', 'Admin\WarningController@index' )->name( 'warnings.index' );
             Route::get( '/done/{warning}', 'Admin\WarningController@markAsDone' )->name( 'warnings.mark_as_done' );
