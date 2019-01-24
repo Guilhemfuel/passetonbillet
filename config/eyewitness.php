@@ -252,4 +252,20 @@ return [
      */
 
     'debug' => env('EYEWITNESS_DEBUG', false),
+
+    /*
+   |--------------------------------------------------------------------------
+   | Custom Auth scheme
+   |--------------------------------------------------------------------------
+   |
+   | We can use a custom authentication scheme (in this case the Admin middleware)
+   | To authenticate access to the eyewitness dashboard. Therefore we can disable
+   | Logging in specifically to eyewitness. Since now all admin are automatically
+   | logged in. See (https://docs.eyewitness.io/configuration/authentication) for
+   | details.
+   |
+   |
+   */
+
+    'login_disabled' => true
 ];
