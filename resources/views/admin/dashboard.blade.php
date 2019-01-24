@@ -105,6 +105,18 @@
                 </div>
             </div>
         </div>
+        <div class="col-sm-3 col-xs-6 pt-4">
+            <div class="card">
+                <div class="card-header">
+                    <a href="{{route('eyeWitness.index')}}" class="stat-link">
+                        <i class="fa fa-id-eye fa-2x"></i>
+                    </a>
+                </div>
+                <div class="card-body text-center">
+                    Eye witness
+                </div>
+            </div>
+        </div>
 
     </div>
 
