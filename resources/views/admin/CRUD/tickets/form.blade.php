@@ -24,13 +24,10 @@
     @if(!$entity->pdf_downloaded)
     <a class="btn btn-warning btn-fill btn-sm mr-3 mt-2" href="{{route('tickets.redownload',['ticket_id'=>$entity->id])}}">
         <i class="fa fa-cloud-download" aria-hidden="true"></i> Retry downloading ticket
+        {{$entity->sold_to_id}}
     </a>
     @endif
-    @if($entity->sold_to_id != null)
-    <a class="btn btn-outline-purple btn-fill btn-sm mt-2" href="{{route('tickets.revert_status',['ticket_id'=>$entity->id])}}">
-         <i class="fa fa-step-backward" aria-hidden="true"></i> Revert ticket status
-    </a>
-    @endif
+
 
 
         @push('additional-content')
@@ -68,6 +65,11 @@
 <div class="row text-bold">
     <div class="col">
         <h3 class="text-success  text-center">SOLD</h3>
+        <h3 class="text-center">
+            <a class="btn btn-outline-purple btn-fill btn-sm mt-2" href="{{route('tickets.revert_status',['ticket_id'=>$entity->id])}}">
+                <i class="fa fa-step-backward" aria-hidden="true"></i> Undo
+            </a>
+        </h3>
     </div>
 </div>
 @endif

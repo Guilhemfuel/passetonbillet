@@ -6,6 +6,8 @@ use App\Http\Requests\Admin\TicketRequest;
 use App\Http\Resources\Admin\TicketTableResource;
 use App\Http\Resources\StationRessource;
 use App\Jobs\DownloadTicketPdf;
+use App\Models\Discussion;
+use App\Notifications\OfferNotification;
 use App\Station;
 use App\Ticket;
 use App\User;
@@ -118,6 +120,65 @@ class TicketController extends BaseController
         $ticket->save();
 
         flash()->success( 'Ticket updated!' );
+
+        return redirect()->route( $this->CRUDmodelName . '.edit', $ticket->id );
+    }
+
+    /**
+     * Reevert the status of a ticket back to unsold.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function revertStatus( Request $request, $ticket_id )
+    {
+
+        $ticket = Ticket::find($ticket_id);
+        $discussion = $ticket->getDiscussionSoldAttribute();
+
+        /*// Check dicussion exists
+        if ( ! $discussion )
+            flash( __( 'message.errors.not_found' ) )->error()->important();
+
+        // Check discussion status
+        else if ( $discussion->status != Discussion::ACCEPTED )
+            flash( __( 'message.errors.something' ) )->error()->important();
+
+        // Make sure discussion belongs to ticket
+        else if ( ! $ticket->discussions->contains( $discussion ) )
+            flash( __( 'message.errors.wrong_ticket_discussion' ) )->error()->important();
+
+        // Check ticket exists
+        else if ( ! $ticket )
+            flash( __( 'message.errors.ticket_not_found' ) )->error()->important();
+
+
+        // Check ticket hasnt already passed
+        else*/
+
+        if ( $ticket->getPassedAttribute() === false )
+            flash( __( 'message.errors.not_active' ) )->error()->important();
+
+        else {
+
+            $ticket->sold_to_id = null;
+            $discussion->status = Discussion::AWAITING;
+            $discussion->save();
+
+            $ticket->setSoldToIdAttribute(null);
+            $ticket->save();
+
+            // Notify all denied offers the ticket is now available
+            $awaitingOffers = $ticket->discussions->where('status', Discussion::DENIED);
+            foreach ($awaitingOffers as $offer) {
+                $offer->status = Discussion::ACCEPTED;
+                $offer->save();
+                $offer->buyer->notify(new OfferNotification($offer));
+            }
+
+            flash()->success('Ticket status successfully reverted');
+        }
 
         return redirect()->route( $this->CRUDmodelName . '.edit', $ticket->id );
     }

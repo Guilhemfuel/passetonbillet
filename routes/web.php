@@ -177,7 +177,7 @@ Route::blacklist(function() {
             Route::get( '/redownload/{ticket_id}', 'Admin\TicketController@redownload' )->name( 'redownload' );
             Route::get( '/scam/{ticket_id}', 'Admin\TicketController@markAsFraud' )->name( 'scam' );
             Route::post( '/manual-upload/{ticket_id}', 'Admin\TicketController@pdfManualUpload' )->name( 'manual_upload' );
-            Route::post('/revert-status/{ticket_id}', 'Admin\TicketController@revertStatus' )->name( 'revert_status');
+            Route::get('/revert-status/{ticket_id}', 'Admin\TicketController@revertStatus' )->name( 'revert_status');
         } );
 
         Route::resource( 'stations', 'Admin\StationController' );
