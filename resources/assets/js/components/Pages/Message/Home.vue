@@ -145,7 +145,9 @@
                 state: 'default',
                 csrf: window.csrf,
                 offerBeingDenied: null,
-                denyOfferModal: false
+                denyOfferModal: false,
+                pastBuyingDiscussions: false,
+                pastSellingDiscussions: false
             }
         },
         computed: {
