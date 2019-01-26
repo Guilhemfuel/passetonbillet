@@ -68,6 +68,8 @@ return [
         'sold_to'         => 'Vous avez vendu ce billet à',
         'cta_sell_to'     => 'Billet vendu à',
         'cancel'          => 'Annuler',
+        'showPastBuying' => 'Montrer les discussions d\'achat passées',
+        'showPastSelling' => 'Montrer les discussions de vente passées',
 
         'table' => [
             'ticket'       => 'Billet',

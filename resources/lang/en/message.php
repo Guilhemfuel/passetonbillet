@@ -65,6 +65,8 @@ return [
         'bought_from'     => 'You bought this ticket from',
         'sold_to'         => 'You sold this ticket to',
         'cta_sell_to'     => 'Sold to',
+        'showPastBuying' => 'Show past buying discussions',
+        'showPastSelling' => 'Show past selling discussions',
         'cancel'          => 'Cancel',
 
         'table' => [

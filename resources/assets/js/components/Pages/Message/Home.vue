@@ -84,7 +84,12 @@
         <!-- Current Discussions -->
 
         <template v-if="discussions.length > 0">
-            <h4 class="card-title mb-0">{{lang.discussions.title}}</h4>
+            <h4 class="card-title mb-0">{{lang.discussions.title}}
+                <el-checkbox-group v-model="checkList">
+                    <el-checkbox label="B">{{lang.discussions.showPastBuying}}</el-checkbox>
+                    <el-checkbox label="S">{{lang.discussions.showPastSelling}}</el-checkbox>
+                </el-checkbox-group>
+            </h4>
 
             <div class="card mt-4">
                 <div class="card-body card-messages">
@@ -146,8 +151,7 @@
                 csrf: window.csrf,
                 offerBeingDenied: null,
                 denyOfferModal: false,
-                pastBuyingDiscussions: false,
-                pastSellingDiscussions: false
+                checkList: []
             }
         },
         computed: {
