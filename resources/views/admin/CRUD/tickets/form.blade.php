@@ -7,6 +7,13 @@
         Mark as Scam
     </a>
     @endif
+    @if($entity->sold_to_id!=null)
+        <vue-form class='form-check-inline' action="{{route('tickets.revert_status',['ticket_id'=>$entity->id])}}" method="PUT">
+            <button class="btn btn-outline-purple btn-fill btn-sm mr-3 mt-2" type="submit">
+                <i class="fa fa-undo" aria-hidden="true"></i> Resell
+            </button>
+        </vue-form>
+    @endif
     @if($entity->pdf_downloaded)
     <a class="btn btn-info btn-fill btn-sm mr-3 mt-2" target="_blank" href="{{route('public.ticket.download',['ticket_id'=>$entity->id])}}">
         <i class="fa fa-file-pdf-o" aria-hidden="true"></i> Download ticket
@@ -22,11 +29,12 @@
         Manually Upload PDF
     </button>
     @if(!$entity->pdf_downloaded)
-    <a class="btn btn-warning btn-fill btn-sm mr-3 mt-2" href="{{route('tickets.redownload',['ticket_id'=>$entity->id])}}">
+    <a class="btn btn-warning btn-fill btn-sm mt-2" href="{{route('tickets.redownload',['ticket_id'=>$entity->id])}}">
         <i class="fa fa-cloud-download" aria-hidden="true"></i> Retry downloading ticket
         {{$entity->sold_to_id}}
     </a>
     @endif
+
 
 
 
@@ -65,11 +73,6 @@
 <div class="row text-bold">
     <div class="col">
         <h3 class="text-success  text-center">SOLD</h3>
-        <h3 class="text-center">
-            <a class="btn btn-outline-purple btn-fill btn-sm mt-2" href="{{route('tickets.revert_status',['ticket_id'=>$entity->id])}}">
-                <i class="fa fa-step-backward" aria-hidden="true"></i> Undo
-            </a>
-        </h3>
     </div>
 </div>
 @endif

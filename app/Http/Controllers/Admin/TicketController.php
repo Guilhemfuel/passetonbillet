@@ -135,47 +135,27 @@ class TicketController extends BaseController
     {
 
         $ticket = Ticket::find($ticket_id);
-        $discussion = $ticket->getDiscussionSoldAttribute();
+        $discussion = $ticket->discussion_sold;
 
-        /*// Check dicussion exists
-        if ( ! $discussion )
-            flash( __( 'message.errors.not_found' ) )->error()->important();
+        if ($ticket === null) {
+            flash()->error( 'Ticket not found!' );
+        }
 
-        // Check discussion status
-        else if ( $discussion->status != Discussion::ACCEPTED )
-            flash( __( 'message.errors.something' ) )->error()->important();
+        else if ($discussion === null) {
+            flash()->error( 'Discussion not found!' );
+        }
 
-        // Make sure discussion belongs to ticket
-        else if ( ! $ticket->discussions->contains( $discussion ) )
-            flash( __( 'message.errors.wrong_ticket_discussion' ) )->error()->important();
-
-        // Check ticket exists
-        else if ( ! $ticket )
-            flash( __( 'message.errors.ticket_not_found' ) )->error()->important();
-
-
-        // Check ticket hasnt already passed
-        else*/
-
-        if ( $ticket->getPassedAttribute() === false )
-            flash( __( 'message.errors.not_active' ) )->error()->important();
+        else if ( $ticket->passed === true ) {
+            flash()->error('The ticket has expired')->important();
+        }
 
         else {
 
             $ticket->sold_to_id = null;
             $discussion->status = Discussion::AWAITING;
             $discussion->save();
-
-            $ticket->setSoldToIdAttribute(null);
             $ticket->save();
 
-            // Notify all denied offers the ticket is now available
-            $awaitingOffers = $ticket->discussions->where('status', Discussion::DENIED);
-            foreach ($awaitingOffers as $offer) {
-                $offer->status = Discussion::ACCEPTED;
-                $offer->save();
-                $offer->buyer->notify(new OfferNotification($offer));
-            }
 
             flash()->success('Ticket status successfully reverted');
         }
