@@ -65,6 +65,8 @@ return [
         'bought_from'     => 'You bought this ticket from',
         'sold_to'         => 'You sold this ticket to',
         'cta_sell_to'     => 'Sold to',
+        'sortByTicketDate' => 'Sort by ticket date',
+        'sortByDiscussionDate' => 'Sort by discussion date',
         'showPastBuying' => 'Show past buying discussions',
         'showPastSelling' => 'Show past selling discussions',
         'showCurrentBuying' => 'Show current buying discussions',

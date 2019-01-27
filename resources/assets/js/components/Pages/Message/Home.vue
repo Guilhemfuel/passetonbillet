@@ -85,10 +85,35 @@
 
         <template v-if="this.allDiscussions().length > 0">
             <h4 class="card-title mb-0">{{lang.discussions.title}}
-                <el-checkbox label="true" v-model="showCurrentBuy">{{lang.discussions.showCurrentBuying}}</el-checkbox>
-                <el-checkbox label="true" v-model="showCurrentSell">{{lang.discussions.showCurrentSelling}}</el-checkbox>
-                <el-checkbox label="true" v-model="showPastBuy">{{lang.discussions.showPastBuying}}</el-checkbox>
-                <el-checkbox label="true" v-model="showPastSell">{{lang.discussions.showPastSelling}}</el-checkbox>
+
+                <!-- Filtering and sorting options -->
+                <div class="row">
+
+                    <!-- Checkboxes for current discussions -->
+                    <div class="col-sm-6">
+                        <el-checkbox label="true" v-model="showCurrentBuy">{{lang.discussions.showCurrentBuying}}</el-checkbox>
+                    </div>
+                    <div class="col-sm-6">
+                        <el-checkbox label="true" v-model="showCurrentSell">{{lang.discussions.showCurrentSelling}}</el-checkbox>
+                    </div>
+
+                    <!-- Checkboxes to show past discussions -->
+                    <div class="col-md-6">
+                        <el-checkbox label="true" v-model="showPastBuy">{{lang.discussions.showPastBuying}}</el-checkbox>
+                    </div>
+                    <div class="col-md-6">
+                        <el-checkbox label="true" v-model="showPastSell">{{lang.discussions.showPastSelling}}</el-checkbox>
+                    </div>
+
+                    <!-- Radio buttons for sorting -->
+                    <div class="col-md-6">
+                        <el-radio v-model="radio" label="ticketCompare">{{lang.discussions.sortByTicketDate}}</el-radio>
+                    </div>
+                    <div class="col-md-6">
+                        <el-radio v-model="radio" label="discussionCompare">{{lang.discussions.sortByDiscussionDate}}</el-radio>
+                    </div>
+
+                </div>
             </h4>
 
             <div class="card mt-4">
@@ -154,75 +179,50 @@
                 showCurrentBuy: true,
                 showCurrentSell: true,
                 showPastBuy: false,
-                showPastSell: false
+                showPastSell: false,
+                radio: 'discussionSort'
             }
         },
         computed: {
             discussions() {
-                console.log('calculating computed again');
-
-                /* Create seperate list for the four types of discussions */
-                var pastBuyingDiscussions = [];
-                var pastSellingDiscussions = [];
-                var currentBuyingDiscussions = [];
-                var currentSellingDiscussions = [];
 
                 /* The list for the discussions to display */
                 var discussions = [];
 
-                /* Current date and time */
-                var currentDateTime = new Date();
-
                 /* Split buying discussions into two lists */
-
-                for (var offer of this.buyingDiscussions) {
-                    var ticketDate = offer.ticket.train.departure_date;
-                    var ticketTime = offer.ticket.train.departure_time;
-                    var ticketDateTime = new Date(ticketDate + " " + ticketTime);
-                    if (ticketDateTime > currentDateTime)
-                        currentBuyingDiscussions.push(offer);
-                    else
-                        pastBuyingDiscussions.push(offer);
-                }
-
-                /* Split selling discussion into two lists */
-
-                for (var offer of this.sellingDiscussions) {
-                    var ticketDate = offer.ticket.train.departure_date;
-                    var ticketTime = offer.ticket.train.departure_time;
-                    var ticketDateTime = new Date(ticketDate + " " + ticketTime);
-                    if (ticketDateTime > currentDateTime)
-                        currentSellingDiscussions.push(offer);
-                    else
-                        pastSellingDiscussions.push(offer);
-                }
+                var allBuying = this.splitDiscussions(this.buyingDiscussions);
+                var allSelling = this.splitDiscussions(this.sellingDiscussions);
 
                 /* Concatenate the lists depending on the state of the component */
 
                 if (this.showCurrentBuy) {
-                    discussions = discussions.concat(currentBuyingDiscussions);
+                    discussions = discussions.concat(allBuying[0]);
                 }
 
                 if (this.showCurrentSell) {
-                    discussions = discussions.concat(currentSellingDiscussions);
+                    discussions = discussions.concat(allSelling[0]);
                 }
 
                 if (this.showPastBuy) {
-                    discussions = discussions.concat(pastBuyingDiscussions);
+                    discussions = discussions.concat(allBuying[1]);
                 }
 
                 if (this.showPastSell) {
-                    discussions = discussions.concat(pastSellingDiscussions);
+                    discussions = discussions.concat(allSelling[1]);
                 }
 
                 /* Sort the final list and return it */
-
-                return discussions.sort(this.compare);
+                if (this.radio === 'ticketCompare') {
+                    return discussions.sort(this.ticketCompare)
+                }
+                else {
+                    return discussions.sort(this.discussionCompare);
+                }
             },
         },
         methods: {
             unreadDiscussion(discussion) {
-                if (discussion.last_message && discussion.last_message.sender_id != this.user.id && discussion.last_message.read_at == null) {
+                if (discussion.last_message && discussion.last_message.sender_id !== this.user.id && discussion.last_message.read_at == null) {
                     return true;
                 }
                 return false;
@@ -233,6 +233,28 @@
             },
             allDiscussions() {
                 return this.buyingDiscussions.concat(this.sellingDiscussions)
+            },
+            /* Split discussions by current date and time */
+            splitDiscussions(discussions) {
+
+                var currentDate = moment();
+
+                var current = [];
+
+                var past = [];
+
+                for (var offer of discussions) {
+                    var ticketDate = this.getTicketDateOfOffer(offer);
+                    if (ticketDate.isSameOrAfter(currentDate))
+                        current.push(offer);
+                    else
+                        past.push(offer);
+                }
+                return [current, past];
+            },
+            /* Get the date of the ticket associated with an offer as a moment object */
+            getTicketDateOfOffer(offer) {
+                return moment(offer.ticket.train.departure_date + " " + offer.ticket.train.departure_time, "YYYY-MM-DD HH:mm:ss");
             },
             acceptOffer(id) {
                 document.getElementById("accept-" + id).submit();
@@ -246,10 +268,19 @@
             openDiscussion: function (discussion_id) {
                 document.getElementById('discussion-link-' + discussion_id).click();
             },
-            compare(a, b) {
+            discussionCompare(a, b) {
                 if (a.updated_at < b.updated_at)
                     return -1;
                 if (a.updated_at > b.updated_at)
+                    return 1;
+                return 0;
+            },
+            ticketCompare(a, b) {
+                var dateA = this.getTicketDateOfOffer(a);
+                var dateB = this.getTicketDateOfOffer(b);
+                if (dateA.isBefore(dateB))
+                    return -1;
+                else if (dateA.isAfter(dateA))
                     return 1;
                 return 0;
             }
