@@ -2,7 +2,7 @@
     <div class="col-12">
 
 
-        <div class="text-center" v-if="discussions.length == 0 && offersAwaiting.length == 0">
+        <div class="text-center" v-if="this.allDiscussions().length == 0 && offersAwaiting.length == 0">
             {{lang.empty}}
         </div>
 
@@ -83,12 +83,12 @@
 
         <!-- Current Discussions -->
 
-        <template v-if="discussions.length > 0">
+        <template v-if="this.allDiscussions().length > 0">
             <h4 class="card-title mb-0">{{lang.discussions.title}}
-                <el-checkbox-group v-model="checkList">
-                    <el-checkbox label="B">{{lang.discussions.showPastBuying}}</el-checkbox>
-                    <el-checkbox label="S">{{lang.discussions.showPastSelling}}</el-checkbox>
-                </el-checkbox-group>
+                <el-checkbox label="true" v-model="showCurrentBuy">{{lang.discussions.showCurrentBuying}}</el-checkbox>
+                <el-checkbox label="true" v-model="showCurrentSell">{{lang.discussions.showCurrentSelling}}</el-checkbox>
+                <el-checkbox label="true" v-model="showPastBuy">{{lang.discussions.showPastBuying}}</el-checkbox>
+                <el-checkbox label="true" v-model="showPastSell">{{lang.discussions.showPastSelling}}</el-checkbox>
             </h4>
 
             <div class="card mt-4">
@@ -151,23 +151,74 @@
                 csrf: window.csrf,
                 offerBeingDenied: null,
                 denyOfferModal: false,
-                checkList: []
+                showCurrentBuy: true,
+                showCurrentSell: true,
+                showPastBuy: false,
+                showPastSell: false
             }
         },
         computed: {
             discussions() {
-                var discussions = this.buyingDiscussions.concat(this.sellingDiscussions);
+                console.log('calculating computed again');
 
-                function compare(a, b) {
-                    if (a.updated_at < b.updated_at)
-                        return -1;
-                    if (a.updated_at > b.updated_at)
-                        return 1;
-                    return 0;
+                /* Create seperate list for the four types of discussions */
+                var pastBuyingDiscussions = [];
+                var pastSellingDiscussions = [];
+                var currentBuyingDiscussions = [];
+                var currentSellingDiscussions = [];
+
+                /* The list for the discussions to display */
+                var discussions = [];
+
+                /* Current date and time */
+                var currentDateTime = new Date();
+
+                /* Split buying discussions into two lists */
+
+                for (var offer of this.buyingDiscussions) {
+                    var ticketDate = offer.ticket.train.departure_date;
+                    var ticketTime = offer.ticket.train.departure_time;
+                    var ticketDateTime = new Date(ticketDate + " " + ticketTime);
+                    if (ticketDateTime > currentDateTime)
+                        currentBuyingDiscussions.push(offer);
+                    else
+                        pastBuyingDiscussions.push(offer);
                 }
 
-                return discussions.sort(compare);
-            }
+                /* Split selling discussion into two lists */
+
+                for (var offer of this.sellingDiscussions) {
+                    var ticketDate = offer.ticket.train.departure_date;
+                    var ticketTime = offer.ticket.train.departure_time;
+                    var ticketDateTime = new Date(ticketDate + " " + ticketTime);
+                    if (ticketDateTime > currentDateTime)
+                        currentSellingDiscussions.push(offer);
+                    else
+                        pastSellingDiscussions.push(offer);
+                }
+
+                /* Concatenate the lists depending on the state of the component */
+
+                if (this.showCurrentBuy) {
+                    discussions = discussions.concat(currentBuyingDiscussions);
+                }
+
+                if (this.showCurrentSell) {
+                    discussions = discussions.concat(currentSellingDiscussions);
+                }
+
+                if (this.showPastBuy) {
+                    discussions = discussions.concat(pastBuyingDiscussions);
+                }
+
+                if (this.showPastSell) {
+                    discussions = discussions.concat(pastSellingDiscussions);
+                }
+
+                /* Sort the final list and return it */
+
+                return discussions.sort(this.compare);
+            },
         },
         methods: {
             unreadDiscussion(discussion) {
@@ -180,6 +231,9 @@
                 this.offerBeingDenied = offer;
                 this.denyOfferModal = true;
             },
+            allDiscussions() {
+                return this.buyingDiscussions.concat(this.sellingDiscussions)
+            },
             acceptOffer(id) {
                 document.getElementById("accept-" + id).submit();
             },
@@ -191,6 +245,13 @@
             },
             openDiscussion: function (discussion_id) {
                 document.getElementById('discussion-link-' + discussion_id).click();
+            },
+            compare(a, b) {
+                if (a.updated_at < b.updated_at)
+                    return -1;
+                if (a.updated_at > b.updated_at)
+                    return 1;
+                return 0;
             }
         },
         components: {

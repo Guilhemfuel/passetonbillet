@@ -67,6 +67,8 @@ return [
         'cta_sell_to'     => 'Sold to',
         'showPastBuying' => 'Show past buying discussions',
         'showPastSelling' => 'Show past selling discussions',
+        'showCurrentBuying' => 'Show current buying discussions',
+        'showCurrentSelling' => 'Show current selling discussions',
         'cancel'          => 'Cancel',
 
         'table' => [

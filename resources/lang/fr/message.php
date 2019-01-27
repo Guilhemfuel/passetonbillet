@@ -70,6 +70,8 @@ return [
         'cancel'          => 'Annuler',
         'showPastBuying' => 'Montrer les discussions d\'achat passées',
         'showPastSelling' => 'Montrer les discussions de vente passées',
+        'showCurrentBuying' => 'Montrer les discussions d\'achat courant',
+        'showCurrentSelling' => 'Montrer les discussions de vente courant',
 
         'table' => [
             'ticket'       => 'Billet',
