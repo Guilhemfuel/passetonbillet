@@ -2,7 +2,7 @@
     <div class="col-12">
 
 
-        <div class="text-center" v-if="this.allDiscussions().length == 0 && offersAwaiting.length == 0">
+        <div class="text-center" v-if="this.allDiscussions().length === 0 && offersAwaiting.length === 0">
             {{lang.empty}}
         </div>
 
