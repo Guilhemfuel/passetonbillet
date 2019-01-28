@@ -86,6 +86,7 @@
         <template v-if="this.allDiscussions().length > 0">
             <h4 class="card-title mb-0">{{lang.discussions.title}}
 
+
                 <!-- Filtering and sorting options -->
                 <div class="row">
 
@@ -129,8 +130,9 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+
                                 <template v-for="offer in discussions">
-                                    <tr @click="openDiscussion(offer.id)">
+                                    <tr :key="offer.id" @click="openDiscussion(offer.id)">
                                         <th scope="col" class="col-ticket">
                                             <ticket-mini :discussion="offer"
                                                          :ticket="offer.ticket"></ticket-mini>
@@ -143,6 +145,9 @@
                                         </th>
                                         <th :class="{'unread':unreadDiscussion(offer),'align-middle':true,'last-message':true}">
                                             {{offer.last_message ? (offer.last_message.message.substring(0, 30) + (offer.last_message.message.length > 30 ? '...' : '')) : '-'}}
+                                            <div class="text-sm-left font-weight-bold">
+                                                ({{ formattedDate(offer.updated_at.date) }})
+                                            </div>
                                         </th>
                                     </tr>
                                 </template>
@@ -180,7 +185,7 @@
                 showCurrentSell: true,
                 showPastBuy: false,
                 showPastSell: false,
-                radio: 'discussionSort'
+                radio: 'discussionCompare'
             }
         },
         computed: {
@@ -279,9 +284,9 @@
                 var dateA = this.getTicketDateOfOffer(a);
                 var dateB = this.getTicketDateOfOffer(b);
                 if (dateA.isBefore(dateB))
-                    return -1;
-                else if (dateA.isAfter(dateA))
                     return 1;
+                else if (dateA.isAfter(dateA))
+                    return -1;
                 return 0;
             }
         },
