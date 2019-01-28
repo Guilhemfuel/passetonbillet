@@ -15,4 +15,5 @@ Homestead.yaml
 /phpunit.xml
 /tests/Browser
 /report/
+npm-debug.log
 *.dump
