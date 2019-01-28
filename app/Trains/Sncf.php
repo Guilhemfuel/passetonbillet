@@ -118,6 +118,7 @@ class Sncf
         }
 
         $decoded = $decoded["order"];
+        $databaseId = $decoded["databaseId"];
         $trainData = $decoded["trainFolders"][ $referenceNumber ];
 
         // Find tickets
@@ -131,7 +132,7 @@ class Sncf
         // For each travel
         foreach ( $trainData['travels'] as $travel ) {
 
-            $ticket = $this->createTrainAndReturnTicket( $travel, $currency, $lastName, $referenceNumber, $buyerEmail, $price, $past );
+            $ticket = $this->createTrainAndReturnTicket( $travel, $currency, $lastName, $referenceNumber, $buyerEmail, $price, $databaseId, $past );
 
             if ( $ticket ) {
                 array_push( $tickets, $ticket );
@@ -142,7 +143,7 @@ class Sncf
         return $tickets;
     }
 
-    public function createTrainAndReturnTicket( $data, $currency, $lastName, $referenceNumber, $buyerEmail, $price, $past = false )
+    public function createTrainAndReturnTicket( $data, $currency, $lastName, $referenceNumber, $buyerEmail, $price, $databaseId, $past = false )
     {
 
         // Check if correspondance
@@ -153,6 +154,7 @@ class Sncf
         }
 
         $trainNumber = $data["segments"][0]['trainNumber'];
+        $id = $databaseId . '000' . $data["segments"][0]['id'];
 
         $departureDateTime = new Carbon( $data["departureDate"] );
         $arrivalDateTime = new Carbon( $data["arrivalDate"] );
@@ -205,7 +207,7 @@ class Sncf
             $ticket->provider = self::PROVIDER;
             $ticket->buyer_email = $buyerEmail;
             $ticket->correspondence = $correspondance;
-
+            $ticket->ticket_number = $id;
 
             return $ticket;
         }
@@ -258,7 +260,7 @@ class Sncf
         $creationDate = str_replace( ':', '', $creationDate );
         $creationDate = str_replace( '-', '', $creationDate );
         $creationDate = str_replace( 'T', '', $creationDate );
-        $creationDate = substr($creationDate, 0, -2);
+        $creationDate = substr( $creationDate, 0, - 2 );
 
         $data = [
             "lang"    => "FR",
@@ -266,7 +268,7 @@ class Sncf
                 [
                     "pnrLocator"    => $referenceNumber,
                     "creationDate"  => $creationDate,
-                    "passengerName" => strtoupper( AppHelper::removeAccents( $ticket->buyer_name) )
+                    "passengerName" => strtoupper( AppHelper::removeAccents( $ticket->buyer_name ) )
                 ]
             ],
             "market"  => "VSC",
@@ -288,7 +290,7 @@ class Sncf
             ]
         );
 
-        \Storage::disk('s3')->put('pdf/tickets/'.$ticket->pdf_file_name, (string) $response->getBody());
+        \Storage::disk( 's3' )->put( 'pdf/tickets/' . $ticket->pdf_file_name, (string) $response->getBody() );
 
         return true;
 
