@@ -145,9 +145,9 @@
                                         </th>
                                         <th :class="{'unread':unreadDiscussion(offer),'align-middle':true,'last-message':true}">
                                             {{offer.last_message ? (offer.last_message.message.substring(0, 30) + (offer.last_message.message.length > 30 ? '...' : '')) : '-'}}
-                                            <div class="text-sm-left font-weight-bold">
+                                            <p class="text-sm-left font-weight-bold">
                                                 ({{ formattedDate(offer.updated_at.date) }})
-                                            </div>
+                                            </p>
                                         </th>
                                     </tr>
                                 </template>
@@ -261,6 +261,9 @@
             getTicketDateOfOffer(offer) {
                 return moment(offer.ticket.train.departure_date + " " + offer.ticket.train.departure_time, "YYYY-MM-DD HH:mm:ss");
             },
+            getDiscussionDateOfOffer(offer) {
+              return moment(offer.updated_at.date)
+            },
             acceptOffer(id) {
                 document.getElementById("accept-" + id).submit();
             },
@@ -274,10 +277,12 @@
                 document.getElementById('discussion-link-' + discussion_id).click();
             },
             discussionCompare(a, b) {
-                if (a.updated_at < b.updated_at)
-                    return -1;
-                if (a.updated_at > b.updated_at)
+                var dateA = this.getDiscussionDateOfOffer(a);
+                var dateB = this.getDiscussionDateOfOffer(b);
+                if (dateA.isBefore(dateB))
                     return 1;
+                else if (dateA.isAfter(dateB))
+                    return -1;
                 return 0;
             },
             ticketCompare(a, b) {
@@ -285,7 +290,7 @@
                 var dateB = this.getTicketDateOfOffer(b);
                 if (dateA.isBefore(dateB))
                     return 1;
-                else if (dateA.isAfter(dateA))
+                else if (dateA.isAfter(dateB))
                     return -1;
                 return 0;
             }
