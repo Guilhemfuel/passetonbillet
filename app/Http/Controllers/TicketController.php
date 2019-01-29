@@ -183,6 +183,7 @@ class TicketController extends Controller
 
         // Make sure we don't have such a ticket yet
         $oldTicket = Ticket::withScams()
+                           ->withTrashed()
                            ->whereRaw( "lower(provider_code) = ? ", strtolower( $ticket->provider_code ) )
                            ->where( 'provider', $ticket->provider )
                            ->where( 'train_id', $ticket->train_id )
