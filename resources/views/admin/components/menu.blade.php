@@ -72,4 +72,11 @@
     </a>
 </li>
 
+<li  class="{{substr(Route::currentRouteName(),0,11) == 'eyeWitness.'? 'active':'' }}">
+    <a href="/eyewitness">
+        <i class="fa fa-eye"></i>
+        Eye witness
+    </a>
+</li>
+
 

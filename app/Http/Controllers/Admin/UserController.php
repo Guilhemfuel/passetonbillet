@@ -85,7 +85,7 @@ class UserController extends BaseController
         return view( 'admin.unique.verification.id' )->with(
             [
                 'user'   => $idCheck->user,
-                'jsUser' => new UserRessource($idCheck->user)
+                'jsUser' => new UserRessource( $idCheck->user )
             ] );
     }
 
@@ -139,11 +139,11 @@ class UserController extends BaseController
     {
         $request->validate( [
             'verification_id' => 'required|exists:id_verifications,id',
-            'birthdate' => 'required|date_format:d/m/Y',
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'type' => [ 'required','in:'.implode( ',', IdVerification::DOCUMENT_TYPES ) ],
-            'country' => [ 'required', new Country() ],
+            'birthdate'       => 'required|date_format:d/m/Y',
+            'first_name'      => 'required',
+            'last_name'       => 'required',
+            'type'            => [ 'required', 'in:' . implode( ',', IdVerification::DOCUMENT_TYPES ) ],
+            'country'         => [ 'required', new Country() ],
         ] );
 
         $idVerif = IdVerification::find( $request->verification_id );
@@ -155,15 +155,15 @@ class UserController extends BaseController
             return redirect()->route( 'id_check.oldest' );
         }
 
-        $idVerif->type = $request->get('type');
-        $idVerif->country = $request->get('country');
+        $idVerif->type = $request->get( 'type' );
+        $idVerif->country = $request->get( 'country' );
         $idVerif->accepted = true;
         $idVerif->save();
 
         $idVerif->user->notify( new IdConfirmed() );
 
         // Now we update user info
-        $idVerif->user->update($request->except(['verification_id','type','country']));
+        $idVerif->user->update( $request->except( [ 'verification_id', 'type', 'country' ] ) );
 
         flash()->success( 'ID confirmed!' );
 
