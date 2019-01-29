@@ -7,6 +7,13 @@
         Mark as Scam
     </a>
     @endif
+    @if($entity->sold_to_id!=null)
+        <vue-form class='form-check-inline' action="{{route('tickets.revert_status',['ticket_id'=>$entity->id])}}" method="PUT">
+            <button class="btn btn-outline-purple btn-fill btn-sm mr-3 mt-2" type="submit">
+                <i class="fa fa-undo" aria-hidden="true"></i> Resell
+            </button>
+        </vue-form>
+    @endif
     @if($entity->pdf_downloaded)
     <a class="btn btn-info btn-fill btn-sm mr-3 mt-2" target="_blank" href="{{route('public.ticket.download',['ticket_id'=>$entity->id])}}">
         <i class="fa fa-file-pdf-o" aria-hidden="true"></i> Download ticket
@@ -24,8 +31,12 @@
     @if(!$entity->pdf_downloaded)
     <a class="btn btn-warning btn-fill btn-sm mt-2" href="{{route('tickets.redownload',['ticket_id'=>$entity->id])}}">
         <i class="fa fa-cloud-download" aria-hidden="true"></i> Retry downloading ticket
+        {{$entity->sold_to_id}}
     </a>
     @endif
+
+
+
 
         @push('additional-content')
             {{-- Modal here so that pdf form is in the right place (not in the update form)--}}

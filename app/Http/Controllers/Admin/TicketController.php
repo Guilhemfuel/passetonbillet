@@ -6,6 +6,8 @@ use App\Http\Requests\Admin\TicketRequest;
 use App\Http\Resources\Admin\TicketTableResource;
 use App\Http\Resources\StationRessource;
 use App\Jobs\DownloadTicketPdf;
+use App\Models\Discussion;
+use App\Notifications\OfferNotification;
 use App\Station;
 use App\Ticket;
 use App\User;
@@ -118,6 +120,45 @@ class TicketController extends BaseController
         $ticket->save();
 
         flash()->success( 'Ticket updated!' );
+
+        return redirect()->route( $this->CRUDmodelName . '.edit', $ticket->id );
+    }
+
+    /**
+     * Reevert the status of a ticket back to unsold.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function revertStatus( Request $request, $ticket_id )
+    {
+
+        $ticket = Ticket::find($ticket_id);
+        $discussion = $ticket->discussion_sold;
+
+        if ($ticket === null) {
+            flash()->error( 'Ticket not found!' );
+        }
+
+        else if ($discussion === null) {
+            flash()->error( 'Discussion not found!' );
+        }
+
+        else if ( $ticket->passed === true ) {
+            flash()->error('The ticket has expired')->important();
+        }
+
+        else {
+
+            $ticket->sold_to_id = null;
+            $discussion->status = Discussion::AWAITING;
+            $discussion->save();
+            $ticket->save();
+
+
+            flash()->success('Ticket status successfully reverted');
+        }
 
         return redirect()->route( $this->CRUDmodelName . '.edit', $ticket->id );
     }

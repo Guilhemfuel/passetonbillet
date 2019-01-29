@@ -5,7 +5,6 @@ namespace App;
 use App\Exceptions\PasseTonBilletException;
 use App\Traits\ScamFiltered;
 use Carbon\Carbon;
-use Hashids\Hashids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Collection;
@@ -134,6 +133,7 @@ class Ticket extends Model
             $arrivalStations = Station::where( 'parent_station_id', $arrivalStationId )->pluck( 'id' );
             $arrivalStations[] = intval( $arrivalStationId );
         }
+
 
         // Find matching trains
         $request = Train::whereIn( 'departure_city', $departureStations )
@@ -269,6 +269,10 @@ class Ticket extends Model
             throw new PasseTonBilletException( "Provider ${value} unknown." );
         }
         $this->attributes['provider'] = $value;
+    }
+
+    public function setSoldToIdAttribute( $value ) {
+        $this->attributes['sold_to_id'] = $value;
     }
 
     public function getDiscussionSoldAttribute()
