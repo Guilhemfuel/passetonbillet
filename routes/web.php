@@ -12,17 +12,39 @@
 |
 */
 
-// Robot.txt
-Route::get('/robots.txt','RobotController@index');
 
-Route::redirect('/html', '/', 301);
-Route::redirect('/revendre-billet-train', '/', 301);
-Route::redirect('/html/revendre-billet-train', '/', 301);
+Route::get( 'test', function () {
+    $bannedUsers = \App\User::where( 'status', \App\User::STATUS_BANNED_USER )->get();
+    $bannedIP = [];
+
+    foreach ( $bannedUsers as $user ) {
+        $registerStat = $user->stats->where( 'action', 'register' )->first();
+        $data = $registerStat->data;
+
+        // Fix automatic casting of array if it fails
+        if ( is_string( $data ) ) {
+            $data = json_decode( $data, true );
+        }
+
+
+        if ( $registerStat && isset($data['ip_address']) && ! in_array($data['ip_address'], $bannedIP ) ) {
+            $bannedIP[] = $data['ip_address'];
+        }
+    }
+    dd( $bannedIP );
+} );
+
+// Robot.txt
+Route::get( '/robots.txt', 'RobotController@index' );
+
+Route::redirect( '/html', '/', 301 );
+Route::redirect( '/revendre-billet-train', '/', 301 );
+Route::redirect( '/html/revendre-billet-train', '/', 301 );
 
 // Home Page
 Route::get( '/', 'PageController@home' )->name( 'home' );
 
-Route::get( '/home', 'PageController@homeRedirect')->name('home-redirect' );
+Route::get( '/home', 'PageController@homeRedirect' )->name( 'home-redirect' );
 
 // Lang
 Route::get( 'lang/lang-{locale}.js', 'LanguageController@getLangJsFile' )->name( 'lang.js' );
@@ -62,14 +84,14 @@ Route::post( '/register/fb/confirm', 'Auth\RegisterController@fb_confirm_inscrip
  * Condtions, privacy, contact...
  **/
 // Conditions
-Route::get('/cgu','PageController@cgu')->name('cgu.page');
-Route::get('/privacy','PageController@privacy')->name('privacy.page');
+Route::get( '/cgu', 'PageController@cgu' )->name( 'cgu.page' );
+Route::get( '/privacy', 'PageController@privacy' )->name( 'privacy.page' );
 
 // About page
-Route::get('/about','PageController@about')->name('about.page');
+Route::get( '/about', 'PageController@about' )->name( 'about.page' );
 
 // Help Page
-Route::get('/help','PageController@help')->name('help.page');
+Route::get( '/help', 'PageController@help' )->name( 'help.page' );
 
 // Contact page
 Route::get( '/contact', 'PageController@contact' )->name( 'contact.page' );
@@ -90,7 +112,7 @@ Route::group( [ 'middleware' => 'auth', 'as' => 'public.' ], function () {
         // Sell ticket
         Route::get( 'sell', 'PageController@sellPage' )->name( 'sell.page' );
         Route::post( 'sell', 'TicketController@sellTicket' )->name( 'sell.post' )->middleware( 'auth.verified.phone' );
-        Route::post('edit/{ticket_id}','TicketController@changeTicketPrice')->name('edit')->middleware( 'auth.verified.phone' );
+        Route::post( 'edit/{ticket_id}', 'TicketController@changeTicketPrice' )->name( 'edit' )->middleware( 'auth.verified.phone' );
 
         // See my tickets
         // Possible values for tab: selling (default), sold, offered, bought
@@ -162,7 +184,7 @@ Route::group( [ 'prefix' => 'img', 'as' => 'image.' ], function () {
 /**
  * Admin routes
  **/
-Route::blacklist(function() {
+Route::blacklist( function () {
     Route::group( [ 'prefix' => 'ptbadmin', 'middleware' => 'auth.admin' ], function () {
         Route::get( '/', 'Admin\HomeController@home' )->name( 'admin.home' );
 
@@ -177,7 +199,7 @@ Route::blacklist(function() {
             Route::get( '/redownload/{ticket_id}', 'Admin\TicketController@redownload' )->name( 'redownload' );
             Route::get( '/scam/{ticket_id}', 'Admin\TicketController@markAsFraud' )->name( 'scam' );
             Route::post( '/manual-upload/{ticket_id}', 'Admin\TicketController@pdfManualUpload' )->name( 'manual_upload' );
-            Route::put('/revert-status/{ticket_id}', 'Admin\TicketController@revertStatus' )->name( 'revert_status');
+            Route::put( '/revert-status/{ticket_id}', 'Admin\TicketController@revertStatus' )->name( 'revert_status' );
         } );
 
         Route::resource( 'stations', 'Admin\StationController' );
@@ -208,7 +230,7 @@ Route::blacklist(function() {
             Route::get( '/done/{warning}', 'Admin\WarningController@markAsDone' )->name( 'warnings.mark_as_done' );
         } );
     } );
-});
+} );
 
 
 /**
