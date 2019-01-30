@@ -90,28 +90,21 @@
                 <!-- Filtering and sorting options -->
                 <div class="row">
 
-                    <!-- Checkboxes for current discussions -->
+                    <!-- Checkboxes for buying or selling discussions -->
                     <div class="col-sm-6">
-                        <el-checkbox label="true" v-model="showCurrentBuy">{{lang.discussions.showCurrentBuying}}</el-checkbox>
+                        <el-checkbox label="true" v-model="showBuy">{{trans('message.discussions.showBuying')}}</el-checkbox>
                     </div>
                     <div class="col-sm-6">
-                        <el-checkbox label="true" v-model="showCurrentSell">{{lang.discussions.showCurrentSelling}}</el-checkbox>
+                        <el-checkbox label="true" v-model="showSell">{{trans('message.discussions.showSelling')}}</el-checkbox>
                     </div>
 
-                    <!-- Checkboxes to show past discussions -->
-                    <div class="col-md-6">
-                        <el-checkbox label="true" v-model="showPastBuy">{{lang.discussions.showPastBuying}}</el-checkbox>
-                    </div>
-                    <div class="col-md-6">
-                        <el-checkbox label="true" v-model="showPastSell">{{lang.discussions.showPastSelling}}</el-checkbox>
-                    </div>
 
                     <!-- Radio buttons for sorting -->
                     <div class="col-md-6">
-                        <el-radio v-model="radio" label="ticketCompare">{{lang.discussions.sortByTicketDate}}</el-radio>
+                        <el-radio v-model="radio" label="ticketCompare">{{trans('message.discussions.sortByTicketDate')}}</el-radio>
                     </div>
                     <div class="col-md-6">
-                        <el-radio v-model="radio" label="discussionCompare">{{lang.discussions.sortByDiscussionDate}}</el-radio>
+                        <el-radio v-model="radio" label="discussionCompare">{{trans('message.discussions.sortByDiscussionDate')}}</el-radio>
                     </div>
 
                 </div>
@@ -131,7 +124,15 @@
                                 </thead>
                                 <tbody>
 
-                                <template v-for="offer in discussions">
+                                <el-alert
+                                        v-if="pastDiscussions.length === 0"
+                                        type="info">
+                                    {{trans('message.discussions.noDiscussions')}}
+                                </el-alert>
+
+                                <template v-for="offer in currentDiscussions">
+
+
                                     <tr :key="offer.id" @click="openDiscussion(offer.id)">
                                         <th scope="col" class="col-ticket">
                                             <ticket-mini :discussion="offer"
@@ -141,7 +142,7 @@
                                             scope="col" @click="openDiscussion(offer.id)">
                                             <a class="d-none" :href="discussionPageUrl(offer.ticket.id,offer.id)"
                                                :id="'discussion-link-'+offer.id"></a>
-                                            {{offer.buyer.id == user.id ? offer.seller.full_name : offer.buyer.full_name}}
+                                            {{offer.buyer.id === user.id ? offer.seller.full_name : offer.buyer.full_name}}
                                         </th>
                                         <th :class="{'unread':unreadDiscussion(offer),'align-middle':true,'last-message':true}">
                                             {{offer.last_message ? (offer.last_message.message.substring(0, 30) + (offer.last_message.message.length > 30 ? '...' : '')) : '-'}}
@@ -151,6 +152,51 @@
                                         </th>
                                     </tr>
                                 </template>
+
+                                <!-- Button to show past discussions -->
+
+                                <p class="text-center">
+                                    {{ trans('message.discussions.showPast')}}
+                                </p>
+                                <el-switch
+                                        class="ml-5 mb-2"
+                                        v-model="showPast"
+                                        active-color="#13ce66"
+                                        inactive-color="#ff4949">
+                                </el-switch>
+
+                                <!-- Past discussions -->
+
+                                <template v-if="showPast === true" v-for="offer in pastDiscussions">
+                                    <tr :key="offer.id" @click="openDiscussion(offer.id)">
+                                        <th scope="col" class="col-ticket">
+                                            <ticket-mini :discussion="offer"
+                                                         :ticket="offer.ticket">
+                                            </ticket-mini>
+                                        </th>
+                                        <th :class="{'unread':unreadDiscussion(offer),'align-middle':true,'text-center':true, 'last-message-sender':true}"
+                                            scope="col" @click="openDiscussion(offer.id)">
+                                            <a class="d-none" :href="discussionPageUrl(offer.ticket.id,offer.id)"
+                                               :id="'discussion-link-'+offer.id"></a>
+                                            {{offer.buyer.id === user.id ? offer.seller.full_name : offer.buyer.full_name}}
+                                        </th>
+                                        <th :class="{'unread':unreadDiscussion(offer),'align-middle':true,'last-message':true}">
+                                            {{offer.last_message ? (offer.last_message.message.substring(0, 30) + (offer.last_message.message.length > 30 ? '...' : '')) : '-'}}
+                                            <p class="text-sm-left font-weight-bold">
+                                                ({{ formattedDate(offer.updated_at.date) }})
+                                            </p>
+                                        </th>
+                                    </tr>
+                                </template>
+
+
+                                <!-- error message -->
+                                <el-alert
+                                        v-if="pastDiscussions.length === 0"
+                                        type="info">
+                                    {{trans('message.discussions.noDiscussions')}}
+                                </el-alert>
+
                                 </tbody>
                             </table>
                         </div>
@@ -181,15 +227,14 @@
                 csrf: window.csrf,
                 offerBeingDenied: null,
                 denyOfferModal: false,
-                showCurrentBuy: true,
-                showCurrentSell: true,
-                showPastBuy: false,
-                showPastSell: false,
+                showBuy: true,
+                showSell: true,
+                showPast: false,
                 radio: 'discussionCompare'
             }
         },
         computed: {
-            discussions() {
+            currentDiscussions() {
 
                 /* The list for the discussions to display */
                 var discussions = [];
@@ -200,20 +245,12 @@
 
                 /* Concatenate the lists depending on the state of the component */
 
-                if (this.showCurrentBuy) {
+                if (this.showBuy) {
                     discussions = discussions.concat(allBuying[0]);
                 }
 
-                if (this.showCurrentSell) {
+                if (this.showSell) {
                     discussions = discussions.concat(allSelling[0]);
-                }
-
-                if (this.showPastBuy) {
-                    discussions = discussions.concat(allBuying[1]);
-                }
-
-                if (this.showPastSell) {
-                    discussions = discussions.concat(allSelling[1]);
                 }
 
                 /* Sort the final list and return it */
@@ -224,6 +261,33 @@
                     return discussions.sort(this.discussionCompare);
                 }
             },
+            pastDiscussions() {
+
+                /* The list for the discussions to display */
+                var discussions = [];
+
+                /* Split buying discussions into two lists */
+                var allBuying = this.splitDiscussions(this.buyingDiscussions);
+                var allSelling = this.splitDiscussions(this.sellingDiscussions);
+
+                /* Concatenate the lists depending on the state of the component */
+
+                if (this.showBuy) {
+                    discussions = discussions.concat(allBuying[1]);
+                }
+
+                if (this.showSell) {
+                    discussions = discussions.concat(allSelling[1]);
+                }
+
+                /* Sort the final list and return it */
+                if (this.radio === 'ticketCompare') {
+                    return discussions.sort(this.ticketCompare)
+                }
+                else {
+                    return discussions.sort(this.discussionCompare);
+                }
+            }
         },
         methods: {
             unreadDiscussion(discussion) {

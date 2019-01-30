@@ -70,10 +70,10 @@ return [
         'cancel'          => 'Annuler',
         'sortByTicketDate' => 'Trier par date de billet',
         'sortByDiscussionDate' => 'Trier par date de discussion',
-        'showPastBuying' => 'Montrer les discussions d\'achat passées',
-        'showPastSelling' => 'Montrer les discussions de vente passées',
-        'showCurrentBuying' => 'Montrer les discussions d\'achat courant',
-        'showCurrentSelling' => 'Montrer les discussions de vente courant',
+        'showBuying' => 'Montrer les discussions d\'achat',
+        'showSelling' => 'Montrer les discussions de vente',
+        'showPast' => 'Montrer les discussions passées',
+        'noDiscussions' => 'Pas de discussion à afficher',
 
         'table' => [
             'ticket'       => 'Billet',

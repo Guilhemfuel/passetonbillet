@@ -67,10 +67,10 @@ return [
         'cta_sell_to'     => 'Sold to',
         'sortByTicketDate' => 'Sort by ticket date',
         'sortByDiscussionDate' => 'Sort by discussion date',
-        'showPastBuying' => 'Show past buying discussions',
-        'showPastSelling' => 'Show past selling discussions',
-        'showCurrentBuying' => 'Show current buying discussions',
-        'showCurrentSelling' => 'Show current selling discussions',
+        'showBuying' => 'Show buying discussions',
+        'showSelling' => 'Show selling discussions',
+        'showPast' => 'Show past discussions',
+        'noDiscussions' => 'No discussions to display',
         'cancel'          => 'Cancel',
 
         'table' => [
