@@ -2,8 +2,10 @@
     <div class="col-12">
 
 
-        <div class="text-center" v-if="this.allDiscussions().length === 0 && offersAwaiting.length === 0">
-            {{lang.empty}}
+        <div class="card" v-if="this.hasDiscussions === false && offersAwaiting.length === 0">
+            <p class="card-body text-ptb-sm text-center">
+                {{ trans('message.empty')}}
+            </p>
         </div>
 
         <!-- Awaiting offers -->
@@ -83,7 +85,7 @@
 
         <!-- Current Discussions -->
 
-        <template v-if="this.allDiscussions().length > 0">
+        <template v-if="this.hasDiscussions" >
             <h4 class="card-title mb-0">{{lang.discussions.title}}
 
 
@@ -163,7 +165,7 @@
                 </div>
             </div>
 
-            <!-- Button to show past discussions. Only renders if there is at least 1 total discussion  -->
+            <!-- Switch to show past discussions. Only renders if there is at least 1 total discussion  -->
             <div class="pt-2 pt-2 text-center">
                 <el-switch v-model="showPast"
                         active-color="#13ce66"
@@ -174,7 +176,8 @@
                 </span>
             </div>
 
-                            <!-- Past discussions -->
+
+            <!-- Past discussions -->
             <div v-if="showPast === true" class="card mt-4">
                 <div class="card-body card-messages">
                     <div class="past-discussions">
@@ -315,7 +318,10 @@
                 else {
                     return discussions.sort(this.discussionCompare);
                 }
-            }
+            },
+            hasDiscussions() {
+                return this.buyingDiscussions.length > 0 || this.sellingDiscussions.length > 0;
+            },
         },
         methods: {
             unreadDiscussion(discussion) {
@@ -328,9 +334,7 @@
                 this.offerBeingDenied = offer;
                 this.denyOfferModal = true;
             },
-            allDiscussions() {
-                return this.buyingDiscussions.concat(this.sellingDiscussions)
-            },
+
             /* Split discussions by current date and time */
             splitDiscussions(discussions) {
 
