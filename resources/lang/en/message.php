@@ -71,6 +71,7 @@ return [
         'showSelling' => 'Show selling discussions',
         'showPast' => 'Show past discussions',
         'noDiscussions' => 'No discussions to display',
+        'noPastDiscussions' => 'No past discussions to display',
         'cancel'          => 'Cancel',
 
         'table' => [

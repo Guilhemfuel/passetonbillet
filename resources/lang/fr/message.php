@@ -74,6 +74,7 @@ return [
         'showSelling' => 'Montrer les discussions de vente',
         'showPast' => 'Montrer les discussions passées',
         'noDiscussions' => 'Pas de discussion à afficher',
+        'noPastDiscussions' => 'Pas de discussion passées à afficher',
 
         'table' => [
             'ticket'       => 'Billet',

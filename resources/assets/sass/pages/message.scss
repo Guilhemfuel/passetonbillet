@@ -18,6 +18,13 @@
     margin-top: 0px;
   }
 
+  .text-ptb-sm {
+    color: #FF9600;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 14px;
+  }
+
   .card {
 
     .card-header {
@@ -69,6 +76,7 @@
       width: 240px;
     }
 
+
     tr {
       cursor: pointer;
     }
@@ -93,6 +101,7 @@
   height: 100%;
   margin-top: -57px;
   padding-top: 65px;
+
 
   .info-header {
 
@@ -273,6 +282,7 @@
         top: 0px;
         border-radius: 0px;
       }
+
     }
   }
 }

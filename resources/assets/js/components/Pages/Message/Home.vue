@@ -40,7 +40,7 @@
                                                      :ticket="offer.ticket"></ticket-mini>
                                         <div class="d-sm-block d-md-none">
                                             <p class="text-center mt-3 text-primary">
-                                                {{offer.buyer.full_name}} - {{offer.price}}{{offer.currency == 'GBP' ? '£' : '€'}}
+                                                {{offer.buyer.full_name}} - {{offer.price}}{{offer.currency === 'GBP' ? '£' : '€'}}
                                             </p>
                                             <div class="btn-rack">
                                                 <button class="btn btn-success" @click.prevent="acceptOffer(offer.id)">
@@ -56,7 +56,7 @@
                                         {{offer.buyer.full_name}}
                                     </th>
                                     <th scope="col" class="text-center align-middle d-none d-md-table-cell">
-                                        {{offer.price}}{{offer.currency == 'GBP' ? '£' : '€'}}
+                                        {{offer.price}}{{offer.currency === 'GBP' ? '£' : '€'}}
                                     </th>
                                     <th scope="col" class="text-center actions align-middle d-none d-md-table-cell">
                                         <button class="btn btn-success" @click.prevent="acceptOffer(offer.id)">
@@ -124,11 +124,15 @@
                                 </thead>
                                 <tbody>
 
-                                <el-alert
-                                        v-if="pastDiscussions.length === 0"
-                                        type="info">
-                                    {{trans('message.discussions.noDiscussions')}}
-                                </el-alert>
+                                <!-- If there are total discussions, but no current discussions -->
+                                <tr v-if="currentDiscussions.length === 0"
+                                    class="mt-3 text-center text-ptb-sm">
+                                    <th colspan="3">
+                                        <p v-if="currentDiscussions.length === 0">
+                                            {{trans('message.discussions.noDiscussions')}}
+                                        </p>
+                                    </th>
+                                </tr>
 
                                 <template v-for="offer in currentDiscussions">
 
@@ -152,22 +156,51 @@
                                         </th>
                                     </tr>
                                 </template>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-                                <!-- Button to show past discussions -->
+            <!-- Button to show past discussions. Only renders if there is at least 1 total discussion  -->
+            <div class="pt-2 pt-2 text-center">
+                <el-switch v-model="showPast"
+                        active-color="#13ce66"
+                        inactive-color="#ff4949">
+                </el-switch>
+                <span class="ml-5 text-center">
+                    {{ trans('message.discussions.showPast')}}
+                </span>
+            </div>
 
-                                <p class="text-center">
-                                    {{ trans('message.discussions.showPast')}}
-                                </p>
-                                <el-switch
-                                        class="ml-5 mb-2"
-                                        v-model="showPast"
-                                        active-color="#13ce66"
-                                        inactive-color="#ff4949">
-                                </el-switch>
+                            <!-- Past discussions -->
+            <div v-if="showPast === true" class="card mt-4">
+                <div class="card-body card-messages">
+                    <div class="past-discussions">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-discussion">
+                                <thead>
+                                <tr>
+                                    <th scope="col" class="text-center">{{trans('message.discussions.table.ticket')}}</th>
+                                    <th scope="col" class="text-center">{{trans('message.discussions.table.name')}}</th>
+                                    <th scope="col">{{trans('message.discussions.table.last_message')}}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
 
-                                <!-- Past discussions -->
+                                <!-- If there are total discussions, but no past discussions -->
+                                <tr v-if="pastDiscussions.length === 0"
+                                    class="mt-3 text-center text-ptb-sm">
+                                    <th colspan="3">
+                                        <p v-if="pastDiscussions.length === 0">
+                                            {{trans('message.discussions.noPastDiscussions')}}
+                                        </p>
+                                    </th>
+                                </tr>
 
-                                <template v-if="showPast === true" v-for="offer in pastDiscussions">
+
+                                <template v-for="offer in pastDiscussions">
                                     <tr :key="offer.id" @click="openDiscussion(offer.id)">
                                         <th scope="col" class="col-ticket">
                                             <ticket-mini :discussion="offer"
@@ -188,22 +221,17 @@
                                         </th>
                                     </tr>
                                 </template>
-
-
-                                <!-- error message -->
-                                <el-alert
-                                        v-if="pastDiscussions.length === 0"
-                                        type="info">
-                                    {{trans('message.discussions.noDiscussions')}}
-                                </el-alert>
-
                                 </tbody>
                             </table>
+
                         </div>
                     </div>
                 </div>
             </div>
         </template>
+        <p v-else class="text-ptb-sm text-center">
+            {{ trans('messages.discussions.noDiscussions') }}
+        </p>
     </div>
 </template>
 
