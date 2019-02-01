@@ -1,5 +1,5 @@
 # Passetonbillet
-Train ticket resales platform.
+Train ticket resales
 
 ## Requirements
 1. Homestead (https://laravel.com/docs/5.7/homestead), Laravel valet (https://laravel.com/docs/5.7/valet), or Laravel valet linux (https://cpriego.github.io/valet-linux/)
@@ -58,5 +58,3 @@ Working on a new feature? Here is how to proceed:
 * Then if there is some feedback, or some changes are required, I do them, re-push to update the pull request and let the reviewer know it was updated.
 * Then hourray! Code is merged to master (either by reviewer, or by the creator of the branch if asked by reviewer) and branch previously created is closed.
 
-## Acknowledgement
-Special thanks to [@NFS002]( https://github.com/NFS002 ) for creating this nice readme file (and figuring out all of that by himself...)

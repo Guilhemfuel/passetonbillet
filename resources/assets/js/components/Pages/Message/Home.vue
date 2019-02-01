@@ -112,7 +112,7 @@
                 </div>
             </h4>
 
-            <div class="card mt-4">
+            <div class="card">
                 <div class="card-body card-messages">
                     <div class="current-discussions">
                         <div class="table-responsive">
@@ -166,12 +166,12 @@
             </div>
 
             <!-- Switch to show past discussions. Only renders if there is at least 1 total discussion  -->
-            <div class="pt-2 pt-2 text-center">
+            <div class="pt-2 pt-2 text-center past-switch">
                 <el-switch v-model="showPast"
                         active-color="#13ce66"
                         inactive-color="#ff4949">
                 </el-switch>
-                <span class="ml-5 text-center">
+                <span class="ml-2 text-center">
                     {{ trans('message.discussions.showPast')}}
                 </span>
             </div>
