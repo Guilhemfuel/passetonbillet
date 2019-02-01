@@ -68,6 +68,13 @@ return [
         'sold_to'         => 'Vous avez vendu ce billet à',
         'cta_sell_to'     => 'Billet vendu à',
         'cancel'          => 'Annuler',
+        'sortByTicketDate' => 'Trier par date de billet',
+        'sortByDiscussionDate' => 'Trier par date de discussion',
+        'showBuying' => 'Montrer les discussions d\'achat',
+        'showSelling' => 'Montrer les discussions de vente',
+        'showPast' => 'Montrer les discussions passées',
+        'noDiscussions' => 'Pas de discussion à afficher',
+        'noPastDiscussions' => 'Pas de discussion passées à afficher',
 
         'table' => [
             'ticket'       => 'Billet',
