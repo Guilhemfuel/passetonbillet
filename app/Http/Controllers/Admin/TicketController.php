@@ -225,8 +225,15 @@ class TicketController extends BaseController
         return redirect()->route( $this->CRUDmodelName . '.edit', $ticket->id );
     }
 
-    // ---------- Mark as Fraud -------
 
+    /**
+     * Mark ticket as scam, and ban user
+     *
+     * @param Request $request
+     * @param         $id
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function markAsFraud(Request $request, $id)
     {
         $ticket = Ticket::find( $id );
@@ -237,7 +244,23 @@ class TicketController extends BaseController
 
         $ticket->scam();
 
-        flash('Ticket marked as scam.')->success();
+        $user = $ticket->user;
+        if ( ! $user ) {
+            \Session::flash( 'danger', 'Entity not found!' );
+
+            return redirect()->back();
+        }
+
+        if ( $user->status != User::STATUS_USER ) {
+            \Session::flash( 'danger', 'Only active user (non admin) can be banned!' );
+
+            return redirect()->back();
+        }
+
+        $user->status = User::STATUS_BANNED_USER;
+        $user->save();
+
+        flash('Ticket marked as scam, and user banned.')->success();
         return redirect()->route( $this->CRUDmodelName . '.edit', $ticket->id );
     }
 

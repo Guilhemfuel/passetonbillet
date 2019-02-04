@@ -144,6 +144,7 @@
             <table class="table table-hover table-striped">
                 <thead>
                 <th>Date</th>
+                <th>Status</th>
                 <th>From</th>
                 <th>To</th>
                 <th>Price</th>
@@ -153,11 +154,12 @@
                 @foreach($entity->tickets as $ticket)
                     <tr>
                         <td>{{$ticket->train->carbon_departure_date->format('d/m/Y')}}</td>
+                        <td>{{$ticket->status}}</td>
                         <th>
-                            {{substr($ticket->train->departureCity->short_name,2)}}
+                            {{$ticket->train->departureCity->name}}
                         </th>
                         <th>
-                            {{ substr($ticket->train->arrivalCity->short_name,2)  }}
+                            {{ $ticket->train->arrivalCity->name }}
                         </th>
                         <th>
                             {{$ticket->price}} {{$ticket->currency}}
