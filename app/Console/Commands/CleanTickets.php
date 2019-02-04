@@ -59,11 +59,11 @@ class CleanTickets extends Command
             $ticket = Ticket::find( $train->id);
 
             if ($ticket != null) {
-
                 /* The name of the pdf file */
                 $filePath = 'pdf/tickets/' . $ticket->pdf_file_name;
-                \Storage::disk( 's3' )->delete( $filePath );
-
+                if ($ticket->pdf_dowmloaded == true){
+                    \Storage::disk( 's3' )->delete( $filePath );
+                }
             }
             $bar->advance();
 
