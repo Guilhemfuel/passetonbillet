@@ -17,19 +17,25 @@ class Kernel extends ConsoleKernel
         Commands\UpdateTrains::class,
         Commands\Empower::class,
         Commands\AnonymiseData::class,
-        Commands\DownloadAllMissingTicketPdfs::class
+        Commands\DownloadAllMissingTicketPdfs::class,
+        Commands\CleanEmails::class,
+        Commands\CleanTickets::class,
+        Commands\Clean::class
     ];
 
     /**
      * Define the application's command schedule.
      *
+     * To start the scheduler you must call:
+     * * * * * * cd /path-to-your-project && php artisan schedule:run >> /dev/null 2>&1
      * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
      * @return void
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->command(Commands\Clean::class)
+                 ->daily()
+                 ->sendOutputTo(storage_path() . '/logs/clean.log');
     }
 
     /**

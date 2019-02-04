@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Ticket;
 use App\User;
 use Illuminate\Console\Command;
 
