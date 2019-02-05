@@ -18,6 +18,7 @@ use App\Http\Resources\StationRessource;
 use App\Http\Resources\TicketRessource;
 use App\Http\Resources\TrainRessource;
 use App\Jobs\DownloadTicketPdf;
+use App\Listeners\Admin\Warnings\CheckPriceTicketAddedListener;
 use App\Mail\OfferEmail;
 use App\Models\AdminWarning;
 use App\Models\Discussion;
@@ -326,6 +327,19 @@ class TicketController extends Controller
             flash( __( 'tickets.sell.errors.max_value' ) )->error()->important();
 
             return redirect()->route( 'public.ticket.sell.page' );
+        }
+
+
+        // If the user lowers the ticket price a lot
+        if ($request->price <= CheckPriceTicketAddedListener::TICKET_WARNING_PRICE && $request->price <= $ticket->bought_price ){
+            AdminWarning::create( [
+                'action' => AdminWarning::STRANGELY_LOW_TICKET_PRICE,
+                'link'   => route( 'tickets.edit', $ticket->id ),
+                'data'   => [
+                    'user_id' => $ticket->user->id,
+                    'message' => 'This ticket has a really low price. He might try to negotiate later. Please check.',
+                ]
+            ] );
         }
 
         $ticket->price = $request->price;

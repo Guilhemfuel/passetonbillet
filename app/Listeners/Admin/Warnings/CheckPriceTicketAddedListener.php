@@ -3,6 +3,7 @@
 namespace App\Listeners\Admin\Warnings;
 
 use App\Events\TicketAddedEvent;
+use App\Models\AdminWarning;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
@@ -20,11 +21,27 @@ class CheckPriceTicketAddedListener implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  object $event
+     *
      * @return void
      */
-    public function handle(TicketAddedEvent $event)
+    public function handle( TicketAddedEvent $event )
     {
+        // Check if lower than warning, and lower than original price
+        $ticket = $event->ticket;
 
+        if ( $ticket
+             && $ticket->price <= self::TICKET_WARNING_PRICE
+             && $ticket->price < $ticket->bought_price
+        ) {
+            AdminWarning::create( [
+                'action' => AdminWarning::STRANGELY_LOW_TICKET_PRICE,
+                'link'   => route( 'tickets.edit', $ticket->id ),
+                'data'   => [
+                    'user_id' => $ticket->user->id,
+                    'message' => 'This ticket has a really low price. He might try to negotiate later. Please check.',
+                ]
+            ] );
+        }
     }
 }
