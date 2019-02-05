@@ -2,8 +2,10 @@
     <div class="col-12">
 
 
-        <div class="text-center" v-if="discussions.length == 0 && offersAwaiting.length == 0">
-            {{lang.empty}}
+        <div class="card" v-if="this.hasDiscussions === false && offersAwaiting.length === 0">
+            <p class="card-body text-ptb-sm text-center">
+                {{ trans('message.empty')}}
+            </p>
         </div>
 
         <!-- Awaiting offers -->
@@ -40,7 +42,7 @@
                                                      :ticket="offer.ticket"></ticket-mini>
                                         <div class="d-sm-block d-md-none">
                                             <p class="text-center mt-3 text-primary">
-                                                {{offer.buyer.full_name}} - {{offer.price}}{{offer.currency == 'GBP' ? '£' : '€'}}
+                                                {{offer.buyer.full_name}} - {{offer.price}}{{offer.currency === 'GBP' ? '£' : '€'}}
                                             </p>
                                             <div class="btn-rack">
                                                 <button class="btn btn-success" @click.prevent="acceptOffer(offer.id)">
@@ -56,7 +58,7 @@
                                         {{offer.buyer.full_name}}
                                     </th>
                                     <th scope="col" class="text-center align-middle d-none d-md-table-cell">
-                                        {{offer.price}}{{offer.currency == 'GBP' ? '£' : '€'}}
+                                        {{offer.price}}{{offer.currency === 'GBP' ? '£' : '€'}}
                                     </th>
                                     <th scope="col" class="text-center actions align-middle d-none d-md-table-cell">
                                         <button class="btn btn-success" @click.prevent="acceptOffer(offer.id)">
@@ -83,10 +85,34 @@
 
         <!-- Current Discussions -->
 
-        <template v-if="discussions.length > 0">
-            <h4 class="card-title mb-0">{{lang.discussions.title}}</h4>
+        <template v-if="this.hasDiscussions" >
+            <h4 class="card-title mb-0">{{lang.discussions.title}}
 
-            <div class="card mt-4">
+
+                <!-- Filtering and sorting options -->
+                <div class="row">
+
+                    <!-- Checkboxes for buying or selling discussions -->
+                    <div class="col-sm-6">
+                        <el-checkbox label="true" v-model="showBuy">{{trans('message.discussions.showBuying')}}</el-checkbox>
+                    </div>
+                    <div class="col-sm-6">
+                        <el-checkbox label="true" v-model="showSell">{{trans('message.discussions.showSelling')}}</el-checkbox>
+                    </div>
+
+
+                    <!-- Radio buttons for sorting -->
+                    <div class="col-md-6">
+                        <el-radio v-model="radio" label="ticketCompare">{{trans('message.discussions.sortByTicketDate')}}</el-radio>
+                    </div>
+                    <div class="col-md-6">
+                        <el-radio v-model="radio" label="discussionCompare">{{trans('message.discussions.sortByDiscussionDate')}}</el-radio>
+                    </div>
+
+                </div>
+            </h4>
+
+            <div class="card">
                 <div class="card-body card-messages">
                     <div class="current-discussions">
                         <div class="table-responsive">
@@ -99,8 +125,21 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <template v-for="offer in discussions">
-                                    <tr @click="openDiscussion(offer.id)">
+
+                                <!-- If there are total discussions, but no current discussions -->
+                                <tr v-if="currentDiscussions.length === 0"
+                                    class="mt-3 text-center text-ptb-sm">
+                                    <th colspan="3">
+                                        <p v-if="currentDiscussions.length === 0">
+                                            {{trans('message.discussions.noDiscussions')}}
+                                        </p>
+                                    </th>
+                                </tr>
+
+                                <template v-for="offer in currentDiscussions">
+
+
+                                    <tr :key="offer.id" @click="openDiscussion(offer.id)">
                                         <th scope="col" class="col-ticket">
                                             <ticket-mini :discussion="offer"
                                                          :ticket="offer.ticket"></ticket-mini>
@@ -109,10 +148,13 @@
                                             scope="col" @click="openDiscussion(offer.id)">
                                             <a class="d-none" :href="discussionPageUrl(offer.ticket.id,offer.id)"
                                                :id="'discussion-link-'+offer.id"></a>
-                                            {{offer.buyer.id == user.id ? offer.seller.full_name : offer.buyer.full_name}}
+                                            {{offer.buyer.id === user.id ? offer.seller.full_name : offer.buyer.full_name}}
                                         </th>
                                         <th :class="{'unread':unreadDiscussion(offer),'align-middle':true,'last-message':true}">
                                             {{offer.last_message ? (offer.last_message.message.substring(0, 30) + (offer.last_message.message.length > 30 ? '...' : '')) : '-'}}
+                                            <p class="text-sm-left font-weight-bold">
+                                                ({{ formattedDate(offer.updated_at.date) }})
+                                            </p>
                                         </th>
                                     </tr>
                                 </template>
@@ -122,7 +164,77 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Switch to show past discussions. Only renders if there is at least 1 total discussion  -->
+            <div class="pt-2 pt-2 text-center past-switch">
+                <el-switch v-model="showPast"
+                        active-color="#13ce66"
+                        inactive-color="#ff4949">
+                </el-switch>
+                <span class="ml-2 text-center">
+                    {{ trans('message.discussions.showPast')}}
+                </span>
+            </div>
+
+
+            <!-- Past discussions -->
+            <div v-if="showPast === true" class="card mt-4">
+                <div class="card-body card-messages">
+                    <div class="past-discussions">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-discussion">
+                                <thead>
+                                <tr>
+                                    <th scope="col" class="text-center">{{trans('message.discussions.table.ticket')}}</th>
+                                    <th scope="col" class="text-center">{{trans('message.discussions.table.name')}}</th>
+                                    <th scope="col">{{trans('message.discussions.table.last_message')}}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                <!-- If there are total discussions, but no past discussions -->
+                                <tr v-if="pastDiscussions.length === 0"
+                                    class="mt-3 text-center text-ptb-sm">
+                                    <th colspan="3">
+                                        <p v-if="pastDiscussions.length === 0">
+                                            {{trans('message.discussions.noPastDiscussions')}}
+                                        </p>
+                                    </th>
+                                </tr>
+
+
+                                <template v-for="offer in pastDiscussions">
+                                    <tr :key="offer.id" @click="openDiscussion(offer.id)">
+                                        <th scope="col" class="col-ticket">
+                                            <ticket-mini :discussion="offer"
+                                                         :ticket="offer.ticket">
+                                            </ticket-mini>
+                                        </th>
+                                        <th :class="{'unread':unreadDiscussion(offer),'align-middle':true,'text-center':true, 'last-message-sender':true}"
+                                            scope="col" @click="openDiscussion(offer.id)">
+                                            <a class="d-none" :href="discussionPageUrl(offer.ticket.id,offer.id)"
+                                               :id="'discussion-link-'+offer.id"></a>
+                                            {{offer.buyer.id === user.id ? offer.seller.full_name : offer.buyer.full_name}}
+                                        </th>
+                                        <th :class="{'unread':unreadDiscussion(offer),'align-middle':true,'last-message':true}">
+                                            {{offer.last_message ? (offer.last_message.message.substring(0, 30) + (offer.last_message.message.length > 30 ? '...' : '')) : '-'}}
+                                            <p class="text-sm-left font-weight-bold">
+                                                ({{ formattedDate(offer.updated_at.date) }})
+                                            </p>
+                                        </th>
+                                    </tr>
+                                </template>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
         </template>
+        <p v-else class="text-ptb-sm text-center">
+            {{ trans('messages.discussions.noDiscussions') }}
+        </p>
     </div>
 </template>
 
@@ -145,27 +257,75 @@
                 state: 'default',
                 csrf: window.csrf,
                 offerBeingDenied: null,
-                denyOfferModal: false
+                denyOfferModal: false,
+                showBuy: true,
+                showSell: true,
+                showPast: false,
+                radio: 'discussionCompare'
             }
         },
         computed: {
-            discussions() {
-                var discussions = this.buyingDiscussions.concat(this.sellingDiscussions);
+            currentDiscussions() {
 
-                function compare(a, b) {
-                    if (a.updated_at < b.updated_at)
-                        return -1;
-                    if (a.updated_at > b.updated_at)
-                        return 1;
-                    return 0;
+                /* The list for the discussions to display */
+                var discussions = [];
+
+                /* Split buying discussions into two lists */
+                var allBuying = this.splitDiscussions(this.buyingDiscussions);
+                var allSelling = this.splitDiscussions(this.sellingDiscussions);
+
+                /* Concatenate the lists depending on the state of the component */
+
+                if (this.showBuy) {
+                    discussions = discussions.concat(allBuying[0]);
                 }
 
-                return discussions.sort(compare);
-            }
+                if (this.showSell) {
+                    discussions = discussions.concat(allSelling[0]);
+                }
+
+                /* Sort the final list and return it */
+                if (this.radio === 'ticketCompare') {
+                    return discussions.sort(this.ticketCompare)
+                }
+                else {
+                    return discussions.sort(this.discussionCompare);
+                }
+            },
+            pastDiscussions() {
+
+                /* The list for the discussions to display */
+                var discussions = [];
+
+                /* Split buying discussions into two lists */
+                var allBuying = this.splitDiscussions(this.buyingDiscussions);
+                var allSelling = this.splitDiscussions(this.sellingDiscussions);
+
+                /* Concatenate the lists depending on the state of the component */
+
+                if (this.showBuy) {
+                    discussions = discussions.concat(allBuying[1]);
+                }
+
+                if (this.showSell) {
+                    discussions = discussions.concat(allSelling[1]);
+                }
+
+                /* Sort the final list and return it */
+                if (this.radio === 'ticketCompare') {
+                    return discussions.sort(this.ticketCompare)
+                }
+                else {
+                    return discussions.sort(this.discussionCompare);
+                }
+            },
+            hasDiscussions() {
+                return this.buyingDiscussions.length > 0 || this.sellingDiscussions.length > 0;
+            },
         },
         methods: {
             unreadDiscussion(discussion) {
-                if (discussion.last_message && discussion.last_message.sender_id != this.user.id && discussion.last_message.read_at == null) {
+                if (discussion.last_message && discussion.last_message.sender_id !== this.user.id && discussion.last_message.read_at == null) {
                     return true;
                 }
                 return false;
@@ -173,6 +333,32 @@
             denyOffer(offer) {
                 this.offerBeingDenied = offer;
                 this.denyOfferModal = true;
+            },
+
+            /* Split discussions by current date and time */
+            splitDiscussions(discussions) {
+
+                var currentDate = moment();
+
+                var current = [];
+
+                var past = [];
+
+                for (var offer of discussions) {
+                    var ticketDate = this.getTicketDateOfOffer(offer);
+                    if (ticketDate.isSameOrAfter(currentDate))
+                        current.push(offer);
+                    else
+                        past.push(offer);
+                }
+                return [current, past];
+            },
+            /* Get the date of the ticket associated with an offer as a moment object */
+            getTicketDateOfOffer(offer) {
+                return moment(offer.ticket.train.departure_date + " " + offer.ticket.train.departure_time, "YYYY-MM-DD HH:mm:ss");
+            },
+            getDiscussionDateOfOffer(offer) {
+              return moment(offer.updated_at.date)
             },
             acceptOffer(id) {
                 document.getElementById("accept-" + id).submit();
@@ -185,6 +371,24 @@
             },
             openDiscussion: function (discussion_id) {
                 document.getElementById('discussion-link-' + discussion_id).click();
+            },
+            discussionCompare(a, b) {
+                var dateA = this.getDiscussionDateOfOffer(a);
+                var dateB = this.getDiscussionDateOfOffer(b);
+                if (dateA.isBefore(dateB))
+                    return 1;
+                else if (dateA.isAfter(dateB))
+                    return -1;
+                return 0;
+            },
+            ticketCompare(a, b) {
+                var dateA = this.getTicketDateOfOffer(a);
+                var dateB = this.getTicketDateOfOffer(b);
+                if (dateA.isBefore(dateB))
+                    return 1;
+                else if (dateA.isAfter(dateB))
+                    return -1;
+                return 0;
             }
         },
         components: {
