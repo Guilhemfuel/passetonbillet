@@ -16,6 +16,13 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\RegisteredEvent' => [
             'App\Listeners\RegisteredListener',
         ],
+        'App\Events\Admin\IdAcceptedEvent' => [
+            'App\Listeners\Admin\Warnings\CheckAcceptedIdListener',
+        ],
+        'App\Events\Admin\TicketAddedEvent' => [
+            'App\Listeners\Admin\Warnings\CheckManyTicketsAddedListener',
+            'App\Listeners\Admin\Warnings\CheckPriceTicketAddedListener',
+        ]
     ];
 
     /**

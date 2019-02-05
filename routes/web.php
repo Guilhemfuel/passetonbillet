@@ -12,28 +12,6 @@
 |
 */
 
-
-Route::get( 'test', function () {
-    $bannedUsers = \App\User::where( 'status', \App\User::STATUS_BANNED_USER )->get();
-    $bannedIP = [];
-
-    foreach ( $bannedUsers as $user ) {
-        $registerStat = $user->stats->where( 'action', 'register' )->first();
-        $data = $registerStat->data;
-
-        // Fix automatic casting of array if it fails
-        if ( is_string( $data ) ) {
-            $data = json_decode( $data, true );
-        }
-
-
-        if ( $registerStat && isset($data['ip_address']) && ! in_array($data['ip_address'], $bannedIP ) ) {
-            $bannedIP[] = $data['ip_address'];
-        }
-    }
-    dd( $bannedIP );
-} );
-
 // Robot.txt
 Route::get( '/robots.txt', 'RobotController@index' );
 

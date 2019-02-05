@@ -35,23 +35,4 @@ class RegisteredListener implements ShouldQueue
         ],$event->user );
     }
 
-    /**
-     * Check if registered user used an IP used by a banned user. If so, creates an admin warning
-     *
-     * @param RegisteredEvent $event
-     */
-    private function checkNewUserIP(RegisteredEvent $event) {
-
-        $bannedUsers = User::where('status',User::STATUS_BANNED_USER)->get();
-        $bannedIP = [];
-
-        foreach ($bannedUsers as $user){
-            $registerStat = $user->stats->where('action','register')->first();
-            if ($registerStat && !in_array($registerStat->data['ip_address'],$bannedIP)) {
-                $bannedIP[] = $registerStat->data['ip_address'];
-            }
-        }
-
-
-    }
 }

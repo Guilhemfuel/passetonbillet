@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\TicketAddedEvent;
 use App\Exceptions\EurostarException;
 use App\Exceptions\PasseTonBilletException;
 use App\Facades\AppHelper;
@@ -18,6 +19,7 @@ use App\Http\Resources\TicketRessource;
 use App\Http\Resources\TrainRessource;
 use App\Jobs\DownloadTicketPdf;
 use App\Mail\OfferEmail;
+use App\Models\AdminWarning;
 use App\Models\Discussion;
 use App\Models\Statistic;
 use App\Notifications\OfferNotification;
@@ -191,6 +193,20 @@ class TicketController extends Controller
                            ->where( 'ticket_number', $ticket->ticket_number )
                            ->first();
         if ( $oldTicket ) {
+
+            // Scammers tend to try to put on sale tickets already on the website, so we create a warning if that happens
+            AdminWarning::create( [
+                'action' => AdminWarning::TRY_TO_RESALE_TICKET,
+                'link'   => route( 'users.edit', \Auth::id() ),
+                'data'   => [
+                    'user_id'              => \Auth::id(),
+                    'old_ticket_seller_id' => $oldTicket->user->id,
+                    'old_ticket_id'        => $oldTicket->id,
+                    'message'              => 'This user tried to sell a ticket that was either already sold, or deleted from the 
+                    platform. Please check if there is anything suspicious about him.',
+                ]
+            ] );
+
             flash( __( 'tickets.sell.errors.duplicate' ) )->error()->important();
 
             return redirect()->route( 'public.ticket.sell.page' );
@@ -211,27 +227,13 @@ class TicketController extends Controller
         // Download pdf
         DownloadTicketPdf::dispatch( $ticket );
 
+        // Dispatch ticket added event
+        event(new TicketAddedEvent($ticket));
+
         flash( __( 'tickets.sell.success' ) )->success()->important();
 
         return redirect()->route( 'public.ticket.owned.page' )
                          ->with( [ 'addedTicket' => new TicketRessource( $ticket ) ] );
-    }
-
-    /**
-     * Once the request was validated we ensure it's not a eurostar ticket
-     */
-    private function isEurostarTicket( array $data )
-    {
-        if ( $data['company'] == 'eurostar'
-             || ( in_array( $data['departure_station'], self::UK_EUROSTAR_STATIONS_DB )
-                  && in_array( $data['arrival_station'], self::EUROSTAR_STATIONS_IDS ) )
-             || ( in_array( $data['arrival_station'], self::UK_EUROSTAR_STATIONS_DB )
-                  && in_array( $data['departure_station'], self::EUROSTAR_STATIONS_IDS ) )
-        ) {
-            return true;
-        }
-
-        return false;
     }
 
     /**

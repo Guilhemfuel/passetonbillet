@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\Admin\IdAcceptedEvent;
 use App\Http\Resources\UserRessource;
 use App\Models\Verification\IdVerification;
 use App\Notifications\Verification\IdConfirmed;
@@ -164,6 +165,9 @@ class UserController extends BaseController
 
         // Now we update user info
         $idVerif->user->update( $request->except( [ 'verification_id', 'type', 'country' ] ) );
+
+        // Dispatch the event
+        event(new IdAcceptedEvent($idVerif));
 
         flash()->success( 'ID confirmed!' );
 
