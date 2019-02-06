@@ -154,7 +154,7 @@
             ;e.amplitude = n
         })(window, document);
 
-        amplitude.getInstance().init("51125c4471177a0bd77b24ff967c20f7");
+        amplitude.getInstance().init("{{env('AMPLITUDE_APP_KEY')}}");
         window.amplitude = amplitude;
     </script>
 

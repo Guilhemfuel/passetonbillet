@@ -53,7 +53,7 @@
                     </nav>
                     <div class="content">
                         <div class="center">
-                            <h3 class="catchline text-center">{!! __('welcome.advantages.one_clic') !!}</h3>
+                            <h1 class="catchline text-center">{!! __('welcome.advantages.one_clic') !!}</h1>
                             <home-search></home-search>
                         </div>
                     </div>

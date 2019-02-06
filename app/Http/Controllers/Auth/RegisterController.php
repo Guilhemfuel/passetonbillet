@@ -187,11 +187,11 @@ class RegisterController extends Controller
         
         $user = $this->create( $request->all() );
 
-        // Log Amplitude Event
-        Amplitude::logEvent('register',null,$user);
-
         // Registered event triggered (used for email verification, logs...)
         $source = session()->pull('register-source', null);
+
+        Amplitude::logEvent('register',['source'=>$source],$user);
+
         event( new RegisteredEvent( $user, $source, $request->ip() ) );
 
         return $this->registered( $request, $user );
@@ -384,12 +384,12 @@ class RegisterController extends Controller
         $user->fb_id = session()->pull( 'fb_user_id' );
         $user->save();
 
-        Amplitude::logEvent('register',[
-            'facebook_connect' => true
-        ],$user);
-
         // Registered event triggered (used for email verification...)
         $source = session()->pull('register-source', null);
+        Amplitude::logEvent('register',[
+            'facebook_connect' => true,
+            'source' => $source
+        ],$user);
         event( new RegisteredEvent( $user, $source, $request->ip() ) );
 
         flash()->success( __( 'auth.social.success' ) );
