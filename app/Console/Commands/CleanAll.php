@@ -5,14 +5,14 @@ namespace App\Console\Commands;
 use App\Models\EmailSent;
 use Illuminate\Console\Command;
 
-class Clean extends Command
+class CleanAll extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'ptb:clean';
+    protected $signature = 'ptb:clean-all';
 
     /**
      * The console command description.

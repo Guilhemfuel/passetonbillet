@@ -20,7 +20,7 @@ class Kernel extends ConsoleKernel
         Commands\DownloadAllMissingTicketPdfs::class,
         Commands\CleanEmails::class,
         Commands\CleanTickets::class,
-        Commands\Clean::class
+        Commands\CleanAll::class
     ];
 
     /**
@@ -33,7 +33,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command(Commands\Clean::class)
+        $schedule->command(Commands\CleanAll::class)
                  ->daily()
                  ->sendOutputTo(storage_path() . '/logs/clean.log');
     }

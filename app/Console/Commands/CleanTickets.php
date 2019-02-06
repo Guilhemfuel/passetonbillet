@@ -49,14 +49,14 @@ class CleanTickets extends Command
         $old_trains = Train::whereDate('departure_date', '<', $past_date)->get();
         $n = count ( $old_trains );
 
-        $this->info("Deleting from " . $n . " tickets");
+        $this->info("Deleting tickets from " . $n . " tickets");
 
         $bar = $this->output->createProgressBar( $n );
         $bar->start();
         foreach ($old_trains as $train) {
 
             /* Get the ticket associate with this train */
-            $ticket = Ticket::find( $train->id);
+            $ticket = Ticket::find( $train->ticket_id);
 
             if ($ticket != null) {
                 /* The name of the pdf file */
