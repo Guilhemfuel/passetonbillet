@@ -61,7 +61,7 @@ class CleanTickets extends Command
             if ($ticket != null) {
                 /* The name of the pdf file */
                 $filePath = 'pdf/tickets/' . $ticket->pdf_file_name;
-                if ($ticket->pdf_dowmloaded == true){
+                if ($ticket->pdf_downloaded == true){
                     \Storage::disk( 's3' )->delete( $filePath );
                 }
             }
