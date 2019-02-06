@@ -252,8 +252,7 @@ class User extends Authenticatable
 
     public function emailsReceived()
     {
-        return $this->hasMany( 'App\Models\EmailSent','user_id' )
-                    ->orderBy('created_at', 'desc');
+        return $this->hasMany( 'App\Models\EmailSent','user_id' );
     }
 
     public function stats()
