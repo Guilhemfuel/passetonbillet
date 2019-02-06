@@ -26,7 +26,7 @@
 
     <!-- Google Property -->
     <meta name="google-site-verification" content="plz3_qbBsOX7Cb8I7FvDpQ9dPNHKhlzDuHDRzsefXbY"/>
-    <meta name="google-site-verification" content="Gltyd7fyRExsh2Bv0myMl7RJlg2BPcnf72pwex4S3GE" />
+    <meta name="google-site-verification" content="Gltyd7fyRExsh2Bv0myMl7RJlg2BPcnf72pwex4S3GE"/>
 
     <!-- Facebook MetaTags -->
     <meta property="fb:app_id" content="{{env('FB_APP_ID')}}"/>
@@ -68,7 +68,7 @@
         window.$crisp = [];
         window.CRISP_WEBSITE_ID = "243d866a-ba3b-4227-adaf-17c631d4fdb1";
         CRISP_RUNTIME_CONFIG = {
-            locale : "{{ \App::getLocale() }}"
+            locale: "{{ \App::getLocale() }}"
         };
         (function () {
             d = document;
@@ -80,6 +80,84 @@
         $crisp.push(['do', 'chat:hide']);
     </script>
 
+    <script type="text/javascript">
+        (function (e, t) {
+            var n = e.amplitude || {_q: [], _iq: {}};
+            var r = t.createElement("script")
+            ;r.type = "text/javascript";
+            r.async = true
+            ;r.src = "https://cdn.amplitude.com/libs/amplitude-4.4.0-min.gz.js"
+            ;r.onload = function () {
+                if (e.amplitude.runQueuedFunctions) {
+                    e.amplitude.runQueuedFunctions()
+                } else {
+                    console.log("[Amplitude] Error: could not load SDK")
+                }
+            }
+            ;var i = t.getElementsByTagName("script")[0];
+            i.parentNode.insertBefore(r, i)
+            ;
+
+            function s(e, t) {
+                e.prototype[t] = function () {
+                    this._q.push([t].concat(Array.prototype.slice.call(arguments, 0)));
+                    return this
+                }
+            }
+
+            var o = function () {
+                    this._q = [];
+                    return this
+                }
+            ;var a = ["add", "append", "clearAll", "prepend", "set", "setOnce", "unset"]
+            ;
+            for (var u = 0; u < a.length; u++) {
+                s(o, a[u])
+            }
+            n.Identify = o;
+            var c = function () {
+                    this._q = []
+                    ;
+                    return this
+                }
+            ;var l = ["setProductId", "setQuantity", "setPrice", "setRevenueType", "setEventProperties"]
+            ;
+            for (var p = 0; p < l.length; p++) {
+                s(c, l[p])
+            }
+            n.Revenue = c
+            ;var d = ["init", "logEvent", "logRevenue", "setUserId", "setUserProperties", "setOptOut", "setVersionName", "setDomain", "setDeviceId", "setGlobalUserProperties", "identify", "clearUserProperties", "setGroup", "logRevenueV2", "regenerateDeviceId", "logEventWithTimestamp", "logEventWithGroups", "setSessionId", "resetSessionId"]
+            ;
+
+            function v(e) {
+                function t(t) {
+                    e[t] = function () {
+                        e._q.push([t].concat(Array.prototype.slice.call(arguments, 0)))
+                    }
+                }
+
+                for (var n = 0; n < d.length; n++) {
+                    t(d[n])
+                }
+            }
+
+            v(n);
+            n.getInstance = function (e) {
+                e = (!e || e.length === 0 ? "$default_instance" : e).toLowerCase()
+                ;
+                if (!n._iq.hasOwnProperty(e)) {
+                    n._iq[e] = {_q: []};
+                    v(n._iq[e])
+                }
+                return n._iq[e]
+            }
+            ;e.amplitude = n
+        })(window, document);
+
+        amplitude.getInstance().init("51125c4471177a0bd77b24ff967c20f7");
+        window.amplitude = amplitude;
+    </script>
+
     @yield('head')
 </head>
 
@@ -88,22 +166,23 @@
 <div id="fb-root"></div>
 <script>
     {{-- Facebook --}}
-        window.fbAsyncInit = function() {
+        window.fbAsyncInit = function () {
         FB.init({
-            appId      : '2544208985804652',
-            cookie     : true,
-            xfbml      : true,
-            version    : 'v3.1'
+            appId: '2544208985804652',
+            cookie: true,
+            xfbml: true,
+            version: 'v3.1'
         });
 
         FB.AppEvents.logPageView();
 
     };
 
-    (function(d, s, id) {
+    (function (d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
+        js = d.createElement(s);
+        js.id = id;
         js.src = 'https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&autoLogAppEvents=1&version=v3.1&appId=2544208985804652';
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
@@ -128,6 +207,13 @@
         $crisp.push(["set", "user:email", "{{Auth::user()->email}}"])
         $crisp.push(["set", "user:nickname", "{{Auth::user()->first_name.' '.Auth::user()->last_name}}"])
         $crisp.push(["set", "user:avatar", "{{Auth::user()->picture}}"])
+
+        {{-- Set user ID --}}
+        amplitude.getInstance().setUserId({{Auth::id()}});
+        {{-- Give additional info --}}
+        var identify = new amplitude.Identify().setOnce('email', '{{Auth::user()->email}}').setOnce('created_at', '{{Auth::user()->created_at->toIso8601String()}}');
+        amplitude.getInstance().identify(identify);
+
     </script>
 @endif
 
@@ -169,44 +255,73 @@
             },
             closeCrisp(e) {
                 window.$crisp.push(['do', 'chat:hide']);
-            }
-        },
-        mounted: function() {
+            },
+            /**
+             * Log events to amplitude analytics.
+             * Only registered events are allowed. If event variable is set, it automatically follows link it
+             * (before click event was prevented).
+             *
+             * @param eventName
+             * @param properties
+             * @param event
+             */
+            logEvent: function (eventName, properties={}, event=null) {
+                // Check if event exists
+                if (!eventName in window.amplitude_events) {
+                    throw eventName + " is not a registered amplitude events.";
+                }
 
-            // Display Messages
-            for (var i = 0; i < this.messages.length; i++) {
-                this.$message({
-                    message: this.messages[i].message,
-                    type: this.messages[i].level == 'danger' ? 'error' : this.messages[i].level,
-                    showClose: true,
-                    duration: this.messages[i].important ? 0 : 10000,
-                    dangerouslyUseHTMLString: true
-                });
-            }
+                // Log event
+                window.amplitude.getInstance().logEvent(eventName, properties);
 
-            var errorsMessage = '<ul style="margin-bottom: 0px!important;">';
-            for (var i = 0; i < this.custom_errors.length; i++) {
-                errorsMessage += '<li>' + this.custom_errors[i] + '</li>'
-            }
-            errorsMessage += '</ul>';
+                // If event is specified, and element is link, follow link after tracking is done
+                if (event && event.target.tagName.toLowerCase() == 'a') {
+                    let location = event.target.getAttribute("href");
+                    if (location) {
+                        window.location = location;
+                    }
+                }
 
-            if (this.custom_errors.length > 0) {
-                this.$message({
-                    dangerouslyUseHTMLString: true,
-                    message: errorsMessage,
-                    type: 'error',
-                    showClose: true,
-                    duration: 0
-                });
             }
+    },
+    mounted: function () {
 
-        },
-        created: function () {
-            this.child = data;
-            this.currentPage = currentPage;
-            this.user = userData;
+        // Display Messages
+        for (var i = 0; i < this.messages.length; i++) {
+            this.$message({
+                message: this.messages[i].message,
+                type: this.messages[i].level == 'danger' ? 'error' : this.messages[i].level,
+                showClose: true,
+                duration: this.messages[i].important ? 0 : 10000,
+                dangerouslyUseHTMLString: true
+            });
         }
-    });
+
+        var errorsMessage = '<ul style="margin-bottom: 0px!important;">';
+        for (var i = 0; i < this.custom_errors.length; i++) {
+            errorsMessage += '<li>' + this.custom_errors[i] + '</li>'
+        }
+        errorsMessage += '</ul>';
+
+        if (this.custom_errors.length > 0) {
+            this.$message({
+                dangerouslyUseHTMLString: true,
+                message: errorsMessage,
+                type: 'error',
+                showClose: true,
+                duration: 0
+            });
+        }
+
+    }
+    ,
+    created: function () {
+        this.child = data;
+        this.currentPage = currentPage;
+        this.user = userData;
+    }
+    })
+    ;
 </script>
 @stack('scripts')
 

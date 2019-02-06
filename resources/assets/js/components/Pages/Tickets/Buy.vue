@@ -115,6 +115,7 @@
                 this.searchError = false;
 
                 this.state = 'searching';
+
                 this.$http.get(this.route('api.tickets.buy'),  {params: this.search})
                     .then(response => {
                         function compare(a, b) {
@@ -128,8 +129,12 @@
                         this.countSearch++;
                         this.state = 'result';
                         this.tickets = response.data.data.sort(compare);
+
+                        // Log search
+                        this.$root.logEvent('ticket_search',this.search);
+
                     }, response => {
-                        console.log(response)
+//                        console.log(response)
                     });
             }
         }

@@ -475,7 +475,7 @@
                     this.$http.post(this.route('api.tickets.offer'), {
                         price: this.priceOffer,
                         ticket_id: this.ticket.id
-                    }).then(response => {
+                    }).then((response) => {
                         // Success in offer
                         if (response.ok) {
                             this.state = 'offered';
@@ -483,6 +483,15 @@
                             if (this.$lodash.has(this.ticket, 'discussionId')) {
                                 this.editing = false;
                             }
+
+                            // Log Offer
+                            this.$root.logEvent('send_offer',{
+                                price: this.priceOffer,
+                                currency: this.ticket.currency,
+                                ticket_id: this.ticket.id
+                            });
+
+                            // Emit to reflect changes in parents
                             this.$emit('make-offer', {
                                 price: this.priceOffer,
                                 ticket_id: this.ticket.id

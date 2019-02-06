@@ -15,17 +15,25 @@
                 @if(Route::current()->getName() != 'public.ticket.sell.page')
                     <li class="nav-item">
                         <a class="nav-link btn btn-ptb d-none d-sm-block mt-0"
-                           href="{{route('public.ticket.sell.page')}}">@lang('nav.resell_a_ticket')</a>
+                           href="{{route('public.ticket.sell.page')}}"
+                           @click.prevent="logEvent('nav_sell_button',{},$event)"
+                        >@lang('nav.resell_a_ticket')</a>
                         <a class="nav-link btn btn-ptb d-block d-sm-none mt-0"
-                           href="{{route('public.ticket.sell.page')}}">@lang('nav.sell_ticket.mobile')</a>
+                           href="{{route('public.ticket.sell.page')}}"
+                           @click.prevent="logEvent('nav_sell_button',{},$event)"
+                        >@lang('nav.sell_ticket.mobile')</a>
                     </li>
                 @endif
                 @if(Route::current()->getName() != 'public.ticket.buy.page' && Route::current()->getName() != 'home')
                     <li class="nav-item ml-2">
                         <a class="nav-link btn btn-ptb-white d-none d-md-block mt-0"
-                           href="{{route('home')}}">@lang('nav.buy_ticket')</a>
+                           href="{{route('home')}}"
+                           @click.prevent="logEvent('nav_buy_button',{},$event)"
+                        >@lang('nav.buy_ticket')</a>
                         <a class="nav-link btn btn-ptb-white d-block d-md-none mt-0"
-                           href="{{route('home')}}">@lang('nav.buy_ticket.mobile')</a>
+                           href="{{route('home')}}"
+                           @click.prevent="logEvent('nav_buy_button',{},$event)"
+                        >@lang('nav.buy_ticket.mobile')</a>
                     </li>
                 @endif
                 @if(Auth::check())

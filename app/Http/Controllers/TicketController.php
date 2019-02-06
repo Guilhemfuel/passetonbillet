@@ -453,7 +453,7 @@ class TicketController extends Controller
             $request->get( 'departure_station' ),
             $request->get( 'arrival_station' ),
             Carbon::createFromFormat( 'd/m/Y', $request->get( 'trip_date' ) ),
-            $request->get( 'trip_time', Carbon::now()->format( 'hh:mm' ) )
+            $request->get( 'trip_time', Carbon::now()->format( 'h:m' ) )
         );
 
         return TicketRessource::collection( $tickets );
