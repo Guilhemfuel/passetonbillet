@@ -25,7 +25,7 @@
                                 @if(Auth::guest())
                                     <a class="nav-link btn btn-ptb"
                                        href="{{route('register.page')}}?source={{\App\Http\Controllers\Auth\RegisterController::SOURCE_GUEST_SELL}}"
-                                       @click.prevent="logEvent('nav_register_button',{},$event)">
+                                       @click.prevent="logEvent('nav_register_button',{},$event)"
                                     >@lang('nav.resell_a_ticket')</a>
                                 @else
                                     <a class="nav-link btn btn-ptb d-none d-sm-none d-md-block"

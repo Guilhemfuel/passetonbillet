@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Events\RegisteredEvent;
+use App\Facades\Amplitude;
 use App\Facades\AppHelper;
 use App\Models\Statistic;
 use App\Notifications\WelcomeNotification;
@@ -186,6 +187,9 @@ class RegisterController extends Controller
         
         $user = $this->create( $request->all() );
 
+        // Log Amplitude Event
+        Amplitude::logEvent('register',null,$user);
+
         // Registered event triggered (used for email verification, logs...)
         $source = session()->pull('register-source', null);
         event( new RegisteredEvent( $user, $source, $request->ip() ) );
@@ -232,6 +236,8 @@ class RegisterController extends Controller
         $user->email_token = null;
 
         if ( $user->save() ) {
+
+            Amplitude::logEvent('confirm_email',null,$user);
 
             // Send welcome email to user
             $user->notify( ( new WelcomeNotification() )->delay( now()->addMinutes( 5 ) ) );
@@ -289,6 +295,8 @@ class RegisterController extends Controller
         $user = User::where( 'fb_id', $providerUser['id'] )->first();
         if ( $user ) {
             if ( ( $user->email_verified == true && $user->status == User::STATUS_USER ) || $user->status == User::STATUS_ADMIN ) {
+                Amplitude::logEvent('login');
+
                 auth()->login( $user, true );
             } else {
                 flash()->error( trans( 'auth.auth.not_confirmed' ) );
@@ -376,6 +384,9 @@ class RegisterController extends Controller
         $user->fb_id = session()->pull( 'fb_user_id' );
         $user->save();
 
+        Amplitude::logEvent('register',[
+            'facebook_connect' => true
+        ],$user);
 
         // Registered event triggered (used for email verification...)
         $source = session()->pull('register-source', null);

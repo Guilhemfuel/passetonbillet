@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\EurostarException;
 use App\Exceptions\PasseTonBilletException;
+use App\Facades\Amplitude;
 use App\Facades\AppHelper;
 use App\Facades\Sncf;
 use App\Facades\Thalys;
@@ -180,7 +181,6 @@ class TicketController extends Controller
             return redirect()->route( 'public.ticket.sell.page' );
         }
 
-
         // Make sure we don't have such a ticket yet
         $oldTicket = Ticket::withScams()
                            ->whereRaw( "lower(provider_code) = ? ", strtolower( $ticket->provider_code ) )
@@ -207,6 +207,11 @@ class TicketController extends Controller
             'ip_address' => $request->ip(),
         ] );
 
+        Amplitude::logEvent( 'add_ticket', [
+            'ticket_id'       => $ticket->id,
+            'ticket_provider' => $ticket->provider
+        ] );
+
         // Download pdf
         DownloadTicketPdf::dispatch( $ticket );
 
@@ -214,23 +219,6 @@ class TicketController extends Controller
 
         return redirect()->route( 'public.ticket.owned.page' )
                          ->with( [ 'addedTicket' => new TicketRessource( $ticket ) ] );
-    }
-
-    /**
-     * Once the request was validated we ensure it's not a eurostar ticket
-     */
-    private function isEurostarTicket( array $data )
-    {
-        if ( $data['company'] == 'eurostar'
-             || ( in_array( $data['departure_station'], self::UK_EUROSTAR_STATIONS_DB )
-                  && in_array( $data['arrival_station'], self::EUROSTAR_STATIONS_IDS ) )
-             || ( in_array( $data['arrival_station'], self::UK_EUROSTAR_STATIONS_DB )
-                  && in_array( $data['departure_station'], self::EUROSTAR_STATIONS_IDS ) )
-        ) {
-            return true;
-        }
-
-        return false;
     }
 
     /**
@@ -277,6 +265,11 @@ class TicketController extends Controller
             }
         } // Delete ticket (no need to deny offer)
         elseif ( $request->has( 'delete_ticket' ) ) {
+
+            Amplitude::logEvent( 'delete_ticket', [
+                'ticket_id' => $ticket->id,
+            ] );
+
             $ticket->delete();
             flash( __( 'tickets.delete.success' ) )->success()->important();
 
@@ -324,6 +317,12 @@ class TicketController extends Controller
 
             return redirect()->route( 'public.ticket.sell.page' );
         }
+
+        Amplitude::logEvent( 'change_ticket_price', [
+            'ticket_id' => $ticket->id,
+            'old_price' => $ticket->price,
+            'new_price' => $request->price
+        ] );
 
         $ticket->price = $request->price;
         $ticket->save();
@@ -406,6 +405,11 @@ class TicketController extends Controller
         } else {
 
             AppHelper::stat( 'retrieve_tickets', [
+                'name'         => \Auth::user()->last_name,
+                'booking_code' => $request->booking_code,
+            ] );
+
+            Amplitude::logEvent( 'retrieve_tickets', [
                 'name'         => \Auth::user()->last_name,
                 'booking_code' => $request->booking_code,
             ] );

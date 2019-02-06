@@ -247,6 +247,8 @@
             user: null,
             currentPage: null,
             oldInput: {!! (old() != [] ? json_encode( old() ) : 'null') !!},
+            amplitudeEventTypes: {!! json_encode(\App\Helper\Amplitude::EVENTS) !!},
+            amplitudeEvents: {!! json_encode(\App\Facades\Amplitude::getEvents()) !!}
         },
         methods: {
             openCrisp(e) {
@@ -267,7 +269,7 @@
              */
             logEvent: function (eventName, properties={}, event=null) {
                 // Check if event exists
-                if (!eventName in window.amplitude_events) {
+                if (!this.amplitudeEventTypes.includes(eventName)) {
                     throw eventName + " is not a registered amplitude events.";
                 }
 
@@ -311,6 +313,18 @@
                 showClose: true,
                 duration: 0
             });
+        }
+
+        // Log events in session
+        for (let index in this.amplitudeEvents) {
+
+            let event = this.amplitudeEvents[index];
+            // Add user id to amplitude, if needed
+            if (event.user) {
+                window.amplitude.getInstance().setUserId(event.user.id);
+            }
+
+            this.logEvent(event.event,event.data);
         }
 
     }

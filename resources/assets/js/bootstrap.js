@@ -36,23 +36,6 @@ if(host != 'passetonbillet.fr') {
 }
 
 /**
- * Amplitude analytics
- *
- * List all events here
- */
-
-window.amplitude_events = {
-    'events': [
-        'ticket_search',
-        'send_offer',
-
-        'nav_buy_button',
-        'nav_buy_button',
-        'nav_register_button'
-    ]
-}
-
-/**
  * Vue is a modern JavaScript library for building interactive web interfaces
  * using reactive data binding and reusable components. Vue's API is clean
  * and simple, leaving you to focus on building your next great project.
