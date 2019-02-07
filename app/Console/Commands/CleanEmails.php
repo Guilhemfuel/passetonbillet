@@ -17,9 +17,6 @@ class CleanEmails extends Command
 
     /**
      * The console command description.
-     * The raw PostgreSQL command to get all emails older than 2 weeks
-     * (Postgres has some nice datetime functions)
-     * SELECT * from emails_sent WHERE updated_at > current_date - 14;
      *
      * @var string
      */

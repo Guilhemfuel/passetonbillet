@@ -46,28 +46,28 @@ class CleanTickets extends Command
         $past_date = $current_date->subWeeks(2);
 
         /* Get all trains more than 2 weeks old */
-        $old_trains = Train::whereDate('departure_date', '<', $past_date)->get();
-        $n = count ( $old_trains );
+        $oldTrains = Train::whereDate('departure_date', '<', $past_date)->get();
+        $n = count ( $oldTrains );
 
-        $this->info("Deleting tickets from " . $n . " tickets");
+        $this->info("Deleting tickets from " . $n . " trains");
 
         $bar = $this->output->createProgressBar( $n );
         $bar->start();
-        foreach ($old_trains as $train) {
-
-            /* Get the ticket associate with this train */
-            $ticket = Ticket::find( $train->ticket_id);
-
-            if ($ticket != null) {
-                /* The name of the pdf file */
+        $oldTickets = collect();
+        $count = 0;
+        foreach ( $oldTrains as $train ) {
+            $tickets = $train->tickets();
+            /* The name of the pdf file */
+            foreach ( $tickets as $ticket ) {
                 $filePath = 'pdf/tickets/' . $ticket->pdf_file_name;
-                if ($ticket->pdf_downloaded == true){
-                    \Storage::disk( 's3' )->delete( $filePath );
+                if ($ticket->pdf_downloaded == true && \Storage::disk( 's3' )->delete( $filePath )){
+                    $count += 1;
                 }
             }
             $bar->advance();
-
         }
         $bar->finish();
+        $this->line('');
+        $this->info($count . " tickets deleted");
     }
 }
