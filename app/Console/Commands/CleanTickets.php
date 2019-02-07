@@ -53,15 +53,20 @@ class CleanTickets extends Command
 
         $bar = $this->output->createProgressBar( $n );
         $bar->start();
-        $oldTickets = collect();
         $count = 0;
         foreach ( $oldTrains as $train ) {
             $tickets = $train->tickets();
             /* The name of the pdf file */
             foreach ( $tickets as $ticket ) {
                 $filePath = 'pdf/tickets/' . $ticket->pdf_file_name;
-                if ($ticket->pdf_downloaded == true && \Storage::disk( 's3' )->delete( $filePath )){
-                    $count += 1;
+                if ($ticket->pdf_downloaded == true){
+
+                    if (\Storage::disk( 's3' )->delete( $filePath )) {
+                        $count += 1;
+                    }
+                    else {
+                        $this->error("S3 bucket delete failed.\nFile=" . $filePath . "\nTicket id: " . $ticket->id);
+                    }
                 }
             }
             $bar->advance();
