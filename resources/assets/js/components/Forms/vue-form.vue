@@ -11,7 +11,8 @@
         props: {
             method: {required: false, type: String, default: 'POST'},
             action: {required: false, type: String},
-            callback: {required: false, type: Function, default: null}
+            callback: {required: false, type: Function, default: null},
+            submitAfterCallback: {required: false, type: Boolean, default: false},
         },
         data() {
             return {
@@ -28,6 +29,10 @@
                     if (result) {
                         if (this.callback != null) {
                             this.callback();
+
+                            if (this.submitAfterCallback) {
+                                this.$refs.form.submit();
+                            }
                         } else {
                             this.$refs.form.submit();
                         }

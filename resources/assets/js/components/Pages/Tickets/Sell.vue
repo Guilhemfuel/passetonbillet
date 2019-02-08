@@ -2,9 +2,9 @@
     <div class="col-12">
         <!-- Input and ticket selecting -->
 
-            <h4 class="card-title mb-3" v-if="state=='input'">{{lang.sell.step_1}}</h4>
-            <h4 class="card-title mb-3" v-else-if="state=='select'">{{lang.sell.step_2}}</h4>
-            <h4 class="card-title mb-3" v-else-if="state=='searching'">{{lang.sell.searching}}</h4>
+            <h1 class="card-title mb-3" v-if="state=='input'">{{lang.sell.step_1}}</h1>
+            <h1 class="card-title mb-3" v-else-if="state=='select'">{{lang.sell.step_2}}</h1>
+            <h1 class="card-title mb-3" v-else-if="state=='searching'">{{lang.sell.searching}}</h1>
 
             <!-- NAME + REFERENCE -->
             <div class="card" v-if="startCardVisible">

@@ -25,12 +25,17 @@
                                 @if(Auth::guest())
                                     <a class="nav-link btn btn-ptb"
                                        href="{{route('register.page')}}?source={{\App\Http\Controllers\Auth\RegisterController::SOURCE_GUEST_SELL}}"
+                                       @click.prevent="logEvent('nav_register_button',{},$event)"
                                     >@lang('nav.resell_a_ticket')</a>
                                 @else
                                     <a class="nav-link btn btn-ptb d-none d-sm-none d-md-block"
-                                       href="{{route('public.ticket.sell.page')}}">@lang('nav.resell_a_ticket')</a>
+                                       href="{{route('public.ticket.sell.page')}}"
+                                       @click.prevent="logEvent('nav_sell_button',{},$event)"
+                                    >@lang('nav.resell_a_ticket')</a>
                                     <a class="nav-link btn btn-ptb d-block d-sm-block d-md-none"
-                                       href="{{route('public.ticket.sell.page')}}">@lang('nav.sell_ticket.mobile')</a>
+                                       href="{{route('public.ticket.sell.page')}}"
+                                       @click.prevent="logEvent('nav_sell_button',{},$event)"
+                                    >@lang('nav.sell_ticket.mobile')</a>
                                 @endif
                             </li>
                             @if (Auth::guest())
@@ -48,7 +53,7 @@
                     </nav>
                     <div class="content">
                         <div class="center">
-                            <h3 class="catchline text-center">{!! __('welcome.advantages.one_clic') !!}</h3>
+                            <h1 class="catchline text-center">{!! __('welcome.advantages.one_clic') !!}</h1>
                             <home-search></home-search>
                         </div>
                     </div>

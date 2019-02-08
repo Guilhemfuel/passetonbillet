@@ -55,7 +55,7 @@ class UserRessource extends Resource
             'full_name'            => $this->full_name,
             'location'             => $this->location,
             'picture'              => $this->picture,
-            'email'                => $this->email,
+            'email'                => $this->when( \Auth::check() && ( \Auth::user()->isAdmin() || $this->id == \Auth::id() ), $this->email ),
             'language'             => $this->language,
             'verified'             => $this->id_verified,
             'verification_pending' => $this->id_verification_pending,
