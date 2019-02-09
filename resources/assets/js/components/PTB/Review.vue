@@ -1,7 +1,7 @@
 <template>
     <div class="review mt-2" v-if="this.user && !submitted">
         <p class="text-center mb-0 pt-3">
-            <a href="#" class="font-weight-bold"
+            <a id="review-modal-link" href="#" class="font-weight-bold"
                @click.prevent="modalReviewOpened=true">{{trans('common.review.link')}}</a>
         </p>
         <modal :is-open="modalReviewOpened"
@@ -12,7 +12,7 @@
             <vue-form class="container-fluid" :callback="sendReview">
                 <div class="row">
                     <div class="col-12">
-                        <p  class="font-weight-bold text-center">{{trans('common.review.modal.text')}}</p>
+                        <br>
                     </div>
                     <div class="col-12 mb-4 text-center">
                         <el-rate v-model="review.mark"
@@ -56,6 +56,23 @@
             }
         },
         computed: {},
+        mounted: function() {
+            if (!this.user) {
+                /* You need to login to submit a review */
+            }
+            else if (this.submitted) {
+                /* You can only submit a single review */
+            }
+            else if (this.modalReviewOpened) {
+                /* Modal already open ! */
+            }
+            else if (window.location.hash) {
+                /* Open the review modal if the url contains a hash */
+                var link = document.getElementById('modal-review-link')
+                link.click();
+
+            }
+        },
         methods: {
             sendReview() {
                 this.$http.post(this.route('api.reviews.store'), this.review).then(response => {
