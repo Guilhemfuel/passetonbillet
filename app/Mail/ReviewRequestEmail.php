@@ -36,8 +36,8 @@ class ReviewRequestEmail extends PtbMail
     public function build()
     {
         return $this->to($this->user->email,$this->user->full_name)
-                    ->subject(trans('...'))
-                    ->ptbMarkdown('...',
+                    ->subject(trans('email.review_request'))
+                    ->ptbMarkdown('review_request',
                         [
                             'user' => $this->user,
                             'discussion'=> $this->discussion
