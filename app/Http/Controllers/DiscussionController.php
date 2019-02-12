@@ -320,7 +320,7 @@ class DiscussionController extends Controller
 
         /* Send feedback request email  */
         $when = Carbon::now()->addDay();
-        $discussion->buyer->notify( (new ReviewRequestNotification($discussion))->delay($when) );
+        $discussion->buyer->notify( (new ReviewRequestNotification( $discussion ))->delay($when) );
 
         // Deny all awaiting offers
         $awaitingOffers = $ticket->discussions->where( 'status', Discussion::AWAITING );
