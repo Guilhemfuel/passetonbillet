@@ -22,7 +22,7 @@ class ReviewRequestNotification extends Notification implements ShouldQueue
      */
     public function __construct(Discussion $discussion)
     {
-        $this->$discussion = $discussion;
+        $this->discussion = $discussion;
     }
 
     /**
