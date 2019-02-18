@@ -1,7 +1,7 @@
 <template>
     <div class="review mt-2" v-if="this.user && !submitted">
         <p class="text-center mb-0 pt-3">
-            <a id="review-modal-link" href="#" class="font-weight-bold"
+            <a id="modal-review-link" href="#" class="font-weight-bold"
                @click.prevent="modalReviewOpened=true">{{trans('common.review.link')}}</a>
         </p>
         <modal :is-open="modalReviewOpened"
@@ -57,6 +57,7 @@
         },
         computed: {},
         mounted: function() {
+            var hash = window.location.hash
             if (!this.user) {
                 /* You need to login to submit a review */
             }
@@ -66,7 +67,7 @@
             else if (this.modalReviewOpened) {
                 /* Modal already open ! */
             }
-            else if (window.location.hash) {
+            else if (hash === '#review') {
                 /* Open the review modal if the url contains a hash */
                 var link = document.getElementById('modal-review-link')
                 link.click();
