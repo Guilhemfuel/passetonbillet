@@ -33,7 +33,7 @@ class ReviewRequestNotification extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail','database','broadcast'];
+        return ['mail'];
     }
 
     /**
@@ -44,7 +44,7 @@ class ReviewRequestNotification extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        return new ReviewRequestEmail($this->discussion->buyer, $this->discussion);
+        return new ReviewRequestEmail($this->discussion->seller, $this->discussion);
     }
 
     /**

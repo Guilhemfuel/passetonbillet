@@ -74,7 +74,7 @@ class DownloadAllMissingTicketPdfs extends Command
                 $bar->advance();
             }
             $bar->finish();
-            $this->line('Done.');
+            $this->line("\nDone. ");
             $this->line($count_success. ' tickets successfully queued.');
             $this->line($count_fail . ' tickets failed to download.');
         }

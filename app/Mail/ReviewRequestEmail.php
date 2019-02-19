@@ -15,7 +15,6 @@ class ReviewRequestEmail extends PtbMail
 {
     use SerializesModels;
 
-    public $discussion;
 
     /**
      * Create a new message instance.
@@ -25,7 +24,6 @@ class ReviewRequestEmail extends PtbMail
     public function __construct(User $user, Discussion $discussion )
     {
         parent::__construct($user,$discussion->ticket);
-        $this->discussion = $discussion;
     }
 
     /**
@@ -39,8 +37,7 @@ class ReviewRequestEmail extends PtbMail
                     ->subject(trans('email.review_request'))
                     ->ptbMarkdown('review_request',
                         [
-                            'user' => $this->user,
-                            'discussion'=> $this->discussion
+                            'user' => $this->user
                         ]);
     }
 }
