@@ -204,7 +204,7 @@ class TicketController extends Controller
                     'old_ticket_seller_id' => $oldTicket->user->id,
                     'old_ticket_id'        => $oldTicket->id,
                     'message'              => 'This user tried to sell a ticket that was either already sold, or deleted from the 
-                    platform. Please check if there is anything suspicious about him.',
+                    platform. Please check if there is anything suspicious about him or her.',
                 ]
             ] );
 
@@ -337,7 +337,7 @@ class TicketController extends Controller
                 'link'   => route( 'tickets.edit', $ticket->id ),
                 'data'   => [
                     'user_id' => $ticket->user->id,
-                    'message' => 'This ticket has a really low price. He might try to negotiate later. Please check.',
+                    'message' => 'This ticket has a really low price. (S)he might try to negotiate later. Please check.',
                 ]
             ] );
         }

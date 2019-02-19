@@ -38,16 +38,20 @@ class TicketController extends BaseController
 
         $entities = $this->model::join( 'trains', 'tickets.train_id', '=', 'trains.id' )
                                 ->join( 'stations', 'trains.departure_city', '=', 'stations.id' )
-                                ->with(  $this->model::$relationships )
+                                ->with( $this->model::$relationships )
                                 ->orderBy( 'sold_to_id', 'desc' )
                                 ->orderBy( 'trains.departure_date' )
                                 ->orderBy( 'stations.name_en' )
-                                ->select('tickets.*', 'trains.departure_city','trains.departure_date','stations.name_en')
+                                ->select( 'tickets.*', 'trains.departure_city', 'trains.departure_date', 'stations.name_en' )
                                 ->withScams()
                                 ->get();
 
 
-        $data = [ 'entities' => TicketTableResource::collection($entities), 'searchable' => $this->searchable, 'creatable' => $this->creatable ];
+        $data = [
+            'entities' => TicketTableResource::collection( $entities ),
+            'searchable' => $this->searchable,
+            'creatable' => $this->creatable
+        ];
 
         return $this->ptbView( 'admin.CRUD.index', $data );
     }
@@ -63,7 +67,8 @@ class TicketController extends BaseController
     {
         $entity = $this->model::withScams()->find( $id );
         if ( ! $entity ) {
-            flash()->error('Entity not found!');
+            flash()->error( 'Entity not found!' );
+
             return redirect()->back();
         }
 
@@ -82,7 +87,7 @@ class TicketController extends BaseController
     {
         flash()->error( "You can't create an admin." );
 
-        return redirect()->route( $this->CRUDmodelName . '.index');
+        return redirect()->route( $this->CRUDmodelName . '.index' );
     }
 
     /**
@@ -96,7 +101,7 @@ class TicketController extends BaseController
     {
         flash()->success( $this->CRUDsingularEntityName . ' can\'t be created like that!' );
 
-        return redirect()->route( $this->CRUDmodelName .'.index' );
+        return redirect()->route( $this->CRUDmodelName . '.index' );
     }
 
 
@@ -134,22 +139,16 @@ class TicketController extends BaseController
     public function revertStatus( Request $request, $ticket_id )
     {
 
-        $ticket = Ticket::find($ticket_id);
+        $ticket = Ticket::find( $ticket_id );
         $discussion = $ticket->discussion_sold;
 
-        if ($ticket === null) {
+        if ( $ticket === null ) {
             flash()->error( 'Ticket not found!' );
-        }
-
-        else if ($discussion === null) {
+        } else if ( $discussion === null ) {
             flash()->error( 'Discussion not found!' );
-        }
-
-        else if ( $ticket->passed === true ) {
-            flash()->error('The ticket has expired')->important();
-        }
-
-        else {
+        } else if ( $ticket->passed === true ) {
+            flash()->error( 'The ticket has expired' )->important();
+        } else {
 
             $ticket->sold_to_id = null;
             $discussion->status = Discussion::AWAITING;
@@ -157,7 +156,7 @@ class TicketController extends BaseController
             $ticket->save();
 
 
-            flash()->success('Ticket status successfully reverted');
+            flash()->success( 'Ticket status successfully reverted' );
         }
 
         return redirect()->route( $this->CRUDmodelName . '.edit', $ticket->id );
@@ -179,7 +178,7 @@ class TicketController extends BaseController
             return redirect()->back();
         }
 
-        if ($ticket->passed){
+        if ( $ticket->passed ) {
             flash()->error( 'Can\'t redownload pdf of past ticket!' );
 
             return redirect()->back();
@@ -208,7 +207,7 @@ class TicketController extends BaseController
             return redirect()->back();
         }
 
-        if ($ticket->passed){
+        if ( $ticket->passed ) {
             flash()->error( 'Can\'t upload pdf of past ticket!' );
 
             return redirect()->back();
@@ -218,7 +217,7 @@ class TicketController extends BaseController
             'ticket_pdf' => 'required|file|max:5000|mimes:pdf'
         ] );
 
-        \Storage::disk('s3')->putFileAs('pdf/tickets/', $request->ticket_pdf,$ticket->pdf_file_name);
+        \Storage::disk( 's3' )->putFileAs( 'pdf/tickets/', $request->ticket_pdf, $ticket->pdf_file_name );
 
         flash()->success( 'Done! Pdf uplodaded.' );
 
@@ -234,11 +233,12 @@ class TicketController extends BaseController
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function markAsFraud(Request $request, $id)
+    public function markAsFraud( Request $request, $id )
     {
         $ticket = Ticket::find( $id );
         if ( ! $ticket ) {
             \Session::flash( 'danger', 'Entity not found!' );
+
             return redirect()->back();
         }
 
@@ -246,12 +246,16 @@ class TicketController extends BaseController
 
         $user = $ticket->user;
         if ( ! $user ) {
-            \Session::flash( 'danger', 'Entity not found!' );
+            \Session::flash( 'danger', 'Ticket marked as scam, but user was not found!' );
 
             return redirect()->back();
         }
 
-        if ( $user->status != User::STATUS_USER ) {
+        if ( ! in_array( $user->status, [
+            User::STATUS_USER,
+            User::STATUS_UNCONFIRMED_USER,
+            User::STATUS_UNINVITED_USER
+        ] ) ) {
             \Session::flash( 'danger', 'Only active user (non admin) can be banned!' );
 
             return redirect()->back();
@@ -260,7 +264,8 @@ class TicketController extends BaseController
         $user->status = User::STATUS_BANNED_USER;
         $user->save();
 
-        flash('Ticket marked as scam, and user banned.')->success();
+        flash( 'Ticket marked as scam, and user banned.' )->success();
+
         return redirect()->route( $this->CRUDmodelName . '.edit', $ticket->id );
     }
 

@@ -19,6 +19,8 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 class CheckManyTicketsAddedListener implements ShouldQueue
 {
 
+    const NB_TICKETS_LIMIT_FOR_RECENT_USERS = 2;
+
     /**
      * Handle the event.
      *
@@ -37,14 +39,14 @@ class CheckManyTicketsAddedListener implements ShouldQueue
             return;
         }
 
-        // Now check if it's a new user (no ticket sold
-        if ( $user->is_recent && $user->tickets->count() > 0) {
+        // Now check if it's a new user (no ticket sold), but more than two tickets selling
+        if ( $user->is_recent && $user->tickets->count() > self::NB_TICKETS_LIMIT_FOR_RECENT_USERS) {
             AdminWarning::create( [
                 'action' => AdminWarning::MANY_TICKETS_NEW_USER,
                 'link'   => route( 'users.edit', $ticket->user_id ),
                 'data'   => [
                     'user_id' => $ticket->user_id,
-                    'message' => 'This recent user is sell.',
+                    'message' => 'This recent user added many tickets.',
                 ]
             ] );
         }
