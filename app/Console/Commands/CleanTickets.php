@@ -55,10 +55,12 @@ class CleanTickets extends Command
         $bar->start();
         $count = 0;
         foreach ( $oldTrains as $train ) {
-            $tickets = $train->tickets();
+            $tickets = $train->tickets;
             /* The name of the pdf file */
             foreach ( $tickets as $ticket ) {
                 $filePath = 'pdf/tickets/' . $ticket->pdf_file_name;
+
+
                 if ($ticket->pdf_downloaded == true){
 
                     if (\Storage::disk( 's3' )->delete( $filePath )) {
@@ -73,6 +75,6 @@ class CleanTickets extends Command
         }
         $bar->finish();
         $this->line('');
-        $this->info($count . " tickets deleted");
+        $this->info($count . " ticket(s) deleted");
     }
 }
