@@ -68,7 +68,7 @@
 
         <div class="card mt-3">
             <div class="card-header">
-                <h4>Past Warnings</h4>
+                <h4>Past Warnings (50 latest)</h4>
             </div>
 
             <div class="card-body">

@@ -122,6 +122,15 @@ class User extends Authenticatable
         return ucfirst( $this->first_name ) . ' ' . substr(ucfirst( $this->last_name ),0,1).'.';
     }
 
+    /**
+     * Returns true if user registered less than a week ago, and has not sold any tickets yet
+     */
+    public function getIsRecentAttribute()
+    {
+        return $this->created_at->diffInDays(Carbon::now()) <= 7
+            && $this->tickets()->withTrashed()->whereNotNull('sold_to_id')->count() == 0;
+    }
+
     public function getRoleAttribute()
     {
         switch ( $this->status ) {
