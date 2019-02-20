@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\TicketAddedEvent;
 use App\Exceptions\EurostarException;
 use App\Exceptions\PasseTonBilletException;
+use App\Facades\Amplitude;
 use App\Facades\AppHelper;
 use App\Facades\Sncf;
 use App\Facades\Thalys;
@@ -183,7 +184,6 @@ class TicketController extends Controller
             return redirect()->route( 'public.ticket.sell.page' );
         }
 
-
         // Make sure we don't have such a ticket yet
         $oldTicket = Ticket::withScams()
                            ->withTrashed()
@@ -223,6 +223,11 @@ class TicketController extends Controller
         AppHelper::stat( 'add_ticket', [
             'ticket_id'  => $ticket->id,
             'ip_address' => $request->ip(),
+        ] );
+
+        Amplitude::logEvent( 'add_ticket', [
+            'ticket_id'       => $ticket->id,
+            'ticket_provider' => $ticket->provider
         ] );
 
         // Download pdf
@@ -281,6 +286,11 @@ class TicketController extends Controller
             }
         } // Delete ticket (no need to deny offer)
         elseif ( $request->has( 'delete_ticket' ) ) {
+
+            Amplitude::logEvent( 'delete_ticket', [
+                'ticket_id' => $ticket->id,
+            ] );
+
             $ticket->delete();
             flash( __( 'tickets.delete.success' ) )->success()->important();
 
@@ -341,6 +351,12 @@ class TicketController extends Controller
                 ]
             ] );
         }
+
+        Amplitude::logEvent( 'change_ticket_price', [
+            'ticket_id' => $ticket->id,
+            'old_price' => $ticket->price,
+            'new_price' => $request->price
+        ] );
 
         $ticket->price = $request->price;
         $ticket->save();
@@ -427,6 +443,11 @@ class TicketController extends Controller
                 'booking_code' => $request->booking_code,
             ] );
 
+            Amplitude::logEvent( 'retrieve_tickets', [
+                'name'         => \Auth::user()->last_name,
+                'booking_code' => $request->booking_code,
+            ] );
+
             try {
                 $ticketArray = Eurostar::retrieveTicket( \Auth::user()->last_name, $request->booking_code );
             } catch ( PasseTonBilletException $e ) {
@@ -470,7 +491,7 @@ class TicketController extends Controller
             $request->get( 'departure_station' ),
             $request->get( 'arrival_station' ),
             Carbon::createFromFormat( 'd/m/Y', $request->get( 'trip_date' ) ),
-            $request->get( 'trip_time', Carbon::now()->format( 'hh:mm' ) )
+            $request->get( 'trip_time', Carbon::now()->format( 'h:m' ) )
         );
 
         return TicketRessource::collection( $tickets );

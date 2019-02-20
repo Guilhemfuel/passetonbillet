@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Helper\Amplitude;
 use App\Helper\ImageHelper;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Foundation\AliasLoader;
@@ -41,6 +42,9 @@ class AppServiceProvider extends ServiceProvider
         });
         $this->app->bind('imageHelper', function($app) {
             return app()->make(ImageHelper::class);
+        });
+        $this->app->bind('amplitude', function($app) {
+            return app()->make(Amplitude::class);
         });
     }
 }

@@ -19,7 +19,7 @@
                     {{-- Verify identity--}}
 
                     <div class="col-sm-12">
-                        <h4 class="card-title mb-0">@lang('tickets.sell.title')</h4>
+                        <h1 class="card-title mb-0">@lang('tickets.sell.title')</h1>
                         <div class="card">
                             <div class="card-body justify-content-center d-flex">
                                 <div class="col-sm-12 col-md-10 col-lg-6">
