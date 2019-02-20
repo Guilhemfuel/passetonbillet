@@ -1,19 +1,25 @@
 <template>
     <div class="col-12" id="home-search">
         <div id="action-content">
-            <vue-form :action="this.route('public.ticket.buy.page')" :csrf-disabled="true" method="GET">
+            <vue-form :action="this.route('public.ticket.buy.page')"
+                      method="GET"
+                      :callback="this.$parent.logEvent('ticket_search',this.formContent)"
+                      :submit-after-callback="true"
+            >
                 <div class="row text-left justify-content-center">
                     <input-station name="departure_station"
                                    :label="trans('tickets.buy.inputs.homepicker.depart')"
                                    class-name="col-sm-3"
                                    validation="required"
                                    default-value="4916"
+                                   v-model="formContent.departure_station"
                     ></input-station>
                     <input-station name="arrival_station"
                                    :label="trans('tickets.buy.inputs.homepicker.arrival')"
                                    class-name="col-sm-3"
                                    validation="required"
                                    default-value="8267"
+                                   v-model="formContent.arrival_station"
                     ></input-station>
                     <input-date
                             name="departure_date"
@@ -27,6 +33,7 @@
                             :default-value="defaultDate"
                             :with-icon="true"
                             :picker-options="datePickerOptions"
+                            v-model="formContent.departure_date"
                     ></input-date>
 
                     <div class="col-sm-3">
@@ -46,6 +53,12 @@
         },
         data() {
             return {
+                formContent: {
+                    departure_station: 4916,
+                    arrival_station: 8267,
+                    trip_date: moment().format('DD/MM/YYYY'),
+                    trip_time: null,
+                },
                 sellingTickets: [],
                 datePickerOptions: {
                     disabledDate: function (myDate) {
@@ -61,6 +74,8 @@
                 return moment().format('DD/MM/YYYY');
             }
         },
-        methods: {}
+        methods: {
+
+        }
     }
 </script>

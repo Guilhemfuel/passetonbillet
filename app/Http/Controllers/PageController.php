@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\EurostarAPI\Eurostar as EurostarSrc;
 use App\Exceptions\PasseTonBilletException;
+use App\Facades\Amplitude;
 use App\Facades\AppHelper;
 use App\Facades\Eurostar;
 use App\Http\Resources\DiscussionCollectionResource;
@@ -28,9 +29,6 @@ class PageController extends Controller
 
     public function home()
     {
-        $defaultStationsId = [
-            8267, 5974, 4718, 4790, 4916
-        ];
 
         // Order of stations
         $defaultStations = collect([
@@ -39,7 +37,6 @@ class PageController extends Controller
             Station::find(5974),
             Station::find(4718),
             Station::find(4790),
-
         ]);
 
         return view( 'welcome' )->with([

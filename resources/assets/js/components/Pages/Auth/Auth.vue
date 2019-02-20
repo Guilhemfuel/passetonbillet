@@ -11,7 +11,7 @@
                 <p>
                     <a href="#" class="mb-4 a" @click.prevent="openRegister()">{{trans('auth.auth.not_registered_yet')}}</a>
                 </p>
-                <a class="btn btn-facebook btn-facebook-login text-white btn-block mb-5" :href="routes.facebook">
+                <a class="btn btn-facebook btn-facebook-login text-white btn-block mb-5" :href="routes.facebook" @click.prevent="$root.logEvent('login_facebook_connect_button',null,$event)">
                     <i class="fa fa-facebook pull-left"></i> Facebook Connect
                 </a>
                 <form role="form"
@@ -168,7 +168,7 @@
                     </vue-form>
 
                     <div class="btn-rack mt-4">
-                        <a class="btn btn-facebook" :href="routes.facebook">
+                        <a class="btn btn-facebook" :href="routes.facebook" @click.prevent="$root.logEvent('register_facebook_connect_button',null,$event)">
                             <i class="fa fa-facebook pull-left"></i> Facebook Connect
                         </a>
                         <button class="btn btn-outline-orange" @click.prevent="openLogin()">
@@ -184,7 +184,7 @@
                         {{trans('auth.register.ticketLinkMessage')}}
                     </p>
 
-                    <a class="btn btn-facebook btn-block" :href="routes.facebook">
+                    <a class="btn btn-facebook btn-block" :href="routes.facebook" @click.prevent="$root.logEvent('register_facebook_connect_button',null,$event)">
                         <i class="fa fa-facebook pull-left"></i> {{trans('auth.register.fb_register')}}
                     </a>
                     <button class="btn btn-ptb-orange btn-block" @click.prevent="registerType = registerStates.form">

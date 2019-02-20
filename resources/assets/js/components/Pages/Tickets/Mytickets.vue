@@ -1,7 +1,7 @@
 <template>
     <div class="col-12">
 
-        <div class="card-title text-center mb-0">{{trans('tickets.owned.title')}}</div>
+        <h1 class="card-title text-center mb-0">{{trans('tickets.owned.title')}}</h1>
 
         <div class="row">
             <div class="col-12 text-center py-3">

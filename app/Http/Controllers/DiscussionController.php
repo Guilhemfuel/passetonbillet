@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\MessageSent;
+use App\Facades\Amplitude;
 use App\Http\Resources\DiscussionAllMessagesResource;
 use App\Http\Resources\DiscussionLastMessageResource;
 use App\Http\Resources\MessageResource;
@@ -34,31 +35,35 @@ class DiscussionController extends Controller
         $discussion = Discussion::find( $request->discussion_id );
         if ( ! $discussion ) {
             flash( __( 'message.errors.not_found' ) )->error()->important();
+
             return redirect()->route( 'public.message.home.page' );
         }
 
         // Check discussion status
         if ( $discussion->status != Discussion::AWAITING ) {
             flash( __( 'message.errors.cant_accept' ) )->error()->important();
+
             return redirect()->route( 'public.message.home.page' );
         }
 
         // Check discussion is yours
         if ( $discussion->seller->id != \Auth::user()->id ) {
             flash( __( 'message.errors.wrong_user' ) )->error()->important();
+
             return redirect()->route( 'public.message.home.page' );
         }
 
         // Ticket can't be deleted and marked as sold as same time
-        if ($request->has('delete_ticket') && $request->has('discussion_where_sold_id')) {
+        if ( $request->has( 'delete_ticket' ) && $request->has( 'discussion_where_sold_id' ) ) {
             flash( __( 'common.error' ) )->error()->important();
+
             return redirect()->route( 'public.message.home.page' );
         }
 
         // If ticket was sold to someone else
-        if ($request->has('discussion_where_sold_id')) {
+        if ( $request->has( 'discussion_where_sold_id' ) ) {
             // No need to mark discussion as denied, call to markAsSold will do it
-            $result = self::markTicketAsSold($request,$discussion->ticket_id,$request->discussion_where_sold_id);
+            $result = self::markTicketAsSold( $request, $discussion->ticket_id, $request->discussion_where_sold_id );
             if ( $result === true ) {
                 flash( __( 'message.success.sold' ) )->success()->important();
 
@@ -68,26 +73,33 @@ class DiscussionController extends Controller
                 ] );
             } else {
                 flash( $result['message'] )->error()->important();
+
                 return redirect( $result['url'] );
             }
-        }
-
-        // Delete ticket (no need to deny offer)
-        elseif($request->has('delete_ticket')) {
+        } // Delete ticket (no need to deny offer)
+        elseif ( $request->has( 'delete_ticket' ) ) {
 
             $ticket = $discussion->ticket;
             if ( ! $ticket || $ticket->passed || $ticket->sold_to_id != null || \Auth::user()->id != $ticket->user_id ) {
                 flash( __( 'common.error' ) )->error()->important();
+
                 return redirect()->route( 'public.ticket.owned.page' );
             }
             $ticket->delete();
             flash( __( 'tickets.delete.success' ) )->success()->important();
 
             return redirect()->route( 'public.ticket.owned.page' );
-        }
-
-        // Simply deny offer
+        } // Simply deny offer
         else {
+
+            Amplitude::logEvent( 'deny_offer', [
+                'offer_price'   => $discussion->price,
+                'ticket_price'  => $discussion->ticket->price,
+                'discussion_id' => $discussion->id,
+                'ticket_id'     => $discussion->ticket_id,
+                'buyer_id'      => $discussion->buyer->id
+            ] );
+
             $discussion->status = Discussion::DENIED;
             $discussion->save();
 
@@ -124,6 +136,12 @@ class DiscussionController extends Controller
 
             return redirect()->route( 'public.message.home.page' );
         }
+
+        Amplitude::logEvent( 'accept_offer', [
+            'discussion_id' => $discussion->id,
+            'ticket_id'     => $discussion->ticket_id,
+            'buyer_id'      => $discussion->buyer->id
+        ] );
 
         $discussion->status = Discussion::ACCEPTED;
         $discussion->save();
@@ -282,6 +300,12 @@ class DiscussionController extends Controller
                 'url'     => route( 'public.message.home.page' )
             ];
         }
+
+        Amplitude::logEvent( 'sell_ticket', [
+            'ticket_id'     => $ticket->id,
+            'discussion_id' => $discussion->id,
+            'buyer_id'      => $ticket->sold_to_id,
+        ] );
 
         $discussion->status = Discussion::SOLD;
         $ticket->sold_to_id = $discussion->buyer->id;

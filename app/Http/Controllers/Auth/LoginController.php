@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Facades\Amplitude;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -105,6 +106,9 @@ class LoginController extends Controller
     protected function authenticated(Request $request, $user)
     {
         \Session::put( 'applocale', strtolower( $user->language ) );
+
+        Amplitude::logEvent('login');
+
         return redirect()->route('home');
     }
 }

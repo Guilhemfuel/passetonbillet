@@ -138,18 +138,41 @@ class Ticket extends Model
         // Find matching trains
         $request = Train::whereIn( 'departure_city', $departureStations )
                         ->whereIn( 'arrival_city', $arrivalStations )
-                        ->where( 'departure_date', $exactDay ? '=' : '>=', $date )
-                        ->where( function ( $query ) {
-                            $query->where( 'departure_time', '>=', Carbon::now()->addHours( 2 )->toTimeString() )
-                                  ->orWhere( 'departure_date', '>', Carbon::now() );
-                        } )
                         ->with( 'tickets' );
 
-        if ( $time ) {
-            $request = $request->where( 'departure_time', '>=', $time . ':00' )
-                               ->orWhere( 'departure_date', '>', Carbon::now() );
-        }
+        // Set time condition
+        $request = $request->where( function ( $query ) use ( $time, $date, $exactDay ) {
+            if ( $time ) {
+                if ( Carbon::now()->diffInDays( $date ) == 0 ) {
+                    $query->where( function ( $query ) use ( $time, $date ) {
+                        $query->where( 'departure_time', '>=', $time . ':00' )
+                              ->where( 'departure_time', '>=', Carbon::now()->addHours( 2 )->toTimeString() )
+                              ->where( 'departure_date', '=', $date );
+                    } );
+                } else {
+                    $query->where( function ( $query ) use ( $time, $date ) {
+                        $query->where( 'departure_time', '>=', $time . ':00' )
+                              ->where( 'departure_date', '=', $date );
+                    } );
+                }
+            } else {
 
+                if ( Carbon::now()->diffInDays( $date ) == 0 ) {
+                    $query->where( function ( $query ) use ( $date ) {
+                        $query->where( 'departure_time', '>=', Carbon::now()->addHours( 2 )->toTimeString() )
+                              ->where( 'departure_date', '=', $date );
+                    } );
+                } else {
+                    $query->where( 'departure_date', '=', $date );
+                }
+
+            }
+
+            if ( ! $exactDay ) {
+                $query->orWhere( 'departure_date', '>', $date );
+            }
+        } );
+        
         $trains = $request->orderBy( 'departure_time' )->get();
 
         // Collect tickets for each of the trains
@@ -271,7 +294,8 @@ class Ticket extends Model
         $this->attributes['provider'] = $value;
     }
 
-    public function setSoldToIdAttribute( $value ) {
+    public function setSoldToIdAttribute( $value )
+    {
         $this->attributes['sold_to_id'] = $value;
     }
 
