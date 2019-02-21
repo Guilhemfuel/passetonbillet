@@ -34,7 +34,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command(Commands\CleanAll::class)
-                 ->daily()
+                 ->dailyAt('3:00')
                  ->sendOutputTo(storage_path() . '/logs/clean.log');
     }
 
