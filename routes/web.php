@@ -51,6 +51,9 @@ Route::get( '/register/fb', 'Auth\RegisterController@fb_redirect' )->name( 'fb.c
 Route::get( '/register/fb/callback', 'Auth\RegisterController@fb_callback' )->name( 'fb.callback' );
 Route::post( '/register/fb/confirm', 'Auth\RegisterController@fb_confirm_inscription' )->name( 'fb.confirm' );
 
+// Sell ticket, this will return to different pages, depending on whether you are logged in
+Route::get( 'ticket/sell', 'PageController@sellPage' )->name( 'ticket.sell' );
+
 
 /**
  * WebHooks
@@ -87,8 +90,7 @@ Route::group( [ 'middleware' => 'auth', 'as' => 'public.' ], function () {
 
     Route::group( [ 'prefix' => 'ticket', 'as' => 'ticket.' ], function () {
 
-        // Sell ticket
-        Route::get( 'sell', 'PageController@sellPage' )->name( 'sell.page' );
+
         Route::post( 'sell', 'TicketController@sellTicket' )->name( 'sell.post' )->middleware( 'auth.verified.phone' );
         Route::post('edit/{ticket_id}','TicketController@changeTicketPrice')->name('edit')->middleware( 'auth.verified.phone' );
 
