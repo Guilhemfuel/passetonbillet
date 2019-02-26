@@ -43,7 +43,7 @@
                             <div class="checkbox">
                                 <label>
                                     <input type="checkbox"
-                                           name="remember">
+                                           name="remember" checked>
                                     {{trans('auth.auth.remember_me')}}
                                 </label>
                             </div>

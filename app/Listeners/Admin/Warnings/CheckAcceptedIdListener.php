@@ -31,7 +31,8 @@ class CheckAcceptedIdListener implements ShouldQueue
         $user = $event->idVerification->user;
 
         // Find users with same birthdate, as that's we are sure of it
-        $otherUsers = User::where( 'birthdate', $user->birthdate )->get();
+        $otherUsers = User::where( 'birthdate', $user->birthdate )
+                          ->where('id','!=',$user->id)->get();
 
         // If no users matched, simply end
         if ( count( $otherUsers ) == 0 ) {
@@ -41,10 +42,11 @@ class CheckAcceptedIdListener implements ShouldQueue
         // Now look for user with either a similar name, or a similar firstname
         $similarUsers = [];
         foreach ( $otherUsers as $otherUser ) {
+
             $percent = null;
             // Check firstname
             similar_text( strtolower( $user->first_name ), strtolower( $otherUser->first_name ), $percent );
-            if ( $percent > self::SIMILARITY_PERCENTAGE) {
+            if ( $percent > self::SIMILARITY_PERCENTAGE ) {
                 $similarUsers[] = $otherUser;
                 continue;
             }

@@ -8,7 +8,7 @@
                 <p class="card-text">
                     {{trans('tickets.buy.catchline')}}
                 </p>
-                <form class="row">
+                <form class="row px-3">
                     <div class="col-12 col-sm-12 col-md-6 mb-4 mb-md-0">
                         <input-stations v-on:change-departure="changeDeparture($event)"
                                         v-on:change-arrival="changeArrival($event)"
@@ -49,7 +49,7 @@
                     enter-active-class="animated fadeInUpBig"
                     leave-active-class="animated fadeOut">
             <div class="row mt-4 row-ticket" v-if="ticketsWithOffers.length > 0">
-                <div class="col-12 col-sm-12 col-md-6 col-lg-4 px-5 px-sm-5 px-md-3 row-item-ticket" v-for="ticket in ticketsWithOffers"
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4 px-md-3 row-item-ticket" v-for="ticket in ticketsWithOffers"
                      :key="ticket.id">
                     <ticket :ticket="ticket"
                             :buying="true"

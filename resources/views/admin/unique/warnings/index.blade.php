@@ -9,14 +9,14 @@
     <div class="crud-table" id="crud-table">
         <div class="card">
             <div class="card-header">
-                <h4>Warnings</h4>
+                <h4>Warnings ({{$warnings->where('action','!=',\App\Models\AdminWarning::ACTION_PDF_DOWNLOAD_FAILED)->count()}})</h4>
             </div>
 
             <div class="card-body">
 
                 <div class="table-responsive table-full-width">
 
-                    @if(count($warnings)>0)
+                    @if($warnings->where('action','!=',\App\Models\AdminWarning::ACTION_PDF_DOWNLOAD_FAILED)->count()>0)
 
                         <table class="table table-hover table-striped">
                             <thead>
@@ -26,7 +26,7 @@
                             <th>Action</th>
                             </thead>
                             <tbody>
-                            @foreach($warnings as $warning)
+                            @foreach($warnings->where('action','!=',\App\Models\AdminWarning::ACTION_PDF_DOWNLOAD_FAILED)->all() as $warning)
                                 <tr>
                                     <td>{{$warning->created_at}}</td>
                                     <td>{{$warning->action}}</td>
@@ -65,6 +65,63 @@
             </div>
         </div>
 
+        <div class="card mt-3">
+            <div class="card-header">
+                <h4>Warnings PDF ({{$warnings->where('action',\App\Models\AdminWarning::ACTION_PDF_DOWNLOAD_FAILED)->count()}})</h4>
+            </div>
+
+            <div class="card-body">
+
+                <div class="table-responsive table-full-width">
+
+                    @if($warnings->where('action',\App\Models\AdminWarning::ACTION_PDF_DOWNLOAD_FAILED)->count()>0)
+
+                        <table class="table table-hover table-striped">
+                            <thead>
+                            <th>Date</th>
+                            <th>Issue</th>
+                            <th>Details</th>
+                            <th>Action</th>
+                            </thead>
+                            <tbody>
+                            @foreach($warnings->where('action',\App\Models\AdminWarning::ACTION_PDF_DOWNLOAD_FAILED)->all() as $warning)
+                                <tr>
+                                    <td>{{$warning->created_at}}</td>
+                                    <td>{{$warning->action}}</td>
+                                    <td>
+                                        @if($warning->data!=[])
+                                            <pretty-json
+                                                    :deep="0"
+                                                    :data="{{ json_encode($warning->data) }}"
+                                            >
+                                            </pretty-json>
+                                        @else
+                                            -
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <a href="{{$warning->link}}" target="_blank" class="btn btn-sm btn-primary">Do it</a>
+                                        <a href="{{route('warnings.mark_as_done',$warning->id)}}" class="btn btn-sm btn-success">Done</a>
+                                    </td>
+
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+
+                    @else
+
+                        <div class="content">
+                            There is no current warnings!
+                        </div>
+
+                    @endif
+
+                </div>
+
+
+            </div>
+        </div>
 
         <div class="card mt-3">
             <div class="card-header">
