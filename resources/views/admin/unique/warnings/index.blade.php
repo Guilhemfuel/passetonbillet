@@ -112,7 +112,7 @@
                     @else
 
                         <div class="content">
-                            There is no current warnings!
+                            There is no current PDF warnings!
                         </div>
 
                     @endif
