@@ -36,7 +36,7 @@ class TicketSoldWithPdfEmail extends PtbMail
     {
         return $this->to($this->user->email,$this->user->full_name)
                     ->subject(trans('email.ticket_sold'))
-                    ->ptbMarkdown('ticket_sold',
+                    ->ptbMarkdown('ticket_sold_pdf',
                         [
                             'user' => $this->user,
                             'discussion'=> $this->discussion
