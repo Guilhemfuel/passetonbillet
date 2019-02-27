@@ -60,21 +60,21 @@ return [
 
 
     'discussions' => [
-        'title'           => 'Discussions',
-        'send'            => 'Envoyer',
-        'sold_to_so_else' => 'Le billet a été vendu à une autre personne!',
-        'sold_disc_ended' => 'Le billet a été vendu à une autre personne. La discussion est terminée.',
-        'bought_from'     => 'Vous avez acheté ce billet à',
-        'sold_to'         => 'Vous avez vendu ce billet à',
-        'cta_sell_to'     => 'Billet vendu à',
-        'cancel'          => 'Annuler',
-        'sortByTicketDate' => 'Trier par date de billet',
+        'title'                => 'Discussions',
+        'send'                 => 'Envoyer',
+        'sold_to_so_else'      => 'Le billet a été vendu à une autre personne!',
+        'sold_disc_ended'      => 'Le billet a été vendu à une autre personne. La discussion est terminée.',
+        'bought_from'          => 'Vous avez acheté ce billet à',
+        'sold_to'              => 'Vous avez vendu ce billet à',
+        'cta_sell_to'          => 'Billet vendu à',
+        'cancel'               => 'Annuler',
+        'sortByTicketDate'     => 'Trier par date de billet',
         'sortByDiscussionDate' => 'Trier par date de discussion',
-        'showBuying' => 'Montrer les discussions d\'achat',
-        'showSelling' => 'Montrer les discussions de vente',
-        'showPast' => 'Montrer les discussions passées',
-        'noDiscussions' => 'Pas de discussion à afficher',
-        'noPastDiscussions' => 'Pas de discussion passées à afficher',
+        'showBuying'           => 'Montrer les discussions d\'achat',
+        'showSelling'          => 'Montrer les discussions de vente',
+        'showPast'             => 'Montrer les discussions passées',
+        'noDiscussions'        => 'Pas de discussion à afficher',
+        'noPastDiscussions'    => 'Pas de discussion passées à afficher',
 
         'table' => [
             'ticket'       => 'Billet',
@@ -97,11 +97,26 @@ return [
         'disclaimer_eurostar' => 'Des contrôles peuvent parfois être effectués en gare pour les billets Eurostar. Si le nom sur le billet ne correspond pas à celui qui figure sur le passeport, l\'accès au train peut-être refusé.',
 
         'modal_sell' => [
-            'part_1' => 'Vous vous apprêtez à marquer ce billet comme vendu à',
-            'part_2' => 'Ne valider qu\'une fois le paiement reçu et le billet envoyé',
-            'important'=> [
+            'title' => 'Vendre ce billet à ',
+
+            // TOdo
+            'money_received' => [
+                'question' => 'Avez-vous reçu le paiement de l\'acheteur?',
+                'warning' => 'Ne vous contentez pas d\'une capture d’écran de confirmation ou d\'un email paypal.',
+                'confirm' => 'J\'ai reçu l\'argent',
+            ],
+
+            'pdf' => [
+                'found' => 'Nous avons récupéré le PDF de votre billet et <b>nous l\'enverrons à l\'acheteur dès que vous nous confirmerez la vente</b>, en cliquant sur le bouton ci-dessous.',
+                'missing' => 'Nous n\'avons pas pu trouver le PDF de votre billet. <b class="text-bold">Pas de soucis, vous devez simplement vous assurez de bien envoyer le PDF à l\'acheteur</b>.',
+                'warning' => 'Cliquez-sur le bouton ci-dessous pour confirmer la vente. Le billet sera alors retiré de la vente, et vos autres conversations seront fermées.',
+            ],
+
+            'part_1'    => 'Vous vous apprêtez à marquer ce billet comme vendu à',
+            'part_2'    => 'Ne valider qu\'une fois le paiement reçu et le billet envoyé',
+            'important' => [
                 'title' => 'IMPORTANT',
-                'text' => 'Merci de bien vérifier que vous avez bien reçu le paiement de l’acheteur sur votre compte correspondant et de ne pas vous contenter d’une capture d’écran de confirmation ou d’un email Paypal envoyé par l’acheteur.'
+                'text'  => 'Merci de bien vérifier que vous avez bien reçu le paiement de l’acheteur sur votre compte correspondant et de ne pas vous contenter d’une capture d’écran de confirmation ou d’un email Paypal envoyé par l’acheteur.'
             ]
         ]
     ],

@@ -10,7 +10,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class TicketSoldEmail extends PtbMail
+class TicketSoldWithPdfEmail extends PtbMail
 {
     use SerializesModels;
 
@@ -35,7 +35,7 @@ class TicketSoldEmail extends PtbMail
     public function build()
     {
         return $this->to($this->user->email,$this->user->full_name)
-                    ->subject(trans('email.ticket_sold_pdf'))
+                    ->subject(trans('email.ticket_sold'))
                     ->ptbMarkdown('ticket_sold',
                         [
                             'user' => $this->user,

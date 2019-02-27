@@ -93,6 +93,7 @@ return [
 
 
         'modal_sell' => [
+            'title'=> 'Sell this ticket to ',
             'part_1' => 'You are about to mark this ticket as sold to',
             'part_2' => 'Make sure to click there, only once you received the payment and sent the ticket.',
             'important'=> [

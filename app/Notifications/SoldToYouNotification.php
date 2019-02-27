@@ -5,6 +5,7 @@ namespace App\Notifications;
 use App\Mail\AcceptedOfferEmail;
 use App\Mail\OfferEmail;
 use App\Mail\TicketSoldEmail;
+use App\Mail\TicketSoldWithPdfEmail;
 use App\Models\Discussion;
 use App\Ticket;
 use Illuminate\Bus\Queueable;
@@ -22,7 +23,7 @@ class SoldToYouNotification extends Notification implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(Discussion $discussion)
+    public function __construct( Discussion $discussion )
     {
         $this->discussion = $discussion;
     }
@@ -30,39 +31,48 @@ class SoldToYouNotification extends Notification implements ShouldQueue
     /**
      * Get the notification's delivery channels.
      *
-     * @param  mixed  $notifiable
+     * @param  mixed $notifiable
+     *
      * @return array
      */
-    public function via($notifiable)
+    public function via( $notifiable )
     {
-        return ['mail','database','broadcast'];
+        return [ 'mail', 'database', 'broadcast' ];
     }
 
     /**
      * Get the mail representation of the notification.
      *
-     * @param  mixed  $notifiable
-     * @return TicketSoldEmail
+     * @param  mixed $notifiable
+     *
+     * @return mixed
      */
-    public function toMail($notifiable)
+    public function toMail( $notifiable )
     {
-        return new TicketSoldEmail( $notifiable, $this->discussion );
+        if ( ! $this->discussion->ticket->pdf_downloaded ) {
+            // Send ticket without PDF
+            return new TicketSoldEmail( $notifiable, $this->discussion );
+        } else {
+            // Send ticket with PDF link
+            return new TicketSoldWithPdfEmail( $notifiable, $this->discussion );
+        }
     }
 
     /**
      * Get the array representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param  mixed $notifiable
+     *
      * @return array
      */
-    public function toArray($notifiable)
+    public function toArray( $notifiable )
     {
         return [
-            'icon' => 'ticket',
-            'text' => __('notifications.ticket_sold'),
-            'link' => route('public.ticket.owned.page',['tab'=>'bought']),
+            'icon'          => 'ticket',
+            'text'          => __( 'notifications.ticket_sold' ),
+            'link'          => route( 'public.ticket.owned.page', [ 'tab' => 'bought' ] ),
             'discussion_id' => $this->discussion->id,
-            'color'=> 'success'
+            'color'         => 'success'
         ];
     }
 }
