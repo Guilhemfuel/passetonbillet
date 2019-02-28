@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
 @section('advanced_title')
-    <title>Acheter et revendre des billets de train pas cher avec PasseTonBillet.fr</title>
+    <title>@lang('tickets.sell.public.title')</title>
 @endsection
 
 @section('content')
 
     <div class="welcome-page">
         <div class="section-header">
-            <div class="first-section" style="background-image: url('{{secure_asset('img/bg/1.jpg')}}');">
+            <div class="first-section bg-orange">
                 <div class="fixed-content">
                     <nav class="navbar pos-top" id="nav">
                         <a class="navbar-brand" href="{{route('home')}}">
@@ -44,21 +44,22 @@
 
                         </ul>
                     </nav>
+
+
                     <div class="content">
                         <div class="center">
-                            <h1 class="catchline text-center">{!! __('welcome.advantages.one_clic') !!}</h1>
-                            <home-search></home-search>
+                            <h1 class="catchline text-center">@lang('tickets.sell.public.title')</h1>
+                            <h3 class="text-white font-weight-bold text-center">
+                                @lang('tickets.sell.public.subtitle')
+                            </h3>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="section-petition p-5" id="section-petition">
-                <h2 class="title text-center">Soutenez la revente de billets de train</h2>
-                <h5 class="text-center mb-0">
-                    {{--TODO: traduction--}}
-                    La SNCF ne délivre plus que des E-billets nominatifs sur les TGV et Intercités. Une pétition a été mise en place pour demander à la SCNF de permettre le changement de nom sur les E-Billets SNCF.<br><br>
-                    <a href="https://www.change.org/p/guillaume-p%C3%A9py-sncf-pour-permettre-le-changement-de-nom-des-billets-prem-s-sncf" target="_blank" class="btn btn-white text-center">Signer la pétition</a>
-                </h5>
+            <div class="video-wrap">
+                <iframe>
+
+                </iframe>
             </div>
             <div class="section-favorites" id="section-favorites">
                 <h2 class="text-center text-warning title">{{__('welcome.favorites.title')}}</h2>
@@ -174,7 +175,7 @@
                             <div class="card card-review ">
                                 <div class="card-body">
                                     <img src="{{secure_asset('img/ninie.jpg')}}" class="picture"
-                                    alt="user profile picture"/>
+                                         alt="user profile picture"/>
 
                                     <p class="date">
                                         Aujourd'hui
@@ -385,15 +386,7 @@ $routes = [
 ?>
 
 @push('vue-data')
-    <script type="application/javascript">
-        data.welcome = {
-            ticketLang: {!! json_encode($langTickets) !!},
-            routes: {!! json_encode($routes) !!},
-            stateHowItWorks: 'buyer'
-        }
 
-        currentPage.data.defaultStations = {!! json_encode($defaultStations) !!}
-    </script>
 @endpush
 
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Resources\DiscussionLastMessageResource;
 use App\Models\Discussion;
 use App\Ticket;
+use App\Train;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 

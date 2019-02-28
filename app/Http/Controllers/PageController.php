@@ -17,6 +17,7 @@ use App\Notifications\OfferNotification;
 use App\Notifications\Verification\IdConfirmed;
 use App\Station;
 use App\Ticket;
+use App\Train;
 use App\User;
 use Carbon\Carbon;
 use Hashids\Hashids;
@@ -65,7 +66,13 @@ class PageController extends Controller
      */
     public function sellPage()
     {
-        return view( 'tickets.sell' );
+        if (\Auth::check()) {
+            return view('tickets.sell.auth');
+        }
+        else {
+            $tickets = Ticket::get5mostRecentTickets();
+            return view( 'tickets.sell.public' )->with('tickets', $tickets);
+        }
     }
 
     /**

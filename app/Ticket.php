@@ -368,6 +368,35 @@ class Ticket extends Model
         return $currentTickets;
     }
 
+    public static function get5MostRecentTickets( ) {
+
+        // Get current ticket count
+        $limit = 4;
+        $count = 0;
+        $currentTrains = Train::orderBy('departure_date', 'desc')
+                              ->orderBy('departure_time', 'desc')
+                              ->with( 'tickets' )->get();
+
+        $currentTickets = collect();
+        foreach ( $currentTrains as $train ) {
+            if ( $train->tickets()->withoutScams() ) {
+                foreach ( $train->tickets as $ticket ) {
+
+                    if ( $ticket->sold_to_id == null ) {
+                        $currentTickets->push( $ticket );
+                        $count += 1;
+                    }
+
+                    if ($count == $limit) {
+                        break;
+                    }
+                }
+            }
+        }
+
+        return $currentTickets;
+    }
+
     /**
      *
      * Boot

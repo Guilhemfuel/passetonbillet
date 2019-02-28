@@ -95,6 +95,13 @@ return [
 
     ],
     'sell'      => [
+
+        'public' => [
+            'title' => 'Revendez tous vos billets en 1 clic sur PasseTonBillet.fr',
+            'subtitle' => 'Billets SNCF, Billets Eurostar, Billets Prems, Billets Thalys, Billets OuiGo',
+        ],
+
+
         'title' => 'Vendre un billet',
 
         'step_1'            => 'Étape 1/2: Retrouver votre billet',
