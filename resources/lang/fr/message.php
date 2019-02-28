@@ -99,7 +99,6 @@ return [
         'modal_sell' => [
             'title' => 'Vendre ce billet à ',
 
-            // TOdo
             'money_received' => [
                 'question' => 'Avez-vous reçu le paiement de l\'acheteur?',
                 'warning' => 'Ne vous contentez pas d\'une capture d’écran de confirmation ou d\'un email paypal.',

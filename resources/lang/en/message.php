@@ -93,6 +93,20 @@ return [
 
 
         'modal_sell' => [
+            'title' => 'Sell this ticket to ',
+
+            'money_received' => [
+                'question' => 'Have you received the payment ?',
+                'warning' => 'Take care, a screenshot of a transfer, or an email from paypal is not enough.',
+                'confirm' => 'I received the money',
+            ],
+
+            'pdf' => [
+                'found' => 'We retrieved the PDF of your ticket and <b>we will send it to the buyer as soon as you confirm the sale</b>, by clicking on the button below.',
+                'missing' => 'We couldn\'t find the PDF of your ticket. <b class="text-bold">No worries, just make sure you send it to the buyer.</b>.',
+                'warning' => 'Click on the green button to confirm the sale. Ticket will not be available anymore on the platform, and your other offers will be closed.',
+            ],
+
             'title'=> 'Sell this ticket to ',
             'part_1' => 'You are about to mark this ticket as sold to',
             'part_2' => 'Make sure to click there, only once you received the payment and sent the ticket.',
