@@ -115,7 +115,8 @@
 
     <div class="row mt-5">
         <div class="col-sm-6 col-12">
-            <h5>Emails Sents({{$entity->emailsReceived()->count()}})</h5>
+            <h5>Emails Sent({{$entity->emailsReceived()->count()}})</h5>
+            <p>A 2 week history of sent mail is maintained</p>
             <table class="table table-hover table-striped">
                 <thead>
                 <th>Type</th>
@@ -123,7 +124,7 @@
                 <th class="text-right">Date</th>
                 </thead>
                 <tbody>
-                @foreach($entity->emailsReceived as $email)
+                @foreach($entity->emailsReceived->sortByDesc('updated_at') as $email)
                     <tr>
                         <td>{{$email->email_class}}</td>
                         <th class="text-center">
@@ -141,9 +142,11 @@
         </div>
         <div class="col-sm-6 col-12">
             <h5>Tickets({{$entity->tickets()->count()}})</h5>
+            <p>A full history of sold tickets is maintained</p>
             <table class="table table-hover table-striped">
                 <thead>
                 <th>Date</th>
+                <th>Status</th>
                 <th>From</th>
                 <th>To</th>
                 <th>Price</th>
@@ -153,11 +156,12 @@
                 @foreach($entity->tickets as $ticket)
                     <tr>
                         <td>{{$ticket->train->carbon_departure_date->format('d/m/Y')}}</td>
+                        <td>{{$ticket->status}}</td>
                         <th>
-                            {{substr($ticket->train->departureCity->short_name,2)}}
+                            {{$ticket->train->departureCity->name}}
                         </th>
                         <th>
-                            {{ substr($ticket->train->arrivalCity->short_name,2)  }}
+                            {{ $ticket->train->arrivalCity->name }}
                         </th>
                         <th>
                             {{$ticket->price}} {{$ticket->currency}}

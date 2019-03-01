@@ -5,6 +5,7 @@ namespace App\Listeners;
 use App\Events\RegisteredEvent;
 use App\Helper\AppHelper;
 use App\Mail\EmailVerification;
+use App\User;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Http\Request;
 
@@ -33,4 +34,5 @@ class RegisteredListener implements ShouldQueue
             'ip_address' => $event->ip
         ],$event->user );
     }
+
 }

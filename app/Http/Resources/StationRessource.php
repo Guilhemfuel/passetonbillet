@@ -21,6 +21,7 @@ class StationRessource extends Resource
             'name'                  => $this->name,
             'name_country_specific' => $this->name_country_specific,
             'short_name'            => $this->short_name,
+            'slug'                  => $this->slug,
             'country'               => $this->country,
         ];
     }

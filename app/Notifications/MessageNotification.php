@@ -42,20 +42,16 @@ class MessageNotification extends Notification implements ShouldQueue
     {
         $via = ['broadcast','database'];
 
-        // Can't receive email notification about messages more than once per hour
+        // Can't receive email notification about messages more than once per 3 min
         $class = 'App\Mail\MessageEmail';
         $count = EmailSent::where('user_id',$notifiable->id)
                           ->where('email_class', $class)
-                          ->where('created_at', '>=', \Carbon\Carbon::now()->subMinutes(5))
+                          ->where('created_at', '>=', \Carbon\Carbon::now()->subMinutes(3))
                           ->count();
 
         if ($count == 0) {
             array_push($via,'mail');
         }
-
-//        if ($notifiable->fb_id){
-//            array_push($via,FacebookChannel::class);
-//        }
 
         return $via;
 

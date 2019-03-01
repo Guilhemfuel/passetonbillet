@@ -14,7 +14,7 @@
                 <input type="hidden" name="_token" :value="csrf">
             </form>
             <div class="btn-rack">
-                <button class="btn btn-success" @click="$refs.sellForm.submit()">{{trans('message.discussions.cta_sell_to')}}</button>
+                <button class="btn btn-success" @click="$refs.sellForm.submit()">{{trans('message.discussions.cta_sell_to')}} {{correspondant.full_name}}</button>
                 <button class="btn btn-danger" @click="modalSellOpen=false">{{trans('message.discussions.cancel')}}</button>
             </div>
         </modal>
@@ -86,7 +86,7 @@
                     <ticket-mini :discussion="discussion" :ticket="discussion.ticket"></ticket-mini>
                 </div>
                 <div class="col-sm-12 d-md-none p-0" v-if="!sold && user.id == discussion.ticket.user.id">
-                    <button @click="modalSellOpen=true" class="btn btn-ptb-blue btn-block btn-header">{{trans('message.discussions.cta_sell_to')}}</button>
+                    <button @click="modalSellOpen=true" class="btn btn-ptb-blue btn-block btn-header">{{trans('message.discussions.cta_sell_to')}} {{correspondant.full_name}}</button>
                 </div>
             </div>
         </div>

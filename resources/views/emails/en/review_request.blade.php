@@ -2,13 +2,12 @@
 
 # Hello  {{$user->first_name}} !
 
-At PasseTonBillet, we want to offer the best experience possible for a customers, and cut down
-on scams and fraudulent activity. Its sometimes hard to do this without firsthand experience.
-This is why we are asking for your help. We're really pleased you recently sold a ticket, and we would love to know more about your experience.
-Please click on the link below to take 5 minutes to fill out our feedback form and provide any suggestions or areas which you think could be improved.
+We are excited see you have been able to help you resell your ticket to {{$ticket->train->arrivalCity->name}}!
+Could you leave us a rating of 1 to 5 describing your experience as a seller by clicking the button below?
+PasseTonBillet.fr is improving day by day thanks to feedback from our users. We thank you for your contribution.
 
 @component('mail::button', ['url' => route('home') . '#review', 'color'=>'blue'])
-    Review PasseTonBillet
+    Have your say
 @endcomponent
 
 

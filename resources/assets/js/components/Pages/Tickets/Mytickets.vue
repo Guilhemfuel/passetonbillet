@@ -3,7 +3,7 @@
 
         <h1 class="card-title text-center mb-0">{{trans('tickets.owned.title')}}</h1>
 
-        <div class="row">
+        <div class="row px-5">
             <div class="col-12 text-center py-3">
                 <div class="mx-auto">
                     <el-radio-group v-model="state" class="mr-2" :label="state" @change="rerender">

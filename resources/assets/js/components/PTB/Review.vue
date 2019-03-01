@@ -57,22 +57,7 @@
         },
         computed: {},
         mounted: function() {
-            var hash = window.location.hash
-            if (!this.user) {
-                /* You need to login to submit a review */
-            }
-            else if (this.submitted) {
-                /* You can only submit a single review */
-            }
-            else if (this.modalReviewOpened) {
-                /* Modal already open ! */
-            }
-            else if (hash === '#review') {
-                /* Open the review modal if the url contains a hash */
-                var link = document.getElementById('modal-review-link')
-                link.click();
-
-            }
+            this.modalReviewOpened = window.location.hash === 'review' && this.user;
         },
         methods: {
             sendReview() {

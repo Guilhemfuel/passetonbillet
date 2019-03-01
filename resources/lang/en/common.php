@@ -32,7 +32,7 @@ return [
         'link' => 'Are you enjoying PasseTonBillet? Let us know, click here !',
         'modal' => [
             'title' => 'Leave us a review',
-            'placeholder' => 'Help us improve our service by including any additional comments and suggestions for improvement.',
+            'placeholder' => 'Any futher comment or suggestions ?',
             'send' => 'Send'
         ]
     ],
