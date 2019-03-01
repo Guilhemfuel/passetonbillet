@@ -50,18 +50,33 @@ class DownloadAllMissingTicketPdfs extends Command
         $tickets = Ticket::currentTickets();
         $this->line($tickets->count().' current tickets were found.');
 
-        $count = 0;
-
-        foreach ($tickets as $ticket) {
-            // Only if ticket has not been downloaded yet, and $ticket was added via api (has booking code)
-            if (!$ticket->pdf_downloaded && $ticket->provider_code ) {
-                DownloadTicketPdf::dispatch( $ticket );
-                $count++;
-            }
+        $count_total = $tickets->count();
+        $count_success = 0;
+        $count_fail = 0;
+        if ($count_total == 0) {
+            $this->info('No current tickets were found. Exiting command');
         }
-
-        $this->line('Done. '.$count.' were put in download queue.');
-
-
+        else {
+            $this->info('Downloading from ' . $count_total . ' current tickets');
+            $bar = $this->output->createProgressBar($count_total);
+            $bar->start();
+            foreach ($tickets as $ticket) {
+                // Only if ticket has not been downloaded yet, and $ticket was added via api (has booking code)
+                if ( ! $ticket->pdf_downloaded && $ticket->provider_code ) {
+                    try {
+                        DownloadTicketPdf::dispatch( $ticket );
+                        $count_success++;
+                    } catch ( \Exception $e ) {
+                        $this->error( "\n\r" .$e->getMessage());
+                        $count_fail++;
+                    }
+                }
+                $bar->advance();
+            }
+            $bar->finish();
+            $this->line("\nDone. ");
+            $this->line($count_success. ' tickets successfully queued.');
+            $this->line($count_fail . ' tickets failed to download.');
+        }
     }
 }

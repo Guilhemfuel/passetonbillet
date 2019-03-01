@@ -12,9 +12,10 @@ return [
     'password_reset'          => 'Reset your password',
     'id_verification_success' => 'Identity check',
     'id_verification_fail'    => 'Identity check failed',
-    'offer'                   => 'New offer for one of your tickets',
-    'offer_accepted'          => 'One of your offer was accepted',
-    'ticket_sold'             => 'You received a ticket',
+    'offer'                   => 'Youe have received a new offer',
+    'offer_accepted'          => 'One of your offers was accepted',
+    'ticket_sold'             => 'Your ticket has sold!',
+    'review_request'          => 'Help us to improve our service',
 
     'message' => 'You received a new message',
     'welcome' => 'Welcome to PasseTonBillet',

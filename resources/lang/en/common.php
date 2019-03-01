@@ -29,11 +29,10 @@ return [
 
     'review' => [
         'thanks' => 'Thank you for leaving a review !',
-        'link' => 'You like PasseTonBillet.fr? Let us know, click here !',
+        'link' => 'Are you enjoying PasseTonBillet? Let us know, click here !',
         'modal' => [
             'title' => 'Leave us a review',
-            'text' => 'You like PasseTonBillet.fr? Let us know !',
-            'placeholder' => 'Your review',
+            'placeholder' => 'Any futher comment or suggestions ?',
             'send' => 'Send'
         ]
     ],
