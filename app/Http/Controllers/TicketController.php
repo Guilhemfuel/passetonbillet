@@ -377,7 +377,7 @@ class TicketController extends Controller
     {
         $ticket = Ticket::find( $ticket_id );
         // Make sure allowed user
-        if ( ! $ticket || $ticket->passed || ( /*todo: uncomment this $ticket->buyer->id != \Auth::user()->id && */ ! \Auth::user()->isAdmin() ) ) {
+        if ( ! $ticket || $ticket->passed || ($ticket->buyer->id != \Auth::user()->id && !\Auth::user()->isAdmin() ) ) {
             flash( __( 'common.error' ) )->error()->important();
 
             return redirect()->route( 'public.ticket.owned.page' );

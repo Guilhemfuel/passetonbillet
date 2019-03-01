@@ -34,6 +34,7 @@ class TicketRessource extends Resource
             'discussion_id'          => $this->sold_to_id ? $this->discussionSold->id : null,
             'provider'               => $this->provider,
             'created_at'             => $this->created_at,
+            'pdf_downloaded'         => $this->when( \Auth::check() && \Auth::user()->id == $this->user_id, $this->pdf_downloaded ),
 
             // Only for seller
             'ticket_number'          => $this->when( \Auth::check() && \Auth::user()->id == $this->user_id, $this->ticket_number ),
