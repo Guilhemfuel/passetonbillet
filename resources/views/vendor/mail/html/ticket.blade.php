@@ -22,10 +22,10 @@
                 <tr>
                     <td></td>
                     <td class="bold"
-                        style="text-align: center;color: #D40EFD;"> {{substr($ticket->train->departure_time, 0, -3)}} </td>
+                        style="text-align: center;color: #50D5E3;"> {{substr($ticket->train->departure_time, 0, -3)}} </td>
                     <td></td>
                     <td class="bold"
-                        style="text-align: center;color: #D40EFD;"> {{substr($ticket->train->arrival_time, 0, -3)}} </td>
+                        style="text-align: center;color: #50D5E3;"> {{substr($ticket->train->arrival_time, 0, -3)}} </td>
                     <td></td>
                 </tr>
                 <tr>
@@ -34,4 +34,11 @@
             </table>
         </td>
     </tr>
+    @if(isset($discussion) && $download===true)
+        <tr class="footer">
+            <td colspan="5" height="20">
+                <a style="color:white; text-decoration: none;" href="{{route('public.ticket.download',['ticket_id'=>$ticket->id])}}">{{$lang=='fr'?'Télécharger le billet':'Download ticket'}}</a>
+            </td>
+        </tr>
+    @endif
 </table>
