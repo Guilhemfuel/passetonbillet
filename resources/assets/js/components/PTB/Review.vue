@@ -46,19 +46,16 @@
     export default {
         data() {
             return {
-                modalReviewOpened: false,
                 review: {
                     mark: 0,
                     text: ""
                 },
                 submitted: false,
-                user: this.$root.user
+                user: this.$root.user,
+                modalReviewOpened: (window.location.hash === '#review' && this.$root.user),
             }
         },
         computed: {},
-        mounted: function() {
-            this.modalReviewOpened = window.location.hash === 'review' && this.user;
-        },
         methods: {
             sendReview() {
                 this.$http.post(this.route('api.reviews.store'), this.review).then(response => {

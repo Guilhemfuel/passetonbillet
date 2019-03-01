@@ -319,8 +319,13 @@ class DiscussionController extends Controller
         $discussion->buyer->notify( new SoldToYouNotification( $discussion ) );
 
         /* Send feedback request email  */
-        $when = Carbon::now()->addDay();
-        $discussion->buyer->notify( (new ReviewRequestNotification( $discussion ))->delay($when) );
+        if (\App::environment() == 'production') {
+            $when = Carbon::now()->addDay();
+            $discussion->buyer->notify( ( new ReviewRequestNotification( $discussion ) )->delay( $when ) );
+        } else {
+            // Don't delay if not in production
+            $discussion->buyer->notify( ( new ReviewRequestNotification( $discussion ) ));
+        }
 
         // Deny all awaiting offers
         $awaitingOffers = $ticket->discussions->where( 'status', Discussion::AWAITING );
