@@ -33,16 +33,9 @@ class ReviewRequestEmail extends PtbMail
      */
     public function build()
     {
-        /* The trans(...) function can not apply to queued jobs */
-        if (strtolower($this->user->lang) == 'en') {
-            $subject = 'Help us to improve our service.';
-        }
-        else {
-            $subject = 'Aidez-nous à améliorer notre service';
-        }
-
+        $locale = strtolower( $this->user->lang );
         return $this->to($this->user->email,$this->user->full_name)
-                    ->subject($subject)
+                    ->subject(__('email.review_request', $locale))
                     ->ptbMarkdown('review_request',
                         [
                             'user' => $this->user,
@@ -50,4 +43,3 @@ class ReviewRequestEmail extends PtbMail
                         ]);
     }
 }
-
