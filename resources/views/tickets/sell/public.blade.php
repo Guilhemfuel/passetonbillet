@@ -6,9 +6,9 @@
 
 @section('content')
 
-    <div class="welcome-page">
+    <div class="sell-public">
         <div class="section-header">
-            <div class="first-section bg-orange">
+            <div class="first-section orange-gradient">
                 <div class="fixed-content">
                     <nav class="navbar pos-top" id="nav">
                         <a class="navbar-brand" href="{{route('home')}}">
@@ -56,10 +56,39 @@
                     </div>
                 </div>
             </div>
-            <div class="video-wrap">
+            <div class="iframe-wrapper orange-gradient">
                 <iframe>
 
                 </iframe>
+            </div>
+            <div class="iframe-wrapper"></div>
+            <div class="section-btn">
+                <a href="" class="text-uppercase font-weight-bold btn btn-ptb-blue text-center">
+                    @lang('nav.resell_a_ticket')
+                </a>
+            </div>
+            <div class="section-title" style="text-align: center;">
+                <h3>
+                    Do you have a non-refundable ticket to sell ?
+                </h3>
+                <h4>
+                    Passe ton billet is a web platform specialising in quick, easy, and secure train ticket
+                    resales:
+                </h4>
+            </div>
+            <div class="section-list-wrapper" style="text-align: center;">
+                <div class="section-list list-left" style="display:inline-block;padding-right: 40px">
+                    <ul>
+                        <li>I</li>
+                        <li>AM</li>
+                    </ul>
+                </div>
+                <div class="section-list list-right" style="display:inline-block;">
+                    <ul>
+                        <li>I</li>
+                        <li>AM</li>
+                    </ul>
+                </div>
             </div>
             <div class="section-favorites" id="section-favorites">
                 <h2 class="text-center text-warning title">{{__('welcome.favorites.title')}}</h2>
