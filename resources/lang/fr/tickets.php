@@ -99,6 +99,12 @@ return [
         'public' => [
             'title' => 'Revendez tous vos billets en 1 clic sur PasseTonBillet.fr',
             'subtitle' => 'Billets SNCF, Billets Eurostar, Billets Prems, Billets Thalys, Billets OuiGo',
+            'favorites' => [
+                'title' => 'Revendez votre billet en 1 clic',
+                'subtitle' => 'Revendrez un billet London Paris, Paris Lyon Paris Marseille, ou autre sur PasseTonBillet.fr .'
+            ],
+            'reviews' => 'Les avis de nos utilisateurs',
+            'recent' => 'Les Derniers billets postés',
         ],
 
 

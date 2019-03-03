@@ -302,7 +302,7 @@
     padding-bottom: 100px;
     text-align: center;
 
-    a.btn {
+    .btn {
       font-size: 50px;
       padding: 20px;
       border-radius: 20px;
@@ -686,102 +686,73 @@ h1 {
 
 }
 
-.section-FAQ {
+.section-recent-tickets {
   background-color: $color-greybg;
   width: 100%;
   padding-top: 50px;
-  padding-bottom: 1px;
+  padding-bottom: 50px;
 
-  .button {
-    margin-top: 20px;
+  .tickets-horizontal-list {
+    margin-top: 30px;
     margin-bottom: 30px;
-    text-align: center;
-  }
+    position: relative;
 
-  #btn-seemore {
-    text-align: center;
-    height: 45px;
-    font-size: 20px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: bold;
-    color: $color-orange;
-    background-color: white;
-    border: none;
-    border-radius: 8px;
-    box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease 0s;
-    cursor: pointer;
-    outline: none;
-    padding-left: 20px;
-    padding-right: 20px;
+    .scroll-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      border-radius: 50%;
+      background-color: rgba(0, 0, 0, 0.2);
+      font-size: 35px;
+      width: 52px;
+      text-align: center;
+      cursor: pointer;
 
-    &:hover {
-      background-color: $color-orange;
-      box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.1);
-      color: white;
-    }
-  }
-  .FAQ-title {
-    padding-bottom: 20px;
-  }
+      z-index: 100;
+      color: rgba(255, 255, 255, 0.8);
 
-  .questions {
-    list-style-type: none;
-    display: inline-block;
-    background-color: white;
-    color: $color-dark-gray;
-    font-weight: 400;
-    width: 90%;
-    padding-left: 30px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    border-radius: 11px;
-    text-align: left;
-    margin-bottom: 0px;
-    cursor: pointer;
+      &:hover {
+        color: white;
+        background-color: rgba(0, 0, 0, 0.6);
+      }
 
-    .question {
-      font-weight: bold;
+      &#scroll-right {
+        right: 20px;
+      }
+
+      &#scroll-left {
+        left: 20px;
+      }
     }
 
-    .answer {
-      opacity: 0;
-      max-height: 0;
-      font-size: 0;
-      transition: .25s ease;
+    .tickets {
+      overflow: scroll;
+      &::-webkit-scrollbar {
+        display: none;
+      }
     }
 
-  }
-  .read-more-state {
-    display: none;
-  }
+    .card-trip {
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+      width: 350px;
+      margin-left: 15px;
+      margin-right: 15px;
+      display: block;
 
-  .read-more-wrap {
-    padding-left: 0px;
-    text-align: center;
-    cursor: pointer;
-  }
-  .read-more-state:checked ~ .read-more-wrap .answer {
-    opacity: 1;
-    font-size: inherit;
-    max-height: 999em;
-  }
+      .arrow::after {
+        color: $color-sub-title;
+        content: "→";
+      }
 
-  .read-more-state ~ .read-more-wrap .question:before {
-    content: "\f0d7 ";
-    font-family: FontAwesome;
-    font-style: normal;
-    font-weight: normal;
-    text-decoration: inherit;
-  }
+      .card-body {
+        padding: 15px;
 
-  .read-more-state:checked ~ .read-more-wrap .question:before {
-    content: "\f0d8 ";
-    font-family: FontAwesome;
-    font-style: normal;
-    font-weight: normal;
-    text-decoration: inherit;
+        .card-title {
+          text-align: center;
+          margin: 0px;
+          padding: 0px;
+        }
+      }
+    }
   }
-
 }

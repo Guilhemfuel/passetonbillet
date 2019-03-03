@@ -101,6 +101,12 @@ return [
         'public' => [
           'title' => 'Resell your train tickets quickly and easily on PasseTonBillet.fr',
           'subtitle' => 'We currrently support all major ticket types, including SNCF, Eurostar, Prems, Thalys, and OuiGo',
+            'favorites' => [
+                'title' => 'Sell you ticket in 1 click',
+                'subtitle' => 'Sell a ticket from London, Paris, Marseille, Lyon, or any where else.'
+            ],
+            'reviews' => 'Our reviews',
+            'recent' => 'Recent tickets',
         ],
 
         'step_1'            => 'Step 1/2: find your ticket',

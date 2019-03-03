@@ -68,31 +68,35 @@
                 </a>
             </div>
             <div class="section-title" style="text-align: center;">
-                <h3>
+                <h1 class="font-weight-bold">
                     Do you have a non-refundable ticket to sell ?
-                </h3>
-                <h4>
+                </h1>
+                <h2>
                     Passe ton billet is a web platform specialising in quick, easy, and secure train ticket
-                    resales:
-                </h4>
+                    resales. We currently support the following ticket providers:
+                </h2>
             </div>
             <div class="section-list-wrapper" style="text-align: center;">
                 <div class="section-list list-left" style="display:inline-block;padding-right: 40px">
                     <ul>
-                        <li>I</li>
-                        <li>AM</li>
+                        <li>Idgtv</li>
+                        <li>Ter</li>
+                        <li>Tgv</li>
                     </ul>
                 </div>
                 <div class="section-list list-right" style="display:inline-block;">
                     <ul>
-                        <li>I</li>
-                        <li>AM</li>
+                        <li>Eurostar</li>
+                        <li>Prems</li>
+                        <li>Thalys</li>
+                        <li>Sncf</li>
                     </ul>
                 </div>
             </div>
+
             <div class="section-favorites" id="section-favorites">
-                <h2 class="text-center text-warning title">{{__('welcome.favorites.title')}}</h2>
-                <h5 class="text-center text-warning subtitle">{{__('welcome.favorites.subtitle')}}</h5>
+                <h2 class="text-center text-warning title">@lang('tickets.sell.public.favorites.title')</h2>
+                <h5 class="text-center text-warning subtitle">@lang('tickets.sell.public.favorites.subtitle')</h5>
 
 
                 <div class="cards-horizontal-list">
@@ -146,50 +150,6 @@
                                     <h5 class="card-title">Paris <span class="arrow"></span> Marseille</h5>
                                 </div>
                             </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="section-advantages" id="section-advantages">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12 text-center">
-                            <h2 class="text-center text-warning title">{{__('welcome.advantages.why_use')}}</h2>
-                            <img class="main-logo" src="{{secure_asset('img/logo-black.png')}}"
-                                 alt="logo black passe ton billet">
-                        </div>
-                        <div class="col-sm-12 col-md-6 col-lg-3 mt-3">
-                            <img class="svg-icon"
-                                 src="{{secure_asset('img/icon-safe.svg')}}"
-                                 alt="Icon Safer"
-                            />
-                            <h3 class="advantage-title  pt-1">@lang('welcome.advantages.safer.title')</h3>
-                            <p class="advantage-text">@lang('welcome.advantages.safer.text')</p>
-                        </div>
-                        <div class="col-sm-12 col-md-6 col-lg-3 mt-3">
-                            <img class="svg-icon"
-                                 src="{{secure_asset('img/icon-cheaper.svg')}}"
-                                 alt="Icon Cheaper"
-                            />
-                            <h3 class="advantage-title pt-1">@lang('welcome.advantages.cheaper.title')</h3>
-                            <p class="advantage-text">@lang('welcome.advantages.cheaper.text')</p>
-                        </div>
-                        <div class="col-sm-12 col-md-6 col-lg-3 mt-3">
-                            <img class="svg-icon"
-                                 src="{{secure_asset('img/icon-quick.svg')}}"
-                                 alt="Icon quicker"
-                            />
-                            <h3 class="advantage-title pt-1">@lang('welcome.advantages.quicker.title')</h3>
-                            <p class="advantage-text">@lang('welcome.advantages.quicker.text')</p>
-                        </div>
-                        <div class="col-sm-12 col-md-6 col-lg-3 mt-3">
-                            <img class="svg-icon"
-                                 src="{{secure_asset('img/icon-10years.svg')}}"
-                                 alt="Icon 10 Years"
-                            />
-                            <h3 class="advantage-title pt-1">@lang('welcome.advantages.10years.title')</h3>
-                            <p class="advantage-text">@lang('welcome.advantages.10years.text')</p>
                         </div>
                     </div>
                 </div>
@@ -272,58 +232,33 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
-                <reviews></reviews>
             </div>
 
-            <home-buyer-seller-info></home-buyer-seller-info>
 
-            <div class="section-FAQ" id="section-FAQ">
-                <h2 class="text-center text-warning title FAQ-title">{{__('welcome.FAQ.title')}}</h2>
-                <div>
-                    <input type="checkbox" class="read-more-state" id="post-1"/>
-                    <ul class="read-more-wrap">
-                        <label for="post-1" class="questions">
-                            <li class="question"> {{__('faq.questions')[0]['title']}}</li>
-                            <li class="answer">{!! __('faq.questions')[0]['content'] !!}</li>
-                        </label>
-                    </ul>
-                </div>
-                <div>
-                    <input type="checkbox" class="read-more-state" id="post-2"/>
-                    <ul class="read-more-wrap">
-                        <label for="post-2" class="questions">
-                            <li class="question"> {{__('faq.questions')[1]['title']}}</li>
-                            <li class="answer">{!! __('faq.questions')[1]['content'] !!}</li>
-                        </label>
-                    </ul>
-                </div>
-                <div>
-                    <input type="checkbox" class="read-more-state" id="post-3"/>
-                    <ul class="read-more-wrap">
-                        <label for="post-3" class="questions">
-                            <li class="question"> {{__('faq.questions')[2]['title']}}</li>
-                            <li class="answer">{!! __('faq.questions')[2]['content'] !!}</li>
-                        </label>
-                    </ul>
-                </div>
-                <div>
-                    <input type="checkbox" class="read-more-state" id="post-4"/>
-                    <ul class="read-more-wrap">
-                        <label for="post-4" class="questions">
-                            <li class="question"> {{__('faq.questions')[3]['title']}}</li>
-                            <li class="answer">{!! __('faq.questions')[3]['content'] !!}</li>
-                        </label>
-                    </ul>
-                </div>
-                <div class="button">
-                    <a id="btn-seemore" class="btn text-uppercase" href="{{route('help.page')}}">
-                        {{__('welcome.FAQ.buttons.seemore')}}
-                    </a>
+            <div class="section-recent-tickets">
+                <h2 class="text-center text-warning title">@lang('tickets.sell.public.recent')</h2>
+
+
+                <div class="tickets-horizontal-list">
+                    <div id="scroll-left" class="scroll-btn">
+                        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                    </div>
+                    <div id="scroll-right" class="scroll-btn">
+                        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                    </div>
+
+                    <div class="tickets">
+                        <div class="d-inline-flex px-3">
+                            <ticket v-for="ticket in this.tickets" :ticket="ticket" >
+
+                            </ticket>
+                        </div>
+                    </div>
                 </div>
             </div>
+
 
             <div>
                 @include('components.footer')
@@ -415,7 +350,9 @@ $routes = [
 ?>
 
 @push('vue-data')
+    <script type="application/javascript">
 
+    </script>
 @endpush
 
 
