@@ -15,9 +15,8 @@
 // Robot.txt
 Route::get( '/robots.txt', 'RobotController@index' );
 
-Route::redirect( '/html', '/', 301 );
+Route::redirect( '/html/{any}', '/', 301 );
 Route::redirect( '/revendre-billet-train', '/', 301 );
-Route::redirect( '/html/revendre-billet-train', '/', 301 );
 
 // Home Page
 Route::get( '/', 'PageController@home' )->name( 'home' );
