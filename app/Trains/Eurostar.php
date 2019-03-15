@@ -108,7 +108,13 @@ class Eurostar
         $decoded = json_decode( (string) $response->getBody(), true )['booking'];
 
         // Find tickets
-        $buyerEmail = $decoded['contact']['email'];
+        if (isset($decoded['contact']) && isset($decoded['contact']['email'])) {
+            $buyerEmail = $decoded['contact']['email'];
+        } elseif (isset($decoded['etapBooking']['passengers'][0]['email'])) {
+            $buyerEmail = $decoded['etapBooking']['passengers'][0]['email'];
+        } else {
+            $buyerEmail = '';
+        }
         $currency = $decoded['currency'];
         $returnTickets = $decoded['isReturn'];
         $passengers = $decoded['passengers'];
