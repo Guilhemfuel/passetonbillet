@@ -107,6 +107,8 @@ return [
             ],
             'reviews' => 'Our reviews',
             'recent' => 'Recent tickets',
+            'question' => 'Do you have a non-exchangeable/non-refundable train ticket to resell?',
+            'subquestion' => 'PasseTonBillet.fr specialises in the resale of used train tickets. With PasseTonBillet, passengers can easily: '
         ],
 
         'step_1'            => 'Step 1/2: find your ticket',

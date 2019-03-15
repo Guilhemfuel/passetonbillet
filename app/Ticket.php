@@ -368,32 +368,38 @@ class Ticket extends Model
         return $currentTickets;
     }
 
-    public static function get5MostRecentTickets( ) {
+    public static function getMostRecentTickets( $limit ) {
 
         // Get current ticket count
-        $limit = 4;
-        $count = 0;
-        $currentTrains = Train::orderBy('departure_date', 'desc')
-                              ->orderBy('departure_time', 'desc')
+
+        $currentTrains = Train::where( function ( $query ) {
+            $query->where( 'departure_time', '>=', Carbon::now()->addHours( 2 )->toTimeString() )
+                  ->where( 'departure_date', Carbon::now() );
+        } )
+                              ->orWhere( 'departure_date', '>', Carbon::now() )
                               ->with( 'tickets' )->get();
 
+        $count = 0;
+
         $currentTickets = collect();
+
         foreach ( $currentTrains as $train ) {
             if ( $train->tickets()->withoutScams() ) {
+                $used = false;
                 foreach ( $train->tickets as $ticket ) {
 
-                    if ( $ticket->sold_to_id == null ) {
+                    if ( !$used && $ticket->sold_to_id == null ) {
                         $currentTickets->push( $ticket );
                         $count += 1;
+                        $used = true;
                     }
 
                     if ($count == $limit) {
-                        break;
+                        return $currentTickets;
                     }
                 }
             }
         }
-
         return $currentTickets;
     }
 

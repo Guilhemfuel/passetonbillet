@@ -13,8 +13,9 @@
   }
 
   .iframe-wrapper {
-    text-align: center;
-    height: 250px;
+    position: absolute;
+    top: 30pc;
+    left: 22%;
 
     iframe {
       width: 800px;
@@ -22,6 +23,21 @@
       display: block;
       margin-left: auto;
       margin-right: auto;
+    }
+    
+  }
+
+  .iframe-fill {
+    background-color: transparent;
+    min-height: 27pc;
+  }
+
+  @media only screen and (max-width: 1000px) {
+    .iframe-fill {
+      min-height: 5pc;
+    }
+    .iframe-wrapper {
+      display: none;
     }
   }
 
@@ -80,9 +96,9 @@
     .first-section {
       background-position: center center;
       background-size: cover;
-      min-height: 80vh;
+      min-height: 35pc;
       display: flex;
-      background-size: cover;
+      text-align: center;
 
       .fixed-content {
         flex: 1;
@@ -95,7 +111,6 @@
       .content {
         height: 100%;
         width: 100%;
-        display: flex;
         align-items: center;
         justify-content: center;
         text-align: center;
@@ -147,7 +162,6 @@
       padding: 20px;
       padding-left: 35px;
       padding-right: 35px;
-      position: fixed;
       width: 100%;
       z-index: 1000;
       background-color: transparent;
@@ -179,88 +193,81 @@
         }
       }
 
-      &:not(.pos-top) {
-        background-color: white;
-        color: black;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+      .logo-black {
+        display: inline-block;
+      }
+      .logo-white {
+        display: none;
+      }
 
-        .logo-black {
-          display: inline-block;
-        }
-        .logo-white {
-          display: none;
-        }
+      .nav-item {
 
-        .nav-item {
+        &.menu-unlogged {
+          > .fa {
+            cursor: pointer;
 
-          &.menu-unlogged {
-            > .fa {
-              cursor: pointer;
+            color: $color-dark-gray !important;
 
-              color: $color-dark-gray !important;
-
-              &:hover {
-                color: $color-orange !important;
-              }
-            }
-          }
-
-          .user-first-name {
-
-            p {
-              color: $color-dark-gray;
-            }
             &:hover {
-              p {
-                color: $color-orange;
-              }
+              color: $color-orange !important;
             }
           }
+        }
 
-          .fa {
+        .user-first-name {
+
+          p {
+            color: $color-dark-gray;
+          }
+          &:hover {
+            p {
+              color: $color-orange;
+            }
+          }
+        }
+
+        .fa {
+          color: $color-white;
+
+          &:hover {
+            color: $color-dark-gray !important;
+          }
+        }
+
+        a {
+          color: #82848a;
+
+          &:hover {
             color: $color-orange;
 
+          }
+
+          &.btn {
+            margin-top: 4px;
+          }
+
+          &.btn-ptb {
+            color: white;
             &:hover {
-              color: $color-dark-gray !important;
+              color: $color-gray;
             }
           }
 
-          a {
+          &.btn-ptb-white {
+            color: $color-orange;
+            border: solid 1px $color-orange;
+          }
+
+          &.btn-ptb-border {
             color: #82848a;
-
-            &:hover {
-              color: $color-orange;
-
-            }
-
-            &.btn {
-              margin-top: 4px;
-            }
-
-            &.btn-ptb {
-              color: white;
-              &:hover {
-                color: $color-gray;
-              }
-            }
-
-            &.btn-ptb-white {
-              color: $color-orange;
-              border: solid 1px $color-orange;
-            }
-
-            &.btn-ptb-border {
-              color: #82848a;
-              border-color: #82848a;
-              padding-top: 5px;
-              padding-bottom: 5px;
-              padding-left: 25px;
-              padding-right: 25px;
-              margin-top: 4px;
-            }
+            border-color: #82848a;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            padding-left: 25px;
+            padding-right: 25px;
+            margin-top: 4px;
           }
         }
-
       }
     }
 
@@ -298,15 +305,25 @@
 
   .section-btn {
     vertical-align: middle;
-    padding-top:100px;
     padding-bottom: 100px;
     text-align: center;
 
     .btn {
-      font-size: 50px;
-      padding: 20px;
+      font-size: 30px;
+      padding: 10px;
       border-radius: 20px;
+      width: 400px;
     }
+  }
+
+  .section-list {
+    display: inline-block;
+    padding-right: 40px;
+  }
+
+  .section-list-wrapper {
+    text-align: center;
+    margin-top: 20px;
   }
 }
 
@@ -457,11 +474,12 @@ h1 {
         background-color: rgba(0, 0, 0, 0.6);
       }
 
-      &#scroll-right {
+      &[id^=scroll-right] {
         right: 20px;
       }
 
-      &#scroll-left {
+      &[id^=scroll-left] {
+        left: 20px;
         left: 20px;
       }
     }
@@ -687,6 +705,16 @@ h1 {
 }
 
 .section-recent-tickets {
+
+  .tickets {
+
+    .ticket-wrap {
+      padding: 10px;
+      width: 22pc;
+    }
+    
+  }
+
   background-color: $color-greybg;
   width: 100%;
   padding-top: 50px;
@@ -716,11 +744,11 @@ h1 {
         background-color: rgba(0, 0, 0, 0.6);
       }
 
-      &#scroll-right {
+      &[id^=scroll-right] {
         right: 20px;
       }
 
-      &#scroll-left {
+      &[id^=scroll-left] {
         left: 20px;
       }
     }

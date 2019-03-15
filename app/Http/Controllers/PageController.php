@@ -66,12 +66,32 @@ class PageController extends Controller
      */
     public function sellPage()
     {
+
         if (\Auth::check()) {
+
             return view('tickets.sell.auth');
+
         }
+
         else {
-            $tickets = Ticket::get5mostRecentTickets();
-            return view( 'tickets.sell.public' )->with('tickets', $tickets);
+
+            $defaultStations = collect([
+                Station::find(4916),
+                Station::find(8267),
+                Station::find(5974),
+                Station::find(4718),
+                Station::find(4790),
+            ]);
+
+            $tickets = Ticket::getMostRecentTickets( 5 );
+            $recentTickets = TicketRessource::collection($tickets);
+
+
+
+            return view( 'tickets.sell.public' )->with([
+                'recentTickets' => $recentTickets,
+                'defaultStations' => StationRessource::collection( $defaultStations )
+            ]);
         }
     }
 
