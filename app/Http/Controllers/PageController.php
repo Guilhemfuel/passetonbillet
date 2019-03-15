@@ -83,7 +83,7 @@ class PageController extends Controller
                 Station::find(4790),
             ]);
 
-            $tickets = Ticket::getMostRecentTickets( 5 );
+            $tickets = Ticket::getMostRecentTickets( 8 );
             $recentTickets = TicketRessource::collection($tickets);
 
 

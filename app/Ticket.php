@@ -369,38 +369,7 @@ class Ticket extends Model
     }
 
     public static function getMostRecentTickets( $limit ) {
-
-        // Get current ticket count
-
-        $currentTrains = Train::where( function ( $query ) {
-            $query->where( 'departure_time', '>=', Carbon::now()->addHours( 2 )->toTimeString() )
-                  ->where( 'departure_date', Carbon::now() );
-        } )
-                              ->orWhere( 'departure_date', '>', Carbon::now() )
-                              ->with( 'tickets' )->get();
-
-        $count = 0;
-
-        $currentTickets = collect();
-
-        foreach ( $currentTrains as $train ) {
-            if ( $train->tickets()->withoutScams() ) {
-                $used = false;
-                foreach ( $train->tickets as $ticket ) {
-
-                    if ( !$used && $ticket->sold_to_id == null ) {
-                        $currentTickets->push( $ticket );
-                        $count += 1;
-                        $used = true;
-                    }
-
-                    if ($count == $limit) {
-                        return $currentTickets;
-                    }
-                }
-            }
-        }
-        return $currentTickets;
+        return Ticket::latest('created_at')->limit(5)->get();
     }
 
     /**

@@ -12,34 +12,46 @@
     margin-bottom: 35px;
   }
 
-  .iframe-wrapper {
+  .section-iframe {
     position: absolute;
     top: 30pc;
     left: 22%;
 
     iframe {
-      width: 800px;
-      height: 500px;
       display: block;
       margin-left: auto;
       margin-right: auto;
+      transform: translate(-50%, -50%);
     }
-    
+
+    @media only screen
+      and (max-width: 1500px)
+      and (min-width: 1000px){
+      iframe {
+        width: 800px;
+        height: 500px;
+      }
+    }
+
+    @media only screen
+    and (max-width: 1000px)
+    and (min-width: 700px){
+      iframe {
+        width: 400px;
+        height: 250px;
+      }
+    }
+
+    @media only screen
+    and (max-width: 700px)
+    and (min-width: 400px){
+      iframe {
+        width: 200px;
+        height: 125px;
+      }
+    }
   }
 
-  .iframe-fill {
-    background-color: transparent;
-    min-height: 27pc;
-  }
-
-  @media only screen and (max-width: 1000px) {
-    .iframe-fill {
-      min-height: 5pc;
-    }
-    .iframe-wrapper {
-      display: none;
-    }
-  }
 
   .title {
     font-weight: bold;
@@ -89,26 +101,17 @@
     );
   }
 
-  .section-header {
-    min-height: 100vh;
-    width: 100%;
 
     .first-section {
       background-position: center center;
       background-size: cover;
-      min-height: 35pc;
+      min-height: 40pc;
+      margin-bottom: 25pc;
       display: flex;
       text-align: center;
+      align-items: center;
 
-      .fixed-content {
-        flex: 1;
-        position: relative;
-        width: 100%;
-        padding-bottom: 20px;
-
-      }
-
-      .content {
+      .first-section-content {
         height: 100%;
         width: 100%;
         align-items: center;
@@ -166,6 +169,8 @@
       z-index: 1000;
       background-color: transparent;
       transition: background-color 0.2s;
+      position: absolute;
+      top: 0;
 
       .logo-black {
         display: none;
@@ -301,7 +306,6 @@
         }
       }
     }
-  }
 
   .section-btn {
     vertical-align: middle;
@@ -309,21 +313,27 @@
     text-align: center;
 
     .btn {
-      font-size: 30px;
-      padding: 10px;
-      border-radius: 20px;
-      width: 400px;
+      padding: 10px 40px;
+    }
+  }
+
+  .section-title {
+    text-align: center;
+    padding-bottom: 10px;
+
+    .h3 {
+      font-weight: bolder;
     }
   }
 
   .section-list {
-    display: inline-block;
-    padding-right: 40px;
-  }
-
-  .section-list-wrapper {
     text-align: center;
-    margin-top: 20px;
+
+    .section-list-group {
+      padding-right: 40px;
+      display: inline-block;
+      text-align: left;
+    }
   }
 }
 
@@ -445,7 +455,6 @@ h1 {
 }
 
 .section-favorites {
-  background-color: $color-greybg;
   width: 100%;
   padding-top: 50px;
   padding-bottom: 50px;
@@ -556,6 +565,7 @@ h1 {
   width: 100%;
   padding-top: 50px;
   padding-bottom: 50px;
+  box-shadow: 1px 1px #A9A9A9;
 
   .card-review {
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
@@ -701,24 +711,22 @@ h1 {
     padding-right: 10px;
     font-size: 16px;
   }
-
 }
 
 .section-recent-tickets {
+
+  width: 100%;
+  padding-top: 50px;
+  padding-bottom: 50px;
 
   .tickets {
 
     .ticket-wrap {
       padding: 10px;
-      width: 22pc;
+      width: 22vw;
     }
     
   }
-
-  background-color: $color-greybg;
-  width: 100%;
-  padding-top: 50px;
-  padding-bottom: 50px;
 
   .tickets-horizontal-list {
     margin-top: 30px;
