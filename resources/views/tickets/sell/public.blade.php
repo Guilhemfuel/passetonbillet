@@ -12,14 +12,12 @@
             @include('components.nav-simple')
 
             <div class="first-section-content">
-                <div class="center">
-                    <h1 class="catchline text-center">
-                        @lang('tickets.sell.public.title')
-                    </h1>
-                    <h3 class="text-white text-center">
-                        @lang('tickets.sell.public.subtitle')
-                    </h3>
-                </div>
+                <h1 class="catchline text-center">
+                    @lang('tickets.sell.public.title')
+                </h1>
+                <h3 class="text-white text-center">
+                    @lang('tickets.sell.public.subtitle')
+                </h3>
             </div>
         </div>
         <div class="section-iframe">
