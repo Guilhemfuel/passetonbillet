@@ -119,12 +119,7 @@
         text-align: center;
 
         .center {
-          margin-top: 140px;
           text-align: left !important;
-
-          @include media-breakpoint-down(xs) {
-            margin-top: 40px;
-          }
 
           #home-search {
 
