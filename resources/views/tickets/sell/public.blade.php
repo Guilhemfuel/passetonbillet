@@ -20,12 +20,17 @@
                 </h3>
             </div>
         </div>
-        <div class="section-iframe">
-            <iframe src="https://www.youtube.com/embed/N0wy1LC8H0w?autoplay=1&modestbranding=1&border=0&showinfo=0"
-                    frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen>
-            </iframe>
+
+        <!-- Modal video trigger buton -->
+
+        <div class="section-video-trigger">
+            <a href="#video-modal" data-toggle="modal">
+                <span class="play-button">
+                    <i class="fa fa-play"></i>
+                </span>
+            </a>
         </div>
+
         <div class="section-btn">
             <a href="{{ route('login') }}" class="text-uppercase font-weight-bold btn btn-ptb-blue text-center">
                 @lang('nav.resell_a_ticket')
@@ -228,11 +233,38 @@
         </div>
         <div>
             @include('components.footer')
+        </div>
 
+    <!-- Modal -->
+    <div id="video-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="font-weight-bold">
+                        @lang('tickets.sell.public.video_title')
+                    </span>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" data-modal-action="close" aria-label="close">
+                        <i class="fa fa-times-circle"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <iframe src="https://www.youtube.com/embed/N0wy1LC8H0w?modestbranding=1&border=0&showinfo=0"
+                            frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
         </div>
     </div>
 
+</div>
+
     @push('scripts')
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+        </script>
 
         <script type="application/javascript">
 

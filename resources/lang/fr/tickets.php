@@ -107,7 +107,8 @@ return [
             'reviews' => 'Les avis de nos utilisateurs',
             'recent' => 'Les Derniers billets postés',
             'question' => 'Vous avez un billet de train non echangeable / non remboursable a revendre ?',
-            'subquestion' => ' PasseTonBillet est specialise dans la revente de billets de train d\'occastion. Les voyageurs peuvent facilement:'
+            'subquestion' => ' PasseTonBillet est specialise dans la revente de billets de train d\'occastion. Les voyageurs peuvent facilement:',
+            'video_title' => 'Vendre des billets à PasseTonBillet'
         ],
 
 
