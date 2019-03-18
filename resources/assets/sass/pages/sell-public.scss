@@ -312,8 +312,209 @@
       text-align: left;
     }
   }
+
+  .section-favorites {
+    width: 100%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+
+    .cards-horizontal-list {
+      margin-top: 30px;
+      margin-bottom: 30px;
+      position: relative;
+
+      .scroll-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        border-radius: 50%;
+        background-color: rgba(0, 0, 0, 0.2);
+        font-size: 35px;
+        width: 52px;
+        text-align: center;
+        cursor: pointer;
+
+        z-index: 100;
+        color: rgba(255, 255, 255, 0.8);
+
+        &:hover {
+          color: white;
+          background-color: rgba(0, 0, 0, 0.6);
+        }
+
+        &[id^=scroll-right] {
+          right: 20px;
+        }
+
+        &[id^=scroll-left] {
+          left: 20px;
+        }
+      }
+
+      .cards {
+        overflow: scroll;
+        &::-webkit-scrollbar {
+          display: none;
+        }
+      }
+
+      .card-trip {
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+        width: 350px;
+        margin-left: 15px;
+        margin-right: 15px;
+        display: block;
+
+        .arrow::after {
+          color: $color-sub-title;
+          content: "→";
+        }
+
+        .card-body {
+          padding: 15px;
+
+          .card-title {
+            text-align: center;
+            margin: 0px;
+            padding: 0px;
+          }
+        }
+      }
+    }
+  }
+
+  .section-feedback {
+    background-color: $color-greybg;
+    width: 100%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    box-shadow: 1px 1px #A9A9A9;
+
+    .card-review {
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+      padding: 0px;
+      text-align: center;
+      height: 100%;
+
+      .card-body {
+        position: relative;
+        border-color: $color-neon;
+
+        .picture {
+          border-radius: 70px;
+          width: 70px;
+          height: 70px;
+          border: 3px solid white;
+          margin-top: -50px;
+          margin-bottom: 6px;
+          box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .comment {
+          margin-bottom: 0px;
+          margin-top: 10px;
+        }
+
+        .first-name {
+          font-weight: bold;
+          font-size: 20px;
+          margin-top: 9px;
+        }
+
+        .date {
+          color: #50E3C2;
+          position: absolute;
+          right: 10px;
+          top: 5px;
+          font-size: 14px;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+
+  .section-recent-tickets {
+
+    width: 100%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+
+    .tickets {
+
+      .ticket-wrap {
+        padding: 10px;
+        width: 22vw;
+      }
+
+    }
+
+    .tickets-horizontal-list {
+      margin-top: 30px;
+      margin-bottom: 30px;
+      position: relative;
+
+      .scroll-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        border-radius: 50%;
+        background-color: rgba(0, 0, 0, 0.2);
+        font-size: 35px;
+        width: 52px;
+        text-align: center;
+        cursor: pointer;
+
+        z-index: 100;
+        color: rgba(255, 255, 255, 0.8);
+
+        &:hover {
+          color: white;
+          background-color: rgba(0, 0, 0, 0.6);
+        }
+
+        &[id^=scroll-right] {
+          right: 20px;
+        }
+
+        &[id^=scroll-left] {
+          left: 20px;
+        }
+      }
+
+      .tickets {
+        overflow: scroll;
+        &::-webkit-scrollbar {
+          display: none;
+        }
+      }
+
+      .card-trip {
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+        width: 350px;
+        margin-left: 15px;
+        margin-right: 15px;
+        display: block;
+
+        .arrow::after {
+          color: $color-sub-title;
+          content: "→";
+        }
+
+        .card-body {
+          padding: 15px;
+
+          .card-title {
+            text-align: center;
+            margin: 0px;
+            padding: 0px;
+          }
+        }
+      }
+    }
+  }
 }
 
+/* Nav styling */
 .navbar-brand {
   img {
     width: 170px;
@@ -396,206 +597,4 @@
 h1 {
   font-weight: 600;
   font-size: 58px;
-}
-
-
-.section-favorites {
-  width: 100%;
-  padding-top: 50px;
-  padding-bottom: 50px;
-
-  .cards-horizontal-list {
-    margin-top: 30px;
-    margin-bottom: 30px;
-    position: relative;
-
-    .scroll-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      border-radius: 50%;
-      background-color: rgba(0, 0, 0, 0.2);
-      font-size: 35px;
-      width: 52px;
-      text-align: center;
-      cursor: pointer;
-
-      z-index: 100;
-      color: rgba(255, 255, 255, 0.8);
-
-      &:hover {
-        color: white;
-        background-color: rgba(0, 0, 0, 0.6);
-      }
-
-      &[id^=scroll-right] {
-        right: 20px;
-      }
-
-      &[id^=scroll-left] {
-        left: 20px;
-        left: 20px;
-      }
-    }
-
-    .cards {
-      overflow: scroll;
-      &::-webkit-scrollbar {
-        display: none;
-      }
-    }
-
-    .card-trip {
-      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
-      width: 350px;
-      margin-left: 15px;
-      margin-right: 15px;
-      display: block;
-
-      .arrow::after {
-        color: $color-sub-title;
-        content: "→";
-      }
-
-      .card-body {
-        padding: 15px;
-
-        .card-title {
-          text-align: center;
-          margin: 0px;
-          padding: 0px;
-        }
-      }
-    }
-  }
-}
-
-.section-feedback {
-  background-color: $color-greybg;
-  width: 100%;
-  padding-top: 50px;
-  padding-bottom: 50px;
-  box-shadow: 1px 1px #A9A9A9;
-
-  .card-review {
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
-    padding: 0px;
-    text-align: center;
-    height: 100%;
-
-    .card-body {
-      position: relative;
-      border-color: $color-neon;
-
-      .picture {
-        border-radius: 70px;
-        width: 70px;
-        height: 70px;
-        border: 3px solid white;
-        margin-top: -50px;
-        margin-bottom: 6px;
-        box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
-      }
-
-      .comment {
-        margin-bottom: 0px;
-        margin-top: 10px;
-      }
-
-      .first-name {
-        font-weight: bold;
-        font-size: 20px;
-        margin-top: 9px;
-      }
-
-      .date {
-        color: #50E3C2;
-        position: absolute;
-        right: 10px;
-        top: 5px;
-        font-size: 14px;
-        font-weight: bold;
-      }
-    }
-  }
-}
-
-.section-recent-tickets {
-
-  width: 100%;
-  padding-top: 50px;
-  padding-bottom: 50px;
-
-  .tickets {
-
-    .ticket-wrap {
-      padding: 10px;
-      width: 22vw;
-    }
-    
-  }
-
-  .tickets-horizontal-list {
-    margin-top: 30px;
-    margin-bottom: 30px;
-    position: relative;
-
-    .scroll-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      border-radius: 50%;
-      background-color: rgba(0, 0, 0, 0.2);
-      font-size: 35px;
-      width: 52px;
-      text-align: center;
-      cursor: pointer;
-
-      z-index: 100;
-      color: rgba(255, 255, 255, 0.8);
-
-      &:hover {
-        color: white;
-        background-color: rgba(0, 0, 0, 0.6);
-      }
-
-      &[id^=scroll-right] {
-        right: 20px;
-      }
-
-      &[id^=scroll-left] {
-        left: 20px;
-      }
-    }
-
-    .tickets {
-      overflow: scroll;
-      &::-webkit-scrollbar {
-        display: none;
-      }
-    }
-
-    .card-trip {
-      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
-      width: 350px;
-      margin-left: 15px;
-      margin-right: 15px;
-      display: block;
-
-      .arrow::after {
-        color: $color-sub-title;
-        content: "→";
-      }
-
-      .card-body {
-        padding: 15px;
-
-        .card-title {
-          text-align: center;
-          margin: 0px;
-          padding: 0px;
-        }
-      }
-    }
-  }
 }
