@@ -505,12 +505,23 @@
   }
 
   #video-modal {
+    transform-origin: 298px 346px 0px;
 
-    display: none;
+    .modal-dialog {
+      -moz-transition: none !important;
+      -o-transition: none !important;
+      -webkit-transition: none !important;
+      transition: none !important;
+      -moz-transform: none !important;
+      -ms-transform: none !important;
+      -o-transform: none !important;
+      -webkit-transform: none !important;
+      transform: none !important;
 
-    iframe {
-      width: 100%;
-      height: 300px;
+      iframe {
+        width: 100%;
+        height: 430px;
+      }
     }
   }
 }

@@ -24,7 +24,7 @@
         <!-- Modal video trigger buton -->
 
         <div class="section-video-trigger">
-            <a href="#video-modal" data-toggle="modal">
+            <a id='modal-trigger' href="#video-modal" data-toggle="modal">
                 <span class="play-button">
                     <i class="fa fa-play"></i>
                 </span>
@@ -236,8 +236,8 @@
         </div>
 
     <!-- Modal -->
-    <div id="video-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
+    <div id="video-modal" class="modal fade in" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <span class="font-weight-bold">
@@ -247,10 +247,10 @@
                         <i class="fa fa-times-circle"></i>
                     </button>
                 </div>
-                <div class="modal-body">
+                <div id='video-container' class="modal-body">
                     <iframe src="https://www.youtube.com/embed/N0wy1LC8H0w?modestbranding=1&border=0&showinfo=0"
-                            frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen>
+                    frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
                     </iframe>
                 </div>
             </div>
@@ -264,6 +264,24 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+        </script>
+
+        <script type="application/javascript">
+
+            /* Script to dynamically load youtube iframe video into modal, only
+            * once the modal is open. Not used since the iframe is hardcoded in.
+            */
+
+            /*let playBtn = document.getElementById('modal-trigger');
+            let videoContainer = document.getElementById('video-container');
+            let video = document.createElement('iframe');
+            video.src = 'https://www.youtube.com/embed/N0wy1LC8H0w?autoplay=1&modestbranding=1&border=0&showinfo=0';
+            video.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture';
+            video.allowFullscreen;
+            playBtn.addEventListener('click', function () {
+                videoContainer.insertBefore(video, null);
+            }) */
+
         </script>
 
         <script type="application/javascript">
@@ -334,6 +352,9 @@ $routes = [
 
 @push('vue-data')
     <script type="application/javascript">
+
+        data.modalOpen = true,
+
         data.welcome = {
             ticketLang: {!! json_encode($langTickets) !!},
             routes: {!! json_encode($routes) !!},
