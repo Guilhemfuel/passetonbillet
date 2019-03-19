@@ -31,8 +31,7 @@ return [
         'link' => 'Vous aimez PasseTonBillet.fr? Faites le nous savoir, cliquez-ici !',
         'modal' => [
             'title' => 'Laissez nous votre avis',
-            'text' => 'Vous aimez PasseTonBillet.fr? Faites le nous savoir!',
-            'placeholder' => 'Votre avis',
+            'placeholder' => 'Un commentaire? Des suggestions?',
             'send' => 'Envoyer'
         ]
     ],

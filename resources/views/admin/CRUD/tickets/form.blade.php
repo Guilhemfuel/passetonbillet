@@ -112,7 +112,7 @@
 <div class="row">
     <div class="col-md-4">
         <div class="form-group">
-            <label>Buyer Name</label>
+            <label><a href="{{route('users.edit',$entity->user->id)}}">Buyer Name</a></label>
             <input type="text" class="form-control" placeholder="Buyer last name"
                    value="{{$entity->buyer_name}}" name="buyer_name" disabled>
         </div>
@@ -152,7 +152,7 @@
     </div>
     <div class="col-md-3">
         <div class="form-group">
-            <label>Seller</label>
+            <label><a href="{{route('users.edit',$entity->user->id)}}">Seller</a></label>
             @if(!$entity->scam)
             <userpicker :name="'user_id'"
                         :default-placeholder="'User name'"

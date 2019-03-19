@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\TicketAddedEvent;
 use App\Exceptions\EurostarException;
 use App\Exceptions\PasseTonBilletException;
 use App\Facades\Amplitude;
@@ -18,7 +19,9 @@ use App\Http\Resources\StationRessource;
 use App\Http\Resources\TicketRessource;
 use App\Http\Resources\TrainRessource;
 use App\Jobs\DownloadTicketPdf;
+use App\Listeners\Admin\Warnings\CheckPriceTicketAddedListener;
 use App\Mail\OfferEmail;
+use App\Models\AdminWarning;
 use App\Models\Discussion;
 use App\Models\Statistic;
 use App\Notifications\OfferNotification;
@@ -183,6 +186,7 @@ class TicketController extends Controller
 
         // Make sure we don't have such a ticket yet
         $oldTicket = Ticket::withScams()
+                           ->withTrashed()
                            ->whereRaw( "lower(provider_code) = ? ", strtolower( $ticket->provider_code ) )
                            ->where( 'provider', $ticket->provider )
                            ->where( 'train_id', $ticket->train_id )
@@ -190,6 +194,20 @@ class TicketController extends Controller
                            ->where( 'ticket_number', $ticket->ticket_number )
                            ->first();
         if ( $oldTicket ) {
+
+            // Scammers tend to try to put on sale tickets already on the website, so we create a warning if that happens
+            AdminWarning::create( [
+                'action' => AdminWarning::TRY_TO_RESALE_TICKET,
+                'link'   => route( 'users.edit', \Auth::id() ),
+                'data'   => [
+                    'user_id'              => \Auth::id(),
+                    'old_ticket_seller_id' => $oldTicket->user->id,
+                    'old_ticket_id'        => $oldTicket->id,
+                    'message'              => 'This user tried to sell a ticket that was either already sold, or deleted from the 
+                    platform. Please check if there is anything suspicious about him or her.',
+                ]
+            ] );
+
             flash( __( 'tickets.sell.errors.duplicate' ) )->error()->important();
 
             return redirect()->route( 'public.ticket.sell.page' );
@@ -214,6 +232,9 @@ class TicketController extends Controller
 
         // Download pdf
         DownloadTicketPdf::dispatch( $ticket );
+
+        // Dispatch ticket added event
+        event(new TicketAddedEvent($ticket));
 
         flash( __( 'tickets.sell.success' ) )->success()->important();
 
@@ -318,6 +339,19 @@ class TicketController extends Controller
             return redirect()->route( 'public.ticket.sell.page' );
         }
 
+
+        // If the user lowers the ticket price a lot
+        if ($request->price <= CheckPriceTicketAddedListener::TICKET_WARNING_PRICE && $request->price <= $ticket->bought_price ){
+            AdminWarning::create( [
+                'action' => AdminWarning::STRANGELY_LOW_TICKET_PRICE,
+                'link'   => route( 'tickets.edit', $ticket->id ),
+                'data'   => [
+                    'user_id' => $ticket->user->id,
+                    'message' => 'This ticket has a really low price. (S)he might try to negotiate later. Please check.',
+                ]
+            ] );
+        }
+
         Amplitude::logEvent( 'change_ticket_price', [
             'ticket_id' => $ticket->id,
             'old_price' => $ticket->price,
@@ -343,7 +377,7 @@ class TicketController extends Controller
     {
         $ticket = Ticket::find( $ticket_id );
         // Make sure allowed user
-        if ( ! $ticket || $ticket->passed || ( /*todo: uncomment this $ticket->buyer->id != \Auth::user()->id && */ ! \Auth::user()->isAdmin() ) ) {
+        if ( ! $ticket || $ticket->passed || ($ticket->buyer->id != \Auth::user()->id && !\Auth::user()->isAdmin() ) ) {
             flash( __( 'common.error' ) )->error()->important();
 
             return redirect()->route( 'public.ticket.owned.page' );

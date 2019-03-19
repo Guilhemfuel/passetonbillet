@@ -12,41 +12,30 @@
            class="video-modal">
 
         <div id="video-container">
-            <iframe src="https://www.youtube.com/embed/N0wy1LC8H0w?modestbranding=1&border=0&showinfo=0"
-                    frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+
+            <iframe v-if="this.modalOpen"
+                    src="https://www.youtube.com/embed/N0wy1LC8H0w?modestbranding=1&border=0&showinfo=0"
+                    frameborder="0"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                    border="0"
+                    hspace="0"
+                    vspace="0"
+                    marginheight="0"
+                    marginwidth="0"
+                    scrolling="no"
                     allowfullscreen>
             </iframe>
+
         </div>
     </modal>
 </template>
-
 <script>
     export default {
         data() {
             return {
                 modalOpen: false,
-                api: 'https://www.youtube.com/iframe_api',
-                url: 'https://www.youtube.com/embed/N0wy1LC8H0w?autoplay=1&modestbranding=1&border=0&showinfo=0',
-                allow: 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture',
-                frameBorder: 0,
-                allowFullscreen: true,
             }
-        },
-        mounted: function() {
-            this.loadAPI();
-        },
-        computed: {
-          loadAPI: function() {
-              var tag = document.createElement('script');
-              tag.src = this.api;
-
-
-          },
-          loadVideo: function () {
-              let container = document.getElementById('video-container');
-
-          }
-
         }
     }
 </script>

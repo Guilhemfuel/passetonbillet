@@ -10,15 +10,19 @@ use App\Http\Resources\MessageResource;
 use App\Http\Resources\TicketRessource;
 use App\Http\Resources\UserRessource;
 use App\Mail\AcceptedOfferEmail;
+use App\Mail\MailResetPassword;
+use App\Mail\ReviewRequestEmail;
 use App\Models\Discussion;
 use App\Models\Message;
 use App\Notifications\AcceptOfferNotification;
 use App\Notifications\MessageNotification;
 use App\Notifications\DenyOfferNotification;
+use App\Notifications\ReviewRequestNotification;
 use App\Notifications\SoldToYouNotification;
 use App\Ticket;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class DiscussionController extends Controller
 {
@@ -313,6 +317,15 @@ class DiscussionController extends Controller
         $discussion->save();
 
         $discussion->buyer->notify( new SoldToYouNotification( $discussion ) );
+
+        /* Send feedback request email  */
+        if (\App::environment() == 'production') {
+            $when = Carbon::now()->addDay();
+            $discussion->buyer->notify( ( new ReviewRequestNotification( $discussion ) )->delay( $when ) );
+        } else {
+            // Don't delay if not in production
+            $discussion->buyer->notify( ( new ReviewRequestNotification( $discussion ) ));
+        }
 
         // Deny all awaiting offers
         $awaitingOffers = $ticket->discussions->where( 'status', Discussion::AWAITING );

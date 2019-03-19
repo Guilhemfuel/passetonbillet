@@ -13,6 +13,10 @@ use Illuminate\Database\Eloquent\Model;
 class AdminWarning extends Model
 {
     const ACTION_PDF_DOWNLOAD_FAILED = 'pdf_download_failed';
+    const TRY_TO_RESALE_TICKET = 'try_to_resale_ticket';
+    const SIMILAR_ID_ACCEPTED = 'similar_id_accepted';
+    const STRANGELY_LOW_TICKET_PRICE = 'strangely_low_ticket_price';
+    const MANY_TICKETS_NEW_USER = 'many_tickets_new_user';
 
     public $table = 'admin_warnings';
 
@@ -52,7 +56,8 @@ class AdminWarning extends Model
     /**
      * Relationships
      */
-    public function doneBy() {
+    public function doneBy()
+    {
         return $this->belongsTo( 'App\User' );
     }
 }
