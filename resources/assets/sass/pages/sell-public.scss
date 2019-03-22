@@ -64,6 +64,7 @@
       align-items: center;
       justify-content: center;
       text-align: center;
+      padding-bottom: 20px;
 
       .center {
         text-align: left !important;
@@ -263,7 +264,7 @@
 
     padding-top: 30%;
     @include media-breakpoint-up(md) {
-      padding-top: 204px;
+      padding-top: 224px;
     }
 
     .section-btn {
