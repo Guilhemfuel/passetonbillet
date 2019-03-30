@@ -313,17 +313,12 @@ $routes = [
             data.welcome = {
                 ticketLang: {!! json_encode($langTickets) !!},
                 routes: {!! json_encode($routes) !!}
-            },
+            }
 
             data.tickets = {
                 recentTickets: {!! json_encode( $recentTickets ) !!}
             }
 
-        currentPage.data = {
-            defaultStations: {!! json_encode($defaultStations) !!},
-
-        }
-        
     </script>
 @endpush
 
