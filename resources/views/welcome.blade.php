@@ -184,10 +184,10 @@
                                     alt="user profile picture"/>
 
                                     <p class="date">
-                                        Aujourd'hui
+                                        20th March 2019
                                     </p>
                                     <h4 class="first-name">
-                                        Eugénie
+                                        Christophe
                                     </h4>
                                     <el-rate
                                             :value="5"
@@ -196,7 +196,8 @@
                                     >
                                     </el-rate>
                                     <p class="comment">
-                                        ‘A peine inscrite j'ai déjà vendu mon A/R Paris Londres. Super site!!’
+                                        Genial billet vendu en 30 mn.
+                                        Systeme tres securise.
                                     </p>
                                 </div>
                             </div>
@@ -208,10 +209,11 @@
                                          alt="user profile picture"/>
 
                                     <p class="date">
-                                        Aujourd'hui
+                                        4th March 2019
                                     </p>
+
                                     <h4 class="first-name">
-                                        Balthazar
+                                        Reese
                                     </h4>
                                     <el-rate
                                             :value="5"
@@ -220,7 +222,8 @@
                                     >
                                     </el-rate>
                                     <p class="comment">
-                                        ‘Tout s’est super bien passé, je réutiliserai le site pour sûr !’
+                                        Tres bien ! Pouvez vous ajouter un taux de billet vendu sans probleme,
+                                        et potentiellement un service qui permet d effectuer la transaction par le site.
                                     </p>
                                 </div>
                             </div>
@@ -232,10 +235,10 @@
                                          alt="user profile picture"/>
 
                                     <p class="date">
-                                        Hier
+                                        9 January 2019
                                     </p>
                                     <h4 class="first-name">
-                                        Kristelle
+                                        Cydney
                                     </h4>
                                     <el-rate
                                             :value="5"
@@ -244,7 +247,7 @@
                                     >
                                     </el-rate>
                                     <p class="comment">
-                                        ‘Enfin une plateforme sécurisée, bien mieux que les groupes Facebook !’
+                                        Inscrit il y’a quelque jours, 2 billets revendus ...
                                     </p>
                                 </div>
                             </div>

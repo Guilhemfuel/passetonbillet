@@ -53,4 +53,35 @@ class Review extends Model
 
     }
 
+    public static function getReviews( $n ) {
+        $reviews = [
+            [
+                'name' =>  'Euginie',
+                'date' => '3rd March 2019',
+                'rating' => '5',
+                'picture' => secure_asset(''),
+                'text' => ''
+
+            ],
+            [
+                'name' => 'Balthazar',
+                'date' => '2nd Febuary 2019',
+                'rating' => '5',
+                'picture' => secure_asset(''),
+                'text' => ''
+
+            ],
+            [
+                'name' => 'Kristelle',
+                'date' => '10th March 2019',
+                'rating' => '5',
+                'picture' => secure_asset(''),
+                'text' => ''
+            ]
+        ];
+
+        shuffle($reviews);
+        return array_slice($reviews, 0, $n);
+    }
+
 }
