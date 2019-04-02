@@ -175,6 +175,7 @@ Route::blacklist( function () {
         Route::group( [ 'prefix' => 'tickets', 'as' => 'tickets.' ], function () {
             Route::get( '/redownload/{ticket_id}', 'Admin\TicketController@redownload' )->name( 'redownload' );
             Route::get( '/scam/{ticket_id}', 'Admin\TicketController@markAsFraud' )->name( 'scam' );
+            Route::get( '/{ticket_id}/restore', 'Admin\TicketController@restore' )->name( 'restore' );
             Route::post( '/manual-upload/{ticket_id}', 'Admin\TicketController@pdfManualUpload' )->name( 'manual_upload' );
             Route::put( '/revert-status/{ticket_id}', 'Admin\TicketController@revertStatus' )->name( 'revert_status' );
         } );

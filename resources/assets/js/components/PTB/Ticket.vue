@@ -34,6 +34,12 @@
                         </button>
 
 
+                        <!-- Ticket number-->
+                        <p class="ticket-number"
+                           v-if="(user != null && ticket.user && ticket.user.id == user.id) && ticket.ticket_number">
+                            N°{{ticket.ticket_number}}
+                        </p>
+
                         <!-- Rest of front of ticket -->
                         <div class="day">
                             <span>{{date.format('D')}}</span>
