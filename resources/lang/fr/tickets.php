@@ -101,14 +101,14 @@ return [
             'subtitle' => 'Billets SNCF, Billets Eurostar, Billets Prems, Billets Thalys, Billets OuiGo',
             'favorites' => [
                 'title' => 'Revendez votre billet en 1 clic',
-                'subtitle' => 'Revendre un billet London Paris, Paris Lyon Paris Marseille, ou autre sur PasseTonBillet.fr .'
+                'subtitle' => 'Revendre un billet London, Paris, Lyon, Marseille, ou autre sur PasseTonBillet.fr .'
             ],
 
             'reviews' => 'Les avis de nos utilisateurs',
             'recent' => 'Les Derniers billets postés',
             'question' => 'Vous avez un billet de train non échangeable / non remboursable a revendre ?',
             'subquestion' => ' PasseTonBillet est spécialisé dans la revente de billets de train d\'occastion. Les voyageurs peuvent facilement:',
-            'video_title' => 'Vendre des billets à PasseTonBillet'
+            'video_title' => 'Vendre des billets sur PasseTonBillet'
         ],
 
 
