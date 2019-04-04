@@ -174,84 +174,35 @@
 
             <div class="section-feedback" id="section-feedback">
                 <h2 class="text-center text-warning title">{{__('welcome.feedback.title')}}</h2>
-
                 <div class="container-fluid">
                     <div class="row px-5">
-                        <div class="px-2 col-12 col-sm-6 col-md-4 mt-4">
-                            <div class="card card-review ">
-                                <div class="card-body">
-                                    <img src="{{secure_asset('img/ninie.jpg')}}" class="picture"
-                                    alt="user profile picture"/>
 
-                                    <p class="date">
-                                        20th March 2019
-                                    </p>
-                                    <h4 class="first-name">
-                                        Christophe
-                                    </h4>
-                                    <el-rate
-                                            :value="5"
-                                            disabled
-                                            text-color="#FF9600"
-                                    >
-                                    </el-rate>
-                                    <p class="comment">
-                                        Genial billet vendu en 30 mn.
-                                        Systeme tres securise.
-                                    </p>
+                        @foreach ($reviews as $review)
+                            <div class="px-2 col-12 col-sm-6 col-md-4 mt-4">
+                                <div class="card card-review ">
+                                    <div class="card-body">
+                                        <img src="{{ $review->user->picture  }}" class="picture"
+                                             alt="user profile picture"/>
+
+                                        <p class="date">
+                                            {{ $review->date }}
+                                        </p>
+                                        <h4 class="first-name">
+                                            {{ $review->user->first_name }}
+                                        </h4>
+                                        <el-rate
+                                                :value="5"
+                                                disabled
+                                                text-color="#FF9600"
+                                        >
+                                        </el-rate>
+                                        <p class="comment">
+                                            {{ $review->text }}
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="px-2 col-12 col-sm-6 col-md-4 mt-4">
-                            <div class="card card-review">
-                                <div class="card-body">
-                                    <img src="{{secure_asset('img/balou.jpg')}}" class="picture"
-                                         alt="user profile picture"/>
-
-                                    <p class="date">
-                                        4th March 2019
-                                    </p>
-
-                                    <h4 class="first-name">
-                                        Reese
-                                    </h4>
-                                    <el-rate
-                                            :value="5"
-                                            disabled
-                                            text-color="#FF9600"
-                                    >
-                                    </el-rate>
-                                    <p class="comment">
-                                        Tres bien ! Pouvez vous ajouter un taux de billet vendu sans probleme,
-                                        et potentiellement un service qui permet d effectuer la transaction par le site.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="px-2 col-12 col-sm-6 col-md-4 mt-4">
-                            <div class="card card-review">
-                                <div class="card-body">
-                                    <img src="{{secure_asset('img/kristelle.jpg')}}" class="picture"
-                                         alt="user profile picture"/>
-
-                                    <p class="date">
-                                        9 January 2019
-                                    </p>
-                                    <h4 class="first-name">
-                                        Cydney
-                                    </h4>
-                                    <el-rate
-                                            :value="5"
-                                            disabled
-                                            text-color="#FF9600"
-                                    >
-                                    </el-rate>
-                                    <p class="comment">
-                                        Inscrit il y’a quelque jours, 2 billets revendus ...
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
 
                     </div>
                 </div>

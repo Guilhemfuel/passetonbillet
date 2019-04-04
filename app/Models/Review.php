@@ -53,63 +53,10 @@ class Review extends Model
 
     }
 
-    public static function getReviews( $n ) {
-        $reviews = [
-            [
-                'name' =>  'Eugenie',
-                'date' => '3rd March 2019',
-                'rating' => '5',
-                'picture' => secure_asset('img/ninie.jpg'),
-                'text' => 'A peine inscrite j\'ai déjà vendu mon A/R Paris Londres. Super site!!'
-
-            ],
-            [
-                'name' => 'Balthazar',
-                'date' => '2nd Febuary 2019',
-                'rating' => '5',
-                'picture' => secure_asset('img/balou.jpg'),
-                'text' => 'Tout s’est super bien passé, je réutiliserai le site pour sûr !'
-
-            ],
-            [
-                'name' => 'Kristelle',
-                'date' => '10th March 2019',
-                'rating' => '5',
-                'picture' => secure_asset('img/kristelle.jpg'),
-                'text' => 'Enfin une plateforme sécurisée, bien mieux que les groupes Facebook !'
-            ],
-            [
-                'name' => 'Christophe',
-                'date' => '20th March 2019',
-                'rating' => '5',
-                'picture' => secure_asset('img/kristelle.jpg'),
-                'text' => 'Genial billet vendu en 30 mn. Systeme tres securise.'
-            ],
-            [
-                'name' => 'Reese',
-                'date' => '4th March 2019',
-                'rating' => '5',
-                'picture' => secure_asset('img/reese.jpg'),
-                'text' => 'Tres bien ! Pouvez vous ajouter un taux de billet vendu sans probleme, et potentiellement un service qui permet d effectuer la transaction par le site.'
-            ],
-            [
-                'name' => 'Cydney',
-                'date' => '9 January 2019',
-                'rating' => '5',
-                'picture' => secure_asset('img/cydney.jpg'),
-                'text' => 'Inscrit il y’a quelque jours, 2 billets revendus ...'
-            ],
-            [
-                'name' => 'Casimer',
-                'date' => '18 January 2018',
-                'rating' => '5',
-                'picture' => secure_asset( 'img/casimer.jpg' ),
-                'text' => 'Très  facile et rapide'
-            ]
-        ];
-
-        shuffle($reviews);
-        return array_slice($reviews, 0, $n);
+    public static function getSelectedReviews( $n ) {
+        $selectedReviewIds = [3, 4, 7, 21];
+        $selectedReviews = Review::find($selectedReviewIds);
+        return $selectedReviews->shuffle()->take( $n );
     }
 
 }

@@ -9,10 +9,12 @@ use App\Facades\AppHelper;
 use App\Facades\Eurostar;
 use App\Http\Resources\DiscussionCollectionResource;
 use App\Http\Resources\DiscussionLastMessageResource;
+use App\Http\Resources\ReviewResource;
 use App\Http\Resources\StationRessource;
 use App\Http\Resources\TicketRessource;
 use App\Http\Resources\UserRessource;
 use App\Models\Discussion;
+use App\Models\Review;
 use App\Notifications\OfferNotification;
 use App\Notifications\Verification\IdConfirmed;
 use App\Station;
@@ -39,8 +41,11 @@ class PageController extends Controller
             Station::find(4790),
         ]);
 
+        $reviews = Review::getSelectedReviews( 3 );
+
         return view( 'welcome' )->with([
-            'defaultStations' => StationRessource::collection( $defaultStations )
+            'defaultStations' => StationRessource::collection( $defaultStations ),
+            'reviews' => ReviewResource::collection($reviews),
         ]);
     }
 
