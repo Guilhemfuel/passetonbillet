@@ -35,7 +35,7 @@ class ReviewRequestEmail extends PtbMail
     {
         $locale = strtolower( $this->user->lang );
         return $this->to($this->user->email,$this->user->full_name)
-                    ->subject(__('email.review_request', $locale))
+                    ->subject(__('email.review_request',[], $locale))
                     ->ptbMarkdown('review_request',
                         [
                             'user' => $this->user,

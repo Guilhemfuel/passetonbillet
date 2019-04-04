@@ -28,6 +28,17 @@
     @endpush
 @endif
 
+{{-- Activate if not activated --}}
+@if($entity->status == \App\User::STATUS_UNCONFIRMED_USER)
+    @push('additional-btn')
+        <a class="btn btn-success btn-fill btn-sm ml-3" href="{{route('users.verify',$entity->id)}}">
+            <i class="fa fa-check-circle" aria-hidden="true"></i>
+            Verify User
+        </a>
+    @endpush
+@endif
+
+
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">

@@ -167,6 +167,7 @@ Route::blacklist( function () {
 
         Route::resource( 'users', 'Admin\UserController' );
         Route::group( [ 'prefix' => 'users' ], function () {
+            Route::get( '/verify/{id}', 'Admin\UserController@verifyUser' )->name( 'users.verify' );
             Route::get( '/impersonate/{id}', 'Admin\UserController@impersonate' )->name( 'users.impersonate' );
             Route::get( '/ban/{id}', 'Admin\UserController@banUser' )->name( 'users.ban' );
         } );
