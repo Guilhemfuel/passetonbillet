@@ -368,6 +368,10 @@ class Ticket extends Model
         return $currentTickets;
     }
 
+    public static function getMostRecentTickets( $limit ) {
+        return Ticket::latest('created_at')->limit($limit)->get();
+    }
+
     /**
      *
      * Boot
