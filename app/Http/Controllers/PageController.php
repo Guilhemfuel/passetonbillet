@@ -40,8 +40,11 @@ class PageController extends Controller
             Station::find(4790),
         ]);
 
+        $tickets = Ticket::getMostRecentTickets( 8 );
+
         return view( 'welcome' )->with([
-            'defaultStations' => StationRessource::collection( $defaultStations )
+            'defaultStations' => StationRessource::collection( $defaultStations ),
+            'recentTickets' => TicketRessource::collection($tickets)
         ]);
     }
 
@@ -74,10 +77,9 @@ class PageController extends Controller
         else {
 
             $tickets = Ticket::getMostRecentTickets( 8 );
-            $recentTickets = TicketRessource::collection($tickets);
 
             return view( 'tickets.sell.public' )->with([
-                'recentTickets' => $recentTickets,
+                'recentTickets' => TicketRessource::collection($tickets)
             ]);
         }
     }
