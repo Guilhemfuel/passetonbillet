@@ -2,6 +2,11 @@
     <div class="card card-ticket card-ticket-small">
         <div class="card-travel-info">
             <div class="content">
+                <!-- Ticket number-->
+                <p class="ticket-number"
+                   v-if="(user != null && ticket.user && ticket.user.id == user.id) && ticket.ticket_number">
+                    N°{{ticket.ticket_number}}
+                </p>
                 <div class="station">
                     <p class="station-short">
                         {{ticket.train.departure_city.name.replace(/\s/g, '').substr(0, 3)}}.

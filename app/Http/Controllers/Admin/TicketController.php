@@ -269,4 +269,28 @@ class TicketController extends BaseController
         return redirect()->route( $this->CRUDmodelName . '.edit', $ticket->id );
     }
 
+    /**
+     * Restore a deleted ticket
+     */
+    public function restore( Request $request, $id )
+    {
+        $ticket = Ticket::onlyTrashed()->find( $id );
+        if ( ! $ticket ) {
+            \Session::flash( 'danger', 'Entity not found!' );
+
+            return redirect()->back();
+        }
+
+        $user = $ticket->user;
+        if ( ! $user ) {
+            \Session::flash( 'danger', 'Ticket found, but user was deleted!' );
+
+            return redirect()->back();
+        }
+        $ticket->restore();
+        flash( 'Ticket restored.' )->success();
+
+        return redirect()->route($this->CRUDmodelName . '.edit', $ticket->id );
+    }
+
 }
