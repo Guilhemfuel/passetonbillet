@@ -50,6 +50,9 @@ Route::get( '/register/fb', 'Auth\RegisterController@fb_redirect' )->name( 'fb.c
 Route::get( '/register/fb/callback', 'Auth\RegisterController@fb_callback' )->name( 'fb.callback' );
 Route::post( '/register/fb/confirm', 'Auth\RegisterController@fb_confirm_inscription' )->name( 'fb.confirm' );
 
+// Sell ticket, this will return to different pages, depending on whether you are logged in
+Route::get( 'ticket/sell', 'PageController@sellPage' )->name( 'tickets.sell' );
+
 
 /**
  * WebHooks
@@ -86,8 +89,7 @@ Route::group( [ 'middleware' => 'auth', 'as' => 'public.' ], function () {
 
     Route::group( [ 'prefix' => 'ticket', 'as' => 'ticket.' ], function () {
 
-        // Sell ticket
-        Route::get( 'sell', 'PageController@sellPage' )->name( 'sell.page' );
+
         Route::post( 'sell', 'TicketController@sellTicket' )->name( 'sell.post' )->middleware( 'auth.verified.phone' );
         Route::post( 'edit/{ticket_id}', 'TicketController@changeTicketPrice' )->name( 'edit' )->middleware( 'auth.verified.phone' );
 
@@ -167,6 +169,7 @@ Route::blacklist( function () {
 
         Route::resource( 'users', 'Admin\UserController' );
         Route::group( [ 'prefix' => 'users' ], function () {
+            Route::get( '/verify/{id}', 'Admin\UserController@verifyUser' )->name( 'users.verify' );
             Route::get( '/impersonate/{id}', 'Admin\UserController@impersonate' )->name( 'users.impersonate' );
             Route::get( '/ban/{id}', 'Admin\UserController@banUser' )->name( 'users.ban' );
         } );
@@ -175,6 +178,7 @@ Route::blacklist( function () {
         Route::group( [ 'prefix' => 'tickets', 'as' => 'tickets.' ], function () {
             Route::get( '/redownload/{ticket_id}', 'Admin\TicketController@redownload' )->name( 'redownload' );
             Route::get( '/scam/{ticket_id}', 'Admin\TicketController@markAsFraud' )->name( 'scam' );
+            Route::get( '/{ticket_id}/restore', 'Admin\TicketController@restore' )->name( 'restore' );
             Route::post( '/manual-upload/{ticket_id}', 'Admin\TicketController@pdfManualUpload' )->name( 'manual_upload' );
             Route::put( '/revert-status/{ticket_id}', 'Admin\TicketController@revertStatus' )->name( 'revert_status' );
         } );

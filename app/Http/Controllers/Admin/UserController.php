@@ -90,6 +90,34 @@ class UserController extends BaseController
             ] );
     }
 
+    // ---- Verify user having troubles with email ----
+
+    public function verifyUser( Request $request, $id  ) {
+        $user = User::find( $id );
+        if ( ! $user ) {
+            \Session::flash( 'danger', 'Entity not found!' );
+
+            return redirect()->back();
+        }
+
+        if ( $user->status != User::STATUS_UNCONFIRMED_USER ) {
+            \Session::flash( 'danger', 'User is not in the unconfirmed state, cannot be activated' );
+
+            return redirect()->back();
+        }
+
+        $user->email_verified = true;
+        $user->status = User::STATUS_USER;
+        $user->email_token = null;
+
+        $user->save();
+
+        flash( 'User account activated.' )->success();
+
+        return redirect()->route( $this->CRUDmodelName . '.edit', $user->id );
+    }
+
+
     // ---------- Ban User -------
 
     public function banUser( Request $request, $id )

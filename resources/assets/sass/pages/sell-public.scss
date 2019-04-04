@@ -1,0 +1,583 @@
+/* The public (no auth) page you are redirected to
+  when clicking on 'Revendre un billet from the home page*/
+#sell-public {
+
+  width: 100%;
+  min-height: 100%;
+
+  h2 {
+    text-transform: uppercase;
+  }
+
+  h3 {
+    font-weight: 600;
+  }
+
+  .title {
+    font-weight: bold;
+    margin-top: -15px;
+    text-align: center;
+    color: $color-orange;
+    margin-bottom: 10px !important;
+  }
+
+  .subtitle {
+    font-weight: 400;
+    margin-top: 10px;
+    color: $color-dark-gray !important;
+  }
+
+  .catchline {
+    text-align: left;
+    color: white;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    font-size: 43px;
+    font-weight: bold;
+    height: auto;
+    margin-left: 14px;
+
+    @include media-breakpoint-down(xs) {
+      text-align: center;
+    }
+  }
+
+  .no-space .row {
+    position: absolute;
+  }
+
+  .first-section {
+    background-position: center center;
+    background-size: cover;
+    min-height: 60vh;
+
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 82px;
+
+    text-align: center;
+    align-items: center;
+
+    .first-section-content {
+      height: 100%;
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding-bottom: 20px;
+
+      .center {
+        text-align: left !important;
+      }
+
+    }
+
+    .video {
+
+      width:100%;
+      display: flex;
+
+      .responsive-container {
+        background-color: $color-sub-title;
+        position: relative;
+        height: 0;
+        overflow: hidden;
+
+        width: 80%;
+        padding-bottom: 45%;
+        margin-bottom: -22%;
+
+        @include media-breakpoint-up(md) {
+          width: 625px;
+          padding-bottom: 352px;
+          margin-bottom: -172px;
+        }
+
+        margin-left: auto;
+        margin-right: auto;
+
+        iframe, object, embed {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
+
+  .navbar {
+
+    @include media-breakpoint-down(xs) {
+      padding: 0.5rem 1rem !important;
+    }
+
+    padding: 20px;
+    padding-left: 35px;
+    padding-right: 35px;
+    width: 100%;
+    z-index: 1000;
+    background-color: transparent;
+    transition: background-color 0.2s;
+    position: absolute;
+    top: 0;
+
+    .logo-black {
+      display: none;
+    }
+    .logo-white {
+      display: inline-block;
+    }
+
+    @include media-breakpoint-down(xs) {
+      .logo-black, .logo-white {
+        display: none !important;
+      }
+    }
+
+    .nav-item.menu-unlogged {
+      font-size: 25px;
+
+      > .fa {
+        cursor: pointer;
+        color: white !important;
+
+        &:hover {
+          color: $color-orange !important;
+        }
+      }
+    }
+
+    .logo-black {
+      display: inline-block;
+    }
+    .logo-white {
+      display: none;
+    }
+
+    .nav-item {
+
+      &.menu-unlogged {
+        > .fa {
+          cursor: pointer;
+
+          color: $color-dark-gray !important;
+
+          &:hover {
+            color: $color-orange !important;
+          }
+        }
+      }
+
+      .user-first-name {
+
+        p {
+          color: $color-dark-gray;
+        }
+        &:hover {
+          p {
+            color: $color-orange;
+          }
+        }
+      }
+
+      .fa {
+        color: $color-white;
+
+        &:hover {
+          color: $color-dark-gray !important;
+        }
+      }
+
+      a {
+        color: #82848a;
+
+        &:hover {
+          color: $color-orange;
+
+        }
+
+        &.btn {
+          margin-top: 4px;
+        }
+
+        &.btn-ptb {
+          color: white;
+          &:hover {
+            color: $color-gray;
+          }
+        }
+
+        &.btn-ptb-white {
+          color: $color-orange;
+          border: solid 1px $color-orange;
+        }
+
+        &.btn-ptb-border {
+          color: #82848a;
+          border-color: #82848a;
+          padding-top: 5px;
+          padding-bottom: 5px;
+          padding-left: 25px;
+          padding-right: 25px;
+          margin-top: 4px;
+        }
+      }
+    }
+  }
+
+  .nav-item.nav-logged-part {
+
+    .user-picture {
+      cursor: pointer;
+    }
+
+    .user-first-name {
+      cursor: pointer;
+
+      p {
+        color: white;
+        font-size: 18px;
+        font-weight: 600;
+      }
+
+      &:hover {
+        p {
+          color: $color-orange;
+        }
+      }
+    }
+  }
+
+  .sandwich-menu, .nav-notifications {
+    .fa {
+      color: white;
+      &:hover {
+        color: $color-dark-gray !important;
+      }
+    }
+  }
+
+  .section-keywords {
+    background-color: $color-greybg;
+
+    padding-top: 30%;
+    @include media-breakpoint-up(md) {
+      padding-top: 224px;
+    }
+
+    .section-btn {
+      vertical-align: middle;
+      text-align: center;
+
+      .btn {
+        padding: 10px 40px;
+      }
+    }
+
+    .section-title {
+      text-align: center;
+      padding-bottom: 10px;
+
+      .h3 {
+        font-weight: bolder;
+      }
+    }
+
+    .section-list {
+      text-align: center;
+
+      .section-list-group {
+        padding-right: 40px;
+        display: inline-block;
+        text-align: left;
+      }
+    }
+  }
+
+  .section-favorites {
+    width: 100%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    background-color: white;
+
+    .cards-horizontal-list {
+      margin-top: 30px;
+      margin-bottom: 30px;
+      position: relative;
+
+      .scroll-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        border-radius: 50%;
+        background-color: rgba(0, 0, 0, 0.2);
+        font-size: 35px;
+        width: 52px;
+        text-align: center;
+        cursor: pointer;
+
+        z-index: 100;
+        color: rgba(255, 255, 255, 0.8);
+
+        &:hover {
+          color: white;
+          background-color: rgba(0, 0, 0, 0.6);
+        }
+
+        &[id^=scroll-right] {
+          right: 20px;
+        }
+
+        &[id^=scroll-left] {
+          left: 20px;
+        }
+      }
+
+      .cards {
+        overflow: scroll;
+        &::-webkit-scrollbar {
+          display: none;
+        }
+      }
+
+      .card-trip {
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+        width: 350px;
+        margin-left: 15px;
+        margin-right: 15px;
+        display: block;
+
+        .arrow::after {
+          color: $color-sub-title;
+          content: "→";
+        }
+
+        .card-body {
+          padding: 15px;
+
+          .card-title {
+            text-align: center;
+            margin: 0px;
+            padding: 0px;
+          }
+        }
+      }
+    }
+  }
+
+  .section-feedback {
+    background-color: $color-greybg;
+    width: 100%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+
+    .card-review {
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+      padding: 0px;
+      text-align: center;
+      height: 100%;
+
+      .card-body {
+        position: relative;
+        border-color: $color-neon;
+
+        .picture {
+          border-radius: 70px;
+          width: 70px;
+          height: 70px;
+          border: 3px solid white;
+          margin-top: -50px;
+          margin-bottom: 6px;
+          box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .comment {
+          margin-bottom: 0px;
+          margin-top: 10px;
+        }
+
+        .first-name {
+          font-weight: bold;
+          font-size: 20px;
+          margin-top: 9px;
+        }
+
+        .date {
+          color: #50E3C2;
+          position: absolute;
+          right: 10px;
+          top: 5px;
+          font-size: 14px;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+
+  .section-recent-tickets {
+
+    width: 100%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+
+    .tickets {
+
+      .ticket-wrap {
+        padding: 10px;
+        width: 320px;
+      }
+
+    }
+
+    .tickets-horizontal-list {
+      margin-top: 30px;
+      margin-bottom: 30px;
+      position: relative;
+
+      .scroll-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        border-radius: 50%;
+        background-color: rgba(0, 0, 0, 0.2);
+        font-size: 35px;
+        width: 52px;
+        text-align: center;
+        cursor: pointer;
+
+        z-index: 100;
+        color: rgba(255, 255, 255, 0.8);
+
+        &:hover {
+          color: white;
+          background-color: rgba(0, 0, 0, 0.6);
+        }
+
+        &[id^=scroll-right] {
+          right: 20px;
+        }
+
+        &[id^=scroll-left] {
+          left: 20px;
+        }
+      }
+
+      .tickets {
+        overflow: scroll;
+        &::-webkit-scrollbar {
+          display: none;
+        }
+      }
+
+      .card-trip {
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+        width: 350px;
+        margin-left: 15px;
+        margin-right: 15px;
+        display: block;
+
+        .arrow::after {
+          color: $color-sub-title;
+          content: "→";
+        }
+
+        .card-body {
+          padding: 15px;
+
+          .card-title {
+            text-align: center;
+            margin: 0px;
+            padding: 0px;
+          }
+        }
+      }
+    }
+  }
+}
+
+  /* Nav styling */
+  .navbar-brand {
+    img {
+      width: 170px;
+
+      &.icon {
+        width: inherit;
+        height: 50px;
+      }
+    }
+  }
+
+  .nav-item {
+    margin-left: 10px;
+  }
+
+  .nav-link {
+    font-weight: bold;
+    text-transform: uppercase;
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 16px;
+
+    &.btn-ptb {
+      padding-top: 5px;
+      padding-bottom: 5px;
+      padding-left: 25px;
+      padding-right: 25px;
+      margin-top: 4px;
+
+    }
+
+    &.btn-ptb-white {
+      color: $color-orange;
+      padding-top: 5px;
+      padding-bottom: 5px;
+      padding-left: 25px;
+      padding-right: 25px;
+      margin-top: 4px;
+    }
+
+    &.btn-ptb-border {
+      color: $white;
+      border-color: white;
+      padding-top: 5px;
+      padding-bottom: 5px;
+      padding-left: 25px;
+      padding-right: 25px;
+      margin-top: 4px;
+    }
+
+    &.nav-help {
+
+      margin-left: -12px;
+    }
+
+    .fa {
+      font-size: 22px;
+      margin-left: 20px;
+    }
+
+    &.flag {
+      padding-top: 3px;
+    }
+
+    &.register {
+      margin-left: -1px;
+    }
+  }
+
+  .flag-icon {
+    border-radius: 24px;
+    width: 24px;
+    height: 24px;
+    background-size: cover;
+    background-position: center center;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  h1 {
+    font-weight: 600;
+    font-size: 58px;
+  }

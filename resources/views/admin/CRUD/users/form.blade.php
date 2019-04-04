@@ -28,6 +28,17 @@
     @endpush
 @endif
 
+{{-- Activate if not activated --}}
+@if($entity->status == \App\User::STATUS_UNCONFIRMED_USER)
+    @push('additional-btn')
+        <a class="btn btn-success btn-fill btn-sm ml-3" href="{{route('users.verify',$entity->id)}}">
+            <i class="fa fa-check-circle" aria-hidden="true"></i>
+            Verify User
+        </a>
+    @endpush
+@endif
+
+
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
@@ -141,38 +152,74 @@
             </table>
         </div>
         <div class="col-sm-6 col-12">
-            <h5>Tickets({{$entity->tickets()->count()}})</h5>
-            <p>A full history of sold tickets is maintained</p>
-            <table class="table table-hover table-striped">
-                <thead>
-                <th>Date</th>
-                <th>Status</th>
-                <th>From</th>
-                <th>To</th>
-                <th>Price</th>
-                <th>Link</th>
-                </thead>
-                <tbody>
-                @foreach($entity->tickets as $ticket)
-                    <tr>
-                        <td>{{$ticket->train->carbon_departure_date->format('d/m/Y')}}</td>
-                        <td>{{$ticket->status}}</td>
-                        <th>
-                            {{$ticket->train->departureCity->name}}
-                        </th>
-                        <th>
-                            {{ $ticket->train->arrivalCity->name }}
-                        </th>
-                        <th>
-                            {{$ticket->price}} {{$ticket->currency}}
-                        </th>
-                        <th>
-                            <a href="{{route('tickets.edit',$ticket->id)}}"><i class="fa fa-ticket"></i></a>
-                        </th>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
+            <div class="tickets">
+                <h5>Tickets({{$entity->tickets()->count()}})</h5>
+                <p>A full history of sold tickets is maintained</p>
+                <table class="table table-hover table-striped">
+                    <thead>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>From</th>
+                    <th>To</th>
+                    <th>Price</th>
+                    <th>Link</th>
+                    </thead>
+                    <tbody>
+                    @foreach($entity->tickets as $ticket)
+                        <tr>
+                            <td>{{$ticket->train->carbon_departure_date->format('d/m/Y')}}</td>
+                            <td>{{$ticket->status}}</td>
+                            <th>
+                                {{$ticket->train->departureCity->name}}
+                            </th>
+                            <th>
+                                {{ $ticket->train->arrivalCity->name }}
+                            </th>
+                            <th>
+                                {{$ticket->price}} {{$ticket->currency}}
+                            </th>
+                            <th>
+                                <a href="{{route('tickets.edit',$ticket->id)}}"><i class="fa fa-ticket"></i></a>
+                            </th>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <div class="deleted-tickets">
+                <h5>Deleted Tickets({{$entity->tickets()->onlyTrashed()->count()}})</h5>
+                <p>Tickets deleted by the user. They can't put in back on sale, but an admin can restore them below.</p>
+                <table class="table table-hover table-striped">
+                    <thead>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>From</th>
+                    <th>To</th>
+                    <th>Price</th>
+                    <th>Restore</th>
+                    </thead>
+                    <tbody>
+                    @foreach($entity->tickets()->onlyTrashed()->get() as $ticket)
+                        <tr>
+                            <td>{{$ticket->train->carbon_departure_date->format('d/m/Y')}}</td>
+                            <td>{{$ticket->status}}</td>
+                            <th>
+                                {{$ticket->train->departureCity->name}}
+                            </th>
+                            <th>
+                                {{ $ticket->train->arrivalCity->name }}
+                            </th>
+                            <th>
+                                {{$ticket->price}} {{$ticket->currency}}
+                            </th>
+                            <th>
+                                <a href="{{route('tickets.restore',$ticket->id)}}"><i class="fa fa-recycle text-success" aria-hidden="true"></i></a>
+                            </th>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 

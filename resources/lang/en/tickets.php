@@ -98,6 +98,20 @@ return [
     'sell'      => [
         'title' => 'Sell a ticket',
 
+        'public' => [
+          'title' => 'Resell your train tickets quickly and easily on PasseTonBillet.fr',
+          'subtitle' => 'We currrently support all major ticket types, including SNCF, Eurostar, Prems, Thalys, and OuiGo',
+            'favorites' => [
+                'title' => 'Sell you ticket in 1 click',
+                'subtitle' => 'Sell a ticket from London, Paris, Marseille, Lyon, or any where else.'
+            ],
+            'reviews' => 'Our reviews',
+            'recent' => 'Recent tickets',
+            'question' => 'Do you have a non-exchangeable/non-refundable train ticket to resell?',
+            'subquestion' => 'PasseTonBillet.fr specialises in the resale of used train tickets. With PasseTonBillet, passengers can easily: ',
+            'video_title' => 'Selling tickets at PasseTonBillet'
+        ],
+
         'step_1'            => 'Step 1/2: find your ticket',
         'description'       => 'Selling a ticket is very easy and super quick. All we need to do is to enter your name and your booking code. All the tickets corresponding to your specific booking will appear and you only have to select those that you want to sell.',
         'inputs'            => [
