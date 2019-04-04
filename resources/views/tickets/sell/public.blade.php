@@ -30,7 +30,7 @@
         <div class="section-keywords pb-5">
 
             <div class="section-btn pb-5">
-                <a href="{{ route('login') }}" class="text-uppercase font-weight-bold btn btn-ptb-blue text-center">
+                <a href="{{ route('login') }}" class="text-uppercase font-weight-bold btn btn-ptb-blue text-center m-3">
                     @lang('nav.resell_a_ticket')
                 </a>
             </div>

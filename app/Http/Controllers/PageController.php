@@ -68,29 +68,16 @@ class PageController extends Controller
     {
 
         if (\Auth::check()) {
-
             return view('tickets.sell.auth');
-
         }
 
         else {
 
-            $defaultStations = collect([
-                Station::find(4916),
-                Station::find(8267),
-                Station::find(5974),
-                Station::find(4718),
-                Station::find(4790),
-            ]);
-
             $tickets = Ticket::getMostRecentTickets( 8 );
             $recentTickets = TicketRessource::collection($tickets);
 
-
-
             return view( 'tickets.sell.public' )->with([
                 'recentTickets' => $recentTickets,
-                'defaultStations' => StationRessource::collection( $defaultStations )
             ]);
         }
     }
