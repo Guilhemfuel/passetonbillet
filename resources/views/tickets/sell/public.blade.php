@@ -133,78 +133,32 @@
 
             <div class="container-fluid">
                 <div class="row px-5">
-                    <div class="px-2 col-12 col-sm-6 col-md-4 mt-4">
-                        <div class="card card-review ">
-                            <div class="card-body">
-                                <img src="{{secure_asset('img/ninie.jpg')}}" class="picture"
-                                     alt="user profile picture"/>
+                    @foreach ($reviews as $review)
+                        <div class="px-2 col-12 col-sm-6 col-md-4 mt-4">
+                            <div class="card card-review ">
+                                <div class="card-body">
+                                    <img src="{{ $review->user->picture  }}" class="picture"
+                                         alt="user profile picture"/>
 
-                                <p class="date">
-                                    Aujourd'hui
-                                </p>
-                                <h4 class="first-name">
-                                    Eugénie
-                                </h4>
-                                <el-rate
-                                        :value="5"
-                                        disabled
-                                        text-color="#FF9600"
-                                >
-                                </el-rate>
-                                <p class="comment">
-                                    ‘A peine inscrite j'ai déjà vendu mon A/R Paris Londres. Super site!!’
-                                </p>
+                                    <p class="date">
+                                        {{ $review->date }}
+                                    </p>
+                                    <h4 class="first-name">
+                                        {{ $review->user->first_name }}
+                                    </h4>
+                                    <el-rate
+                                            :value="5"
+                                            disabled
+                                            text-color="#FF9600"
+                                    >
+                                    </el-rate>
+                                    <p class="comment">
+                                        {{ $review->text }}
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="px-2 col-12 col-sm-6 col-md-4 mt-4">
-                        <div class="card card-review">
-                            <div class="card-body">
-                                <img src="{{secure_asset('img/balou.jpg')}}" class="picture"
-                                     alt="user profile picture"/>
-
-                                <p class="date">
-                                    Aujourd'hui
-                                </p>
-                                <h4 class="first-name">
-                                    Balthazar
-                                </h4>
-                                <el-rate
-                                        :value="5"
-                                        disabled
-                                        text-color="#FF9600"
-                                >
-                                </el-rate>
-                                <p class="comment">
-                                    ‘Tout s’est super bien passé, je réutiliserai le site pour sûr !’
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="px-2 col-12 col-sm-6 col-md-4 mt-4">
-                        <div class="card card-review">
-                            <div class="card-body">
-                                <img src="{{secure_asset('img/kristelle.jpg')}}" class="picture"
-                                     alt="user profile picture"/>
-
-                                <p class="date">
-                                    Hier
-                                </p>
-                                <h4 class="first-name">
-                                    Kristelle
-                                </h4>
-                                <el-rate
-                                        :value="5"
-                                        disabled
-                                        text-color="#FF9600"
-                                >
-                                </el-rate>
-                                <p class="comment">
-                                    ‘Enfin une plateforme sécurisée, bien mieux que les groupes Facebook !’
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>

@@ -80,9 +80,11 @@ class PageController extends Controller
 
             $tickets = Ticket::getMostRecentTickets( 8 );
             $recentTickets = TicketRessource::collection($tickets);
+            $reviews = Review::getSelectedReviews( 3 );
 
             return view( 'tickets.sell.public' )->with([
                 'recentTickets' => $recentTickets,
+                'reviews' => ReviewResource::collection($reviews),
             ]);
         }
     }
