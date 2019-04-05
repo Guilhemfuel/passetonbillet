@@ -177,9 +177,10 @@
                                         <img src="{{ $review->user->picture  }}" class="picture"
                                              alt="user profile picture"/>
 
-                                        <p class="date">
-                                            {{ $review->date }}
-                                        </p>
+                                        <!-- <p class="date">
+                                            {{ $review->created_at }}
+                                        </p> -->
+
                                         <h4 class="first-name">
                                             {{ $review->user->first_name }}
                                         </h4>
