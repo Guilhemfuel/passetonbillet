@@ -50,8 +50,16 @@ Route::get( '/register/fb', 'Auth\RegisterController@fb_redirect' )->name( 'fb.c
 Route::get( '/register/fb/callback', 'Auth\RegisterController@fb_callback' )->name( 'fb.callback' );
 Route::post( '/register/fb/confirm', 'Auth\RegisterController@fb_confirm_inscription' )->name( 'fb.confirm' );
 
+
+/**
+ * Public ticket pages
+ */
+
 // Sell ticket, this will return to different pages, depending on whether you are logged in
-Route::get( 'ticket/sell', 'PageController@sellPage' )->name( 'tickets.sell' );
+Route::get( 'ticket/sell', 'PageController@sellPage' )->name( 'public.ticket.sell.page' );
+
+// Ticket search page
+Route::get( 'ticket/buy', 'PageController@buyPage' )->name( 'public.ticket.buy.page' );
 
 
 /**
@@ -77,10 +85,9 @@ Route::get( '/help', 'PageController@help' )->name( 'help.page' );
 Route::get( '/contact', 'PageController@contact' )->name( 'contact.page' );
 Route::post( '/contact', 'HelpController@contact' )->name( 'contact' );
 
-// Ticket search page
-Route::get( 'ticket/buy', 'PageController@buyPage' )->name( 'public.ticket.buy.page' );
-
-// Auth Routes
+/**
+ * Connected user routes (auth middleware)
+ */
 Route::group( [ 'middleware' => 'auth', 'as' => 'public.' ], function () {
 
     /**

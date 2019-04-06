@@ -15,11 +15,11 @@
                 @if(Route::current()->getName() != 'tickets.sell')
                     <li class="nav-item">
                         <a class="nav-link btn btn-ptb d-none d-sm-block mt-0"
-                           href="{{route('tickets.sell')}}"
+                           href="{{route('public.ticket.sell.page')}}"
                            @click.prevent="logEvent('nav_sell_button',{},$event)"
                         >@lang('nav.resell_a_ticket')</a>
                         <a class="nav-link btn btn-ptb d-block d-sm-none mt-0"
-                           href="{{route('tickets.sell')}}"
+                           href="{{route('public.ticket.sell.page')}}"
                            @click.prevent="logEvent('nav_sell_button',{},$event)"
                         >@lang('nav.sell_ticket.mobile')</a>
                     </li>
