@@ -56,7 +56,7 @@ Route::post( '/register/fb/confirm', 'Auth\RegisterController@fb_confirm_inscrip
  */
 
 // Sell ticket, this will return to different pages, depending on whether you are logged in
-Route::get( 'ticket/sell', 'PageController@sellPage' )->name( 'tickets.sell' );
+Route::get( 'ticket/sell', 'PageController@sellPage' )->name( 'tickets.sell.page' );
 
 // Ticket search page
 Route::get( 'ticket/buy', 'PageController@buyPage' )->name( 'public.ticket.buy.page' );
