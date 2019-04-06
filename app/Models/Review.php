@@ -53,4 +53,10 @@ class Review extends Model
 
     }
 
+    public static function getSelectedReviews( $n ) {
+        $selectedReviewIds = [3, 4, 7, 21];
+        $selectedReviews = Review::find($selectedReviewIds);
+        return $selectedReviews->shuffle()->take( $n );
+    }
+
 }

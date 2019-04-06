@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\Resource;
 
-class MessageResource extends Resource
+class ReviewResource extends Resource
 {
     /**
      * Transform the resource into an array.
@@ -16,10 +16,11 @@ class MessageResource extends Resource
     {
         return [
             'id'         => $this->id,
-            'sender_id'  => $this->sender_id,
-            'message'    => $this->message,
-            'created_at' => $this->created_at,
-            'read_at'    => $this->read_at
+            'name'  => $this->user->first_name,
+            'text'    => $this->text,
+            'date' => $this->created_at,
+            'mark'    => $this->mark,
+            'picture' => $this->user->picture
         ];
     }
 }
