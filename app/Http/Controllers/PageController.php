@@ -13,6 +13,7 @@ use App\Http\Resources\StationRessource;
 use App\Http\Resources\TicketRessource;
 use App\Http\Resources\UserRessource;
 use App\Models\Discussion;
+use App\Models\Review;
 use App\Notifications\OfferNotification;
 use App\Notifications\Verification\IdConfirmed;
 use App\Station;
@@ -40,8 +41,11 @@ class PageController extends Controller
             Station::find(4790),
         ]);
 
+        $reviews = Review::getSelectedReviews( 3 );
+
         return view( 'welcome' )->with([
-            'defaultStations' => StationRessource::collection( $defaultStations )
+            'defaultStations' => StationRessource::collection( $defaultStations ),
+            'reviews' => $reviews,
         ]);
     }
 
@@ -75,9 +79,11 @@ class PageController extends Controller
 
             $tickets = Ticket::getMostRecentTickets( 8 );
             $recentTickets = TicketRessource::collection($tickets);
+            $reviews = Review::getSelectedReviews( 3 );
 
             return view( 'tickets.sell.public' )->with([
                 'recentTickets' => $recentTickets,
+                'reviews' => $reviews,
             ]);
         }
     }
