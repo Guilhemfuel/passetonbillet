@@ -32,8 +32,8 @@ class Review extends Model
      * @var array
      */
     public static $rules = [
-        'mark'    => 'required|numeric',
-        'text'    => 'required|string'
+        'mark' => 'required|numeric',
+        'text' => 'required|string'
     ];
 
     public function user()
@@ -44,18 +44,21 @@ class Review extends Model
     /**
      * Boot
      */
-    public static function boot() {
+    public static function boot()
+    {
         parent::boot();
 
-        static::creating(function (Review $item) {
+        static::creating( function ( Review $item ) {
             $item->user_id = \Auth::id(); //assigning value
-        });
+        } );
 
     }
 
-    public static function getSelectedReviews( $n ) {
-        $selectedReviewIds = [3, 4, 7, 21];
-        $selectedReviews = Review::find($selectedReviewIds);
+    public static function getSelectedReviews( $n )
+    {
+        $selectedReviewIds = [ 3, 17, 18, 20, 21, 25, 27, 29, 30 ];
+        $selectedReviews = Review::find( $selectedReviewIds );
+
         return $selectedReviews->shuffle()->take( $n );
     }
 

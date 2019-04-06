@@ -10,9 +10,10 @@
         <title>PasseTonBillet @yield('title')</title>
     @show
 
+    @section('advanced_description')
     <meta name="description"
           content="PasseTonBillet : Leader sur l'achat et la revente de billets de train entre particuliers depuis 10 ans. Le seul site 100% gratuit, sans commissions."/>
-
+    @show
     <!-- Favicon  -->
     <link rel="apple-touch-icon" sizes="180x180" href="{{secure_asset('img/favicon/apple-touch-icon.png?v=2')}}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{secure_asset('img/favicon/favicon-32x32.png?v=2')}}">
