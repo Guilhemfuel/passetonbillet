@@ -33,26 +33,27 @@ class PageController extends Controller
     {
 
         // Order of stations
-        $defaultStations = collect([
-            Station::find(4916),
-            Station::find(8267),
-            Station::find(5974),
-            Station::find(4718),
-            Station::find(4790),
-        ]);
+        $defaultStations = collect( [
+            Station::find( 4916 ),
+            Station::find( 8267 ),
+            Station::find( 5974 ),
+            Station::find( 4718 ),
+            Station::find( 4790 ),
+        ] );
 
         $tickets = Ticket::getMostRecentTickets( 8 );
         $reviews = Review::getSelectedReviews( 3 );
 
-        return view( 'welcome' )->with([
-            'recentTickets' => TicketRessource::collection($tickets)
+        return view( 'welcome' )->with( [
+            'recentTickets'   => TicketRessource::collection( $tickets ),
             'defaultStations' => StationRessource::collection( $defaultStations ),
-            'reviews' => $reviews,
-        ]);
+            'reviews'         => $reviews,
+        ] );
     }
 
-    public function homeRedirect() {
-        return redirect()->route('home');
+    public function homeRedirect()
+    {
+        return redirect()->route( 'home' );
     }
 
     /**
@@ -73,20 +74,18 @@ class PageController extends Controller
     public function sellPage()
     {
 
-        if (\Auth::check()) {
-            return view('tickets.sell.auth');
-        }
-
-        else {
+        if ( \Auth::check() ) {
+            return view( 'tickets.sell.auth' );
+        } else {
 
             $tickets = Ticket::getMostRecentTickets( 8 );
-            $recentTickets = TicketRessource::collection($tickets);
+            $recentTickets = TicketRessource::collection( $tickets );
             $reviews = Review::getSelectedReviews( 3 );
 
-            return view( 'tickets.sell.public' )->with([
+            return view( 'tickets.sell.public' )->with( [
                 'recentTickets' => $recentTickets,
-                'reviews' => $reviews,
-            ]);
+                'reviews'       => $reviews,
+            ] );
         }
     }
 
@@ -199,7 +198,7 @@ class PageController extends Controller
             \Vinkla\Hashids\Facades\Hashids::decode( $ticket_id )[0]
         );
 
-        if (!$ticket || $ticket->passed) {
+        if ( ! $ticket || $ticket->passed ) {
             flash( __( "tickets.errors.passed" ) )->error();
 
             return redirect( 'home' );
@@ -212,13 +211,13 @@ class PageController extends Controller
             ] );
         } else {
             session( [ 'register-source' => 'ticket-preview' ] );
-            AppHelper::pageStat('register','ticket-preview');
+            AppHelper::pageStat( 'register', 'ticket-preview' );
 
             return view( 'auth.auth_ticket', [
-                'type'      => 'register',
-                'ticket'    => new TicketRessource( $ticket ),
-                'pageImagePreview' => route('image.ticket.preview',$ticket_id),
-                'pageTitle' => $ticket->description,
+                'type'             => 'register',
+                'ticket'           => new TicketRessource( $ticket ),
+                'pageImagePreview' => route( 'image.ticket.preview', $ticket_id ),
+                'pageTitle'        => $ticket->description,
             ] );
         }
     }
@@ -232,7 +231,7 @@ class PageController extends Controller
             \Vinkla\Hashids\Facades\Hashids::decode( $ticket_id )[0]
         );
 
-        return \App\Facades\ImageHelper::ticketPreview( $ticket )->response('png');
+        return \App\Facades\ImageHelper::ticketPreview( $ticket )->response( 'png' );
     }
 
     /**
