@@ -52,14 +52,32 @@
                     </div>
                 </div>
             </div>
-            <div class="section-petition p-5" id="section-petition">
-                <h2 class="title text-center">Soutenez la revente de billets de train</h2>
-                <h5 class="text-center mb-0">
-                    {{--TODO: traduction--}}
-                    La SNCF ne délivre plus que des E-billets nominatifs sur les TGV et Intercités. Une pétition a été mise en place pour demander à la SCNF de permettre le changement de nom sur les E-Billets SNCF.<br><br>
-                    <a href="https://www.change.org/p/guillaume-p%C3%A9py-sncf-pour-permettre-le-changement-de-nom-des-billets-prem-s-sncf" target="_blank" class="btn btn-white text-center">Signer la pétition</a>
-                </h5>
+
+            <div class="section-recent-tickets">
+                <h2 class="text-center text-warning title">@lang('tickets.sell.public.recent')</h2>
+
+                <div class="tickets-horizontal-list">
+
+                    <div id="scroll-left-tickets" class="scroll-btn">
+                        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                    </div>
+                    <div id="scroll-right-tickets" class="scroll-btn">
+                        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                    </div>
+
+                    <div id="recent-tickets" class="tickets">
+                        <div class="d-inline-flex px-3">
+                            <div v-for="ticket in child.tickets.recentTickets" class="ticket-wrap"
+                                 :key="ticket.id">
+                                <ticket :ticket="ticket" :buying="true">
+                                </ticket>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
+
             <div class="section-favorites" id="section-favorites">
                 <h2 class="text-center text-warning title">{{__('welcome.favorites.title')}}</h2>
                 <h5 class="text-center text-warning subtitle">{{__('welcome.favorites.subtitle')}}</h5>
@@ -201,32 +219,6 @@
                     </div>
                 </div>
                 <reviews></reviews>
-            </div>
-
-            <div class="section-recent-tickets">
-                <h2 class="text-center text-warning title">@lang('tickets.sell.public.recent')</h2>
-
-
-                <div class="tickets-horizontal-list">
-
-                    <div id="scroll-left-tickets" class="scroll-btn">
-                        <i class="fa fa-arrow-left" aria-hidden="true"></i>
-                    </div>
-                    <div id="scroll-right-tickets" class="scroll-btn">
-                        <i class="fa fa-arrow-right" aria-hidden="true"></i>
-                    </div>
-
-                    <div id="recent-tickets" class="tickets">
-                        <div class="d-inline-flex px-3">
-                            <div v-for="ticket in child.tickets.recentTickets" class="ticket-wrap"
-                                 :key="ticket.id">
-                                <ticket :ticket="ticket">
-                                </ticket>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
             </div>
 
             <home-buyer-seller-info></home-buyer-seller-info>
