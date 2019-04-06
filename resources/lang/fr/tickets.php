@@ -47,6 +47,16 @@ return [
             'refused'  => 'Refusée'
         ],
 
+        'security' => [
+            'identity' => [
+                'verified'=> 'Identité vérifiée',
+                'pending' => 'Identité en vérification',
+                'not_verified' => 'Identité non vérifiée'
+            ],
+            'tickets_sold' => 'Billet(s) vendu(s)',
+            'register_date' => 'Date d\'adhésion'
+        ],
+
         'share_modal' => [
             'title'        => 'Vendez votre billet plus rapidement en le publiant sur Facebook!',
             'step_1'       => '1. Partagez le avec vos amis sur votre compte Facebook',

@@ -161,7 +161,9 @@
                     </div>
                 </div>
 
-                <!-- Back of ticket -->
+                <!-- =============
+                    Back of ticket
+                    =============== -->
 
                 <div :class="{'card':true, 'card-ticket':true, 'back':true, className:className, 'past-ticket':pastTicket}"
                      v-if="!display"
@@ -229,37 +231,58 @@
                             <p class="float-center text-center mb-0 edit-title">
                                 {{trans('tickets.component.buy_ticket')}}</p>
                         </div>
-                        <div class="card-seller-info card-buying">
+                        <div class="card-seller-info card-buying pt-1">
                             <template v-if="state=='default'">
 
-                                <p class="text-center"><b>{{date.format('dddd, MMMM Do YYYY')}}</b></p>
-                                <p class="text-center"><span class="train-time">{{departure_time}}</span>
+                                <p class="text-center date"><b>{{ucFirst(date.format('dddd, MMMM Do YYYY'))}}</b></p>
+                                <p class="text-center departure"><span class="train-time">{{departure_time}}</span>
                                     {{ticket.train.departure_city.name}}</p>
-                                <p class="text-center"><span class="train-time">{{arrival_time}}</span>
+                                <p class="text-center arrival"><span class="train-time">{{arrival_time}}</span>
                                     {{ticket.train.arrival_city.name}}</p>
+
                                 <template v-if="user">
-                                    <!-- Authentificated user buyting ticket -->
+                                    <!-- Authentificated user buying ticket -->
                                     <p class="text-center">{{publishedBy}}
                                         <a target="_blank" :href="'/profile/user/'+ticket.user.hashid">
                                             <b>{{ticket.user.full_name}}</b>
-                                            <el-tooltip class="item" effect="dark"
-                                                        :content="trans('tickets.component.user_verified')"
-                                                        placement="bottom-end">
-                                                <i v-if="ticket.user.verified" aria-hidden="true"
-                                                   class="fa fa-check-circle text-warning"></i>
-                                            </el-tooltip>
                                         </a>
                                     </p>
                                 </template>
                                 <template v-else>
                                     <!-- Unauthificated user -->
                                     <p class="text-center">{{publishedBy}} <b
-                                            class="text-primary">{{ticket.user.full_name}}  <i
-                                            v-if="ticket.user.verified"
-                                            aria-hidden="true"
-                                            class="fa fa-check-circle text-warning"></i></b>
+                                            class="text-primary">{{ticket.user.full_name}}</b>
                                     </p>
                                 </template>
+
+                                <!-- 3 Security information -->
+                                <div class="security-information row flex-nowrap text-center">
+                                    <div class="identity col">
+
+                                        <i v-if="ticket.user.verified" aria-hidden="true"
+                                           class="fa fa-check-circle text-success"></i>
+                                        <i aria-hidden="true" v-else-if="ticket.user.verification_pending"
+                                           class="fa fa-clock-o text-warning verif-status"></i>
+                                        <i v-else class="fa fa-exclamation-triangle text-danger verif-status"
+                                           aria-hidden="true"></i>
+
+                                        <p class="label" v-if="ticket.user.verified">{{trans('tickets.component.security.identity.verified')}}</p>
+                                        <p class="label" v-else-if="ticket.user.verification_pending">{{trans('tickets.component.security.identity.pending')}}</p>
+                                        <p class="label" v-else>{{trans('tickets.component.security.identity.not_verified')}}</p>
+
+
+                                    </div>
+                                    <div class="tickets-sold col text-center">
+
+                                        <p class="tickets-sold-count">{{ticket.user.ticket_sold}}</p>
+                                        <p class="label">{{trans('tickets.component.security.tickets_sold')}}</p>
+
+                                    </div>
+                                    <div class="register-date col">
+                                        <p class="date">{{ticket.user.register_date}}</p>
+                                        <p class="label">{{trans('tickets.component.security.register_date')}}</p>
+                                    </div>
+                                </div>
                                 <form class="row mt-2" v-if="state=='default'">
                                     <div class="col-12 text-center">
                                  <span v-if="errors.has('price')||errorMessage!=''" class="invalid-feedback d-inline">
@@ -282,9 +305,6 @@
                                             {{trans('tickets.component.send_offer')}}
                                         </button>
 
-                                    </div>
-                                    <div class="col-12">
-                                        <p class="text-center mt-2">{{trans('tickets.component.if_interested')}}</p>
                                     </div>
                                 </form>
                             </template>
@@ -453,6 +473,9 @@
             }
         },
         methods: {
+            ucFirst(string) {
+                return string.charAt(0).toUpperCase() + string.slice(1);
+            },
             sell() {
                 if (!this.selecting) return;
                 this.$emit('sell', this.ticket.id);

@@ -267,6 +267,40 @@ $animation-duration: 0.5s;
       p {
         margin-bottom: 5px;
       }
+
+      .date {
+        font-weight: 400;
+      }
+
+      .departure,.arrival {
+        margin-bottom: 0px;
+      }
+
+      .security-information {
+
+        .tickets-sold {
+          border-right: 2px solid $color-orange;
+          border-left: 2px solid $color-orange;
+
+          .tickets-sold-count {
+            font-weight: 600;
+            color: $color-orange;
+          }
+        }
+
+        .register-date {
+          .date {
+            font-size: 12px;
+            font-weight: 600;
+            color: $color-orange;
+          }
+        }
+
+        .label {
+          font-weight: 400;
+          font-size: 12px;
+        }
+      }
     }
 
     .verif-status {
@@ -356,6 +390,7 @@ $animation-duration: 0.5s;
 
     .card-seller-info {
       padding: 0px;
+
       .price {
         font-size: 18px;
         font-weight: 400;
