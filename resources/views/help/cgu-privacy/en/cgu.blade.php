@@ -11,8 +11,8 @@
                         <div>
                             <h2 class="text-center text-white">TERMS AND CONDITIONS OF USE OF WWW.PASSETONBILLET.FR</h2>
                             <p class="text-center text-white">
-                                Current version published on 01/09/2018 <br>
-                                Current version effective 01/09/2018
+                                Current version published on 06/04/2019 <br>
+                                Current version effective 06/04/2019
                             </p>
                             <div class="container container-over-bg p-5 mt-3 text-justify">
                                 <p> This website passetonbillet.fr is published by CB INNOVATION, a simplified joint-stock company with a capital of 27,500 euros, registered with the Trade and Companies Register of Lyon, under the number RCS 513 007 880, whose registered office is located 27 route de limonest, 69 450, Saint Cyr to the golden mount. </p>
@@ -195,8 +195,32 @@
                                     In case of difficulty of interpretation between the title and the chapter of any of the articles and any of the clauses, the titles will be considered as not written.
                                 </p>
 
+                                <h4 class="pt-1 pb-3">
+                                    ARTICLE 9. PAYING SERVICES
+                                </h4>
+
+                                <p>These paid services are optional. PasseTonBillet can be used for free.
+                                </p>
+
+                                <h5 class="mt-3 pb-3">Paying services for buyers:
+                                </h5>
+
+                                <p>Telephone connection with the ticket seller (premium-rate call):
+                                    This optional paid service allows you to find a ticket faster by directly contacting the seller on the phone.
+                                    A 08/99 number is shown on a ticket when trying to reach a seller.
+                                    This service allows you to contact the seller with a premium rate number. The cost of this call is 3£ / call.
+                                    PassTonBillet automatically redirects your call to the seller's phone number.
+                                   This feature was setup to cover the operation costs of our website (teams, servers, support, developments ...).
+                                </p>
+
+                                <h5 class="mt-3 pb-3">Paying services for sellers:
+                                </h5>
+
+                                <p>We don't offer any paying service for buyers. Publishing a ticket is totally free.</p>
+
+
                                 <h4 class="mt-5 pb-3">
-                                    ARTICLE 9. APPLICABLE LAW - JURISDICTION                                </h4>
+                                    ARTICLE 10. APPLICABLE LAW - JURISDICTION                                </h4>
 
                                 <p>
                                     These Terms of Use are governed, interpreted and applied by French law. The language of interpretation is the French language in case of dispute over the meaning of a term or a provision of these Terms of Use. Any disagreement or dispute that could not find a transactional outcome will be brought before the competent courts. PasseTonBillet is not competent to settle disputes that may arise between Users.                                </p>

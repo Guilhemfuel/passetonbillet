@@ -11,8 +11,8 @@
                         <div>
                             <h2 class="text-center text-white">CONDITIONS GÉNÉRALES D'UTILISATION DE WWW.PASSETONBILLET.FR</h2>
                             <p class="text-center text-white">
-                                Version actuelle publiée le 01/09/2018 <br>
-                                Version actuelle entrant en vigueur le 01/09/2018
+                                Version actuelle publiée le 06/04/2019 <br>
+                                Version actuelle entrant en vigueur le 06/04/2019
                             </p>
                             <div class="container container-over-bg p-5 mt-3 text-justify">
                                 <p> Le présent site internet passetonbillet.fr est édité par CB INNOVATION, société par actions simplifiée, au capital de 27 500 euros, immatriculée au Registre du Commerce et des Sociétés de Lyon, sous le numéro RCS 513 007 880, dont le siège est situé 27 route de limonest, 69 450, Saint Cyr au mont d’or.</p>
@@ -206,8 +206,31 @@
                                     En cas de difficulté d'interprétation entre le titre et le chapitre de l’un quelconque des articles et l'une quelconque des clauses, les titres seront réputés non-écrits.
                                 </p>
 
+                                <h4 class="pt-1 pb-3">
+                                    ARTICLE 9. LES SERVICES PAYANTS
+                                </h4>
+
+                                <p>Ces services sont optionnels afin que l'utilisation gratuite du site passetonbillet reste entièrement possible.
+                                </p>
+
+                                <h5 class="mt-3 pb-3">Les service payants pour les acheteurs:
+                                </h5>
+
+                                <p>Mise en relation téléphonique avec le vendeur du billet (appel surtaxé) :
+                                    Ce service payant optionnel permet d’aller plus vite et de contacter le vendeur par téléphone.
+                                    Un numéro commençant par 08 99 apparait lorsque je veux contacter un membre.
+                                    Ce service permet d'être mis en relation avec le vendeur en composant un numéro surtaxé affiché. Le coût de cet appel est de 3 €/appel.
+                                    PasseTonBillet redirige automatiquement l’appel vers le numéro de téléphone du vendeur afin que vous puissiez initier la transaction.
+                                    Nous avons mis en place ce système afin de financer en partie le fonctionnement de notre site (équipes, serveurs, support, développements…).
+                                </p>
+
+                                <h5 class="mt-3 pb-3">Les service payants pour les acheteurs:
+                                </h5>
+
+                                <p>Nous ne proposons aucune options payantes pour les vendeurs, le fait de publier un billet sur le site est entièrement gratuit.</p>
+
                                 <h4 class="mt-5 pb-3">
-                                    ARTICLE 9. DROIT APPLICABLE – ATTRIBUTION DE JURIDICTION
+                                    ARTICLE 10. DROIT APPLICABLE – ATTRIBUTION DE JURIDICTION
                                 </h4>
 
                                 <p>
