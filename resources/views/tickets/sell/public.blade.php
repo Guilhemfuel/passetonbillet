@@ -200,7 +200,7 @@
         <script type="application/javascript">
 
             /**
-             *   Script to slide the card-trip
+             *   Script to slide the card-trips and recent-tickets
              */
             let rightTripBtn = document.getElementById('scroll-right-cities');
             let leftTripBtn = document.getElementById('scroll-left-cities');

@@ -66,10 +66,10 @@
 
 
                 <div class="cards-horizontal-list">
-                    <div id="scroll-left" class="scroll-btn">
+                    <div id="scroll-left-cities" class="scroll-btn">
                         <i class="fa fa-arrow-left" aria-hidden="true"></i>
                     </div>
-                    <div id="scroll-right" class="scroll-btn">
+                    <div id="scroll-right-cities" class="scroll-btn">
                         <i class="fa fa-arrow-right" aria-hidden="true"></i>
                     </div>
 
@@ -203,6 +203,32 @@
                 <reviews></reviews>
             </div>
 
+            <div class="section-recent-tickets">
+                <h2 class="text-center text-warning title">@lang('tickets.sell.public.recent')</h2>
+
+
+                <div class="tickets-horizontal-list">
+
+                    <div id="scroll-left-tickets" class="scroll-btn">
+                        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                    </div>
+                    <div id="scroll-right-tickets" class="scroll-btn">
+                        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                    </div>
+
+                    <div id="recent-tickets" class="tickets">
+                        <div class="d-inline-flex px-3">
+                            <div v-for="ticket in child.tickets.recentTickets" class="ticket-wrap"
+                                 :key="ticket.id">
+                                <ticket :ticket="ticket">
+                                </ticket>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
             <home-buyer-seller-info></home-buyer-seller-info>
 
             <div class="section-FAQ" id="section-FAQ">
@@ -291,20 +317,34 @@
         <script type="application/javascript">
 
             /**
-             *   Script to slide the card-trip
+             *   Script to slide the card-trips and recent-tickets
              */
-            let rightBtn = document.getElementById('scroll-right');
-            let leftBtn = document.getElementById('scroll-left');
+            let rightTripBtn = document.getElementById('scroll-right-cities');
+            let leftTripBtn = document.getElementById('scroll-left-cities');
 
-            rightBtn.onclick = function () {
-                var container = document.getElementById('cards-trips');
-                sideScroll(container, 'right', 25, 365, 25);
+            let rightTicketBtn = document.getElementById('scroll-right-tickets');
+            let leftTicketBtn = document.getElementById('scroll-left-tickets');
+
+            let tripContainer = document.getElementById('cards-trips');
+            let ticketContainer = document.getElementById('recent-tickets');
+
+
+            rightTripBtn.onclick = function () {
+                sideScroll(tripContainer, 'right', 25, 365, 25);
             };
 
-            leftBtn.onclick = function () {
-                var container = document.getElementById('cards-trips');
-                sideScroll(container, 'left', 25, 365, 25);
+            leftTripBtn.onclick = function () {
+                sideScroll(tripContainer, 'left', 25, 365, 25);
             };
+
+            leftTicketBtn.onclick = function () {
+                sideScroll(ticketContainer, 'left', 25, 365, 25);
+            };
+
+            rightTicketBtn.onclick = function () {
+                sideScroll(ticketContainer, 'right', 25, 365, 25);
+            };
+
 
             function sideScroll(element, direction, speed, distance, step) {
                 scrollAmount = 0;
@@ -341,10 +381,15 @@ $routes = [
 
 @push('vue-data')
     <script type="application/javascript">
+
         data.welcome = {
             ticketLang: {!! json_encode($langTickets) !!},
             routes: {!! json_encode($routes) !!},
             stateHowItWorks: 'buyer'
+        },
+
+        data.tickets = {
+            recentTickets: {!! json_encode( $recentTickets ) !!}
         }
 
         currentPage.data.defaultStations = {!! json_encode($defaultStations) !!}

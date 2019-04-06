@@ -41,9 +41,11 @@ class PageController extends Controller
             Station::find(4790),
         ]);
 
+        $tickets = Ticket::getMostRecentTickets( 8 );
         $reviews = Review::getSelectedReviews( 3 );
 
         return view( 'welcome' )->with([
+            'recentTickets' => TicketRessource::collection($tickets)
             'defaultStations' => StationRessource::collection( $defaultStations ),
             'reviews' => $reviews,
         ]);
