@@ -9,7 +9,6 @@ use App\Facades\AppHelper;
 use App\Facades\Eurostar;
 use App\Http\Resources\DiscussionCollectionResource;
 use App\Http\Resources\DiscussionLastMessageResource;
-use App\Http\Resources\ReviewResource;
 use App\Http\Resources\StationRessource;
 use App\Http\Resources\TicketRessource;
 use App\Http\Resources\UserRessource;
@@ -46,7 +45,7 @@ class PageController extends Controller
 
         return view( 'welcome' )->with([
             'defaultStations' => StationRessource::collection( $defaultStations ),
-            'reviews' => ReviewResource::collection($reviews),
+            'reviews' => $reviews,
         ]);
     }
 
@@ -84,7 +83,7 @@ class PageController extends Controller
 
             return view( 'tickets.sell.public' )->with([
                 'recentTickets' => $recentTickets,
-                'reviews' => ReviewResource::collection($reviews),
+                'reviews' => $reviews,
             ]);
         }
     }
