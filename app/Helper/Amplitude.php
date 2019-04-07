@@ -37,6 +37,7 @@ class Amplitude
         // Buying
         'ticket_search',
         'send_offer',
+        'show_number',
 
         // Nav
         'nav_buy_button',

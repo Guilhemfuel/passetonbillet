@@ -232,93 +232,138 @@
                                 {{trans('tickets.component.buy_ticket')}}</p>
                         </div>
                         <div class="card-seller-info card-buying pt-1">
-                            <template v-if="state=='default'">
+                            <p class="text-center date"><b>{{ucFirst(date.format('dddd, MMMM Do YYYY'))}}</b></p>
+                            <p class="text-center departure"><span class="train-time">{{departure_time}}</span>
+                                {{ticket.train.departure_city.name}}</p>
+                            <p class="text-center arrival"><span class="train-time">{{arrival_time}}</span>
+                                {{ticket.train.arrival_city.name}}</p>
 
-                                <p class="text-center date"><b>{{ucFirst(date.format('dddd, MMMM Do YYYY'))}}</b></p>
-                                <p class="text-center departure"><span class="train-time">{{departure_time}}</span>
-                                    {{ticket.train.departure_city.name}}</p>
-                                <p class="text-center arrival"><span class="train-time">{{arrival_time}}</span>
-                                    {{ticket.train.arrival_city.name}}</p>
-
-                                <template v-if="user">
-                                    <!-- Authentificated user buying ticket -->
-                                    <p class="text-center">{{publishedBy}}
-                                        <a target="_blank" :href="'/profile/user/'+ticket.user.hashid">
-                                            <b>{{ticket.user.full_name}}</b>
-                                        </a>
-                                    </p>
-                                </template>
-                                <template v-else>
-                                    <!-- Unauthificated user -->
-                                    <p class="text-center">{{publishedBy}} <b
-                                            class="text-primary">{{ticket.user.full_name}}</b>
-                                    </p>
-                                </template>
-
-                                <!-- 3 Security information -->
-                                <div class="security-information row flex-nowrap text-center">
-                                    <div class="identity col">
-
-                                        <i v-if="ticket.user.verified" aria-hidden="true"
-                                           class="fa fa-check-circle text-success"></i>
-                                        <i aria-hidden="true" v-else-if="ticket.user.verification_pending"
-                                           class="fa fa-clock-o text-warning verif-status"></i>
-                                        <i v-else class="fa fa-exclamation-triangle text-danger verif-status"
-                                           aria-hidden="true"></i>
-
-                                        <p class="label" v-if="ticket.user.verified">{{trans('tickets.component.security.identity.verified')}}</p>
-                                        <p class="label" v-else-if="ticket.user.verification_pending">{{trans('tickets.component.security.identity.pending')}}</p>
-                                        <p class="label" v-else>{{trans('tickets.component.security.identity.not_verified')}}</p>
-
-
-                                    </div>
-                                    <div class="tickets-sold col text-center">
-
-                                        <p class="tickets-sold-count">{{ticket.user.ticket_sold}}</p>
-                                        <p class="label">{{trans('tickets.component.security.tickets_sold')}}</p>
-
-                                    </div>
-                                    <div class="register-date col">
-                                        <p class="date">{{ticket.user.register_date}}</p>
-                                        <p class="label">{{trans('tickets.component.security.register_date')}}</p>
-                                    </div>
-                                </div>
-                                <form class="row mt-2" v-if="state=='default'">
-                                    <div class="col-12 text-center">
-                                 <span v-if="errors.has('price')||errorMessage!=''" class="invalid-feedback d-inline">
-                                    {{errors.has('price') ? errors.first('price') : errorMessage}}
-                                </span>
-                                    </div>
-                                    <div class="col-12 col-sm-10 col-md-8 mx-auto">
-
-                                        <div class="input-group">
-                                            <span class="input-group-addon">{{ticket.currency_symbol}}</span>
-                                            <input type="text"
-                                                   :class="'form-control' + (errors.has('price')?' is-invalid':'')"
-                                                   :aria-label="trans('tickets.component.price')"
-                                                   :placeholder="trans('tickets.component.price')"
-                                                   v-model="priceOffer"
-                                                   name="price"
-                                                   v-validate="'required|numeric|min_value:0|max_value:'+ticket.price">
-                                        </div>
-                                        <button class="btn btn-ptb btn-block mt-2" @click.prevent="makeOffer">
-                                            {{trans('tickets.component.send_offer')}}
-                                        </button>
-
-                                    </div>
-                                </form>
-                            </template>
-                            <div v-else-if="state=='offering'">
-                                <loader class-name="mx-auto mt-4"></loader>
-                            </div>
-                            <template v-else-if="state=='offered'">
-                                <p class="text-center">{{trans('tickets.component.offer_sent')}}</p>
-                            </template>
-                            <template v-else-if="state=='register'">
-                                <p class="text-center">{{trans('tickets.component.register')}} <br><br> <a
-                                        :href="route('register.page')+'?source=guest-offer'">{{trans('tickets.component.register_cta')}}</a>
+                            <template v-if="user">
+                                <!-- Authentificated user buying ticket -->
+                                <p class="text-center">{{publishedBy}}
+                                    <a target="_blank" :href="'/profile/user/'+ticket.user.hashid">
+                                        <b>{{ticket.user.full_name}}</b>
+                                    </a>
                                 </p>
                             </template>
+                            <template v-else>
+                                <!-- Unauthificated user -->
+                                <p class="text-center">{{publishedBy}} <b
+                                        class="text-primary">{{ticket.user.full_name}}</b>
+                                </p>
+                            </template>
+
+                            <!-- 3 Security information -->
+                            <div class="security-information row flex-nowrap text-center mt-3">
+                                <div class="identity col">
+
+                                    <i v-if="ticket.user.verified" aria-hidden="true"
+                                       class="fa fa-check-circle text-success"></i>
+                                    <i aria-hidden="true" v-else-if="ticket.user.verification_pending"
+                                       class="fa fa-clock-o text-warning verif-status"></i>
+                                    <i v-else class="fa fa-exclamation-triangle text-danger verif-status"
+                                       aria-hidden="true"></i>
+
+                                    <p class="label" v-if="ticket.user.verified">
+                                        {{trans('tickets.component.security.identity.verified')}}</p>
+                                    <p class="label" v-else-if="ticket.user.verification_pending">
+                                        {{trans('tickets.component.security.identity.pending')}}</p>
+                                    <p class="label" v-else>{{trans('tickets.component.security.identity.not_verified')}}</p>
+
+
+                                </div>
+                                <div class="tickets-sold col text-center">
+
+                                    <p class="tickets-sold-count">{{ticket.user.ticket_sold}}</p>
+                                    <p class="label">{{trans('tickets.component.security.tickets_sold')}}</p>
+
+                                </div>
+                                <div class="register-date col">
+                                    <p class="date">{{ticket.user.register_date}}</p>
+                                    <p class="label">{{trans('tickets.component.security.register_date')}}</p>
+                                </div>
+                            </div>
+
+                            <!-- Call of offer -->
+                            <div v-if="buyingState == 'default'" class="buying-actions">
+                                <button class="btn btn-block btn-ptb mt-3 mb-2" @click="callSeller()">
+                                    {{trans('tickets.component.buying_actions.call.btn')}}
+                                </button>
+                                <button class="btn btn-block btn-outline-orange" @click="buyingState='offer'">
+                                    {{trans('tickets.component.buying_actions.offer.btn')}}
+                                </button>
+                            </div>
+                            <div class="text-center pt-3" v-else-if="buyingState == 'call'">
+                                <template v-if="contactNumber!=null">
+                                    <a :href="'tel:'+contactNumber" class="btn btn-ptb btn-block btn-contact-phone">
+                                        <i class="fa fa-phone" aria-hidden="true"></i> {{contactNumber}}
+                                    </a>
+                                </template>
+                                <template v-else>
+                                    <button class="btn btn-ptb btn-block btn-contact-phone" @click="callSeller()">
+                                        {{trans('tickets.component.buying_actions.call.refresh')}}
+                                    </button>
+                                </template>
+                                <p class="pricing mb-0">{{trans('tickets.component.buying_actions.call.pricing')}}</p>
+                                <p class="data-protection">{{trans('tickets.component.buying_actions.call.data_protection')}}</p>
+                            </div>
+                            <div v-else-if="buyingState == 'offer'">
+                                <template v-if="state=='default'">
+
+                                    <form class="row mt-2" v-if="state=='default'">
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <div class="col-6 input-group">
+                                                    <span class="input-group-addon">{{ticket.currency_symbol}}</span>
+                                                    <input type="text"
+                                                           :class="'form-control' + (errors.has('price')?' is-invalid':'')"
+                                                           :aria-label="trans('tickets.component.price')"
+                                                           :placeholder="trans('tickets.component.price')"
+                                                           v-model="priceOffer"
+                                                           name="price"
+                                                           v-validate="'required|numeric|min_value:0|max_value:'+ticket.price">
+                                                </div>
+                                                <div class="col-6 pl-0">
+                                                    <button class="btn btn-ptb btn-block px-1" @click.prevent="makeOffer">
+                                                        {{trans('tickets.component.send_offer')}}
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <p class="text-center if-interested">
+                                                 <span v-if="errors.has('price')||errorMessage!=''"
+                                                       class="invalid-feedback d-inline">
+                                                    {{errors.has('price') ? errors.first('price') : errorMessage}}
+                                                </span>
+                                                <span v-else>
+                                                    {{trans('tickets.component.if_interested')}}
+                                                </span>
+                                            </p>
+                                            <button class="btn btn-block btn-outline-orange" @click="callSeller()">
+                                                {{trans('tickets.component.buying_actions.call.btn')}}
+                                            </button>
+                                        </div>
+                                    </form>
+                                </template>
+                                <div v-else-if="state=='offering'">
+                                    <loader class-name="mx-auto mt-4"></loader>
+                                </div>
+                                <template v-else-if="state=='offered'">
+                                    <p class="text-center mt-2">{{trans('tickets.component.offer_sent')}}</p>
+                                    <p class="text-center"><a href="#" @click.prevent="callSeller">{{trans('tickets.component.buying_actions.offer.back_to_call')}}</a></p>
+                                </template>
+                                <template v-else-if="state=='register'">
+                                    <p class="text-center must-register">{{trans('tickets.component.register')}}</p>
+                                    <a class="btn btn-ptb btn-block text-white" :href="route('register.page')+'?source=guest-offer'">
+                                        {{trans('tickets.component.register_cta')}}
+                                    </a>
+                                    <button class="btn btn-block btn-outline-orange" @click="callSeller()">
+                                        {{trans('tickets.component.buying_actions.call.btn')}}
+                                    </button>
+                                </template>
+
+                            </div>
+
+
                         </div>
 
                     </template>
@@ -379,10 +424,12 @@
                             <p class="text-center mt-4">{{trans('tickets.component.share_modal.our_fb_group')}}</p>
 
                             <div class="fb-group" data-href="https://www.facebook.com/groups/eurostarpassetonbillet/"
-                                 data-width="300" data-show-social-context="true" data-show-metadata="false" v-if="ticket.provider=='eurostar'"></div>
+                                 data-width="300" data-show-social-context="true" data-show-metadata="false"
+                                 v-if="ticket.provider=='eurostar'"></div>
 
                             <div class="fb-group" data-href="https://www.facebook.com/groups/reventebilletprems/"
-                                 data-width="300" data-show-social-context="true" data-show-metadata="false" v-else></div>
+                                 data-width="300" data-show-social-context="true" data-show-metadata="false"
+                                 v-else></div>
 
                         </div>
                     </div>
@@ -404,7 +451,7 @@
 
     export default {
         components: {
-          'edit-ticket': EditTicket
+            'edit-ticket': EditTicket
         },
         props: {
             ticket: {type: Object, required: true},
@@ -427,6 +474,8 @@
                 editing: false,
                 priceOffer: this.ticket.price,
                 state: 'default',
+                buyingState: 'default',
+                contactNumber: null,
                 errorMessage: '',
                 shareModalOpen: this.shareModalDefault,
                 modalDeleteOpen: false,
@@ -472,6 +521,11 @@
                 }
             }
         },
+        watch: {
+            editing: function () {
+                this.buyingState = 'default';
+            }
+        },
         methods: {
             ucFirst(string) {
                 return string.charAt(0).toUpperCase() + string.slice(1);
@@ -489,6 +543,43 @@
 
                 document.execCommand("Copy");
 
+            },
+            callSeller() {
+                this.buyingState = 'call';
+
+                // Query contact number if null
+                if (this.contactNumber == null) {
+
+                    this.$http.get(this.route('api.tickets.phone_number',{
+                        ticket: this.ticket.id
+                    })).then((response) => {
+                        // Success in offer
+                        if (response.ok) {
+
+                            this.contactNumber = response.body.phone;
+
+                            // Log Offer
+                            this.$root.logEvent('show_number', {
+                                ticket_id: this.ticket.id
+                            });
+
+                            // Expire number after 3 minutes
+                            setTimeout(() => {
+                                this.contactNumber = null;
+                            }, 3*60*1000);
+
+                            return;
+                        } else {
+                            this.state = 'default';
+                            this.errorMessage = response.body.message;
+                        }
+                    }, response => {
+                        if (!response.ok) {
+                            this.state = 'default';
+                            this.errorMessage = response.body.message;
+                        }
+                    });
+                }
             },
             makeOffer() {
 
@@ -514,7 +605,7 @@
                             }
 
                             // Log Offer
-                            this.$root.logEvent('send_offer',{
+                            this.$root.logEvent('send_offer', {
                                 price: this.priceOffer,
                                 currency: this.ticket.currency,
                                 ticket_id: this.ticket.id

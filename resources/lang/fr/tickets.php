@@ -30,8 +30,8 @@ return [
         'edit_price_cta'            => 'Modifier le prix',
         'delete_cta'                => 'Supprimer le billet',
         'offer_sent'                => 'Le vendeur a bien reçu votre offre! Il vous recontactera si il est interessé.',
-        'register'                  => 'La sécurité est notre premier soucis. Ainsi, vous devez etre inscrit pour commnuniquer avec les autres membres.',
-        'register_cta'              => 'Inscrivez-vous pour envoyer votre offre!',
+        'register'                  => 'La sécurité est notre premier soucis. Vous devez être inscrit pour envoyer une offre.',
+        'register_cta'              => 'Inscription',
         'user_verified'             => 'Nous avons vérifié l\'identité de cet utilisateur.',
         'user_verification_pending' => 'Vérification de l\'identité de l\'utilisateur en cours.',
         'user_not_verified'         => 'Nous n\'avons pas encore vérifié l\'identité de cet utilisateur.',
@@ -41,20 +41,33 @@ return [
         'download'                  => 'Télécharger',
         'eurostar_ticket_number'    => 'Numéro du billet',
 
-        'status' => [
+        'status'   => [
             'awaiting' => 'En Attente',
             'accepted' => 'Acceptée',
             'refused'  => 'Refusée'
         ],
 
         'security' => [
-            'identity' => [
-                'verified'=> 'Identité vérifiée',
-                'pending' => 'Identité en vérification',
+            'identity'      => [
+                'verified'     => 'Identité vérifiée',
+                'pending'      => 'Identité en vérification',
                 'not_verified' => 'Identité non vérifiée'
             ],
-            'tickets_sold' => 'Billet(s) vendu(s)',
+            'tickets_sold'  => 'Billet(s) vendu(s)',
             'register_date' => 'Date d\'adhésion'
+        ],
+
+        'buying_actions' => [
+            'offer' => [
+                'btn' => 'Envoyer une offre',
+                'back_to_call' => 'Appeler le vendeur directement'
+            ],
+            'call'  => [
+                'btn'             => 'Appeler le vendeur',
+                'refresh'         => 'Rafraichir le numéro',
+                'pricing'         => 'Cet service vous sera facturé 3€/appel + prix appel.',
+                'data_protection' => 'Nous cachons les numéros de téléphone afin de prévenir d\'éventuels abus.'
+            ]
         ],
 
         'share_modal' => [
@@ -98,8 +111,8 @@ return [
         ],
 
         'edit_price_modal' => [
-            'title' => 'Modifier le prix du billet',
-            'text' => 'Vous pouvez modifier le prix de votre billet à tout instant. Tout comme lors de la mise en vente de celui-ci, le prix de ne peut excéder le prix originel d\'achat.',
+            'title'  => 'Modifier le prix du billet',
+            'text'   => 'Vous pouvez modifier le prix de votre billet à tout instant. Tout comme lors de la mise en vente de celui-ci, le prix de ne peut excéder le prix originel d\'achat.',
             'submit' => 'Modifier le prix'
         ]
 
@@ -107,16 +120,16 @@ return [
     'sell'      => [
 
         'public' => [
-            'title' => 'Revendez tous vos billets en 1 clic sur PasseTonBillet.fr',
-            'subtitle' => 'Billets SNCF, Billets Eurostar, Billets Prems, Billets Thalys, Billets OuiGo',
+            'title'     => 'Revendez tous vos billets en 1 clic sur PasseTonBillet.fr',
+            'subtitle'  => 'Billets SNCF, Billets Eurostar, Billets Prems, Billets Thalys, Billets OuiGo',
             'favorites' => [
-                'title' => 'Revendez votre billet en 1 clic',
+                'title'    => 'Revendez votre billet en 1 clic',
                 'subtitle' => 'Revendre un billet London, Paris, Lyon, Marseille, ou autre sur PasseTonBillet.fr .'
             ],
 
-            'reviews' => 'Les avis de nos utilisateurs',
-            'recent' => 'Les Derniers billets postés',
-            'question' => 'Vous avez un billet de train non échangeable / non remboursable a revendre ?',
+            'reviews'     => 'Les avis de nos utilisateurs',
+            'recent'      => 'Les Derniers billets postés',
+            'question'    => 'Vous avez un billet de train non échangeable / non remboursable a revendre ?',
             'subquestion' => ' PasseTonBillet est spécialisé dans la revente de billets de train d\'occastion. Les voyageurs peuvent facilement:',
             'video_title' => 'Vendre des billets sur PasseTonBillet'
         ],
@@ -238,10 +251,10 @@ return [
     ],
     'updated'   => 'Billet mis à jour avec succès.',
 
-    'delete'    => [
+    'delete' => [
         'success' => 'Votre ticket a bien été supprimé.'
     ],
-    'errors'    => [
+    'errors' => [
         'passed' => 'Ce ticket est déjà passé! Cherchews'
     ]
 
