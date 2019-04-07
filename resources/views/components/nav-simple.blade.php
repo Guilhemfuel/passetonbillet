@@ -1,10 +1,12 @@
-<nav class="navbar navbar-light navbar-expand" id="nav-bar">
+<nav class="navbar navbar-light navbar-expand pos-top" id="nav">
     <div class="container">
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
                     <a class="navbar-brand p-0" href="{{route('home')}}">
-                        <img src="{{secure_asset('img/logo-white.png')}}" class="align-top logo-black"
+                        <img src="{{secure_asset('img/logo-white.png')}}" class="align-top logo-white"
+                             alt="logo passe ton billet">
+                        <img src="{{secure_asset('img/logo-black.png')}}" class="align-top logo-black"
                              alt="logo passe ton billet">
                         <img src="{{secure_asset('img/logo-icon.png')}}" class="icon align-top d-inline-block d-sm-none"
                              alt="logo passe ton billet">
@@ -24,7 +26,7 @@
                     >@lang('nav.login')</a>
                 </li>
 
-                <li class="nav-item">
+                <li class="nav-item buy-btn">
                     <a class="nav-link btn btn-ptb d-none d-sm-block mt-0"
                        href="{{route('public.ticket.buy.page')}}?departure_station=8267&arrival_station=4916"
                        @click.prevent="logEvent('nav_sell_button',{},$event)"

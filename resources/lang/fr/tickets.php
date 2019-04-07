@@ -120,8 +120,10 @@ return [
     'sell'      => [
 
         'public' => [
-            'title'     => 'Revendez tous vos billets en 1 clic sur PasseTonBillet.fr',
-            'subtitle'  => 'Billets SNCF, Billets Eurostar, Billets Prems, Billets Thalys, Billets OuiGo',
+
+            'title' => 'Revendre un billet de train SNCF, OuiGo, Eurostar, Thalys avec PasseTonBillet.fr',
+            'meta_description' => 'Vous avez un billet de train à revendre (Billet SNCF, Prems, e-billet, Eurostar, Thalys...). Sur PasseTonBillet.fr, il sera vendu dans la journée ! c\'est gratuit et très rapide.',
+            'subtitle' => 'Billets SNCF, Billets Eurostar, Billets Prems, Billets Thalys, Billets OuiGo',
             'favorites' => [
                 'title'    => 'Revendez votre billet en 1 clic',
                 'subtitle' => 'Revendre un billet London, Paris, Lyon, Marseille, ou autre sur PasseTonBillet.fr .'

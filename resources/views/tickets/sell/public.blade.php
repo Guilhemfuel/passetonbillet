@@ -4,6 +4,11 @@
     <title>@lang('tickets.sell.public.title')</title>
 @endsection
 
+@section('advanced_description')
+    <meta name="description"
+          content="@lang('tickets.sell.public.meta_description')"/>
+@endsection
+
 @section('content')
 
     <div id="sell-public">
@@ -22,7 +27,7 @@
 
             <div class="video">
                 <div class='responsive-container'>
-                    <iframe src='https://www.youtube.com/embed//N0wy1LC8H0w?modestbranding=1&border=0&showinfo=0' frameborder='0'></iframe>
+                    <iframe src='https://www.youtube.com/embed//N0wy1LC8H0w?modestbranding=1&border=0&showinfo=0&autoplay=1&mute=1' frameborder='0'></iframe>
                 </div>
             </div>
         </div>
@@ -128,6 +133,32 @@
             </div>
         </div>
 
+        <div class="section-recent-tickets">
+            <h2 class="text-center text-warning title">@lang('tickets.sell.public.recent')</h2>
+
+
+            <div class="tickets-horizontal-list">
+
+                <div id="scroll-left-tickets" class="scroll-btn">
+                    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                </div>
+                <div id="scroll-right-tickets" class="scroll-btn">
+                    <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                </div>
+
+                <div id="recent-tickets" class="tickets">
+                    <div class="d-inline-flex px-3">
+                        <div v-for="ticket in child.tickets.recentTickets" class="ticket-wrap"
+                             :key="ticket.id">
+                            <ticket :ticket="ticket" :buying="true">
+                            </ticket>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
         <div class="section-feedback" id="section-feedback">
             <h2 class="text-center text-warning title">{{__('welcome.feedback.title')}}</h2>
 
@@ -140,9 +171,9 @@
                                     <img src="{{ $review->user->picture  }}" class="picture"
                                          alt="user profile picture"/>
 
-                                    <!-- <p class="date">
+                                <!-- <p class="date">
                                          {{ $review->created_at }}
-                                    </p> -->
+                                        </p> -->
 
                                     <h4 class="first-name">
                                         {{ $review->user->first_name }}
@@ -165,31 +196,6 @@
         </div>
 
 
-        <div class="section-recent-tickets">
-            <h2 class="text-center text-warning title">@lang('tickets.sell.public.recent')</h2>
-
-
-            <div class="tickets-horizontal-list">
-
-                <div id="scroll-left-tickets" class="scroll-btn">
-                    <i class="fa fa-arrow-left" aria-hidden="true"></i>
-                </div>
-                <div id="scroll-right-tickets" class="scroll-btn">
-                    <i class="fa fa-arrow-right" aria-hidden="true"></i>
-                </div>
-
-                <div id="recent-tickets" class="tickets">
-                    <div class="d-inline-flex px-3">
-                        <div v-for="ticket in child.tickets.recentTickets" class="ticket-wrap"
-                             :key="ticket.id">
-                            <ticket :ticket="ticket">
-                            </ticket>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
         <div>
             @include('components.footer')
         </div>
@@ -210,7 +216,6 @@
 
             let tripContainer = document.getElementById('cards-trips');
             let ticketContainer = document.getElementById('recent-tickets');
-
 
             rightTripBtn.onclick = function () {
                 sideScroll(tripContainer, 'right', 25, 365, 25);
@@ -244,6 +249,34 @@
                 }, speed);
             }
 
+
+        </script>
+
+        <script type="application/javascript">
+
+            /**
+             *   Script to toggle to pos-top class of the nav-bar
+             */
+            function checkScroll() {
+                let scroll = window.scrollY;
+
+                // On mobile only 20 pix are enough
+                if ( (scroll > 100 && !window.Vue.prototype.$mobile) || (scroll > 20 && window.Vue.prototype.$mobile ) ) {
+                    document.getElementById('nav').classList.remove("pos-top");
+                }
+                else {
+                    document.getElementById('nav').classList.add("pos-top");
+                }
+            }
+
+            (function () {
+                window.addEventListener('scroll', function () {
+                    checkScroll();
+                });
+            })();
+
+            // On page load check position of nav
+            checkScroll();
 
         </script>
 

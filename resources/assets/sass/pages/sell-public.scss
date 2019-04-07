@@ -110,6 +110,102 @@
 
   .navbar {
 
+    &:not(.pos-top) {
+      background-color: white;
+      color: black;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+
+      .logo-black {
+        display: inline-block;
+      }
+      .logo-white {
+        display: none;
+      }
+
+      .nav-item {
+
+        .buy-btn {
+          .btn {
+            border: none !important;
+          }
+        }
+
+        &.menu-unlogged {
+          > .fa {
+            cursor: pointer;
+
+            color: $color-dark-gray !important;
+
+            &:hover {
+              color: $color-orange !important;
+            }
+          }
+        }
+
+        .user-first-name {
+
+          p {
+            color: $color-dark-gray;
+          }
+          &:hover {
+            p {
+              color: $color-orange;
+            }
+          }
+        }
+
+        .fa {
+          color: $color-orange;
+
+          &:hover {
+            color: $color-dark-gray !important;
+          }
+        }
+
+        a {
+          color: #82848a;
+
+          &:hover {
+            color: $color-orange;
+
+          }
+
+          &.btn {
+            margin-top: 4px;
+          }
+
+          &.btn-ptb {
+            color: white;
+            &:hover {
+              color: $color-gray;
+            }
+          }
+
+          &.btn-ptb-white {
+            color: $color-orange;
+            border: solid 1px $color-orange;
+          }
+
+          &.btn-ptb-border {
+            color: #82848a;
+            border-color: #82848a;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            padding-left: 25px;
+            padding-right: 25px;
+            margin-top: 4px;
+          }
+        }
+      }
+
+    }
+
+    .buy-btn {
+      .btn {
+        border: 1px solid white;
+      }
+    }
+
     @include media-breakpoint-down(xs) {
       padding: 0.5rem 1rem !important;
     }
@@ -117,12 +213,12 @@
     padding: 20px;
     padding-left: 35px;
     padding-right: 35px;
+    top: 0;
+    position: fixed;
     width: 100%;
     z-index: 1000;
     background-color: transparent;
     transition: background-color 0.2s;
-    position: absolute;
-    top: 0;
 
     .logo-black {
       display: none;
@@ -148,13 +244,6 @@
           color: $color-orange !important;
         }
       }
-    }
-
-    .logo-black {
-      display: inline-block;
-    }
-    .logo-white {
-      display: none;
     }
 
     .nav-item {
@@ -369,11 +458,9 @@
   }
 
   .section-feedback {
-    background-color: $color-greybg;
     width: 100%;
     padding-top: 50px;
     padding-bottom: 50px;
-    border-bottom: 1px solid #c0c4cc;
 
     .card-review {
       box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
@@ -419,7 +506,7 @@
   }
 
   .section-recent-tickets {
-
+    background-color: $color-greybg;
     width: 100%;
     padding-top: 50px;
     padding-bottom: 50px;
