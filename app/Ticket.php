@@ -304,6 +304,12 @@ class Ticket extends Model
         return $this->discussions()->where( 'buyer_id', $this->buyer->id )->first();
     }
 
+    public function getSoldAttribute() {
+        if($this->sold_to_id) {
+            return true;
+        }
+        return false;
+    }
 
     public function getDescriptionAttribute()
     {

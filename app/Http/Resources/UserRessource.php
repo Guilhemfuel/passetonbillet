@@ -61,7 +61,9 @@ class UserRessource extends Resource
             'verification_pending' => $this->id_verification_pending,
             'admin'                => $this->isAdmin(),
             'unread_notifications' => count( $this->unreadNotifications ),
+            'register_date'         => $this->created_at->format('d/m/Y'),
             'offers_sent'          => $this->when( $this->offersDone != [], $this->offersDone ),
+            'ticket_sold'          => $this->tickets()->whereNotNull( 'sold_to_id' )->count()
         ];
     }
 }

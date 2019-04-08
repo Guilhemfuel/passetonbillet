@@ -41,11 +41,33 @@ return [
         'download'                  => 'Download',
         'eurostar_ticket_number'    => 'Ticket number',
 
-
         'status' => [
             'awaiting' => 'Awaiting',
             'accepted' => 'Accepted',
             'refused'  => 'Refused'
+        ],
+
+        'security' => [
+            'identity'      => [
+                'verified'     => 'ID verified',
+                'pending'      => 'ID check pending',
+                'not_verified' => 'ID not verified'
+            ],
+            'tickets_sold'  => 'Ticket(s) sold',
+            'register_date' => 'Registration date'
+        ],
+
+        'buying_actions' => [
+            'offer' => [
+                'btn' => 'Send an offer',
+                'back_to_call' => 'Call Seller'
+            ],
+            'call'  => [
+                'btn'             => 'Call Seller',
+                'refresh'         => 'Refresh Number',
+                'pricing'         => 'This service will be charged 3€/call + price for the call.',
+                'data_protection' => 'We hide phone numbers to protect privacy.'
+            ]
         ],
 
         'share_modal' => [
