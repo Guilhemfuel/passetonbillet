@@ -216,7 +216,7 @@
                                 <h5 class="mt-3 pb-3">Paying services for sellers:
                                 </h5>
 
-                                <p>We don't offer any paying service for buyers. Publishing a ticket is totally free.</p>
+                                <p>We don't offer any paying service for sellers. Publishing a ticket is totally free.</p>
 
 
                                 <h4 class="mt-5 pb-3">
