@@ -367,6 +367,51 @@
     }
   }
 
+  .section-blog-posts {
+
+    margin-top: 15px;
+
+    .card-blog-post {
+
+      box-shadow: 4px 4px #D3D3D3;
+      border: 2px solid #D3D3D3;
+      margin: 30px 15px;
+
+      .card-body {
+        height: 220px;
+
+        &.loading {
+          background: #F5F5F5;
+          border-bottom-style: solid;
+        }
+      }
+
+      .card-footer {
+        height: 80px;
+        background: #FFFFFF;
+      }
+    }
+
+    #btn-more-blog-posts {
+      text-align: center;
+      height: 45px;
+      font-size: 20px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      -webkit-box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.1);
+      box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.1);
+      -webkit-transition: all 0.3s ease 0s;
+      transition: all 0.3s ease 0s;
+      cursor: pointer;
+      outline: none;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+  }
+
   .section-FAQ {
     background-color: $color-greybg;
     width: 100%;

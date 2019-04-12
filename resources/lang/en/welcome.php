@@ -76,6 +76,13 @@ return [
         ],
         'more_info' => 'More info'
     ],
+    'blog' => [
+        'title' => 'The blog',
+        'post' => [
+            'footer' => 'Posted on'
+        ],
+        'more' => 'See more'
+    ],
     'footer'     => [
         'about'      => 'About us',
         'help'       => 'Help',

@@ -221,6 +221,8 @@
                 <reviews></reviews>
             </div>
 
+            <blog-posts></blog-posts>
+
             <home-buyer-seller-info></home-buyer-seller-info>
 
             <div class="section-FAQ" id="section-FAQ">

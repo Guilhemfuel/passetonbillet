@@ -90,6 +90,13 @@ return [
             'seemore' => 'Voir le centre d\'aide',
         ],
     ],
+    'blog' => [
+        'title' => 'Le blog',
+        'post' => [
+            'footer' => 'Publié le'
+        ],
+        'more' => 'Voir plus'
+    ],
     'footer' => [
         'about' => 'Qui sommes-nous',
         'help' => 'Aide',
@@ -100,6 +107,5 @@ return [
         'feedback' => 'Donner votre avis',
         'provider_disclaimer' => ' Les marques SNCF, OuiSNCF, OUIGOSNCF, TGV, Prem\'s, Eurostar, Thalys ne sont pas la propriété de PasseTonBillet. Ces termes propriétaires ne sont utilisés que dans un souci de clarté.'
     ]
-
 
 ];
