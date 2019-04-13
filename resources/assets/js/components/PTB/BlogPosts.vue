@@ -27,6 +27,7 @@
                         <a :href="post.link" class="post-link">
                             <div class="card card-blog-post">
                                 <div class="card-body">
+                                    <img alt="PasseTonBillet Blog logo" :src="logo">
 
 
                                     <p v-html="post.title.rendered" class="title">
@@ -34,9 +35,9 @@
                                     </p>
                                 </div>
                                 <div class="card-footer">
-
-                                    {{ trans('welcome.blog.post.footer' )}} {{ new Date(post.date).toDateString() }}
-
+                                    <p class="date">
+                                        {{ trans('welcome.blog.post.footer' )}} {{ new Date(post.date).toDateString() }}
+                                    </p>
                                 </div>
                             </div>
                         </a>
@@ -53,10 +54,13 @@
 
 <script>
 
+    import axios from 'axios'
+
     export default {
 
         data() {
             return {
+                logo: '../../img/ptb-blog-logo.png',
                 posts: null,
                 error: false,
                 loading: true,
@@ -68,15 +72,14 @@
 
         mounted() {
 
-                fetch('https://blog.passetonbillet.fr/wp-json/wp/v2/posts', { mode: 'cors'} )
 
-                .then( response => response.json() )
+                axios.get('https://blog.passetonbillet.fr/wp-json/wp/v2/posts' )
 
-                .then( json => this.posts = json )
+                .then( response => this.posts = response.data )
 
                 .catch( error => { this.error = true; console.error(error) } )
 
-                .finally( () => this.loading = false )
+                .finally( () => { this.loading = false; console.log(this.$root) } )
         }
 
     }

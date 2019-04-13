@@ -379,16 +379,43 @@
 
       .card-body {
         height: 220px;
+        background-color:#FF9600;
+        display: table;
+        padding: 10px;
+
 
         &.loading {
           background: #F5F5F5;
           border-bottom-style: solid;
+        }
+
+        .title {
+          display: table-cell;
+          vertical-align: middle;
+          color: white;
+          font-size: 160%;
+          text-transform: uppercase;
+          text-align: right;
+        }
+
+        img {
+          height: 70px;
+          width: auto;
         }
       }
 
       .card-footer {
         height: 80px;
         background: #FFFFFF;
+        text-align: center;
+        display: table;
+
+
+        .date {
+          display: table-cell;
+          vertical-align: middle;
+          color: #000000;
+        }
       }
     }
 
