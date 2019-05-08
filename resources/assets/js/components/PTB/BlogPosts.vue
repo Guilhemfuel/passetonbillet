@@ -1,24 +1,25 @@
 <template>
     <div class="section-blog-posts">
-        <div class="container-fluid text-center">
+        <div class="container-fluid text-center pt-4">
             <h2 class="text-uppercase text-center text-warning font-weight-bold">
                 {{ trans('welcome.blog.title') }}
             </h2>
-            <div class="row px-5">
+            <div class="row px-5 mb-4 mt-4">
 
                 <template v-if="loading">
                     <div v-for="n in 3" :key="n" class="px-2 col-12 col-sm-6 col-md-4">
-                        <div class="card card-blog-post">
-                            <a href="https://blog.passetonbillet.fr/" class="post-link">
-
-                                <div class="loading card-body">
-
+                        <a href="#" class="post-link">
+                            <div class="card card-blog-post">
+                                <div class="card-body">
+                                    <div class="image-container">
+                                        <img class="logo-blog" alt="PasseTonBillet Blog logo" >
+                                    </div>
+                                    <div class="card-footer px-2">
+                                        <p class="post-title"></p>
+                                    </div>
                                 </div>
-                                <div class="card-footer">
-
-                                </div>
-                            </a>
-                        </div>
+                            </div>
+                        </a>
                     </div>
                 </template>
 
@@ -27,17 +28,12 @@
                         <a :href="post.link" class="post-link">
                             <div class="card card-blog-post">
                                 <div class="card-body">
-                                    <img alt="PasseTonBillet Blog logo" :src="logo">
-
-
-                                    <p v-html="post.title.rendered" class="title">
-
-                                    </p>
-                                </div>
-                                <div class="card-footer">
-                                    <p class="date">
-                                        {{ trans('welcome.blog.post.footer' )}} {{ new Date(post.date).toDateString() }}
-                                    </p>
+                                    <div class="image-container" :style="getPostStyle(post)">
+                                        <img class="logo-blog" alt="PasseTonBillet Blog logo" :src="logoUrl">
+                                    </div>
+                                    <div class="card-footer px-2">
+                                        <p v-html="post.title.rendered" class="post-title"></p>
+                                    </div>
                                 </div>
                             </div>
                         </a>
@@ -54,32 +50,52 @@
 
 <script>
 
-    import axios from 'axios'
-
     export default {
 
         data() {
             return {
-                logo: '../../img/ptb-blog-logo.png',
+                logoUrl: '../../img/ptb-blog-logo.png',
                 posts: null,
                 error: false,
                 loading: true,
+                blogUrl: 'https://blog.passetonbillet.fr/wp-json/wp/v2/posts?_embed',
             }
 
         },
 
         computed: { },
 
+        methods: {
+            getPostImage(post){
+                if ('_embedded' in post && 'wp:featuredmedia' in post._embedded && post._embedded['wp:featuredmedia'].length > 0 ){
+                    return post._embedded['wp:featuredmedia'][0]['source_url'];
+                }
+                return null;
+            },
+            getPostStyle(post) {
+                let postImage = this.getPostImage(post);
+
+                if (postImage) {
+                    return 'background-image: url("'+postImage+'")'
+                }
+                else{
+                    return null;
+                }
+            }
+        },
+
         mounted() {
 
+            this.$http.get(this.blogUrl).then(response => {
+                this.posts = response.data;
 
-                axios.get('https://blog.passetonbillet.fr/wp-json/wp/v2/posts' )
+            }, response => {
+                this.posts = [];
+                this.error = true;
+            }).then(() => {
+                this.loading = false;
+            });
 
-                .then( response => this.posts = response.data )
-
-                .catch( error => { this.error = true; console.error(error) } )
-
-                .finally( () => { this.loading = false; console.log(this.$root) } )
         }
 
     }
