@@ -27,6 +27,9 @@
                     <div class="col-sm-4 col-12">
                         <a class="text-white" href="{{route('privacy.page')}}">@lang('welcome.footer.privacy')</a>
                     </div>
+                    <div class="col-sm-4 col-12">
+                        <a class="text-white" href="https://blog.passetonbillet.fr">@lang('welcome.blog.title')</a>
+                    </div>
                 </div>
                 </div>
             </div>

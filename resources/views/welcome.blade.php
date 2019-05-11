@@ -223,6 +223,8 @@
 
             <home-buyer-seller-info></home-buyer-seller-info>
 
+            <blog-posts></blog-posts>
+
             <div class="section-FAQ" id="section-FAQ">
                 <h2 class="text-center text-warning title FAQ-title">{{__('welcome.FAQ.title')}}</h2>
                 <div>

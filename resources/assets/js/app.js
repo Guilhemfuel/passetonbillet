@@ -71,6 +71,7 @@ Vue.component('notifications', require('./components/PTB/Notifications.vue'));
 Vue.component('settings', require('./components/PTB/Settings.vue'));
 Vue.component('ticket', require('./components/PTB/Ticket.vue'));
 Vue.component('ticket-mini', require('./components/PTB/Ticket-Mini.vue'));
+Vue.component('blog-posts', require('./components/PTB/BlogPosts.vue'));
 
 /**
  * Page components

@@ -18,7 +18,7 @@ return [
     'review_request'          => 'Aidez-nous à améliorer notre service',
 
     'message'                 => 'Vous avez reçu un nouveau message',
-    'welcome'                 => 'Binvenue sur PasseTonBillet',
+    'welcome'                 => 'Bienvenue sur PasseTonBillet',
     
     'contact_success'         => 'Message envoyé! Nous vous recontacterons dès que possible!',
 
