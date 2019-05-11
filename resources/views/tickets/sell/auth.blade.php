@@ -13,7 +13,7 @@
             @if(Auth::user()->phone_verified)
 
                 @if (Auth::user()->id_uploaded)
-                    <sell-ticket :api="child.sell_tickets.api" :lang="child.sell_tickets.lang" :user="user" :routes="child.sell_tickets.routes"></sell-ticket>
+                    <sell-ticket :api="child.sell_tickets.api" :user="user" :routes="child.sell_tickets.routes"></sell-ticket>
                 @else
 
                     {{-- Verify identity--}}
@@ -167,7 +167,6 @@
 @endsection
 
 <?php
-    $lang = Lang::get( 'tickets' );
     $routes = [
         'tickets' => [
             'sell' => route( 'public.ticket.sell.post' )
@@ -184,7 +183,6 @@
                     search: '{!! route('api.tickets.search') !!}'
                 }
             },
-            lang: {!!json_encode($lang)!!},
             routes: {!! json_encode($routes) !!},
             optionsType: {!! json_encode([
                 [

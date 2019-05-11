@@ -7,6 +7,7 @@ use App\Exceptions\EurostarException;
 use App\Exceptions\PasseTonBilletException;
 use App\Facades\Amplitude;
 use App\Facades\AppHelper;
+use App\Facades\Izy;
 use App\Facades\Sncf;
 use App\Facades\Thalys;
 use App\Http\Requests\BuyTicketsRequest;
@@ -27,6 +28,7 @@ use App\Models\Statistic;
 use App\Notifications\OfferNotification;
 use App\Ticket;
 use App\Train;
+use App\Trains\TrainConnector;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Facades\Eurostar;
@@ -171,19 +173,6 @@ class TicketController extends Controller
 
         $ticket = $tickets[ $request->index ];
 
-        // Make sure price doesn't over exceed original price
-        if ( $ticket->provider == 'eurostar' && $ticket->bought_price == 0 ) {
-            if ( $request->price > 70 ) {
-                flash( __( 'tickets.sell.errors.max_value' ) )->error()->important();
-
-                return redirect()->route( 'public.ticket.sell.page' );
-            }
-        } else if ( $ticket->bought_price < $request->price ) {
-            flash( __( 'tickets.sell.errors.max_value' ) )->error()->important();
-
-            return redirect()->route( 'public.ticket.sell.page' );
-        }
-
         // Make sure we don't have such a ticket yet
         $oldTicket = Ticket::withScams()
                            ->withTrashed()
@@ -193,8 +182,8 @@ class TicketController extends Controller
                            ->where( 'buyer_name', $ticket->buyer_name )
                            ->where( 'ticket_number', $ticket->ticket_number )
                            ->first();
-        if ( $oldTicket ) {
 
+        if ( $oldTicket ) {
             // Scammers tend to try to put on sale tickets already on the website, so we create a warning if that happens
             AdminWarning::create( [
                 'action' => AdminWarning::TRY_TO_RESALE_TICKET,
@@ -219,12 +208,6 @@ class TicketController extends Controller
         $ticket->user_notes = $request->notes;
         $ticket->save();
 
-        // Log the IP of the seller
-        AppHelper::stat( 'add_ticket', [
-            'ticket_id'  => $ticket->id,
-            'ip_address' => $request->ip(),
-        ] );
-
         Amplitude::logEvent( 'add_ticket', [
             'ticket_id'       => $ticket->id,
             'ticket_provider' => $ticket->provider
@@ -234,7 +217,7 @@ class TicketController extends Controller
         DownloadTicketPdf::dispatch( $ticket );
 
         // Dispatch ticket added event
-        event(new TicketAddedEvent($ticket));
+        event( new TicketAddedEvent( $ticket ) );
 
         flash( __( 'tickets.sell.success' ) )->success()->important();
 
@@ -341,7 +324,7 @@ class TicketController extends Controller
 
 
         // If the user lowers the ticket price a lot
-        if ($request->price <= CheckPriceTicketAddedListener::TICKET_WARNING_PRICE && $request->price <= $ticket->bought_price ){
+        if ( $request->price <= CheckPriceTicketAddedListener::TICKET_WARNING_PRICE && $request->price <= $ticket->bought_price ) {
             AdminWarning::create( [
                 'action' => AdminWarning::STRANGELY_LOW_TICKET_PRICE,
                 'link'   => route( 'tickets.edit', $ticket->id ),
@@ -377,7 +360,7 @@ class TicketController extends Controller
     {
         $ticket = Ticket::find( $ticket_id );
         // Make sure allowed user
-        if ( ! $ticket || $ticket->passed || ($ticket->buyer->id != \Auth::user()->id && !\Auth::user()->isAdmin() ) ) {
+        if ( ! $ticket || $ticket->passed || ( $ticket->buyer->id != \Auth::user()->id && ! \Auth::user()->isAdmin() ) ) {
             flash( __( 'common.error' ) )->error()->important();
 
             return redirect()->route( 'public.ticket.owned.page' );
@@ -417,49 +400,40 @@ class TicketController extends Controller
      */
     public function searchTickets( SearchTicketsRequest $request )
     {
-        // Lock to family name
-        if ( ! \Auth::user()->isAdmin() && AppHelper::removeAccents( $request->last_name ) != AppHelper::removeAccents( \Auth::user()->last_name ) ) {
-            throw new PasseTonBilletException( 'No tickets were found.' );
-        }
+        // List of connectors and their Facades
+        $connectors = [
+            \App\Trains\Eurostar::class => Eurostar::class,
+            \App\Trains\Sncf::class     => Sncf::class,
+            \App\Trains\Thalys::class   => Thalys::class,
+            \App\Trains\Izy::class      => Izy::class
+        ];
 
-        if ( \Auth::user()->isAdmin() ) {
+        $tickets = null;
+        // Try each connector until you find a correct result
+        foreach ( $connectors as $connector => $facade ) {
 
-            try {
-                $ticketArray = Eurostar::retrieveTicket( $request->last_name, $request->booking_code );
-            } catch ( PasseTonBilletException $e ) {
-                try {
-                    $ticketArray = Sncf::retrieveTicket( $request->last_name, $request->booking_code );
-                } catch ( PasseTonBilletException $e ) {
-                    $ticketArray = Thalys::retrieveTicket( $request->last_name, $request->booking_code );
-                }
+            // Only search for classic providers (with name) if email not specified
+            if ( ( $request->email == '' || is_null( $request->email ) )
+                 && ! in_array( $connector::PROVIDER, TrainConnector::CLASSIC_PROVIDERS ) ) {
+                continue;
             }
 
-            $tickets = collect( $ticketArray );
-
-        } else {
-
-            AppHelper::stat( 'retrieve_tickets', [
-                'name'         => \Auth::user()->last_name,
-                'booking_code' => $request->booking_code,
-            ] );
-
-            Amplitude::logEvent( 'retrieve_tickets', [
-                'name'         => \Auth::user()->last_name,
-                'booking_code' => $request->booking_code,
-            ] );
-
+            // Query tickets for provider,
             try {
-                $ticketArray = Eurostar::retrieveTicket( \Auth::user()->last_name, $request->booking_code );
+                $tickets = $facade::retrieveTicket( $request->email, $request->last_name, $request->booking_code );
+                break;
             } catch ( PasseTonBilletException $e ) {
-                try {
-                    $ticketArray = Sncf::retrieveTicket( \Auth::user()->last_name, $request->booking_code );
-                } catch ( PasseTonBilletException $e ) {
-                    $ticketArray = Thalys::retrieveTicket( \Auth::user()->last_name, $request->booking_code );
-                }
+                continue;
             }
-
-            $tickets = collect( $ticketArray );
         }
+
+        $tickets = collect( $tickets );
+
+        Amplitude::logEvent( 'retrieve_tickets', [
+            'name'            => \Auth::user()->last_name,
+            'booking_code'    => $request->booking_code,
+            'result(s)_count' => count( $tickets )
+        ] );
 
         // All tickets expired
         if ( count( $tickets ) == 0 ) {

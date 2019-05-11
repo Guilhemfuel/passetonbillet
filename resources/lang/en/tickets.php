@@ -138,8 +138,10 @@ return [
         'step_1'            => 'Step 1/2: find your ticket',
         'description'       => 'Selling a ticket is very easy and super quick. All we need to do is to enter your name and your booking code. All the tickets corresponding to your specific booking will appear and you only have to select those that you want to sell.',
         'inputs'            => [
+            'first_name'    => 'First Name of any passenger',
             'last_name'    => 'Last name of any passenger',
-            'booking_code' => 'Booking code, eg: QNUSHT',
+            'email'        => 'Email used for the booking',
+            'booking_code' => 'Booking code',
             'price'        => 'Selling price',
             'notes'        => 'Your can write notes here about this ticket...'
         ],
@@ -149,7 +151,7 @@ return [
         'searching'         => 'Searching for your tickets...',
         'select'            => 'Hooray ! We found your tickets. Select the ticket you want to sell.',
         'step_2'            => 'Step 2/2: Fill selling details',
-        'details'           => 'We\'re almost done! Just enter your selling price. Note that selling price can\'t exceed original price. You can preview your changes directly on the ticket.',
+        'details'           => 'We\'re almost done! Just enter your selling price. You can preview your changes directly on the ticket.',
         'submit'            => 'Sell ticket',
         'preview'           => 'Ticket Preview',
         'errors'            => [
@@ -184,7 +186,8 @@ return [
             'title'          => 'Your Ticket Details',
             'fail_retrieval' => [
                 'title'   => 'No tickets found with this booking code.',
-                'message' => 'Unfortunately, we couldn\'nt find any ticket with this booking code.'
+                'message' => 'Unfortunately, we couldn\'nt find any ticket with this booking code.',
+                'message_extra_fields' => 'We could\'nt find your ticket. Let us know the email address you used for the booking and try again.',
             ],
             'text'           => "If you wish to sell a print-at-station ticket, or if we couldn't retrieve your ticket with your booking code, you simply have to fill this form.",
             'back_link'      => 'You have your booking code? Click here to automatically retrieve your ticket!',
@@ -206,7 +209,7 @@ return [
                 'currency'          => 'Currency',
                 'bought_price'      => 'Buying price',
                 'price'             => 'Selling price',
-                'cgu'               => 'I have read and accept the <a href="' . route( 'cgu.page' ) . '" target="blank" >general terms and conditions</a>. I swear that I\'m not making any profit selling this ticket.'
+                'cgu'               => 'I have read and accept the <a href="' . route( 'cgu.page' ) . '" target="blank" >general terms and conditions</a>.'
 
             ]
 
