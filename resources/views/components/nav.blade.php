@@ -1,5 +1,5 @@
 <nav class="navbar navbar-light navbar-expand" id="nav-bar">
-    <div class="container">
+    <div class="container px-2 px-md-0">
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">

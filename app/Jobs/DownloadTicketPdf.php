@@ -50,6 +50,8 @@ class DownloadTicketPdf implements ShouldQueue
             case 'thalys':
                 Thalys::downloadAndReuploadPDF( $this->ticket );
                 break;
+            default:
+                return;
         }
     }
 

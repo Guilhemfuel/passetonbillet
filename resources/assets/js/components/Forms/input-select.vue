@@ -10,8 +10,8 @@
         >
         <el-custom-select v-model="value" placeholder="Select"
                    :class="{'invalid':errors.has(name),'animated pulse':pulse&&errors.has(name)}"
-                  @change="emitChange"
-                @input="emitInput"
+                  @change="emitChange" @input="emitInput"
+                  @focus="$emit('focus');" @blur="$emit('blur');"
         >
             <el-option
                     v-for="item in options"

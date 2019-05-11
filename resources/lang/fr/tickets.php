@@ -41,7 +41,7 @@ return [
         'download'                  => 'Télécharger',
         'eurostar_ticket_number'    => 'Numéro du billet',
 
-        'status'   => [
+        'status' => [
             'awaiting' => 'En Attente',
             'accepted' => 'Acceptée',
             'refused'  => 'Refusée'
@@ -59,7 +59,7 @@ return [
 
         'buying_actions' => [
             'offer' => [
-                'btn' => 'Envoyer une offre',
+                'btn'          => 'Envoyer une offre',
                 'back_to_call' => 'Appeler le vendeur directement'
             ],
             'call'  => [
@@ -121,10 +121,10 @@ return [
 
         'public' => [
 
-            'title' => 'Revendre un billet de train SNCF, OuiGo, Eurostar, Thalys avec PasseTonBillet.fr',
+            'title'            => 'Revendre un billet de train SNCF, OuiGo, Eurostar, Thalys avec PasseTonBillet.fr',
             'meta_description' => 'Vous avez un billet de train à revendre (Billet SNCF, Prems, e-billet, Eurostar, Thalys...). Sur PasseTonBillet.fr, il sera vendu dans la journée ! c\'est gratuit et très rapide.',
-            'subtitle' => 'Billets SNCF, Billets Eurostar, Billets Prems, Billets Thalys, Billets OuiGo',
-            'favorites' => [
+            'subtitle'         => 'Billets SNCF, Billets Eurostar, Billets Prems, Billets Thalys, Billets OuiGo',
+            'favorites'        => [
                 'title'    => 'Revendez votre billet en 1 clic',
                 'subtitle' => 'Revendre un billet London, Paris, Lyon, Marseille, ou autre sur PasseTonBillet.fr .'
             ],
@@ -142,8 +142,10 @@ return [
         'step_1'            => 'Étape 1/2: Retrouver votre billet',
         'description'       => 'Vendre un billet est très simple et très rapide. Tout ce que vous avez à faire est d\'entrer votre nom de famille ainsi que votre numéro de réservation. Tous les tickets correspondants à cette reservation vont alors aparaître et vous n\'aurez plus qu\'à séléctionner ceux que vous souhaitez mettre en vente.',
         'inputs'            => [
+            'first_name'   => 'Prénom de famille associé à la reservation',
             'last_name'    => 'Nom de famille associé à la reservation',
-            'booking_code' => 'Référence de réservation, ex: QNUSHT',
+            'email'        => 'Addresse email utilisée pour la reservation',
+            'booking_code' => 'Référence de réservation',
             'price'        => 'Prix de vente',
             'notes'        => 'Vous pouvez écrire ici une description pour ce billet...'
         ],
@@ -153,7 +155,7 @@ return [
         'searching'         => 'Recherche de vos billets...',
         'select'            => 'Hooray ! Nous avons trouvé vos billets. Selectionnez le billet que vous souhaitez vendre.',
         'step_2'            => 'Étape 2/2: Compléter les informations sur la vente',
-        'details'           => 'Nous avons presque terminé! Il ne vous reste qu\'à indiquer votre prix. Le prix de vente ne peut pas excéder le prix originel d\'achat. Vous pouvez prévisualiser vos changement directement sur le billet.',
+        'details'           => 'Nous avons presque terminé! Il ne vous reste qu\'à indiquer votre prix. Vous pouvez prévisualiser vos changement directement sur le billet.',
         'submit'            => 'Vendre le billet',
         'preview'           => 'Prévisualisation du billet',
         'errors'            => [
@@ -186,8 +188,9 @@ return [
             'link'           => 'Vous n\'avez pas de numéro de réservation? Cliquer ici pour rentrer les informations de votre billet manuellement.',
             'title'          => 'Ajout Manuel de Billet',
             'fail_retrieval' => [
-                'title'   => 'Aucun résultat trouvé pour votre combinaison nom/réservation.',
-                'message' => 'Malheuresment, nous n\'avons trouvé aucun billet.'
+                'title'                => 'Aucun résultat trouvé pour votre combinaison nom/réservation.',
+                'message'              => 'Malheuresment, nous n\'avons trouvé aucun billet.',
+                'message_extra_fields' => 'Aucun billet n\'a été trouvé. Merci de préciser l\'email utilisé pour la réservation, et d\'essayer à nouveau.'
             ],
             'text'           => "Si vous souhaitez vendre un billet cartonné, ou que nous n'avons pas pu retrouver votre billet, il vous suffit de remplir ce formulaire.",
             'back_link'      => 'Vous avez votre numéro de réservation? Cliquez ici pour retrouver votre billet automatiquement.',
@@ -209,7 +212,7 @@ return [
                 'currency'          => 'Devise',
                 'bought_price'      => 'Prix d\'achat',
                 'price'             => 'Prix de vente',
-                'cgu'               => 'Je reconnais avoir pris connaissance des <a href="' . route( 'cgu.page' ) . '" target="blank" >conditions d\'utilisation</a> et je les accepte sans réserves. Je m\'engage notamment à ne pas revendre le billet à un tarif plus élevé que le prix d\'achat.'
+                'cgu'               => 'Je reconnais avoir pris connaissance des <a href="' . route( 'cgu.page' ) . '" target="blank" >conditions d\'utilisation</a> et je les accepte sans réserves.'
             ]
         ]
     ],

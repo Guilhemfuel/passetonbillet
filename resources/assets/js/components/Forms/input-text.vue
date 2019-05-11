@@ -3,6 +3,13 @@
         <template v-if="type!='checkbox'">
             <label v-if="label" :for="name">
                 {{label}}
+                <el-tooltip class="item"
+                            effect="dark"
+                            :content="help"
+                            placement="top" v-if="help">
+                    <i class="fa fa-question-circle" aria-hidden="true"></i>
+                </el-tooltip>
+
             </label>
             <input :type="type"
                    :class="{'form-control':true,'invalid':errors.has(name),'animated pulse':pulse&&errors.has(name)}"
@@ -13,8 +20,11 @@
                    v-model="inputValue"
                    @change="emitChange"
                    @input="emitInput"
+                   @focus="$emit('focus');" @blur="$emit('blur');"
+
             >
         </template>
+
         <!-- For checkbox only (label required) -->
         <label v-else-if="label && type=='checkbox'" :for="name">
             <input :type="type"
@@ -26,6 +36,8 @@
                    v-model="inputValue"
                    @change="emitChange"
                    @input="emitInput"
+                   @focus="$emit('focus');" @blur="$emit('blur');"
+
             >
             <span class="pl-1" v-html="label"></span>
         </label>
@@ -48,6 +60,7 @@
             validation: {required: false, type: String},
             placeholder: {required: false, type: String},
             oldValue: {required: false, type: Boolean, default: true},
+            help: {required: false, type: String, default: null},
         },
         computed: {
             getClass(){
