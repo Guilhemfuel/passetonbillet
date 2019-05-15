@@ -54,7 +54,7 @@
                     </button>
                 </div>
                 <div>
-                    <ticket :ticket="child.auth.ticket" :lang="child.auth.langTickets.component" class-name="mb-0 mt-4 max-sized no-border"></ticket>
+                    <ticket :ticket="child.auth.ticket" :lang="child.auth.langTickets.component" :buying="true" class-name="mb-0 mt-4 max-sized no-border"></ticket>
                 </div>
             </div>
         </div>

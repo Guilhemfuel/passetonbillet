@@ -10,6 +10,8 @@ return [
 
     'component' => [
         'buy'                       => 'Buy',
+        'contact'                   => 'Contact',
+        'call'                      => 'Call',
         'sell'                      => 'Sell this ticket',
         'sold_by'                   => 'Published {{days}} ago by',
         'sold_by_sm'                => 'Published by',
@@ -59,7 +61,7 @@ return [
 
         'buying_actions' => [
             'offer' => [
-                'btn' => 'Send an offer',
+                'btn'          => 'Send an offer',
                 'back_to_call' => 'Call Seller'
             ],
             'call'  => [
@@ -111,8 +113,8 @@ return [
         ],
 
         'edit_price_modal' => [
-            'title' => 'Edit price of your ticket',
-            'text' => 'You can change the price of your ticket at any moment. Just as when you put it on PasseTonBiller for the first time, the price can\'t exceed the original price.',
+            'title'  => 'Edit price of your ticket',
+            'text'   => 'You can change the price of your ticket at any moment. Just as when you put it on PasseTonBiller for the first time, the price can\'t exceed the original price.',
             'submit' => 'Save Changes'
         ]
 
@@ -121,24 +123,24 @@ return [
         'title' => 'Sell a ticket',
 
         'public' => [
-          'title' => 'Resell SNCF, OuiGo, Eurostar, or Thalys train tickets on PasseTonBillet.fr',
-          'meta_description' => 'You have a train ticket to resell (Billet SNCF, Prems, e-billet, Eurostar, Thalys...). On PasseTonBillet.fr, you will sell it in less than a day ! It\'s fast and free.',
-          'subtitle' => 'We currrently support all major ticket types, including SNCF, Eurostar, Prems, Thalys, and OuiGo',
-            'favorites' => [
-                'title' => 'Sell you ticket in 1 click',
+            'title'            => 'Resell SNCF, OuiGo, Eurostar, or Thalys train tickets on PasseTonBillet.fr',
+            'meta_description' => 'You have a train ticket to resell (Billet SNCF, Prems, e-billet, Eurostar, Thalys...). On PasseTonBillet.fr, you will sell it in less than a day ! It\'s fast and free.',
+            'subtitle'         => 'We currrently support all major ticket types, including SNCF, Eurostar, Prems, Thalys, and OuiGo',
+            'favorites'        => [
+                'title'    => 'Sell you ticket in 1 click',
                 'subtitle' => 'Sell a ticket from London, Paris, Marseille, Lyon, or any where else.'
             ],
-            'reviews' => 'Our reviews',
-            'recent' => 'Recent tickets',
-            'question' => 'Do you have a non-exchangeable/non-refundable train ticket to resell?',
-            'subquestion' => 'PasseTonBillet.fr specialises in the resale of used train tickets. With PasseTonBillet, passengers can easily: ',
-            'video_title' => 'Selling tickets at PasseTonBillet'
+            'reviews'          => 'Our reviews',
+            'recent'           => 'Recent tickets',
+            'question'         => 'Do you have a non-exchangeable/non-refundable train ticket to resell?',
+            'subquestion'      => 'PasseTonBillet.fr specialises in the resale of used train tickets. With PasseTonBillet, passengers can easily: ',
+            'video_title'      => 'Selling tickets at PasseTonBillet'
         ],
 
         'step_1'            => 'Step 1/2: find your ticket',
         'description'       => 'Selling a ticket is very easy and super quick. All we need to do is to enter your name and your booking code. All the tickets corresponding to your specific booking will appear and you only have to select those that you want to sell.',
         'inputs'            => [
-            'first_name'    => 'First Name of any passenger',
+            'first_name'   => 'First Name of any passenger',
             'last_name'    => 'Last name of any passenger',
             'email'        => 'Email used for the booking',
             'booking_code' => 'Booking code',
@@ -185,8 +187,8 @@ return [
             'link'           => 'You don\'t have a booking code? Click here to manually fill your ticket details.',
             'title'          => 'Your Ticket Details',
             'fail_retrieval' => [
-                'title'   => 'No tickets found with this booking code.',
-                'message' => 'Unfortunately, we couldn\'nt find any ticket with this booking code.',
+                'title'                => 'No tickets found with this booking code.',
+                'message'              => 'Unfortunately, we couldn\'nt find any ticket with this booking code.',
                 'message_extra_fields' => 'We could\'nt find your ticket. Let us know the email address you used for the booking and try again.',
             ],
             'text'           => "If you wish to sell a print-at-station ticket, or if we couldn't retrieve your ticket with your booking code, you simply have to fill this form.",

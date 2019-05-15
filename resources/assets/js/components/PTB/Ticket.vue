@@ -79,31 +79,9 @@
                                :href="route('public.message.discussion.page',[ticket.id, ticket.discussionId])"
                                class="btn btn-ptb btn-buy btn-sm">{{trans('tickets.component.discuss')}}</a>
                         </template>
-                        <!-- Make Offer -->
-                        <template v-else-if="!pastTicket && !display
-                        && $lodash.has(ticket, 'discussionId')
-                        && $lodash.has(ticket, 'offerStatus')
-                        && ticket.offerStatus == -1">
-                            <button class="btn btn-ptb btn-buy btn-sm" @click="editing=true">
-                                {{trans('tickets.component.new_offer')}}
-                            </button>
-                        </template>
-                        <!-- Buy/Sell/Download -->
-                        <template v-else-if="!pastTicket && !display">
-                            <button class="btn btn-ptb btn-buy btn-sm" v-if="!selecting && buying && !offerDone"
-                                    @click="editing=true">
-                                {{trans('tickets.component.buy')}}
-                            </button>
-                            <button class="btn btn-ptb btn-buy btn-sm" v-if="selecting" @click.prevent="sell">
-                                {{trans('tickets.component.sell')}}
-                            </button>
-                            <button class="btn btn-ptb btn-buy btn-sm" v-if="bought" @click="editing=true">
-                                {{trans('tickets.component.infos')}}
-                            </button>
-                        </template>
                         <!-- Edit (in case of buying page, is a link)-->
                         <template
-                                v-if="!pastTicket && (user != null && ticket.user && ticket.user.id == user.id) && !display">
+                                v-else-if="!pastTicket && (user != null && ticket.user && ticket.user.id == user.id) && !display">
 
                             <button class="btn btn-ptb btn-buy btn-sm" @click="editing=true" v-if="!buying">
                                 {{trans('tickets.component.edit')}}
@@ -111,6 +89,53 @@
 
                             <a class="btn btn-ptb btn-buy btn-sm" v-else
                                :href="route('public.ticket.owned.page')">{{trans('tickets.component.edit')}}</a>
+                        </template>
+                        <!-- Make Offer -->
+                        <template v-else-if="!pastTicket && !display
+                        && $lodash.has(ticket, 'discussionId')
+                        && $lodash.has(ticket, 'offerStatus')
+                        && ticket.offerStatus == -1">
+                            <div class="btn-buy row btn-buy-group" v-if="!selecting && buying">
+                                <div class="col text-center p-0">
+                                    <button class="btn btn-ptb btn-sm btn-call"
+                                            @click="callSeller()">
+                                        <i class="fa fa-phone" aria-hidden="true"></i>
+                                        {{trans('tickets.component.call')}}
+                                    </button>
+                                </div>
+                                <div class="col text-center p-0" v-if="!offerDone">
+                                    <button class="btn btn-ptb-white btn-sm text-center btn-contact"
+                                            @click="contactSeller()">
+                                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                                        {{trans('tickets.component.contact')}}
+                                    </button>
+                                </div>
+                            </div>
+                        </template>
+                        <!-- Buy/Sell/Download -->
+                        <template v-else-if="!pastTicket && !display">
+                            <div class="btn-buy row btn-buy-group" v-if="!selecting && buying">
+                                <div class="col text-center p-0">
+                                    <button class="btn btn-ptb btn-sm btn-call"
+                                            @click="callSeller()">
+                                        <i class="fa fa-phone" aria-hidden="true"></i>
+                                        {{trans('tickets.component.call')}}
+                                    </button>
+                                </div>
+                                <div class="col text-center p-0" v-if="!offerDone">
+                                    <button class="btn btn-ptb-white btn-sm text-center btn-contact"
+                                            @click="contactSeller()">
+                                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                                        {{trans('tickets.component.contact')}}
+                                    </button>
+                                </div>
+                            </div>
+                            <button class="btn btn-ptb btn-buy btn-sm" v-if="selecting" @click.prevent="sell">
+                                {{trans('tickets.component.sell')}}
+                            </button>
+                            <button class="btn btn-ptb btn-buy btn-sm" v-if="bought" @click="editing=true">
+                                {{trans('tickets.component.infos')}}
+                            </button>
                         </template>
 
                         <div class="price" v-if="!selecting">
@@ -285,34 +310,27 @@
                             </div>
 
                             <!-- Call of offer -->
-                            <div v-if="buyingState == 'default'" class="buying-actions">
-                                <button class="btn btn-block btn-ptb mt-3 mb-2" @click="callSeller()">
-                                    {{trans('tickets.component.buying_actions.call.btn')}}
-                                </button>
-                                <button class="btn btn-block btn-outline-orange" @click="buyingState='offer'">
-                                    {{trans('tickets.component.buying_actions.offer.btn')}}
-                                </button>
-                            </div>
-                            <div class="text-center pt-3" v-else-if="buyingState == 'call'">
+                            <div class="text-center pt-3" v-if="buyingState == 'call'">
                                 <template v-if="contactNumber!=null">
-                                    <a :href="'tel:'+contactNumber" class="btn btn-ptb btn-block btn-contact-phone">
+                                    <a :href="'tel:'+contactNumber" class="btn btn-ptb btn-block btn-contact-phone mb-3">
                                         <i class="fa fa-phone" aria-hidden="true"></i> {{contactNumber}}
                                     </a>
                                 </template>
                                 <template v-else>
-                                    <button class="btn btn-ptb btn-block btn-contact-phone" @click="callSeller()">
+                                    <button class="btn btn-ptb btn-block btn-contact-phone mb-3" @click="callSeller()">
                                         {{trans('tickets.component.buying_actions.call.refresh')}}
                                     </button>
                                 </template>
                                 <p class="pricing mb-0">{{trans('tickets.component.buying_actions.call.pricing')}}</p>
-                                <p class="data-protection">{{trans('tickets.component.buying_actions.call.data_protection')}}</p>
+                                <p class="data-protection">
+                                    {{trans('tickets.component.buying_actions.call.data_protection')}}</p>
                             </div>
                             <div v-else-if="buyingState == 'offer'">
                                 <template v-if="state=='default'">
 
                                     <form class="row mt-2" v-if="state=='default'">
                                         <div class="col-12">
-                                            <div class="row">
+                                            <div class="row mt-3 mb-2">
                                                 <div class="col-6 input-group">
                                                     <span class="input-group-addon">{{ticket.currency_symbol}}</span>
                                                     <input type="text"
@@ -324,7 +342,8 @@
                                                            v-validate="'required|numeric|min_value:0|max_value:'+ticket.price">
                                                 </div>
                                                 <div class="col-6 pl-0">
-                                                    <button class="btn btn-ptb btn-block px-1" @click.prevent="makeOffer">
+                                                    <button class="btn btn-ptb btn-block px-1"
+                                                            @click.prevent="makeOffer">
                                                         {{trans('tickets.component.send_offer')}}
                                                     </button>
                                                 </div>
@@ -338,7 +357,7 @@
                                                     {{trans('tickets.component.if_interested')}}
                                                 </span>
                                             </p>
-                                            <button class="btn btn-block btn-outline-orange" @click="callSeller()">
+                                            <button class="btn btn-block btn-outline-orange" @click.prevent="callSeller()">
                                                 {{trans('tickets.component.buying_actions.call.btn')}}
                                             </button>
                                         </div>
@@ -349,11 +368,14 @@
                                 </div>
                                 <template v-else-if="state=='offered'">
                                     <p class="text-center mt-2">{{trans('tickets.component.offer_sent')}}</p>
-                                    <p class="text-center"><a href="#" @click.prevent="callSeller">{{trans('tickets.component.buying_actions.offer.back_to_call')}}</a></p>
+                                    <p class="text-center"><a href="#"
+                                                              @click.prevent="callSeller">{{trans('tickets.component.buying_actions.offer.back_to_call')}}</a>
+                                    </p>
                                 </template>
                                 <template v-else-if="state=='register'">
                                     <p class="text-center must-register">{{trans('tickets.component.register')}}</p>
-                                    <a class="btn btn-ptb btn-block text-white" :href="route('register.page')+'?source=guest-offer'">
+                                    <a class="btn btn-ptb btn-block text-white"
+                                       :href="route('register.page')+'?source=guest-offer'">
                                         {{trans('tickets.component.register_cta')}}
                                     </a>
                                     <button class="btn btn-block btn-outline-orange" @click="callSeller()">
@@ -427,6 +449,10 @@
                                  data-width="300" data-show-social-context="true" data-show-metadata="false"
                                  v-if="ticket.provider=='eurostar'"></div>
 
+                            <div class="fb-group" data-href="https://www.facebook.com/groups/5042721942/"
+                                 data-width="300" data-show-social-context="true" data-show-metadata="false"
+                                 v-if="ticket.provider=='thalys' || ticket.provider=='izy'"></div>
+
                             <div class="fb-group" data-href="https://www.facebook.com/groups/reventebilletprems/"
                                  data-width="300" data-show-social-context="true" data-show-metadata="false"
                                  v-else></div>
@@ -474,7 +500,7 @@
                 editing: false,
                 priceOffer: this.ticket.price,
                 state: 'default',
-                buyingState: 'default',
+                buyingState: 'call',
                 contactNumber: null,
                 errorMessage: '',
                 shareModalOpen: this.shareModalDefault,
@@ -521,11 +547,6 @@
                 }
             }
         },
-        watch: {
-            editing: function () {
-                this.buyingState = 'default';
-            }
-        },
         methods: {
             ucFirst(string) {
                 return string.charAt(0).toUpperCase() + string.slice(1);
@@ -544,13 +565,23 @@
                 document.execCommand("Copy");
 
             },
+            contactSeller() {
+                this.buyingState = 'offer';
+                this.editing = true;
+
+                // Log Offer
+                this.$root.logEvent('show_ticket_contact', {
+                    ticket_id: this.ticket.id
+                });
+            },
             callSeller() {
                 this.buyingState = 'call';
+                this.editing = true;
 
                 // Query contact number if null
                 if (this.contactNumber == null) {
 
-                    this.$http.get(this.route('api.tickets.phone_number',{
+                    this.$http.get(this.route('api.tickets.phone_number', {
                         ticket: this.ticket.id
                     })).then((response) => {
                         // Success in offer
@@ -566,17 +597,29 @@
                             // Expire number after 3 minutes
                             setTimeout(() => {
                                 this.contactNumber = null;
-                            }, 3*60*1000);
+                            }, 3 * 60 * 1000);
 
                             return;
                         } else {
-                            this.state = 'default';
-                            this.errorMessage = response.body.message;
+                            this.editing = false;
+                            this.$message({
+                                dangerouslyUseHTMLString: true,
+                                message: response.body.message,
+                                type: 'error',
+                                showClose: true,
+                                duration: 1000
+                            });
                         }
                     }, response => {
                         if (!response.ok) {
-                            this.state = 'default';
-                            this.errorMessage = response.body.message;
+                            this.editing = false;
+                            this.$message({
+                                dangerouslyUseHTMLString: true,
+                                message: response.body.message,
+                                type: 'error',
+                                showClose: true,
+                                duration: 1000
+                            });
                         }
                     });
                 }
