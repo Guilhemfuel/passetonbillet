@@ -33,41 +33,9 @@ class Thalys
     const TIME_FORMAT_DB = 'H:i:s';
     const DATE_FORMAT_DB = 'Y-m-d';
 
-    const THALYS_STATIONS_ID = [
-
-        // Germany
-        6698, // Aachen
-        7573, // Dortmund
-        7576, // Duisburg
-        7575, // Dusseldorf Flughafen
-        7475, // Dusseldorf Hbf
-        7591, // Essen
-        7561, // Koln
-
-        // Belgium
-        5929, // Antwerpeen
-        5893, // BXL - Midi
-        5995, // Liege
-
-        // France
-        233, // Aix
-        485, // Avignon
-        4922, // Paris gare du nord
-        4653, // Lille europe
-        4791, // Marseille
-        5614, // Valence TGV
-
-        // Netherlands
-        5894, // AMS - Centraal
-        8670, // Rotterdam
-        8672, // Schiphol Amsterdam airport
-    ];
-
     public function __construct( Client $customClient = null )
     {
-        $this->retrieveURL = config( 'trains.thalys.booking_url' );
-        $this->preparePDFurl = config( 'trains.thalys.prepare_pdf_url' );
-        $this->pdfUrl = config( 'trains.thalys.pdf_url' );
+        $this->bookingURL = config( 'trains.thalys.booking_url' );
 
         // wrap Guzzle Client in order to throw a EurostarException instead of a ClientException on a request
         $this->client = new class( $customClient )
@@ -124,61 +92,10 @@ class Thalys
     {
         $referenceNumber = strtoupper( $referenceNumber );
 
-        $cookiesJar = new CookieJar();
-
-        $response = $this->client->request(
-            'POST',
-            $this->retrieveURL,
-            [
-                'http_errors' => false,
-                'form_params' => [
-                    'lg'                => 'en',
-                    'country'           => 'be',
-                    'popup_billets_pnr' => $referenceNumber,
-                    'popup_billets_nom' => $lastName
-                ],
-                'cookies'     => $cookiesJar
-            ]
-        );
-
-        $decoded = json_decode( (string) $response->getBody(), true );
-
-
-        if ( ! isset( $decoded['status'] ) || $decoded['status'] != "SUCCESS" ) {
-            throw new ThalysException( 'Nothing found with this name/code combination.' );
-        }
-
-        // Handle errors (if there isn't a trip from a station to another one)
-        if ( $response->getStatusCode() == 500 ) {
-            throw new ThalysException( 'Please try again later.' );
-        }
-
-        $url = $decoded["url"];
-
-        $phpSessId = null;
-        foreach ( $cookiesJar->toArray() as $cookie ) {
-            if ( $cookie["Name"] == 'PHPSESSID' ) {
-                $phpSessId = $cookie['Value'];
-                break;
-            }
-        }
-
-        // If cookie was not found error
-        if ( ! $phpSessId ) {
-            throw new ThalysException( 'Please try again later.' );
-        }
-
         $response = $this->client->request( 'GET',
-            config( 'trains.thalys.base_url' ) . 'fr/en' . substr( $url, 6 ),
+            $this->bookingURL,
             [
                 'http_errors' => false,
-                'headers'     => [
-                    'Cookie'          => "PHPSESSID={$phpSessId};",
-                    'Accept-Encoding' => "gzip, deflate, br",
-                    'Accept'          => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
-                    'User-Agent'      => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36',
-                    'Referer'         => 'https://www.thalys.com/fr/en/services/before/your-train-ticket'
-                ]
             ] );
 
 
