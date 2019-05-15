@@ -27,9 +27,6 @@ return [
     ],
 
     'thalys' => [
-        'base_url'        => env( 'THALYS_BASE_URL', 'https://www.thalys.com/' ),
-        'booking_url'     => env( 'THALYS_BOOKING', 'https://www.thalys.com/?ajax=Services_PopinRecuperation' ),
-        'prepare_pdf_url' => env( 'THALYS_PREPARE_PDF_URL', 'https://www.thalys.com/?ajax=Services_LoadTicketPage&ticket={ticket_id}&pnr={reference}&name={name}' ),
-        'pdf_url'         => env( 'THALYS_PDF_URL', 'https://www.thalys.com/fr/en/services-print-ticket' ),
+        'booking_url'     => env( 'THALYS_BOOKING', 'https://www.thalys.com/api/svoc_tickets/search?PNR={pnr}&LastName={name}' ),
     ]
 ];
