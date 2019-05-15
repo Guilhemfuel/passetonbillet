@@ -10,6 +10,7 @@
 namespace App\Trains;
 
 use App\Ticket;
+use Carbon\Carbon;
 use Exception;
 use App\Station;
 use App\Train;
@@ -149,8 +150,8 @@ class Eurostar extends TrainConnector
 
 
         $trainNumber = $data['info']['trainNumber'];
-        $trainDepartureDate = $data['info']['departureDate'];
-        $trainDepartureTime = $data['info']['departureTime'];
+        $trainDepartureDate = new Carbon($data['info']['departureDate']);
+        $trainDepartureTime = new Carbon($data['info']['departureTime']);
         $trainArrivalDate = $data['info']['arrivalDate'];
         $trainArrivalTime = $data['info']['arrivalTime'];
 

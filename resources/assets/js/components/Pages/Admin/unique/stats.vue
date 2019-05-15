@@ -140,7 +140,7 @@
                 labels: Object.keys(this.datasets['ticketSegmentation']),
                 datasets: [
                     {
-                        backgroundColor: ['#9def80','#7CD3DF','#BB2D3E'],
+                        backgroundColor: ['#9def80','#7CD3DF','#BB2D3E','#CBD300'],
                         data: Object.values(this.datasets['ticketSegmentation'])
                     }
                 ]
