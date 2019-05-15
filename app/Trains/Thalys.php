@@ -9,8 +9,7 @@
 
 namespace App\Trains;
 
-use App\Exceptions\SncfException;
-use App\Exceptions\ThalysException;
+use App\Exceptions\PasseTonBilletException;
 use App\Ticket;
 use Carbon\Carbon;
 use Exception;
@@ -22,10 +21,10 @@ use GuzzleHttp\Exception\ClientException;
 use DiDom\Document;
 use Spatie\Browsershot\Browsershot;
 
-class Thalys
+class Thalys extends TrainConnector
 {
     private $retrieveURL;
-    private $client;
+    protected $client;
 
     const PROVIDER = "thalys";
 
@@ -70,7 +69,7 @@ class Thalys
                     return $this->client->request( $method, $uri, $options );
                 } catch ( Exception $e ) {
                     if ( $e instanceof ClientException ) {
-                        throw new ThalysException( $e->getMessage() );
+                        throw new PasseTonBilletException( $e->getMessage() );
                     }
                     throw $e;
                 }
@@ -86,9 +85,9 @@ class Thalys
      * @param $referenceNumber
      *
      * @return array
-     * @throws ThalysException
+     * @throws PasseTonBilletException
      */
-    public function retrieveTicket( $lastName, $referenceNumber, $past = false )
+    public function retrieveTicket( $email, $lastName, $referenceNumber, $past = false )
     {
         $referenceNumber = strtoupper( $referenceNumber );
 
@@ -104,7 +103,7 @@ class Thalys
 
         // Handle errors (if html containing data was not found)
         if ( ! $document->has( '.travel_wrapper' ) ) {
-            throw new ThalysException( 'Please try again later.' );
+            throw new PasseTonBilletException( 'Please try again later.' );
         }
 
         $travelDataArray = $document->find( '.travel_wrapper' );
@@ -148,10 +147,10 @@ class Thalys
         $arrivalStation = $this->getTrainStation( $lines[1]->find( '.city' )[0]->text() );
 
         if ( $departureStation == null ) {
-            throw new ThalysException( 'Departure station not found.' );
+            throw new PasseTonBilletException( 'Departure station not found.' );
         }
         if ( $arrivalStation == null ) {
-            throw new ThalysException( 'Arrival station not found.' );
+            throw new PasseTonBilletException( 'Arrival station not found.' );
         }
 
         // Now we find ticket id
@@ -283,7 +282,7 @@ class Thalys
             ] );
 
         if ( $response->getStatusCode() != 200 ) {
-            throw new ThalysException( 'Error during preliminary step to retrieve PDF.' );
+            throw new PasseTonBilletException( 'Error during preliminary step to retrieve PDF.' );
         }
 
         // Now get pdf

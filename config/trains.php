@@ -13,6 +13,14 @@ return [
         'api_key_web' => env( 'EUROSTAR_API_KEY_WEB' )
     ],
 
+    'izy' => [
+        // New eurostar api
+        'auth_url'    => env( 'IZY_AUTH', 'https://api.izy.com/oauth/v2/token' ),
+        'booking_url' => env( 'IZY_BOOKING', 'https://api.izy.com/api/mys3/booking/RBLGHA' ),
+        'client_id'   => env( 'IZY_CLIENT_ID', 'OThrdzA4b3ZtcDc3NDN1d2E4NWlvNHcwaDFyNDFmeTg4Mmg3ZWYwMjN0MzJqcXcxMGo6cHNseTM4OTIwazUzYTUyNnBzNDU4a2tjeW92MjU1bXc0cTc5MXk0MnF3czU1cmZoOXo=' ),
+        'grant_type'  => env( 'IZY_GRANT_TYPE', 'https://com.sqills.s3.oauth.booking' )
+    ],
+
     'sncf' => [
         'booking_url' => env( 'SNCF_BOOKING', 'https://en.oui.sncf/vsa/api/order/{country}/{name}/{booking_code}?source=vsa' ),
         'pdf_url'     => env( 'SNCF_PDF', 'https://ebillet.voyages-sncf.com/ticketingServices/public/e-ticket/' )

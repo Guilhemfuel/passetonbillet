@@ -9,7 +9,7 @@
 
 namespace App\Trains;
 
-use App\Exceptions\SncfException;
+use App\Exceptions\PasseTonBilletException;
 use App\Facades\AppHelper;
 use App\Ticket;
 use Carbon\Carbon;
@@ -19,10 +19,10 @@ use App\Train;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 
-class Sncf
+class Sncf extends TrainConnector
 {
     private $retrieveURL;
-    private $client;
+    protected $client;
 
     const PROVIDER = "sncf";
 
@@ -65,7 +65,7 @@ class Sncf
                     return $this->client->request( $method, $uri, $options );
                 } catch ( Exception $e ) {
                     if ( $e instanceof ClientException ) {
-                        throw new SncfException( $e->getMessage() );
+                        throw new PasseTonBilletException( $e->getMessage() );
                     }
                     throw $e;
                 }
@@ -83,7 +83,7 @@ class Sncf
      * @return array
      * @throws PasseTonBilletException
      */
-    public function retrieveTicket( $lastName, $referenceNumber, $past = false )
+    public function retrieveTicket( $email, $lastName, $referenceNumber, $past = false )
     {
         $referenceNumber = strtoupper( $referenceNumber );
 
@@ -109,12 +109,12 @@ class Sncf
         }
 
         if ( ! isset( $decoded['status'] ) || $decoded['status'] != "SUCCESS" ) {
-            throw new SncfException( 'Nothing found with this name/code combination.' );
+            throw new PasseTonBilletException( 'Nothing found with this name/code combination.' );
         }
 
         // Handle errors (if there isn't a trip from a station to another one)
         if ( $response->getStatusCode() == 500 ) {
-            throw new SncfException( 'Please try again later.' );
+            throw new PasseTonBilletException( 'Please try again later.' );
         }
 
         $decoded = $decoded["order"];
@@ -166,10 +166,10 @@ class Sncf
         $trainArrivalStation = Station::where( 'sncf_id', $data['destination']['stationResarailCode'] )->first();
 
         if ( $trainDepartureStation == null ) {
-            throw new SncfException( 'Departure station with code ' . $data['origin']['stationResarailCode'] . ' not found.' );
+            throw new PasseTonBilletException( 'Departure station with code ' . $data['origin']['stationResarailCode'] . ' not found.' );
         }
         if ( $trainArrivalStation == null ) {
-            throw new SncfException( 'Arrival station with code ' . $data['destination']['stationResarailCode'] . ' not found.' );
+            throw new PasseTonBilletException( 'Arrival station with code ' . $data['destination']['stationResarailCode'] . ' not found.' );
         }
 
         // You can sell ticket max two hours before train!
@@ -246,11 +246,11 @@ class Sncf
 
         // Handle errors (if there isn't a trip from a station to another one)
         if ( $response->getStatusCode() != 200 ) {
-            throw new SncfException( 'Please try again later.' );
+            throw new PasseTonBilletException( 'Please try again later.' );
         }
 
         if ( ! isset( $decoded['status'] ) || $decoded['status'] != "SUCCESS" ) {
-            throw new SncfException( 'Nothing found with this name/code combination.' );
+            throw new PasseTonBilletException( 'Nothing found with this name/code combination.' );
         }
 
         $decoded = json_decode( (string) $response->getBody(), true );

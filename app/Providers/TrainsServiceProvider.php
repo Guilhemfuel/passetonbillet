@@ -23,5 +23,8 @@ class TrainsServiceProvider extends ServiceProvider
         $this->app->bind('thalys', function($app) {
             return new \App\Trains\Thalys();
         });
+        $this->app->bind('izy', function($app) {
+            return new \App\Trains\Izy();
+        });
     }
 }

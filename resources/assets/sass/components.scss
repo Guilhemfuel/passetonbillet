@@ -497,6 +497,10 @@ $animation-duration: 0.3s;
   }
 }
 
+.el-tooltip__popper {
+  max-width: 100%;
+}
+
 // Trip picker
 .trip-picker {
   position: relative;

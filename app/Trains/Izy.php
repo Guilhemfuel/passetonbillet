@@ -9,23 +9,23 @@
 
 namespace App\Trains;
 
+use App\Exceptions\PasseTonBilletException;
 use App\Ticket;
+use Carbon\Carbon;
 use Exception;
 use App\Station;
 use App\Train;
 use GuzzleHttp\Client;
-use App\Exceptions\PasseTonBilletException;
 use GuzzleHttp\Exception\ClientException;
 use setasign\Fpdi\Fpdi;
 use setasign\Fpdi\PdfParser\StreamReader;
 
-class Eurostar extends TrainConnector
+class Izy extends TrainConnector
 {
-    private $retrieveURL;
-    private $pdfURL;
-    private $authBookingURL;
-    private $updatePassengersURL;
-    protected $client;
+    private $authURL;
+    private $bookingURL;
+    private $clientID;
+    private $grantType;
 
     const PROVIDER = 'eurostar';
 
@@ -36,10 +36,11 @@ class Eurostar extends TrainConnector
     public function __construct( Client $customClient = null )
     {
 
-        $this->retrieveURL = config( 'trains.eurostar.booking_url' );
-        $this->pdfURL = config( 'trains.eurostar.pdf_url' );
-        $this->authBookingURL = config( 'trains.eurostar.auth_booking_url' );
-        $this->updatePassengersURL = config( 'trains.eurostar.update_passengers_url' );
+        $this->authURL = config( 'trains.izy.auth_url' );
+        $this->bookingURL = config( 'trains.izy.booking_url' );
+        $this->clientID = config( 'trains.izy.client_id' );
+        $this->grantType = config( 'trains.izy.grant_type' );
+
 
         // wrap Guzzle Client in order to throw a PasseTonBilletException instead of a ClientException on a request
         $this->client = new class( $customClient )
@@ -56,9 +57,10 @@ class Eurostar extends TrainConnector
 
                 $this->client = new Client( [
                     'headers' => [
-                        'Content-type' => 'application/json',
-                        'Accept'       => 'application/json',
-                        'x-apikey'     => config( 'trains.eurostar.api_key' )
+                        'Content-type'    => 'application/json',
+                        'Accept'          => 'application/json',
+                        'Accept-Language' => 'en-GB',
+                        'Origin'          => ' https://booking.izy.com'
                     ],
                 ] );
             }
@@ -90,105 +92,133 @@ class Eurostar extends TrainConnector
     public function retrieveTicket( $email, $lastName, $referenceNumber, $past = false )
     {
         $referenceNumber = strtoupper( $referenceNumber );
+        $email = strtolower( $email );
 
+        // First we connect using their Oauth services
         $response = $this->client->request(
-            'GET',
-            $this->retrieveURL . $referenceNumber . '/' . $lastName . '?locale=uk-en',
-            [ 'http_errors' => false ]
+            'POST',
+            $this->authURL,
+            [
+                'body'    => \GuzzleHttp\json_encode( [
+                    "booking_number" => $referenceNumber,
+                    "email"          => $email,
+                    "grant_type"     => $this->grantType
+                ] ),
+                'headers' => [
+                    'Authorization' => 'Basic ' . $this->clientID,
+                    'User-Agent'    => null,
+                ]
+            ]
         );
-
-        if ( ! isset( json_decode( (string) $response->getBody(), true )['booking'] ) ) {
-            throw new PasseTonBilletException( 'Nothing found with this name/code combination.' );
-        }
 
         // Handle errors (if there isn't a trip from a station to another one)
         if ( $response->getStatusCode() == 500 ) {
             throw new PasseTonBilletException( 'Please try again later.' );
         }
 
-        $decoded = json_decode( (string) $response->getBody(), true )['booking'];
+        if ( ! isset( json_decode( (string) $response->getBody(), true )['access_token'] ) ) {
+            throw new PasseTonBilletException( 'Nothing found with this name/code combination.' );
+        }
+
+        $accessToken = json_decode( (string) $response->getBody(), true )['access_token'];
+        $response = $this->client->request(
+            'GET',
+            $this->bookingURL,
+            [
+                'http_errors' => false,
+                'headers'     => [
+                    'Authorization' => 'Bearer ' . $accessToken,
+                    'User-Agent'    => null,
+                ]
+            ]
+        );
+
+        // Handle errors (if there isn't a trip from a station to another one)
+        if ( $response->getStatusCode() == 500 ) {
+            throw new PasseTonBilletException( 'Please try again later.' );
+        }
+
+        if ( ! isset( json_decode( (string) $response->getBody(), true )['booking_number'] ) ) {
+            throw new PasseTonBilletException( 'Nothing found with this name/code combination.' );
+        }
+
+        $data = json_decode( (string) $response->getBody(), true );
 
         // Find tickets
-        if (isset($decoded['contact']) && isset($decoded['contact']['email'])) {
-            $buyerEmail = $decoded['contact']['email'];
-        } elseif (isset($decoded['etapBooking']['passengers'][0]['email'])) {
-            $buyerEmail = $decoded['etapBooking']['passengers'][0]['email'];
-        } else {
-            $buyerEmail = '';
-        }
-        $currency = $decoded['currency'];
-        $returnTickets = $decoded['isReturn'];
-        $passengers = $decoded['passengers'];
+        $buyerEmail = $data['customer']['email'];
+        $currency = $data['currency'];
+        $lastName = $data['customer']['last_name'];
+        $returnTickets = isset( $data['outbound_booking_tariff_segments'] ) && isset( $data['inbound_booking_tariff_segments'] );
 
         $tickets = [];
 
-        foreach ( $passengers as $passenger ) {
+        $ticketInfos = $data['outbound_booking_tariff_segments'];
+        if ( $returnTickets ) {
+            $ticketInfos = array_merge(  $data['inbound_booking_tariff_segments'], $ticketInfos );
+        }
 
-            $outboundInfo = $passenger['outbound']['legs'][0];
+        foreach ( $ticketInfos as $ticketInfo ) {
 
-            $ticket = $this->createTrainAndReturnTicket( $outboundInfo, $currency, $lastName, $referenceNumber, $buyerEmail, true, $past );
+
+            $ticket = $this->createTrainAndReturnTicket( $ticketInfo, $currency, $lastName, $referenceNumber, $buyerEmail, true, $past );
 
             if ( $ticket ) {
                 array_push( $tickets, $ticket );
             }
 
-            if ( $returnTickets ) {
-                $inboundInfo = $passenger['inbound']['legs'][0];
-                $ticketReturn = $this->createTrainAndReturnTicket( $inboundInfo, $currency, $lastName, $referenceNumber, $buyerEmail, false, $past );
-                if ( $ticketReturn ) {
-                    array_push( $tickets, $ticketReturn );
-                }
-            }
         }
 
         return $tickets;
     }
 
+    /**
+     * Given the information, create train and tickets
+     */
     public function createTrainAndReturnTicket( $data, $currency, $lastName, $referenceNumber, $buyerEmail, $outbound = true, $past = false )
     {
 
 
-        $trainNumber = $data['info']['trainNumber'];
-        $trainDepartureDate = $data['info']['departureDate'];
-        $trainDepartureTime = $data['info']['departureTime'];
-        $trainArrivalDate = $data['info']['arrivalDate'];
-        $trainArrivalTime = $data['info']['arrivalTime'];
+        $trainNumber = $data['validity_service'];
 
-        $trainDepartureStation = null;
-        $trainArrivalStation = null;
 
-        $trainDepartureStation = Station::where( 'uic', $data['info']['origin']['code'] )->first();
-        $trainArrivalStation = Station::where( 'uic', $data['info']['destination']['code'] )->first();
+        $firstTravelSegment = $data['booking_journey_segments'][0];
+        $lastTravelSegment = $data['booking_journey_segments'][ count( $data['booking_journey_segments'] ) - 1 ];
 
-        if ( $trainDepartureStation == null ) {
+        $trainDepartureDateTime = $firstTravelSegment['departure_date_time'];
+        $trainArrivalDateTime = $lastTravelSegment['arrival_date_time'];
+
+        $trainDepartureStation = Station::where( 'uic', substr( $firstTravelSegment['departure_station']['_u_i_c_station_code'], 2 ) )->first();
+        $trainArrivalStation = Station::where( 'uic', substr( $firstTravelSegment['arrival_station']['_u_i_c_station_code'], 2 ) )->first();
+
+        if ( ! $trainDepartureStation ) {
             throw new PasseTonBilletException( 'Departure station with code ' . $data['info']['origin']['code'] . ' not found.' );
         }
-        if ( $trainArrivalStation == null ) {
+        if ( ! $trainArrivalStation ) {
             throw new PasseTonBilletException( 'Arrival station with code ' . $data['info']['destination']['code'] . ' not found.' );
         }
 
         // You can sell ticket max two hours before train!
-        if ( $past || ( ( new \DateTime( $trainDepartureDate . ' ' . $trainDepartureTime ) )->modify( '-2 hour' ) >= new \DateTime() ) ) {
+        if ( $past || ( ( new \DateTime( $trainDepartureDateTime ) )->modify( '-2 hour' ) >= new \DateTime() ) ) {
             // We don't consider past tickets
 
             // Create train
             $train = Train::firstOrCreate(
                 [
                     'number'         => $trainNumber,
-                    'departure_date' => $trainDepartureDate,
-                    'departure_time' => date( "H:i:s", strtotime( $trainDepartureTime ) ),
+                    'departure_date' => ( new Carbon( $trainDepartureDateTime ) )->format( self::DATE_FORMAT_DB ),
+                    'departure_time' => ( new Carbon( $trainDepartureDateTime ) )->format( 'H:i:s' ),
                     'departure_city' => $trainDepartureStation->id,
-                    'arrival_date'   => $trainArrivalDate,
-                    'arrival_time'   => date( "H:i:s", strtotime( $trainArrivalTime ) ),
+                    'arrival_date'   => ( new Carbon( $trainArrivalDateTime ) )->format( self::DATE_FORMAT_DB ),
+                    'arrival_time'   => ( new Carbon( $trainArrivalDateTime ) )->format( 'H:i:s' ),
                     'arrival_city'   => $trainArrivalStation->id
                 ]
             );
 
             // Retrieve ticket information
-            $flexibility = $data['fare']['flexibilityLevel'];
-            $class = $data['fare']['classOfService'];
-            $boughtPrice = $data['fare']['totalFarePrice'];
-            $ticketNumber = $data['fare']['tcn'];
+            $flexibility = $data['required_products'][0]['code'];
+            $class = $data['required_products'][0]['name'];
+            $boughtPrice = $data['required_products'][0]['price'];
+            $ticketNumber = $data['required_products'][0]['ticket_number'];
 
             // Create new Ticket
             $ticket = new Ticket();
@@ -216,6 +246,10 @@ class Eurostar extends TrainConnector
      */
     public function downloadAndReuploadPDF( Ticket $ticket )
     {
+
+        /**
+         * Only if there is only one passenger and no more than one travel segment
+         */
 
         // We first want to get the authorization code for this, as it has to be freshly emitted by eurostar
         $response = $this->client->request(
@@ -307,7 +341,7 @@ class Eurostar extends TrainConnector
         $pageCount = $pdf->setSourceFile( StreamReader::createByString( file_get_contents( $pdfUrl ) ) );
 
         if ( $pageCount < ( 1 + $ticketIndex ) ) {
-            $ticketIndex = $ticketIndex %  $pageCount ;
+            $ticketIndex = $ticketIndex % $pageCount;
         }
         $page = $pdf->importPage( 1 + $ticketIndex );
         $pdf->AddPage();
@@ -316,96 +350,6 @@ class Eurostar extends TrainConnector
         \Storage::disk( 's3' )->put( 'pdf/tickets/' . $ticket->pdf_file_name, (string) $pdf->Output( "S" ) );
 
         return true;
-    }
-
-    /**
-     * It is not possible to download a pdf if the passengers details were not filled.
-     * This methods does it automatically using information seller on his PTB profile
-     *
-     * @param Ticket $ticket
-     */
-    private function fillPassengerInformation( Ticket $ticket )
-    {
-
-
-        // First we simulate a connection to the web-app to retrieve a valid access token for this booking.
-        // We also need to retrieve all passengers
-        $response = $this->client->request(
-            'POST',
-            $this->authBookingURL,
-            [
-                'body'    => \GuzzleHttp\json_encode( [
-                    "pnr"      => $ticket->provider_code,
-                    "lastName" => $ticket->buyer_name,
-                ] ),
-                'headers' => [
-                    'Accept'     => 'application/json, text/plain, */*',
-                    'x-apikey'   => config( 'trains.eurostar.api_key_web' ),
-                    'cid'        => 'myb-' . strtoupper( str_random( 5 ) ) . '-' . strtoupper( str_random( 5 ) ),
-                    'User-Agent' => null,
-                ]
-            ]
-        );
-
-        // Handle errors (if there isn't a trip from a station to another one)
-        if ( $response->getStatusCode() == 500 ) {
-            throw new PasseTonBilletException( 'Please try again later.' );
-        }
-
-        if ( ! isset( json_decode( (string) $response->getBody(), true )['accessToken'] ) ) {
-            throw new PasseTonBilletException( 'Nothing found for this passenger.' );
-        }
-
-        $decoded = json_decode( (string) $response->getBody(), true );
-        $accessToken = $decoded['accessToken']['token'];
-        $passengers = $decoded['booking']['passengers'];
-
-
-        // Now we build the data to post (one update per passenger, using details of ptb account)
-        $data = [
-            'updates' => []
-        ];
-        foreach ( $passengers as $passenger ) {
-            $data['updates'][] = [
-                "id"     => $passenger['id'],
-                "update" => [
-                    "email"  => $ticket->user->email,
-                    "phone"  => [
-                        "countryCode" => $ticket->user->phone_country_code,
-                        "number"      => substr( $ticket->user->phone, 1 )
-                    ],
-                    "infant" => [
-                        "firstName" => "",
-                        "lastName"  => ""
-                    ]
-                ]
-            ];
-        }
-
-        // Now we send the passenger data update to the eurostar server
-        $response = $this->client->request(
-            'PUT',
-            str_replace( '{booking_code}', $ticket->provider_code, $this->updatePassengersURL ),
-            [
-                'body'    => \GuzzleHttp\json_encode( $data ),
-                'headers' => [
-                    'Accept'        => 'application/json, text/plain, */*',
-                    'x-apikey'      => config( 'trains.eurostar.api_key_web' ),
-                    'cid'           => 'myb-' . strtoupper( str_random( 5 ) ) . '-' . strtoupper( str_random( 5 ) ),
-                    'User-Agent'    => null,
-                    'Authorization' => $accessToken,
-                    'referer'       => 'https://managebooking.eurostar.com/',
-                    'origin'        => 'https://managebooking.eurostar.com'
-                ]
-            ]
-        );
-
-        if ( $response->getStatusCode() != 200 ) {
-            throw new PasseTonBilletException( 'Error while updating passenger(s) information.' );
-        }
-
-        return true;
-
     }
 
 }
