@@ -10,6 +10,8 @@ return [
 
     'component' => [
         'buy'                       => 'Acheter',
+        'contact'                   => 'Contacter',
+        'call'                      => 'Appeler',
         'sell'                      => 'Vendre ce billet',
         'sold_by'                   => 'Publié il y a {{days}} par',
         'sold_by_sm'                => 'Publié par',
