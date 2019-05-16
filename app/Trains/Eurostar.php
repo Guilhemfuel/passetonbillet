@@ -150,8 +150,8 @@ class Eurostar extends TrainConnector
 
 
         $trainNumber = $data['info']['trainNumber'];
-        $trainDepartureDate = new Carbon($data['info']['departureDate']);
-        $trainDepartureTime = new Carbon($data['info']['departureTime']);
+        $trainDepartureDate = $data['info']['departureDate'];
+        $trainDepartureTime = $data['info']['departureTime'];
         $trainArrivalDate = $data['info']['arrivalDate'];
         $trainArrivalTime = $data['info']['arrivalTime'];
 
