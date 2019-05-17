@@ -27,7 +27,7 @@ class Izy extends TrainConnector
     private $clientID;
     private $grantType;
 
-    const PROVIDER = 'eurostar';
+    const PROVIDER = 'izy';
 
     const DATE_FORMAT_JSON = 'd/m/Y';
     const TIME_FORMAT_JSON = 'H:i';
