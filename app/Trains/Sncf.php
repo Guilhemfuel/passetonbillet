@@ -24,6 +24,8 @@ class Sncf extends TrainConnector
     private $retrieveURL;
     protected $client;
 
+    private $passengers;
+
     const PROVIDER = "sncf";
 
     const DATE_FORMAT_JSON = 'd/m/Y';
@@ -127,15 +129,19 @@ class Sncf extends TrainConnector
         $buyerEmail = $decoded['initialContact']['emailAddress'];
         $currency = "EUR";
 
+        $this->passengers = $trainData['passengers'];
+
         $tickets = [];
 
         // For each travel
         foreach ( $trainData['travels'] as $travel ) {
 
-            $ticket = $this->createTrainAndReturnTicket( $travel, $currency, $lastName, $referenceNumber, $buyerEmail, $price, $databaseId, $past );
+            foreach ( $travel['passengerIds'] as $passenger ) {
+                $ticket = $this->createTrainAndReturnTicket( $travel, $currency, $lastName, $referenceNumber, $buyerEmail, $price, $databaseId,$passenger, $past );
 
-            if ( $ticket ) {
-                array_push( $tickets, $ticket );
+                if ( $ticket ) {
+                    array_push( $tickets, $ticket );
+                }
             }
 
         }
@@ -143,7 +149,7 @@ class Sncf extends TrainConnector
         return $tickets;
     }
 
-    public function createTrainAndReturnTicket( $data, $currency, $lastName, $referenceNumber, $buyerEmail, $price, $databaseId, $past = false )
+    public function createTrainAndReturnTicket( $data, $currency, $lastName, $referenceNumber, $buyerEmail, $price, $databaseId, $passenger, $past = false )
     {
 
         // Check if correspondance
@@ -153,8 +159,22 @@ class Sncf extends TrainConnector
             $correspondance = true;
         }
 
+        // Find passenger
+        $passengerFound = false;
+        foreach ($this->passengers as $pass) {
+            if ($pass['passengerId'] == $passenger) {
+                $passenger = $pass;
+                $passengerFound = true;
+                break;
+            }
+        }
+        if (!$passengerFound) {
+            throw new \Exception('Passenger with id '.$passenger.' for resa '.$lastName.'/'.$referenceNumber.' not found!');
+        }
+
         $trainNumber = $data["segments"][0]['trainNumber'];
-        $id = $databaseId . '000' . $data["segments"][0]['id'];
+        $id = $databaseId . '0' . str_replace(".", "", $passenger['passengerId']) .
+            substr($passenger['firstName'],0,3) . substr($passenger['lastName'],0,3);
 
         $departureDateTime = new Carbon( $data["departureDate"] );
         $arrivalDateTime = new Carbon( $data["arrivalDate"] );
@@ -192,7 +212,7 @@ class Sncf extends TrainConnector
             // Retrieve ticket information
             $flexibility = $data['fareFlexibility'];
             $class = $data['segments'][0]['comfortClass'];
-            $boughtPrice = $price;
+            $boughtPrice = $data['amountByPassenger'][$passenger['passengerId']];
 
             // Create new Ticket
             $ticket = new Ticket();
@@ -221,6 +241,11 @@ class Sncf extends TrainConnector
      */
     public function downloadAndReuploadPDF( Ticket $ticket )
     {
+
+        /**
+         * Temporarly deactivated.
+         */
+        return false;
 
         $referenceNumber = strtoupper( $ticket->provider_code );
 
