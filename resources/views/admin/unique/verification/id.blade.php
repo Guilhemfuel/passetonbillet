@@ -71,7 +71,7 @@
                 <div class="row">
                     <div class="col">
                     @if(!$user->idVerification->is_pdf)
-                    <img class="mx-auto id-scan" src="{{$user->idVerification->scan}}"/>
+                    <img :style="'transform: rotate('+ child.id_check.rotation*90 +'deg);'" class="mx-auto id-scan" src="{{$user->idVerification->scan}}"/>
                     @else
                     <embed src="{{$user->idVerification->scan}}" class="mx-auto id-scan" width="100%" height="400">
                     @endif
@@ -80,6 +80,11 @@
 
 
                 <div class="btn-rack mt-5 action-buttons">
+                    @if(!$user->idVerification->is_pdf)
+                        <button class="btn btn-ptb" @click.prevent="child.id_check.rotation=child.id_check.rotation+1">
+                            <i class="fa fa-repeat" aria-hidden="true"></i>
+                            Rotate Picture</button>
+                    @endif
                     <form method="post" action="{{route('id_check.accept')}}">
                         {{csrf_field()}}
                         <input type="hidden" name="first_name" :value="child.id_check.verifUser.first_name">
@@ -87,7 +92,6 @@
                         <input type="hidden" name="last_name" :value="child.id_check.verifUser.last_name">
                         <input type="hidden" name="type" :value="child.id_check.idVeryfing.type">
                         <input type="hidden" name="country" :value="child.id_check.idVeryfing.country">
-
 
                         <input type="hidden" name="verification_id" value="{{$user->idVerification->id}}">
                         <button type="submit" class="btn btn-success">Accept ID Verification</button>
@@ -113,6 +117,7 @@
 @push('vue-data')
     <script type="application/javascript">
         data.id_check = {
+            rotation: 0,
             denyModalOpened: false,
             verifUser: {!! json_encode($jsUser) !!},
             optionsType: {!! json_encode([
