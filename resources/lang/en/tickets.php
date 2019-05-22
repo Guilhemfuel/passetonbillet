@@ -67,8 +67,7 @@ return [
             'call'  => [
                 'btn'             => 'Call Seller',
                 'refresh'         => 'Refresh Number',
-                'pricing'         => 'This service will be charged 3€/call + price for the call.',
-                'data_protection' => 'We hide phone numbers to protect privacy.'
+                'pricing'         => '3€/call + price for the call',
             ]
         ],
 

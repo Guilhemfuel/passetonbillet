@@ -322,8 +322,6 @@
                                     </button>
                                 </template>
                                 <p class="pricing mb-0">{{trans('tickets.component.buying_actions.call.pricing')}}</p>
-                                <p class="data-protection">
-                                    {{trans('tickets.component.buying_actions.call.data_protection')}}</p>
                             </div>
                             <div v-else-if="buyingState == 'offer'">
                                 <template v-if="state=='default'">

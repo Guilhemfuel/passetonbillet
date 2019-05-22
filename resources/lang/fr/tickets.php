@@ -67,8 +67,7 @@ return [
             'call'  => [
                 'btn'             => 'Appeler le vendeur',
                 'refresh'         => 'Rafraichir le numéro',
-                'pricing'         => 'Cet service vous sera facturé 3€/appel + prix appel.',
-                'data_protection' => 'Nous cachons les numéros de téléphone afin de prévenir d\'éventuels abus.'
+                'pricing'         => '3€/appel + prix appel',
             ]
         ],
 

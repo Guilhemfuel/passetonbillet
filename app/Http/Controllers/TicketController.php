@@ -432,7 +432,8 @@ class TicketController extends Controller
         Amplitude::logEvent( 'retrieve_tickets', [
             'name'            => \Auth::user()->last_name,
             'booking_code'    => $request->booking_code,
-            'result(s)_count' => count( $tickets )
+            'result(s)_count' => count( $tickets ),
+            'email'           => $request->email
         ] );
 
         // All tickets expired

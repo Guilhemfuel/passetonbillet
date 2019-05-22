@@ -309,6 +309,7 @@ class DiscussionController extends Controller
             'ticket_id'     => $ticket->id,
             'discussion_id' => $discussion->id,
             'buyer_id'      => $ticket->sold_to_id,
+            'provider'      => $ticket->provider
         ] );
 
         $discussion->status = Discussion::SOLD;
