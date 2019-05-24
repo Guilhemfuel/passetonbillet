@@ -79,7 +79,7 @@
                     <p class="text-justify" v-if="user.id == discussion.ticket.user.id">
                         <span v-html="trans('message.discussions.modal_explanation_buyer')"></span>
                     </p>
-                    <p class="text-justify" v-html="" v-else>
+                    <p class="text-justify" v-else>
                         <span v-html="trans('message.discussions.modal_explanation_seller')"></span>
                     </p>
                     <a style="width: 100%;" class="text-center mt-3" href="#"
@@ -91,6 +91,30 @@
                     </button>
                 </div>
             </div>
+        </modal>
+
+        <modal v-if="!sold && user.id != discussion.ticket.user.id"
+               :is-open="callSellerModal"
+               @close-modal="callSellerModal=false"
+               :title="trans('message.discussions.modal_call.title')">
+            <p class="text-justify">
+                {{trans('message.discussions.modal_call.explanation')}}
+            </p>
+
+            <div  class="text-center">
+                <template v-if="contactNumber!=null">
+                    <a :href="'tel:'+contactNumber" class="btn btn-ptb btn-block btn-contact-phone mb-3">
+                        <i class="fa fa-phone" aria-hidden="true"></i> {{contactNumber}}
+                    </a>
+                </template>
+                <template v-else>
+                    <button class="btn btn-ptb btn-block btn-contact-phone mb-3" @click="callSeller()">
+                        <i class="fa fa-refresh" aria-hidden="true"></i>
+                        {{trans('tickets.component.buying_actions.call.refresh')}}
+                    </button>
+                </template>
+            </div>
+            <p class="pricing mb-0 text-center">{{trans('tickets.component.buying_actions.call.pricing')}}</p>
         </modal>
 
         <div class="info-header">
@@ -123,8 +147,14 @@
                 </div>
                 <div class="col-md-4 d-sm-none d-none d-md-flex align-items-center justify-content-center"
                      v-if="!sold && user.id != discussion.ticket.user.id">
-                    <p class="text-center"><a href="#"
-                                              @click.prevent="modalInfo=true">{{trans('message.discussions.modal_title')}}</a>
+                    <p class="text-center">
+                        <button class="btn btn-primary mx-auto mb-2" @click.prevent="openCallModal">
+                            <i class="fa fa-phone" aria-hidden="true"></i> {{trans('message.discussions.call_seller')}}
+                        </button>
+                        <br>
+                        <a href="#" @click.prevent="modalInfo=true">
+                            {{trans('message.discussions.modal_title')}}
+                        </a>
                     </p>
                 </div>
 
@@ -157,6 +187,11 @@
                 <div class="col-sm-12 d-md-none p-0" v-if="!sold && user.id == discussion.ticket.user.id">
                     <button @click="openSellModal()" class="btn btn-ptb-blue btn-block btn-header">
                         {{trans('message.discussions.cta_sell_to')}} {{correspondant.full_name}}
+                    </button>
+                </div>
+                <div class="col-sm-12 d-md-none p-0" v-if="!sold && user.id != discussion.ticket.user.id">
+                    <button @click="openCallModal()" class="btn btn-ptb btn-block btn-header">
+                        <i class="fa fa-phone" aria-hidden="true"></i> {{trans('message.discussions.call_seller')}}
                     </button>
                 </div>
             </div>
@@ -214,6 +249,9 @@
                 modalTicketOpened: false,
                 modalInfo: false,
                 user: this.$root.user,
+
+                callSellerModal: false,
+                contactNumber: null
             }
         },
         computed: {
@@ -290,7 +328,61 @@
             closeInfoModal() {
                 this.modalInfo = false;
                 $crisp.push(['do', 'chat:hide']);
-            }
+            },
+            openCallModal() {
+                if (this.user.id == this.discussion.ticket.user.id) return;
+                this.callSellerModal=true;
+                this.callSeller();
+            },
+            callSeller() {
+                if (this.user.id == this.discussion.ticket.user.id) return;
+
+                // Query contact number if null
+                if (this.contactNumber == null) {
+
+                    this.$http.get(this.route('api.tickets.phone_number', {
+                        ticket: this.discussion.ticket.id
+                    })).then((response) => {
+                        // Success in offer
+                        if (response.ok) {
+
+                            this.contactNumber = response.body.phone;
+
+                            // Log Offer
+                            this.$root.logEvent('discussion_phone_click', {
+                                ticket_id: this.discussion.ticket.id
+                            });
+
+                            // Expire number after 3 minutes
+                            setTimeout(() => {
+                                this.contactNumber = null;
+                            }, 3 * 60 * 1000);
+
+                            return;
+                        } else {
+                            this.callSellerModal = false;
+                            this.$message({
+                                dangerouslyUseHTMLString: true,
+                                message: response.body.message,
+                                type: 'error',
+                                showClose: true,
+                                duration: 1000
+                            });
+                        }
+                    }, response => {
+                        if (!response.ok) {
+                            this.callSellerModal = false;
+                            this.$message({
+                                dangerouslyUseHTMLString: true,
+                                message: response.body.message,
+                                type: 'error',
+                                showClose: true,
+                                duration: 1000
+                            });
+                        }
+                    });
+                }
+            },
         },
         mounted() {
             // Init window with max scroll

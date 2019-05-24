@@ -155,8 +155,9 @@
     &.buyer {
 
       .messages {
-        @include media-breakpoint-up(xs) {  top: 133px !important; }
-        @include media-breakpoint-up(sm) { top: 148px !important; }
+        @include media-breakpoint-up(xs) {  top: 171px; }
+        @include media-breakpoint-up(sm) {  top: 186px; }
+        @include media-breakpoint-up(md) { top: 148px; }
       }
 
       &.sold {

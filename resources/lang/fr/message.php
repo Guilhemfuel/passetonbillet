@@ -75,11 +75,17 @@ return [
         'showPast'             => 'Montrer les discussions passées',
         'noDiscussions'        => 'Pas de discussion à afficher',
         'noPastDiscussions'    => 'Pas de discussion passées à afficher',
+        'call_seller' => 'Appeler le vendeur',
 
         'table' => [
             'ticket'       => 'Billet',
             'buyer'        => 'Nom',
             'last_message' => 'Dernier Message',
+        ],
+
+        'modal_call' => [
+            'title' => 'Appeler le vendeur',
+            'explanation' => 'Le vendeur ne vous répond plus? Vous avez un soucis? Le moyen le plus rapide de contacter le vendeur est de l\'appeler directement !'
         ],
 
         'modal_title'             => 'Comment ça marche ?',

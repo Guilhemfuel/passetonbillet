@@ -73,11 +73,17 @@ return [
         'noDiscussions' => 'No discussions to display',
         'noPastDiscussions' => 'No past discussions to display',
         'cancel'          => 'Cancel',
+        'call_seller' => 'Call Seller',
 
         'table' => [
             'ticket'       => 'Ticket',
             'buyer'        => 'Name',
             'last_message' => 'Last Message',
+        ],
+
+        'modal_call' => [
+            'title' => 'Call Seller',
+            'explanation' => 'The seller is not answering anymore? You have an issue? The fastest way to contact the seller is to call him directly !'
         ],
 
         'modal_title'              => 'How does it work?',

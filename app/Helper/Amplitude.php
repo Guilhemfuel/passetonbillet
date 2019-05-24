@@ -39,6 +39,7 @@ class Amplitude
         'send_offer',
         'show_number',
         'show_ticket_contact',
+        'discussion_phone_click',
 
         // Nav
         'nav_buy_button',
