@@ -41,6 +41,7 @@ class TicketController extends BaseController
                                 ->with( $this->model::$relationships )
                                 ->orderBy( 'sold_to_id', 'desc' )
                                 ->orderBy( 'trains.departure_date' )
+                                ->where('trains.departure_date','>',Carbon::now()->addWeek(-1))
                                 ->orderBy( 'stations.name_en' )
                                 ->select( 'tickets.*', 'trains.departure_city', 'trains.departure_date', 'stations.name_en' )
                                 ->withScams()

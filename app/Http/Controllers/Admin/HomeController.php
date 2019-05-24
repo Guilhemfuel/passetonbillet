@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Discussion;
+use App\Models\Review;
 use App\Models\Statistic;
 use App\Models\Verification\IdVerification;
 use App\Station;
@@ -36,10 +37,25 @@ class HomeController extends BaseController
         return $this->ptbView( 'admin.dashboard', $data );
     }
 
+    /**
+     * Log page
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function logs()
     {
         return view('admin.unique.logs.index',[
            'logs' => Statistic::latest()->limit(200)->get()
+        ]);
+    }
+
+    /**
+     * Review page
+     */
+    public function reviews(  )
+    {
+        return view('admin.unique.reviews.index',[
+            'reviews' => Review::latest()->get()
         ]);
     }
 }

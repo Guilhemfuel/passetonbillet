@@ -35,6 +35,13 @@
     </a>
 </li>
 
+<li  class="{{ substr(Route::currentRouteName(),0,8) == 'reviews.'? 'active':'' }}">
+    <a href="{{route('reviews.index')}}">
+        <i class="fa fa-star" aria-hidden="true"></i>
+        Reviews
+    </a>
+</li>
+
 <li  class="{{  substr(Route::currentRouteName(),0,7) == 'trains.'? 'active':'' }}">
     <a href="{{route('trains.index')}}">
         <i class="fa fa-train"></i>

@@ -80,11 +80,6 @@
 
 
                 <div class="btn-rack mt-5 action-buttons">
-                    @if(!$user->idVerification->is_pdf)
-                        <button class="btn btn-ptb" @click.prevent="child.id_check.rotation=child.id_check.rotation+1">
-                            <i class="fa fa-repeat" aria-hidden="true"></i>
-                            Rotate Picture</button>
-                    @endif
                     <form method="post" action="{{route('id_check.accept')}}">
                         {{csrf_field()}}
                         <input type="hidden" name="first_name" :value="child.id_check.verifUser.first_name">
@@ -96,6 +91,11 @@
                         <input type="hidden" name="verification_id" value="{{$user->idVerification->id}}">
                         <button type="submit" class="btn btn-success">Accept ID Verification</button>
                     </form>
+                    @if(!$user->idVerification->is_pdf)
+                        <button class="btn btn-ptb" style="flex-grow: 0;" @click.prevent="child.id_check.rotation=child.id_check.rotation+1">
+                            <i class="fa fa-repeat" aria-hidden="true"></i>
+                        </button>
+                    @endif
                     <button @click.prevent="child.id_check.denyModalOpened=true" class="btn btn-danger">Deny ID Verification</button>
                 </div>
 

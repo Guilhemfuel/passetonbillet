@@ -158,13 +158,6 @@ class UserController extends BaseController
 
         return redirect()->route( 'home' );
     }
-    
-    // --------- Reviews ------------
-
-    public function reviews(  )
-    {
-        
-    }
 
     // ----------- ID Verification -----------
 
