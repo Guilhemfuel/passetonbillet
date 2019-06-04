@@ -213,9 +213,6 @@ class TicketController extends Controller
             'ticket_provider' => $ticket->provider
         ] );
 
-        // Download pdf
-        DownloadTicketPdf::dispatch( $ticket );
-
         // Dispatch ticket added event
         event( new TicketAddedEvent( $ticket ) );
 
