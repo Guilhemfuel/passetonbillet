@@ -38,7 +38,7 @@
         "nexmo/laravel": "^1.0",
         "nicolaslopezj/searchable": "^1.10.3",
         "pusher/pusher-php-server": "~3.0",
-        "sentry/sentry-laravel": "^0.8.0",
+        "sentry/sentry-laravel": "^1.0",
         "setasign/fpdf": "1.8.1",
         "setasign/fpdi": "^2.0",
         "setasign/fpdi_pdf-parser": "2.0.4",

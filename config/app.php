@@ -180,6 +180,8 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         NotificationChannels\Facebook\FacebookServiceProvider::class,
         TeamTNT\Scout\TNTSearchScoutServiceProvider::class,
+//        Sentry\Laravel\ServiceProvider::class,
+
 
         /*
          * Application Service Providers...
@@ -190,6 +192,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\TrainsServiceProvider::class,
+
 
 
     ],
@@ -252,6 +255,7 @@ return [
         //Added
         'Socialite'   => Laravel\Socialite\Facades\Socialite::class,
         'Debugbar'    => Barryvdh\Debugbar\Facade::class,
+//        'Sentry'      => Sentry\Laravel\Facade::class,
     ],
 
 ];

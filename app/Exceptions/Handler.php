@@ -6,7 +6,8 @@ use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
-
+use function Sentry\configureScope;
+use Sentry\State\Scope;
 
 class Handler extends ExceptionHandler
 {
@@ -53,6 +54,17 @@ class Handler extends ExceptionHandler
     public function report( Exception $exception )
     {
         if ( \App::environment() == 'production' && app()->bound( 'sentry' ) && $this->sentryShouldReport( $exception ) ) {
+            if (\Auth::check()) {
+                \Sentry\configureScope( function ( Scope $scope ): void {
+                    $user = \Auth::user();
+
+                    $scope->setUser( [
+                        'id' => $user->id,
+                        'email' => $user->email
+                    ] );
+                } );
+            }
+
             $this->sentryID = app( 'sentry' )->captureException( $exception );
         }
 
