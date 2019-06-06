@@ -14,11 +14,18 @@ return [
     ],
 
     'izy' => [
-        // New eurostar api
         'auth_url'    => env( 'IZY_AUTH', 'https://api.izy.com/oauth/v2/token' ),
-        'booking_url' => env( 'IZY_BOOKING', 'https://api.izy.com/api/mys3/booking/RBLGHA' ),
+        'booking_url' => env( 'IZY_BOOKING', 'https://api.izy.com/api/mys3/booking/{pnr}' ),
         'client_id'   => env( 'IZY_CLIENT_ID', 'OThrdzA4b3ZtcDc3NDN1d2E4NWlvNHcwaDFyNDFmeTg4Mmg3ZWYwMjN0MzJqcXcxMGo6cHNseTM4OTIwazUzYTUyNnBzNDU4a2tjeW92MjU1bXc0cTc5MXk0MnF3czU1cmZoOXo=' ),
         'grant_type'  => env( 'IZY_GRANT_TYPE', 'https://com.sqills.s3.oauth.booking' )
+    ],
+
+    'ouigo' => [
+        'auth_url'    => env( 'OUIGO_AUTH', 'https://api.ouigo.com/oauth/v2/token' ),
+        'booking_url' => env( 'OUIGO_BOOKING', 'https://api.ouigo.com/api/v2/booking/{pnr}' ),
+        'client_id'   => env( 'OUIGO_CLIENT_ID', 'MTV3NWJiOHg1OThpc2sycjliOXB3ODNjdDVkejN3dDVyczg3MHN1bTRwM3kzNTkyOWc6YzY4OHowMXUwdDh3MzkyOWwwOTgzNzRwNHI3YXNuOXljMXl2bmgwZm56b2p6dDJtb2c=' ),
+        'grant_type'  => env( 'OUIGO_GRANT_TYPE', 'https://com.sqills.s3.oauth.booking' ),
+        'code'        => env( 'OUIGO_CODE', 'OUIGO_WEB' ),
     ],
 
     'sncf' => [
@@ -27,6 +34,6 @@ return [
     ],
 
     'thalys' => [
-        'booking_url'     => env( 'THALYS_BOOKING', 'https://www.thalys.com/api/svoc_tickets/search?PNR={pnr}&LastName={name}' ),
+        'booking_url' => env( 'THALYS_BOOKING', 'https://www.thalys.com/api/svoc_tickets/search?PNR={pnr}&LastName={name}' ),
     ]
 ];

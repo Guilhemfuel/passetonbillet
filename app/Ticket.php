@@ -20,7 +20,7 @@ use Nicolaslopezj\Searchable\SearchableTrait;
 class Ticket extends Model
 {
 
-    const PROVIDERS = [ 'eurostar', 'thalys', 'sncf','izy' ];
+    const PROVIDERS = [ 'eurostar', 'thalys', 'sncf','izy','ouigo' ];
 
     use SearchableTrait, SoftDeletes, ScamFiltered;
 

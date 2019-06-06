@@ -175,7 +175,7 @@
                 csrf: window.csrf,
                 state: 'input',
                 form: {
-                    email: this.user.email,
+                    email: null,
                     last_name: this.user.last_name,
                     first_name: this.user.first_name,
                     booking_code: null,
@@ -221,6 +221,7 @@
                                 // Extra form of fields not present yet, we add them
                                 if (! this.formExtraFields) {
                                     this.formExtraFields = true;
+                                    this.form.email = this.user.email;
                                     this.$notify({
                                         title: this.trans('tickets.sell.manual.fail_retrieval.title'),
                                         message: this.trans('tickets.sell.manual.fail_retrieval.message_extra_fields'),

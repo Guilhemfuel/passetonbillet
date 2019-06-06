@@ -21,7 +21,8 @@ abstract class TrainConnector
     const PROVIDERS = [
         'eurostar',
         'thalys',
-        'sncf'
+        'sncf',
+        'ouigo'
     ];
 
     /**

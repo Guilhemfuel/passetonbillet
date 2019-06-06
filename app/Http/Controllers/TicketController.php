@@ -8,6 +8,7 @@ use App\Exceptions\PasseTonBilletException;
 use App\Facades\Amplitude;
 use App\Facades\AppHelper;
 use App\Facades\Izy;
+use App\Facades\Ouigo;
 use App\Facades\Sncf;
 use App\Facades\Thalys;
 use App\Http\Requests\BuyTicketsRequest;
@@ -402,7 +403,7 @@ class TicketController extends Controller
             \App\Trains\Eurostar::class => Eurostar::class,
             \App\Trains\Sncf::class     => Sncf::class,
             \App\Trains\Thalys::class   => Thalys::class,
-            \App\Trains\Izy::class      => Izy::class
+            \App\Trains\Ouigo::class    => Ouigo::class,
         ];
 
         $tickets = null;
@@ -415,7 +416,7 @@ class TicketController extends Controller
                 continue;
             }
 
-            // Query tickets for provider,
+            // Query tickets for provider
             try {
                 $tickets = $facade::retrieveTicket( $request->email, $request->last_name, $request->booking_code );
                 break;

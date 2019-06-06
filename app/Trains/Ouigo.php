@@ -20,14 +20,14 @@ use GuzzleHttp\Exception\ClientException;
 use setasign\Fpdi\Fpdi;
 use setasign\Fpdi\PdfParser\StreamReader;
 
-class Izy extends TrainConnector
+class Ouigo extends TrainConnector
 {
     private $authURL;
     private $bookingURL;
     private $clientID;
     private $grantType;
 
-    const PROVIDER = 'izy';
+    const PROVIDER = 'ouigo';
 
     const DATE_FORMAT_JSON = 'd/m/Y';
     const TIME_FORMAT_JSON = 'H:i';
@@ -36,10 +36,10 @@ class Izy extends TrainConnector
     public function __construct( Client $customClient = null )
     {
 
-        $this->authURL = config( 'trains.izy.auth_url' );
-        $this->bookingURL = config( 'trains.izy.booking_url' );
-        $this->clientID = config( 'trains.izy.client_id' );
-        $this->grantType = config( 'trains.izy.grant_type' );
+        $this->authURL = config( 'trains.ouigo.auth_url' );
+        $this->bookingURL = config( 'trains.ouigo.booking_url' );
+        $this->clientID = config( 'trains.ouigo.client_id' );
+        $this->grantType = config( 'trains.ouigo.grant_type' );
 
 
         // wrap Guzzle Client in order to throw a PasseTonBilletException instead of a ClientException on a request
@@ -102,7 +102,8 @@ class Izy extends TrainConnector
                 'body'    => \GuzzleHttp\json_encode( [
                     "booking_number" => $referenceNumber,
                     "email"          => $email,
-                    "grant_type"     => $this->grantType
+                    "grant_type"     => $this->grantType,
+                    "code" => config('trains.ouigo.code')
                 ] ),
                 'headers' => [
                     'Authorization' => 'Basic ' . $this->clientID,
@@ -120,8 +121,9 @@ class Izy extends TrainConnector
             throw new PasseTonBilletException( 'Nothing found with this name/code combination.' );
         }
 
-        $bookingUrl = str_replace( '{pnr}', $referenceNumber, $this->bookingURL );
         $accessToken = json_decode( (string) $response->getBody(), true )['access_token'];
+
+        $bookingUrl = str_replace( '{pnr}', $referenceNumber, $this->bookingURL );
         $response = $this->client->request(
             'GET',
             $bookingUrl,
@@ -139,11 +141,11 @@ class Izy extends TrainConnector
             throw new PasseTonBilletException( 'Please try again later.' );
         }
 
-        if ( ! isset( json_decode( (string) $response->getBody(), true )['booking_number'] ) ) {
+        if ( ! isset( json_decode( (string) $response->getBody(), true )['data'] ) ) {
             throw new PasseTonBilletException( 'Nothing found with this name/code combination.' );
         }
 
-        $data = json_decode( (string) $response->getBody(), true );
+        $data = json_decode( (string) $response->getBody(), true )['data']['booking'];
 
         // Find tickets
         $buyerEmail = $data['customer']['email'];
@@ -155,7 +157,7 @@ class Izy extends TrainConnector
 
         $ticketInfos = $data['outbound_booking_tariff_segments'];
         if ( $returnTickets ) {
-            $ticketInfos = array_merge(  $data['inbound_booking_tariff_segments'], $ticketInfos );
+            $ticketInfos = array_merge( $data['inbound_booking_tariff_segments'], $ticketInfos );
         }
 
         foreach ( $ticketInfos as $ticketInfo ) {
@@ -188,14 +190,14 @@ class Izy extends TrainConnector
         $trainDepartureDateTime = $firstTravelSegment['departure_date_time'];
         $trainArrivalDateTime = $lastTravelSegment['arrival_date_time'];
 
-        $trainDepartureStation = Station::where( 'uic', substr( $firstTravelSegment['departure_station']['_u_i_c_station_code'], 2 ) )->first();
-        $trainArrivalStation = Station::where( 'uic', substr( $firstTravelSegment['arrival_station']['_u_i_c_station_code'], 2 ) )->first();
+        $trainDepartureStation = Station::where( 'uic8_sncf', $data['departure_station']['_u_i_c_station_code'] )->first();
+        $trainArrivalStation = Station::where( 'uic8_sncf',  $data['arrival_station']['_u_i_c_station_code'])->first();
 
         if ( ! $trainDepartureStation ) {
-            throw new PasseTonBilletException( 'Departure station with code ' . $data['info']['origin']['code'] . ' not found.' );
+            throw new PasseTonBilletException( 'Departure station with code ' . $data['departure_station']['_u_i_c_station_code'] . ' not found.' );
         }
         if ( ! $trainArrivalStation ) {
-            throw new PasseTonBilletException( 'Arrival station with code ' . $data['info']['destination']['code'] . ' not found.' );
+            throw new PasseTonBilletException( 'Arrival station with code ' . $data['arrival_station']['_u_i_c_station_code'] . ' not found.' );
         }
 
         // You can sell ticket max two hours before train!
@@ -290,11 +292,6 @@ class Izy extends TrainConnector
                 $ticketIndex = $passengersIndex[ $ticketData['passengerId'] ];
             }
         }
-
-        // Now retrieve and save passbook url
-        // TODO: reactivate passbook
-        // $ticket->passbook_link = $decoded['etapBooking']['ticketsData']['passbook'][$ticket->ticket_number];
-        // $ticket->save();
 
         // Now that we retrieved passenger id, we simply need to do a post to retrieve and download the ticket
         $response = $this->client->request(
