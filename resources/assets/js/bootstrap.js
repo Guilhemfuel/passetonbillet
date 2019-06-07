@@ -83,7 +83,6 @@ window.locale = lang;
  * We use the front-end framework elem-io, and therefore need to set the language.
  */
 
-
 import ElementUI from 'element-ui';
 import langEn from 'element-ui/lib/locale/lang/en';
 import langFr from 'element-ui/lib/locale/lang/fr';
@@ -171,6 +170,8 @@ if (token) {
  * Other vue components
  */
 
+import VueLazyload from 'vue-lazyload'
 import Cleave from 'vue-cleave-component';
 Vue.use(Cleave);
+Vue.use(VueLazyload);
 

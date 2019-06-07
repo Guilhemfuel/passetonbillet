@@ -54,6 +54,10 @@
     <!-- Styles -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
           integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Assistant:300,400,500,600,700" rel="stylesheet">
+    <link crossorigin="anonymous"
+          href="{{secure_asset('fonts/vendor/element-ui/packages/theme-chalk/src/element-icons.woff?2fad952a20fbbcfd1bf2ebb210dccf7a')}}"
+          as="font" rel=preload>
     @section('main_css_file')
         <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
     @show

@@ -96,6 +96,7 @@ html, body {
   }
 }
 
+
 ////// Validation Errors //////
 .invalid-feedback::first-letter {
   text-transform: capitalize;
@@ -130,6 +131,27 @@ html, body {
   }
 }
 
+
+//
+// ==============================
+//
+// Images
+//
+// ==============================
+//
+
+////// Image lazy loading /////
+img[lazy=loading] {
+  opacity: 0;
+}
+img[lazy=loaded] {
+  opacity: 1;
+}
+
+// Hide lazy loading image error while vue is not instanciated yet
+img[is-lazy=true]:not([lazy]) {
+  opacity: 0;
+}
 
 //
 // ==============================
@@ -400,6 +422,7 @@ html, body {
     height: 200px;
     background-size: cover;
     background-position: center center;
+    background-color: $color-gray;
   }
 }
 

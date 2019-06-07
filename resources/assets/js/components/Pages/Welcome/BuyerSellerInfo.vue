@@ -18,7 +18,8 @@
                 <div class="row">
                     <div class="col-12 col-md-6 col-lg-3 col-sm-6 mt-3">
                         <img class="svg-icon"
-                             src="img/icon_search.svg"
+                             is-lazy="true"
+                             v-lazy="'img/icon_search.svg'"
                              alt="Icon Search"
                         />
                         <h3 class="howitworks-title  pt-1">{{trans('welcome.howitworks.search.title')}}</h3>
@@ -26,7 +27,8 @@
                     </div>
                     <div class="col-12 col-md-6 col-lg-3 col-sm-6 mt-3">
                         <img class="svg-icon"
-                             src="img/icon_auction.svg"
+                             is-lazy="true"
+                             v-lazy="'img/icon_auction.svg'"
                              alt="Icon Auction"
                         />
                         <h3 class="howitworks-title  pt-1">{{trans('welcome.howitworks.auction.title')}}</h3>
@@ -34,7 +36,8 @@
                     </div>
                     <div class="col-12 col-md-6 col-lg-3 col-sm-6 mt-3">
                         <img class="svg-icon"
-                             src="img/icon_chat.svg"
+                             is-lazy="true"
+                             v-lazy="'img/icon_chat.svg'"
                              alt="Icon Chat"
                         />
                         <h3 class="howitworks-title  pt-1">{{trans('welcome.howitworks.chat.title')}}</h3>
@@ -42,7 +45,8 @@
                     </div>
                     <div class="col-12 col-md-6 col-lg-3 col-sm-6 mt-3">
                         <img class="svg-icon"
-                             src="img/icon_send.svg"
+                             is-lazy="true"
+                             v-lazy="'img/icon_send.svg'"
                              alt="Icon Send"
                         />
                         <h3 class="howitworks-title  pt-1">{{trans('welcome.howitworks.send.title')}}</h3>
@@ -56,7 +60,8 @@
                 <div class="row">
                     <div class="col-12 col-md-6 col-lg-3 col-sm-6 mt-3">
                         <img class="svg-icon"
-                             src="img/icon_sell.svg"
+                             is-lazy="true"
+                             v-lazy="'img/icon_sell.svg'"
                              alt="Icon Sell"
                         />
                         <h3 class="howitworks-title  pt-1">{{trans('welcome.howitworks.sell.title')}}</h3>
@@ -64,7 +69,8 @@
                     </div>
                     <div class="col-12 col-md-6 col-lg-3 col-sm-6 mt-3">
                         <img class="svg-icon"
-                             src="img/icon_accept.svg"
+                             is-lazy="true"
+                             v-lazy="'img/icon_accept.svg'"
                              alt="Icon Accept"
                         />
                         <h3 class="howitworks-title  pt-1">{{trans('welcome.howitworks.accept.title')}}</h3>
@@ -72,7 +78,8 @@
                     </div>
                     <div class="col-12 col-md-6 col-lg-3 col-sm-6 mt-3">
                         <img class="svg-icon"
-                             src="img/icon_chat2.svg"
+                             is-lazy="true"
+                             v-lazy="'img/icon_chat2.svg'"
                              alt="Icon Chat"
                         />
                         <h3 class="howitworks-title  pt-1">{{trans('welcome.howitworks.chat2.title')}}</h3>
@@ -80,7 +87,8 @@
                     </div>
                     <div class="col-12 col-md-6 col-lg-3 col-sm-6 mt-3">
                         <img class="svg-icon"
-                             src="img/icon_send2.svg"
+                             is-lazy="true"
+                             v-lazy="'img/icon_send2.svg'"
                              alt="Icon Send"
                         />
                         <h3 class="howitworks-title  pt-1">{{trans('welcome.howitworks.send2.title')}}</h3>

@@ -95,7 +95,7 @@
                         <div class="d-inline-flex px-3">
                             <a class="card card-trip" href="{{route('public.ticket.buy.page')}}?departure_station=4916&arrival_station=8267">
                                 <div class="card-img-top-background"
-                                     style="background-image: url('img/cities/london.jpeg')">
+                                     v-lazy:background-image="'{{secure_asset('img/cities/london.jpeg')}}'">
                                 </div>
                                 <div class="card-body">
                                     <h5 class="card-title">Paris <span class="arrow"></span> Londres</h5>
@@ -103,7 +103,7 @@
                             </a>
                             <a class="card card-trip" href="{{route('public.ticket.buy.page')}}?departure_station=8267&arrival_station=4916">
                                 <div class="card-img-top-background"
-                                     style="background-image: url('img/cities/paris-2.jpeg')">
+                                     v-lazy:background-image="'{{secure_asset('img/cities/paris-2.jpeg')}}'">
                                 </div>
                                 <div class="card-body">
                                     <h5 class="card-title">Londres <span class="arrow"></span> Paris</h5>
@@ -111,7 +111,8 @@
                             </a>
                             <a class="card card-trip" href="{{route('public.ticket.buy.page')}}?departure_station=4916&arrival_station=4718">
                                 <div class="card-img-top-background"
-                                     style="background-image: url('img/cities/lyon.jpg')">
+                                     v-lazy:background-image="'{{secure_asset('img/cities/lyon.jpg')}}'"
+                                >
                                 </div>
                                 <div class="card-body">
                                     <h5 class="card-title">Paris <span class="arrow"></span> Lyon</h5>
@@ -120,7 +121,8 @@
                             </a>
                             <a class="card card-trip" href="{{route('public.ticket.buy.page')}}?departure_station=4718&arrival_station=4916">
                                 <div class="card-img-top-background"
-                                     style="background-image: url('img/cities/paris.jpeg')">
+                                     v-lazy:background-image="'{{secure_asset('img/cities/paris.jpeg')}}'"
+                                >
                                 </div>
                                 <div class="card-body">
                                     <h5 class="card-title">Lyon <span class="arrow"></span> Paris</h5>
@@ -128,7 +130,8 @@
                             </a>
                             <a class="card card-trip" href="{{route('public.ticket.buy.page')}}?departure_station=4916&arrival_station=4791">
                                 <div class="card-img-top-background"
-                                     style="background-image: url('img/cities/marseille.jpg')">
+                                     v-lazy:background-image="'{{secure_asset('img/cities/marseille.jpg')}}'"
+                                >
                                 </div>
                                 <div class="card-body">
                                     <h5 class="card-title">Paris <span class="arrow"></span> Marseille</h5>
@@ -144,12 +147,15 @@
                     <div class="row">
                         <div class="col-12 text-center">
                             <h2 class="text-center text-warning title">{{__('welcome.advantages.why_use')}}</h2>
-                            <img class="main-logo" src="{{secure_asset('img/logo-black.png')}}"
+                            <img class="main-logo"
+                                 is-lazy="true"
+                                 v-lazy="'{{secure_asset('img/logo-black.png')}}'"
                                  alt="logo black passe ton billet">
                         </div>
                         <div class="col-sm-12 col-md-6 col-lg-3 mt-3">
                             <img class="svg-icon"
-                                 src="{{secure_asset('img/icon-safe.svg')}}"
+                                 is-lazy="true"
+                                 v-lazy="'{{secure_asset('img/icon-safe.svg')}}'"
                                  alt="Icon Safer"
                             />
                             <h3 class="advantage-title  pt-1">@lang('welcome.advantages.safer.title')</h3>
@@ -157,7 +163,8 @@
                         </div>
                         <div class="col-sm-12 col-md-6 col-lg-3 mt-3">
                             <img class="svg-icon"
-                                 src="{{secure_asset('img/icon-cheaper.svg')}}"
+                                 is-lazy="true"
+                                 v-lazy="'{{secure_asset('img/icon-cheaper.svg')}}'"
                                  alt="Icon Cheaper"
                             />
                             <h3 class="advantage-title pt-1">@lang('welcome.advantages.cheaper.title')</h3>
@@ -165,7 +172,8 @@
                         </div>
                         <div class="col-sm-12 col-md-6 col-lg-3 mt-3">
                             <img class="svg-icon"
-                                 src="{{secure_asset('img/icon-quick.svg')}}"
+                                 is-lazy="true"
+                                 v-lazy="'{{secure_asset('img/icon-quick.svg')}}'"
                                  alt="Icon quicker"
                             />
                             <h3 class="advantage-title pt-1">@lang('welcome.advantages.quicker.title')</h3>
@@ -173,7 +181,8 @@
                         </div>
                         <div class="col-sm-12 col-md-6 col-lg-3 mt-3">
                             <img class="svg-icon"
-                                 src="{{secure_asset('img/icon-10years.svg')}}"
+                                 is-lazy="true"
+                                 v-lazy="'{{secure_asset('img/icon-10years.svg')}}'"
                                  alt="Icon 10 Years"
                             />
                             <h3 class="advantage-title pt-1">@lang('welcome.advantages.10years.title')</h3>
@@ -192,7 +201,9 @@
                             <div class="px-2 col-12 col-sm-6 col-md-4 mt-4">
                                 <div class="card card-review ">
                                     <div class="card-body">
-                                        <img src="{{ $review->user->picture  }}" class="picture"
+                                        <img
+                                                is-lazy="true"
+                                                v-lazy="'{{ $review->user->picture  }}'" class="picture"
                                              alt="user profile picture"/>
 
                                         <!-- <p class="date">
