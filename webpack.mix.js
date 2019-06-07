@@ -12,9 +12,14 @@ const { mix } = require('laravel-mix');
  |
  */
 
-// mix.webpackConfig({
-//     plugins: [new BundleAnalyzerPlugin()]
-// });
+/**
+ * Override Laravel Mix Webpack Configuration
+ * @type {{chunkFilename: string, publicPath: string}}
+ */
+mix.config.webpackConfig.output = {
+    chunkFilename: 'js/bundles/[name].bundle.js',
+    publicPath: '/',
+};
 
 mix.js('resources/assets/js/app.js', 'public/js').version()
     .js('resources/assets/js/admin.js', 'public/js').version()

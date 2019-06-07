@@ -84,7 +84,7 @@
             }
         },
 
-        mounted() {
+        created() {
 
             this.$http.get(this.blogUrl).then(response => {
                 this.posts = response.data;
