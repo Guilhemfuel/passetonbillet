@@ -24,6 +24,13 @@ mix.config.webpackConfig.output = {
     publicPath: '/',
 };
 
+mix.webpackConfig({
+    plugins: [
+        // Ignore all locale files of moment.js
+        new mix.webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+    ],
+});
+
 mix.js('resources/assets/js/app.js', 'public/js').version()
     .js('resources/assets/js/admin.js', 'public/js').version()
     .sass('resources/assets/sass/app.scss', 'public/css').version()
@@ -31,7 +38,6 @@ mix.js('resources/assets/js/app.js', 'public/js').version()
     .copyDirectory('resources/assets/img', 'public/img')
     .copyDirectory('resources/assets/audio', 'public/audio')
     .copyDirectory('resources/assets/fonts', 'public/fonts');
-
 
 
 if(!mix.inProduction()){
@@ -43,7 +49,7 @@ if(!mix.inProduction()){
             new BundleAnalyzerPlugin(),
 
             // Ignore all locale files of moment.js
-            new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+            new mix.webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
         ],
     });
 
