@@ -4,7 +4,7 @@
 import "@babel/polyfill";
 
 if (typeof Object.assign != 'function') {
-    Object.assign = function(target) {
+    Object.assign = function (target) {
         'use strict';
         if (target == null) {
             throw new TypeError('Cannot convert undefined or null to object');
@@ -31,7 +31,7 @@ if (typeof Object.assign != 'function') {
 var host = window.location.hostname;
 var local = false;
 
-if(host != 'passetonbillet.fr') {
+if (host != 'passetonbillet.fr') {
     local = true;
 }
 
@@ -50,19 +50,21 @@ window.Vue.use(require('vue-resource'));
 
 import Raven from 'raven-js';
 import RavenVue from 'raven-js/plugins/vue';
+
 if (!local) {
     Raven.config('https://e9ebbd88548a441288393c457ec90441@sentry.io/3235', {
         environment: 'production'
     })
-    .addPlugin(RavenVue, Vue)
-    .install();
+        .addPlugin(RavenVue, Vue)
+        .install();
 }
 /**
  * We use VeeValidator, and therefore need to set the language.
  */
-import VeeValidate, { Validator }  from 'vee-validate';
+import VeeValidate, {Validator} from 'vee-validate';
 import localeFr from './validator/fr.js';
 import localeEn from './validator/en.js';
+
 var lang = document.head.querySelector('meta[name="lang"]').content;
 
 if (lang === 'fr') {
@@ -101,6 +103,7 @@ window.Vue.use(ElementUI);
  */
 
 var moment = require('moment');
+require('moment/locale/fr');
 
 if (lang === 'fr') {
     moment.locale('fr');
@@ -109,10 +112,20 @@ if (lang === 'fr') {
 }
 
 window.moment = moment;
-window.Vue.prototype.$lodash = require('lodash');
 window.Vue.prototype.$moment = moment;
 window.Vue.prototype.route = route;
 window.Vue.prototype.$mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+/**
+ * Lodash
+ */
+
+window.Vue.prototype.$lodash = {
+    'has': require('lodash/has'),
+    'get': require('lodash/get'),
+    'clone': require('lodash/clone'),
+    'delay': require('lodash/delay'),
+}
 
 /**
  *
@@ -172,6 +185,7 @@ if (token) {
 
 import VueLazyload from 'vue-lazyload'
 import Cleave from 'vue-cleave-component';
+
 Vue.use(Cleave);
 Vue.use(VueLazyload);
 

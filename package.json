@@ -57,6 +57,6 @@
     "vuejs-datepicker": "^0.9.7"
   },
   "devDependencies": {
-    "webpack-bundle-analyzer": "^2.9.0"
+    "webpack-bundle-analyzer": "^2.13.1"
   }
 }

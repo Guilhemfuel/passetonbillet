@@ -1,5 +1,5 @@
 const { mix } = require('laravel-mix');
-
+const webpack = require('webpack');
 
 /*
  |--------------------------------------------------------------------------
@@ -12,10 +12,13 @@ const { mix } = require('laravel-mix');
  |
  */
 
+
+
 /**
  * Override Laravel Mix Webpack Configuration
  * @type {{chunkFilename: string, publicPath: string}}
  */
+
 mix.config.webpackConfig.output = {
     chunkFilename: 'js/bundles/[name].bundle.js',
     publicPath: '/',
@@ -30,7 +33,20 @@ mix.js('resources/assets/js/app.js', 'public/js').version()
     .copyDirectory('resources/assets/fonts', 'public/fonts');
 
 
+
 if(!mix.inProduction()){
+
+    const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+
+    mix.webpackConfig({
+        plugins: [
+            new BundleAnalyzerPlugin(),
+
+            // Ignore all locale files of moment.js
+            new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+        ],
+    });
+
 
     mix.browserSync({
         open: false,
