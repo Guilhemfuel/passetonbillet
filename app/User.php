@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Facades\AppHelper;
 use App\Models\Discussion;
 use App\Models\Message;
 use App\Notifications\ResetPasswordNotification;
@@ -166,13 +167,7 @@ class User extends Authenticatable
 
     public function getPhoneCountryCodeAttribute(  )
     {
-        $countryCodes = [
-            'FR' => 33,
-            'GB' => 44,
-            'BE' => 32
-        ];
-
-        return $countryCodes[$this->phone_country];
+        return AppHelper::countryToPhoneCode($this->phone_country);
     }
 
     public function getIdVerifiedAttribute(){

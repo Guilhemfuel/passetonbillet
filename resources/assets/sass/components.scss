@@ -405,13 +405,14 @@ $animation-duration: 0.3s;
     width: 70px;
   }
   .col-prefix {
-    width: 70px;
+    width: 45px;
     text-align: center;
     .prefix {
       border-radius: 0px;
       border-left: 0px;
     }
     input {
+      padding: 8px 0px;
       text-align: center;
     }
   }

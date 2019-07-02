@@ -47,9 +47,6 @@ if(!mix.inProduction()){
     mix.webpackConfig({
         plugins: [
             new BundleAnalyzerPlugin(),
-
-            // Ignore all locale files of moment.js
-            new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
         ],
     });
 

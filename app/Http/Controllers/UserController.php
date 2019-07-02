@@ -179,6 +179,9 @@ class UserController extends Controller
                 flash(__('common.error'))->error();
                 return redirect()->back();
             }
+        } else {
+            flash( 'Development mode: Would send a text to: '.$phoneVerification->phone_number.
+            ' containing code :'. $phoneVerification->code)->warning();
         }
 
         $phoneVerification->save();

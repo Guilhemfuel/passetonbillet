@@ -5,6 +5,7 @@ namespace App\Helper;
 
 use App\Models\Statistic;
 use Carbon\Carbon;
+use Illuminate\Http\Resources\MissingValue;
 
 class AppHelper
 {
@@ -97,6 +98,29 @@ class AppHelper
                 ] )
             ] );
         }
+    }
+
+    /**
+     * Given a country return phone code
+     *
+     * @param $country
+     */
+    public function countryToPhoneCode( $countryCode )
+    {
+        $path = resource_path() . "/assets/data/phones.json"; // ie: /var/www/laravel/app/storage/json/filename.json
+        $json = json_decode(file_get_contents($path), true)['phones'];
+
+        $dict = [];
+        foreach ($json as $country) {
+            $dict[$country['code']] = $country;
+        }
+
+        if (!array_key_exists($countryCode,$dict)) {
+            throw new \Exception('Country code '.$countryCode.' not found.');
+        }
+
+        return $dict[$countryCode]['callingCode'];
+
     }
 
     /**

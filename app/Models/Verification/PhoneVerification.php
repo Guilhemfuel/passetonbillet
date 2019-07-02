@@ -2,6 +2,7 @@
 
 namespace App\Models\Verification;
 
+use App\Helper\AppHelper;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -24,10 +25,10 @@ class PhoneVerification extends Model
      * @var array
      */
     protected $casts = [
-        'user_id'  => 'integer',
+        'user_id'       => 'integer',
         'phone_country' => 'string',
-        'phone'      => 'string',
-        'code'   => 'string'
+        'phone'         => 'string',
+        'code'          => 'string'
     ];
 
     /**
@@ -36,9 +37,9 @@ class PhoneVerification extends Model
      * @var array
      */
     public static $rules = [
-        'user_id'         => 'required|exists:users,id',
-        'phone_country'   => 'exists:tickets,id',
-        'mark' => 'required',
+        'user_id'       => 'required|exists:users,id',
+        'phone_country' => 'exists:tickets,id',
+        'mark'          => 'required',
     ];
 
     /**
@@ -52,23 +53,14 @@ class PhoneVerification extends Model
      */
     public function getPhoneNumberAttribute()
     {
-        switch ($this->phone_country){
-            case 'FR':
-                return '33'.substr($this->phone, 1);
-                break;
-            case 'GB':
-                return '44'.substr($this->phone, 1);
-                break;
-            case 'BE':
-                return '32'.substr($this->phone, 1);
-                break;
-        }
+        $phoneCode = \App\Facades\AppHelper::countryToPhoneCode( $this->phone_country );
 
-        return null;
+        return $phoneCode . substr( $this->phone, 1 );
     }
 
-    public function getMessageAttribute() {
-        return $this->code.__('sms.number_verification');
+    public function getMessageAttribute()
+    {
+        return $this->code . __( 'sms.number_verification' );
     }
 
     /**
@@ -79,5 +71,5 @@ class PhoneVerification extends Model
     {
         return $this->belongsTo( 'App\User' );
     }
-    
+
 }
