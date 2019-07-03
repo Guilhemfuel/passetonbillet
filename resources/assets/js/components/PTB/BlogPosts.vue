@@ -7,7 +7,7 @@
             <div class="row px-5 mb-4 mt-4">
 
                 <template v-if="loading">
-                    <div v-for="n in 3" :key="n" class="px-2 col-12 col-sm-6 col-md-4">
+                    <div v-for="n in 3" :key="n" class="px-2 col-12 col-sm-6 col-md-4 mt-3">
                         <a href="#" class="post-link">
                             <div class="card card-blog-post">
                                 <div class="card-body">
@@ -24,7 +24,7 @@
                 </template>
 
                 <template v-else>
-                    <div v-for="post in posts" :key="post.id" class="px-2 col-12 col-sm-6 col-md-4">
+                    <div v-for="post in posts.slice(0, 3)" :key="post.id" class="px-2 col-12 col-sm-6 col-md-4 mt-3">
                         <a :href="post.link" class="post-link">
                             <div class="card card-blog-post">
                                 <div class="card-body">

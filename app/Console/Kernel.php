@@ -20,7 +20,8 @@ class Kernel extends ConsoleKernel
         Commands\DownloadAllMissingTicketPdfs::class,
         Commands\CleanEmails::class,
         Commands\CleanTickets::class,
-        Commands\CleanAll::class
+        Commands\CleanAll::class,
+        Commands\DeleteAdminWarnings::class
     ];
 
     /**

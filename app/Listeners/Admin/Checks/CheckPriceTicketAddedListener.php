@@ -1,15 +1,13 @@
 <?php
 
-namespace App\Listeners\Admin\Warnings;
+namespace App\Listeners\Admin\Checks;
 
 use App\Events\TicketAddedEvent;
-use App\Models\AdminWarning;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 /**
  * Some sellers put ticket on sale for a very cheap price (usually 1), to then be able to negotiate and ask for
- * a price higher than original. This listener created admin warning when that happens.
+ * a price higher than original. This listener automatically changes back the price to original price when that happens.
  *
  * Class CheckPriceTicketAddedListener
  * @package App\Listeners\Admin\Warnings
@@ -34,14 +32,8 @@ class CheckPriceTicketAddedListener implements ShouldQueue
              && $ticket->price <= self::TICKET_WARNING_PRICE
              && $ticket->price < $ticket->bought_price
         ) {
-            AdminWarning::create( [
-                'action' => AdminWarning::STRANGELY_LOW_TICKET_PRICE,
-                'link'   => route( 'tickets.edit', $ticket->id ),
-                'data'   => [
-                    'user_id' => $ticket->user->id,
-                    'message' => 'This ticket has a really low price. He might try to negotiate later. Please check.',
-                ]
-            ] );
+            $ticket->price = $ticket->bought_price;
+            $ticket->save();
         }
     }
 }

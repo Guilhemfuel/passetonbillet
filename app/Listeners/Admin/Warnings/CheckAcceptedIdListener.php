@@ -18,6 +18,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 class CheckAcceptedIdListener implements ShouldQueue
 {
     const SIMILARITY_PERCENTAGE = 70;
+    const ID_CLOSENESS = 100;
 
     /**
      * Handle the event.
@@ -66,6 +67,12 @@ class CheckAcceptedIdListener implements ShouldQueue
 
         // Create a warning for each user
         foreach ($similarUsers as $similarUser) {
+
+            // If the id of users are very close (i.e double account, not fraud, ignore)
+            if (abs($similarUser->id - $user->id) < self::ID_CLOSENESS ) {
+                continue;
+            }
+
             $data = [
                 'message' => 'An id that was recently accepted, looks really similar to a precedent one. Please check.',
                 'id_verified_for' => $user->id,
@@ -81,5 +88,6 @@ class CheckAcceptedIdListener implements ShouldQueue
             ] );
         }
 
+        return;
     }
 }

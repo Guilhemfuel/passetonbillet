@@ -13,13 +13,13 @@ use Illuminate\Contracts\Queue\ShouldQueue;
  * @package App\Listeners\Admin\Warnings
  *
  * A fraudulent users can suddenly put a lot of tickets on sale, just after creating an account. New users usually
- * add one or two tickets (with return ticket). If a new user post more than 2 tickets, admins should check that he
+ * add one or two tickets (with return ticket). If a new user post more than 4 tickets, admins should check that he
  * does not look suspicious.
  */
 class CheckManyTicketsAddedListener implements ShouldQueue
 {
 
-    const NB_TICKETS_LIMIT_FOR_RECENT_USERS = 2;
+    const NB_TICKETS_LIMIT_FOR_RECENT_USERS = 4;
 
     /**
      * Handle the event.
