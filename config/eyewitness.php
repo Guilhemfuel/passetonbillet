@@ -64,7 +64,7 @@ return [
     'monitor_database' => true,
     'monitor_composer' => true,
     'monitor_queue' => true,
-    'monitor_dns' => true,
+    'monitor_dns' => false,
     'monitor_ssl' => true,
 
     /*

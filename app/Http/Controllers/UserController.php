@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Facades\Amplitude;
 use App\Facades\AppHelper;
 use App\Facades\ImageHelper;
 use App\Models\Verification\IdVerification;
@@ -246,6 +247,35 @@ class UserController extends Controller
 
         return redirect()->back();
 
+    }
+
+    /**
+     * Deletes a user account
+     *
+     * HTTP method: DELETE
+     * Parameter(s): user_id
+     *
+     * @param Request $request
+     */
+    public function deleteAccount( Request $request )
+    {
+        $this->validate($request,[
+            'user_id'=> 'required'
+        ]);
+
+        // Verify that user exists, is not an admin and is the current user
+        $user = User::find($request->user_id);
+        if (!$user || $user->isAdmin() || $user->id != \Auth::id()) {
+            flash(__('common.error'))->error();
+            return redirect()->route('public.profile.home');
+        }
+
+        Amplitude::logEvent('delete_account',null,$user);
+        $user->delete();
+        \Auth::logout();
+
+        flash(__('profile.modal.delete_account.success'))->success();
+        return redirect()->route('home');
     }
 
     //////////////////////////

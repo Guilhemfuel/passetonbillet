@@ -20,13 +20,14 @@ return [
     'number_tickets_successfully_sold' => 'Ticket(s) vendus avec succès',
     'by'                               => 'par',
     'only_you'                         => 'Informations privées du profil',
+    'delete_account'                   => 'Supprimer mon compte',
 
 
     'stats_title' => 'Statistiques',
 
     'modal' => [
-        'change_name' => [
-            'title'=> 'Changement de nom',
+        'change_name'     => [
+            'title'   => 'Changement de nom',
             'content' => 'Votre nom est automatiquement corrigé lors de la vérification de votre compte.</br><ul>
 <li>Je n’ai pas encore demandé une vérification de mon compte: Si vous n’avez pas vérifié votre compte, merci de le faire en cliquant sur le bouton ‘Vérifier mon compte’. Votre nom sera automatiquement corrigé. </li>
 <li>La vérification de mon compte est en cours: Si vous avez déjà soumis une copie d’un de vos documents d’identité pour la vérification de votre compte, merci de patienter. La vérification est généralement faite sous quelques minutes (maximum 24 heures). Votre nom sera automatiquement modifié lors de la vérification. (Merci de nous contacter dans le live chat à ce sujet qu\'en cas d\'urgence) </li>
@@ -73,6 +74,13 @@ return [
             'delay'      => 'La verification se fait généralement sous 24 heures, mais vous pourrez vendre un billet dès l\'upload de votre pièce d\'identité.',
             'error'      => 'Il y a une erreur lors de l\'upload de votre piẻce d\'identité. Si le problème persiste, contactez-nous!',
             'success'    => 'Votre pièce d\'identité a bien été uploadé. Votre compte devrait être mis à jour sous 24h!'
+        ],
+        'delete_account'  => [
+            'text'    => 'Voulez-vous vraiment supprimer votre compte PasseTonBillet? Votre profil ainsi que votre historique de vente, vos billets, vos discussions et vos messages seront supprimés. Cette action est irréversible.',
+            'cta'     => 'Confirmer la suppression du compte',
+            'cancel'  => 'Oups! Je veux garder mon compte',
+            'success' => 'Compte supprimé avec succès. Merci de nous contacter pour nous laisser votre avis. Nous espèrons vous revoir bientot sur PasseTonBillet !'
+
         ]
     ]
 ];

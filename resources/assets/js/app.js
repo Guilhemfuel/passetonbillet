@@ -93,6 +93,7 @@ Vue.component( 'discussion', () => import(/* webpackChunkName: "discussion" */ '
 
 // Unique components (used in one place only)
 Vue.component( 'change-password', () => import(/* webpackChunkName: "change-password" */ './components/Pages/Profile/ChangePassword.vue'));
+Vue.component( 'delete-account', () => import(/* webpackChunkName: "delete-account" */ './components/Pages/Profile/DeleteAccount.vue'));
 
 
 

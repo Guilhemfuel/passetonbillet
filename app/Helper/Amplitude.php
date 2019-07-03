@@ -24,6 +24,7 @@ class Amplitude
         'confirm_email',
         'register_facebook_connect_button',
         'login_facebook_connect_button',
+        'delete_account',
 
         // Selling
         'retrieve_tickets', // Use automatic form to retrieve tickets

@@ -11,6 +11,7 @@
                 <div class="card-title mb-0"> @lang('profile.title') </div>
 
                 <div class="card">
+                    {{-- View  User--}}
                     @if(\Auth::user()->id == $user->id)
                         <div class="card-body">
                             <div class="row align-items-center">
@@ -66,10 +67,13 @@
                                     <button class="btn btn-block btn-ptb-blue"
                                             @click.prevent="child.profile.modalPictureUploadOpen=true">@lang('profile.change_picture')
                                     </button>
+                                    <delete-account></delete-account>
+
                                 </div>
                             </div>
                         </div>
                     @else
+                        {{-- View Guest--}}
                         <div class="card-body">
                             <div class="row align-items-center">
                                 <div class="col-md-4 col-sm-12 col-12">

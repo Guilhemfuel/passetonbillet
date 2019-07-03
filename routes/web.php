@@ -140,7 +140,7 @@ Route::group( [ 'middleware' => 'auth', 'as' => 'public.' ], function () {
         Route::post( 'password/change', 'UserController@changePassword' )->name( 'password.change' );
         Route::post( 'picture/upload', 'UserController@changeProfilePicture' )->name( 'picture.upload' );
         Route::post( 'identity/upload', 'UserController@uploadId' )->name( 'id.upload' );
-
+        Route::delete( 'delete-account', 'UserController@deleteAccount' )->name( 'delete-account' );
     } );
 
 } );

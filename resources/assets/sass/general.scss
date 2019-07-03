@@ -352,6 +352,18 @@ img[is-lazy=true]:not([lazy]) {
     border: 0px;
   }
 }
+.btn-outline-danger {
+  background-color: transparent;
+  color: $color-red;
+  border: 1px solid $color-red !important;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $color-red;
+    color: white;
+    border: 0px;
+  }
+}
 
 .btn-facebook {
 
