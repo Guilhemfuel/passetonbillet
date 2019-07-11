@@ -163,6 +163,14 @@
         window.amplitude = amplitude;
     </script>
 
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-3424683534484480",
+            enable_page_level_ads: true
+        });
+    </script>
+
     @yield('head')
 </head>
 
