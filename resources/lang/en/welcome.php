@@ -60,7 +60,7 @@ return [
         'why_use'   => 'WHY USE',
         'quicker'   => [
             'title' => 'So Quick',
-            'text'  => 'With many new features, you can buy and sell your used train tickets in no time. In most cases you can even directly download your verified ticket directly on the site.'
+            'text'  => 'With many new features, you can buy and sell your used train tickets in no time.'
         ],
         'cheaper'   => [
             'title' => 'So Cheap',

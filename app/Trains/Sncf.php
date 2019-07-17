@@ -212,6 +212,10 @@ class Sncf extends TrainConnector
             // Retrieve ticket information
             $flexibility = $data['fareFlexibility'];
             $class = $data['segments'][0]['comfortClass'];
+
+            if (!isset($data['amountByPassenger']) || !isset($data['amountByPassenger'][$passenger['passengerId']])) {
+                return null;
+            }
             $boughtPrice = $data['amountByPassenger'][$passenger['passengerId']];
 
             // Create new Ticket

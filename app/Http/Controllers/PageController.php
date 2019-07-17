@@ -7,11 +7,13 @@ use App\Exceptions\PasseTonBilletException;
 use App\Facades\Amplitude;
 use App\Facades\AppHelper;
 use App\Facades\Eurostar;
+use App\Http\Resources\Content\HelpQuestionResource;
 use App\Http\Resources\DiscussionCollectionResource;
 use App\Http\Resources\DiscussionLastMessageResource;
 use App\Http\Resources\StationRessource;
 use App\Http\Resources\TicketRessource;
 use App\Http\Resources\UserRessource;
+use App\Models\Content\HelpQuestion;
 use App\Models\Discussion;
 use App\Models\Review;
 use App\Notifications\OfferNotification;
@@ -43,10 +45,13 @@ class PageController extends Controller
 
         $tickets = Ticket::getMostRecentTickets( 8 );
         $reviews = Review::getSelectedReviews( 3 );
+        $questions = HelpQuestionResource::collection( HelpQuestion::take( 4 )->get() );
+
 
         return view( 'welcome' )->with( [
             'recentTickets'   => TicketRessource::collection( $tickets ),
             'defaultStations' => StationRessource::collection( $defaultStations ),
+            'questions'       => $questions,
             'reviews'         => $reviews,
         ] );
     }
@@ -303,7 +308,11 @@ class PageController extends Controller
      */
     public function help()
     {
-        return view( 'help.help' );
+        $questions = HelpQuestion::all();
+
+        return view( 'help.help', [
+            'questions' => HelpQuestionResource::collection( $questions )
+        ] );
     }
 
     /**

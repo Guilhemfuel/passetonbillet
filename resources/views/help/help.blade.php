@@ -11,7 +11,7 @@
                         <div class="container-fluid">
                             <h2 class="text-center text-white mt-5">@lang('faq.title')</h2>
 
-                            <help></help>
+                            <help :questions="child.questions"></help>
                         </div>
                     </div>
                 </div>
@@ -24,6 +24,18 @@
     </div>
 
 @endsection
+
+
+@push('vue-data')
+    <script type="application/javascript">
+
+        data.questions = {!! json_encode($questions) !!};
+
+    </script>
+@endpush
+
+
+
 
 @push('scripts')
     {!! \Anhskohbo\NoCaptcha\Facades\NoCaptcha::renderJs(App::getLocale()) !!}

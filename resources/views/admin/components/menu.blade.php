@@ -49,6 +49,7 @@
     </a>
 </li>
 
+
 <?php
     $awaitingIdCheck = \App\Models\Verification\IdVerification::awaitingCount();
 ?>
@@ -57,6 +58,13 @@
     <a href="{{route('id_check.oldest')}}">
         <i class="fa fa-id-card-o"></i>
         ID Check @if($awaitingIdCheck>0)<span class="badge badge-pill badge-light">{{$awaitingIdCheck}}</span>@endif
+    </a>
+</li>
+
+<li  class="{{  substr(Route::currentRouteName(),0,14) == 'help_questions.'? 'active':'' }}">
+    <a href="{{route('help_questions.index')}}">
+        <i class="fa fa-question-circle" aria-hidden="true"></i>
+        Help Questions
     </a>
 </li>
 

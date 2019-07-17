@@ -191,6 +191,8 @@ Route::blacklist( function () {
 
         Route::resource( 'stations', 'Admin\StationController' );
         Route::resource( 'trains', 'Admin\TrainController' );
+        Route::resource( 'help_questions', 'Admin\HelpQuestionController' );
+
 
         Route::resource( 'offers', 'Admin\DiscussionController' );
         Route::group( [ 'prefix' => 'offers', 'as' => 'offers.' ], function () {

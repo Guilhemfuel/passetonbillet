@@ -37,7 +37,7 @@
                         </div>
                     </modal>
                 @endif
-                    <form id="editForm" method="POST" action="{{route($model.'.update',$entity->id)}}" v-cloak >
+                    <vue-form id="editForm" method="POST" action="{{route($model.'.update',$entity->id)}}" v-cloak >
                         {{csrf_field()}}
                         {{ method_field('PUT') }}
 
@@ -51,7 +51,7 @@
                              @stack('additional-btn')
                             </div>
                         </div>
-                    </form>
+                    </vue-form>
 
                 @stack('additional-content')
             </div>

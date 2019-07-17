@@ -4,7 +4,8 @@
         <div class="row">
             <div class="col-12 col-sm-10 col-md-8 mx-auto">
                 <div class="search p-4">
-                    <input-text name="Search" :placeholder="trans('faq.search_placeholder')" v-model="search"></input-text>
+                    <input-text name="Search" :placeholder="trans('faq.search_placeholder')"
+                                v-model="search"></input-text>
                 </div>
             </div>
         </div>
@@ -13,12 +14,12 @@
             <div class="col-12">
 
                 <div class="questions">
-                    <div class="question" v-for="question in filteredQuestions" v-if="filteredQuestions.length>0">
+                    <div class="question" v-for="question in filteredQuestions" v-if="filteredQuestions && filteredQuestions.length>0">
                         <h5 class="title" v-html=" question.title"></h5>
                         <div class="question-content text-justify" v-html="question.content"></div>
                     </div>
 
-                    <p class="text-center" v-if="filteredQuestions.length == 0">
+                    <p class="text-center" v-if="filteredQuestions && filteredQuestions.length == 0">
                         {{trans('faq.no_result')}}
                     </p>
                 </div>
@@ -37,16 +38,17 @@
     import Fuse from 'fuse.js'
 
     export default {
-        props: {},
+        props: {
+            questions: {required: true}
+        },
         data() {
             return {
                 search: '',
-                questions: this.trans('faq.questions')
             }
         },
         computed: {
             filteredQuestions() {
-                if (this.search == '' || this.search == null) {
+                if (this.search == '' || this.search == null || !this.questions) {
                     return this.questions;
                 }
 
@@ -55,7 +57,7 @@
                     keys: [{
                         name: 'title',
                         weight: 0.7
-                    },{
+                    }, {
                         name: 'tags',
                         weight: 0.7
                     }, {

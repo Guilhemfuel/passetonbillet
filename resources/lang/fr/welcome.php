@@ -60,7 +60,7 @@ return [
         'why_use' => 'POURQUOI UTILISER',
         'quicker' => [
             'title' => 'Plus Rapide',
-            'text' => 'Grâce à de nombreuses nouvelles fonctionnalités, vous pouvez acheter et revendre vos billets de train d’occasion en un rien de temps. Dans la plupart des cas vous pourrez même directement télécharger votre billet vérifié directement sur le site.'
+            'text' => 'Grâce à de nombreuses nouvelles fonctionnalités, vous pouvez acheter et revendre vos billets de train d’occasion en un rien de temps.'
         ],
         'cheaper' => [
             'title' => '100% Gratuit',

@@ -14,7 +14,7 @@
                 Create new {{$entitySingleName}} - {!!'<a href='.route($model.'.index').'>Back to '.$model.' list</a>'!!}
             </div>
             <div class="card-body">
-                <form id="createForm" method="POST" action="{{route($model.'.store')}}">
+                <vue-form id="createForm" method="POST" action="{{route($model.'.store')}}">
                     {{csrf_field()}}
 
                     @include('admin.CRUD.'.$model.'.form')
@@ -24,7 +24,7 @@
                             <i class="fa fa-plus"></i> Create new entity
                         </button>
                     </div>
-                </form>
+                </vue-form>
             </div>
         </div>
     </div>

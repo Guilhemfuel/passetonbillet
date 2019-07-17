@@ -238,42 +238,17 @@
 
             <div class="section-FAQ" id="section-FAQ">
                 <h2 class="text-center text-warning title FAQ-title">{{__('welcome.FAQ.title')}}</h2>
+                @foreach($questions->resolve() as $key=>$question)
                 <div>
-                    <input type="checkbox" class="read-more-state" id="post-1"/>
+                    <input type="checkbox" class="read-more-state" id="post-{{$key}}"/>
                     <ul class="read-more-wrap">
-                        <label for="post-1" class="questions">
-                            <li class="question"> {{__('faq.questions')[0]['title']}}</li>
-                            <li class="answer">{!! __('faq.questions')[0]['content'] !!}</li>
+                        <label for="post-{{$key}}" class="questions">
+                            <li class="question"> {{$question['title']}}</li>
+                            <li class="answer">{!! $question['content'] !!}</li>
                         </label>
                     </ul>
                 </div>
-                <div>
-                    <input type="checkbox" class="read-more-state" id="post-2"/>
-                    <ul class="read-more-wrap">
-                        <label for="post-2" class="questions">
-                            <li class="question"> {{__('faq.questions')[1]['title']}}</li>
-                            <li class="answer">{!! __('faq.questions')[1]['content'] !!}</li>
-                        </label>
-                    </ul>
-                </div>
-                <div>
-                    <input type="checkbox" class="read-more-state" id="post-3"/>
-                    <ul class="read-more-wrap">
-                        <label for="post-3" class="questions">
-                            <li class="question"> {{__('faq.questions')[2]['title']}}</li>
-                            <li class="answer">{!! __('faq.questions')[2]['content'] !!}</li>
-                        </label>
-                    </ul>
-                </div>
-                <div>
-                    <input type="checkbox" class="read-more-state" id="post-4"/>
-                    <ul class="read-more-wrap">
-                        <label for="post-4" class="questions">
-                            <li class="question"> {{__('faq.questions')[3]['title']}}</li>
-                            <li class="answer">{!! __('faq.questions')[3]['content'] !!}</li>
-                        </label>
-                    </ul>
-                </div>
+                @endforeach
                 <div class="button">
                     <a id="btn-seemore" class="btn text-uppercase" href="{{route('help.page')}}">
                         {{__('welcome.FAQ.buttons.seemore')}}

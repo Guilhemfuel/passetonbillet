@@ -21,7 +21,7 @@ use App\Http\Resources\StationRessource;
 use App\Http\Resources\TicketRessource;
 use App\Http\Resources\TrainRessource;
 use App\Jobs\DownloadTicketPdf;
-use App\Listeners\Admin\Warnings\CheckPriceTicketAddedListener;
+use App\Listeners\Admin\Checks\CheckPriceTicketAddedListener;
 use App\Mail\OfferEmail;
 use App\Models\AdminWarning;
 use App\Models\Discussion;
@@ -401,9 +401,9 @@ class TicketController extends Controller
         // List of connectors and their Facades
         $connectors = [
             \App\Trains\Eurostar::class => Eurostar::class,
+            \App\Trains\Ouigo::class    => Ouigo::class,
             \App\Trains\Sncf::class     => Sncf::class,
             \App\Trains\Thalys::class   => Thalys::class,
-            \App\Trains\Ouigo::class    => Ouigo::class,
         ];
 
         $tickets = null;
