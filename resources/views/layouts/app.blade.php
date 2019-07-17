@@ -159,7 +159,11 @@
             ;e.amplitude = n
         })(window, document);
 
-        amplitude.getInstance().init("{{env('AMPLITUDE_APP_KEY')}}");
+        amplitude.getInstance().init("{{env('AMPLITUDE_APP_KEY')}}", null, {
+            saveEvents: true,
+            includeUtm: true,
+            includeReferrer: true,
+        });
         window.amplitude = amplitude;
     </script>
 
