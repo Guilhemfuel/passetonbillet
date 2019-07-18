@@ -443,7 +443,7 @@
 
                             <p class="text-center mt-4">{{trans('tickets.component.share_modal.our_fb_group')}}</p>
 
-                            <div class="fb-group" data-href="https://www.facebook.com/groups/eurostarpassetonbillet/"
+                            <div class="fb-group" data-href="https://www.facebook.com/groups/4856026601/"
                                  data-width="300" data-show-social-context="true" data-show-metadata="false"
                                  v-if="ticket.provider=='eurostar'"></div>
 
@@ -451,7 +451,7 @@
                                  data-width="300" data-show-social-context="true" data-show-metadata="false"
                                  v-if="ticket.provider=='thalys' || ticket.provider=='izy'"></div>
 
-                            <div class="fb-group" data-href="https://www.facebook.com/groups/reventebilletprems/"
+                            <div class="fb-group" data-href="https://www.facebook.com/groups/38391320652/"
                                  data-width="300" data-show-social-context="true" data-show-metadata="false"
                                  v-else></div>
 

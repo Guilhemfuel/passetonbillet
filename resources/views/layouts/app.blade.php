@@ -86,6 +86,7 @@
     </script>
 
     <script type="text/javascript">
+        {{-- Amplitude Analytics --}}
         (function (e, t) {
             var n = e.amplitude || {_q: [], _iq: {}};
             var r = t.createElement("script")
@@ -180,6 +181,7 @@
 
 <body>
 
+
 <div id="fb-root"></div>
 <script>
     {{-- Facebook --}}
@@ -194,17 +196,8 @@
         FB.AppEvents.logPageView();
 
     };
-
-    (function (d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s);
-        js.id = id;
-        js.src = 'https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&autoLogAppEvents=1&version=v3.1&appId=2544208985804652';
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
 </script>
-
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v3.3&appId=253093131783325&autoLogAppEvents=1"></script>
 
 <div id="app">
 
