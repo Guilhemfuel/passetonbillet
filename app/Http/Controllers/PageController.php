@@ -45,7 +45,7 @@ class PageController extends Controller
 
         $tickets = Ticket::getMostRecentTickets( 8 );
         $reviews = Review::getSelectedReviews( 3 );
-        $questions = HelpQuestionResource::collection( HelpQuestion::take( 4 )->get() );
+        $questions = HelpQuestionResource::collection( HelpQuestion::getCached(4) );
 
 
         return view( 'welcome' )->with( [
@@ -308,7 +308,7 @@ class PageController extends Controller
      */
     public function help()
     {
-        $questions = HelpQuestion::all();
+        $questions = HelpQuestion::getCached();
 
         return view( 'help.help', [
             'questions' => HelpQuestionResource::collection( $questions )

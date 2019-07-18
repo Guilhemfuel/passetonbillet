@@ -59,6 +59,7 @@ class StatsController extends Controller
             'eurostar' => $currentTickets->where( 'provider', 'eurostar' )->count(),
             'thalys'   => $currentTickets->where( 'provider', 'thalys' )->count(),
             'ouigo'   => $currentTickets->where( 'provider', 'ouigo' )->count(),
+            'izy'   => $currentTickets->where( 'provider', 'izy' )->count(),
         ];
 
         $data = [

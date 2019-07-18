@@ -45,17 +45,20 @@ class HelpQuestionController extends BaseController
      */
     public function update( Request $request, $id )
     {
-        $user = User::find( $id );
-        if ( ! $user ) {
+        $question = HelpQuestion::find( $id );
+        if ( ! $question ) {
             \Session::flash( 'danger', 'Entity not found!' );
 
             return redirect()->back();
         }
-        $user->update( $request->all() );
-        $user->save();
+
+        $this->validate($request,HelpQuestion::$rules);
+
+        $question->update( $request->all() );
+        $question->save();
 
         flash()->success( $this->CRUDsingularEntityName . ' updated!' );
 
-        return redirect()->route( $this->CRUDmodelName . '.edit', $user->id );
+        return redirect()->route( $this->CRUDmodelName . '.edit', $question->id );
     }
 }

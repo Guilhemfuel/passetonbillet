@@ -400,8 +400,9 @@ class TicketController extends Controller
     {
         // List of connectors and their Facades
         $connectors = [
-            \App\Trains\Eurostar::class => Eurostar::class,
             \App\Trains\Ouigo::class    => Ouigo::class,
+            \App\Trains\Izy::class      => Izy::class,
+            \App\Trains\Eurostar::class => Eurostar::class,
             \App\Trains\Sncf::class     => Sncf::class,
             \App\Trains\Thalys::class   => Thalys::class,
         ];

@@ -12,6 +12,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class HelpQuestion extends Model
 {
+    const CACHE_KEY = 'cached_help_question';
+
     public $table = 'help_questions';
 
     public static $relationships = [];
@@ -52,4 +54,60 @@ class HelpQuestion extends Model
         'tags_en'     => 'required|string',
         'tags_fr'     => 'required|string',
     ];
+
+    /**
+     * Return Cached questions
+     */
+    public static function getCached( $count = null )
+    {
+        // Retrive from cache or set to cache
+        if ( \Cache::has( self::CACHE_KEY ) ) {
+            $questions = \Cache::get( self::CACHE_KEY );
+        } else {
+
+
+            $questions = self::updateCache();
+        }
+
+        // Return desired number
+        if ( $count ) {
+            return $questions->take( $count );
+        }
+
+        return $questions;
+    }
+
+    /**
+     * Update cached questions and return questions
+     *
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public static function updateCache()
+    {
+        $questions = HelpQuestion::all();
+        \Cache::forever( self::CACHE_KEY, $questions );
+
+        return $questions;
+    }
+
+    /**
+     * Update cache on modification
+     */
+    public static function boot() {
+        parent::boot();
+
+        static::created(function (HelpQuestion $item) {
+            self::updateCache();
+        });
+
+        static::updated(function (HelpQuestion $item) {
+            self::updateCache();
+        });
+
+        static::deleted(function (HelpQuestion $item) {
+            self::updateCache();
+        });
+
+    }
+
 }
