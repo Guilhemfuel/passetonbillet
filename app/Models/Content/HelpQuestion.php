@@ -3,6 +3,7 @@
 namespace App\Models\Content;
 
 use Illuminate\Database\Eloquent\Model;
+use Nicolaslopezj\Searchable\SearchableTrait;
 
 /**
  * Stores the FAQ questions and answers
@@ -12,6 +13,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class HelpQuestion extends Model
 {
+    use SearchableTrait;
+
     const CACHE_KEY = 'cached_help_question';
 
     public $table = 'help_questions';
@@ -53,6 +56,29 @@ class HelpQuestion extends Model
         'answer_fr'   => 'required|string',
         'tags_en'     => 'required|string',
         'tags_fr'     => 'required|string',
+    ];
+
+    /**
+     * Searchable rules.
+     *
+     * @var array
+     */
+    protected $searchable = [
+        /**
+         * Columns and their priority in search results.
+         * Columns with higher values are more important.
+         * Columns with equal values have equal importance.
+         *
+         * @var array
+         */
+        'columns' => [
+            'help_questions.question_en' => 8,
+            'help_questions.question_fr'  => 8,
+            'help_questions.answer_fr'  => 6,
+            'help_questions.answer_en'  => 6,
+            'help_questions.tags_fr'  => 10,
+            'help_questions.tags_en'  => 10,
+        ]
     ];
 
     /**

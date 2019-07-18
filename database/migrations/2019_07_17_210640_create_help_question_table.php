@@ -15,12 +15,12 @@ class CreateHelpQuestionTable extends Migration
     {
         Schema::create('help_questions', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('question_en');
-            $table->string('question_fr');
+            $table->text('question_en');
+            $table->text('question_fr');
             $table->mediumText( 'answer_en' );
             $table->mediumText(  'answer_fr' );
-            $table->string('tags_en');
-            $table->string('tags_fr');
+            $table->text('tags_en');
+            $table->text('tags_fr');
             $table->timestamps();
         });
     }
