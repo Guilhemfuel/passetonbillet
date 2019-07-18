@@ -307,15 +307,9 @@ class TicketController extends Controller
         }
 
 
-        // Check price (special case for eurostar snap)
-        if ( $ticket->provider == 'eurostar' && $ticket->bought_price == 0 ) {
-            if ( $request->price > 70 ) {
-                flash( __( 'tickets.sell.errors.max_value' ) )->error()->important();
-
-                return redirect()->route( 'public.ticket.sell.page' );
-            }
-        } else if ( $ticket->bought_price < $request->price ) {
-            flash( __( 'tickets.sell.errors.max_value' ) )->error()->important();
+        // Check price
+        if ( 0 > $request->price ) {
+            flash( __( 'tickets.sell.errors.min_value' ) )->error()->important();
 
             return redirect()->route( 'public.ticket.sell.page' );
         }
@@ -323,14 +317,9 @@ class TicketController extends Controller
 
         // If the user lowers the ticket price a lot
         if ( $request->price <= CheckPriceTicketAddedListener::TICKET_WARNING_PRICE && $request->price <= $ticket->bought_price ) {
-            AdminWarning::create( [
-                'action' => AdminWarning::STRANGELY_LOW_TICKET_PRICE,
-                'link'   => route( 'tickets.edit', $ticket->id ),
-                'data'   => [
-                    'user_id' => $ticket->user->id,
-                    'message' => 'This ticket has a really low price. (S)he might try to negotiate later. Please check.',
-                ]
-            ] );
+            $ticket->price = $ticket->bought_price;
+        } else {
+            $ticket->price = $request->price;
         }
 
         Amplitude::logEvent( 'change_ticket_price', [

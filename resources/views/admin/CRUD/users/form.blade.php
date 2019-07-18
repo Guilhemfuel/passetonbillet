@@ -125,7 +125,7 @@
 @push('additional-content')
 
     <div class="row mt-5">
-        <div class="col-sm-6 col-12">
+        <div class="col-md-6 col-12">
             <h5>Emails Sent({{$entity->emailsReceived()->count()}})</h5>
             <p>A 2 week history of sent mail is maintained</p>
             <table class="table table-hover table-striped">
@@ -151,7 +151,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="col-sm-6 col-12">
+        <div class="col-md-6 col-12">
             <div class="tickets">
                 <h5>Tickets({{$entity->tickets()->count()}})</h5>
                 <p>A full history of sold tickets is maintained</p>
@@ -186,13 +186,40 @@
                     </tbody>
                 </table>
             </div>
+            <div class="offser">
+                <h5>Buying Discussions</h5>
+                <p>The 10 most recent offers sent</p>
+                <table class="table table-hover table-striped">
+                    <thead>
+                    <th>Date</th>
+                    <th>To</th>
+                    <th>Price</th>
+                    <th>Link</th>
+                    </thead>
+                    <tbody>
+                    @foreach($entity->offers()->orderBy('created_at','desc')->limit(10)->get() as $offer)
+                        <tr>
+                            <td>{{$offer->created_at->format('d/m/Y')}}</td>
+                            <td><a target="{{route('users.edit',$offer->seller->id)}}">{{$offer->seller->full_name}}</a></td>
+                            <th>
+                                {{ $offer->price }}
+                            </th>
+                            <th>
+                                <a href="{{route('offers.edit',$offer->id)}}"><i class="fa fa-eye" aria-hidden="true"></i>
+                                </a>
+                            </th>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
             <div class="deleted-tickets">
                 <h5>Deleted Tickets({{$entity->tickets()->onlyTrashed()->count()}})</h5>
                 <p>Tickets deleted by the user. They can't put in back on sale, but an admin can restore them below.</p>
                 <table class="table table-hover table-striped">
                     <thead>
                     <th>Date</th>
-                    <th>Status</th>
+                    <th>Code</th>
                     <th>From</th>
                     <th>To</th>
                     <th>Price</th>
@@ -202,7 +229,7 @@
                     @foreach($entity->tickets()->onlyTrashed()->get() as $ticket)
                         <tr>
                             <td>{{$ticket->train->carbon_departure_date->format('d/m/Y')}}</td>
-                            <td>{{$ticket->status}}</td>
+                            <td>{{$ticket->provider_code}}</td>
                             <th>
                                 {{$ticket->train->departureCity->name}}
                             </th>

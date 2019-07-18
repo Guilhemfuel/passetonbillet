@@ -113,8 +113,8 @@ return [
 
         'edit_price_modal' => [
             'title'  => 'Modifier le prix du billet',
-            'text'   => 'Vous pouvez modifier le prix de votre billet à tout instant. Tout comme lors de la mise en vente de celui-ci, le prix de ne peut excéder le prix originel d\'achat.',
-            'submit' => 'Modifier le prix'
+            'text'   => 'Vous pouvez modifier le prix de votre billet à tout instant.',
+            'submit' => 'Modifier prix'
         ]
 
     ],
@@ -160,7 +160,7 @@ return [
         'submit'            => 'Vendre le billet',
         'preview'           => 'Prévisualisation du billet',
         'errors'            => [
-            'max_value'       => 'Whoops ! Le prix de revente ne peut être supérieur au prix d\'achat ! Essayez encore avec un prix plus bas.',
+            'min_value'       => 'Whoops ! Le prix de revente ne peut être inférieur à 1 ! Essayez encore avec un prix plus haut.',
             'manual_eurostar' => 'Whoops! Vous ne pouvez pas utiliser le formulaire de vente manuel pour vendre un billet eurostar.',
             'duplicate'       => 'Whoops ! Ce billet a déjà été mis en vente...',
             'search'          => 'Whoops ! Aucun billet trouvé... Essayez à nouveau, et si le problème persiste, contactez-nous.'

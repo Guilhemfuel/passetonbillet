@@ -91,40 +91,6 @@
 
         </modal>
 
-        <modal :is-open="modalEditPriceOpen"
-               @close-modal="closeModal()"
-               :title="trans('tickets.component.edit_price_modal.title')"
-        >
-            <p class="text-justify">{{trans('tickets.component.edit_price_modal.text')}}</p>
-
-            <vue-form method="post" :action="route('public.ticket.edit',[ticket.id])" ref="sell_form">
-
-                <div class="form-group">
-                    <label>{{trans('tickets.sell.inputs.price')}}</label>
-                    <div class="input-group">
-                        <!-- Todo: ajouter l'option de la currency-->
-                        <span class="input-group-addon">{{ticket.bought_currency_symbol}}</span>
-                        <input type="text"
-                               :class="'form-control' + (errors.has('price')?' is-invalid':'')"
-                               :aria-label="trans('tickets.lang.sell.inputs.price')"
-                               :placeholder="trans('tickets.lang.sell.inputs.price')"
-                               v-model="ticket.price"
-                               name="price"
-                               v-validate="'required|numeric|min_value:0|max_value:'+maxPrice">
-                    </div>
-                    <span v-if="errors.has('price')" class="invalid-feedback">{{ errors.first('price')
-                        }}</span>
-                </div>
-
-                <button type="submit" class="btn btn-ptb btn-block mt-4"
-                        :disabled="maxPrice < ticket.price"
-                >
-                    {{trans('tickets.component.edit_price_modal.submit')}}
-                </button>
-            </vue-form>
-
-        </modal>
-
     </div>
 
 </template>
@@ -134,7 +100,6 @@
         props: {
             ticket: {type: Object, required: false},
             modalDeleteOpen: {type: Boolean, required: false},
-            modalEditPriceOpen: {type: Boolean, required: false},
         },
         data() {
             return {
@@ -154,18 +119,6 @@
 //                Form data
                 deleteTicket: false,
                 soldToDiscussionId: null
-            }
-        },
-        computed: {
-            maxPrice: function() {
-                if (this.ticket.provider == 'eurostar'
-                    && this.ticket.bought_price == 0 ) {
-                    /**
-                     * Snap eurostar
-                     */
-                    return 70;
-                }
-                return this.ticket.bought_price;
             }
         },
         methods: {

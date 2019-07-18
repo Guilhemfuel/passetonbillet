@@ -113,8 +113,8 @@ return [
 
         'edit_price_modal' => [
             'title'  => 'Edit price of your ticket',
-            'text'   => 'You can change the price of your ticket at any moment. Just as when you put it on PasseTonBiller for the first time, the price can\'t exceed the original price.',
-            'submit' => 'Save Changes'
+            'text'   => 'You can change the price of your ticket at any moment.',
+            'submit' => 'Save Price'
         ]
 
     ],
@@ -156,7 +156,7 @@ return [
         'submit'            => 'Sell ticket',
         'preview'           => 'Ticket Preview',
         'errors'            => [
-            'max_value'       => 'Whoops! Selling price can\'t exceed original price ! Try again with a lower price.',
+            'min_value'       => 'Whoops! Selling price can\'t be lower than 1 ! Try again with a higher price.',
             'manual_eurostar' => 'Whoops! You can\'t use the manual form to sell eurostar tickets.',
             'duplicate'       => 'Whoops! This ticket is already on sale...',
             'search'          => 'Whoops! No tickets were found... Try again and if the issue persists please contact us.'

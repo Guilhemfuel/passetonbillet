@@ -25,7 +25,7 @@ class SearchTicketsRequest extends FormRequest
     {
         return [
             'last_name'=>'required',
-            'booking_code'=>'required|max:6|min:6',
+            'booking_code'=>'required|max:7|min:6',
             'email' => 'nullable|email',
         ];
     }

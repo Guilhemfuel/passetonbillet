@@ -233,10 +233,43 @@
                             </div>
                             <div class="card-seller-info card-buying"
                                  v-if="(user != null && ticket.user &&  ticket.user.id == user.id)">
-                                <button class="btn btn-ptb mx-auto d-block mt-3" @click="modalEditPriceOpen=true">
-                                    {{trans('tickets.component.edit_price_cta')}}
-                                </button>
-                                <button class="btn btn-danger mx-auto d-block mt-3" @click="modalDeleteOpen=true">
+                                <p class="text-center">{{trans('tickets.component.edit_price_modal.text')}}</p>
+
+                                <vue-form method="post" :action="route('public.ticket.edit',[ticket.id])"
+                                          ref="sell_form">
+
+                                    <div class="row">
+                                        <div class="col-6 pr-1">
+                                            <div class="form-group">
+                                                <label>{{trans('tickets.sell.inputs.price')}}</label>
+                                                <div class="input-group">
+                                                    <!-- Todo: ajouter l'option de la currency-->
+                                                    <span class="input-group-addon">{{ticket.bought_currency_symbol}}</span>
+                                                    <input type="text"
+                                                           :class="'form-control' + (errors.has('price')?' is-invalid':'')"
+                                                           :aria-label="trans('tickets.lang.sell.inputs.price')"
+                                                           :placeholder="trans('tickets.lang.sell.inputs.price')"
+                                                           v-model="ticket.price"
+                                                           name="price"
+                                                           v-validate="'required|numeric|min_value:1'">
+                                                </div>
+                                                <span v-if="errors.has('price')"
+                                                      class="invalid-feedback">{{ errors.first('price')
+                                                    }}</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6 pl-1">
+                                            <button type="submit" class="btn btn-ptb btn-block mt-4"
+                                                    :disabled="ticket.price==null || ticket.price == 0"
+                                            >
+                                                {{trans('tickets.component.edit_price_modal.submit')}}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </vue-form>
+
+                                <button class="btn btn-outline-danger mx-auto d-block mt-3 btn-delete-ticket" @click="modalDeleteOpen=true">
                                     {{trans('tickets.component.delete_cta')}}
                                 </button>
                             </div>
@@ -312,7 +345,8 @@
                             <!-- Call of offer -->
                             <div class="text-center pt-3" v-if="buyingState == 'call'">
                                 <template v-if="contactNumber!=null">
-                                    <a :href="'tel:'+contactNumber" class="btn btn-ptb btn-block btn-contact-phone mb-3">
+                                    <a :href="'tel:'+contactNumber"
+                                       class="btn btn-ptb btn-block btn-contact-phone mb-3">
                                         <i class="fa fa-phone" aria-hidden="true"></i> {{contactNumber}}
                                     </a>
                                 </template>
@@ -355,7 +389,8 @@
                                                     {{trans('tickets.component.if_interested')}}
                                                 </span>
                                             </p>
-                                            <button class="btn btn-block btn-outline-orange" @click.prevent="callSeller()">
+                                            <button class="btn btn-block btn-outline-orange"
+                                                    @click.prevent="callSeller()">
                                                 {{trans('tickets.component.buying_actions.call.btn')}}
                                             </button>
                                         </div>
@@ -462,9 +497,8 @@
         </modal>
 
         <edit-ticket :ticket="ticket"
-                     :modal-edit-price-open="modalEditPriceOpen"
                      :modal-delete-open="modalDeleteOpen"
-                     @close-modal="modalEditPriceOpen=false;modalDeleteOpen=false;"
+                     @close-modal="modalDeleteOpen=false;"
         ></edit-ticket>
     </div>
 
@@ -503,7 +537,6 @@
                 errorMessage: '',
                 shareModalOpen: this.shareModalDefault,
                 modalDeleteOpen: false,
-                modalEditPriceOpen: false
             }
         },
         mounted() {
@@ -531,7 +564,7 @@
             },
             offerDone: function () {
                 if (this.buying && this.user) {
-                    if( this.user.offers_sent && Array.isArray(this.user.offers_sent)
+                    if (this.user.offers_sent && Array.isArray(this.user.offers_sent)
                         && this.user.offers_sent.length > 0 && this.user.offers_sent.map(a => a.ticket_id).includes(this.ticket.id)) {
                         this.user.offers_sent.forEach((offer) => {
                             if (offer.ticket_id == this.ticket.id && offer.status != -1) {

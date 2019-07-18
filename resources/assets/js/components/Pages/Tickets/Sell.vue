@@ -45,7 +45,7 @@
                                 </div>
                                 <div class="col-xs-12 form-group">
 
-                                    <input-text id="booking_code" validation="required|max:6|min:6"
+                                    <input-text id="booking_code" validation="required|max:7|min:6"
                                                 :label="trans('tickets.sell.inputs.booking_code')"
                                                 placeholder="ex: QNUSHT"
                                                 v-model="form.booking_code"

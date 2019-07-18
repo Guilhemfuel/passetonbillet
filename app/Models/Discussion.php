@@ -114,7 +114,6 @@ class Discussion extends Model
         if ($this->ticket) {
             return $this->ticket->user;
         }
-        dd($this->id);
         return null;
     }
 

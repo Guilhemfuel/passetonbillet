@@ -227,7 +227,7 @@ $animation-duration: 0.5s;
   }
 
   .card-seller-info {
-    height: 100px;
+    height: 100%;
     padding: 20px;
     position: relative;
 
@@ -351,6 +351,13 @@ $animation-duration: 0.5s;
     .btn-contact-phone {
       font-weight: 700;
       font-size: 18px;
+    }
+
+    .btn-delete-ticket {
+      bottom: 24px;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
     }
   }
 
