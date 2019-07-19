@@ -3,11 +3,13 @@
 return [
 
     'catchline' => 'Creating a community of trusted buyers and sellers.</br>Find cheap and safe European train tickets. Even at the very last minute.',
+    'on_ptb' => 'on PasseTonBillet.fr',
     'button'    => [
         'buy'  => 'buy',
         'sell' => 'sell'
     ],
     'ticket'    => [
+        'cheap' => 'Cheap Ticket',
         'name'        => 'Ticket',
         'flexibility' => [
             '1' => 'Non Flexible',

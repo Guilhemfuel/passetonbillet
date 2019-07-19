@@ -73,8 +73,8 @@
                     enter-active-class="animated fadeInDownBig"
                     leave-active-class="animated fadeOutUpBig">
             <div v-if="type==states.register" class="content">
-                <h1 class="text-dark" v-if="!ticketUniquePage">{{trans('auth.register.title')}}</h1>
-                <h1 class="text-dark" v-else>{{trans('auth.register.title_ticket')}}</h1>
+                <h1 class="text-dark" v-if="!ticket">{{trans('auth.register.title')}}</h1>
+                <h1 class="text-dark" v-else>{{trans('auth.register.title_ticket')}} {{ticket.train.arrival_city.name}}</h1>
 
                 <p>
                     <a href="#" class="a" @click.prevent="openLogin()">{{trans('auth.register.already_registered')}}</a>
@@ -180,7 +180,7 @@
                 <!-- REGISTER MENU -->
 
                 <div id="defaultRegister"  v-if="registerType == registerStates.default">
-                    <p class="mb-b" v-if="ticketLink">
+                    <p class="mb-b" v-if="ticket">
                         {{trans('auth.register.ticketLinkMessage')}}
                     </p>
 
@@ -329,7 +329,7 @@
             token: {required: false},
             authType: {type: String, required: true},
             routes: {type: Object, required: true},
-            ticketLink: {type: Boolean, required: false},
+            ticket: {type: Object, required: false},
             old: {
                 type: Object, required: false, default: () => {
                 }
@@ -419,10 +419,5 @@
             }
 
         },
-        computed: {
-            ticketUniquePage() {
-                return this.$parent.currentPage.name == "ticket.unique.page";
-            }
-        }
     }
 </script>

@@ -54,6 +54,13 @@
                     </button>
                 </div>
                 <div>
+                    <h2 class="mt-3 text-white auth-ticket-sub-title text-center">
+                        @if($ticket->sold || $ticket->passed)
+                            @lang('auth.common.ticket_sold')
+                        @else
+                            @lang('auth.common.ticket_available')
+                        @endif
+                    </h2>
                     <ticket :ticket="child.auth.ticket" :lang="child.auth.langTickets.component" :buying="true" class-name="mb-0 mt-4 max-sized no-border"></ticket>
                 </div>
             </div>
@@ -78,7 +85,7 @@
                           :old="child.auth.old"
                           :token="child.auth.token"
                           :default-email="child.auth.defaultEmail"
-                          :ticket-link="child.auth.true"
+                          :ticket="child.auth.ticket"
                     ></auth>
                 </div>
             </div>
@@ -107,7 +114,7 @@
                 old: {!! $old?json_encode($old):'{}' !!},
                 token: {!! isset($token)?"'".$token."'":'null' !!},
                 defaultEmail: '{{isset($email)?$email:''}}',
-                ticket: {!! json_encode($ticket)!!},
+                ticket: {!! json_encode( new \App\Http\Resources\TicketRessource($ticket) )!!},
                 langTickets: {!! json_encode( $langTicket) !!}
             }
         </script>

@@ -3,11 +3,14 @@
 return [
 
     'catchline' => 'Une communauté d\'acheteurs et de vendeurs de confiance.</br>Trouvez des billets sûrs et à bas prix. Même à la dernière minute.',
+    'on_ptb' => 'sur PasseTonBillet.fr',
     'button' => [
         'buy' => 'acheter',
         'sell'=> 'vendre'
     ],
     'ticket' => [
+        'cheap' => 'Billet Pas Cher',
+
         'name' => 'Billet',
         'flexibility' => [
             '1' => 'Non Flexible',

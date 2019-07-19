@@ -203,7 +203,7 @@ class PageController extends Controller
             \Vinkla\Hashids\Facades\Hashids::decode( $ticket_id )[0]
         );
 
-        if ( ! $ticket || $ticket->passed ) {
+        if ( ! $ticket ) {
             flash( __( "tickets.errors.passed" ) )->error();
 
             return redirect( 'home' );
@@ -220,7 +220,7 @@ class PageController extends Controller
 
             return view( 'auth.auth_ticket', [
                 'type'             => 'register',
-                'ticket'           => new TicketRessource( $ticket ),
+                'ticket'           => $ticket,
                 'pageImagePreview' => route( 'image.ticket.preview', $ticket_id ),
                 'pageTitle'        => $ticket->description,
             ] );

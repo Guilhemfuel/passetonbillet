@@ -35,9 +35,11 @@ class TicketRessource extends Resource
             'provider'               => $this->provider,
             'created_at'             => $this->created_at,
             'pdf_downloaded'         => $this->when( \Auth::check() && \Auth::user()->id == $this->user_id, $this->pdf_downloaded ),
+            'passed'                 => $this->passed,
+            'sold'                   => $this->sold,
 
             // Only for seller, or when selecting (user id is null)
-            'ticket_number'          => $this->when( (\Auth::check() && \Auth::user()->id == $this->user_id ) || $this->user_id == null, $this->ticket_number ),
+            'ticket_number'          => $this->when( ( \Auth::check() && \Auth::user()->id == $this->user_id ) || $this->user_id == null, $this->ticket_number ),
         ];
     }
 }

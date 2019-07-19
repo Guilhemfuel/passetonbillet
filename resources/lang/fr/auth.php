@@ -19,6 +19,9 @@ return [
         'contact' => 'Contact',
         'help'  => 'Aide',
         'help_link' => 'Une question? Besoin d\'aide? Clickez-ici !',
+        'ticket_sold' => 'Malheureusement, ce billet est déjà vendu... Inscrivez-vous pour trouver d\'autres billets pas cher sur PasseTonBillet.fr !',
+        'ticket_available' => 'Ce billet est encore disponible ! Dépechez-vous de vous inscrire pour l\'acheter !',
+
 
         'source' => [
             'sell' => 'Pour revendre un billet de train sur notre site, vous devez vous indentifier et créer un compte. La sécurité et la verification des billets sont essentielles sur PasseTonBillet.fr. ',
@@ -29,7 +32,7 @@ return [
     ],
     'register'     => [
         'title'                  => 'Inscription',
-        'title_ticket'           => 'Inscrivez-vous pour acheter ce billet',
+        'title_ticket'           => 'Inscrivez-vous pour acheter ce billet vers ',
         'manually'               => 'Inscription Manuelle',
         'first_name'             => 'Prénom',
         'last_name'              => 'Nom',

@@ -72,6 +72,10 @@
     background-blend-mode: multiply;
     background-image: url('/img/bg/auth.jpg');
 
+    h2.auth-ticket-sub-title {
+      font-size: 1.5em;
+    }
+
     &.fb-register {
       background-color: $color-facebook;
       background-image: none;

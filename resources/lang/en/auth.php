@@ -16,9 +16,12 @@ return [
     'failed'       => 'These credentials do not match our records.',
     'throttle'     => 'Too many login attempts. Please try again in :seconds seconds.',
     'common'       => [
-        'contact' => 'Contact us',
-        'help'    => 'Help',
-        'help_link' => 'A question? Need help? Click here !',
+        'contact'          => 'Contact us',
+        'help'             => 'Help',
+        'help_link'        => 'A question? Need help? Click here !',
+        'ticket_sold'      => 'Unfortunately, this ticket is already sold... Register now to find many other cheap tickets on PasseTonBillet.fr !',
+        'ticket_available' => 'This ticket is still available ! Register now to buy it !',
+
 
         'source' => [
             'sell'     => 'You must create an account before selling a ticket on our website. Safety and ticket verification are very important on PasseTonBillet.fr.',
@@ -29,7 +32,7 @@ return [
     ],
     'register'     => [
         'title'                  => 'Register',
-        'title_ticket'           => 'Register to buy this ticket',
+        'title_ticket'           => 'Register to buy this ticket to ',
         'manually'               => 'Register manually',
         'first_name'             => 'First Name',
         'last_name'              => 'Last Name',

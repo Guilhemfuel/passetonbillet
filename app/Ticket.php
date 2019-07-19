@@ -313,8 +313,8 @@ class Ticket extends Model
 
     public function getDescriptionAttribute()
     {
-        return $this->train->departureCity->name . ' → '
-               . $this->train->arrivalCity->name . ' | ' . $this->train->departure_date->format( 'j M' );
+        return __('common.ticket.cheap') .' ' . $this->train->departureCity->name . ' → '
+               . $this->train->arrivalCity->name . ' | ' . $this->train->departure_date->format( 'j F Y' ). ' ' . __('common.on_ptb');
     }
 
     /**
