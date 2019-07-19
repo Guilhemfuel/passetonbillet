@@ -178,7 +178,6 @@ return [
         Laravel\Socialite\SocialiteServiceProvider::class,  //Socialite, linkedin and facebook connect
         Laracasts\Flash\FlashServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
-        NotificationChannels\Facebook\FacebookServiceProvider::class,
         TeamTNT\Scout\TNTSearchScoutServiceProvider::class,
 //        Sentry\Laravel\ServiceProvider::class,
 

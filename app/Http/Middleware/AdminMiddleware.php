@@ -23,8 +23,6 @@ class AdminMiddleware
             return redirect()->route( 'home' );
         }
 
-        $request->session()->put('eyewitness:auth', 1);
-
         return $next( $request );
     }
 }
