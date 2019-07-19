@@ -63,6 +63,7 @@ class Thalys extends TrainConnector
                 } catch ( Exception $e ) {
                     if ( $e instanceof ClientException ) {
                         throw new PasseTonBilletException( $e->getMessage() );
+
                     }
                     throw $e;
                 }
@@ -88,14 +89,20 @@ class Thalys extends TrainConnector
         $url = str_replace( '{pnr}', $referenceNumber, $url );
 
         $response = $this->client->request( 'GET', $url);
-
         $bookings = json_decode( (string) $response->getBody(), true );
+
         if (!$bookings) {
             return null;
         }
 
         foreach ( $bookings as $booking ) {
-            $tickets[] = $this->createTrainAndReturnTicket( $booking, $lastName, $referenceNumber, $past );
+            try {
+                $ticket = $this->createTrainAndReturnTicket( $booking, $lastName, $referenceNumber, $past );
+                $tickets[] = $ticket;
+            } catch (\Exception $error) {
+                \Log::info("Thalys retrieval failed with booking code ${referenceNumber} and last name ${lastName}. Error: ".$error->getMessage());
+                continue;
+            }
         }
 
         return $tickets;
@@ -149,7 +156,26 @@ class Thalys extends TrainConnector
             // Retrieve ticket information
             $flexibility = $data['TicketInfos']['FareName'];
             $class = $data['ComfortClass'];
-            $boughtPrice = $data['TicketInfos']['Amount'];
+
+            // Find price or fail
+            $boughtPrice = null;
+            if (isset($data['TicketInfos']['Amount'])) {
+                $boughtPrice = $data['TicketInfos']['Amount'];
+            } elseif( isset($data['TicketInfos']['Transactions'])) {
+                foreach ($data['TicketInfos']['Transactions'] as $transaction) {
+                    if ($transaction['TransactionType'] == 'Sold') {
+                        $boughtPrice = $transaction['Amount'];
+                        break;
+                    }
+                }
+
+            }
+
+            if (!$boughtPrice) {
+                return null;
+            }
+
+
             $ticketNumber = $data['TCN'];
 
             // Create new Ticket
