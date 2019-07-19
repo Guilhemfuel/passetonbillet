@@ -286,6 +286,11 @@ class Ticket extends Model
         return $this->marked_as_fraud_at != null;
     }
 
+    public function getHashIdAttribute()
+    {
+        return \Hashids::encode( $this->id );
+    }
+
     public function setProviderAttribute( $value )
     {
         if ( ! in_array( $value, self::PROVIDERS ) ) {

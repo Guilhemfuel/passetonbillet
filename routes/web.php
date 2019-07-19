@@ -13,7 +13,7 @@
 */
 
 // Robot.txt
-Route::get( '/robots.txt', 'RobotController@index' );
+Route::get( '/robots.txt', 'RobotController@index' )->name('robot');
 
 Route::redirect( '/html/{any}', '/', 301 );
 Route::redirect( '/revendre-billet-train', '/', 301 );
@@ -153,6 +153,8 @@ Route::group( [ 'middleware' => 'auth', 'as' => 'public.' ], function () {
 
 Route::group( [ 'prefix' => 'ticket', 'as' => 'ticket.' ], function () {
     Route::get( '/{ticket_id}', 'PageController@ticketUnique' )->name( 'unique.page' );
+    Route::get( '/{ticket_id}/{departure}/{arrival}', 'PageController@ticketUnique' )->name( 'unique.station_slug.page' );
+
 } );
 
 /**
@@ -189,7 +191,6 @@ Route::blacklist( function () {
             Route::put( '/revert-status/{ticket_id}', 'Admin\TicketController@revertStatus' )->name( 'revert_status' );
         } );
 
-        Route::resource( 'stations', 'Admin\StationController' );
         Route::resource( 'trains', 'Admin\TrainController' );
         Route::resource( 'help_questions', 'Admin\HelpQuestionController' );
 

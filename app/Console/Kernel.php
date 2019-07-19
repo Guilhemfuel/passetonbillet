@@ -21,7 +21,8 @@ class Kernel extends ConsoleKernel
         Commands\CleanEmails::class,
         Commands\CleanTickets::class,
         Commands\CleanAll::class,
-        Commands\DeleteAdminWarnings::class
+        Commands\DeleteAdminWarnings::class,
+        Commands\GenerateSitemap::class
     ];
 
     /**
@@ -34,6 +35,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        $schedule->command('telescope:prune')->daily();
+        $schedule->command('sitemap:generate')->daily();
+
         $schedule->command(Commands\CleanAll::class)
                  ->dailyAt('3:00')
                  ->sendOutputTo(storage_path() . '/logs/clean.log');

@@ -87,4 +87,11 @@
     </a>
 </li>
 
+<li>
+    <a href="/ptbadmin/telescope">
+        <i class="fa fa-bug" aria-hidden="true"></i>
+        Telescope
+    </a>
+</li>
+
 
