@@ -134,7 +134,7 @@
                         this.$root.logEvent('ticket_search',this.search);
 
                     }, response => {
-//                        console.log(response)
+//                        console.log("Response" + response);
                     });
             }
         }

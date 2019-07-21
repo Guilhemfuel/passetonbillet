@@ -233,6 +233,8 @@
 
 <script src="/lang/lang-{{ \App::getLocale() }}.js"></script>
 
+<script src="{{ mix('/js/manifest.js')}}"></script>
+<script src="{{ mix('/js/vendor.js')}}"></script>
 @section('main_js_file')
     <script src="{{ mix('/js/app.js')}}"></script>
 @show

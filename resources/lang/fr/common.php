@@ -9,7 +9,7 @@ return [
         'sell'=> 'vendre'
     ],
     'ticket' => [
-        'cheap' => 'Billet Pas Cher',
+        'cheap' => 'Billet de train pas cher',
 
         'name' => 'Billet',
         'flexibility' => [

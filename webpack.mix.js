@@ -19,8 +19,14 @@ const webpack = require('webpack');
  * @type {{chunkFilename: string, publicPath: string}}
  */
 
+mix.options({
+    uglify: {
+        test: /\.js($|\?)/i
+    },
+});
+
 mix.config.webpackConfig.output = {
-    chunkFilename: 'js/bundles/[name].bundle.js',
+    chunkFilename: 'js/bundles/[name].bundle.js?id=[chunkhash]',
     publicPath: '/',
 };
 
@@ -31,11 +37,15 @@ mix.webpackConfig({
     ],
 });
 
-mix.js('resources/assets/js/app.js', 'public/js').version()
-    .js('resources/assets/js/admin.js', 'public/js').version()
-    .sass('resources/assets/sass/app.scss', 'public/css').version()
-    .sass('resources/assets/sass/admin.scss', 'public/css').version()
-    .copyDirectory('resources/assets/img', 'public/img')
+// Compiling
+mix.js('resources/assets/js/app.js', 'public/js')
+    .extract(['vue','element-ui','lodash','moment','pusher-js','vee-validate'])
+    .js('resources/assets/js/admin.js', 'public/js')
+    .sass('resources/assets/sass/app.scss', 'public/css')
+    .sass('resources/assets/sass/admin.scss', 'public/css').version();
+
+// Copying assets
+mix.copyDirectory('resources/assets/img', 'public/img')
     .copyDirectory('resources/assets/audio', 'public/audio')
     .copyDirectory('resources/assets/fonts', 'public/fonts');
 
