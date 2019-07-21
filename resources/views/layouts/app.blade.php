@@ -231,10 +231,10 @@
 <!-- Scripts -->
 <?php echo app( Tightenco\Ziggy\BladeRouteGenerator::class )->generate(); ?>
 
-<script src="/lang/lang-{{ \App::getLocale() }}.js"></script>
 
 <script src="{{ mix('/js/manifest.js')}}"></script>
 <script src="{{ mix('/js/vendor.js')}}"></script>
+<script src="{{ mix('/js/lang/lang-'.\App::getLocale().'.js')}}"></script>
 @section('main_js_file')
     <script src="{{ mix('/js/app.js')}}"></script>
 @show

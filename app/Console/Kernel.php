@@ -22,7 +22,8 @@ class Kernel extends ConsoleKernel
         Commands\CleanTickets::class,
         Commands\CleanAll::class,
         Commands\DeleteAdminWarnings::class,
-        Commands\GenerateSitemap::class
+        Commands\GenerateSitemap::class,
+        Commands\GenerateLanguage::class
     ];
 
     /**

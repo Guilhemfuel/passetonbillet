@@ -84,13 +84,15 @@
             "Illuminate\\Foundation\\ComposerScripts::postInstall",
             "php artisan migrate --force",
             "php artisan cache:clear",
-            "php artisan config:clear"
+            "php artisan config:clear",
+            "php artisan ptb:generate-language"
         ],
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
             "php artisan migrate --force",
             "php artisan cache:clear",
-            "php artisan config:clear"
+            "php artisan config:clear",
+            "php artisan ptb:generate-language"
         ]
     },
     "config": {

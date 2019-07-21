@@ -102,7 +102,7 @@ class Handler extends ExceptionHandler
         /*
          * Sentry Debug
          */
-        if ( \App::environment() == 'production' && app()->bound( 'sentry' ) && $this->sentryShouldReport( $exception ) ) {
+        if ( app()->bound( 'sentry' ) && $this->sentryShouldReport( $exception ) ) {
             return response()->view( 'errors.500', [
                 'sentryID' => $this->sentryID,
             ], 500 );
