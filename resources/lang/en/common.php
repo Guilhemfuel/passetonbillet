@@ -9,7 +9,7 @@ return [
         'sell' => 'sell'
     ],
     'ticket'    => [
-        'cheap' => 'Cheap train ticket',
+        'cheap' => 'Cheap :provider train ticket',
         'name'        => 'Ticket',
         'flexibility' => [
             '1' => 'Non Flexible',

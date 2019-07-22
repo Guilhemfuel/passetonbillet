@@ -291,7 +291,7 @@
                                 {{trans('tickets.component.buy_ticket')}}</p>
                         </div>
                         <div class="card-seller-info card-buying pt-1">
-                            <p class="text-center date"><b>{{ucFirst(date.format('dddd, MMMM Do YYYY'))}}</b></p>
+                            <p class="text-center date"><b>{{ucFirst(date.format('dddd Do MMMM YYYY'))}}</b></p>
                             <p class="text-center departure"><span class="train-time">{{departure_time}}</span>
                                 {{ticket.train.departure_city.name}}</p>
                             <p class="text-center arrival"><span class="train-time">{{arrival_time}}</span>
@@ -488,7 +488,7 @@
 
                             <div class="fb-group" data-href="https://www.facebook.com/groups/5042721942/"
                                  data-width="300" data-show-social-context="true" data-show-metadata="false"
-                                 v-if="ticket.provider=='thalys' || ticket.provider=='izy'"></div>
+                                 v-else-if="ticket.provider=='thalys' || ticket.provider=='izy'"></div>
 
                             <div class="fb-group" data-href="https://www.facebook.com/groups/38391320652/"
                                  data-width="300" data-show-social-context="true" data-show-metadata="false"
