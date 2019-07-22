@@ -14,11 +14,11 @@ class Alert extends Model
 {
     public $table = 'alerts';
 
-    public static $relationships = ['user'];
+    public static $relationships = [ 'user' ];
 
     public $fillable = [
         'user_id',
-        'max_price',
+        'email',
         'travel_date',
         'departure_station',
         'arrival_station',
@@ -31,7 +31,7 @@ class Alert extends Model
      */
     protected $casts = [
         'user_id'           => 'integer',
-        'max_price'         => 'integer',
+        'email'             => 'string',
         'travel_date'       => 'date',
         'departure_station' => 'integer',
         'arrival_station'   => 'integer',
@@ -43,8 +43,8 @@ class Alert extends Model
      * @var array
      */
     public static $rules = [
-        'user_id'           => 'required|exists:users,id',
-        'max_price'         => 'required|integer',
+        'user_id'           => 'nullable|exists:users,id',
+        'max_price'         => 'nullable|string',
         'travel_date'       => 'required|date',
         'departure_station' => 'required|exists:stations,id|different:arrival_station',
         'arrival_station'   => 'required|exists:stations,id|different:departure_station',

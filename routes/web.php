@@ -24,7 +24,6 @@ Route::get( '/', 'PageController@home' )->name( 'home' );
 Route::get( '/home', 'PageController@homeRedirect' )->name( 'home-redirect' );
 
 // Lang
-Route::get( 'lang/lang-{locale}.js', 'LanguageController@getLangJsFile' )->name( 'lang.js' );
 Route::get( 'lang/{lang}', 'LanguageController@switchLang' )->name( 'lang' );
 
 /**

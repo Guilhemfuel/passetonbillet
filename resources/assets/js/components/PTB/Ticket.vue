@@ -232,7 +232,7 @@
                                     {{trans('tickets.component.edit_ticket')}}</p>
                             </div>
                             <div class="card-seller-info card-buying"
-                                 v-if="(user != null && ticket.user &&  ticket.user.id == user.id)">
+                                 v-if="userIsOwner">
                                 <p class="text-center">{{trans('tickets.component.edit_price_modal.text')}}</p>
 
                                 <vue-form method="post" :action="route('public.ticket.edit',[ticket.id])"
@@ -269,7 +269,8 @@
                                     </div>
                                 </vue-form>
 
-                                <button class="btn btn-outline-danger mx-auto d-block mt-3 btn-delete-ticket" @click="modalDeleteOpen=true">
+                                <button class="btn btn-outline-danger mx-auto d-block mt-3 btn-delete-ticket"
+                                        @click="modalDeleteOpen=true">
                                     {{trans('tickets.component.delete_cta')}}
                                 </button>
                             </div>
@@ -425,15 +426,18 @@
 
                 </div>
 
-                <!-- Share modal -->
 
             </div>
-
         </div>
+
+
+        <!-- Share modal -->
         <modal class="ticket-modal-share"
                :is-open="shareModalOpen"
                @close-modal="shareModalOpen=false"
-               :title="trans('tickets.component.share_modal.title')">
+               :title="trans('tickets.component.share_modal.title')"
+               v-if="userIsOwner"
+        >
 
             <template v-if="(user != null && ticket.user && ticket.user.id == user.id)
                     && !pastTicket && !display && ticket.buyer == null">
@@ -496,9 +500,11 @@
             </template>
         </modal>
 
+        <!-- Edit modal -->
         <edit-ticket :ticket="ticket"
                      :modal-delete-open="modalDeleteOpen"
                      @close-modal="modalDeleteOpen=false;"
+                     v-if="userIsOwner"
         ></edit-ticket>
     </div>
 
@@ -543,6 +549,7 @@
             if (this.offerDone) {
                 this.state == 'offered';
             }
+
             if (!this.ticket.currency) {
                 this.ticket.currency = this.ticket.bought_currency;
             }
@@ -583,6 +590,9 @@
                 } else {
                     return trans.replace('{{days}}', moment().fromNow(true));
                 }
+            },
+            userIsOwner: function () {
+                return (this.user != null && this.ticket.user && this.ticket.user.id == this.user.id)
             }
         },
         methods: {

@@ -85,14 +85,16 @@
             "php artisan migrate --force",
             "php artisan cache:clear",
             "php artisan config:clear",
-            "php artisan ptb:generate-language"
+            "php artisan ptb:generate-language",
+            "php artisan ptb:generate-sitemap"
         ],
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
             "php artisan migrate --force",
             "php artisan cache:clear",
             "php artisan config:clear",
-            "php artisan ptb:generate-language"
+            "php artisan ptb:generate-language",
+            "php artisan ptb:generate-sitemap"
         ]
     },
     "config": {

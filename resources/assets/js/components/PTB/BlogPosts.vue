@@ -29,7 +29,7 @@
                             <div class="card card-blog-post">
                                 <div class="card-body">
                                     <div class="image-container" :style="getPostStyle(post)">
-                                        <img class="logo-blog" alt="PasseTonBillet Blog logo" :src="logoUrl">
+                                        <img class="logo-blog" alt="PasseTonBillet Blog logo" is-lazy="true" v-lazy="logoUrl">
                                     </div>
                                     <div class="card-footer px-2">
                                         <p v-html="post.title.rendered" class="post-title"></p>
