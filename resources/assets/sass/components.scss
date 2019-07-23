@@ -509,7 +509,7 @@ $animation-duration: 0.3s;
   .swap {
     border: 1px solid $color-border;
     position: absolute;
-    z-index: 2010;
+    z-index: 999;
     padding: 10px;
     background-color: white;
     border-radius: 100%;

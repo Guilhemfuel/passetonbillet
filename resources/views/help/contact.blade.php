@@ -67,5 +67,4 @@
 
 @push('scripts')
     {!! \Anhskohbo\NoCaptcha\Facades\NoCaptcha::renderJs(App::getLocale()) !!}
-
 @endpush

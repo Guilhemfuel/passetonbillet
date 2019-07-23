@@ -255,6 +255,28 @@ return [
         'offers_sent'            => 'Offres envoyées',
 
     ],
+    'alerts' => [
+
+        'catchline_text' => 'Le billet que vous cherchez n\'est pas disponible ?',
+        'action_text' => 'Créez une alerte et soyez le premier averti !',
+
+        'modal' => [
+            'title' => 'Create an alert',
+            'form' => [
+                'departure_station' => 'Gare de départ',
+                'arrival_station' => 'Gare d\'arrivée',
+                'departure_date' => 'Date',
+            ],
+            'explanation' => 'Créez une alerte maintenant, et recevez une notification par email lorsqu\'un utilisateur publie un billet qui correspond à vos critères de recherche.',
+
+            'submit' => 'Créer l\' alerte'
+        ],
+        'success' => 'Alerte créée !',
+        'duplicate_alert' => 'Vous avez déjà cette alerte d\'enregistrée.'
+
+
+    ],
+
     'updated'   => 'Billet mis à jour avec succès.',
 
     'delete' => [

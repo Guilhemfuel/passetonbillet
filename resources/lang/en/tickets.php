@@ -254,6 +254,25 @@ return [
         'selling'                => 'Selling',
         'offers_sent'            => 'Offers Sent',
     ],
+    'alerts' => [
+
+        'catchline_text' => 'The ticket you are looking for is not available ?',
+        'action_text' => 'Create an alert and be the first to know !',
+
+        'modal' => [
+            'title' => 'Create an alert',
+            'form' => [
+                'departure_station' => 'Departure Station',
+                'arrival_station' => 'Arrival Station',
+                'departure_date' => 'Date',
+            ],
+            'explanation' => 'Create an alert now, and receive email notifications whenever a user publishes a ticket that matches your criterias.',
+            'submit' => 'Create Alert'
+        ],
+        'success' => 'Success ! Alert created !',
+        'duplicate_alert' => 'You already have this alert set.'
+
+    ],
     'updated'   => 'Ticket successfully updated.',
     'delete'    => [
         'success' => 'Your ticket was successfully deleted.'

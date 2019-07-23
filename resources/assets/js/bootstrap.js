@@ -180,6 +180,13 @@ if (token) {
 }
 
 /**
+ * Other metas
+ */
+
+window.nocaptcha_site_key = document.head.querySelector('meta[name="google:site_key"]').content;
+
+
+/**
  * Other vue components
  */
 

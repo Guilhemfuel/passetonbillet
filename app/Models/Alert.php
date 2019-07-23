@@ -20,8 +20,8 @@ class Alert extends Model
         'user_id',
         'email',
         'travel_date',
-        'departure_station',
-        'arrival_station',
+        'departure_city',
+        'arrival_city',
     ];
 
     /**
@@ -30,11 +30,11 @@ class Alert extends Model
      * @var array
      */
     protected $casts = [
-        'user_id'           => 'integer',
-        'email'             => 'string',
-        'travel_date'       => 'date',
-        'departure_station' => 'integer',
-        'arrival_station'   => 'integer',
+        'user_id'        => 'integer',
+        'email'          => 'string',
+        'travel_date'    => 'date',
+        'departure_city' => 'integer',
+        'arrival_city'   => 'integer',
     ];
 
     /**
@@ -43,11 +43,11 @@ class Alert extends Model
      * @var array
      */
     public static $rules = [
-        'user_id'           => 'nullable|exists:users,id',
-        'max_price'         => 'nullable|string',
-        'travel_date'       => 'required|date',
-        'departure_station' => 'required|exists:stations,id|different:arrival_station',
-        'arrival_station'   => 'required|exists:stations,id|different:departure_station',
+        'user_id'        => 'nullable|exists:users,id|required_without:travel_date',
+        'email'          => 'nullable|string|required_without:user_id',
+        'travel_date'    => 'required|date_format:d/m/Y',
+        'departure_city' => 'required|exists:stations,id|different:arrival_city',
+        'arrival_city'   => 'required|exists:stations,id|different:departure_city',
     ];
 
 
@@ -62,11 +62,11 @@ class Alert extends Model
 
     public function departureStation()
     {
-        return $this->hasOne( 'App\Station', 'id', 'departure_station' );
+        return $this->hasOne( 'App\Station', 'id', 'departure_city' );
     }
 
     public function arrivalStation()
     {
-        return $this->hasOne( 'App\Station', 'id', 'arrival_station' );
+        return $this->hasOne( 'App\Station', 'id', 'arrival_city' );
     }
 }

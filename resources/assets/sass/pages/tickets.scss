@@ -595,4 +595,29 @@ $animation-duration: 0.5s;
   .row-item-ticket {
     max-width: 320px;
   }
+
+  .card-alert {
+    cursor: pointer;
+
+    .alert-block-text {
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 0px;
+    }
+
+    .icon-alert {
+      width: 40px;
+      height: 40px;
+      background-color: orange;
+      border-radius: 100%;
+      color: white;
+      text-align: center;
+      font-size: 22px;
+      padding-top: 3px;
+
+      .fa {
+        transform: rotate(20deg);
+      }
+    }
+  }
 }

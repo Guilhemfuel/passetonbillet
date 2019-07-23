@@ -41,15 +41,46 @@
         <transition enter-class="pre-animated"
                     enter-active-class="animated fadeIn"
                     leave-active-class="animated fadeOut">
-            <p v-if="state=='result'" class="text-center mt-4 mb-0"><span
-                    class="text-primary">{{ticketsWithOffers.length}}</span> {{trans('tickets.buy.search_result')}}</p>
+
+            <div v-if="state=='result'">
+                <p class="text-center mt-4 mb-0"><span
+                        class="text-primary">{{ticketsWithOffers.length}}</span> {{trans('tickets.buy.search_result')}}
+                </p>
+
+                <alert-modal :default-departure-station="defaultSearch?defaultSearch.departure_station:null"
+                             :default-arrival-station="defaultSearch?defaultSearch.arrival_station:null"
+                             :default-trip-date="defaultSearch?defaultSearch.trip_date:null"
+                >
+
+                    <div class="container-fluid card card-alert mt-4">
+                        <div class="row card-body p-3 px-4">
+                            <div class="d-flex justify-content-center align-items-center">
+                                <div class="icon-alert">
+                                    <i aria-hidden="true" class="fa fa-bell"></i>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <p class="mb-0 alert-block-text">
+                                   <span class="alert-catchline text-primary">
+                                       {{trans('tickets.alerts.catchline_text')}}
+                                   </span> <br>
+                                    {{trans('tickets.alerts.action_text')}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </alert-modal>
+
+            </div>
+
         </transition>
 
         <transition enter-class="pre-animated"
                     enter-active-class="animated fadeInUpBig"
                     leave-active-class="animated fadeOut">
             <div class="row mt-4 row-ticket" v-if="ticketsWithOffers.length > 0">
-                <div class="col-12 col-sm-12 col-md-6 col-lg-4 px-md-3 row-item-ticket" v-for="ticket in ticketsWithOffers"
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4 px-md-3 row-item-ticket"
+                     v-for="ticket in ticketsWithOffers"
                      :key="ticket.id">
                     <ticket :ticket="ticket"
                             :buying="true"
@@ -81,7 +112,7 @@
             ticketsWithOffers() {
                 // Add offer information to each ticket
                 var tickets = this.tickets;
-                if (this.user == null || this.user.offers_sent === {} ) return tickets;
+                if (this.user == null || this.user.offers_sent === {}) return tickets;
                 for (var i = 0; i < tickets.length; i++) {
                     for (var key in this.user.offers_sent) {
                         if (this.user.offers_sent[key].ticket_id == tickets[i].id) {
@@ -94,8 +125,8 @@
                 return tickets;
             }
         },
-        mounted(){
-           this.searchTickets();
+        mounted() {
+            this.searchTickets();
         },
         methods: {
             changeDeparture(station) {
@@ -116,7 +147,7 @@
 
                 this.state = 'searching';
 
-                this.$http.get(this.route('api.tickets.buy'),  {params: this.search})
+                this.$http.get(this.route('api.tickets.buy'), {params: this.search})
                     .then(response => {
                         function compare(a, b) {
                             if (a.train.departure_date < b.train.departure_date)
@@ -126,12 +157,14 @@
                             return 0;
                         }
 
-                        this.countSearch++;
-                        this.state = 'result';
-                        this.tickets = response.data.data.sort(compare);
+                        this.$nextTick(() => {
+                            this.countSearch++;
+                            this.state = 'result';
+                            this.tickets = response.data.data.sort(compare);
+                        });
 
                         // Log search
-                        this.$root.logEvent('ticket_search',this.search);
+                        this.$root.logEvent('ticket_search', this.search);
 
                     }, response => {
 //                        console.log("Response" + response);

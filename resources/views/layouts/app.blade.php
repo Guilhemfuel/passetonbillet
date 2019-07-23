@@ -46,6 +46,8 @@
 
     <!-- Pusher App id-->
     <meta name="pusher:app_key" content="{{env('PUSHER_APP_KEY')}}"/>
+    <meta name="google:site_key" content="{{env('NOCAPTCHA_SITEKEY')}}"/>
+
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">

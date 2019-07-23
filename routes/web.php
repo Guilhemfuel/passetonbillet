@@ -232,6 +232,8 @@ Route::blacklist( function () {
  *
  **/
 Route::group( [ 'prefix' => 'api' ], function () {
+    Route::post( 'alerts/create', 'API\AlertController@createAlert' )->name( 'api.alerts.create' );
+
     Route::get( 'tickets/buy', 'TicketController@buyTickets' )->name( 'api.tickets.buy' );
     Route::get( 'stations/search', 'StationController@stationSearch' )->name( 'api.stations.search' );
     Route::get( 'stations/{id}', 'StationController@show' )->name( 'api.stations.show' );
