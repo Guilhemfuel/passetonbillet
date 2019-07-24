@@ -16,6 +16,7 @@ return [
 
     'messages'           => 'Offres',
     'messages.mobile'    => 'Offres',
+    'my_alerts'          => 'Mes Alertes',
     'my_tickets'         => 'Mes billets',
     'my_tickets.mobile'  => 'Billets',
     'sell_ticket'        => 'Vendre un billet',

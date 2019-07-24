@@ -15,6 +15,7 @@ return [
     'help'               => 'Help',
     'messages'           => 'Offers',
     'messages.mobile'    => 'Offers',
+    'my_alerts'          => 'My Alerts',
     'my_tickets'         => 'My tickets',
     'my_tickets.mobile'  => 'Tickets',
     'sell_ticket'        => 'Sell a ticket',

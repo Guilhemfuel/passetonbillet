@@ -89,6 +89,8 @@ Vue.component( 'buy-ticket', () => import(/* webpackChunkName: "buy-ticket" */ '
 Vue.component( 'my-tickets', () => import(/* webpackChunkName: "my-tickets" */ './components/Pages/Tickets/Mytickets.vue'));
 Vue.component( 'home-search', () => import(/* webpackChunkName: "home-search" */ './components/Pages/Welcome/HomeSearch.vue'));
 Vue.component( 'home-buyer-seller-info', () => import(/* webpackChunkName: "home-buyer-seller-info" */ './components/Pages/Welcome/BuyerSellerInfo.vue'));
+Vue.component( 'my-alerts', () => import(/* webpackChunkName: "my-alerts" */ './components/Pages/Alerts/Alerts.vue'));
+
 
 Vue.component( 'messages-home', () => import(/* webpackChunkName: "messages-home" */ './components/Pages/Message/Home.vue'));
 Vue.component( 'discussion', () => import(/* webpackChunkName: "discussion" */ './components/Pages/Message/Discussion.vue'));

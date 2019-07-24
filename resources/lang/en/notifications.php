@@ -18,6 +18,7 @@ return [
     'offer_denied'   => 'One your offer was denied. Click here to send another offer.',
     'offer_accepted' => 'One your offer was accepted. Click here to start discussing.',
     'ticket_sold'    => 'You received a ticket! Click here to see it!',
+    'new_alert'      => 'A ticket matching your search criterias has just been published ! Cliquez here to see it.',
 
     'no_new'      => 'No new notification.',
     'new_message' => 'You received a new message!'

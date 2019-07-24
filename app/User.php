@@ -265,6 +265,14 @@ class User extends Authenticatable
     }
 
     /**
+     * Alerts
+     */
+    public function alerts()
+    {
+        return $this->hasMany('App\Models\Alert', 'user_id');
+    }
+
+    /**
      * Offers
      */
     public function offers()

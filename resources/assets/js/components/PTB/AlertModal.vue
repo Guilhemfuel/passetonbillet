@@ -14,7 +14,7 @@
                 {{trans('tickets.alerts.modal.explanation')}}
             </p>
 
-            <vue-form class="container-fluid p-0" :callback="createAlert">
+            <vue-form class="container-fluid p-0 text-left" :callback="createAlert">
 
                 <input-text
                         v-if="!user"
@@ -63,7 +63,7 @@
 
                 </input-date>
 
-                <div v-if="!user" id="recaptcha-main" class="g-recaptcha d-flex justify-content-center align-items-center" :data-sitekey="reCaptchaSiteKey"></div>
+                <div id="recaptcha-main" class="g-recaptcha d-flex justify-content-center align-items-center" :data-sitekey="reCaptchaSiteKey"></div>
 
                 <!--<input-textarea-basic name="text"-->
                 <!--v-model="review.text"-->
@@ -128,7 +128,7 @@
             renderWait() {
                 if (this.user) return;
                 setTimeout(() => {
-                    if (typeof grecaptcha !== "undefined" && typeof grecaptcha.render !== "undefined")  this.render();
+                    if (typeof grecaptcha !== "undefined" && typeof grecaptcha.render !== "undefined" && this.modalAlertOpened)  this.render();
                     else this.renderWait();
                 }, 200);
             },
@@ -148,10 +148,12 @@
 
                 this.$http.post(this.route('api.alerts.create'), data).then(response => {
 
-                    console.log(response);
-
                     // Sucess
                     this.modalAlertOpened = false;
+
+                    this.$emit('alert-created',response.body.alert);
+
+                    this.$root.logEvent('create_alert',response.body.alert);
 
                     this.$message({
                         message: this.trans('tickets.alerts.success'),
@@ -163,12 +165,23 @@
 
                     // failure
                     this.$message({
-                        message: response.body.message,
+                        message: response.body.message ? response.body.message : this.trans('common.error'),
                         type: 'error',
                         duration: 5000
                     });
                     this.modalAlertOpened = false;
                 });
+            }
+        },
+        watch: {
+            modalAlertOpened: function(value) {
+                if (value==true) {
+                    this.render();
+
+                    this.$root.logEvent('open_alert_modal');
+                } else {
+                    this.rendered = false;
+                }
             }
         }
     }

@@ -128,7 +128,7 @@ class Ticket extends Model
         // Create array of possible arrival stations
         if ( $arrivalStationParentId != null ) {
             $arrivalStations = Station::where( 'parent_station_id', $arrivalStationParentId )->pluck( 'id' );
-            $arrivalStations[] = intval( $arrivalStationId );
+            $arrivalStations[] = intval( $arrivalStationParentId );
         } else {
             $arrivalStations = Station::where( 'parent_station_id', $arrivalStationId )->pluck( 'id' );
             $arrivalStations[] = intval( $arrivalStationId );

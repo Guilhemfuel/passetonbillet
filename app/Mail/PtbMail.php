@@ -19,7 +19,7 @@ abstract class PtbMail extends Mailable
      *
      * @return void
      */
-    public function __construct( User $user, Ticket $ticket = null )
+    public function __construct( User $user = null, Ticket $ticket = null )
     {
         $this->user = $user;
         $this->ticket = $ticket;
@@ -64,7 +64,13 @@ abstract class PtbMail extends Mailable
      */
     public function ptbMarkdown( $view, $data = [] )
     {
-        if ( strtolower( $this->user->language ) == 'en' ) {
+        $lang = config('app.fallback_locale');
+
+        if ($this->user instanceof User) {
+            $lang = strtolower( $this->user->language );
+        }
+
+        if ( $lang == 'en' ) {
             $view = 'emails.en.' . $view;
         } else {
             $view = 'emails.fr.' . $view;

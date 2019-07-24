@@ -14,6 +14,10 @@
                     <i class="fa fa-ticket" aria-hidden="true"></i>
                     {{trans('nav.my_tickets')}}
                 </el-dropdown-item>
+                <el-dropdown-item command="public.alerts.page">
+                    <i class="fa fa-bell" aria-hidden="true"></i>
+                    {{trans('nav.my_alerts')}}
+                </el-dropdown-item>
                 <el-dropdown-item command="public.message.home.page">
                     <i class="fa fa-envelope" aria-hidden="true"></i>
                     {{trans('nav.messages')}}

@@ -35,6 +35,10 @@ class Amplitude
         'change_ticket_price',
         'delete_ticket',
 
+        // Alerts
+        'create_alert',
+        'open_alert_modal',
+
         // Buying
         'ticket_search',
         'send_offer',

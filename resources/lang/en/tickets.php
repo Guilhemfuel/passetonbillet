@@ -65,9 +65,9 @@ return [
                 'back_to_call' => 'Call Seller'
             ],
             'call'  => [
-                'btn'             => 'Call Seller',
-                'refresh'         => 'Refresh Number',
-                'pricing'         => '3€/call + price for the call',
+                'btn'     => 'Call Seller',
+                'refresh' => 'Refresh Number',
+                'pricing' => '3€/call + price for the call',
             ]
         ],
 
@@ -254,23 +254,33 @@ return [
         'selling'                => 'Selling',
         'offers_sent'            => 'Offers Sent',
     ],
-    'alerts' => [
+    'alerts'    => [
+
+        'page' => [
+            'title'          => 'My Alerts',
+            'btn_create_new' => 'Click here to create a new Alert'
+        ],
 
         'catchline_text' => 'The ticket you are looking for is not available ?',
-        'action_text' => 'Create an alert and be the first to know !',
+        'action_text'    => 'Create an alert and be the first to know !',
 
-        'modal' => [
-            'title' => 'Create an alert',
-            'form' => [
+        'modal'          => [
+            'title'       => 'Create an alert',
+            'form'        => [
                 'departure_station' => 'Departure Station',
-                'arrival_station' => 'Arrival Station',
-                'departure_date' => 'Date',
+                'arrival_station'   => 'Arrival Station',
+                'departure_date'    => 'Date',
             ],
             'explanation' => 'Create an alert now, and receive email notifications whenever a user publishes a ticket that matches your criterias.',
-            'submit' => 'Create Alert'
+            'submit'      => 'Create Alert'
         ],
-        'success' => 'Success ! Alert created !',
-        'duplicate_alert' => 'You already have this alert set.'
+        'success'        => 'Success ! Alert created !',
+        'success_delete' => 'Alert deleted.',
+
+        'duplicate_alert' => 'You already have this alert set.',
+        'past_alert'      => 'You can\'t create an alert in the past.',
+        'alert_not_found' => 'Alert not found.',
+        'existing_user' => 'You already have a PasseTonBillet account. Please login to create an alert.',
 
     ],
     'updated'   => 'Ticket successfully updated.',

@@ -69,4 +69,15 @@ class Alert extends Model
     {
         return $this->hasOne( 'App\Station', 'id', 'arrival_city' );
     }
+
+    /**
+     * Mutators
+     */
+
+    public function getLinkAttribute()
+    {
+        return route( 'public.ticket.buy.page' ) . '?departure_station=' . $this->departure_city .
+               '&arrival_station=' . $this->arrival_city .
+               '&departure_date=' . urlencode( $this->travel_date->format( 'd/m/Y' ) );
+    }
 }

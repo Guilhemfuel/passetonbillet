@@ -257,6 +257,12 @@ return [
     ],
     'alerts' => [
 
+
+        'page' => [
+            'title' => 'Mes Alertes',
+            'btn_create_new' => 'Clickez ici pour créer une nouvelle Alerte'
+        ],
+
         'catchline_text' => 'Le billet que vous cherchez n\'est pas disponible ?',
         'action_text' => 'Créez une alerte et soyez le premier averti !',
 
@@ -272,7 +278,12 @@ return [
             'submit' => 'Créer l\' alerte'
         ],
         'success' => 'Alerte créée !',
-        'duplicate_alert' => 'Vous avez déjà cette alerte d\'enregistrée.'
+        'success_delete' => 'Alerte supprimée.',
+
+        'duplicate_alert' => 'Vous avez déjà cette alerte d\'enregistrée.',
+        'past_alert' => 'Vous ne pouvez pas créer une alerte dans le passé.',
+        'alert_not_found' => 'Alerte introuvable.',
+        'existing_user' => 'Vous avez déjà un compte PasseTonBillet. Merci de vous connecter pour créer l\'alerte.',
 
 
     ],

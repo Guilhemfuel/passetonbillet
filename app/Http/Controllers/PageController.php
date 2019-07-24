@@ -7,6 +7,7 @@ use App\Exceptions\PasseTonBilletException;
 use App\Facades\Amplitude;
 use App\Facades\AppHelper;
 use App\Facades\Eurostar;
+use App\Http\Resources\AlertResource;
 use App\Http\Resources\Content\HelpQuestionResource;
 use App\Http\Resources\DiscussionCollectionResource;
 use App\Http\Resources\DiscussionLastMessageResource;
@@ -162,6 +163,21 @@ class PageController extends Controller
                                               Discussion::ACCEPTED
                                           ] )
                                       ) )->with( 'state', $state );
+
+    }
+
+    /**
+     *
+     * Display page to manage alerts
+     *
+     */
+    public function alertsPage()
+    {
+        $alerts = \Auth::user()->alerts;
+
+        return view( 'tickets.alerts' )->with( [
+            'alerts' => AlertResource::collection( $alerts ),
+        ] );
 
     }
 

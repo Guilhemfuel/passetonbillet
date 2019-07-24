@@ -111,6 +111,11 @@ Route::group( [ 'middleware' => 'auth', 'as' => 'public.' ], function () {
     } );
 
     /**
+     * Alerts routes
+     */
+    Route::get( '/alerts', 'PageController@alertsPage' )->name( 'alerts.page' );
+
+    /**
      * Messages routes
      **/
     Route::group( [ 'prefix' => 'messages', 'as' => 'message.' ], function () {
@@ -233,6 +238,8 @@ Route::blacklist( function () {
  **/
 Route::group( [ 'prefix' => 'api' ], function () {
     Route::post( 'alerts/create', 'API\AlertController@createAlert' )->name( 'api.alerts.create' );
+    Route::delete( '/alerts/{alert_id}', 'API\AlertController@deleteAlert' )->name( 'api.alerts.delete' );
+
 
     Route::get( 'tickets/buy', 'TicketController@buyTickets' )->name( 'api.tickets.buy' );
     Route::get( 'stations/search', 'StationController@stationSearch' )->name( 'api.stations.search' );
