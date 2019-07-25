@@ -9,6 +9,7 @@ class Statistic extends Model
 {
 
     const PAGE_STAT_ACTION = 'page_stat';
+    const TICKET_COUNT_DAILY = 'ticket_count_daily';
 
     use SoftDeletes;
 

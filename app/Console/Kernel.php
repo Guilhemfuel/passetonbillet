@@ -23,7 +23,8 @@ class Kernel extends ConsoleKernel
         Commands\CleanAll::class,
         Commands\DeleteAdminWarnings::class,
         Commands\GenerateSitemap::class,
-        Commands\GenerateLanguage::class
+        Commands\GenerateLanguage::class,
+        Commands\DailyStats::class
     ];
 
     /**
@@ -38,6 +39,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('telescope:prune')->daily();
         $schedule->command('sitemap:generate')->daily();
+        $schedule->command('ptb:daily-stats')->daily();
 
         $schedule->command(Commands\CleanAll::class)
                  ->dailyAt('3:00')

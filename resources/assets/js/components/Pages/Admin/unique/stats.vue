@@ -38,6 +38,13 @@
             </div>
 
             <div class="col-12 col-lg-6 mt-4">
+                <h4 class="text-center">Alerts Created</h4>
+                <div class="chart">
+                    <line-chart :dataset="dailyAlerts" v-if="isMounted"></line-chart>
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-6 mt-4">
                 <h4 class="text-center">Offers Sent</h4>
                 <div class="chart">
                     <line-chart :dataset="dailyOfferCount" v-if="isMounted"></line-chart>
@@ -142,6 +149,16 @@
                     {
                         backgroundColor: ['#9def80','#7CD3DF','#BB2D3E','#CBD300','#22A548'],
                         data: Object.values(this.datasets['ticketSegmentation'])
+                    }
+                ]
+            };
+            this.dailyAlerts = {
+                labels: Object.keys(this.datasets['dailyAlertCount']),
+                datasets: [
+                    {
+                        label: 'Alerts',
+                        backgroundColor: 'rgba(253,144,4,0.8)',
+                        data: Object.values(this.datasets['dailyAlertCount'])
                     }
                 ]
             };

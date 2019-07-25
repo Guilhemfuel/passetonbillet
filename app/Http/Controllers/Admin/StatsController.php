@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Helper\AppHelper;
+use App\Models\Alert;
 use App\Models\Discussion;
 use App\Models\Statistic;
 use App\Ticket;
@@ -69,6 +70,7 @@ class StatsController extends Controller
             'dailyUserCount'        => \AppHelper::dailyCreatedStat( User::class ),
             'dailyTicketCount'      => \AppHelper::dailyCreatedStat( Ticket::class ),
             'dailyOfferCount'       => \AppHelper::dailyCreatedStat( Discussion::class ),
+            'dailyAlertCount'       => \AppHelper::dailyCreatedStat( Alert::class ),
             'dailyResearchCount'    => \AppHelper::dailyCreatedStat( Statistic::class, function ( $query ) {
                 return $query->where( 'action', 'search_tickets' );
             } ),
