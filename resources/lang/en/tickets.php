@@ -261,7 +261,7 @@ return [
             'btn_create_new' => 'Click here to create a new Alert'
         ],
 
-        'catchline_text' => 'The ticket you are looking for is not available ?',
+        'catchline_text' => 'Tired of missing the perfect ticket ?',
         'action_text'    => 'Create an alert and be the first to know !',
 
         'modal'          => [

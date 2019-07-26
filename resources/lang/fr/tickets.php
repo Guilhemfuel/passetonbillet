@@ -263,7 +263,7 @@ return [
             'btn_create_new' => 'Clickez ici pour créer une nouvelle Alerte'
         ],
 
-        'catchline_text' => 'Le billet que vous cherchez n\'est pas disponible ?',
+        'catchline_text' => 'Marre de passer à côté du billet idéal ?',
         'action_text' => 'Créez une alerte et soyez le premier averti !',
 
         'modal' => [

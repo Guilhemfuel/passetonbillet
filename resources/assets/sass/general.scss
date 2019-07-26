@@ -231,6 +231,11 @@ img[is-lazy=true]:not([lazy]) {
   cursor: pointer;
   border-radius: 8px;
 
+  &.btn-upper {
+    text-transform: uppercase;
+    font-weight: 800;
+  }
+
   &:hover {
     opacity: 0.8;
   }

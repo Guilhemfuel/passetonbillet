@@ -67,7 +67,19 @@
                                     {{trans('tickets.alerts.action_text')}}
                                 </p>
                             </div>
+                            <div class="d-md-flex d-none justify-content-center align-items-center">
+                                <button class="btn btn-ptb btn-upper">
+                                    Créer une alerte
+                                </button>
+                            </div>
+
+                            <div class="col-12 d-flex d-md-none justify-content-center align-items-center py-3">
+                                <button class="btn btn-ptb btn-upper">
+                                    Créer une alerte
+                                </button>
+                            </div>
                         </div>
+
                     </div>
                 </alert-modal>
 
