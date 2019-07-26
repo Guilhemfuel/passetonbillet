@@ -45,6 +45,6 @@
 @endsection
 
 @section('main_js_file')
-    <script src="/js/admin.js"></script>
+    <script src="{{mix('/js/admin.js')}}"></script>
 @endsection
 
