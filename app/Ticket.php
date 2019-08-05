@@ -60,6 +60,13 @@ class Ticket extends Model
     ];
 
     /**
+     * Default laravel eager loading
+     *
+     * @var array
+     */
+    protected $with = ['train'];
+
+    /**
      * Relationships of the model (used for eager loading)
      */
     public static $relationships = [ 'user', 'train', 'discussions' ];
@@ -138,7 +145,7 @@ class Ticket extends Model
         // Find matching trains
         $request = Train::whereIn( 'departure_city', $departureStations )
                         ->whereIn( 'arrival_city', $arrivalStations )
-                        ->with( 'tickets' );
+                        ->with( 'tickets.user' );
 
         // Set time condition
         $request = $request->where( function ( $query ) use ( $time, $date, $exactDay ) {

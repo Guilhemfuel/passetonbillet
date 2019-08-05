@@ -44,7 +44,7 @@ class ForgotPasswordController extends Controller
      */
     protected function sendResetLinkResponse($response)
     {
-        flash(trans($response))->success()->important();
+        flash(__('passwords.sent'))->success()->important();
         return back();
     }
 

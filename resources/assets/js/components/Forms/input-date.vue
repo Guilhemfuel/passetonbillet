@@ -88,6 +88,11 @@
                 return null;
             }
         },
+        watch: {
+            defaultValue: function (newVal) {
+                this.date = newVal;
+            }
+        },
         mounted(){
             if (typeof this.defaultVal === 'object') {
                 this.date = this.defaultVal?(new this.$moment(this.defaultVal.date)).format(this.defaultValueFormat):null

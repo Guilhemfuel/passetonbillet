@@ -9,8 +9,7 @@
                            @change="changeDeparture"
                            :default-value="departStation"
                            :with-icon="false"
-                           class="mb-0"
-            >
+                           class="mb-0">
             </input-station>
         </div>
         <div class="arrival">

@@ -40,7 +40,7 @@ class DailyStats extends Command
     public function handle()
     {
         \App\Facades\AppHelper::stat( Statistic::TICKET_COUNT_DAILY,[
-            'count' => Ticket::count()
+            'count' => Ticket::currentTickets()->count()
         ]);
     }
 }

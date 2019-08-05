@@ -11,18 +11,27 @@
                 </el-tooltip>
 
             </label>
-            <input :type="type"
-                   :class="{'form-control':true,'invalid':errors.has(name),'animated pulse':pulse&&errors.has(name)}"
-                   :id="name"
-                   :name="name"
-                   :placeholder="placeholder"
-                   v-validate="validation"
-                   v-model="inputValue"
-                   @change="emitChange"
-                   @input="emitInput"
-                   @focus="$emit('focus');" @blur="$emit('blur');"
 
-            >
+            <input-prepend-append>
+                <template slot="prepend" v-if="$slots.prepend">
+                    <slot name="prepend"></slot>
+                </template>
+                <input :type="type"
+                       :class="{'form-control':true,'invalid':errors.has(name),'animated pulse':pulse&&errors.has(name)}"
+                       :id="name"
+                       :name="name"
+                       :placeholder="placeholder"
+                       :disabled="disabled"
+                       v-validate="validation"
+                       v-model="inputValue"
+                       @change="emitChange"
+                       @input="emitInput"
+                       @focus="$emit('focus');" @blur="$emit('blur');"
+                >
+                <template slot="append" v-if="$slots.append">
+                    <slot name="apend"></slot>
+                </template>
+            </input-prepend-append>
         </template>
 
         <!-- For checkbox only (label required) -->
@@ -32,6 +41,7 @@
                    :id="name"
                    :name="name"
                    :placeholder="placeholder"
+                   :disabled="disabled"
                    v-validate="validation"
                    v-model="inputValue"
                    @change="emitChange"
@@ -60,6 +70,7 @@
             validation: {required: false, type: String},
             placeholder: {required: false, type: String},
             oldValue: {required: false, type: Boolean, default: true},
+            disabled: {required: false, type: Boolean, default: false},
             help: {required: false, type: String, default: null},
         },
         computed: {

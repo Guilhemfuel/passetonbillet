@@ -23,6 +23,8 @@ class Train extends BaseModel
 {
     use SoftDeletes;
 
+
+
     protected $dates = ['deleted_at', 'departure_date','arrival_date'];
 
     protected $fillable = [
@@ -82,11 +84,17 @@ class Train extends BaseModel
     }
 
     public function getCarbonDepartureDateAttribute(){
-        return Carbon::createFromFormat('Y-m-d H:i:s', $this->departure_date->format('Y-m-d').' '.$this->departure_time);
+        return Carbon::createFromFormat('Y-m-d H:i:s', $this->departure_date->format('Y-m-d').' '.$this->departure_time,$this->departureCity->timezone);
     }
 
     public function getCarbonArrivalDateAttribute(){
-        return Carbon::createFromFormat('Y-m-d H:i:s', $this->arrival_date->format('Y-m-d').' '.$this->arrival_time);
+        return Carbon::createFromFormat('Y-m-d H:i:s', $this->arrival_date->format('Y-m-d').' '.$this->arrival_time,$this->arrivalCity->timezone);
+    }
+
+    public function getDurationAttribute(  )
+    {
+
+        return $this->carbon_arrival_date->diffInMinutes($this->carbon_departure_date);
     }
 
     /**

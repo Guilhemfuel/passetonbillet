@@ -14,11 +14,14 @@ return [
         'call'                      => 'Appeler',
         'sell'                      => 'Vendre ce billet',
         'sold_by'                   => 'Publié il y a {{days}} par',
+        'sold_ago'                  => 'Publié il y a <b>{{days}}</b>',
         'sold_by_sm'                => 'Publié par',
         'edit'                      => 'Modifier',
         'edit_ticket'               => 'Modifier le billet',
         'buy_ticket'                => 'Acheter le billet',
         'your_offer'                => 'Votre offre',
+        'seller_ticket_sold'        => 'Billet(s)<br>vendu(s)',
+        'member_since'              => 'Membre<br>depuis',
         'price'                     => 'Prix',
         'send_offer'                => 'Envoyer l\'offre',
         'if_interested'             => 'Le vendeur vous contactera s\'il est interessé.',
@@ -32,8 +35,8 @@ return [
         'edit_price_cta'            => 'Modifier le prix',
         'delete_cta'                => 'Supprimer le billet',
         'offer_sent'                => 'Le vendeur a bien reçu votre offre! Il vous recontactera si il est interessé.',
-        'register'                  => 'La sécurité est notre premier soucis. Vous devez être inscrit pour envoyer une offre.',
-        'register_cta'              => 'Inscription',
+        'register'                  => 'La sécurité d\'abord !',
+        'register_cta'              => 'Cliquez-ici pour vous inscrire et envoyer une offre !',
         'user_verified'             => 'Nous avons vérifié l\'identité de cet utilisateur.',
         'user_verification_pending' => 'Vérification de l\'identité de l\'utilisateur en cours.',
         'user_not_verified'         => 'Nous n\'avons pas encore vérifié l\'identité de cet utilisateur.',
@@ -42,10 +45,11 @@ return [
         'download_ticket'           => 'Télécharger le billet',
         'download'                  => 'Télécharger',
         'eurostar_ticket_number'    => 'Numéro du billet',
+        'security_infos'            => 'Informations de sécurité',
 
         'status' => [
             'awaiting' => 'En Attente',
-            'accepted' => 'Acceptée',
+            'accepted' => 'Discuter',
             'refused'  => 'Refusée'
         ],
 
@@ -68,6 +72,18 @@ return [
                 'btn'             => 'Appeler le vendeur',
                 'refresh'         => 'Rafraichir le numéro',
                 'pricing'         => '3€/appel + prix appel',
+            ]
+        ],
+
+        'help_modal' => [
+            'title' => 'Quelle option choisir ?',
+            'offer' => [
+                'title' => 'Prenez votre temps, il y a pleins d\'autres billets !',
+                'content' => 'Le vendeur recevra votre offre par email et il pourra l\'accepter ou la refuser. Vous ne pourrez parler au vendeur via notre chat que si votre offre est acceptée.'
+            ],
+            'call' => [
+                'title' => 'Ne ratez pas votre billet idéal !',
+                'content' => 'Vous pouvez maintenant appeler directement le vendeur et négocier le billet. C’est beaucoup plus efficace !'
             ]
         ],
 
@@ -115,6 +131,10 @@ return [
             'title'  => 'Modifier le prix du billet',
             'text'   => 'Vous pouvez modifier le prix de votre billet à tout instant.',
             'submit' => 'Modifier prix'
+        ],
+
+        'type' => [
+            'second_hand' => "billet de train<br/> d'occasion"
         ]
 
     ],
@@ -263,6 +283,7 @@ return [
             'btn_create_new' => 'Clickez ici pour créer une nouvelle Alerte'
         ],
 
+        'create_alert' => 'Créer une alerte',
         'catchline_text' => 'Marre de passer à côté du billet idéal ?',
         'action_text' => 'Créez une alerte et soyez le premier averti !',
 

@@ -53,6 +53,7 @@ class UserRessource extends Resource
             'last_name'            => $this->when( \Auth::check() && \Auth::user()->isAdmin() || \Auth::check() && $this->id == \Auth::id(), $this->last_name ),
             'birthdate'            => $this->when( \Auth::check() && \Auth::user()->isAdmin(), $this->birthdate != null ? $this->birthdate->format( 'd/m/Y' ) : null ),
             'full_name'            => $this->full_name,
+            'fb_connect'           => $this->fb_connect,
             'location'             => $this->location,
             'picture'              => $this->picture,
             'email'                => $this->when( \Auth::check() && ( \Auth::user()->isAdmin() || $this->id == \Auth::id() ), $this->email ),

@@ -117,28 +117,4 @@ class Station extends Model
         return "<span class=\"flag-icon flag-icon-" . $this->country . "\"></span>";
     }
 
-    /**
-     * Methods
-     */
-
-    public static function sortedStations()
-    {
-
-        $stations = Station::all();
-        $sortedCollection = collect( [] );
-        if ( \App::isLocale( 'fr' ) ) {
-            $sortedCollection->push( $stations->firstWhere( 'eurostar_id', self::PARIS_ID ) );
-            $sortedCollection->push( $stations->firstWhere( 'eurostar_id', self::LONDON_ID ) );
-        } else {
-            $sortedCollection->push( $stations->firstWhere( 'eurostar_id', self::LONDON_ID ) );
-            $sortedCollection->push( $stations->firstWhere( 'eurostar_id', self::PARIS_ID ) );
-        }
-
-        $sortedCollection->push( $stations->firstWhere( 'eurostar_id', self::BXL_ID ) );
-        $sortedCollection->push( $stations->firstWhere( 'eurostar_id', self::AMS_ID ) );
-
-        return $sortedCollection->merge(
-            $stations->whereNotIn( 'eurostar_id', [ self::PARIS_ID, self::LONDON_ID, self::BXL_ID, self::AMS_ID ] )
-        );
-    }
 }

@@ -186,6 +186,11 @@ class User extends Authenticatable
         }
     }
 
+    public function getFbConnectAttribute(  )
+    {
+        return $this->fb_id != null;
+    }
+
     /**
      * Return true if used is verified or if has uploaded an id that was not denied
      *

@@ -4,8 +4,7 @@ $animation-duration: 0.5s;
 .flip-container {
   perspective: 1000px;
 
-
-  .flipper{
+  .flipper {
     transition: 0.6s;
     transform-style: preserve-3d;
 
@@ -32,7 +31,6 @@ $animation-duration: 0.5s;
     }
   }
 }
-
 
 .card-ticket {
   border-radius: 10px;
@@ -91,7 +89,7 @@ $animation-duration: 0.5s;
       color: white;
     }
 
-    .train-time{
+    .train-time {
       color: $color-purple;
       font-weight: 600;
     }
@@ -190,7 +188,7 @@ $animation-duration: 0.5s;
     }
 
     .cities {
-      text-align:center;
+      text-align: center;
       margin: 0px;
       margin-top: 10px;
 
@@ -301,7 +299,7 @@ $animation-duration: 0.5s;
         font-weight: 400;
       }
 
-      .departure,.arrival {
+      .departure, .arrival {
         margin-bottom: 0px;
       }
 
@@ -365,7 +363,7 @@ $animation-duration: 0.5s;
     height: 100px;
     min-width: 200px;
     margin: 0px;
-    box-shadow: 0px 0px 2px rgba(0,0,0,0.2);
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.2);
 
     .card-travel-info {
       padding: 12px;
@@ -379,14 +377,14 @@ $animation-duration: 0.5s;
       .content {
         display: flex;
         align-items: center;
-        justify-content:center;
+        justify-content: center;
       }
 
       .station {
         padding-left: 10px;
         padding-right: 10px;
 
-        .station-short{
+        .station-short {
           color: $color-white;
           margin: 0px;
           font-size: 21px;
@@ -456,6 +454,246 @@ $animation-duration: 0.5s;
       }
     }
 
+  }
+}
+
+.ticket-horizontal {
+  background-color: white;
+  border-radius: 6px;
+  height: 100px;
+
+  .trip-info {
+    @extend .blue-gradient;
+    border-radius: 6px 0px 0px 6px;
+
+    .price-duration {
+      padding: 0px 10px 0px 20px;
+      background-color: white;
+      border-radius: 5px 0px 0px 5px;
+
+      .price {
+        margin-bottom: 0px;
+        color: $color-blue;
+        font-weight: 700;
+        font-size: 28px;
+        text-align: center;
+        margin-top: 10px;
+      }
+
+      .duration {
+        font-weight: 600;
+        border: 1px solid $color-blue;
+        text-align: center;
+        padding: 0px;
+        margin-bottom: 0px;
+        border-radius: 6px;
+        color: $color-blue;
+      }
+    }
+
+    .trip {
+
+      .row {
+        height: 100%;
+      }
+
+      .from, .to {
+        .city {
+          text-transform: uppercase;
+          font-size: 14px;
+          font-weight: 400;
+          color: white;
+          width: 90px;
+          text-align: center;
+          margin-bottom: 0px;
+        }
+
+        .time {
+          margin-bottom: 0px;
+          color: white;
+          font-weight: 700;
+          text-align: center;
+        }
+      }
+      .arrow {
+        padding-top: 20px !important;
+
+        .fa {
+          color: white;
+        }
+      }
+    }
+
+    .mobile-view {
+      .from, .to  {
+        width: 100px;
+
+        .city {
+          width: 60px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .time {
+          width: 40px;
+          font-size: 12px;
+        }
+      }
+    }
+  }
+
+  .user-info {
+    .user-picture {
+      position: relative;
+
+      img {
+        height: 60px;
+        width: 60px;
+        border-radius: 100%;
+        margin-top: 20px;
+      }
+
+      .user-verification {
+        z-index: 1;
+        position: absolute;
+        top: 13px;
+        right: -1px;
+        font-size: 22px;
+
+        .white-bg {
+          height: 19px;
+          width: 20px;
+          background-color: white;
+          position: absolute;
+          top: 6px;
+          right: -2px;
+          border-radius: 100%;
+          z-index: -1;
+        }
+      }
+    }
+
+
+
+    .user-name {
+      margin-top: 25px;
+      padding-right: 0px;
+
+      .name {
+        margin-bottom: 0px;
+        font-weight: 700;
+        font-size: 18px;
+      }
+      .published-date {
+        margin-bottom: 0px;
+        font-size: 14px;
+
+        b {
+          font-weight: 600;
+        }
+      }
+    }
+  }
+
+  .security-info {
+    align-items: center;
+    justify-content: center;
+
+    .shield {
+      height: 40px;
+      width: 40px;
+
+      PADDING: 14PX;
+      padding-top: 8px;
+      font-size: 18px;
+
+      background-color: #F7F7F8;
+      border-radius: 100%;
+      color: $color-blue;
+      cursor: pointer;
+
+    }
+
+    .seller-details {
+      text-align: center;
+      font-size: 12px;
+      font-weight: 700;
+
+      p.value {
+        color: $color-blue;
+        font-size: 14px;
+
+        .no-fb-connect {
+          font-size: 10px;
+        }
+      }
+    }
+  }
+
+  .action-type {
+    align-items: center;
+    justify-content: center;
+    padding-right: 0px;
+
+    .ticket-type {
+      font-size: 18px;
+      text-transform: uppercase;
+      font-weight: 600;
+      text-align: right;
+      margin-bottom: 0px;
+    }
+
+    .btn {
+      height: 38px;
+      width: 170px;
+    }
+  }
+
+  .help {
+    height: 40px;
+    width: 40px;
+    margin-top: 30px;
+
+    PADDING: 14PX;
+    padding-top: 8px;
+    font-size: 18px;
+
+    background-color: #F7F7F8;
+    border-radius: 100%;
+    color: $color-orange;
+    cursor: pointer;
+  }
+
+  .offer-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-right: 0px;
+
+    #price {
+      text-align: center;
+    }
+
+    .btn-offer {
+      color: $color-gray;
+    }
+
+    .text-ticket-sent {
+      font-weight: 700;
+    }
+  }
+
+  .call {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-right: 0px;
+
+    .btn {
+      height: 38px;
+      width: 170px;
+    }
   }
 }
 
@@ -551,15 +789,49 @@ $animation-duration: 0.5s;
 
   // Stations picker
   .departure {
-    .el-input__inner{
+    .el-input__inner {
       border-radius: 4px 4px 0px 0px;
     }
   }
   .arrival {
-    .el-input__inner{
+    .el-input__inner {
       border-top: 0px;
       border-radius: 0px 0px 4px 4px;
       border-top-width: 0px !important;
+    }
+  }
+
+  // Date selector component
+
+  .date-selector {
+
+    .current-date {
+      p {
+        padding: 6px;
+        background-color: white;
+        border-radius: 4px;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+    }
+
+    .arrow {
+      background-color: white;
+      padding: 6px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+      border: none;
+
+      &:disabled {
+        cursor: not-allowed;
+      }
+
+      &:hover {
+        &:not([disabled=disabled]) {
+          background-color: $color-orange;
+          color: white;
+        }
+      }
     }
   }
 

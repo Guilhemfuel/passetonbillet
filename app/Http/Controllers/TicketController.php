@@ -397,6 +397,8 @@ class TicketController extends Controller
         ];
 
         $tickets = null;
+        $errors = []; // For debug purposes only
+
         // Try each connector until you find a correct result
         foreach ( $connectors as $connector => $facade ) {
 
@@ -411,8 +413,20 @@ class TicketController extends Controller
                 $tickets = $facade::retrieveTicket( $request->email, $request->last_name, $request->booking_code );
                 break;
             } catch ( PasseTonBilletException $e ) {
+                $errors[] = [
+                    'message' => $e->getMessage(),
+                    'trace' => $e->getFile().' line: '. $e->getLine()
+                ];
                 continue;
             }
+        }
+
+        // Return Debug infos
+        if (\App::environment() == 'local' && count($errors) > 0 && $tickets == null) {
+            return response([
+                'message' => 'Multiple errors found.',
+                'errors' => $errors
+            ],400);
         }
 
         $tickets = collect( $tickets );
@@ -454,7 +468,8 @@ class TicketController extends Controller
             $request->get( 'departure_station' ),
             $request->get( 'arrival_station' ),
             Carbon::createFromFormat( 'd/m/Y', $request->get( 'trip_date' ) ),
-            $request->get( 'trip_time', Carbon::now()->format( 'h:m' ) )
+            $request->get( 'trip_time', Carbon::now()->format( 'h:m' ) ),
+            true
         );
 
         return TicketRessource::collection( $tickets );

@@ -32,7 +32,7 @@ Vue.component( 'input-date-time', () => import(/* webpackChunkName: "input-date-
 /**
  * Form components
  */
-
+Vue.component( 'input-prepend-append', () => import(/* webpackChunkName: "input-prepend-append" */ './components/Forms/input-prepend-append.vue'));
 Vue.component( 'input-text', () => import(/* webpackChunkName: "input-text" */ './components/Forms/input-text.vue'));
 Vue.component( 'input-textarea', () => import(/* webpackChunkName: "input-textarea" */ './components/Forms/input-textarea.vue'));
 Vue.component( 'input-textarea-basic', () => import(/* webpackChunkName: "input-textarea-basic" */ './components/Forms/input-textarea-basic.vue'));
@@ -70,6 +70,7 @@ Vue.component( 'reviews', () => import(/* webpackChunkName: "reviews" */ './comp
 Vue.component( 'notifications', () => import(/* webpackChunkName: "notifications" */ './components/PTB/Notifications.vue'));
 Vue.component( 'settings', () => import(/* webpackChunkName: "settings" */ './components/PTB/Settings.vue'));
 Vue.component( 'ticket', () => import(/* webpackChunkName: "ticket" */ './components/PTB/Ticket.vue'));
+Vue.component( 'horizontal-ticket', () => import(/* webpackChunkName: "horizontal-ticket" */ './components/PTB/HorizontalTicket.vue'));
 Vue.component( 'ticket-mini', () => import(/* webpackChunkName: "ticket-mini" */ './components/PTB/Ticket-Mini.vue'));
 Vue.component( 'blog-posts', () => import(/* webpackChunkName: "blog-posts" */ './components/PTB/BlogPosts.vue'));
 Vue.component( 'alert-modal', () => import(/* webpackChunkName: "alert-modal" */ './components/PTB/AlertModal.vue'));
@@ -84,9 +85,11 @@ Vue.component( 'social-password', () => import(/* webpackChunkName: "social-pass
 Vue.component( 'help', () => import(/* webpackChunkName: "help" */ './components/Pages/Help/Faq.vue'));
 
 Vue.component( 'sell-ticket', () => import(/* webpackChunkName: "sell-ticket" */ './components/Pages/Tickets/Sell.vue'));
-// Vue.component( 'manual-sell-ticket', () => import(/* webpackChunkName: "manual-sell-ticket" */ './components/Pages/Tickets/Components/ManualSell.vue'));
-Vue.component( 'buy-ticket', () => import(/* webpackChunkName: "buy-ticket" */ './components/Pages/Tickets/Buy.vue'));
 Vue.component( 'my-tickets', () => import(/* webpackChunkName: "my-tickets" */ './components/Pages/Tickets/Mytickets.vue'));
+Vue.component( 'buy-ticket', () => import(/* webpackChunkName: "buy-ticket" */ './components/Pages/Tickets/Buy.vue'));
+Vue.component( 'train-results', () => import(/* webpackChunkName: "train-results" */ './components/Pages/Tickets/Components/TrainResults.vue'));
+
+
 Vue.component( 'home-search', () => import(/* webpackChunkName: "home-search" */ './components/Pages/Welcome/HomeSearch.vue'));
 Vue.component( 'home-buyer-seller-info', () => import(/* webpackChunkName: "home-buyer-seller-info" */ './components/Pages/Welcome/BuyerSellerInfo.vue'));
 Vue.component( 'my-alerts', () => import(/* webpackChunkName: "my-alerts" */ './components/Pages/Alerts/Alerts.vue'));
@@ -98,6 +101,7 @@ Vue.component( 'discussion', () => import(/* webpackChunkName: "discussion" */ '
 // Unique components (used in one place only)
 Vue.component( 'change-password', () => import(/* webpackChunkName: "change-password" */ './components/Pages/Profile/ChangePassword.vue'));
 Vue.component( 'delete-account', () => import(/* webpackChunkName: "delete-account" */ './components/Pages/Profile/DeleteAccount.vue'));
+
 
 
 

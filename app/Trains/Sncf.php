@@ -146,6 +146,10 @@ class Sncf extends TrainConnector
 
         }
 
+        if (count($tickets) == 0) {
+            throw new PasseTonBilletException( 'Nothing found with this name/code combination.' );
+        }
+
         return $tickets;
     }
 

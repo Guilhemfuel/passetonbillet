@@ -184,7 +184,14 @@ class RegisterController extends Controller
 
             return redirect()->route( 'home' );
         }
-        
+
+        // Check that email was not used
+        $user = User::withTrashed()->where('email',$request->email)->first();
+        if ($user) {
+            flash(__('auth.register.already_registered'))->error();
+            return redirect()->route( 'register.page' );
+        }
+
         $user = $this->create( $request->all() );
 
         // Registered event triggered (used for email verification, logs...)

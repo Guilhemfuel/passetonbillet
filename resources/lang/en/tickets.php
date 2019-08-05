@@ -14,11 +14,14 @@ return [
         'call'                      => 'Call',
         'sell'                      => 'Sell this ticket',
         'sold_by'                   => 'Published {{days}} ago by',
+        'sold_ago'                  => 'Published <b>{{days}}</b> ago',
         'sold_by_sm'                => 'Published by',
         'edit'                      => 'Edit',
         'edit_ticket'               => 'Edit ticket',
         'buy_ticket'                => 'Buy ticket',
         'your_offer'                => 'Your offer',
+        'seller_ticket_sold'        => 'Ticket(s)<br>sold',
+        'member_since'              => 'Member<br>since',
         'price'                     => 'Price',
         'send_offer'                => 'Send offer',
         'if_interested'             => 'The seller will contact you soon if interested.',
@@ -32,8 +35,8 @@ return [
         'edit_price_cta'            => 'Change Price',
         'delete_cta'                => 'Remove ticket',
         'offer_sent'                => 'Seller received your offer! If interested, he\'ll contact you.',
-        'register'                  => 'Safety is our number one concern. Therefore, you must create an account before sending offers.',
-        'register_cta'              => 'Create an account and send your offer!',
+        'register'                  => 'Safety first !',
+        'register_cta'              => 'Please click here to create an account and send your offer!',
         'user_verified'             => 'We verified the identity of this user.',
         'user_verification_pending' => 'We are currently veryfing the identity of this user.',
         'user_not_verified'         => 'We have not verified the identity of this user yet.',
@@ -42,10 +45,11 @@ return [
         'download_ticket'           => 'Download Ticket',
         'download'                  => 'Download',
         'eurostar_ticket_number'    => 'Ticket number',
+        'security_infos'            => 'Security details',
 
         'status' => [
             'awaiting' => 'Awaiting',
-            'accepted' => 'Accepted',
+            'accepted' => 'Discuss',
             'refused'  => 'Refused'
         ],
 
@@ -62,13 +66,25 @@ return [
         'buying_actions' => [
             'offer' => [
                 'btn'          => 'Send an offer',
-                'back_to_call' => 'Call Seller'
+                'back_to_call' => 'Direct Call'
             ],
             'call'  => [
-                'btn'     => 'Call Seller',
+                'btn'     => 'Direct Call',
                 'refresh' => 'Refresh Number',
                 'pricing' => '3€/call + price for the call',
             ]
+        ],
+
+        'help_modal' => [
+           'title' => 'Which option should I choose ?',
+            'offer' => [
+                'title' => 'Take your time, there are a lot of other tickets !',
+                'content' => 'The seller will receive your offer via email and he/she will be able to accept or deny it. You’ll only be able to talk to the seller through our chat if your offer is accepted.'
+            ],
+           'call' => [
+               'title' => 'Don’t miss out on your ideal ticket !',
+               'content' => 'You can now directly call the seller and negociate the ticket. This is much more efficient !'
+           ]
         ],
 
         'share_modal' => [
@@ -115,6 +131,10 @@ return [
             'title'  => 'Edit price of your ticket',
             'text'   => 'You can change the price of your ticket at any moment.',
             'submit' => 'Save Price'
+        ],
+
+        'type' => [
+            'second_hand' => "second hand<br/> train ticket"
         ]
 
     ],
@@ -261,6 +281,7 @@ return [
             'btn_create_new' => 'Click here to create a new Alert'
         ],
 
+        'create_alert'   => 'Create an alert',
         'catchline_text' => 'Tired of missing the perfect ticket ?',
         'action_text'    => 'Create an alert and be the first to know !',
 
@@ -280,7 +301,7 @@ return [
         'duplicate_alert' => 'You already have this alert set.',
         'past_alert'      => 'You can\'t create an alert in the past.',
         'alert_not_found' => 'Alert not found.',
-        'existing_user' => 'You already have a PasseTonBillet account. Please login to create an alert.',
+        'existing_user'   => 'You already have a PasseTonBillet account. Please login to create an alert.',
 
     ],
     'updated'   => 'Ticket successfully updated.',
