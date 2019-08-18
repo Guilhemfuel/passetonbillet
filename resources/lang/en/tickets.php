@@ -21,7 +21,9 @@ return [
         'buy_ticket'                => 'Buy ticket',
         'your_offer'                => 'Your offer',
         'seller_ticket_sold'        => 'Ticket(s)<br>sold',
+        'seller_ticket_sold_mobile' => 'Ticket(s) sold',
         'member_since'              => 'Member<br>since',
+        'member_since_mobile'       => 'Member since',
         'price'                     => 'Price',
         'send_offer'                => 'Send offer',
         'if_interested'             => 'The seller will contact you soon if interested.',
@@ -76,15 +78,15 @@ return [
         ],
 
         'help_modal' => [
-           'title' => 'Which option should I choose ?',
+            'title' => 'Which option should I choose ?',
             'offer' => [
-                'title' => 'Take your time, there are a lot of other tickets !',
+                'title'   => 'Take your time, there are a lot of other tickets !',
                 'content' => 'The seller will receive your offer via email and he/she will be able to accept or deny it. You’ll only be able to talk to the seller through our chat if your offer is accepted.'
             ],
-           'call' => [
-               'title' => 'Don’t miss out on your ideal ticket !',
-               'content' => 'You can now directly call the seller and negociate the ticket. This is much more efficient !'
-           ]
+            'call'  => [
+                'title'   => 'Don’t miss out on your ideal ticket !',
+                'content' => 'You can now directly call the seller and negociate the ticket. This is much more efficient !'
+            ]
         ],
 
         'share_modal' => [
@@ -125,6 +127,15 @@ return [
                 'not_for_sale_button' => 'I don\'t want to sell this ticket anymore'
             ],
             'cancel_button'        => 'Whoops, I don\'t want to remove it'
+        ],
+
+        'call_seller_modal' => [
+            'title'   => 'Call Seller',
+            'text'    => 'You can call the seller to negotiate the ticket straight away. It\'s much faster ! Click on the button corresponding to the country of your mobile carrier to get a contact number.',
+            'btn_cta' => 'Get Number',
+            'refresh' => 'Refresh Number',
+            'pricing_fr' => '3€/call + call price',
+            'pricing_uk' => '3£/call + call price',
         ],
 
         'edit_price_modal' => [

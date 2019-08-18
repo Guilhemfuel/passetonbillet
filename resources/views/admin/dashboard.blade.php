@@ -68,6 +68,30 @@
         <div class="col-sm-3 col-xs-6 pt-4">
             <div class="card">
                 <div class="card-header">
+                    <h4 class="title text-center">{{$alertCount}}<br>
+                        <i class="fa fa-bell fa-2x" aria-hidden="true"></i>
+                    </h4>
+                </div>
+                <div class="card-body text-center">
+                    Total Alerts
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3 col-xs-6 pt-4">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="title text-center">{{$alertCurrentCount}}<br>
+                        <i class="fa fa-bell fa-2x" aria-hidden="true"></i>
+                    </h4>
+                </div>
+                <div class="card-body text-center">
+                    Current Alerts
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3 col-xs-6 pt-4">
+            <div class="card">
+                <div class="card-header">
                     <h4 class="title text-center">{{$stationCount}}<br>
                         <i class="fa fa-globe fa-2x"></i>
                     </h4>

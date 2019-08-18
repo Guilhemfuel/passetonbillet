@@ -42,6 +42,7 @@ class Amplitude
         // Buying
         'ticket_search',
         'send_offer',
+        'open_modal_call',
         'show_number',
         'show_ticket_contact',
         'discussion_phone_click',

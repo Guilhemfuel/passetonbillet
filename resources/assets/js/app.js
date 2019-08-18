@@ -74,6 +74,7 @@ Vue.component( 'horizontal-ticket', () => import(/* webpackChunkName: "horizonta
 Vue.component( 'ticket-mini', () => import(/* webpackChunkName: "ticket-mini" */ './components/PTB/Ticket-Mini.vue'));
 Vue.component( 'blog-posts', () => import(/* webpackChunkName: "blog-posts" */ './components/PTB/BlogPosts.vue'));
 Vue.component( 'alert-modal', () => import(/* webpackChunkName: "alert-modal" */ './components/PTB/AlertModal.vue'));
+Vue.component( 'call-modal', () => import(/* webpackChunkName: "call-modal" */ './components/PTB/CallModal.vue'));
 
 
 /**

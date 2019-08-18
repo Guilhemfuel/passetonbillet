@@ -93,29 +93,10 @@
             </div>
         </modal>
 
-        <modal v-if="!sold && user.id != discussion.ticket.user.id"
-               :is-open="callSellerModal"
-               @close-modal="callSellerModal=false"
-               :title="trans('message.discussions.modal_call.title')">
-            <p class="text-justify">
-                {{trans('message.discussions.modal_call.explanation')}}
-            </p>
-
-            <div  class="text-center">
-                <template v-if="contactNumber!=null">
-                    <a :href="'tel:'+contactNumber" class="btn btn-ptb btn-block btn-contact-phone mb-3">
-                        <i class="fa fa-phone" aria-hidden="true"></i> {{contactNumber}}
-                    </a>
-                </template>
-                <template v-else>
-                    <button class="btn btn-ptb btn-block btn-contact-phone mb-3" @click="callSeller()">
-                        <i class="fa fa-refresh" aria-hidden="true"></i>
-                        {{trans('tickets.component.buying_actions.call.refresh')}}
-                    </button>
-                </template>
-            </div>
-            <p class="pricing mb-0 text-center">{{trans('tickets.component.buying_actions.call.pricing')}}</p>
-        </modal>
+        <call-modal :ticket="discussion.ticket"
+                    :is-open="modalCallOpen"
+                    @close-modal="modalCallOpen=false;"
+        ></call-modal>
 
         <div class="info-header">
             <div class="row">
@@ -250,8 +231,7 @@
                 modalInfo: false,
                 user: this.$root.user,
 
-                callSellerModal: false,
-                contactNumber: null
+                modalCallOpen: false,
             }
         },
         computed: {
@@ -331,57 +311,7 @@
             },
             openCallModal() {
                 if (this.user.id == this.discussion.ticket.user.id) return;
-                this.callSellerModal=true;
-                this.callSeller();
-            },
-            callSeller() {
-                if (this.user.id == this.discussion.ticket.user.id) return;
-
-                // Query contact number if null
-                if (this.contactNumber == null) {
-
-                    this.$http.get(this.route('api.tickets.phone_number', {
-                        ticket: this.discussion.ticket.id
-                    })).then((response) => {
-                        // Success in offer
-                        if (response.ok) {
-
-                            this.contactNumber = response.body.phone;
-
-                            // Log Offer
-                            this.$root.logEvent('discussion_phone_click', {
-                                ticket_id: this.discussion.ticket.id
-                            });
-
-                            // Expire number after 3 minutes
-                            setTimeout(() => {
-                                this.contactNumber = null;
-                            }, 3 * 60 * 1000);
-
-                            return;
-                        } else {
-                            this.callSellerModal = false;
-                            this.$message({
-                                dangerouslyUseHTMLString: true,
-                                message: response.body.message,
-                                type: 'error',
-                                showClose: true,
-                                duration: 1000
-                            });
-                        }
-                    }, response => {
-                        if (!response.ok) {
-                            this.callSellerModal = false;
-                            this.$message({
-                                dangerouslyUseHTMLString: true,
-                                message: response.body.message,
-                                type: 'error',
-                                showClose: true,
-                                duration: 1000
-                            });
-                        }
-                    });
-                }
+                this.modalCallOpen=true;
             },
         },
         mounted() {

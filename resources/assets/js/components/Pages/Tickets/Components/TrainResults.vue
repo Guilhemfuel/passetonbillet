@@ -1,5 +1,5 @@
 <template>
-    <div class="train-tickets-results">
+    <div class="train-tickets-results px-4 px-sm-0">
 
         <horizontal-ticket v-for="ticket in tickets"
                            :ticket="ticket"

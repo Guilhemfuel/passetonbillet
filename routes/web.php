@@ -244,7 +244,7 @@ Route::group( [ 'prefix' => 'api' ], function () {
     Route::get( 'tickets/buy', 'TicketController@buyTickets' )->name( 'api.tickets.buy' );
     Route::get( 'stations/search', 'StationController@stationSearch' )->name( 'api.stations.search' );
     Route::get( 'stations/{id}', 'StationController@show' )->name( 'api.stations.show' );
-    Route::get( 'tickets/{ticket}/phone-number/', 'API\TicketController@getPaidPhoneNumber' )->name( 'api.tickets.phone_number' );
+    Route::get( 'tickets/{ticket}/phone-number/{country}', 'API\TicketController@getPaidPhoneNumber' )->name( 'api.tickets.phone_number' );
 
 
     /**

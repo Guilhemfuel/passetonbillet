@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Alert;
 use App\Models\Discussion;
 use App\Models\Review;
 use App\Models\Statistic;
@@ -26,12 +27,14 @@ class HomeController extends BaseController
         $data = [
             'ticketCount'         => Ticket::all()->count(),
             'currentTicketCount'  => Ticket::currentTickets()->count(),
-            'ticketSoldCount'     => Ticket::whereNotNull('sold_to_id')->count(),
-            'trainCount'      => Train::all()->count(),
+            'ticketSoldCount'     => Ticket::whereNotNull( 'sold_to_id' )->count(),
+            'trainCount'          => Train::all()->count(),
             'userCount'           => User::all()->count(),
             'stationCount'        => Station::all()->count(),
             'idVerificationCount' => IdVerification::awaitingCount(),
-            'offerCount'          => Discussion::all()->count()
+            'offerCount'          => Discussion::all()->count(),
+            'alertCount'          => Alert::count(),
+            'alertCurrentCount'   => Alert::current()->count()
         ];
 
         return $this->ptbView( 'admin.dashboard', $data );
@@ -44,18 +47,18 @@ class HomeController extends BaseController
      */
     public function logs()
     {
-        return view('admin.unique.logs.index',[
-           'logs' => Statistic::latest()->limit(200)->get()
-        ]);
+        return view( 'admin.unique.logs.index', [
+            'logs' => Statistic::latest()->limit( 200 )->get()
+        ] );
     }
 
     /**
      * Review page
      */
-    public function reviews(  )
+    public function reviews()
     {
-        return view('admin.unique.reviews.index',[
+        return view( 'admin.unique.reviews.index', [
             'reviews' => Review::latest()->get()
-        ]);
+        ] );
     }
 }

@@ -18,6 +18,11 @@ class Optico
     private $apiKey;
     private $paidPhoneUrl;
 
+    protected $countries = [
+        'fr' => 5,
+        'uk' => 25,
+    ];
+
     /**
      * Optico constructor.
      *
@@ -27,8 +32,8 @@ class Optico
      */
     public function __construct( Client $customClient = null )
     {
-        $this->apiKey = config('api-connectors.optico.api_key');
-        $this->paidPhoneUrl = config('api-connectors.optico.paid_phone_url');
+        $this->apiKey = config( 'api-connectors.optico.api_key' );
+        $this->paidPhoneUrl = config( 'api-connectors.optico.paid_phone_url' );
 
         if ( $customClient ) {
             $this->client = $customClient;
@@ -52,30 +57,37 @@ class Optico
      *
      * @throws PasseTonBilletException
      */
-    public function getPaidPhoneNumber( $number )
+    public function getPaidPhoneNumber( $number, $country = 'fr' )
     {
+        $country = strtolower($country);
+
+        // Make sure country is valid
+        if (!array_key_exists($country,$this->countries)) {
+            throw new \Exception('Country "'.$country.'" not supported.');
+        }
 
         // Make sure that $number is a string
-        if(!is_string($number)) {
-            throw new PasseTonBilletException("Phone number must be a string. ".typeOf($number). " given.");
+        if ( ! is_string( $number ) ) {
+            throw new PasseTonBilletException( "Phone number must be a string. " . typeOf( $number ) . " given." );
         }
 
         // Make sure that $number is valid
-        if(!preg_match("/[0-9]/", $number)) {
-            throw new PasseTonBilletException("Phone numbers must contain numbers only.");
+        if ( ! preg_match( "/[0-9]/", $number ) ) {
+            throw new PasseTonBilletException( "Phone numbers must contain numbers only." );
         }
 
         // Perform request
         $options = [
             'form_params' => [
                 'api_key' => $this->apiKey,
-                'phone' => $number,
+                'phone'   => $number,
+                'type'    => $this->countries[$country]
             ],
         ];
-        $response = $this->client->post($this->paidPhoneUrl, $options);
+        $response = $this->client->post( $this->paidPhoneUrl, $options );
 
-        if (!$response->getStatusCode() == 200) {
-            throw new PasseTonBilletException("Request failed.");
+        if ( ! $response->getStatusCode() == 200 ) {
+            throw new PasseTonBilletException( "Request failed." );
         }
 
         $data = json_decode( (string) $response->getBody(), true );

@@ -21,7 +21,9 @@ return [
         'buy_ticket'                => 'Acheter le billet',
         'your_offer'                => 'Votre offre',
         'seller_ticket_sold'        => 'Billet(s)<br>vendu(s)',
+        'seller_ticket_sold_mobile' => 'Billet(s) vendu(s)',
         'member_since'              => 'Membre<br>depuis',
+        'member_since_mobile'       => 'Membre depuis',
         'price'                     => 'Prix',
         'send_offer'                => 'Envoyer l\'offre',
         'if_interested'             => 'Le vendeur vous contactera s\'il est interessé.',
@@ -69,20 +71,20 @@ return [
                 'back_to_call' => 'Appeler le vendeur directement'
             ],
             'call'  => [
-                'btn'             => 'Appeler le vendeur',
-                'refresh'         => 'Rafraichir le numéro',
-                'pricing'         => '3€/appel + prix appel',
+                'btn'     => 'Appeler Vendeur',
+                'refresh' => 'Rafraichir le numéro',
+                'pricing' => '3€/appel + prix appel',
             ]
         ],
 
         'help_modal' => [
             'title' => 'Quelle option choisir ?',
             'offer' => [
-                'title' => 'Prenez votre temps, il y a pleins d\'autres billets !',
+                'title'   => 'Prenez votre temps, il y a pleins d\'autres billets !',
                 'content' => 'Le vendeur recevra votre offre par email et il pourra l\'accepter ou la refuser. Vous ne pourrez parler au vendeur via notre chat que si votre offre est acceptée.'
             ],
-            'call' => [
-                'title' => 'Ne ratez pas votre billet idéal !',
+            'call'  => [
+                'title'   => 'Ne ratez pas votre billet idéal !',
                 'content' => 'Vous pouvez maintenant appeler directement le vendeur et négocier le billet. C’est beaucoup plus efficace !'
             ]
         ],
@@ -125,6 +127,15 @@ return [
                 'not_for_sale_button' => 'Je ne souhaite plus vendre ce billet'
             ],
             'cancel_button'        => 'Oups, je ne veux pas le supprimer'
+        ],
+
+        'call_seller_modal' => [
+            'title'   => 'Appeler le vendeur',
+            'text'    => 'Vous pouvez maintenant appeler directement le vendeur et négocier le billet. C’est beaucoup plus efficace ! Cliquez sur le bouton correspondant au pays de votre opérateur téléphonique pour obtenir un numéro de contact.',
+            'btn_cta' => 'Obtenir un numéro',
+            'refresh' => 'Rafraichir le numéro',
+            'pricing_fr' => '3€/appel + prix appel',
+            'pricing_uk' => '3£/appel + prix appel',
         ],
 
         'edit_price_modal' => [
@@ -275,41 +286,41 @@ return [
         'offers_sent'            => 'Offres envoyées',
 
     ],
-    'alerts' => [
+    'alerts'    => [
 
 
         'page' => [
-            'title' => 'Mes Alertes',
+            'title'          => 'Mes Alertes',
             'btn_create_new' => 'Clickez ici pour créer une nouvelle Alerte'
         ],
 
-        'create_alert' => 'Créer une alerte',
+        'create_alert'   => 'Créer une alerte',
         'catchline_text' => 'Marre de passer à côté du billet idéal ?',
-        'action_text' => 'Créez une alerte et soyez le premier averti !',
+        'action_text'    => 'Créez une alerte et soyez le premier averti !',
 
-        'modal' => [
-            'title' => 'Create an alert',
-            'form' => [
+        'modal'          => [
+            'title'       => 'Create an alert',
+            'form'        => [
                 'departure_station' => 'Gare de départ',
-                'arrival_station' => 'Gare d\'arrivée',
-                'departure_date' => 'Date',
+                'arrival_station'   => 'Gare d\'arrivée',
+                'departure_date'    => 'Date',
             ],
             'explanation' => 'Créez une alerte maintenant, et recevez une notification par email lorsqu\'un utilisateur publie un billet qui correspond à vos critères de recherche.',
 
             'submit' => 'Créer l\' alerte'
         ],
-        'success' => 'Alerte créée !',
+        'success'        => 'Alerte créée !',
         'success_delete' => 'Alerte supprimée.',
 
         'duplicate_alert' => 'Vous avez déjà cette alerte d\'enregistrée.',
-        'past_alert' => 'Vous ne pouvez pas créer une alerte dans le passé.',
+        'past_alert'      => 'Vous ne pouvez pas créer une alerte dans le passé.',
         'alert_not_found' => 'Alerte introuvable.',
-        'existing_user' => 'Vous avez déjà un compte PasseTonBillet. Merci de vous connecter pour créer l\'alerte.',
+        'existing_user'   => 'Vous avez déjà un compte PasseTonBillet. Merci de vous connecter pour créer l\'alerte.',
 
 
     ],
 
-    'updated'   => 'Billet mis à jour avec succès.',
+    'updated' => 'Billet mis à jour avec succès.',
 
     'delete' => [
         'success' => 'Votre ticket a bien été supprimé.'

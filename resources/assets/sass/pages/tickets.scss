@@ -466,6 +466,10 @@ $animation-duration: 0.5s;
     @extend .blue-gradient;
     border-radius: 6px 0px 0px 6px;
 
+    svg {
+      margin-left: -1px;
+    }
+
     .price-duration {
       padding: 0px 10px 0px 20px;
       background-color: white;
@@ -488,6 +492,21 @@ $animation-duration: 0.5s;
         margin-bottom: 0px;
         border-radius: 6px;
         color: $color-blue;
+      }
+
+      @include media-breakpoint-down(xs) {
+
+        padding-right: 2px;
+
+        .price {
+          margin-top: 20px;
+          font-size: 20px;
+        }
+
+        .duration{
+          font-size: 12px;
+          padding: 0px 4px;
+        }
       }
     }
 
@@ -525,6 +544,9 @@ $animation-duration: 0.5s;
     }
 
     .mobile-view {
+      margin-left: -20px;
+      padding-right: 10px;
+
       .from, .to  {
         width: 100px;
 
@@ -537,7 +559,7 @@ $animation-duration: 0.5s;
 
         .time {
           width: 40px;
-          font-size: 12px;
+          font-size: 14px;
         }
       }
     }
@@ -577,14 +599,22 @@ $animation-duration: 0.5s;
 
 
     .user-name {
-      margin-top: 25px;
       padding-right: 0px;
+
+      .mobile-security {
+        display: none;
+
+        @include media-breakpoint-down(sm) {
+          display: inline;
+        }
+      }
 
       .name {
         margin-bottom: 0px;
         font-weight: 700;
         font-size: 18px;
       }
+
       .published-date {
         margin-bottom: 0px;
         font-size: 14px;
@@ -593,7 +623,22 @@ $animation-duration: 0.5s;
           font-weight: 600;
         }
       }
+
+      @include media-breakpoint-down(sm) {
+        padding-right: 0px;
+        padding-left: 0px;
+        margin-top: 0px;
+
+        .name {
+          font-size: 14px;
+        }
+
+        .published-date {
+          font-size: 12px;
+        }
+      }
     }
+
   }
 
   .security-info {
@@ -650,6 +695,56 @@ $animation-duration: 0.5s;
     }
   }
 
+  .action-type-mobile {
+
+    .ticket-type {
+      margin-bottom: 0px;
+      text-transform: uppercase;
+      text-align: right;
+      font-weight: 600;
+      line-height: 1.2;
+      margin-right: 15px;
+
+      @include media-breakpoint-down(md) {
+        font-size: 12px;
+      }
+    }
+
+    .fa-chevron-right {
+      color: $color-orange;
+      position: absolute;
+      right: 6px;
+      top: 42px;
+    }
+  }
+
+  .flex-grow-1 {
+    flex-grow: 1;
+  }
+
+  .seller-details-mobile {
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    width: 190px;
+    height: 100px;
+    padding: 15px 0px;
+
+    .col {
+      width: 190px;
+    }
+
+    .value {
+      width: 80px;
+      color: $color-blue;
+      font-size: 14px;
+
+      .no-fb-connect {
+        font-size: 10px;
+      }
+    }
+  }
+
   .help {
     height: 40px;
     width: 40px;
@@ -670,6 +765,7 @@ $animation-duration: 0.5s;
     align-items: center;
     justify-content: center;
     padding-right: 0px;
+    height: 100px;
 
     #price {
       text-align: center;
@@ -682,6 +778,13 @@ $animation-duration: 0.5s;
     .text-ticket-sent {
       font-weight: 700;
     }
+
+    @include media-breakpoint-up(sm) {
+      input#price {
+        width: 38px;
+        padding: 0px;
+      }
+    }
   }
 
   .call {
@@ -692,8 +795,47 @@ $animation-duration: 0.5s;
 
     .btn {
       height: 38px;
-      width: 170px;
+
+      @include media-breakpoint-up(md) {
+        width: 170px;
+      }
     }
+  }
+
+  @include media-breakpoint-down(md) {
+
+    &.contact {
+      .trip-info {
+        display: none !important;
+      }
+    }
+
+    .action-type-mobile, .trip-info {
+      cursor: pointer;
+    }
+  }
+
+  .close-contact {
+    color: $color-neon;
+    cursor: pointer;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+  }
+}
+
+// Call modal
+
+.call-component {
+  .btn {
+    width: 220px !important;
+  }
+
+  .pricing {
+    text-transform: uppercase;
+    font-weight: 600;
+    color: $color-gray;
+    font-size: 12px;
   }
 }
 
@@ -892,3 +1034,4 @@ $animation-duration: 0.5s;
     }
   }
 }
+

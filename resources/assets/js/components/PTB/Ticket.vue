@@ -97,8 +97,7 @@
                         && ticket.offerStatus == -1">
                             <div class="btn-buy row btn-buy-group" v-if="!selecting && buying">
                                 <div class="col text-center p-0">
-                                    <button class="btn btn-ptb btn-sm btn-call"
-                                            @click="callSeller()">
+                                    <button class="btn btn-ptb btn-sm btn-call" @click.prevent="modalCallOpen = true">
                                         <i class="fa fa-phone" aria-hidden="true"></i>
                                         {{trans('tickets.component.call')}}
                                     </button>
@@ -116,8 +115,7 @@
                         <template v-else-if="!pastTicket && !display">
                             <div class="btn-buy row btn-buy-group" v-if="!selecting && buying">
                                 <div class="col text-center p-0">
-                                    <button class="btn btn-ptb btn-sm btn-call"
-                                            @click="callSeller()">
+                                    <button class="btn btn-ptb btn-sm btn-call" @click.prevent="modalCallOpen = true">
                                         <i class="fa fa-phone" aria-hidden="true"></i>
                                         {{trans('tickets.component.call')}}
                                     </button>
@@ -343,22 +341,7 @@
                                 </div>
                             </div>
 
-                            <!-- Call of offer -->
-                            <div class="text-center pt-3" v-if="buyingState == 'call'">
-                                <template v-if="contactNumber!=null">
-                                    <a :href="'tel:'+contactNumber"
-                                       class="btn btn-ptb btn-block btn-contact-phone mb-3">
-                                        <i class="fa fa-phone" aria-hidden="true"></i> {{contactNumber}}
-                                    </a>
-                                </template>
-                                <template v-else>
-                                    <button class="btn btn-ptb btn-block btn-contact-phone mb-3" @click="callSeller()">
-                                        {{trans('tickets.component.buying_actions.call.refresh')}}
-                                    </button>
-                                </template>
-                                <p class="pricing mb-0">{{trans('tickets.component.buying_actions.call.pricing')}}</p>
-                            </div>
-                            <div v-else-if="buyingState == 'offer'">
+                            <div v-if="buyingState == 'offer'">
                                 <template v-if="state=='default'">
 
                                     <form class="row mt-2" v-if="state=='default'">
@@ -391,7 +374,7 @@
                                                 </span>
                                             </p>
                                             <button class="btn btn-block btn-outline-orange"
-                                                    @click.prevent="callSeller()">
+                                                    @click.prevent="modalCallOpen = true">
                                                 {{trans('tickets.component.buying_actions.call.btn')}}
                                             </button>
                                         </div>
@@ -402,8 +385,9 @@
                                 </div>
                                 <template v-else-if="state=='offered'">
                                     <p class="text-center mt-2">{{trans('tickets.component.offer_sent')}}</p>
-                                    <p class="text-center"><a href="#"
-                                                              @click.prevent="callSeller">{{trans('tickets.component.buying_actions.offer.back_to_call')}}</a>
+                                    <p class="text-center">
+                                        <a href="#"
+                                           @click.prevent="modalCallOpen = true">{{trans('tickets.component.buying_actions.offer.back_to_call')}}</a>
                                     </p>
                                 </template>
                                 <template v-else-if="state=='register'">
@@ -412,7 +396,9 @@
                                        :href="route('register.page')+'?source=guest-offer'">
                                         {{trans('tickets.component.register_cta')}}
                                     </a>
-                                    <button class="btn btn-block btn-outline-orange" @click="callSeller()">
+
+                                    <button class="btn btn-block btn-outline-orange"
+                                            @click.prevent="modalCallOpen = true">
                                         {{trans('tickets.component.buying_actions.call.btn')}}
                                     </button>
                                 </template>
@@ -500,6 +486,11 @@
             </template>
         </modal>
 
+        <call-modal :ticket="ticket"
+                    :is-open="modalCallOpen"
+                    @close-modal="modalCallOpen=false;"
+        ></call-modal>
+
         <!-- Edit modal -->
         <edit-ticket :ticket="ticket"
                      :modal-delete-open="modalDeleteOpen"
@@ -538,11 +529,12 @@
                 editing: false,
                 priceOffer: this.ticket.price,
                 state: 'default',
-                buyingState: 'call',
+                buyingState: 'offer',
                 contactNumber: null,
                 errorMessage: '',
                 shareModalOpen: this.shareModalDefault,
                 modalDeleteOpen: false,
+                modalCallOpen: false,
             }
         },
         mounted() {
@@ -621,56 +613,6 @@
                 this.$root.logEvent('show_ticket_contact', {
                     ticket_id: this.ticket.id
                 });
-            },
-            callSeller() {
-                this.buyingState = 'call';
-                this.editing = true;
-
-                // Query contact number if null
-                if (this.contactNumber == null) {
-
-                    this.$http.get(this.route('api.tickets.phone_number', {
-                        ticket: this.ticket.id
-                    })).then((response) => {
-                        // Success in offer
-                        if (response.ok) {
-
-                            this.contactNumber = response.body.phone;
-
-                            // Log Offer
-                            this.$root.logEvent('show_number', {
-                                ticket_id: this.ticket.id
-                            });
-
-                            // Expire number after 3 minutes
-                            setTimeout(() => {
-                                this.contactNumber = null;
-                            }, 3 * 60 * 1000);
-
-                            return;
-                        } else {
-                            this.editing = false;
-                            this.$message({
-                                dangerouslyUseHTMLString: true,
-                                message: response.body.message,
-                                type: 'error',
-                                showClose: true,
-                                duration: 1000
-                            });
-                        }
-                    }, response => {
-                        if (!response.ok) {
-                            this.editing = false;
-                            this.$message({
-                                dangerouslyUseHTMLString: true,
-                                message: response.body.message,
-                                type: 'error',
-                                showClose: true,
-                                duration: 1000
-                            });
-                        }
-                    });
-                }
             },
             makeOffer() {
 

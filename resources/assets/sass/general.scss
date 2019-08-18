@@ -370,6 +370,18 @@ img[is-lazy=true]:not([lazy]) {
   }
 }
 
+@include media-breakpoint-down(md) {
+  .btn-sm-wrap {
+    white-space: normal;
+    font-size: 12px;
+    height: 38px;
+    max-width: 120px;
+    vertical-align: middle;
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
+}
+
 .btn-facebook {
 
   .fa-facebook {

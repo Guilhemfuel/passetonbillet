@@ -1,5 +1,5 @@
 <template>
-    <div class="ticket-horizontal">
+    <div :class="{'ticket-horizontal':true,'contact':contact}">
         <div class="container">
             <div class="row">
                 <div class="trip-info d-flex">
@@ -11,7 +11,7 @@
                         <polygon points="0,0 0,100 30,0 " style="fill:white;"/>
                     </svg>
                     <div class="trip col">
-                        <div class="row justify-content-center align-content-center d-md-flex d-none">
+                        <div class="row justify-content-center align-content-center d-lg-flex d-none">
                             <div class="from">
                                 <p class="city">{{ticket.train.departure_city.name}}</p>
                                 <p class="time">{{departure_time}}</p>
@@ -24,14 +24,15 @@
                                 <p class="time">{{arrival_time}}</p>
                             </div>
                         </div>
-                        <div class="row flex-column justify-content-center align-content-center mobile-view d-md-none d-flex">
+                        <div class="row flex-column justify-content-center align-content-center mobile-view d-lg-none d-flex"
+                             @click="contact=true">
                             <div class="from d-flex">
-                                <p class="city">{{ticket.train.departure_city.name}}</p>
                                 <p class="time">{{departure_time}}</p>
+                                <p class="city">{{ticket.train.departure_city.name}}</p>
                             </div>
                             <div class="to d-flex">
-                                <p class="city">{{ticket.train.arrival_city.name}}</p>
                                 <p class="time">{{arrival_time}}</p>
+                                <p class="city">{{ticket.train.arrival_city.name}}</p>
                             </div>
                         </div>
                     </div>
@@ -40,8 +41,8 @@
 
                     <template v-if="!contact">
                         <!-- Displaying information -->
-                        <div class="user-info d-flex">
-                            <div class="user-picture">
+                        <a target="_blank" class="user-info d-flex" :href="'/profile/user/'+ticket.user.hashid">
+                            <div class="user-picture d-none d-md-block">
                                 <img :src="ticket.user.picture" alt="seller profile picture"/>
                                 <div class="user-verification">
                                     <div class="white-bg"></div>
@@ -67,13 +68,36 @@
                                     </el-tooltip>
                                 </div>
                             </div>
-                            <div class="user-name col">
-                                <p class="name">{{ticket.user.first_name}}</p>
+                            <div class="user-name col d-flex justify-content-center flex-column">
+                                <p class="name">{{ticket.user.first_name}}
+                                    <span class="mobile-security">
+                                        <el-tooltip v-if="ticket.user.verified" class="item" effect="dark"
+                                                    :content="trans('tickets.component.user_verified')"
+                                                    placement="bottom-end">
+                                        <i aria-hidden="true"
+                                           class="fa fa-check-circle text-success"></i>
+
+                                    </el-tooltip>
+                                    <el-tooltip v-else-if="ticket.user.verification_pending" class="item" effect="dark"
+                                                :content="trans('tickets.component.user_verification_pending')"
+                                                placement="bottom-end">
+                                        <i aria-hidden="true"
+                                           class="fa fa-clock-o text-primary"></i>
+
+                                    </el-tooltip>
+                                    <el-tooltip v-else class="item" effect="dark"
+                                                :content="trans('tickets.component.user_not_verified')"
+                                                placement="bottom-end">
+                                        <i class="fa fa-exclamation-triangle text-danger"
+                                           aria-hidden="true"></i>
+                                    </el-tooltip>
+                                    </span>
+                                </p>
                                 <p class="published-date" v-html="publishedBy"></p>
                             </div>
-                        </div>
+                        </a>
 
-                        <div class="security-info d-flex">
+                        <div class="security-info d-none d-lg-flex">
                             <!-- Security info regarding seller -->
 
                             <div class="shield mr-3" @click="showSecurity=true" v-if="!showSecurity">
@@ -110,7 +134,7 @@
                             </div>
                         </div>
 
-                        <div class="action-type d-flex">
+                        <div class="action-type d-none d-lg-flex">
                             <p v-if="!showSecurity" class="ticket-type"
                                v-html="trans('tickets.component.type.second_hand')">
                             </p>
@@ -119,9 +143,56 @@
                             </button>
                         </div>
 
+                        <div class="action-type-mobile d-flex d-lg-none align-content-center justify-content-center flex-column"
+                             @click="contact=true">
+                            <p class="ticket-type"
+                               v-html="trans('tickets.component.type.second_hand')">
+                            </p>
+                            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                        </div>
+
                     </template>
 
                     <template v-else>
+
+                        <div class="close-contact" @click="contact=false">
+                            <i class="fa fa-times-circle" aria-hidden="true"></i>
+                        </div>
+
+                        <div class="seller-details-mobile d-none d-sm-flex d-lg-none flex-column justify-content-center">
+                            <div class="col p-0">
+                                <div class="row mx-0">
+                                    <p class="mb-0 flex-grow-1 text-right">FB Connect</p>
+                                    <p class="value mb-0">
+                                        <i class="fa fa-facebook-square" aria-hidden="true"
+                                           v-if="ticket.user.fb_connect"></i>
+                                        <span class="fa-stack fa-lg no-fb-connect" v-else>
+                                              <i class="fa fa-facebook-square fa-stack-1x"></i>
+                                              <i class="fa fa-ban fa-stack-2x text-danger"></i>
+                                            </span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col p-0">
+                                <div class="row mx-0">
+                                    <p class="mb-0 flex-grow-1 text-right">
+                                        {{trans('tickets.component.seller_ticket_sold_mobile')}}</p>
+                                    <p class="value mb-0">
+                                        {{ticket.user.ticket_sold}}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col p-0">
+                                <div class="row mx-0">
+                                    <p class="mb-0 flex-grow-1 text-right">
+                                        {{trans('tickets.component.member_since_mobile')}}
+                                    </p>
+                                    <p class="value mb-0">
+                                        {{ticket.user.register_date}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
 
                         <!-- Offer already done -->
                         <div class="offer-form" v-if="offerJustSent">
@@ -133,7 +204,7 @@
                         <!-- Contacting seller -->
                         <div class="offer-form" v-else-if="!showRegister">
                             <vue-form class="row">
-                                <div class="col-4">
+                                <div class="col-md-4 col-6 ">
                                     <input-text
                                             :disabled="offer_done||offer_accepted"
                                             class-name="mb-0"
@@ -148,9 +219,9 @@
                                         </template>
                                     </input-text>
                                 </div>
-                                <div class="col-8 pl-0">
+                                <div class="col-6 col-md-8 pl-0 pl-md-3">
                                     <!-- Different buttons for different states of offer -->
-                                    <button class="btn btn-secondary btn-block px-1 btn-upper btn-offer text-white"
+                                    <button class="btn btn-secondary btn-block px-1 btn-upper btn-offer text-white btn-sm-wrap"
                                             @click.prevent=""
                                             v-if="offer_done"
                                             disabled
@@ -158,14 +229,14 @@
                                         <i class="fa fa-clock-o text-white" aria-hidden="true"></i>
                                         {{trans('tickets.component.status.awaiting')}}
                                     </button>
-                                    <a class="btn btn-success px-1 btn-upper btn-offer text-white px-3"
-                                            v-else-if="offer_accepted"
+                                    <a class="btn btn-success px-1 btn-upper btn-offer text-white px-3 btn-sm-wrap"
+                                       v-else-if="offer_accepted"
                                        :href="route('public.message.discussion.page',[ticket.id, corresponding_user_offer.id])"
                                     >
                                         <i class="fa fa-comments" aria-hidden="true"></i>
                                         {{trans('tickets.component.status.accepted')}}
                                     </a>
-                                    <button class="btn btn-light-gray btn-block px-1 btn-upper btn-offer"
+                                    <button class="btn btn-light-gray btn-block px-1 btn-upper btn-offer btn-sm-wrap"
                                             @click.prevent="makeOffer" v-else>
                                         <span v-if="!loading">{{trans('tickets.component.send_offer')}}</span>
                                         <loader v-else class-name="loader-btn mx-auto"></loader>
@@ -184,13 +255,15 @@
                             </p>
                         </div>
 
-                        <div class="help" @click.prevent="modalExplanationOpened=true">
+                        <div class="help d-none d-lg-block" @click.prevent="modalExplanationOpened=true">
                             <i class="fa fa-question" aria-hidden="true"></i>
                         </div>
                         <div class="call">
-                            <button class="btn btn-ptb btn-upper" >
-                                {{trans('tickets.component.buying_actions.call.btn')}}
-                            </button>
+                            <call-modal v-if="contact" :ticket="ticket">
+                                <button class="btn btn-ptb btn-upper btn-sm-wrap ml-1">
+                                    {{trans('tickets.component.buying_actions.call.btn')}}
+                                </button>
+                            </call-modal>
                         </div>
                     </template>
 
@@ -206,7 +279,7 @@
 
             <div class="row">
                 <div class="col-md-4 col-12 text-center py-3">
-                    <button class="btn btn-light-gray px-1 btn-upper btn-offer px-3">
+                    <button class="btn btn-light-gray px-1 btn-upper btn-offer px-3" @click="modalExplanationOpened=false">
                         {{trans('tickets.component.send_offer')}}
                     </button>
                 </div>
@@ -215,7 +288,7 @@
                     <p>{{trans('tickets.component.help_modal.offer.content')}}</p>
                 </div>
                 <div class="col-md-4 col-12 text-center py-3">
-                    <button class="btn btn-ptb btn-upper">
+                    <button class="btn btn-ptb btn-upper" @click="modalExplanationOpened=false">
                         {{trans('tickets.component.buying_actions.call.btn')}}
                     </button>
                 </div>
@@ -273,12 +346,15 @@
                 return null;
             },
             offer_done: function () {
+                if (!this.corresponding_user_offer) return false;
                 return this.corresponding_user_offer.status == 0 || this.corresponding_user_offer.status == null;
             },
             offer_accepted: function () {
+                if (!this.corresponding_user_offer) return false;
                 return this.corresponding_user_offer.status == 1;
             },
             offer_refused: function () {
+                if (!this.corresponding_user_offer) return false;
                 return this.corresponding_user_offer.status == -1;
             },
             arrival_time: function () {
@@ -400,7 +476,6 @@
                     }).then((response) => {
                         // Success in offer
                         if (response.ok) {
-
 
                             // Log Offer
                             this.$root.logEvent('send_offer', {

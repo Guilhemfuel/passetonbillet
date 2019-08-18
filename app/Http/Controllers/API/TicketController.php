@@ -40,7 +40,7 @@ class TicketController extends Controller
      * @param Request $request
      * @param Ticket  $ticket
      */
-    public function getPaidPhoneNumber( Request $request, Ticket $ticket )
+    public function getPaidPhoneNumber( Request $request, Ticket $ticket, $country )
     {
 
         // Make sure ticket is still for sale, and not passed
@@ -53,7 +53,7 @@ class TicketController extends Controller
 
         return [
             'status' => 'success',
-            'phone'  => Optico::getPaidPhoneNumber( $phone )
+            'phone'  => Optico::getPaidPhoneNumber( $phone, $country )
         ];
 
     }

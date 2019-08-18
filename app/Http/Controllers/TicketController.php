@@ -185,19 +185,6 @@ class TicketController extends Controller
                            ->first();
 
         if ( $oldTicket ) {
-            // Scammers tend to try to put on sale tickets already on the website, so we create a warning if that happens
-            AdminWarning::create( [
-                'action' => AdminWarning::TRY_TO_RESALE_TICKET,
-                'link'   => route( 'users.edit', \Auth::id() ),
-                'data'   => [
-                    'user_id'              => \Auth::id(),
-                    'old_ticket_seller_id' => $oldTicket->user->id,
-                    'old_ticket_id'        => $oldTicket->id,
-                    'message'              => 'This user tried to sell a ticket that was either already sold, or deleted from the 
-                    platform. Please check if there is anything suspicious about him or her.',
-                ]
-            ] );
-
             flash( __( 'tickets.sell.errors.duplicate' ) )->error()->important();
 
             return redirect()->route( 'public.ticket.sell.page' );
