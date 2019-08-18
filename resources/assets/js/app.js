@@ -26,8 +26,8 @@ Vue.component( 'userpicker', () => import(/* webpackChunkName: "userpicker" */ '
 Vue.component( 'datepicker', () => import(/* webpackChunkName: "datepicker" */ './components/Inputs/Datepicker.vue'));
 
 // Custom page input
-Vue.component( 'input-stations', () => import(/* webpackChunkName: "input-stations" */ './components/Pages/Tickets/Components/InputStations.vue'));
-Vue.component( 'input-date-time', () => import(/* webpackChunkName: "input-date-time" */ './components/Pages/Tickets/Components/InputDateTime.vue'));
+Vue.component( 'input-stations', () => import(/* webpackChunkName: "input-stations" */ './components/Pages/Tickets/components/InputStations.vue'));
+Vue.component( 'input-date-time', () => import(/* webpackChunkName: "input-date-time" */ './components/Pages/Tickets/components/InputDateTime.vue'));
 
 /**
  * Form components
@@ -88,7 +88,7 @@ Vue.component( 'help', () => import(/* webpackChunkName: "help" */ './components
 Vue.component( 'sell-ticket', () => import(/* webpackChunkName: "sell-ticket" */ './components/Pages/Tickets/Sell.vue'));
 Vue.component( 'my-tickets', () => import(/* webpackChunkName: "my-tickets" */ './components/Pages/Tickets/Mytickets.vue'));
 Vue.component( 'buy-ticket', () => import(/* webpackChunkName: "buy-ticket" */ './components/Pages/Tickets/Buy.vue'));
-Vue.component( 'train-results', () => import(/* webpackChunkName: "train-results" */ './components/Pages/Tickets/Components/TrainResults.vue'));
+Vue.component( 'train-results', () => import(/* webpackChunkName: "train-results" */ './components/Pages/Tickets/components/TrainResults.vue'));
 
 
 Vue.component( 'home-search', () => import(/* webpackChunkName: "home-search" */ './components/Pages/Welcome/HomeSearch.vue'));
