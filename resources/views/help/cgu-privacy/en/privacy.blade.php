@@ -12,8 +12,8 @@
                             <h2 class="text-center text-white">Privacy Policy
                             </h2>
                             <p class="text-center text-white">
-                                Current version published on 01/09/2018<br>
-                                Current version effective 01/09/2018
+                                Current version published on 01/09/2019<br>
+                                Current version effective 01/09/2019
 
                             </p>
                             <div class="container container-over-bg p-5 mt-3 text-justify">
@@ -112,6 +112,15 @@
                                     </li>
                                     <li>In particular, he must abstain, with regard to the personal information to which he accedes or may access, from any collection, any misuse in a general way, of any act likely to infringe on the private life or the reputation of people.
                                     </li>
+                                    </p>
+                                    <p><b>Cookie Usage</b>
+                                        <br>
+                                        Cookies are used to personalised content and ads, as well as to analyse traffic on our website. Some information about our website usage are shared with our ads and analysis partners, who may combine this information with other that you gave them or that they collected while you were using their own services.
+                                        <br><br>
+                                        <b>Cookies created by Google services</b>
+                                        <br>
+                                        They are used to monitor traffic and user behaviour on our website. They are created and used on the user equipment when a website using "Google Analytics" is accessed. The gathered data are transmitted and stored by Google Inc, which respect the Safe Harbor ruling, insuring the right level of protection for you personal information. The data created by these cookies hold information regarding your behaviour on the website or your IP address in order to determine the city from where you browse the website (This piece of information is immediately anonymised). For more information on Google Analytics services, you can check : <a href="https://privacy.google.com/businesses/compliance/#!?modal_active=none" target="_blank"> Google Analytics - Data Protection</a>.<br>
+                                        Other cookies are used by Google the content of ads delivered by Google AdSense services. You may personalize this by <a target="_blank" href="https://www.google.com/settings/ads">clicking here</a>.
                                     </p>
                                     <br>
 

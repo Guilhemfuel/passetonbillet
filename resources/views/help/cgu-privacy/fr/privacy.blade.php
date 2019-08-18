@@ -12,8 +12,8 @@
                             <h2 class="text-center text-white">Mentions légales
                             </h2>
                             <p class="text-center text-white">
-                                Version actuelle publiée le 01/09/2018 <br>
-                            Version actuelle entrant en vigueur le 01/09/2018
+                                Version actuelle publiée le 01/09/2019 <br>
+                            Version actuelle entrant en vigueur le 01/09/2019
 
                             </p>
                             <div class="container container-over-bg p-5 mt-3 text-justify">
@@ -115,6 +115,15 @@
                                     </li>
                                     <li>Il doit notamment s'abstenir, s'agissant des informations à caractère personnel auxquelles il accède ou pourrait accéder, de toute collecte, de toute utilisation détournée d'une manière générale, de tout acte susceptible de porter atteinte à la vie privée ou à la réputation des personnes.
                                     </li>
+                                    </p>
+                                    <p><b>Utilisation des cookies</b>
+                                        <br>
+                                        Les cookies sont utilisés pour personnaliser le contenu et les annonces, ainsi que pour analyser notre trafic. Des informations sur l'utilisation de notre site sont partagées avec nos partenaires publicitaire et d'analyse, qui peuvent combiner celles-ci avec d'autres informations que vous leur avez fournies ou qu'ils ont collectées lors de votre utilisation de leurs services.
+                                        <br><br>
+                                        <b>Cookies déposés par les services Google</b>
+                                        <br>
+                                        Ils permettent de comptabiliser les visiteurs et d’identifier la manière dont ils utilisent le site. Ils sont déposés et lus sur l’équipement terminal de l’utilisateur et dès que celui-ci accède à un site web utilisant le service "Google Analytics". Les données collectées sont transmises et stockées par la société Google Inc, laquelle adhérente au Safe Harbor, assure un niveau de protection adéquat de vos données personnelles. Les données générées par ces cookies concernent votre utilisation du site et votre adresse IP afin de déterminer la ville de connexion. (Cette donnée étant ensuite immédiatement anonymisée). Pour plus d’informations sur le service Google Analytics, vous pouvez consulter : <a target="_blank" href="https://www.google.com/settings/ads">Google Analytics - Protection de vos données</a>.<br>
+                                        D'autres cookies sont utilisés par Google afin de personnaliser le contenu des annonces de Google AdSense. Vous pouvez personnaliser cela en <a target="_blank" href="https://www.google.com/settings/ads">cliquant ici</a>.
                                     </p>
                                     <br>
 
