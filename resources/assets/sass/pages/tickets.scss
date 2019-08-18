@@ -696,6 +696,9 @@ $animation-duration: 0.5s;
   }
 
   .action-type-mobile {
+    @include media-breakpoint-down(xs) {
+      width: 25px;
+    }
 
     .ticket-type {
       margin-bottom: 0px;
@@ -704,6 +707,10 @@ $animation-duration: 0.5s;
       font-weight: 600;
       line-height: 1.2;
       margin-right: 15px;
+
+      @include media-breakpoint-down(xs) {
+        display:none;
+      }
 
       @include media-breakpoint-down(md) {
         font-size: 12px;
