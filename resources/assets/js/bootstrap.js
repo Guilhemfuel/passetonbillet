@@ -66,6 +66,7 @@ import localeFr from './validator/fr.js';
 import localeEn from './validator/en.js';
 
 var lang = document.head.querySelector('meta[name="lang"]').content;
+console.log('Locale set to: '+lang);
 
 if (lang === 'fr') {
     window.Vue.use(VeeValidate, {
@@ -195,7 +196,3 @@ import Cleave from 'vue-cleave-component';
 
 Vue.use(Cleave);
 Vue.use(VueLazyload);
-
-// To delete
-let useless = 'PTB loading.';
-console.log(useless);

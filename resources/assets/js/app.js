@@ -15,7 +15,6 @@ require('./bootstrap');
  * Note that ptb uses elementUi vue components (so we import it here)
  */
 
-Vue.component('vue-select', require('vue-select'));
 Vue.component('datepicker', require('vuejs-datepicker'));
 
 // Inputs - TODO: delete/convert components to nue format
