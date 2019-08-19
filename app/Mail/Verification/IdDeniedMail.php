@@ -28,7 +28,7 @@ class IdDeniedMail extends PtbMail
     public function build()
     {
         return $this->to( $this->user->email, $this->user->full_name )
-                    ->subject( trans( 'email.id_verification_fail' ) )
+                    ->subject( trans( 'email.id_verification_fail' ,[],$this->getLocale()) )
                     ->ptbMarkdown( 'verification.id_verification_fail',
                         [
                             'user' => $this->user,

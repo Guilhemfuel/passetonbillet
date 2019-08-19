@@ -35,7 +35,7 @@ class TicketSoldEmail extends PtbMail
     public function build()
     {
         return $this->to($this->user->email,$this->user->full_name)
-                    ->subject(trans('email.ticket_sold'))
+                    ->subject(trans('email.ticket_sold',[],$this->getLocale()))
                     ->ptbMarkdown('ticket_sold',
                         [
                             'user' => $this->user,

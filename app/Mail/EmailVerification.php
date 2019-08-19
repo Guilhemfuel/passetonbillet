@@ -17,7 +17,7 @@ class EmailVerification extends PtbMail implements ShouldQueue
      */
     public function build()
     {
-        return $this->subject(trans('email.account_activation'))
+        return $this->subject(trans('email.account_activation',[],$this->getLocale()))
                     ->ptbMarkdown('email_verification',
                         [
                             'user' =>$this->user

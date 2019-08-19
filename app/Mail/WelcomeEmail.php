@@ -19,7 +19,7 @@ class WelcomeEmail extends PtbMail
     public function build()
     {
         return $this->to($this->user->email,$this->user->full_name)
-                   ->subject(trans('email.welcome'))
+                   ->subject(trans('email.welcome',[],$this->getLocale()))
                    ->ptbMarkdown('welcome',
                        [
                            'user' =>$this->user,

@@ -15,7 +15,7 @@ class IdConfirmedMail extends PtbMail
     public function build()
     {
         return $this->to($this->user->email,$this->user->full_name)
-                    ->subject(trans('email.id_verification_success'))
+                    ->subject(trans('email.id_verification_success',[],$this->getLocale()))
                     ->ptbMarkdown('verification.id_verification_success',
                         [
                             'user' =>$this->user

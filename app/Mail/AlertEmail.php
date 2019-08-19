@@ -41,8 +41,6 @@ class AlertEmail extends PtbMail
             $locale = config('app.fallback_locale');
         }
 
-
-
         return $this->to($this->email)
                     ->subject(__('email.alert_triggered',[], $locale))
                     ->ptbMarkdown('alert_triggered',

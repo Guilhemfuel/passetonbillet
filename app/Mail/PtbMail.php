@@ -14,6 +14,8 @@ abstract class PtbMail extends Mailable
 
     public $user, $ticket;
 
+    protected $forcedLocale = null;
+
     /**
      * Create a new message instance.
      *
@@ -64,11 +66,7 @@ abstract class PtbMail extends Mailable
      */
     public function ptbMarkdown( $view, $data = [] )
     {
-        $lang = config('app.fallback_locale');
-
-        if ($this->user instanceof User) {
-            $lang = strtolower( $this->user->language );
-        }
+        $lang = $this->getLocale();
 
         if ( $lang == 'en' ) {
             $view = 'emails.en.' . $view;
@@ -77,5 +75,40 @@ abstract class PtbMail extends Mailable
         }
 
         return $this->markdown( $view, $data );
+    }
+
+    /**
+     * Return locale to use in emails.
+     *
+     * @return \Illuminate\Config\Repository|mixed|string
+     */
+    public function getLocale(  )
+    {
+        // Return forced locale if defined.
+        if ($this->forcedLocale != null) {
+            return $this->forcedLocale;
+        }
+
+        if ($this->user instanceof User && $this->user->language ) {
+            $locale = strtolower( $this->user->language );
+        } else {
+            $locale = config('app.fallback_locale');
+        }
+
+        return $locale;
+    }
+
+    /**
+     * Used mostly for debugging purposes. Forces the locale to be used.
+     */
+    public function forceLocale( $locale )
+    {
+        $locale = strtolower($locale);
+
+        if (! in_array($locale, array_keys( config('app.locales')))) {
+            throw new \Exception('Locale '.$locale. ' undefined.');
+        }
+
+        $this->forcedLocale = $locale;
     }
 }

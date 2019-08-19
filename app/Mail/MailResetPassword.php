@@ -26,7 +26,7 @@ class MailResetPassword extends PtbMail
     public function build()
     {
         return $this->to($this->user->email,$this->user->full_name)
-                    ->subject(trans('email.password_reset'))
+                    ->subject(trans('email.password_reset',[],$this->getLocale()))
                     ->ptbMarkdown('password_reset',
                         [
                             'user' => $this->user,

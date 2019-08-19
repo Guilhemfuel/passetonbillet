@@ -35,7 +35,7 @@ class AcceptedOfferEmail extends PtbMail
     public function build()
     {
         return $this->to($this->user->email,$this->user->full_name)
-                    ->subject(trans('email.offer_accepted'))
+                    ->subject(trans('email.offer_accepted',[],$this->getLocale()))
                     ->ptbMarkdown('offer_accepted',
                         [
                             'user' => $this->user,

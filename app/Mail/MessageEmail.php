@@ -34,7 +34,7 @@ class MessageEmail extends PtbMail
     public function build()
     {
         return $this->to($this->user->email,$this->user->full_name)
-                    ->subject(trans('email.message'))
+                    ->subject(trans('email.message',[],$this->getLocale()))
                     ->ptbMarkdown('message',
                         [
                             'user' =>$this->user,
