@@ -196,3 +196,5 @@ import Cleave from 'vue-cleave-component';
 Vue.use(Cleave);
 Vue.use(VueLazyload);
 
+// To delete
+let useless = 'ok';
