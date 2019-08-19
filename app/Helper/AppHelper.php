@@ -107,12 +107,14 @@ class AppHelper
      */
     public function countryToPhoneCode( $countryCode )
     {
+        $countryCode = strtolower($countryCode);
+
         $path = resource_path() . "/assets/data/phones.json"; // ie: /var/www/laravel/app/storage/json/filename.json
         $json = json_decode(file_get_contents($path), true)['phones'];
 
         $dict = [];
         foreach ($json as $country) {
-            $dict[$country['code']] = $country;
+            $dict[strtolower($country['code'])] = $country;
         }
 
         if (!array_key_exists($countryCode,$dict)) {

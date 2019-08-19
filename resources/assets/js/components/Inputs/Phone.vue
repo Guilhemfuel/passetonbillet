@@ -30,7 +30,7 @@
                         ></cleave>
             </div>
             <input type="hidden" name="phone" :value="resultNumber"/>
-            <input type="hidden" name="phone_country" :value="activeCountry.code"/>
+            <input type="hidden" name="phone_country" :value="activeCountry?activeCountry.code:null"/>
             <span v-if="errors.has('phone')" class="invalid-feedback">{{ errors.first('phone') }}</span>
         </template>
         <template v-else>
@@ -59,7 +59,7 @@
                         v-model="actualValue"></cleave>
             </div>
             <input type="hidden" name="phone" :value="resultNumber"/>
-            <input type="hidden" name="phone_country" :value="activeCountry.code"/>
+            <input type="hidden" name="phone_country" :value="activeCountry?activeCountry.code:null"/>
         </template>
     </div>
 </template>
@@ -83,7 +83,7 @@
         },
         data(){
             return {
-                activeCountryCode: this.countryValue ? this.countryValue:'fr',
+                activeCountryCode: this.countryValue ? this.countryValue:'FR',
                 actualValue: this.value,
                 countries: countries.phones
             }
@@ -94,7 +94,7 @@
                 let country = null;
                 for(var i = 0; i < this.countries.length; i++)
                 {
-                    if(this.countries[i].code == this.activeCountryCode)
+                    if(this.countries[i].code.toUpperCase() == this.activeCountryCode.toUpperCase())
                     {
                         country = this.countries[i];
                     }
