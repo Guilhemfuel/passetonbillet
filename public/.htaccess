@@ -20,7 +20,7 @@
 </IfModule>
 
 # MAX CACHE
-<FilesMatch "\.(flv|ico|pdf|avi|mov|ppt|doc|mp3|wmv|wav|js|css)$">
+<FilesMatch "\.(flv|ico|pdf|avi|mov|ppt|doc|mp3|wmv|wav)$">
     Header set Cache-Control "max-age=31536000, public"
 </FilesMatch>
 
