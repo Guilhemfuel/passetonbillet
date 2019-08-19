@@ -61,7 +61,7 @@
           href="{{secure_asset('fonts/vendor/element-ui/packages/theme-chalk/src/element-icons.woff?2fad952a20fbbcfd1bf2ebb210dccf7a')}}"
           as="font" rel=preload>
     @section('main_css_file')
-        <link rel="stylesheet" href="{{ mix('/css/app.css') }}&v=1.0.0">
+        <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
     @show
 
 
@@ -238,7 +238,7 @@
 <script src="{{ mix('/js/vendor.js')}}"></script>
 <script src="{{ mix('/js/lang/lang-'.\App::getLocale().'.js')}}"></script>
 @section('main_js_file')
-    <script src="{{ mix('/js/app.js')}}&v=1.0.0"></script>
+    <script src="{{ mix('/js/app.js')}}"></script>
 @show
 
 <script type="application/javascript">

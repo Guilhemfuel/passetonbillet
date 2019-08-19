@@ -7,6 +7,7 @@
 /public/mix-manifest.json
 /public/sitemap.xml
 /storage/*.key
+/storage/emails
 /vendor
 /.idea
 Homestead.json
