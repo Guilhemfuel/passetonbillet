@@ -197,4 +197,5 @@ Vue.use(Cleave);
 Vue.use(VueLazyload);
 
 // To delete
-let useless = 'ok';
+let useless = 'PTB loading.';
+console.log(useless);
