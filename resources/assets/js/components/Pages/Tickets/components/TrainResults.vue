@@ -38,36 +38,7 @@
                 user: this.$root.user,
                 loading: false,
                 tickets: [],
-                affiliateTickets: [
-                    {
-                        "id": "FRPNO-GBSPX-20190830-20190830-26-NO_CARD-2-9007-false-FR",
-                        "link": "https://www.oui.sncf/proposition?orig=FRPAR&dest=GBLON&departure=20190830-0713&roundtrip=N&direct=N&share=1&class=SECOND&profile_0=ADULT&nbpax=1&highlight=Y&nbTrains=1&trainNumber_0=9007&country=FR&va_ftc_a=101.00_30-08-2019_9007",
-                        "departure_date": "2019-08-30T07:13:00",
-                        "arrival_date": "2019-08-30T08:32:00",
-                        "duration": 139,
-                        "departure_city": {
-                            "id": 4916,
-                            "sncf_id": "FRPAR",
-                            "name": "Paris",
-                            "name_country_specific": null,
-                            "short_name": null,
-                            "slug": "paris",
-                            "country": "FR"
-                        },
-                        "arrival_city": {
-                            "id": 8267,
-                            "sncf_id": "GBLON",
-                            "name": "London",
-                            "name_country_specific": "Londres",
-                            "short_name": null,
-                            "slug": "london",
-                            "country": "GB"
-                        },
-                        "price": 101,
-                        "stock": 26,
-                        "type": "oui_sncf"
-                    }
-                ]
+                affiliateTickets: []
             }
         },
         mounted() {
