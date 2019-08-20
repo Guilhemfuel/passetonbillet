@@ -44,13 +44,12 @@ mix.version();
 let locales = ['fr','en'];
 locales.forEach((locale)=> {
     mix.js('resources/assets/js/lang/lang-'+locale+'.js','public/js/lang');
-
 });
 
 // Compiling
-mix.js('resources/assets/js/app.js', 'public/js')
+mix.js('resources/assets/js/app.js', 'public/js/main.js')
     .js('resources/assets/js/admin.js', 'public/js').extract(['vue','element-ui','lodash','moment','pusher-js','vee-validate'])
-    .sass('resources/assets/sass/app.scss', 'public/css')
+    .sass('resources/assets/sass/app.scss', 'public/css/main.css')
     .sass('resources/assets/sass/admin.scss', 'public/css');
 
 
