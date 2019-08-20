@@ -475,6 +475,13 @@ $animation-duration: 0.5s;
       background-color: white;
       border-radius: 5px 0px 0px 5px;
 
+      width: 86px;
+      text-align: center;
+
+      @include media-breakpoint-down(xs) {
+        width: 62px;
+      }
+
       .price {
         margin-bottom: 0px;
         color: $color-blue;
@@ -687,6 +694,7 @@ $animation-duration: 0.5s;
       font-weight: 600;
       text-align: right;
       margin-bottom: 0px;
+      line-height: 1.2;
     }
 
     .btn {
@@ -723,11 +731,6 @@ $animation-duration: 0.5s;
       right: 6px;
       top: 42px;
     }
-  }
-
-  // todelete
-  .useless {
-    color: black;
   }
 
   .flex-grow-1 {
@@ -833,6 +836,34 @@ $animation-duration: 0.5s;
     position: absolute;
     top: 5px;
     right: 5px;
+  }
+
+  // Affiliates
+  &.oui_sncf {
+
+    .trip-info {
+      @include orange-gradient-reverse(1);
+
+      .price {
+        color: $color-orange;
+      }
+
+      .duration {
+        border: 1px solid $color-orange;
+        color: $color-orange;
+      }
+    }
+
+    .logo {
+      img {
+        width: 100px;
+        margin-top: 30px;
+      }
+    }
+
+    .ticket-type {
+      color: black;
+    }
   }
 }
 

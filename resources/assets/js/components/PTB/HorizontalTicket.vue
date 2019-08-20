@@ -409,56 +409,6 @@
                     ticket_id: this.ticket.id
                 });
             },
-            callSeller() {
-                this.buyingState = 'call';
-                this.editing = true;
-
-                // Query contact number if null
-                if (this.contactNumber == null) {
-
-                    this.$http.get(this.route('api.tickets.phone_number', {
-                        ticket: this.ticket.id
-                    })).then((response) => {
-                        // Success in offer
-                        if (response.ok) {
-
-                            this.contactNumber = response.body.phone;
-
-                            // Log Offer
-                            this.$root.logEvent('show_number', {
-                                ticket_id: this.ticket.id
-                            });
-
-                            // Expire number after 3 minutes
-                            setTimeout(() => {
-                                this.contactNumber = null;
-                            }, 3 * 60 * 1000);
-
-                            return;
-                        } else {
-                            this.editing = false;
-                            this.$message({
-                                dangerouslyUseHTMLString: true,
-                                message: response.body.message,
-                                type: 'error',
-                                showClose: true,
-                                duration: 1000
-                            });
-                        }
-                    }, response => {
-                        if (!response.ok) {
-                            this.editing = false;
-                            this.$message({
-                                dangerouslyUseHTMLString: true,
-                                message: response.body.message,
-                                type: 'error',
-                                showClose: true,
-                                duration: 1000
-                            });
-                        }
-                    });
-                }
-            },
             makeOffer() {
 
                 // Show register

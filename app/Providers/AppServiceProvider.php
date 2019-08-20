@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\ApiConnectors\Optico;
+use App\ApiConnectors\SncfAffiliate;
 use App\Helper\Amplitude;
 use App\Helper\ImageHelper;
 use Illuminate\Support\ServiceProvider;
@@ -49,6 +50,9 @@ class AppServiceProvider extends ServiceProvider
         });
         $this->app->bind('optico', function($app) {
             return app()->make(Optico::class);
+        });
+        $this->app->bind('sncf-affiliate', function($app) {
+            return app()->make(SncfAffiliate::class);
         });
     }
 }

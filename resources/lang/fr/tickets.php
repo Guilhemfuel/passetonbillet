@@ -11,6 +11,7 @@ return [
     'component' => [
         'buy'                       => 'Acheter',
         'contact'                   => 'Contacter',
+        'details'                   => 'Détails',
         'call'                      => 'Appeler',
         'sell'                      => 'Vendre ce billet',
         'sold_by'                   => 'Publié il y a {{days}} par',
@@ -130,10 +131,10 @@ return [
         ],
 
         'call_seller_modal' => [
-            'title'   => 'Appeler le vendeur',
-            'text'    => 'Vous pouvez maintenant appeler directement le vendeur et négocier le billet. C’est beaucoup plus efficace ! Cliquez sur le bouton correspondant au pays de votre opérateur téléphonique pour obtenir un numéro de contact.',
-            'btn_cta' => 'Obtenir un numéro',
-            'refresh' => 'Rafraichir le numéro',
+            'title'      => 'Appeler le vendeur',
+            'text'       => 'Vous pouvez maintenant appeler directement le vendeur et négocier le billet. C’est beaucoup plus efficace ! Cliquez sur le bouton correspondant au pays de votre opérateur téléphonique pour obtenir un numéro de contact.',
+            'btn_cta'    => 'Obtenir un numéro',
+            'refresh'    => 'Rafraichir le numéro',
             'pricing_fr' => '3€/appel + prix appel',
             'pricing_uk' => '3£/appel + prix appel',
         ],
@@ -145,7 +146,9 @@ return [
         ],
 
         'type' => [
-            'second_hand' => "billet de train<br/> d'occasion"
+            'second_hand' => "billet de train<br/> d'occasion",
+            'new' => "billet de train<br/> neuf",
+
         ]
 
     ],

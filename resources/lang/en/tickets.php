@@ -11,6 +11,7 @@ return [
     'component' => [
         'buy'                       => 'Buy',
         'contact'                   => 'Contact',
+        'details'                   => 'Details',
         'call'                      => 'Call',
         'sell'                      => 'Sell this ticket',
         'sold_by'                   => 'Published {{days}} ago by',
@@ -145,7 +146,8 @@ return [
         ],
 
         'type' => [
-            'second_hand' => "second hand<br/> train ticket"
+            'second_hand' => "second hand<br/> train ticket",
+            'new' => "new<br/> train ticket"
         ]
 
     ],
