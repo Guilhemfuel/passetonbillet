@@ -138,10 +138,10 @@ class SncfAffiliate
                 'link'           => $entity['deeplinks']['FR'],
                 'departure_date' => $entity['departureDate'],
                 'arrival_date'   => $entity['arrivalDate'],
-                'duration'       => $this->computeDuration($entity['departureDate'],$entity['arrivalDate'],$entity['duration']),
+                'duration'       => $this->computeDuration( $entity['departureDate'], $entity['arrivalDate'], $entity['duration'] ),
                 'departure_city' => ( new StationRessource( $this->departureStation ) )->toArray( request() ),
                 'arrival_city'   => ( new StationRessource( $this->arrivalStation ) )->toArray( request() ),
-                'price'          => (int) $entity['price']/100,
+                'price'          => (int) ( $entity['price'] / 100 ),
                 'stock'          => $entity['stock'],
                 'type'           => self::AFFILIATE_TYPE
             ];
@@ -156,16 +156,18 @@ class SncfAffiliate
      * @param $departureDare
      * @param $arrivalDate
      */
-    protected function computeDuration($departureDate,$arrivalDate,$fallback=null) {
+    protected function computeDuration( $departureDate, $arrivalDate, $fallback = null )
+    {
 
         try {
             $departureDate = Carbon::createFromFormat( 'Y-m-d\TH:i:s', $departureDate, $this->departureStation->timezone );
             $arrivalDate = Carbon::createFromFormat( 'Y-m-d\TH:i:s', $arrivalDate, $this->arrivalStation->timezone );
 
             return $departureDate->diffInMinutes( $arrivalDate );
-        } catch (\Exception $e) {
+        } catch ( \Exception $e ) {
             //
         }
+
         return $fallback;
     }
 
