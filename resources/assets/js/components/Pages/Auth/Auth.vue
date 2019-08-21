@@ -125,7 +125,7 @@
                                     name="birthdate"
                                     class-name="col-xs-12"
                                     :label="trans('auth.register.birthdate')"
-                                    validation="date_format:DD/MM/YYYY"
+                                    validation="date_format:dd/MM/yyyy"
                                     placeholder="DD/MM/YYYY"
                                     format="dd/MM/yyyy"
                                     value-format="dd/MM/yyyy"

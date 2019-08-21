@@ -51,7 +51,7 @@
                         :placeholder="trans('tickets.alerts.modal.form.departure_date')"
                         :label="trans('tickets.alerts.modal.form.departure_date')"
                         name="departure_date"
-                        validation="required|date_format:DD/MM/YYYY"
+                        validation="required|date_format:dd/MM/yyyy"
                         placeholder="DD/MM/YYYY"
                         format="dd/MM/yyyy"
                         value-format="dd/MM/yyyy"

@@ -21,7 +21,7 @@
                                 <input-date class="col-12 col-sm-6"
                                             name="travel_date"
                                             :label="trans('tickets.sell.manual.form.travel_date')"
-                                            validation="required|date_format:DD/MM/YYYY"
+                                            validation="required|date_format:dd/MM/yyyy"
                                             placeholder="DD/MM/YYYY"
                                             format="dd/MM/yyyy"
                                             value-format="dd/MM/yyyy"

@@ -25,7 +25,7 @@
                             name="departure_date"
                             class-name="col-sm-3"
                             label="Date"
-                            validation="required|date_format:DD/MM/YYYY"
+                            validation="required|date_format:dd/MM/yyyy"
                             placeholder="DD/MM/YYYY"
                             format="dd/MM/yyyy"
                             value-format="dd/MM/yyyy"
@@ -33,7 +33,7 @@
                             :default-value="defaultDate"
                             :with-icon="true"
                             :picker-options="datePickerOptions"
-                            v-model="formContent.departure_date"
+                            v-model="formContent.trip_date"
                     ></input-date>
 
                     <div class="col-sm-3">
