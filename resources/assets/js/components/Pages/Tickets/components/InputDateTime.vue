@@ -3,7 +3,7 @@
         <div class="date">
             <input-date
                     class-name="mb-0"
-                    validation="required|date_format:dd/MM/yyyy"
+                    validation="required"
                     placeholder="DD/MM/YYYY"
                     format="dd/MM/yyyy"
                     value-format="dd/MM/yyyy"
