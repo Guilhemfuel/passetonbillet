@@ -25,7 +25,7 @@
                             name="departure_date"
                             class-name="col-sm-3"
                             label="Date"
-                            validation="required|date_format:dd/MM/yyyy"
+                            validation="required"
                             placeholder="DD/MM/YYYY"
                             format="dd/MM/yyyy"
                             value-format="dd/MM/yyyy"

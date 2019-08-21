@@ -66,7 +66,6 @@ import localeFr from './validator/fr.js';
 import localeEn from './validator/en.js';
 
 var lang = document.head.querySelector('meta[name="lang"]').content;
-console.log('Locale set to: '+lang);
 
 if (lang === 'fr') {
     window.Vue.use(VeeValidate, {
