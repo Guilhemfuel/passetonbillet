@@ -47,7 +47,7 @@
                     <!-- Displaying information -->
                     <div class="action-type d-none d-lg-flex">
                         <p class="ticket-type"
-                           v-html="trans('tickets.component.type.second_hand')">
+                           v-html="trans('tickets.component.type.new')">
                         </p>
                         <button class="btn btn-ptb btn-upper ml-3">
                             {{trans('tickets.component.details')}}
