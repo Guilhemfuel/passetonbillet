@@ -1,4 +1,4 @@
-const { mix } = require('laravel-mix');
+const mix  = require('laravel-mix');
 const webpack = require('webpack');
 
 /*
@@ -12,23 +12,10 @@ const webpack = require('webpack');
  |
  */
 
-
-
 /**
  * Override Laravel Mix Webpack Configuration
  * @type {{chunkFilename: string, publicPath: string}}
  */
-
-mix.options({
-    uglify: {
-        test: /\.js($|\?)/i
-    },
-});
-
-mix.config.webpackConfig.output = {
-    chunkFilename: 'js/bundles/[name].bundle.js?id=[chunkhash]',
-    publicPath: '/',
-};
 
 mix.webpackConfig({
     plugins: [
@@ -47,11 +34,13 @@ locales.forEach((locale)=> {
 });
 
 // Compiling
-mix.js('resources/assets/js/app.js', 'public/js/main.js')
-    .js('resources/assets/js/admin.js', 'public/js').extract(['vue','element-ui','lodash','moment','pusher-js','vee-validate'])
-    .sass('resources/assets/sass/app.scss', 'public/css/main.css')
+mix.js('resources/assets/js/app.js', 'public/js/').extract([
+    'vue','chart.js','lodash','moment','element-ui','vue-chartjs','vue-cleave-component',
+    'vue2-editor', 'vuejs-datepicker', 'vue-scroll', 'pusher-js', 'raven-js', 'vee-validate',
+    'core-js', 'vue-resource', 'cleave.js', 'fuse.js', 'laravel-echo', 'async-validator'
+]).js('resources/assets/js/admin.js', 'public/js')
+    .sass('resources/assets/sass/app.scss', 'public/css/')
     .sass('resources/assets/sass/admin.scss', 'public/css');
-
 
 // Copying assets
 mix.copyDirectory('resources/assets/img', 'public/img')

@@ -9,14 +9,14 @@
 require('./app');
 
 // CRUD Tables
-Vue.component('tickets-table', require('./components/Pages/Admin/CRUD/Tickets/Table.vue'));
-Vue.component('pretty-json', require('./components/Shared/Json.vue'));
+Vue.component('tickets-table', require('./components/Pages/Admin/CRUD/Tickets/Table.vue').default);
+Vue.component('pretty-json', require('./components/Shared/Json.vue').default);
 
 // Charts
-Vue.component('line-chart', require('./components/Charts/line-chart.vue'));
-Vue.component('doughnut-chart', require('./components/Charts/doughnut-chart.vue'));
+Vue.component('line-chart', require('./components/Charts/line-chart.vue').default);
+Vue.component('doughnut-chart', require('./components/Charts/doughnut-chart.vue').default);
 
 // Pages
-Vue.component('stats', require('./components/Pages/Admin/unique/stats.vue'));
+Vue.component('stats', require('./components/Pages/Admin/unique/stats.vue').default);
 
 
