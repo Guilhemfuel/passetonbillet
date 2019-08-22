@@ -33,6 +33,10 @@ class AffiliateController extends Controller
         $date = Carbon::createFromFormat( 'd/m/Y', $request->get( 'trip_date' ) );
         $time = $request->get( 'trip_time', Carbon::now()->format( 'h:m' ) );
 
+        if (!$departureStation || !$arrivalStation) {
+            return [];
+        }
+
         return ScnfAffiliate::getProposals( $departureStation, $arrivalStation, $date, $time );
     }
 

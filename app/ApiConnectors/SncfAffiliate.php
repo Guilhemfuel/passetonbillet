@@ -74,14 +74,18 @@ class SncfAffiliate
             [ $departureStation->sncf_id, $arrivalStation->sncf_id, $date->format( 'Y-m-d' ) ],
             $this->url );
 
-        $response = $this->client->get( $url, [
-            'headers' => [
-                'apikey' => $this->apiKey
-            ]
-        ] );
+        try {
+            $response = $this->client->get( $url, [
+                'headers' => [
+                    'apikey' => $this->apiKey
+                ]
+            ] );
+        } catch (\Exception $exception) {
+            return [];
+        }
 
         if ( ! $response->getStatusCode() == 200 ) {
-            throw new PasseTonBilletException( "Request failed." );
+            return [];
         }
 
         $data = json_decode( (string) $response->getBody(), true )['outwards'];
