@@ -170,4 +170,39 @@ class AppHelper
 
     }
 
+    /**
+     * Add campaign details to URL
+     *
+     * @param $url
+     * @param $campaignSource
+     * @param $campaignMedium
+     * @param $campaignName
+     * @param $campaignTerm
+     * @param $campaignContent
+     */
+    public function googleCampaign( $url, $campaignSource, $campaignMedium, $campaignName, $campaignTerm = null, $campaignContent = null)
+    {
+        $parsedUrl = parse_url($url);
+
+        // Add parameters
+        if ($parsedUrl['query']) {
+            // Url already has parameters
+            $url = $url . '&utm_source=' . urlencode( $campaignSource ) .
+                   '&utm_medium=' . urlencode( $campaignMedium ) . '&utm_campaign=' . urlencode( $campaignName );
+        } else {
+            // Already does not have parameters yet
+            $url = $url . '?utm_source=' . urlencode( $campaignSource ) .
+                   '&utm_medium=' . urlencode( $campaignMedium ) . '&utm_campaign=' . urlencode( $campaignName );
+        }
+
+        if ($campaignTerm) {
+            $url .= '&utm_term=' . urlencode($campaignTerm);
+        }
+        if ($campaignContent) {
+            $url .= '&utm_content=' . urlencode($campaignTerm);
+        }
+
+        return $url;
+    }
+
 }

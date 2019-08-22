@@ -1,5 +1,5 @@
 <template>
-    <a target="_blank" :href="ticket.link" :class="[ticket.type,'ticket-horizontal','d-block']">
+    <a target="_blank" :href="ticket.link" :class="[ticket.type,'ticket-horizontal','d-block']" @click="affiliateClick()">
         <div class="container">
             <div class="row">
                 <div class="trip-info d-flex">
@@ -98,6 +98,13 @@
             ucFirst(string) {
                 return string.charAt(0).toUpperCase() + string.slice(1);
             },
+            affiliateClick() {
+                this.$root.logEvent('affiliate_click', {
+                    departure_station: this.ticket.departure_city.slug,
+                    arrival_station: this.ticket.arrival_city.slug,
+                    type: this.ticket.type
+                });
+            }
         }
     }
 </script>

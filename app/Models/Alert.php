@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Facades\AppHelper;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,6 +14,10 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Alert extends Model
 {
+    const CAMPAIGN_NAME = 'alert-email';
+    const CAMPAIGN_SOURCE = 'website-ptb';
+    const CAMPAIGN_MEDIUM = 'mail';
+
     public $table = 'alerts';
 
     public static $relationships = [ 'user' ];
@@ -74,12 +79,16 @@ class Alert extends Model
     /**
      * Mutators
      */
-
     public function getLinkAttribute()
     {
-        return route( 'public.ticket.buy.page' ) . '?departure_station=' . $this->departure_city .
+        $url = route( 'public.ticket.buy.page' ) . '?departure_station=' . $this->departure_city .
                '&arrival_station=' . $this->arrival_city .
                '&departure_date=' . urlencode( $this->travel_date->format( 'd/m/Y' ) );
+
+        return AppHelper::googleCampaign($url,
+            self::CAMPAIGN_SOURCE,
+            self::CAMPAIGN_MEDIUM,
+            self::CAMPAIGN_NAME);
     }
 
     public static function current(  )

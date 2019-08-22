@@ -135,7 +135,7 @@ class SncfAffiliate
         foreach ( $data as $entity ) {
             $proposals[] = [
                 'id'             => $entity['uid'],
-                'link'           => $entity['deeplinks']['FR'],
+                'link'           => $this->transformUrl( $entity['deeplinks']['FR'] ),
                 'departure_date' => $entity['departureDate'],
                 'arrival_date'   => $entity['arrivalDate'],
                 'duration'       => $this->computeDuration( $entity['departureDate'], $entity['arrivalDate'], $entity['duration'] ),
@@ -148,6 +148,16 @@ class SncfAffiliate
         }
 
         return $proposals;
+    }
+
+    /**
+     * Transform url to add trade doubler tracking
+     */
+    protected function transformUrl( $url )
+    {
+        $tradeDoublerUrl = config( 'api-connectors.sncf_affiliate.tradedoubler_url' );
+
+        return $tradeDoublerUrl . '&url=' . urlencode( $url );
     }
 
     /**

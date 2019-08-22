@@ -50,7 +50,10 @@ class Amplitude
         // Nav
         'nav_buy_button',
         'nav_sell_button',
-        'nav_register_button'
+        'nav_register_button',
+
+        // Affiliate
+        'affiliate_click'
     ];
 
     const SESSION_VAR = 'amplitude-events';
