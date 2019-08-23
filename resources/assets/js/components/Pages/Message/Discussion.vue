@@ -82,10 +82,9 @@
                     <p class="text-justify" v-else>
                         <span v-html="trans('message.discussions.modal_explanation_seller')"></span>
                     </p>
-                    <a style="width: 100%;" class="text-center mt-3" href="#"
-                       onclick="$crisp.push(['do', 'chat:show']);$crisp.push(['do', 'chat:open'])">
-                        {{trans('message.discussions.modal_open_chat')}}
-                    </a>
+                    <p class="text-center mt-3" style="width: 100%;"><a :href="route('help.page')" target="_blank">
+                        {{trans('message.discussions.modal_open_faq')}}
+                    </a></p>
                     <button class="btn btn-primary btn-block mt-1" @click="closeInfoModal">
                         {{trans('message.discussions.modal_close_understand')}}
                     </button>

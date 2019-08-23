@@ -8,6 +8,7 @@
 /public/sitemap.xml
 /storage/*.key
 /storage/emails
+/storage/ids
 /vendor
 /.idea
 Homestead.json

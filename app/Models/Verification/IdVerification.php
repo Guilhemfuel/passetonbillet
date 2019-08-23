@@ -89,7 +89,6 @@ class IdVerification extends Model
         return \Storage::disk( 's3' )->temporaryUrl( ltrim( $value, '/' ), now()->addMinutes( 5 ) );
     }
 
-
     /**
      * Relationships
      */

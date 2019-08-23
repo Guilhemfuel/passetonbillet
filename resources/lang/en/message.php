@@ -91,7 +91,7 @@ return [
                         Once you receive the money from the buyer, you must send the ticket through the agreed method. You then only have to click on the button "Transaction Done"!',
         'modal_explanation_seller' => 'The unique purpose of the chat is for you and the seller to agree on the best payment method and to share the relevant payment information.<br>
                         Once the seller receives your payment, she/he will will send you the ticket through the agreed method. The seller wil then have to click on the "Transaction Done" button, and we\'ll mark this ticket as sold.',
-        'modal_open_chat'          => 'A question? A doubt? Click here to chat with us!',
+        'modal_open_faq'          => 'A question? A doubt? Click here to get more information !',
         'modal_close_understand'   => 'I understand !',
 
         'disclaimer'          => 'Passe Ton Billet is only designed to put you in contact with tickets buyers and sellers. Passe Ton Billet denies every responsability related to the transaction.',

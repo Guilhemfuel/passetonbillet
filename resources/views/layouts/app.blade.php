@@ -230,9 +230,10 @@
 @endif
 
 
+
+
 <!-- Scripts -->
 <?php echo app( Tightenco\Ziggy\BladeRouteGenerator::class )->generate(); ?>
-
 
 <script src="{{ mix('/js/manifest.js')}}"></script>
 <script src="{{ mix('/js/vendor.js')}}"></script>
@@ -240,6 +241,8 @@
 @section('main_js_file')
     <script src="{{ mix('/js/app.js')}}"></script>
 @show
+
+@include('components.quant-cookie')
 
 <script type="application/javascript">
     let data = {};
@@ -352,9 +355,6 @@
     ;
 </script>
 @stack('scripts')
-
-@include('cookieConsent::index')
-
 
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-125827385-1"></script>

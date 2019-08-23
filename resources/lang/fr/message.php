@@ -96,7 +96,7 @@ return [
         'modal_explanation_seller' => 'Le but de cette conversation est, pour vous et le vendeur, de trouver le moyen de paiement et le type de remise qui vous conviendront le mieux. 
             Dès que le vendeur aura reçu votre paiement, il vous transmettra son billet en utilisant le type de remise convenu.  Une fois la transaction effectuée, le vendeur cliquera sur un bouton ‘Transaction terminée’, et le billet sera retiré de la vente.',
 
-        'modal_open_chat'        => 'Une question? Un doute? Clickez-ici pour discuter avec la team!',
+        'modal_open_faq'        => 'Une question? Un doute? Clickez-ici pour plus d\'information !',
         'modal_close_understand' => 'Compris !',
 
         'disclaimer'          => 'Passe Ton Billet n\'est pas un intermédiaire, mais permet uniquement de mettre en contact des vendeurs & acheteurs de billets. Passe Ton Billet décline toute responsabilité dans la transaction de vente.',

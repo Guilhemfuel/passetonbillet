@@ -26,7 +26,8 @@ class Kernel extends ConsoleKernel
         Commands\GenerateLanguage::class,
         Commands\DailyStats::class,
         Commands\DataCommand::class,
-        Commands\OutputEmails::class
+        Commands\OutputEmails::class,
+        Commands\IdAutomation::class
     ];
 
     /**

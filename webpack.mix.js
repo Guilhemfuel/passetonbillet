@@ -37,7 +37,8 @@ locales.forEach((locale)=> {
 mix.js('resources/assets/js/app.js', 'public/js/').extract([
     'vue','chart.js','lodash','moment','element-ui','vue-chartjs','vue-cleave-component',
     'vue2-editor', 'vuejs-datepicker', 'vue-scroll', 'pusher-js', 'raven-js', 'vee-validate',
-    'core-js', 'vue-resource', 'cleave.js', 'fuse.js', 'laravel-echo', 'async-validator'
+    'core-js', 'vue-resource', 'cleave.js', 'fuse.js', 'laravel-echo', 'async-validator',
+    'quill','buffer','vue-lazyload'
 ]).js('resources/assets/js/admin.js', 'public/js')
     .sass('resources/assets/sass/app.scss', 'public/css/')
     .sass('resources/assets/sass/admin.scss', 'public/css');
@@ -56,25 +57,5 @@ if(!mix.inProduction()){
         plugins: [
             new BundleAnalyzerPlugin(),
         ],
-    });
-
-
-    mix.browserSync({
-        open: false,
-        files: [
-            'app/**/*',
-            'public/**/*',
-            'resources/views/**/*',
-            'routes/**/*'
-        ],
-        proxy: 'https://lastar.nahum',
-        port: 8080,
-        node: {
-            fs: 'empty',
-            child_process: 'empty',
-        },
-        externals: [
-            {pg: true}
-        ]
     });
 }
