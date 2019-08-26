@@ -43,9 +43,12 @@
                 @else
                     <dropdown-menu v-cloak>
                         <div class="nav-item mr-3">
-                            <i class="fa fa-2x fa-question-circle" aria-hidden="true"></i>
+                            <i class="fa fa-2x fa-bars" aria-hidden="true"></i>
                         </div>
                     </dropdown-menu>
+                    <a class="nav-item mr-3 text-white" href="{{route('help.page')}}">
+                        <i class="fa fa-2x fa-question-circle" aria-hidden="true"></i>
+                    </a>
                 @endif
             </ul>
         </div>

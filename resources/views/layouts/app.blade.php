@@ -230,8 +230,6 @@
 @endif
 
 
-
-
 <!-- Scripts -->
 <?php echo app( Tightenco\Ziggy\BladeRouteGenerator::class )->generate(); ?>
 
@@ -242,7 +240,6 @@
     <script src="{{ mix('/js/app.js')}}"></script>
 @show
 
-@include('components.quant-cookie')
 
 <script type="application/javascript">
     let data = {};
@@ -255,106 +252,108 @@
 @stack('vue-data')
 <script>
     const notifications = new Vue({
-        el: '#app',
-        name: 'PasseTonBillet',
-        data: {
-            messages: {!! ( session()->has('flash_notification') && session('flash_notification')!==null?json_encode(session('flash_notification')):'[]') !!},
-            custom_errors: {!!  ($errors->any()?json_encode($errors->all()):'[]') !!},
-            child: null,
-            user: null,
-            currentPage: null,
-            oldInput: {!! (old() != [] ? json_encode( old() ) : 'null') !!},
-            amplitudeEventTypes: {!! json_encode(\App\Helper\Amplitude::EVENTS) !!},
-            amplitudeEvents: {!! json_encode(\App\Facades\Amplitude::getEvents()) !!}
-        },
-        methods: {
-            openCrisp(e) {
-                window.$crisp.push(['do', 'chat:show']);
-                window.$crisp.push(['do', 'chat:open']);
-            },
-            closeCrisp(e) {
-                window.$crisp.push(['do', 'chat:hide']);
-            },
-            /**
-             * Log events to amplitude analytics.
-             * Only registered events are allowed. If event variable is set, it automatically follows link it
-             * (before click event was prevented).
-             *
-             * @param eventName
-             * @param properties
-             * @param event
-             */
-            logEvent: function (eventName, properties={}, event=null) {
-                // Check if event exists
-                if (!this.amplitudeEventTypes.includes(eventName)) {
-                    throw eventName + " is not a registered amplitude events.";
-                }
+                el: '#app',
+                name: 'PasseTonBillet',
+                data: {
+                    messages: {!! ( session()->has('flash_notification') && session('flash_notification')!==null?json_encode(session('flash_notification')):'[]') !!},
+                    custom_errors: {!!  ($errors->any()?json_encode($errors->all()):'[]') !!},
+                    child: null,
+                    user: null,
+                    currentPage: null,
+                    oldInput: {!! (old() != [] ? json_encode( old() ) : 'null') !!},
+                    amplitudeEventTypes: {!! json_encode(\App\Helper\Amplitude::EVENTS) !!},
+                    amplitudeEvents: {!! json_encode(\App\Facades\Amplitude::getEvents()) !!}
+                },
+                methods: {
+                    openCrisp(e) {
+                        window.$crisp.push(['do', 'chat:show']);
+                        window.$crisp.push(['do', 'chat:open']);
+                    },
+                    closeCrisp(e) {
+                        window.$crisp.push(['do', 'chat:hide']);
+                    },
+                    /**
+                    * Log events to amplitude analytics.
+                    * Only registered events are allowed. If event variable is set, it automatically follows link it
+                    * (before click event was prevented).
+                    *
+                    * @param eventName
+                    * @param properties
+                    * @param event
+                    */
+                    logEvent: function (eventName, properties={}, event=null) {
+                        // Check if event exists
+                        if (!this.amplitudeEventTypes.includes(eventName)) {
+                                throw eventName + " is not a registered amplitude events.";
+                        }
 
-                // Log event
-                window.amplitude.getInstance().logEvent(eventName, properties);
+                        // Log event
+                        window.amplitude.getInstance().logEvent(eventName, properties);
 
-                // If event is specified, and element is link, follow link after tracking is done
-                if (event && event.target.tagName.toLowerCase() == 'a') {
-                    let location = event.target.getAttribute("href");
-                    if (location) {
-                        window.location = location;
+                        // If event is specified, and element is link, follow link after tracking is done
+                        if (event && event.target.tagName.toLowerCase() == 'a') {
+                            let location = event.target.getAttribute("href");
+                            if (location) {
+                                    window.location = location;
+                            }
+                        }
+
                     }
+                },
+                mounted: function () {
+
+                    // Display Messages
+                    for (var i = 0; i < this.messages.length; i++) {
+                            this.$message({
+                                message: this.messages[i].message,
+                                type: this.messages[i].level == 'danger' ? 'error' : this.messages[i].level,
+                                showClose: true,
+                                duration: this.messages[i].important ? 0 : 10000,
+                                dangerouslyUseHTMLString: true
+                            });
+                    }
+
+                    var errorsMessage = '<ul style="margin-bottom: 0px!important;">';
+                    for (var i = 0; i < this.custom_errors.length; i++) {
+                            errorsMessage += '<li>' + this.custom_errors[i] + '</li>'
+                    }
+                        errorsMessage += '</ul>';
+
+                    if (this.custom_errors.length > 0) {
+                            this.$message({
+                                dangerouslyUseHTMLString: true,
+                                message: errorsMessage,
+                                type: 'error',
+                                showClose: true,
+                                duration: 0
+                            });
+                    }
+
+                    // Log events in session
+                        for (let index in this.amplitudeEvents) {
+
+                            let event = this.amplitudeEvents[index];
+                            // Add user id to amplitude, if needed
+                            if (event.user) {
+                                window.amplitude.getInstance().setUserId(event.user.id);
+                            }
+
+                                this.logEvent(event.event,event.data);
+                        }
+
                 }
-
-            }
-    },
-    mounted: function () {
-
-        // Display Messages
-        for (var i = 0; i < this.messages.length; i++) {
-            this.$message({
-                message: this.messages[i].message,
-                type: this.messages[i].level == 'danger' ? 'error' : this.messages[i].level,
-                showClose: true,
-                duration: this.messages[i].important ? 0 : 10000,
-                dangerouslyUseHTMLString: true
-            });
-        }
-
-        var errorsMessage = '<ul style="margin-bottom: 0px!important;">';
-        for (var i = 0; i < this.custom_errors.length; i++) {
-            errorsMessage += '<li>' + this.custom_errors[i] + '</li>'
-        }
-        errorsMessage += '</ul>';
-
-        if (this.custom_errors.length > 0) {
-            this.$message({
-                dangerouslyUseHTMLString: true,
-                message: errorsMessage,
-                type: 'error',
-                showClose: true,
-                duration: 0
-            });
-        }
-
-        // Log events in session
-        for (let index in this.amplitudeEvents) {
-
-            let event = this.amplitudeEvents[index];
-            // Add user id to amplitude, if needed
-            if (event.user) {
-                window.amplitude.getInstance().setUserId(event.user.id);
-            }
-
-            this.logEvent(event.event,event.data);
-        }
-
-    }
-    ,
-    created: function () {
-        this.child = data;
-        this.currentPage = currentPage;
-        this.user = userData;
-    }
-    })
+            ,
+                created: function () {
+                        this.child = data;
+                        this.currentPage = currentPage;
+                        this.user = userData;
+                }
+        })
     ;
 </script>
 @stack('scripts')
+
+@include('components.quant-cookie')
 
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-125827385-1"></script>

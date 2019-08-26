@@ -136,7 +136,7 @@ return [
             'btn_cta'    => 'Obtenir un numéro',
             'refresh'    => 'Rafraichir le numéro',
             'pricing_fr' => '3€/appel + prix appel',
-            'pricing_uk' => '3£/appel + prix appel',
+            'pricing_uk' => '2.5£/appel + prix appel',
         ],
 
         'edit_price_modal' => [

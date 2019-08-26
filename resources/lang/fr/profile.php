@@ -17,6 +17,7 @@ return [
     'change_name'                      => 'Changer votre nom',
     'edit_profile'                     => 'Modifier les autres informations',
     'member_since'                     => 'Membre depuis le ',
+    'privacy_settings'                 => 'Paramètres de confidentialité',
     'number_tickets_successfully_sold' => 'Ticket(s) vendus avec succès',
     'by'                               => 'par',
     'only_you'                         => 'Informations privées du profil',

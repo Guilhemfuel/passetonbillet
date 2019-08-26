@@ -136,7 +136,7 @@ return [
             'btn_cta' => 'Get Number',
             'refresh' => 'Refresh Number',
             'pricing_fr' => '3€/call + call price',
-            'pricing_uk' => '3£/call + call price',
+            'pricing_uk' => '2.5£/call + call price',
         ],
 
         'edit_price_modal' => [

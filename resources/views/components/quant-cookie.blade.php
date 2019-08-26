@@ -104,7 +104,8 @@
             'Publisher Name': 'PasseTonBillet',
             'Publisher Logo': 'https://www.passetonbillet.fr/img/logo-black.png',
             'Display UI': 'always',
-            'Publisher Purpose IDs': [5],
+            'Display Persistent Consent Link': false,
+                'Publisher Purpose IDs': [5],
             'Post Consent Page': 'https://www.passetonbillet.fr/privacy',
             'UI Layout': 'banner',
         });
@@ -126,6 +127,7 @@
             'Publisher Name': 'PasseTonBillet',
             'Publisher Logo': 'https://www.passetonbillet.fr/img/logo-black.png',
             'Display UI': 'always',
+            'Display Persistent Consent Link': false,
             'Publisher Purpose IDs': [5],
             'Post Consent Page': 'https://www.passetonbillet.fr/privacy',
             'UI Layout': 'banner',

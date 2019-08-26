@@ -67,6 +67,8 @@
                                     <button class="btn btn-block btn-ptb-blue"
                                             @click.prevent="child.profile.modalPictureUploadOpen=true">@lang('profile.change_picture')
                                     </button>
+                                    <a class="btn btn-block btn-ptb-blue text-white" onclick="window.__cmp('displayConsentUi');">@lang('profile.privacy_settings')</a>
+
                                     <delete-account></delete-account>
 
                                 </div>
@@ -235,6 +237,9 @@ $api = [
 
 @push('vue-data')
     <script type="application/javascript">
+        /**
+         * Page data
+         */
         data.profile = {
             modalInfoOpen: false,
             modalPasswordOpen: false,

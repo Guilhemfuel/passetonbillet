@@ -17,6 +17,7 @@ return [
     'edit_profile'                     => 'Edit your information',
     'change_picture'                   => 'Change profile picture',
     'member_since'                     => 'Member since ',
+    'privacy_settings'                 => 'Privacy Settings',
     'number_tickets_successfully_sold' => 'Ticket(s) successfully sold',
     'by'                               => 'by',
     'only_you'                         => 'Private profile information',
