@@ -55,6 +55,8 @@ class StatsController extends Controller
     public function index( Request $request )
     {
         $currentTickets = $this->currentTickets();
+        $ticketGrowth = $this->getTicketGrowth();
+
         $segmentations = [
             'sncf'     => $currentTickets->where( 'provider', 'sncf' )->count(),
             'eurostar' => $currentTickets->where( 'provider', 'eurostar' )->count(),
@@ -77,9 +79,35 @@ class StatsController extends Controller
             'dailyPdfDownloadCount' => \AppHelper::dailyCreatedStat( Statistic::class, function ( $query ) {
                 return $query->where( 'action', 'download_pdf' );
             } ),
-            'ticketSegmentation' => $segmentations
+            'ticketSegmentation' => $segmentations,
+            'ticketGrowth' => $ticketGrowth
         ];
 
         return view( 'admin.unique.stats.index', [ 'datasets' => $data ] );
+    }
+
+    /**
+     * Get stats for current ticket growth
+     */
+    private function getTicketGrowth() {
+        $aMonthAgo = Carbon::now()->subMonth();
+        $stats = Statistic::where('created_at','>',$aMonthAgo)
+            ->where('action',Statistic::TICKET_COUNT_DAILY)
+            ->get();
+
+        $data = [];
+        foreach ($stats as $stat) {
+            $tempData = json_decode( $stat->data );
+            $statData = 0;
+            if (isset($tempData->current_tickets_count)) {
+                $statData = $tempData->current_tickets_count;
+            }
+
+            $data[$stat->created_at->format( 'Y-m-d' )] = $statData;
+        }
+
+        ksort($data);
+
+        return $data;
     }
 }

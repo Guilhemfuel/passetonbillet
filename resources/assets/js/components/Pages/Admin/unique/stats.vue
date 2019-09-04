@@ -10,9 +10,9 @@
             </div>
 
             <div class="col-12 col-lg-6 mt-4">
-                <h4 class="text-center">Research Count</h4>
+                <h4 class="text-center">Daily Tickets Count </h4>
                 <div class="chart">
-                    <line-chart :dataset="dailyResearchCount" v-if="isMounted"></line-chart>
+                    <line-chart :dataset="ticketGrowth" v-if="isMounted"></line-chart>
                 </div>
             </div>
 
@@ -31,9 +31,9 @@
             </div>
 
             <div class="col-12 col-lg-6 mt-4">
-                <h4 class="text-center">Current Tickets Segmentation</h4>
+                <h4 class="text-center">Research Count</h4>
                 <div class="chart">
-                    <doughnut-chart :dataset="ticketsSegmentation" v-if="isMounted"></doughnut-chart>
+                    <line-chart :dataset="dailyResearchCount" v-if="isMounted"></line-chart>
                 </div>
             </div>
 
@@ -45,16 +45,17 @@
             </div>
 
             <div class="col-12 col-lg-6 mt-4">
-                <h4 class="text-center">Offers Sent</h4>
+                <h4 class="text-center">Current Tickets Segmentation</h4>
                 <div class="chart">
-                    <line-chart :dataset="dailyOfferCount" v-if="isMounted"></line-chart>
+                    <doughnut-chart :dataset="ticketsSegmentation" v-if="isMounted"></doughnut-chart>
                 </div>
             </div>
 
+
             <div class="col-12 col-lg-6 mt-4">
-                <h4 class="text-center">Pdf Downloaded</h4>
+                <h4 class="text-center">Offers Sent</h4>
                 <div class="chart">
-                    <line-chart :dataset="dailyPdfDownloadCount" v-if="isMounted"></line-chart>
+                    <line-chart :dataset="dailyOfferCount" v-if="isMounted"></line-chart>
                 </div>
             </div>
 
@@ -77,6 +78,7 @@
                 dailyResearchCount: null,
                 dailyPdfDownloadCount: null,
                 ticketsSegmentation: null,
+                ticketGrowth: null,
 
                 isMounted: false,
             }
@@ -93,6 +95,17 @@
                     }
                 ]
             };
+            this.ticketGrowth = {
+                labels: Object.keys(this.datasets['ticketGrowth']),
+                datasets: [
+                    {
+                        label: 'Tickets Count',
+                        backgroundColor: 'rgba(253,144,4,0.8)',
+                        data: Object.values(this.datasets['ticketGrowth'])
+                    }
+                ]
+            };
+
             this.dailyTicketSoldCount = {
                 labels: Object.keys(this.datasets['dailyTicketSoldCount']),
                 datasets: [

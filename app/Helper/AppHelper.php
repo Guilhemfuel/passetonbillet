@@ -137,7 +137,7 @@ class AppHelper
     public function dailyCreatedStat( $model, $filterClosure = null, $field = 'created_at', $period = 'tomorrow -1 month' )
     {
 
-        $date = new \DateTime( 'tomorrow -1 month' );
+        $date = new \DateTime( $period );
         $dailyCount = $model::select( array(
             \DB::raw( "date(" . $field . ") as date" ),
             \DB::raw( "COUNT(*) as count" )
