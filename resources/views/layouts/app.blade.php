@@ -355,6 +355,8 @@
 
 @include('components.quant-cookie')
 
+@include('components.admin-impersonate')
+
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-125827385-1"></script>
 <script>

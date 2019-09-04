@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\UserRequest;
 use App\Exceptions\PasseTonBilletException;
+use Psy\Util\Str;
 
 class UserController extends BaseController
 {
@@ -24,6 +25,8 @@ class UserController extends BaseController
     protected $creatable = false;
 
     protected $model = User::class;
+
+    const ADMIN_IMPERSONATE_COOKIE_NAME = 'ptb-admin-impersonate';
 
     /**
      * Store a newly created resource in storage.
@@ -92,7 +95,8 @@ class UserController extends BaseController
 
     // ---- Verify user having troubles with email ----
 
-    public function verifyUser( Request $request, $id  ) {
+    public function verifyUser( Request $request, $id )
+    {
         $user = User::find( $id );
         if ( ! $user ) {
             \Session::flash( 'danger', 'Entity not found!' );
@@ -154,7 +158,21 @@ class UserController extends BaseController
             return redirect()->back();
         }
 
+        // Set cookie to be able to come back to admin fast
+        $ip = $request->ip();
+        $adminId = \Auth::user()->id;
+        $random = \Illuminate\Support\Str::random( 30 );
+
+        $hash = bcrypt( $adminId . $random);
+        $secret = $ip . $hash;
+
+        \Cache::put( $secret, $adminId, now()->addMinutes(60) );
+        \Cookie::queue(\Cookie::forget(\App\Http\Controllers\Admin\UserController::ADMIN_IMPERSONATE_COOKIE_NAME));
+        cookie()->queue(self::ADMIN_IMPERSONATE_COOKIE_NAME, $hash, 60);
+
         auth()->login( $user );
+
+        flash()->info('You are now acting as ' . $user->full_name . '.');
 
         return redirect()->route( 'home' );
     }
@@ -195,7 +213,7 @@ class UserController extends BaseController
         $idVerif->user->update( $request->except( [ 'verification_id', 'type', 'country' ] ) );
 
         // Dispatch the event
-        event(new IdAcceptedEvent($idVerif));
+        event( new IdAcceptedEvent( $idVerif ) );
 
         flash()->success( 'ID confirmed!' );
 

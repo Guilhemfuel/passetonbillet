@@ -278,6 +278,51 @@ class UserController extends Controller
         return redirect()->route('home');
     }
 
+    /**
+     * Reverse a user impersonate to get back to admin
+     */
+    public function reverseImpersonate ( Request $request){
+        $value = $request->cookie(\App\Http\Controllers\Admin\UserController::ADMIN_IMPERSONATE_COOKIE_NAME);
+        $value = $request->ip() . $value;
+
+
+        $storage = \Cache::getStore(); // will return instance of FileStore
+        $filesystem = $storage->getFilesystem(); // will return instance of Filesystem
+        $dir = (\Cache::getDirectory());
+        $keys = [];
+        foreach ($filesystem->allFiles($dir) as $file1) {
+
+            if (is_dir($file1->getPath())) {
+
+                foreach ($filesystem->allFiles($file1->getPath()) as $file2) {
+                    $keys = array_merge($keys, [$file2->getRealpath() => unserialize(substr(\File::get($file2->getRealpath()), 10))]);
+                }
+            }
+            else {
+
+            }
+        }
+
+        if (!\Cache::has($value)) {
+            flash()->error(__('common.error'));
+            return redirect()->back();
+        }
+
+        $adminID = \Cache::get($value);
+        $user = User::find($adminID);
+        if (!$user) {
+            flash()->error('Admin user not found.');
+            return redirect()->back();
+        }
+
+        auth()->login( $user );
+        flash()->success('Welcome back '.$user->first_name .' !');
+
+        \Cookie::queue(\Cookie::forget(\App\Http\Controllers\Admin\UserController::ADMIN_IMPERSONATE_COOKIE_NAME));
+
+        return redirect()->route('admin.home');
+    }
+
     //////////////////////////
     /// API
     /// /////////////////

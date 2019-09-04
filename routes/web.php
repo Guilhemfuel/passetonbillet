@@ -147,6 +147,12 @@ Route::group( [ 'middleware' => 'auth', 'as' => 'public.' ], function () {
         Route::delete( 'delete-account', 'UserController@deleteAccount' )->name( 'delete-account' );
     } );
 
+    /**
+     * Others
+     */
+    Route::get( '/reverse-impersonate', 'UserController@reverseImpersonate' )->name( 'reverse_impersonate' );
+
+
 } );
 
 /**

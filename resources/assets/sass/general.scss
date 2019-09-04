@@ -673,3 +673,20 @@ img[is-lazy=true]:not([lazy]) {
     border: none;
   }
 }
+
+// ===========
+// Admin impersonate
+// ===========
+.admin-impersonate {
+  position: fixed;
+  background-color: orange;
+  bottom: 0px;
+  right: 0px;
+  border-radius: 10px 0px 0px 0px;
+  padding: 10px;
+
+  a {
+    color: white;
+    font-weight: 600;
+  }
+}
