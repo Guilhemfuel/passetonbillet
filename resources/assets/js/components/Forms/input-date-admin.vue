@@ -104,7 +104,7 @@
 
                         } else if (value.length == 8) {
                             // Add year
-                            this.date = this.data.slice(0,2) + '/' + this.data.slice(2,2) + '/' + this.data.slice(4,4);
+                            this.date = this.date.slice(0,2) + '/' + this.date.slice(2,2) + '/' + this.date.slice(4,4);
                         }
                         else {
                             this.date = null;
