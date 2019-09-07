@@ -32,17 +32,16 @@
                         ></input-text>
                     </div>
                     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                        <input-date
+                        <input-date-admin
                                 name="temp_birthdate"
                                 v-model="child.id_check.verifUser.birthdate"
                                 label="Birthdate"
-                                validation="date_format:DD/MM/YYYY"
+                                validation="required"
                                 placeholder="DD/MM/YYYY"
                                 format="dd/MM/yyyy"
                                 value-format="dd/MM/yyyy"
-                                v-model="child.id_check.verifUser.birthdate"
                                 default-value="{{isset($user)&&$user->birthdate!=null?$user->birthdate->format('d/m/Y'):""}}"
-                                default-value-format="DD/MM/YYYY"></input-date>
+                                default-value-format="DD/MM/YYYY"></input-date-admin>
                     </div>
                     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                         <img class="img-fluid" src="{{$user->picture}}" alt="user_pp"/>
