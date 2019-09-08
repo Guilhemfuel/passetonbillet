@@ -104,7 +104,8 @@
 
                         } else if (value.length == 8) {
                             // Add year
-                            this.date = this.date.slice(0,2) + '/' + this.date.slice(2,2) + '/' + this.date.slice(4,4);
+                            let temp = this.date.slice();
+                            this.date = temp.slice(0,2) + '/' + temp[2] + temp[3] + '/' + temp[4] + temp[5] + temp[6] + temp[7]
                         }
                         else {
                             this.date = null;

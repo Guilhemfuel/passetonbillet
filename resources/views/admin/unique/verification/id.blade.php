@@ -102,6 +102,31 @@
                     <form method="post" action="{{route('id_check.deny')}}">
                         {{csrf_field()}}
                         <input type="hidden" name="verification_id" value="{{$user->idVerification->id}}">
+                        <input type="hidden" name="comment" value="Not a valid ID.">
+                        <button class="btn btn-danger btn-block mt-3" type="submit">Not a valid ID</button>
+                    </form>
+                    <form method="post" action="{{route('id_check.deny')}}">
+                        {{csrf_field()}}
+                        <input type="hidden" name="verification_id" value="{{$user->idVerification->id}}">
+                        <input type="hidden" name="comment" value="Wrong side of ID.">
+                        <button class="btn btn-danger btn-block mt-3" type="submit">Wrong side of ID</button>
+                    </form>
+                    <form method="post" action="{{route('id_check.deny')}}">
+                        {{csrf_field()}}
+                        <input type="hidden" name="verification_id" value="{{$user->idVerification->id}}">
+                        <input type="hidden" name="comment" value="Corrupted File">
+                        <button class="btn btn-danger btn-block mt-3" type="submit">Corrupted File</button>
+                    </form>
+                    <form method="post" action="{{route('id_check.deny')}}">
+                        {{csrf_field()}}
+                        <input type="hidden" name="verification_id" value="{{$user->idVerification->id}}">
+                        <input type="hidden" name="comment" value="Scan is not clear">
+                        <button class="btn btn-danger btn-block mt-3" type="submit">Scan is not clear</button>
+                    </form>
+                    <p class="text-center my-3">Or enter another reason below.</p>
+                    <form method="post" action="{{route('id_check.deny')}}">
+                        {{csrf_field()}}
+                        <input type="hidden" name="verification_id" value="{{$user->idVerification->id}}">
                         <textarea class="form-control" placeholder="Reasons to deny ID verification" name="comment"></textarea>
                         <button class="btn btn-danger btn-block mt-3" type="submit">Deny ID verification</button>
                     </form>
