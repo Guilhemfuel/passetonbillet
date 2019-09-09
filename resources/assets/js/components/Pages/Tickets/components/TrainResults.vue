@@ -4,9 +4,6 @@
 
             <ads type="megabanner" class="mt-3"></ads>
 
-            <ads type="pave_bas" class="mt-3"></ads>
-
-
             <horizontal-ticket v-for="ticket in tickets"
                                :ticket="ticket"
                                :key="ticket.id"
@@ -24,6 +21,9 @@
             ></affiliate-ticket>
 
         </div>
+
+        <ads type="pave_bas" class="mt-3"></ads>
+
 
     </div>
 </template>
