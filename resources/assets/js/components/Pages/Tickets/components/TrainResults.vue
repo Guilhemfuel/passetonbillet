@@ -2,7 +2,10 @@
     <div class="train-results px-4 px-sm-0">
         <div class="train-tickets">
 
-            <div id="41941-1" ></div>
+            <ads type="megabanner" class="mt-3"></ads>
+
+            <ads type="pave_bas" class="mt-3"></ads>
+
 
             <horizontal-ticket v-for="ticket in tickets"
                                :ticket="ticket"
@@ -21,6 +24,7 @@
             ></affiliate-ticket>
 
         </div>
+
     </div>
 </template>
 
@@ -44,15 +48,6 @@
             }
         },
         mounted() {
-            let script1 = document.createElement('script');
-            script1.setAttribute('src',"//ads.themoneytizer.com/s/gen.js?type=1");
-            document.getElementById('41941-1').appendChild(script1)
-
-            let script2 = document.createElement('script');
-            script2.setAttribute('src',"//ads.themoneytizer.com/s/requestform.js?siteId=41941&formatId=1");
-            document.getElementById('41941-1').appendChild(script2)
-
-
             this.$root.$on('search', () => {
                 this.search()
             });

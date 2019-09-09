@@ -1,7 +1,7 @@
 <template>
     <div :class="{'ticket-horizontal':true,'contact':contact}">
         <div class="container">
-            <div class="row">
+            <div class="row flex-nowrap">
                 <div class="trip-info d-flex">
                     <div class="price-duration">
                         <p class="price">{{ticket.bought_currency_symbol}}{{ticket.price}}</p>
@@ -11,7 +11,7 @@
                         <polygon points="0,0 0,100 30,0 " style="fill:white;"/>
                     </svg>
                     <div class="trip col">
-                        <div class="row justify-content-center align-content-center d-lg-flex d-none">
+                        <div class="row justify-content-center align-content-center d-xl-flex d-none">
                             <div class="from">
                                 <p class="city">{{ticket.train.departure_city.name}}</p>
                                 <p class="time">{{departure_time}}</p>
@@ -24,7 +24,7 @@
                                 <p class="time">{{arrival_time}}</p>
                             </div>
                         </div>
-                        <div class="row flex-column justify-content-center align-content-center mobile-view d-lg-none d-flex"
+                        <div class="row flex-column justify-content-center align-content-center mobile-view d-xl-none d-flex"
                              @click="contact=true">
                             <div class="from d-flex">
                                 <p class="time">{{departure_time}}</p>

@@ -519,6 +519,9 @@ $animation-duration: 0.5s;
 
     .trip {
 
+      height: 100px;
+      overflow: hidden;
+
       .row {
         height: 100%;
       }
@@ -971,6 +974,10 @@ $animation-duration: 0.5s;
 // Buy component
 
 #buy-ticket {
+
+  .side-ads {
+    width: 160px;
+  }
 
   // Stations picker
   .departure {
