@@ -55,7 +55,7 @@ Vue.component( 'smart-table', require(/* webpackChunkName: "smart-table" */ './c
  * Shared components
  */
 
-Vue.component( 'ads', require(/* webpackChunkName: "ads" */ './components/Shared/ads.vue').default);
+Vue.component( 'ads', require(/* webpackChunkName: "ads" */ './components/Shared/Ads.vue').default);
 Vue.component( 'sandwich', require(/* webpackChunkName: "sandwich" */ './components/Shared/Sandwich.vue').default);
 Vue.component( 'loader', require(/* webpackChunkName: "loader" */ './components/Shared/Loader.vue').default);
 Vue.component( 'modal', require(/* webpackChunkName: "modal" */ './components/Shared/Modal.vue').default);
