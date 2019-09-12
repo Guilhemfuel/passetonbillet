@@ -34,26 +34,33 @@ class PageController extends Controller
 
     public function home()
     {
-
         // Order of stations
-        $defaultStations = collect( [
-            Station::find( 4916 ),
-            Station::find( 8267 ),
-            Station::find( 5974 ),
-            Station::find( 4718 ),
-            Station::find( 4790 ),
-        ] );
+        $defaultStationsIds = [ 4916, 8267, 5974, 4718, 4790 ];
+        $defaultStations = Station::findMany( $defaultStationsIds );
+
+        // Check if cookies for default stations are set
+        $departureStationID = request()->cookie( TicketController::COOKIE_TRIP_DEPARTURE, null );
+        $arrivalStationID = request()->cookie( TicketController::COOKIE_TRIP_ARRIVAL, null );
+
+        $departureStation = Station::find( $departureStationID );
+        $arrivalStation = Station::find( $arrivalStationID );
+
+        if ( $departureStation && $arrivalStation ) {
+            $defaultStations = $defaultStations->add( $departureStation )->add( $arrivalStation );
+        }
 
         $tickets = Ticket::getMostRecentTickets( 8 );
         $reviews = Review::getSelectedReviews( 3 );
-        $questions = HelpQuestionResource::collection( HelpQuestion::getCached(4) );
+        $questions = HelpQuestionResource::collection( HelpQuestion::getCached( 4 ) );
 
 
         return view( 'welcome' )->with( [
-            'recentTickets'   => TicketRessource::collection( $tickets ),
-            'defaultStations' => StationRessource::collection( $defaultStations ),
-            'questions'       => $questions,
-            'reviews'         => $reviews,
+            'recentTickets'    => TicketRessource::collection( $tickets ),
+            'defaultStations'  => StationRessource::collection( $defaultStations->unique('id') ),
+            'departureStation' => $departureStation ? new StationRessource( $departureStation ) : null,
+            'arrivalStation'   => $arrivalStation ? new StationRessource( $arrivalStation ) : null,
+            'questions'        => $questions,
+            'reviews'          => $reviews,
         ] );
     }
 

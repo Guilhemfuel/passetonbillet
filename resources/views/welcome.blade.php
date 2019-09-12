@@ -372,7 +372,10 @@ $routes = [
             recentTickets: {!! json_encode( $recentTickets ) !!}
         }
 
-        currentPage.data.defaultStations = {!! json_encode($defaultStations) !!}
+        currentPage.data.defaultStations = {!! json_encode($defaultStations) !!};
+        currentPage.data.departureStation = {!! json_encode($departureStation) !!};
+        currentPage.data.arrivalStation = {!! json_encode($arrivalStation) !!};
+
     </script>
 @endpush
 

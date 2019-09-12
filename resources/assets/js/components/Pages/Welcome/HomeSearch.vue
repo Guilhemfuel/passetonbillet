@@ -11,14 +11,14 @@
                                    :label="trans('tickets.buy.inputs.homepicker.depart')"
                                    class-name="col-sm-3"
                                    validation="required"
-                                   default-value="4916"
+                                   :default-value="formContent.departure_station"
                                    v-model="formContent.departure_station"
                     ></input-station>
                     <input-station name="arrival_station"
                                    :label="trans('tickets.buy.inputs.homepicker.arrival')"
                                    class-name="col-sm-3"
                                    validation="required"
-                                   default-value="8267"
+                                   :default-value="formContent.arrival_station"
                                    v-model="formContent.arrival_station"
                     ></input-station>
                     <input-date
@@ -54,8 +54,8 @@
         data() {
             return {
                 formContent: {
-                    departure_station: 4916,
-                    arrival_station: 8267,
+                    departure_station: this.$root.currentPage.data.departureStation ? this.$root.currentPage.data.departureStation.id: 4916,
+                    arrival_station: this.$root.currentPage.data.arrivalStation ? this.$root.currentPage.data.arrivalStation.id: 8267,
                     trip_date: moment().format('DD/MM/YYYY'),
                     trip_time: null,
                 },

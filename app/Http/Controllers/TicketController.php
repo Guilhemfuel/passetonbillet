@@ -40,6 +40,10 @@ class TicketController extends Controller
 
     const LIMIT_OFFERS_PER_DAY = 8;
 
+    const COOKIE_TRIP_DEPARTURE = 'train_departure';
+
+    const COOKIE_TRIP_ARRIVAL = 'train_arrival';
+
     /**
      * @param SellTicketRequest $request
      *
@@ -345,7 +349,12 @@ class TicketController extends Controller
             true
         );
 
-        return TicketRessource::collection( $tickets );
+        // Put cookie to remember trip for one week
+        return response(TicketRessource::collection( $tickets ))->cookie(
+            self::COOKIE_TRIP_DEPARTURE, $request->departure_station, 24*60*7
+        )->cookie(
+            self::COOKIE_TRIP_ARRIVAL, $request->arrival_station, 24*60*7
+        );
     }
 
     /**
