@@ -147,7 +147,7 @@ return [
 
         'type' => [
             'second_hand' => "billet de train<br/> d'occasion",
-            'new' => "billet de train<br/> neuf",
+            'new'         => "billet de train<br/> neuf",
 
         ]
 
@@ -302,21 +302,23 @@ return [
         'action_text'    => 'Créez une alerte et soyez le premier averti !',
 
         'modal'          => [
-            'title'       => 'Create an alert',
+            'title'       => 'Créer une alerte',
             'form'        => [
-                'departure_station' => 'Gare de départ',
-                'arrival_station'   => 'Gare d\'arrivée',
-                'departure_date'    => 'Date',
+                'departure_station'    => 'Gare de départ',
+                'arrival_station'      => 'Gare d\'arrivée',
+                'departure_date_start' => 'Date de début d\'alerte',
+                'departure_date_end'   => 'Date de fin d\'alerte',
             ],
             'explanation' => 'Créez une alerte maintenant, et recevez une notification par email lorsqu\'un utilisateur publie un billet qui correspond à vos critères de recherche.',
 
-            'submit' => 'Créer l\' alerte'
+            'submit' => 'Créer l\'alerte'
         ],
         'success'        => 'Alerte créée !',
         'success_delete' => 'Alerte supprimée.',
 
         'duplicate_alert' => 'Vous avez déjà cette alerte d\'enregistrée.',
         'past_alert'      => 'Vous ne pouvez pas créer une alerte dans le passé.',
+        'date_order' => 'La date début doit etre égale ou avant la date de fin.',
         'alert_not_found' => 'Alerte introuvable.',
         'existing_user'   => 'Vous avez déjà un compte PasseTonBillet. Merci de vous connecter pour créer l\'alerte.',
 

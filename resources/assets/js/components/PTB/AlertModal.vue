@@ -46,22 +46,44 @@
                         :with-icon="false"
                 ></input-station>
 
-                <input-date
-                        v-model="alert.travel_date"
-                        :placeholder="trans('tickets.alerts.modal.form.departure_date')"
-                        :label="trans('tickets.alerts.modal.form.departure_date')"
-                        name="departure_date"
-                        validation="required"
-                        placeholder="DD/MM/YYYY"
-                        format="dd/MM/yyyy"
-                        value-format="dd/MM/yyyy"
-                        default-value-format="DD/MM/YYYY"
-                        :default-value="alert.travel_date"
-                        :with-icon="false"
-                        :picker-options="datePickerOptions"
-                >
+                <div class="row">
+                    <div class="col">
+                        <input-date
+                                v-model="alert.travel_date_start"
+                                :placeholder="trans('tickets.alerts.modal.form.departure_date_start')"
+                                :label="trans('tickets.alerts.modal.form.departure_date_start')"
+                                name="departure_date"
+                                validation="required"
+                                placeholder="DD/MM/YYYY"
+                                format="dd/MM/yyyy"
+                                value-format="dd/MM/yyyy"
+                                default-value-format="DD/MM/YYYY"
+                                :default-value="alert.travel_date_start"
+                                :with-icon="false"
+                                :picker-options="startDatePickerOptions"
+                                @change="startDateChange()"
+                        ></input-date>
+                    </div>
+                    <div class="col">
+                        <input-date
+                                v-model="alert.travel_date_end"
+                                :placeholder="trans('tickets.alerts.modal.form.departure_date_end')"
+                                :label="trans('tickets.alerts.modal.form.departure_date_end')"
+                                name="departure_date"
+                                validation="required"
+                                placeholder="DD/MM/YYYY"
+                                format="dd/MM/yyyy"
+                                value-format="dd/MM/yyyy"
+                                default-value-format="DD/MM/YYYY"
+                                :default-value="alert.travel_date_end"
+                                :with-icon="false"
+                                :picker-options="endDatePickerOptions"
+                                @change="travelDateEndChanged=true"
+                        ></input-date>
+                    </div>
+                </div>
 
-                </input-date>
+
 
                 <div id="recaptcha-main" class="g-recaptcha d-flex justify-content-center align-items-center" :data-sitekey="reCaptchaSiteKey"></div>
 
@@ -94,21 +116,15 @@
                 submitted: false,
                 user: this.$root.user,
                 modalAlertOpened: false,
+                travelDateEndChanged: false,
                 alert: {
                     user_id: this.$root.user ? this.$root.user.id : null,
                     email: "",
                     departure_city: this.defaultDepartureStation,
                     arrival_city: this.defaultArrivalStation,
-                    travel_date: this.defaultTripDate,
+                    travel_date_start: this.defaultTripDate,
+                    travel_date_end: this.defaultTripDate,
                 },
-                datePickerOptions: {
-                    disabledDate: function (myDate) {
-                        // Disable all date before today
-                        return moment(myDate).isBefore(moment().endOf('day'));
-                    },
-                    firstDayOfWeek: 1
-                },
-
                 rendered: false,
                 reCaptchaSiteKey: window.nocaptcha_site_key,
             }
@@ -123,8 +139,32 @@
             } else this.render();
         },
         computed: {
+            startDatePickerOptions() {
+                return {
+                    disabledDate: (myDate) => {
+                        // Disable all date before today
+                        return moment(myDate).isBefore(moment().startOf('day')) ||
+                            ( this.travelDateEndChanged && moment(myDate).startOf('day').isAfter(moment(this.alert.travel_date_end,'DD/MM/YYYY').endOf('day')) );
+                    },
+                    firstDayOfWeek: 1
+                }
+            },
+            endDatePickerOptions() {
+                return {
+                    disabledDate: (myDate) => {
+                        // Disable all date before today
+                        return moment(myDate).isBefore(moment().startOf('day')) || moment(myDate).isBefore(moment(this.alert.travel_date_start,'DD/MM/YYYY').endOf('day'));
+                    },
+                    firstDayOfWeek: 1
+                }
+            },
         },
         methods: {
+            startDateChange() {
+                if (!this.travelDateEndChanged) {
+                    this.alert.travel_date_end = this.alert.travel_date_start;
+                }
+            },
             renderWait() {
                 if (this.user) return;
                 setTimeout(() => {

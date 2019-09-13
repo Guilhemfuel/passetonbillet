@@ -131,10 +131,10 @@ return [
         ],
 
         'call_seller_modal' => [
-            'title'   => 'Call Seller',
-            'text'    => 'You can call the seller to negotiate the ticket straight away. It\'s much faster ! Click on the button corresponding to the country of your mobile carrier to get a contact number.',
-            'btn_cta' => 'Get Number',
-            'refresh' => 'Refresh Number',
+            'title'      => 'Call Seller',
+            'text'       => 'You can call the seller to negotiate the ticket straight away. It\'s much faster ! Click on the button corresponding to the country of your mobile carrier to get a contact number.',
+            'btn_cta'    => 'Get Number',
+            'refresh'    => 'Refresh Number',
             'pricing_fr' => '3€/call + call price',
             'pricing_uk' => '2.5£/call + call price',
         ],
@@ -147,7 +147,7 @@ return [
 
         'type' => [
             'second_hand' => "second hand<br/> train ticket",
-            'new' => "new<br/> train ticket"
+            'new'         => "new<br/> train ticket"
         ]
 
     ],
@@ -301,9 +301,10 @@ return [
         'modal'          => [
             'title'       => 'Create an alert',
             'form'        => [
-                'departure_station' => 'Departure Station',
-                'arrival_station'   => 'Arrival Station',
-                'departure_date'    => 'Date',
+                'departure_station'    => 'Departure Station',
+                'arrival_station'      => 'Arrival Station',
+                'departure_date_start' => 'Alert start date',
+                'departure_date_end'   => 'Alert end date',
             ],
             'explanation' => 'Create an alert now, and receive email notifications whenever a user publishes a ticket that matches your criterias.',
             'submit'      => 'Create Alert'
@@ -313,6 +314,7 @@ return [
 
         'duplicate_alert' => 'You already have this alert set.',
         'past_alert'      => 'You can\'t create an alert in the past.',
+        'date_order'      => 'Start date must be before or equal to end date.',
         'alert_not_found' => 'Alert not found.',
         'existing_user'   => 'You already have a PasseTonBillet account. Please login to create an alert.',
 

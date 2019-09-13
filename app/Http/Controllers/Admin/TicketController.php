@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\TicketAddedEvent;
 use App\Http\Requests\Admin\TicketRequest;
 use App\Http\Resources\Admin\TicketTableResource;
 use App\Http\Resources\StationRessource;
@@ -289,6 +290,8 @@ class TicketController extends BaseController
             return redirect()->back();
         }
         $ticket->restore();
+        event( new TicketAddedEvent( $ticket ) );
+
         flash( 'Ticket restored.' )->success();
 
         return redirect()->route($this->CRUDmodelName . '.edit', $ticket->id );

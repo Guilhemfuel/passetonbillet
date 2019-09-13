@@ -92,7 +92,7 @@
                         });
 
                         // Log search
-                        this.$root.logEvent('ticket_search', this.search);
+                        this.$root.logEvent('ticket_search', this.searchValue);
 
                     }, response => {
                         this.updateLoading(false);

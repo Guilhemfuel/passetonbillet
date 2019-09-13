@@ -3,6 +3,7 @@
 namespace App\Mail;
 
 use App\Models\Alert;
+use App\Train;
 use App\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
@@ -13,11 +14,12 @@ class AlertEmail extends PtbMail
 {
     use Queueable, SerializesModels;
 
-    public $alert, $user, $email;
+    public $alert, $train, $user, $email;
 
-    public function __construct( Alert $alert, $user)
+    public function __construct( Alert $alert, Train $train, $user)
     {
         $this->alert = $alert;
+        $this->train = $train;
 
         if ($user instanceof User ) {
             parent::__construct( $user, null);
@@ -46,7 +48,9 @@ class AlertEmail extends PtbMail
                     ->ptbMarkdown('alert_triggered',
                         [
                             'user' => $this->user,
-                            'alert' => $this->alert
+                            'alert' => $this->alert,
+                            'train' => $this->train,
+                            'link' => $this->alert->getLink($this->train->carbon_departure_date)
                         ]);
     }
 }

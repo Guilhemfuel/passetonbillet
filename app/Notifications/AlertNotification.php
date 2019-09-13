@@ -4,6 +4,7 @@ namespace App\Notifications;
 
 use App\Mail\AlertEmail;
 use App\Models\Alert;
+use App\Train;
 use App\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
@@ -14,16 +15,17 @@ class AlertNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public $alert;
+    public $alert, $train;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct( Alert $alert )
+    public function __construct( Alert $alert , Train $train)
     {
         $this->alert = $alert;
+        $this->train = $train;
     }
 
     /**
@@ -50,7 +52,7 @@ class AlertNotification extends Notification implements ShouldQueue
      */
     public function toMail( $notifiable )
     {
-        return new AlertEmail( $this->alert, $notifiable );
+        return new AlertEmail( $this->alert, $this->train, $notifiable );
     }
 
     /**

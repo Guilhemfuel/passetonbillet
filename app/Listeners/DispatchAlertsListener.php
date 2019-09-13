@@ -53,7 +53,8 @@ class DispatchAlertsListener implements ShouldQueue
         }
 
         // Search for matching alerts
-        $alerts = Alert::whereDate( 'travel_date', '=', $ticket->train->carbon_departure_date )
+        $alerts = Alert::whereDate( 'travel_date_start', '<=', $ticket->train->carbon_departure_date )
+                       ->whereDate( 'travel_date_end', '>=', $ticket->train->carbon_departure_date )
                        ->whereIn( 'departure_city', $departureStations )
                        ->whereIn( 'arrival_city', $arrivalStations )
                        ->get();
@@ -62,9 +63,9 @@ class DispatchAlertsListener implements ShouldQueue
 
             // If it's a user create notification
             if ( $alert->user ) {
-                $alert->user->notify( new AlertNotification( $alert ) );
+                $alert->user->notify( new AlertNotification( $alert, $ticket->train ) );
             } else {
-                \Notification::route( 'mail', $alert->email )->notify( new AlertNotification( $alert ) );
+                \Notification::route( 'mail', $alert->email )->notify( new AlertNotification( $alert, $ticket->train ) );
             }
         }
     }
