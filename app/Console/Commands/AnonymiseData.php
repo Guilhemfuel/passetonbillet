@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Alert;
 use App\User;
 use Illuminate\Console\Command;
 
@@ -45,10 +46,13 @@ class AnonymiseData extends Command
             return;
         }
 
+        ini_set( 'memory_limit', '1G' );
+
         $faker = Faker::create();
 
         $this->line('Starting to create fake users...');
 
+        // Cleaning users
         foreach (User::all() as $user) {
             if ($user->isAdmin()) {
                 continue;
@@ -59,6 +63,16 @@ class AnonymiseData extends Command
             $user->email = strtolower( $user->first_name ) .'_'. strtolower($user->last_name).$faker->numberBetween(1,100).array_random(['@gmail.com','@gmail.fr','@mycompany.com','@msn.com','@yahoo.fr']);
             $user->phone = $faker->unique()->phoneNumber;
             $user->save();
+        }
+
+        $this->line('Starting to anonymise alerts...');
+
+        // Cleaning alerts
+        foreach (Alert::all() as $alert) {
+            if ($alert->email) {
+                $alert->email = $faker->email;
+                $alert->save();
+            }
         }
 
         $this->line('Done.');
