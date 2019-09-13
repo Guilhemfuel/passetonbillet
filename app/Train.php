@@ -23,8 +23,6 @@ class Train extends BaseModel
 {
     use SoftDeletes;
 
-
-
     protected $dates = ['deleted_at', 'departure_date','arrival_date'];
 
     protected $fillable = [

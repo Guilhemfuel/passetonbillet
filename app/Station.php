@@ -87,9 +87,9 @@ class Station extends Model
 
         return [
             'id'      => $this->id,
-            'n_grams' => $this->n_grams,
-            'n_grams_fr' => $this->n_grams_fr,
-            'n_grams_en' => $this->n_grams_en
+            'name'    => $this->name,
+            'name_fr' => $this->name_fr,
+            'name_en' => $this->name_en,
         ];
     }
 
