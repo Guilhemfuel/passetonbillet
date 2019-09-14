@@ -350,7 +350,7 @@ class TicketController extends Controller
         );
 
         // Put cookie to remember trip for one week
-        return response(TicketRessource::collection( $tickets ))->cookie(
+        return response( TicketRessource::collection( $tickets ) )->cookie(
             self::COOKIE_TRIP_DEPARTURE, $request->departure_station, 24*60*7
         )->cookie(
             self::COOKIE_TRIP_ARRIVAL, $request->arrival_station, 24*60*7

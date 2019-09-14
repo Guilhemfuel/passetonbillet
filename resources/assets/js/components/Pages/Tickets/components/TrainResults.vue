@@ -88,7 +88,7 @@
 
                         this.$nextTick(() => {
                             this.updateLoading(false);
-                            this.tickets = response.data.data;
+                            this.tickets = response.data;
                         });
 
                         // Log search
