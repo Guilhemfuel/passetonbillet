@@ -233,6 +233,11 @@ Route::blacklist( function () {
             Route::get( '/', 'Admin\WarningController@index' )->name( 'warnings.index' );
             Route::get( '/done/{warning}', 'Admin\WarningController@markAsDone' )->name( 'warnings.mark_as_done' );
         } );
+
+        // Page builder routes
+        Route::group( [ 'prefix' => 'page_builder' ], function () {
+            Route::get( '/', 'Admin\PageController@index' )->name( 'pages_builder.index' );
+        } );
     } );
 } );
 
