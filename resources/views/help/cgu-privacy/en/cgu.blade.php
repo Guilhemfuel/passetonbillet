@@ -15,15 +15,15 @@
                                 Current version effective 06/04/2019
                             </p>
                             <div class="container container-over-bg p-5 mt-3 text-justify">
-                                <p> This website passetonbillet.fr is published by CB INNOVATION, a simplified joint-stock company with a capital of 27,500 euros, registered with the Trade and Companies Register of Lyon, under the number RCS 513 007 880, whose registered office is located 27 route de limonest, 69 450, Saint Cyr to the golden mount. </p>
+                                <p> This website passetonbillet.fr is published by PASSETONBILLET LTD , a simplified joint-stock company with a capital of 27,500 euros, registered with the Trade and Companies Register of Lyon, under the number RCS 513 007 880, whose registered office is located 27 route de limonest, 69 450, Saint Cyr to the golden mount. </p>
                                 <br>
 
                                 <h4 class="mt-3 pb-3">PREAMBLE</h4>
 
-                                <p>CB INNOVATION has developed an online platform on the Website accessible at www.passetonbillet.fr.
+                                <p>PASSETONBILLET LTD  has developed an online platform on the Website accessible at www.passetonbillet.fr.
                                    This Platform is intended to offer Users a service of placing search and publication of used tickets for the train.
                                    We thank you for reading carefully these Terms because they contain important information concerning the rights and obligations of Users. They include various limitations and exclusions, as well as obligations regarding compliance with applicable laws and regulations.
-                                   Unless special conditions relating to a service or an offer, any new service or modification of service in place and / or produced by the company CB INNOVATION will be subject to these Terms of Use. nouveau service ou modification de service en place et/ou produit par la société CB INNOVATION sera soumis aux présentes Conditions d'Utilisation.
+                                   Unless special conditions relating to a service or an offer, any new service or modification of service in place and / or produced by the company PASSETONBILLET LTD  will be subject to these Terms of Use. nouveau service ou modification de service en place et/ou produit par la société PASSETONBILLET LTD  sera soumis aux présentes Conditions d'Utilisation.
                                 </p>
 
                                 <br>
@@ -74,8 +74,8 @@
                                 <h5 class="mt-3 pb-3">Broadcast ads</h5>
                                 <p>
                                     It is the sole User wishing to sell or buy a ticket to inquire with the issuer of the ticket to find out all the conditions of transferability in force. It is recalled that in all circumstances, the transfer of the notes is at the risk and peril of the transferor and the transferee.
-                                   CB INNOVATION declines, within the limits of what is authorized by the legal provisions of public order, any responsibility as for the User Content, the legality of the articles proposed for sale or the conditions of sale themselves.
-                                  Therefore, CB INNOVATION can not, be held responsible directly or indirectly in case of dissatisfaction or damage suffered by the seller or the buyer of a ticket, and for any reason whatsoever.
+                                   PASSETONBILLET LTD  declines, within the limits of what is authorized by the legal provisions of public order, any responsibility as for the User Content, the legality of the articles proposed for sale or the conditions of sale themselves.
+                                  Therefore, PASSETONBILLET LTD  can not, be held responsible directly or indirectly in case of dissatisfaction or damage suffered by the seller or the buyer of a ticket, and for any reason whatsoever.
 
                                 <p> To publish an advertisement on the Site, the User undertakes to have previously made sure that the ticket offered for sale complies with the conditions of the resale of railway tickets, in particular the following elements:</p>
                                 <li>it is forbidden to sell a ticket at a price higher than the face value of the purchased ticket</li>
@@ -233,7 +233,7 @@
                                 <br>
                                 <p>Domain Name: passetonbillet.fr</p>
                                 <br>
-                                <p>Publisher: CB INNOVATION SAS</p>
+                                <p>Publisher: PASSETONBILLET LTD</p>
                                 <br>
                                 <p>Contact: contact (at) passetonbillet.fr</p>
                                 <br>

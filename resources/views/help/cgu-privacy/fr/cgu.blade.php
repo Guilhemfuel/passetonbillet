@@ -15,16 +15,16 @@
                                 Version actuelle entrant en vigueur le 06/04/2019
                             </p>
                             <div class="container container-over-bg p-5 mt-3 text-justify">
-                                <p> Le présent site internet passetonbillet.fr est édité par CB INNOVATION, société par actions simplifiée, au capital de 27 500 euros, immatriculée au Registre du Commerce et des Sociétés de Lyon, sous le numéro RCS 513 007 880, dont le siège est situé 27 route de limonest, 69 450, Saint Cyr au mont d’or.</p>
+                                <p> Le présent site internet passetonbillet.fr est édité par PASSETONBILLET LTD, société par actions simplifiée, au capital de 27 500 euros, immatriculée au Registre du Commerce et des Sociétés de Lyon, sous le numéro RCS 513 007 880, dont le siège est situé 27 route de limonest, 69 450, Saint Cyr au mont d’or.</p>
 
                                 <br>
 
                                 <h4 class="mt-3 pb-3">PREAMBULE</h4>
 
-                                <p>CB INNOVATION a développé une Plateforme en ligne sur le Site accessible à l’adresse www.passetonbillet.fr.
+                                <p>PASSETONBILLET LTD a développé une Plateforme en ligne sur le Site accessible à l’adresse www.passetonbillet.fr.
                                     Cette Plateforme est destinée à proposer aux Utilisateurs, un service de mise de recherche et de publication de billets d’occasion pour le train.
                                     Nous vous remercions de lire attentivement les présentes CGU car elles contiennent des informations importantes concernant les droits et obligations des Utilisateurs. Elles incluent différentes limitations et exclusions, ainsi que des obligations relatives au respect des lois et réglementations applicables.
-                                    Sauf conditions particulières relatives à un service ou à une offre, tout nouveau service ou modification de service en place et/ou produit par la société CB INNOVATION sera soumis aux présentes Conditions d'Utilisation.
+                                    Sauf conditions particulières relatives à un service ou à une offre, tout nouveau service ou modification de service en place et/ou produit par la société PASSETONBILLET LTD  sera soumis aux présentes Conditions d'Utilisation.
                                 </p>
 
                                 <br>
@@ -78,8 +78,8 @@
                                 <h5 class="mt-3 pb-3">Diffusion des annonces</h5>
                                 <p>
                                     Il appartient au seul Utilisateur souhaitant vendre ou acheter un billet de se renseigner auprès de l'émetteur du billet pour connaître l'ensemble des conditions de transférabilité en vigueur. Il est rappelé qu’en toute circonstance, la cession des billets se fait aux risques et périls du cédant et du cessionnaire.
-                                    CB INNOVATION décline, dans la limite de ce qui est autorisé par les dispositions légales d’ordre public, toute responsabilité quant aux Contenus Utilisateurs, à la licéité des articles proposés à la vente ou aux conditions de vente elles mêmes.
-                                    Par conséquent, CB INNOVATION ne pourra, être tenu responsable directement ou indirectement en cas d’insatisfaction ou de préjudice subi par le vendeur ou l'acheteur d’un billet, et ce à quelque titre que ce soit.
+                                    PASSETONBILLET LTD  décline, dans la limite de ce qui est autorisé par les dispositions légales d’ordre public, toute responsabilité quant aux Contenus Utilisateurs, à la licéité des articles proposés à la vente ou aux conditions de vente elles mêmes.
+                                    Par conséquent, PASSETONBILLET LTD  ne pourra, être tenu responsable directement ou indirectement en cas d’insatisfaction ou de préjudice subi par le vendeur ou l'acheteur d’un billet, et ce à quelque titre que ce soit.
 
                                 <p> Pour publier une annonce sur le Site, l'Utilisateur s'engage à s'être préalablement assuré que le billet mis en vente respecte les conditions de la revente de billets de transports ferroviaires, en particulier les éléments suivants :</p>
                                 <li>il est interdit de vendre un billet à un prix supérieur à la valeur faciale du  billet acheté </li>
@@ -245,7 +245,7 @@
                                 <br>
                                 <p>Nom de domaine: passetonbillet.fr</p>
                                 <br>
-                                <p>Editeur: CB INNOVATION SAS</p>
+                                <p>Editeur: PASSETONBILLET LTD</p>
                                 <br>
                                 <p>Contact: contact(at)passetonbillet.fr</p>
                                 <br>

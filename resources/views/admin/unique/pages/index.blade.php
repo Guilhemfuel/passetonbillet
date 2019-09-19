@@ -29,7 +29,7 @@
                 </div>
             </div>
             <div class="card-body p-0">
-                <page-builder></page-builder>
+                <page-builder css-file="{{ mix('/css/app.css') }}" :js-files="['{{mix('/js/manifest.js')}}','{{mix('/js/vendor.js')}}','{{ mix('/js/lang/lang-'.\App::getLocale().'.js')}}','{{mix('/js/app.js')}}']"></page-builder>
             </div>
         </div>
     </div>

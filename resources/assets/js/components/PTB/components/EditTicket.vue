@@ -5,6 +5,8 @@
         <modal :is-open="modalDeleteOpen"
                @close-modal="closeModal()"
                :title="trans('tickets.component.delete_cta')"
+               :close-on-outside-click="false"
+               :button-close="false"
         >
             <template v-if="modalDeleteOpen">
                 <template v-if="loading">
@@ -19,12 +21,12 @@
                     <p v-else v-html="trans('tickets.component.delete_modal.already_sold.text_no_offers')"></p>
 
                     <button class="btn btn-ptb-blue btn-block my-2"
-                            @click="soldToDiscussion(acceptedOffer.id)"
+                            @click.prevent="soldToDiscussion(acceptedOffer.id)"
                             v-if="acceptedOffers.length>0"
                             v-for="acceptedOffer in acceptedOffers">
                         {{trans('tickets.component.delete_modal.already_sold.sold_to')}} {{acceptedOffer.buyer.full_name}}
                     </button>
-                    <button class="btn btn-ptb btn-block my-2" @click="soldElseWhere()">
+                    <button class="btn btn-ptb btn-block my-2" @click.prevent="soldElseWhere()">
                         {{trans('tickets.component.delete_modal.already_sold.sold_else_where')}}
                     </button>
                     <button class="btn btn-outline-orange btn-block my-2" @click="closeModal()">
@@ -38,13 +40,13 @@
 
                     <p v-html="trans('tickets.component.delete_modal.sold_else_where.text')"></p>
 
-                    <button class="btn btn-ptb-blue btn-block my-2" @click="alreadySold()">
+                    <button class="btn btn-ptb-blue btn-block my-2" @click.prevent="alreadySold()">
                         {{trans('tickets.component.delete_modal.sold_else_where.sold_on_ptb_button')}}
                     </button>
-                    <button class="btn btn-ptb btn-block my-2" @click="denyOffer()">
+                    <button class="btn btn-ptb btn-block my-2" @click.prevent="denyOffer()">
                         {{trans('tickets.component.delete_modal.sold_else_where.sold_else_where')}}
                     </button>
-                    <button class="btn btn-outline-orange btn-block my-2" @click="closeModal()">
+                    <button class="btn btn-outline-orange btn-block my-2" @click.prevent="closeModal()">
                         {{trans('tickets.component.delete_modal.cancel_button')}}
                     </button>
 
@@ -54,13 +56,13 @@
                 <template v-else-if="state==states.notForSaleAnymore">
                     <p v-html="trans('tickets.component.delete_modal.not_for_sale_anymore.text')"></p>
 
-                    <button class="btn btn-ptb-blue btn-block my-2" @click="alreadySold()">
+                    <button class="btn btn-ptb-blue btn-block my-2" @click.prevent="alreadySold()">
                         {{trans('tickets.component.delete_modal.not_for_sale_anymore.sold_on_ptb_button')}}
                     </button>
-                    <button class="btn btn-ptb btn-block my-2" @click="denyOffer()">
+                    <button class="btn btn-ptb btn-block my-2" @click.prevent="denyOffer()">
                         {{trans('tickets.component.delete_modal.not_for_sale_anymore.confirm_button')}}
                     </button>
-                    <button class="btn btn-outline-orange btn-block my-2" @click="closeModal()">
+                    <button class="btn btn-outline-orange btn-block my-2" @click.prevent="closeModal()">
                         {{trans('tickets.component.delete_modal.cancel_button')}}
                     </button>
                 </template>
@@ -68,13 +70,13 @@
                 <!-- REASON FOR DENIAL -->
                 <template v-else-if="state==states.start">
                     <p v-html="trans('tickets.component.delete_modal.find_reason.text')"></p>
-                    <button class="btn btn-ptb-blue btn-block my-2" @click="alreadySold()">
+                    <button class="btn btn-ptb-blue btn-block my-2" @click.prevent="alreadySold()">
                         {{trans('tickets.component.delete_modal.find_reason.already_sold_button')}}
                     </button>
-                    <button class="btn btn-ptb-blue btn-block my-2" @click="notForSaleAnymore()">
+                    <button class="btn btn-ptb-blue btn-block my-2" @click.prevent="notForSaleAnymore()">
                         {{trans('tickets.component.delete_modal.find_reason.not_for_sale_button')}}
                     </button>
-                    <button class="btn btn-outline-orange btn-block my-2" @click="closeModal()">
+                    <button class="btn btn-outline-orange btn-block my-2" @click.prevent="closeModal()">
                         {{trans('tickets.component.delete_modal.cancel_button')}}
                     </button>
                 </template>
@@ -180,6 +182,7 @@
                         this.acceptedOffers = response.data.data;
                         this.loading = false;
                     }, response => {
+
                         // error callback
                         this.$message.error(this.trans("common.error"));
                         this.closeModal();
