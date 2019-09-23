@@ -16,12 +16,13 @@ class AlertResource extends JsonResource
     public function toArray( $request )
     {
         return [
-            'id'             => $this->id,
-            'user'           => new UserRessource( $this->user ),
-            'email'          => $this->email,
-            'travel_date'    => $this->travel_date,
-            'departure_city' => new StationRessource( $this->departureStation ),
-            'arrival_city'   => new StationRessource( $this->arrivalStation ),
+            'id'                => $this->id,
+            'user'              => new UserRessource( $this->user ),
+            'email'             => $this->email,
+            'travel_date_start' => $this->travel_date_start,
+            'travel_date_end'   => $this->travel_date_end,
+            'departure_city'    => new StationRessource( $this->departureStation ),
+            'arrival_city'      => new StationRessource( $this->arrivalStation ),
         ];
     }
 }
