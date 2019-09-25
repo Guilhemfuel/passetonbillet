@@ -27,7 +27,8 @@ class Kernel extends ConsoleKernel
         Commands\DailyStats::class,
         Commands\DataCommand::class,
         Commands\OutputEmails::class,
-        Commands\IdAutomation::class
+        Commands\IdAutomation::class,
+        Commands\AcceptIds::class
     ];
 
     /**
@@ -47,6 +48,8 @@ class Kernel extends ConsoleKernel
         $schedule->command(Commands\CleanAll::class)
                  ->dailyAt('3:00')
                  ->sendOutputTo(storage_path() . '/logs/clean.log');
+
+        $schedule->command('ptb:accept-ids')->hourly();
     }
 
     /**
