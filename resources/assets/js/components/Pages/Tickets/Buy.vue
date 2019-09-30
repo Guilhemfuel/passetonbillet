@@ -50,6 +50,7 @@
                 <alert-modal :default-departure-station="defaultSearch?defaultSearch.departure_station:null"
                              :default-arrival-station="defaultSearch?defaultSearch.arrival_station:null"
                              :default-trip-date="defaultSearch?defaultSearch.trip_date:null"
+                            :modal-already-opened="alertOpened"
                 >
 
                     <div class="container-fluid card card-alert">
@@ -99,7 +100,8 @@
             'date-selector': DateSelector,
         },
         props: {
-            defaultSearch: {type: Object, required: true}
+            defaultSearch: {type: Object, required: true},
+            alertOpened: {type: Boolean, default: false}
         },
         mounted() {
             // Adjust default date to today if needed

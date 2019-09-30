@@ -56,7 +56,7 @@ class PageController extends Controller
 
         return view( 'welcome' )->with( [
             'recentTickets'    => TicketRessource::collection( $tickets ),
-            'defaultStations'  => StationRessource::collection( $defaultStations->unique('id') ),
+            'defaultStations'  => StationRessource::collection( $defaultStations->unique( 'id' ) ),
             'departureStation' => $departureStation ? new StationRessource( $departureStation ) : null,
             'arrivalStation'   => $arrivalStation ? new StationRessource( $arrivalStation ) : null,
             'questions'        => $questions,
@@ -112,12 +112,18 @@ class PageController extends Controller
         $this->validate( $request, [
             'departure_station' => 'nullable|exists:stations,id',
             'arrival_station'   => 'nullable|exists:stations,id',
-            'departure_date'    => 'nullable|date_format:d/m/Y'
+            'departure_date'    => 'nullable|date_format:d/m/Y',
+            'alert'             => 'nullable|in:true,false,1,0'
         ] );
 
         if ( ! $request->has( 'departure_station' )
              || ! $request->has( 'arrival_station' ) ) {
             return redirect()->route( 'home' );
+        }
+
+        $alert = $request->get('alert');
+        if ($alert != null && $alert != ""){
+            $alert = ($alert == "1" || $alert == "true") ? true : false;
         }
 
         $view = view( 'tickets.buy' );
@@ -130,8 +136,8 @@ class PageController extends Controller
             "departure_station" => $request->departure_station,
             "arrival_station"   => $request->arrival_station,
             "trip_date"         => $request->get( "departure_date", null ),
-            "trip_time"         => null
-        ] );
+            "trip_time"         => null,
+        ] )->with('alert',$alert);
     }
 
     /**

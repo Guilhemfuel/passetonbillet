@@ -109,13 +109,14 @@
         props: {
             defaultDepartureStation: {required: false},
             defaultArrivalStation: {required: false},
-            defaultTripDate: {required:false}
+            defaultTripDate: {required:false},
+            modalAlreadyOpened: {type:Boolean, default:false}
         },
         data() {
             return {
                 submitted: false,
                 user: this.$root.user,
-                modalAlertOpened: false,
+                modalAlertOpened: this.modalAlreadyOpened,
                 travelDateEndChanged: false,
                 alert: {
                     user_id: this.$root.user ? this.$root.user.id : null,

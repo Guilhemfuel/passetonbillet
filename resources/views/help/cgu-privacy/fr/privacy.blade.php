@@ -22,12 +22,10 @@
                                 </h5>
 
                                 <div>
-                                    <p>Le présent site est édité par CB INNOVATION, société par actions simplifiée, au capital de 27 500 euros, immatriculée au Registre du Commerce et des Sociétés de Lyon, sous le numéro RCS 513 007 880, dont le siège est situé 27 route de limonest, 69 450, Saint Cyr au mont d’or.		 </p>
+                                    <p>Le présent site est édité par PASSETONBILLET Ltd, au Royaume-Uni, immatriculée sous le numéro 12002310, dont le siège est au 63 Coram Street, Witley Court, WC1N 1HD London.		 </p>
                                   <br>
-                                   <p>Le Directeur de la publication du site internet est Monsieur Cyril Benhamou, Président de la société CB INNOVATION.
-                                   </p>
                                     <br>
-                                    <p>La société CB INNOVATION est soumise au droit français.</p>
+                                    <p>La société PASSETONBILLET Ltd est soumise au droit anglais.</p>
                                     <br>
 
                                     <h5>II. CONDITIONS D'UTILISATION DU SITE
@@ -40,23 +38,23 @@
                                     <li>L'utilisateur reconnaît avoir vérifié que la configuration informatique utilisée ne contient aucun virus et qu'elle est en parfait état de fonctionnement.
                                     </li>
                                     <li>
-                                        CB INNOVATION met tout en œuvre pour offrir aux utilisateurs des informations ou des outils disponibles et vérifiés mais ne saurait être tenu pour responsable des erreurs, d'une absence de disponibilité des fonctionnalités ou de la présence de virus sur son site.
+                                        PASSETONBILLET Ltd met tout en œuvre pour offrir aux utilisateurs des informations ou des outils disponibles et vérifiés mais ne saurait être tenu pour responsable des erreurs, d'une absence de disponibilité des fonctionnalités ou de la présence de virus sur son site.
                                     </li>
-                                    <li>Les informations fournies par CB INNOVATION le sont à titre indicatif et ne sauraient dispenser l'utilisateur d'une analyse complémentaire et personnalisée.
+                                    <li>Les informations fournies par PASSETONBILLET Ltd le sont à titre indicatif et ne sauraient dispenser l'utilisateur d'une analyse complémentaire et personnalisée.
                                     </li>
-                                    <li>CB INNOVATION ne saurait garantir l'exactitude, la complétude, l'actualité des informations diffusées sur son site.
+                                    <li>PASSETONBILLET Ltd ne saurait garantir l'exactitude, la complétude, l'actualité des informations diffusées sur son site.
                                     </li>
                                     <li>Les renseignements qui apparaissent sur le site sont fournis à titre de renseignements généraux.
                                     </li>
-                                    <li>CB INNOVATION fait tout son possible pour veiller à l'exactitude et à la véracité des renseignements contenus sur le site et ne peut aucunement être tenu responsable de tout préjudice pouvant être causé par l'utilisation de ce site.
+                                    <li>PASSETONBILLET Ltd fait tout son possible pour veiller à l'exactitude et à la véracité des renseignements contenus sur le site et ne peut aucunement être tenu responsable de tout préjudice pouvant être causé par l'utilisation de ce site.
                                     </li>
-                                    <li>CB INNOVATION fait appel à des sources fiables afin que les renseignements accessibles sur le site soient exacts et régulièrement tenus à jour.
+                                    <li>PASSETONBILLET Ltd fait appel à des sources fiables afin que les renseignements accessibles sur le site soient exacts et régulièrement tenus à jour.
                                     </li>
-                                    <li>CB INNOVATION se réserve le droit de supprimer, changer ou modifier ce site en tout temps et sans préavis.
+                                    <li>PASSETONBILLET Ltd se réserve le droit de supprimer, changer ou modifier ce site en tout temps et sans préavis.
                                     </li>
-                                    <li>CB INNOVATION ne peut être tenue responsable d'aucun préjudice, notamment de préjudices résultant de la transmission de documents sur Internet.
+                                    <li>PASSETONBILLET Ltd ne peut être tenue responsable d'aucun préjudice, notamment de préjudices résultant de la transmission de documents sur Internet.
                                     </li>
-                                    <li>CB INNOVATION se réserve le droit de réviser, supprimer, modifier, valider ou changer, intégralement ou en partie, tout contenu envoyé au site internet ou affiché sur celui-ci.
+                                    <li>PASSETONBILLET Ltd se réserve le droit de réviser, supprimer, modifier, valider ou changer, intégralement ou en partie, tout contenu envoyé au site internet ou affiché sur celui-ci.
                                     </li>
                                     <li>En conséquence, l'utilisateur reconnaît utiliser ces informations sous sa responsabilité exclusive.
                                     </li>
@@ -69,11 +67,11 @@
                                     <p>
                                         <li>En application de la loi n°78-17 du 6 janvier 1978 modifiée, relative à l'informatique, aux fichiers et aux libertés, le site web a fait l'objet d'une déclaration auprès de la Commission Nationale de l'Informatique et des libertés (www.cnil.fr).
                                     </li>
-                                    <li>L'utilisateur est notamment informé, conformément à l'article 32 de la loi Informatique et libertés du 6 janvier 1978 modifiée, que CB INNOVATION, en tant que responsable du traitement, met en œuvre un traitement de données à caractère personnel ayant pour principales finalités la gestion de l'inscription de l'utilisateur au site communautaire, l'envoi de newsletters.
+                                    <li>L'utilisateur est notamment informé, conformément à l'article 32 de la loi Informatique et libertés du 6 janvier 1978 modifiée, que PASSETONBILLET Ltd, en tant que responsable du traitement, met en œuvre un traitement de données à caractère personnel ayant pour principales finalités la gestion de l'inscription de l'utilisateur au site communautaire, l'envoi de newsletters.
                                     </li>
                                     <li>Certaines des données collectées pourront être communiquées à ses partenaires à des fins de prospection.
                                     </li>
-                                    <li>Les champs identifiés par un astérisque sont obligatoires. En l'absence de réponse ou si les informations fournies sont erronées, CB INNOVATION ne pourra pas traiter votre demande.
+                                    <li>Les champs identifiés par un astérisque sont obligatoires. En l'absence de réponse ou si les informations fournies sont erronées, PASSETONBILLET Ltd ne pourra pas traiter votre demande.
                                     </li>
                                     <li>L'utilisateur est informé qu'il dispose d'un droit d'accès, d'interrogation, et de rectification qui lui permet, le cas échéant, de faire rectifier, compléter, mettre à jour, verrouiller ou effacer les données personnelles le concernant qui sont inexactes, incomplètes, équivoques, périmées ou dont la collecte, l'utilisation, la communication ou la conservation est interdite.
                                     </li>
@@ -81,7 +79,7 @@
                                     </li>
                                     <li>L'ensemble de ces droits s'exerce auprès de par courrier postal accompagné d'une copie d'un titre d'identité comportant une signature :
                                     </li>
-                                    <li>à l'adresse suivante : CB INNOVATION  27 route de limonest, 69 450, Saint Cyr au mont d’or.
+                                    <li>à l'adresse suivante : PASSETONBILLET Ltd  63 Coram Street, Witley Court, WC1N 1HD London..
                                     </li>
                                     <li>ou par mail à l'adresse suivante : contact@passetonbillet.fr.
                                     </li>
@@ -132,15 +130,15 @@
 
                                     <p>
                                         <li>Les liens hypertextes mis en place dans le cadre du site web en direction d'autres ressources présentes sur le réseau Internet, et notamment vers ses partenaires, ont fait l'objet d'une autorisation préalable, écrite et expresse.</li>
-                                    <li>CB INNOVATION ne saurait être responsable de l'accès par les utilisateurs par les liens hypertextes mis en place dans le cadre du site internet en direction d'autres ressources présentes sur le réseau.
+                                    <li>PASSETONBILLET Ltd ne saurait être responsable de l'accès par les utilisateurs par les liens hypertextes mis en place dans le cadre du site internet en direction d'autres ressources présentes sur le réseau.
                                     </li>
-                                    <li>CB INNOVATION décline toute responsabilité quant au contenu des informations fournies sur ces ressources présentes sur le réseau au titre de l'activation des liens hypertextes.
+                                    <li>PASSETONBILLET Ltd décline toute responsabilité quant au contenu des informations fournies sur ces ressources présentes sur le réseau au titre de l'activation des liens hypertextes.
                                     </li>
-                                    <li>L'utilisateur ne peut pas mettre en place un lien hypertexte en direction de ce site sans l'autorisation expresse et préalable de CB INNOVATION.
+                                    <li>L'utilisateur ne peut pas mettre en place un lien hypertexte en direction de ce site sans l'autorisation expresse et préalable de PASSETONBILLET Ltd.
                                     </li>
                                     <li>En aucun cas, cette autorisation ne pourra être qualifiée de convention implicite d'affiliation.
                                     </li>
-                                    <li>En toute hypothèse, les liens hypertextes renvoyant au site web devront être retirés à première demande de CB INNOVATION.
+                                    <li>En toute hypothèse, les liens hypertextes renvoyant au site web devront être retirés à première demande de PASSETONBILLET Ltd.
                                     </li>
                                     </p>
                                     <br>
