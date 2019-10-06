@@ -196,7 +196,7 @@ return [
         'errors'            => [
             'min_value'       => 'Whoops ! Le prix de revente ne peut être inférieur à 1 ! Essayez encore avec un prix plus haut.',
             'manual_eurostar' => 'Whoops! Vous ne pouvez pas utiliser le formulaire de vente manuel pour vendre un billet eurostar.',
-            'duplicate'       => 'Whoops ! Ce billet a déjà été mis en vente...',
+            'duplicate'       => 'Whoops ! Ce billet a déjà été mis en vente, contactez-nous pour le remttre en vente.',
             'search'          => 'Whoops ! Aucun billet trouvé... Essayez à nouveau, et si le problème persiste, contactez-nous.'
         ],
         'success'           => 'Hooray! Votre billet est maintenant disponible à l\'achat ! Merci de votre confiance !',

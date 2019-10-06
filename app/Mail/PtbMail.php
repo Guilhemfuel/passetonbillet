@@ -25,6 +25,8 @@ abstract class PtbMail extends Mailable
     {
         $this->user = $user;
         $this->ticket = $ticket;
+
+        $this->from(config('mail.from.address'),config('mail.from.name'));
     }
 
     /**

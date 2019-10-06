@@ -29,7 +29,7 @@ class ContactEmail extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->to(config('mail.from.address'),'Ptb')
+        return $this->to(config('mail.from.address'),'PasseTonBillet')
                     ->subject('Contact Ptb: '.$this->name)
                     ->markdown('emails.contact',
                         [

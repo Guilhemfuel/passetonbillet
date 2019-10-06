@@ -87,15 +87,6 @@
 
                 <div id="recaptcha-main" class="g-recaptcha d-flex justify-content-center align-items-center" :data-sitekey="reCaptchaSiteKey"></div>
 
-                <!--<input-textarea-basic name="text"-->
-                <!--v-model="review.text"-->
-                <!--validation="required"-->
-                <!--:placeholder="trans('common.review.modal.placeholder')"-->
-                <!--class="col-12"-->
-                <!--&gt;-->
-
-                <!--</input-textarea-basic>-->
-
                 <button class="btn btn-block btn-ptb mt-3" type="submit" :disabled="!rendered && !user">
                     <i aria-hidden="true" class="fa fa-bell"></i> {{trans('tickets.alerts.modal.submit')}}
                 </button>
@@ -123,8 +114,8 @@
                     email: "",
                     departure_city: this.defaultDepartureStation,
                     arrival_city: this.defaultArrivalStation,
-                    travel_date_start: this.defaultTripDate,
-                    travel_date_end: this.defaultTripDate,
+                    travel_date_start: null,
+                    travel_date_end: null,
                 },
                 rendered: false,
                 reCaptchaSiteKey: window.nocaptcha_site_key,
@@ -138,13 +129,19 @@
                 script.onload = this.renderWait;
                 document.head.appendChild(script);
             } else this.render();
+
+            let defaultDate = moment(this.defaultTripDate,'DD/MM/YYYY').isAfter(moment().add(1, 'days').startOf('day')) ?
+                this.defaultTripDate : moment().add(1, 'days').startOf('day').format('DD/MM/YYYY');
+            this.alert.travel_date_start = defaultDate;
+            this.alert.travel_date_end = defaultDate;
+
         },
         computed: {
             startDatePickerOptions() {
                 return {
                     disabledDate: (myDate) => {
                         // Disable all date before today
-                        return moment(myDate).isBefore(moment().startOf('day')) ||
+                        return moment(myDate).isBefore(moment().add(1, 'days').startOf('day')) ||
                             ( this.travelDateEndChanged && moment(myDate).startOf('day').isAfter(moment(this.alert.travel_date_end,'DD/MM/YYYY').endOf('day')) );
                     },
                     firstDayOfWeek: 1
@@ -154,7 +151,7 @@
                 return {
                     disabledDate: (myDate) => {
                         // Disable all date before today
-                        return moment(myDate).isBefore(moment().startOf('day')) || moment(myDate).isBefore(moment(this.alert.travel_date_start,'DD/MM/YYYY').endOf('day'));
+                        return moment(myDate).isBefore(moment().add(1, 'days').startOf('day')) || moment(myDate).isBefore(moment(this.alert.travel_date_start,'DD/MM/YYYY').endOf('day'));
                     },
                     firstDayOfWeek: 1
                 }

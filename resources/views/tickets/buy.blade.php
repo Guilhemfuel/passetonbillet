@@ -7,7 +7,7 @@
 @section('dashboard-content')
     <div class="container">
         <div class="row" id="buy-ticket">
-            <buy-ticket :alert-opened="child.buy.alert" :default-search="child.buy.search"></buy-ticket>
+            <buy-ticket :alert-opened="child.buy.alert===true" :default-search="child.buy.search"></buy-ticket>
         </div>
     </div>
 @endsection

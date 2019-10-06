@@ -92,7 +92,6 @@
                     name="birthdate"
                     class-name="col-xs-12"
                     label="Birthdate"
-                    validation="date_format:DD/MM/YYYY"
                     placeholder="DD/MM/YYYY"
                     format="dd/MM/yyyy"
                     value-format="dd/MM/yyyy"

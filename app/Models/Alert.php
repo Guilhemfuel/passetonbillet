@@ -51,7 +51,7 @@ class Alert extends Model
      * @var array
      */
     public static $rules = [
-        'user_id'           => 'nullable|exists:users,id|required_without:travel_date',
+        'user_id'           => 'nullable|exists:users,id|required_without:email',
         'email'             => 'nullable|string|required_without:user_id',
         'travel_date_start' => 'required|date_format:d/m/Y',
         'travel_date_end'   => 'required|date_format:d/m/Y',

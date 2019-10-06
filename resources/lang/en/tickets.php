@@ -191,7 +191,7 @@ return [
         'errors'            => [
             'min_value'       => 'Whoops! Selling price can\'t be lower than 1 ! Try again with a higher price.',
             'manual_eurostar' => 'Whoops! You can\'t use the manual form to sell eurostar tickets.',
-            'duplicate'       => 'Whoops! This ticket is already on sale...',
+            'duplicate'       => 'Whoops! This ticket has already been published once. Contact us if you wish to publish it again.',
             'search'          => 'Whoops! No tickets were found... Try again and if the issue persists please contact us.'
         ],
         'success'           => 'Hooray! Your ticket is now on the market ! Thank you for your trust !',

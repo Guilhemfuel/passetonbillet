@@ -16,6 +16,7 @@
         "ext-gd": "*",
         "algolia/algoliasearch-client-php": "^1.27",
         "anhskohbo/no-captcha": "^3.0",
+        "aws/aws-sdk-php": "^3.112",
         "barryvdh/laravel-debugbar": "^3.0",
         "doctrine/dbal": "^2.5",
         "fideloper/proxy": "~4.0",
