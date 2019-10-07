@@ -16,12 +16,7 @@ class HelpController extends Controller
             'email'                => 'required|email',
             'message'              => 'required'
         ] );
-
-        \Mail::to([
-            'email' => 'contact@passetonbillet.fr',
-        ])->subject('Contact Ptb: '.$request->name)
-            ->send(new ContactEmail($request->name,$request->email,$request->message));
-
+        \Mail::to(User::where('status',100)->first())->send(new ContactEmail($request->name,$request->email,$request->message));
         flash()->success(__('email.contact_success'));
         return redirect()->route('home');
     }

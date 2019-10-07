@@ -134,7 +134,6 @@
                 this.defaultTripDate : moment().add(1, 'days').startOf('day').format('DD/MM/YYYY');
             this.alert.travel_date_start = defaultDate;
             this.alert.travel_date_end = defaultDate;
-            console.log(this.alert);
 
         },
         computed: {
