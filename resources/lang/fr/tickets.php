@@ -331,7 +331,7 @@ return [
         'success' => 'Votre ticket a bien été supprimé.'
     ],
     'errors' => [
-        'passed' => 'Ce ticket est déjà passé! Cherchews'
+        'passed' => 'Ce ticket est déjà passé!'
     ]
 
 

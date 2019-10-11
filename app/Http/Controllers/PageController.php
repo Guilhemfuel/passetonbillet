@@ -228,9 +228,14 @@ class PageController extends Controller
      */
     public function ticketUnique( Request $request, $ticket_id )
     {
-        $ticket = Ticket::find(
-            \Vinkla\Hashids\Facades\Hashids::decode( $ticket_id )[0]
-        );
+        $hash = \Vinkla\Hashids\Facades\Hashids::decode( $ticket_id );
+
+        if (!is_array($hash) || count($hash)<1) {
+            flash( __( "tickets.errors.passed" ) )->error();
+            return redirect(  )->route('home');
+        }
+
+        $ticket = Ticket::find($hash[0]);
 
         if ( ! $ticket ) {
             flash( __( "tickets.errors.passed" ) )->error();
