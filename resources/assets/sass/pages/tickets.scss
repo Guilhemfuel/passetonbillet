@@ -576,6 +576,7 @@ $animation-duration: 0.5s;
   }
 
   .user-info {
+    cursor: pointer;
     .user-picture {
       position: relative;
 
@@ -625,7 +626,7 @@ $animation-duration: 0.5s;
         font-size: 18px;
       }
 
-      .published-date {
+      .sold-count {
         margin-bottom: 0px;
         font-size: 14px;
 

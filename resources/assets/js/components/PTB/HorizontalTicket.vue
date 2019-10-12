@@ -25,7 +25,7 @@
                             </div>
                         </div>
                         <div class="row flex-column justify-content-center align-content-center mobile-view d-xl-none d-flex"
-                             @click="contact=true">
+                             @click="contactSeller()">
                             <div class="from d-flex">
                                 <p class="time">{{departure_time}}</p>
                                 <p class="city">{{ticket.train.departure_city.name}}</p>
@@ -41,7 +41,7 @@
 
                     <template v-if="!contact">
                         <!-- Displaying information -->
-                        <a target="_blank" class="user-info d-flex" :href="'/profile/user/'+ticket.user.hashid">
+                        <div class="user-info d-flex" @click="contactSeller()">
                             <div class="user-picture d-none d-md-block">
                                 <img :src="ticket.user.picture" alt="seller profile picture"/>
                                 <div class="user-verification">
@@ -93,9 +93,11 @@
                                     </el-tooltip>
                                     </span>
                                 </p>
-                                <p class="published-date" v-html="publishedBy"></p>
+                                <p class="sold-count">
+                                    <b>{{ticket.user.ticket_sold}}</b> {{trans('tickets.component.seller_ticket_sold_mobile')}}
+                                </p>
                             </div>
-                        </a>
+                        </div>
 
                         <div class="security-info d-none d-lg-flex">
                             <!-- Security info regarding seller -->
@@ -144,7 +146,7 @@
                         </div>
 
                         <div class="action-type-mobile d-flex d-lg-none align-content-center justify-content-center flex-column"
-                             @click="contact=true">
+                             @click="contactSeller()">
                             <p class="ticket-type"
                                v-html="trans('tickets.component.type.second_hand')">
                             </p>

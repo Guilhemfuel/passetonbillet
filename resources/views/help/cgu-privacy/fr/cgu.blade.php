@@ -15,7 +15,7 @@
                                 Version actuelle entrant en vigueur le 06/04/2019
                             </p>
                             <div class="container container-over-bg p-5 mt-3 text-justify">
-                                <p> Le présent site internet passetonbillet.fr est édité par PASSETONBILLET LTD, société par actions simplifiée, au capital de 27 500 euros, immatriculée au Registre du Commerce et des Sociétés de Lyon, sous le numéro RCS 513 007 880, dont le siège est situé 27 route de limonest, 69 450, Saint Cyr au mont d’or.</p>
+                                <p>Le présent site est édité par PASSETONBILLET Ltd, au Royaume-Uni, immatriculée sous le numéro 12002310, dont le siège est au 63 Coram Street, Witley Court, WC1N 1HD London.</p>
 
                                 <br>
 

@@ -15,7 +15,7 @@
                                 Current version effective 06/04/2019
                             </p>
                             <div class="container container-over-bg p-5 mt-3 text-justify">
-                                <p> This website passetonbillet.fr is published by PASSETONBILLET LTD , a simplified joint-stock company with a capital of 27,500 euros, registered with the Trade and Companies Register of Lyon, under the number RCS 513 007 880, whose registered office is located 27 route de limonest, 69 450, Saint Cyr to the golden mount. </p>
+                                <p>This site is published by PASSETONBILLET Ltd, registered with under the number 12002310, whose head office is located at 63 Coram Street, Witley Court, WC1N 1HD London. </p>
                                 <br>
 
                                 <h4 class="mt-3 pb-3">PREAMBLE</h4>

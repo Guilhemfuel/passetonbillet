@@ -1,7 +1,7 @@
 <template>
     <div class="buy-page col-12">
         <div class="row">
-            <div class="d-none d-lg-flex side-ads">
+            <div class="d-none d-md-none d-xl-flex side-ads">
                 <ads type="megaskyscrapper"></ads>
             </div>
             <div class="col">
