@@ -14,7 +14,7 @@
         "php": ">=7",
         "ext-bcmath": "*",
         "ext-gd": "*",
-        "algolia/algoliasearch-client-php": "^1.27",
+        "algolia/algoliasearch-client-php": "^2.2",
         "anhskohbo/no-captcha": "^3.0",
         "aws/aws-sdk-php": "^3.112",
         "barryvdh/laravel-debugbar": "^3.0",

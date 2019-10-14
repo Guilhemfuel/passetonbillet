@@ -67,7 +67,7 @@ class Station extends Model
     public function shouldBeSearchable()
     {
         // We only index parent station
-        if ( $this->attributes == [] ) {
+        if ( $this->attributes == [] || $this->parent_station_id != null) {
             return false;
         }
 
