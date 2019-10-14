@@ -35,7 +35,6 @@ class AppServiceProvider extends ServiceProvider
             AliasLoader::getInstance()->alias( 'Debugbar', 'Barryvdh\Debugbar\Facade' );
         }
         if ($this->app->environment('local', 'testing')) {
-            $this->app->register(DuskServiceProvider::class);
             $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
         }
 
