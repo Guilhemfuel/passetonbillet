@@ -7,4 +7,6 @@ Bonne nouvelle, un nouveau billet {{$alert->departureStation->name}} → {{$aler
 Voir le nouveau billet
 @endcomponent
 
+Vous ne souhaitez-plus recevoir d'emails pour cette alerte? [Cliquez-ici pour la supprimer]({{route('public.alert.delete',[$alert->id,$alert->hash])}}).
+
 @endcomponent

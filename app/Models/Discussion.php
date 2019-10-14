@@ -12,6 +12,8 @@ class Discussion extends Model
 {
     use SoftDeletes, SearchableTrait;
 
+    protected $with=['buyer'];
+
     CONST DENIED = - 1;
     CONST AWAITING = 0;
     CONST ACCEPTED = 1;

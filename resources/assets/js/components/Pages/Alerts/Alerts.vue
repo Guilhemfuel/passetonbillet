@@ -6,7 +6,7 @@
         <div class="card">
             <ul class="list-group list-group-flush">
                 <li class="list-group-item" v-for="alert in alerts" :key="alert.id">
-                    <span class="text-primary">{{ucFirst(formatDate(alert.travel_date_start.date))}} - {{ucFirst(formatDate(alert.travel_date_end.date))}}</span> :
+                    <span class="text-primary">{{ucFirst(formatDate(alert.travel_date_start))}} - {{ucFirst(formatDate(alert.travel_date_end))}}</span> :
                     {{alert.departure_city.name}}
                     <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
                     {{alert.arrival_city.name}}

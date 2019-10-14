@@ -7,4 +7,6 @@ Good news, a new ticket {{$alert->departureStation->name}} → {{$alert->arrival
 Check out ticket
 @endcomponent
 
+You do not with to receive emails for this alert? [Click here to delete it]({{route('public.alert.delete',[$alert->id,$alert->hash])}}).
+
 @endcomponent

@@ -16,6 +16,7 @@ use App\Mail\Verification\IdConfirmedMail;
 use App\Mail\Verification\IdDeniedMail;
 use App\Mail\WelcomeEmail;
 use App\Models\Alert;
+use App\Train;
 use App\Models\Discussion;
 use App\User;
 use Faker\Factory;
@@ -98,7 +99,7 @@ class OutputEmails extends Command
      */
     private function saveEmailFromMethod( $path, $method )
     {
-        $locales = array_keys( config('app.locales'));
+        $locales = array_keys( config( 'app.locales' ) );
 
         $email = $this->{$method}();
 
@@ -147,7 +148,8 @@ class OutputEmails extends Command
     {
         $alert = Alert::latest()->first();
         $user = User::first();
-        $email = new AlertEmail( $alert, $user );
+        $train = Train::latest()->first();
+        $email = new AlertEmail( $alert, $train, $user );
 
         return $email;
     }
@@ -155,7 +157,8 @@ class OutputEmails extends Command
     private function renderEmailAlertWithoutUser()
     {
         $alert = Alert::latest()->first();
-        $email = new AlertEmail( $alert, ( new AnonymousNotifiable() )->route( 'mail', $this->faker->email ) );
+        $train = Train::latest()->first();
+        $email = new AlertEmail( $alert, $train, ( new AnonymousNotifiable() )->route( 'mail', $this->faker->email ) );
 
         return $email;
     }

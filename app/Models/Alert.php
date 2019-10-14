@@ -82,6 +82,10 @@ class Alert extends Model
     /**
      * Return link to the correct day
      */
+    public function getHashAttribute(){
+        return \Hashids::encode($this->id);
+    }
+
     public function getLink( Carbon $date )
     {
         $url = route( 'public.ticket.buy.page' ) . '?departure_station=' . $this->departure_city .

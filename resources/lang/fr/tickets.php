@@ -294,7 +294,7 @@ return [
 
         'page' => [
             'title'          => 'Mes Alertes',
-            'btn_create_new' => 'Clickez ici pour créer une nouvelle Alerte'
+            'btn_create_new' => 'Cliquez ici pour créer une nouvelle Alerte'
         ],
 
         'create_alert'   => 'Créer une alerte',

@@ -18,7 +18,7 @@ return [
     'common'       => [
         'contact' => 'Contact',
         'help'  => 'Aide',
-        'help_link' => 'Une question? Besoin d\'aide? Clickez-ici !',
+        'help_link' => 'Une question? Besoin d\'aide? Cliquez-ici !',
         'ticket_sold' => 'Malheureusement, ce billet est déjà vendu... Inscrivez-vous pour trouver d\'autres billets pas cher sur PasseTonBillet.fr !',
         'ticket_available' => 'Ce billet est encore disponible ! Dépechez-vous de vous inscrire pour l\'acheter !',
 

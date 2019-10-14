@@ -61,6 +61,12 @@ Route::get( 'ticket/sell', 'PageController@sellPage' )->name( 'public.ticket.sel
 Route::get( 'ticket/buy', 'PageController@buyPage' )->name( 'public.ticket.buy.page' );
 
 /**
+ * Public alert pages
+ */
+Route::get( 'alert/{alert_id}/{hash}/delete', 'AlertController@deleteAlertPublic' )->name( 'public.alert.delete' );
+
+
+/**
  * WebHooks
  */
 
