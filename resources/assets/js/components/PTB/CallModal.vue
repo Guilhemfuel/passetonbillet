@@ -86,7 +86,6 @@
             }
         },
         mounted() {
-
         },
         computed: {
             trulyOpened() {
@@ -144,14 +143,17 @@
                                 // Expire number after 3 minutes
                                 setTimeout(() => {
                                     this.frNumber = null;
-                                }, 3 * 60 * 1000);
+                                }, 30 * 1000);
                             } else if (country == 'uk') {
                                 this.ukNumber = response.body.phone;
                                 // Expire number after 3 minutes
                                 setTimeout(() => {
                                     this.ukNumber = null;
-                                }, 3 * 60 * 1000);
+                                }, 30 * 1000);
                             }
+
+                            this.frLoading = false;
+                            this.ukLoading = false;
 
                             // Log Offer
                             this.$root.logEvent('show_number', {
@@ -191,6 +193,19 @@
                 }
             },
         },
-        watch: {}
+        watch: {
+            modalCallOpened: function(value) {
+                if (value == true ) {
+                    this.callSeller('uk');
+                    this.callSeller('fr');
+                }
+            },
+            isOpen: function(value) {
+                if (value == true ) {
+                    this.callSeller('uk');
+                    this.callSeller('fr');
+                }
+            }
+        }
     }
 </script>
