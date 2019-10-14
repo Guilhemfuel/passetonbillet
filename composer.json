@@ -18,6 +18,7 @@
         "anhskohbo/no-captcha": "^3.0",
         "aws/aws-sdk-php": "^3.112",
         "barryvdh/laravel-debugbar": "^3.0",
+        "bref/bref": "^0.5.7",
         "doctrine/dbal": "^2.5",
         "fideloper/proxy": "~4.0",
         "filp/whoops": "~2.0",

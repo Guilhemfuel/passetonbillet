@@ -27,6 +27,10 @@ php artisan route:cache
 # Clear and cache config
 php artisan config:clear
 php artisan config:cache
+
+# Clear and cache config
+php artisan view:clear
+php artisan view:cache
 echo " Done."
 
 # Install node modules
