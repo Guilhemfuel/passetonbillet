@@ -43,4 +43,10 @@ echo " Done."
 echo "Generating language file and sitemap..."
 php artisan ptb:generate-language
 php artisan ptb:generate-sitemap
-echo " Done."
+echo "Done."
+
+# Restart queues
+echo "Restarting queues..."
+supervisorctl restart ptb-worker:*
+echo "Done."
+echo "Deployment done."
