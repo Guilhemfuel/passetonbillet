@@ -115,6 +115,8 @@ class UserController extends BaseController
         $user->email_token = null;
 
         $user->save();
+        
+        $user->notify( ( new WelcomeNotification() ));
 
         flash( 'User account activated.' )->success();
 
