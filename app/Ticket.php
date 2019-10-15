@@ -64,7 +64,7 @@ class Ticket extends Model
      *
      * @var array
      */
-    protected $with = ['train'];
+    protected $with = [];
 
     /**
      * Relationships of the model (used for eager loading)
