@@ -50,13 +50,11 @@ class PageController extends Controller
             $defaultStations = $defaultStations->add( $departureStation )->add( $arrivalStation );
         }
 
-        $tickets = Ticket::getMostRecentTickets( 8 );
         $reviews = Review::getSelectedReviews( 3 );
         $questions = HelpQuestionResource::collection( HelpQuestion::getCached( 4 ) );
 
 
         return view( 'welcome' )->with( [
-            'recentTickets'    => TicketRessource::collection( $tickets ),
             'defaultStations'  => StationRessource::collection( $defaultStations->unique( 'id' ) ),
             'departureStation' => $departureStation ? new StationRessource( $departureStation ) : null,
             'arrivalStation'   => $arrivalStation ? new StationRessource( $arrivalStation ) : null,

@@ -53,30 +53,7 @@
                 </div>
             </div>
 
-            <div class="section-recent-tickets">
-                <h2 class="text-center text-warning title">@lang('tickets.sell.public.recent')</h2>
-
-                <div class="tickets-horizontal-list">
-
-                    <div id="scroll-left-tickets" class="scroll-btn">
-                        <i class="fa fa-arrow-left" aria-hidden="true"></i>
-                    </div>
-                    <div id="scroll-right-tickets" class="scroll-btn">
-                        <i class="fa fa-arrow-right" aria-hidden="true"></i>
-                    </div>
-
-                    <div id="recent-tickets" class="tickets">
-                        <div class="d-inline-flex px-3">
-                            <div v-for="ticket in child.tickets.recentTickets" class="ticket-wrap"
-                                 :key="ticket.id">
-                                <ticket :ticket="ticket" :buying="true">
-                                </ticket>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
+            <recent-tickets></recent-tickets>
 
             <div class="section-favorites" id="section-favorites">
                 <h2 class="text-center text-warning title">{{__('welcome.favorites.title')}}</h2>
@@ -302,12 +279,7 @@
             let rightTripBtn = document.getElementById('scroll-right-cities');
             let leftTripBtn = document.getElementById('scroll-left-cities');
 
-            let rightTicketBtn = document.getElementById('scroll-right-tickets');
-            let leftTicketBtn = document.getElementById('scroll-left-tickets');
-
             let tripContainer = document.getElementById('cards-trips');
-            let ticketContainer = document.getElementById('recent-tickets');
-
 
             rightTripBtn.onclick = function () {
                 sideScroll(tripContainer, 'right', 25, 365, 25);
@@ -316,15 +288,6 @@
             leftTripBtn.onclick = function () {
                 sideScroll(tripContainer, 'left', 25, 365, 25);
             };
-
-            leftTicketBtn.onclick = function () {
-                sideScroll(ticketContainer, 'left', 25, 365, 25);
-            };
-
-            rightTicketBtn.onclick = function () {
-                sideScroll(ticketContainer, 'right', 25, 365, 25);
-            };
-
 
             function sideScroll(element, direction, speed, distance, step) {
                 scrollAmount = 0;
@@ -349,28 +312,13 @@
 
 @endsection
 
-<?php
-$langTickets = Lang::get( 'tickets' );
-$routes = [
-    'tickets'  => [
-
-    ],
-    'register' => route( 'register.page' )
-];
-?>
 
 @push('vue-data')
     <script type="application/javascript">
 
         data.welcome = {
-            ticketLang: {!! json_encode($langTickets) !!},
-            routes: {!! json_encode($routes) !!},
             stateHowItWorks: 'buyer'
         },
-
-        data.tickets = {
-            recentTickets: {!! json_encode( $recentTickets ) !!}
-        }
 
         currentPage.data.defaultStations = {!! json_encode($defaultStations) !!};
         currentPage.data.departureStation = {!! json_encode($departureStation) !!};

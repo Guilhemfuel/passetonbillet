@@ -254,6 +254,8 @@ Route::blacklist( function () {
  *
  **/
 Route::group( [ 'prefix' => 'api' ], function () {
+    Route::get( 'home/{resource}', 'API\HomeController@getHomeResource' )->name( 'api.home.resource' );
+
     Route::post( 'alerts/create', 'API\AlertController@createAlert' )->name( 'api.alerts.create' );
     Route::delete( '/alerts/{alert_id}', 'API\AlertController@deleteAlert' )->name( 'api.alerts.delete' );
 
@@ -270,6 +272,7 @@ Route::group( [ 'prefix' => 'api' ], function () {
      */
     Route::group( [ 'middleware' => 'auth.admin' ], function () {
         Route::get( 'users/{name}', 'Admin\UserController@searchAPI' )->name( 'api.users.search' );
+        Route::get( 'home/resource/{resource}', 'API\Admin\HomeController@getHomeResource' )->name( 'api.admin.home.resource' );
     } );
 
     /**

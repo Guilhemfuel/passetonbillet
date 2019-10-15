@@ -1,1 +1,1 @@
-{{ $slot }}: {{$ticket}}
+{{ $slot }}

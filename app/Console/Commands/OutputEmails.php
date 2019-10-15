@@ -30,7 +30,7 @@ class OutputEmails extends Command
      *
      * @var string
      */
-    protected $signature = 'ptb:output-emails';
+    protected $signature = 'ptb:output-emails {--send} {--email=}';
 
     /**
      * The console command description.
@@ -71,23 +71,44 @@ class OutputEmails extends Command
     public function handle()
     {
         $path = storage_path( 'emails/' );
+        $send = $this->option('send');
+        $mail = $this->option('email');
+        $method = null;
+        $methods = get_class_methods( self::class );
+
+        // If a specific mail is specified
+        if ($mail) {
+            $method = 'renderEmail'.ucfirst($mail);
+
+            if (in_array($method,$methods)) {
+                if ($send) {
+                    $this->sendEmailFromMethod( $path, $method );
+                } else {
+                    $this->saveEmailFromMethod( $path, $method );
+                }
+            } else {
+                $this->error('Method '.$method. ' not found.');
+            }
+            return;
+        }
 
         // Check if folder exist or create it
-        if ( ! file_exists( $path ) ) {
+        if ( ! file_exists( $path ) && ! $send ) {
             mkdir( $path, 0777, true );
         }
 
-
         // Render each email
-        $methods = get_class_methods( self::class );
         $count = 0;
         foreach ( $methods as $method ) {
             if ( substr( $method, 0, strlen( self::RENDER_METHOD_STARTS_WITH ) ) === self::RENDER_METHOD_STARTS_WITH ) {
-                $this->saveEmailFromMethod( $path, $method );
+                if ($send) {
+                    $this->sendEmailFromMethod( $path, $method );
+                } else {
+                    $this->saveEmailFromMethod( $path, $method );
+                }
                 $count ++;
             }
         }
-
 
         $this->line( 'Done. ' . $count . ' emails rendered.' );
     }
@@ -113,6 +134,31 @@ class OutputEmails extends Command
 
             file_put_contents( $path . $locale . '_' . substr( $method, strlen( self::RENDER_METHOD_STARTS_WITH ) ) . '.html', $email->render() );
 
+        }
+    }
+
+    /**
+     * Given a methode name, save emails in differnet locales.
+     *
+     * @param $method
+     */
+    private function sendEmailFromMethod( $path, $method )
+    {
+        $user = User::first();
+        $locales = array_keys( config( 'app.locales' ) );
+
+        $email = $this->{$method}();
+
+        foreach ( $locales as $locale ) {
+            sleep(5);
+            if ( $email instanceof PtbMail ) {
+                $email->forceLocale( $locale );
+            } else {
+                \Mail::to($user)->send($email);
+                break;
+            }
+
+            \Mail::to($user)->send($email);
         }
     }
 

@@ -21,5 +21,6 @@ Vue.component('input-date-admin', require('./components/Forms/input-date-admin.v
 // Pages
 Vue.component('stats', require('./components/Pages/Admin/unique/stats.vue').default);
 Vue.component('page-builder', require('./components/Pages/Admin/unique/pagebuilder.vue').default);
+Vue.component('home-stat', require('./components/Pages/Admin/HomeStat.vue').default);
 
 

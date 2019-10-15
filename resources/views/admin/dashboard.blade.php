@@ -9,127 +9,56 @@
 
     <div class="row">
 
-        <div class="col-sm-3 col-xs-6 pt-4">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="title text-center">{{$userCount}}<br>
-                        <a href="{{route('users.index')}}" class="stat-link">
-                            <i class="fa fa-user-circle-o fa-2x"></i>
-                        </a>
-                    </h4>
-                </div>
-                <div class="card-body text-center">
-                    Users
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-3 col-xs-6 pt-4">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="title text-center">{{$ticketCount}}<br>
-                        <a href="{{route('tickets.index')}}" class="stat-link">
-                            <i class="fa fa-ticket fa-2x"></i>
-                        </a>
-                    </h4>
-                </div>
-                <div class="card-body text-center">
-                    Total Tickets
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-3 col-xs-6 pt-4">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="title text-center">{{$currentTicketCount}}<br>
-                        <a href="{{route('tickets.index')}}" class="stat-link">
-                            <i class="fa fa-ticket fa-2x"></i>
-                        </a>
-                    </h4>
-                </div>
-                <div class="card-body text-center">
-                    Current Tickets
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-3 col-xs-6 pt-4">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="title text-center">{{$offerCount}}<br>
-                        <a href="{{route('offers.index')}}" class="stat-link">
-                            <i class="fa fa-comments fa-2x"></i>
-                        </a>
-                    </h4>
-                </div>
-                <div class="card-body text-center">
-                    Offers
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-3 col-xs-6 pt-4">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="title text-center">{{$alertCount}}<br>
-                        <i class="fa fa-bell fa-2x" aria-hidden="true"></i>
-                    </h4>
-                </div>
-                <div class="card-body text-center">
-                    Total Alerts
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-3 col-xs-6 pt-4">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="title text-center">{{$alertCurrentCount}}<br>
-                        <i class="fa fa-bell fa-2x" aria-hidden="true"></i>
-                    </h4>
-                </div>
-                <div class="card-body text-center">
-                    Current Alerts
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-3 col-xs-6 pt-4">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="title text-center">{{$stationCount}}<br>
-                        <i class="fa fa-globe fa-2x"></i>
-                    </h4>
-                </div>
-                <div class="card-body text-center">
-                    Stations
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-3 col-xs-6 pt-4">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="title text-center">{{$trainCount}}<br>
-                        <a href="{{route('trains.index')}}" class="stat-link">
-                            <i class="fa fa-train fa-2x"></i>
-                        </a>
-                    </h4>
-                </div>
-                <div class="card-body text-center">
-                    Trains
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-3 col-xs-6 pt-4">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="title text-center">{{$idVerificationCount}}<br>
-                        <a href="{{route('id_check.oldest')}}" class="stat-link">
-                            <i class="fa fa-id-card-o fa-2x"></i>
-                        </a>
-                    </h4>
-                </div>
-                <div class="card-body text-center">
-                    Awaiting Check
-                </div>
-            </div>
-        </div>
-
+        <home-stat link="{{route('users.index')}}"
+                   icon="fa-user-circle-o"
+                   label="Users"
+                   endpoint="{{route('api.admin.home.resource','userCount')}}"
+        ></home-stat>
+        <home-stat link="{{route('tickets.index')}}"
+                   icon="fa-ticket"
+                   label="Total Tickets"
+                   endpoint="{{route('api.admin.home.resource','ticketCount')}}"
+        ></home-stat>
+        <home-stat link="{{route('tickets.index')}}"
+                   icon="fa-ticket"
+                   label="Current Tickets"
+                   endpoint="{{route('api.admin.home.resource','currentTicketCount')}}"
+        ></home-stat>
+        <home-stat link="{{route('tickets.index')}}"
+                   icon="fa-ticket"
+                   label="Tickets Sold"
+                   endpoint="{{route('api.admin.home.resource','ticketSoldCount')}}"
+        ></home-stat>
+        <home-stat link="{{route('offers.index')}}"
+                   icon="fa-comments"
+                   label="Offers"
+                   endpoint="{{route('api.admin.home.resource','offerCount')}}"
+        ></home-stat>
+        <home-stat link=""
+                   icon="fa-bell"
+                   label="Total Alerts"
+                   endpoint="{{route('api.admin.home.resource','alertCount')}}"
+        ></home-stat>
+        <home-stat link=""
+                   icon="fa-bell"
+                   label="Current Alerts"
+                   endpoint="{{route('api.admin.home.resource','alertCurrentCount')}}"
+        ></home-stat>
+        <home-stat link=""
+                   icon="fa-globe"
+                   label="Stations"
+                   endpoint="{{route('api.admin.home.resource','stationCount')}}"
+        ></home-stat>
+        <home-stat link=""
+                   icon="fa-train"
+                   label="Trains"
+                   endpoint="{{route('api.admin.home.resource','trainCount')}}"
+        ></home-stat>
+        <home-stat link="{{route('id_check.oldest')}}"
+                   icon="fa-id-card-o"
+                   label="Awaiting Check"
+                   endpoint="{{route('api.admin.home.resource','idVerificationCount')}}"
+        ></home-stat>
     </div>
 
 @endsection

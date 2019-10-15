@@ -23,21 +23,7 @@ class HomeController extends BaseController
 
     public function home()
     {
-
-        $data = [
-            'ticketCount'         => Ticket::all()->count(),
-            'currentTicketCount'  => Ticket::currentTickets()->count(),
-            'ticketSoldCount'     => Ticket::whereNotNull( 'sold_to_id' )->count(),
-            'trainCount'          => Train::all()->count(),
-            'userCount'           => User::all()->count(),
-            'stationCount'        => Station::all()->count(),
-            'idVerificationCount' => IdVerification::awaitingCount(),
-            'offerCount'          => Discussion::all()->count(),
-            'alertCount'          => Alert::count(),
-            'alertCurrentCount'   => Alert::current()->count()
-        ];
-
-        return $this->ptbView( 'admin.dashboard', $data );
+        return $this->ptbView( 'admin.dashboard' );
     }
 
     /**

@@ -92,6 +92,7 @@ Vue.component( 'train-results', require(/* webpackChunkName: "train-results" */ 
 
 
 Vue.component( 'home-search', require(/* webpackChunkName: "home-search" */ './components/Pages/Welcome/HomeSearch.vue').default);
+Vue.component( 'recent-tickets', require(/* webpackChunkName: "recent-tickets" */ './components/Pages/Welcome/RecentTickets.vue').default);
 Vue.component( 'home-buyer-seller-info', require(/* webpackChunkName: "home-buyer-seller-info" */ './components/Pages/Welcome/BuyerSellerInfo.vue').default);
 Vue.component( 'my-alerts', require(/* webpackChunkName: "my-alerts" */ './components/Pages/Alerts/Alerts.vue').default);
 
