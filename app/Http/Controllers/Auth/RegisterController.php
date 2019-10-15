@@ -155,7 +155,7 @@ class RegisterController extends Controller
         ] );
         // Create email verify token and set default status
         $user->status = 0;
-        $user->email_token = str_random( random_int( 40, 100 ) );
+        $user->email_token = substr(str_shuffle(MD5(microtime())), 0, 40);
         $user->save();
 
         return $user;

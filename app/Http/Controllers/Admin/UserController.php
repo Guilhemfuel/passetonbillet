@@ -15,6 +15,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\UserRequest;
 use App\Exceptions\PasseTonBilletException;
 use Psy\Util\Str;
+use App\Notifications\WelcomeNotification;
 
 class UserController extends BaseController
 {
@@ -115,6 +116,9 @@ class UserController extends BaseController
         $user->email_token = null;
 
         $user->save();
+        
+        // Send welcome email to user
+        $user->notify( ( new WelcomeNotification() )->delay( now()->addMinutes( 1 ) ) );
 
         flash( 'User account activated.' )->success();
 
