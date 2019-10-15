@@ -116,7 +116,8 @@ class UserController extends BaseController
 
         $user->save();
         
-        $user->notify( ( new WelcomeNotification() ));
+        // Send welcome email to user
+        $user->notify( ( new WelcomeNotification() )->delay( now()->addMinutes( 1 ) ) );
 
         flash( 'User account activated.' )->success();
 
