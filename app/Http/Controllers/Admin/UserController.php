@@ -15,6 +15,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\UserRequest;
 use App\Exceptions\PasseTonBilletException;
 use Psy\Util\Str;
+use App\Notifications\WelcomeNotification;
 
 class UserController extends BaseController
 {
