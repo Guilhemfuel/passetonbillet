@@ -12,6 +12,7 @@ use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
@@ -155,7 +156,7 @@ class RegisterController extends Controller
         ] );
         // Create email verify token and set default status
         $user->status = 0;
-        $user->email_token = substr(str_shuffle(MD5(microtime())), 0, 40);
+        $user->email_token = Str::random( random_int( 40, 100 ) );
         $user->save();
 
         return $user;
@@ -386,7 +387,7 @@ class RegisterController extends Controller
             'picture'    => $userData->avatar
         ] );
         $user->status = 0;
-        $user->email_token = str_random( random_int( 40, 100 ) );
+        $user->email_token = Str::random( random_int( 40, 100 ) );
         $user->password = bcrypt( $request->password );
         $user->fb_id = session()->pull( 'fb_user_id' );
         $user->save();

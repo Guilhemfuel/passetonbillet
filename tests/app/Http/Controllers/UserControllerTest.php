@@ -13,6 +13,7 @@ use App\User;
 use Carbon\Carbon;
 use Faker\Factory;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Str;
 use Laracasts\Flash\Flash;
 use Laracasts\Flash\Message;
 use Nexmo\Laravel\Facade\Nexmo;
@@ -53,8 +54,8 @@ class UserControllerTest extends PtbTestCase
     public function testChangePasswordWrongOldPassword()
     {
         $user = factory( User::class )->create();
-        $actualPassword = str_random(8);
-        $newPassword = str_random(8);
+        $actualPassword = Str::random(8);
+        $newPassword = Str::random(8);
 
         $user->password = \Hash::make($actualPassword);
         $user->save();
