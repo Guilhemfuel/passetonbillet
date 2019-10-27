@@ -26,7 +26,7 @@ php artisan route:cache
 
 # Clear and cache config
 php artisan config:clear
-php artisan config:cache
+#php artisan config:cache
 
 # Clear and cache config
 php artisan view:clear
