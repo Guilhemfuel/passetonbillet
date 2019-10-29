@@ -22,7 +22,7 @@
 
     <script type="text/javascript">
         @if (session('addedTicket'))
-            currentPage.data.addedTicket = {!! json_encode(session('addedTicket')) !!}
+            currentPage.data.addedTicket = {!! json_encode(session()->pull('addedTicket')) !!}
         @endif
 
             data.owned_tickets = {

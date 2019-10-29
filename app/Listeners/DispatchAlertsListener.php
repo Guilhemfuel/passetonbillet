@@ -59,6 +59,11 @@ class DispatchAlertsListener implements ShouldQueue
                        ->whereIn( 'arrival_city', $arrivalStations )
                        ->get();
 
+        if (\App::environment()=='local') {
+            \Log::info('Skipping alerts dispatching as not local.');
+            return;
+        }
+
         foreach ( $alerts as $alert ) {
 
             // If it's a user create notification

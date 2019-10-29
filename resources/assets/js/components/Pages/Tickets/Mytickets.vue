@@ -24,7 +24,7 @@
                     <ticket :ticket="ticket" :display="true"></ticket>
                 </template>
                 <template v-else-if="state==stateValues.selling">
-                    <ticket :ticket="ticket"  :share-modal-default="justSold(ticket)"></ticket>
+                    <ticket :ticket="ticket"  :ticket-just-published="justSold(ticket)"></ticket>
                 </template>
                 <template v-else-if="state==stateValues.offered">
                     <ticket :ticket="ticket"></ticket>

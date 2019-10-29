@@ -247,6 +247,15 @@ return [
 
             ]
 
+        ],
+
+        'eurostar_warning_fb_group' => [
+            'title'   => '<span class="text-danger"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i><br> Warning: do not post your Eurostar® ticket on Facebook groups !</span>',
+            'message' => 'Eurostar® now checks all the tickets published on ALL Facebook groups. 
+            If your post can be linked to your Eurostar® booking via Facebook name and the content of your publication,
+             then your ticket may be cancelled, without any possible refund.<br><br>
+             PasseTonBillet cannot be held responsible if your ticket is cancelled.',
+            'button'  => "I understood and I will not post my ticket on Facebook"
         ]
 
     ],

@@ -497,6 +497,22 @@
                      @close-modal="modalDeleteOpen=false;"
                      v-if="userIsOwner"
         ></edit-ticket>
+
+        <modal class="warning-eurostar-modal"
+               :close-on-outside-click="false"
+               :button-close="false"
+               @close-modal="modalEurostarWarning=false"
+               :is-open="modalEurostarWarning"
+               :title="trans('tickets.sell.eurostar_warning_fb_group.title')"
+               v-if="userIsOwner && ticket.provider == 'eurostar'"
+               title-class="text-center"
+        >
+            <p class="text-justify" v-html="trans('tickets.sell.eurostar_warning_fb_group.message')"></p>
+
+            <button class="btn btn-block btn-danger" @click="modalEurostarWarning=false">
+                {{trans('tickets.sell.eurostar_warning_fb_group.button')}}
+            </button>
+        </modal>
     </div>
 
 </template>
@@ -520,7 +536,7 @@
             bought: {type: Boolean, default: false},
             className: '',
 
-            shareModalDefault: {type: Boolean, default: false},
+            ticketJustPublished: {type: Boolean, default: false},
         },
         data() {
             return {
@@ -532,9 +548,10 @@
                 buyingState: 'offer',
                 contactNumber: null,
                 errorMessage: '',
-                shareModalOpen: this.shareModalDefault,
+                shareModalOpen: false,
                 modalDeleteOpen: false,
                 modalCallOpen: false,
+                modalEurostarWarning: this.ticketJustPublished && this.ticket.provider == 'eurostar',
             }
         },
         mounted() {

@@ -6,7 +6,7 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content" v-click-outside="outsideClick">
                         <div class="modal-header" v-if="title">
-                            <h5 class="modal-title">{{title}}</h5>
+                            <h5 :class="['modal-title',titleClass]" v-html="title"></h5>
                             <button type="button" class="close" @click="closeModal" v-if="buttonClose">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -42,7 +42,8 @@
             buttonClose: {type: Boolean, default: true, required: false},
             title: {type: String, required: false},
             footer: {type: String, required: false},
-            modalClass: {type: String, default: ''}
+            modalClass: {type: String, default: ''},
+            titleClass: {type: String, default: ''},
         },
         date(){
             return {

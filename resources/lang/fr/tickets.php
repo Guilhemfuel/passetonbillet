@@ -249,6 +249,16 @@ return [
                 'price'             => 'Prix de vente',
                 'cgu'               => 'Je reconnais avoir pris connaissance des <a href="' . route( 'cgu.page' ) . '" target="blank" >conditions d\'utilisation</a> et je les accepte sans réserves.'
             ]
+        ],
+
+        'eurostar_warning_fb_group' => [
+            'title'   => '<span class="text-danger"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i><br>
+            Avertissement: ne pas poster votre billet Eurostar® sur des groupes Facebook !</span>',
+            'message' => 'Eurostar® vérifie désormais tous les billets postés sur TOUS les groupes Facebook. 
+            S\'ils parviennent à lier votre publication Facebook à votre réservation Eurostar® via votre nom Facebook et
+             le contenu de votre publication, votre billet pourra être annulé, sans aucun remboursement possible.<br><br>
+             PasseTonBillet ne peut être tenu respondable en cas d\'annulation de votre billet.',
+            'button'  => "J'ai bien compris et je posterai pas mon billet sur Facebook"
         ]
     ],
     'buy'       => [
