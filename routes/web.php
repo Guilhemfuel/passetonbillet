@@ -288,6 +288,7 @@ Route::group( [ 'prefix' => 'api' ], function () {
         Route::get( 'ticket/owned/{type}', 'API\TicketController@owned' )->name( 'api.tickets.owned' );
 
         // Discussion api routes
+        Route::get( 'messages/home/{type}', 'API\DiscussionController@messages' )->name( 'api.discussion.messages' );
         Route::post( 'messages/{ticket}/{discussion}', 'DiscussionController@sendMessage' )->name( 'api.discussion.send' );
         Route::post( 'messages/{ticket}/{discussion}/read', 'DiscussionController@markAsRead' )->name( 'api.discussion.read' );
 

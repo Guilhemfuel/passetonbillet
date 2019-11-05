@@ -2,7 +2,8 @@
     <div class="col-12">
 
 
-        <div class="card" v-if="this.hasDiscussions === false && offersAwaiting.length === 0">
+        <loader class="mx-auto mt-5" v-if="loading"></loader>
+        <div class="card" v-else-if="this.hasDiscussions === false && offersAwaiting.length === 0">
             <p class="card-body text-ptb-sm text-center">
                 {{ trans('message.empty')}}
             </p>
@@ -243,17 +244,13 @@
 
     export default {
         props: {
-            api: {required: true},
             routes: {type: Object, required: true},
             lang: {type: Object, required: true},
-            ticketLang: {type: Object, required: true},
-            user: {type: Object, required: true},
-            offersAwaiting: {type: Array, required: true},
-            buyingDiscussions: {type: Array, required: true},
-            sellingDiscussions: {type: Array, required: true},
         },
         data() {
             return {
+                loading: true,
+                user: this.$root.user,
                 state: 'default',
                 csrf: window.csrf,
                 offerBeingDenied: null,
@@ -261,7 +258,11 @@
                 showBuy: true,
                 showSell: true,
                 showPast: false,
-                radio: 'discussionCompare'
+                radio: 'discussionCompare',
+
+                offersAwaiting: [],
+                buyingDiscussions: [],
+                sellingDiscussions: []
             }
         },
         computed: {
@@ -390,6 +391,30 @@
                     return -1;
                 return 0;
             }
+        },
+        mounted() {
+
+            this.$http.get(this.route('api.discussion.messages', ['buying']))
+                .then(response => {
+                    this.buyingDiscussions = response.data.data;
+                    this.loading=false;
+                }, response => {
+                    this.$message(response.body.data.message,);
+                })
+            this.$http.get(this.route('api.discussion.messages', ['offers_accepted']))
+                .then(response => {
+                    this.sellingDiscussions = response.data.data;
+                    this.loading=false;
+                }, response => {
+                    this.$message(response.body.data.message,);
+                })
+            this.$http.get(this.route('api.discussion.messages', ['offers_received']))
+                .then(response => {
+                    this.offersAwaiting = response.data.data;
+                    this.loading=false;
+                }, response => {
+                    this.$message(response.body.data.message,);
+                })
         },
         components: {
             DenyOfferModal

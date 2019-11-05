@@ -166,7 +166,6 @@
 
             },
             loadData() {
-                console.log('Loading data...');
                 switch (this.state) {
                     case 1:
                     case 3:
@@ -195,7 +194,6 @@
                         break;
                     case 4:
                         if (this.offerSent.length == 0) {
-                            console.log('Query offers tickets.');
                             this.$http.get(this.route('api.tickets.owned', ['offers_sent']))
                                 .then(response => {
                                     this.offerSent = response.data.data;
@@ -206,7 +204,6 @@
                         }
                         break;
                 }
-                console.log('Done.')
             },
             /**
              * Return true if on page because this ticket was just added to be sold on PTB

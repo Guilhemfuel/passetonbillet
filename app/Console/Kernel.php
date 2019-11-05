@@ -48,8 +48,6 @@ class Kernel extends ConsoleKernel
         $schedule->command(Commands\CleanAll::class)
                  ->dailyAt('3:00')
                  ->sendOutputTo(storage_path() . '/logs/clean.log');
-
-        $schedule->command('ptb:accept-ids')->hourly();
     }
 
     /**

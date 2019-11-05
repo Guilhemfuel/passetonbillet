@@ -189,26 +189,7 @@ class PageController extends Controller
      */
     public function messagePage()
     {
-        // Offers done by user
-        $buyingDiscussions = \Auth::user()->offers()->where( 'status', '>=', Discussion::ACCEPTED )->get();
-
-        // For each ticket the user have, we find corresponding discussions
-        $tickets = \Auth::user()->tickets;
-        $sellingDiscussions = collect();
-        $offersAwaiting = collect();
-        foreach ( $tickets as $ticket ) {
-            $discussions = $ticket->discussions;
-            $sellingDiscussions = $sellingDiscussions->merge( $discussions->where( 'status', '>=', Discussion::ACCEPTED ) );
-            $offersAwaiting = $offersAwaiting->merge( $discussions->where( 'status', Discussion::AWAITING ) );
-        }
-
-        // Mark notification of offers as read in database (as we're on page)
-        \Auth::user()->unreadNotifications->where( 'type', OfferNotification::class )->markAsRead();
-
-        return view( 'messages.home' )->with( 'user', new UserRessource( \Auth::user() ) )
-                                      ->with( 'offersAwaiting', DiscussionLastMessageResource::collection( $offersAwaiting->sortByDesc( 'updated_at' ) ) )
-                                      ->with( 'buyingDiscussions', DiscussionLastMessageResource::collection( $buyingDiscussions->sortByDesc( 'updated_at' ) ) )
-                                      ->with( 'sellingDiscussions', DiscussionLastMessageResource::collection( $sellingDiscussions->sortByDesc( 'updated_at' ) ) );
+        return view( 'messages.home' );
     }
 
     /**
