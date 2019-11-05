@@ -5,6 +5,8 @@ namespace App\Http\Controllers\API;
 use App\Exceptions\PasseTonBilletException;
 use App\Facades\Optico;
 use App\Http\Resources\DiscussionLastMessageResource;
+use App\Http\Resources\DiscussionResource;
+use App\Http\Resources\TicketRessource;
 use App\Models\Discussion;
 use App\Ticket;
 use App\Train;
@@ -56,5 +58,40 @@ class TicketController extends Controller
             'phone'  => Optico::getPaidPhoneNumber( $phone, $country )
         ];
 
+    }
+
+    /**
+     * API for the owned ticket page
+     *
+     * @param $type
+     *
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Resources\Json\AnonymousResourceCollection|\Illuminate\Http\Response
+     */
+    public function owned($type)
+    {
+        $this->middleware('auth');
+
+        switch ( $type ) {
+            case 'selling':
+                return TicketRessource::collection( \Auth::user()->tickets );
+                break;
+            case 'bought':
+                return TicketRessource::collection( \Auth::user()->boughtTickets );
+                break;
+            case 'offers_sent':
+                return DiscussionResource::collection( \Auth::user()->offers
+                    ->whereIn( 'status', [
+                        Discussion::AWAITING,
+                        Discussion::DENIED,
+                        Discussion::ACCEPTED
+                    ] )
+                );
+                break;
+        }
+
+        return response([
+            'status' => 'error',
+            'message' => 'Wrong type specified.'
+        ], 400);
     }
 }

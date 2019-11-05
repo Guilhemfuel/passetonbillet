@@ -285,6 +285,7 @@ Route::group( [ 'prefix' => 'api' ], function () {
         Route::post( 'ticket/search', 'TicketController@searchTickets' )->name( 'api.tickets.search' );
         Route::post( 'ticket/offer', 'TicketController@makeAnOffer' )->name( 'api.tickets.offer' );
         Route::get( 'ticket/{ticket}/offers/', 'API\TicketController@getOffers' )->name( 'api.tickets.offers' );
+        Route::get( 'ticket/owned/{type}', 'API\TicketController@owned' )->name( 'api.tickets.owned' );
 
         // Discussion api routes
         Route::post( 'messages/{ticket}/{discussion}', 'DiscussionController@sendMessage' )->name( 'api.discussion.send' );

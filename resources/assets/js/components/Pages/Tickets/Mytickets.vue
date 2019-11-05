@@ -31,7 +31,8 @@
                 </template>
             </div>
             <div class="col-12">
-                <p class="text-center" v-if="currentTickets.length==0">
+                <loader class="mx-auto" v-if="loading"></loader>
+                <p class="text-center" v-else-if="currentTickets.length==0">
                     <template v-if="state==stateValues.bought">
                         {{trans('tickets.owned.no_bought_tickets')}} <a
                             :href="route('public.ticket.buy.page')">{{trans('tickets.owned.no_bought_tickets_cta')}}</a>
@@ -59,10 +60,6 @@
 
     export default {
         props: {
-            tickets: {type: Array, required: true},
-            boughtTickets: {type: Array, required: true},
-            offerSent: {type: Array, required: true},
-            lang: {type: Object, required: true},
             defaultState: {required: true},
 
             stateValues: {
@@ -78,8 +75,12 @@
         },
         data() {
             return {
+                tickets: [],
+                boughtTickets: [],
+                offerSent: [],
                 state: this.defaultState,
-                rerenderer: 0
+                rerenderer: 0,
+                loading: true,
             }
         },
         computed: {
@@ -114,6 +115,9 @@
                 } else if (this.state == this.stateValues.offered) {
                     for (var i = 0; i < this.offerSent.length; i++) {
                         var ticket = this.offerSent[i].ticket;
+                        if (!ticket) {
+                            continue;
+                        }
                         ticket.offerStatus = this.offerSent[i].status;
                         ticket.offerPrice = this.offerSent[i].price;
                         ticket.discussionId = this.offerSent[i].id;
@@ -161,6 +165,49 @@
                 }
 
             },
+            loadData() {
+                console.log('Loading data...');
+                switch (this.state) {
+                    case 1:
+                    case 3:
+                        if (this.tickets.length == 0) {
+                            this.$http.get(this.route('api.tickets.owned', ['selling']))
+                                .then(response => {
+                                    this.tickets = response.data.data;
+                                    this.loading=false;
+                                });
+                        } else {
+                            this.loading=false;
+                        }
+                        break;
+                    case 2:
+                        if (this.boughtTickets.length == 0) {
+                            this.$http.get(this.route('api.tickets.owned', ['bought']))
+                                .then(response => {
+                                    this.boughtTickets = response.data.data;
+                                    this.loading=false;
+                                }, response => {
+                                    this.$message(response.body.data.message,);
+                                })
+                        } else {
+                            this.loading=false;
+                        }
+                        break;
+                    case 4:
+                        if (this.offerSent.length == 0) {
+                            console.log('Query offers tickets.');
+                            this.$http.get(this.route('api.tickets.owned', ['offers_sent']))
+                                .then(response => {
+                                    this.offerSent = response.data.data;
+                                    this.loading=false;
+                                });
+                        } else {
+                            this.loading=false;
+                        }
+                        break;
+                }
+                console.log('Done.')
+            },
             /**
              * Return true if on page because this ticket was just added to be sold on PTB
              * @param ticket
@@ -174,12 +221,15 @@
         },
         watch: {
             state: function () {
+                this.loading=true;
                 this.setPageTitle();
+                this.loadData();
             }
         },
         mounted() {
             window.history.replaceState('My Tickets', 'My Tickets - Offers', '/ticket/owned/');
             this.setPageTitle();
+            this.loadData();
         }
     }
 </script>

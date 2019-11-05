@@ -165,16 +165,7 @@ class PageController extends Controller
                 break;
         }
 
-        return view( 'tickets.owned' )->with( 'user', new UserRessource( \Auth::user() ) )
-                                      ->with( 'tickets', TicketRessource::collection( \Auth::user()->tickets ) )
-                                      ->with( 'boughtTickets', TicketRessource::collection( \Auth::user()->boughtTickets ) )
-                                      ->with( 'offerSent', DiscussionResource::collection( \Auth::user()->offers
-                                          ->whereIn( 'status', [
-                                              Discussion::AWAITING,
-                                              Discussion::DENIED,
-                                              Discussion::ACCEPTED
-                                          ] )
-                                      ) )->with( 'state', $state );
+        return view( 'tickets.owned' )->with( 'state', $state );
 
     }
 
