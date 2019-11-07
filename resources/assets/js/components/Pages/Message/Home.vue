@@ -400,7 +400,7 @@
                     this.loading=false;
                 }, response => {
                     this.$message(response.body.data.message,);
-                })
+                });
             this.$http.get(this.route('api.discussion.messages', ['offers_accepted']))
                 .then(response => {
                     this.sellingDiscussions = response.data.data;

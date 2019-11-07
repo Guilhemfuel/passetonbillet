@@ -1,5 +1,5 @@
 # Passetonbillet
-Train ticket resales
+Ticket Marketplace
 
 ## Requirements
 1. Homestead (https://laravel.com/docs/5.7/homestead), Laravel valet (https://laravel.com/docs/5.7/valet), or Laravel valet linux (https://cpriego.github.io/valet-linux/)
@@ -16,17 +16,17 @@ Train ticket resales
 5. PostgreSQL (May also work with MySQL but untested)
 
 ## Setting up the dev environment
-( Thanks to J for the tips ;) )
-
 
 ```console
 $ composer install
 $ npm install
 $ cp .env.example .env
 $ php artisan key:generate
+```
+And if you're not using a database dump:
+```console
 $ php artisan migrate
 $ php artisan db:seed --class=StationsTableSeeder
-$ php artisan scout:import App\\Station
 ```
 ### Set the values in .env
 1. The key:generate command will write to the .env file automatically
@@ -46,11 +46,33 @@ $ cd PTB
 $ valet link
 $ valet secure
 ```
-Open a browser at https://PTB.test or look at the file routes/web.php for the full list of URI routes
+Open a browser at https://PTB.test and look at the file routes/web.php for the full list of URI routes.
+
+## Commands
+
+#### Generate Routes
+In order to be able to access the `route` helper in vue.js, all of the routes are compiled into a single js files. 
+To update this file, the command is: `php artisan ziggy:generate '\''resources/assets/js/routes.js'\''`.
+
+#### Generate Lang
+In order to be able to access the `trans` helper in vue.js, all of the lang files are compiled into a single js files. 
+To update this file, the command is: `ptb:generate-language`.
+
+#### Give admin rights to a user
+`php artisan ptb:empower {email}`
 
 ## Coding Practices & Process
 
-### New features
+#### Vue.js Components
+The vue components must be organized as follows:
+- If it's a reusable component then it must be in the appropriate folder such as:
+    - Forms, if it's related to forms
+    - Charts, if it's related to charts
+    - Tables if it's related to tables
+    - Shared, if it's a components used in several places of the application such as a modal
+    - or Pages with a logical tree folder structure if it's a component used in one page only  
+
+#### New features
 Working on a new feature? Here is how to proceed:
 * When working on a feature, we create a new branch. If the feature is related to a Trello card (most likely it will always be the case), you open the trello card in your browser, and find the id + name of the card. For instance if I open a card and find that the url is `https://trello.com/c/93WXWmyu/193-revert-a-ticket-sold` then I use `193-revert-a-ticket-sold` as a name for my branch.
 * I try to name commits correctly so it’s easy to follow, then I push my branch to github.

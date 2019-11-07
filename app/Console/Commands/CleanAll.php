@@ -41,5 +41,7 @@ class CleanAll extends Command
         $this->call('ptb:clean-emails');
         $this->line('');
         $this->call('ptb:clean-tickets');
+
+        // TODO: clean past notifications (1 month), telescope tables, stats and admin warnings
     }
 }

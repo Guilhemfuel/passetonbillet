@@ -2,7 +2,9 @@
 
 namespace App\Console\Commands;
 
+use App\Models\AdminWarning;
 use App\Models\Alert;
+use App\Models\Statistic;
 use App\User;
 use Illuminate\Console\Command;
 
@@ -22,7 +24,7 @@ class AnonymiseData extends Command
      *
      * @var string
      */
-    protected $description = 'Anonymise each user in the database apart from admins.';
+    protected $description = 'Anonymise each user in the database apart from admins and generate a database dump.';
 
     /**
      * Create a new command instance.
@@ -54,13 +56,19 @@ class AnonymiseData extends Command
 
         // Cleaning users
         foreach (User::all() as $user) {
+            //TODO: set password to passsword
+            $user->password = bcrypt('password');
+
             if ($user->isAdmin()) {
+                $user->save();
                 continue;
             }
 
+
             $user->first_name = $faker->firstName;
             $user->last_name = $faker->lastName;
-            $user->email = strtolower( $user->first_name ) .'_'. strtolower($user->last_name).$faker->numberBetween(1,100).array_random(['@gmail.com','@gmail.fr','@mycompany.com','@msn.com','@yahoo.fr']);
+            $user->email = strtolower( $user->first_name ). $faker->numberBetween(1,100) .'_'. strtolower($user->last_name).$faker->numberBetween(1,100) .
+                           array_random(['@gmail.com','@gmail.fr','@mycompany.com','@msn.com','@yahoo.fr','@passetonbillet.fr']);
             $user->phone = $faker->unique()->phoneNumber;
             $user->save();
         }
@@ -74,6 +82,11 @@ class AnonymiseData extends Command
                 $alert->save();
             }
         }
+
+        // Truncate logs table and warnings
+        $this->line('Done. Truncating admin warning and logs.');
+        AdminWarning::truncate();
+        Statistic::truncate();
 
         $this->line('Done.');
     }
