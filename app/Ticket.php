@@ -17,12 +17,10 @@ use Nicolaslopezj\Searchable\SearchableTrait;
  * @property-read \App\User  $user
  * @mixin \Eloquent
  */
-class Ticket extends Model
+class Ticket extends AbstractTicket
 {
 
     const PROVIDERS = [ 'eurostar', 'thalys', 'sncf','izy','ouigo' ];
-
-    use SearchableTrait, SoftDeletes, ScamFiltered;
 
     protected $dates = [ 'deleted_at', 'marked_as_fraud_at' ];
 
@@ -198,68 +196,13 @@ class Ticket extends Model
     }
 
     /**
-     * Helper
-     */
-    private function getSymbolCurrency( $currency )
-    {
-        switch ( $currency ) {
-            case "EUR":
-            case "EFT":
-                return '€';
-                break;
-            case "USD":
-                return '$';
-                break;
-            case "GBP":
-                return '£';
-                break;
-        }
-
-        return '';
-    }
-
-    /**
      * MUTATORS
      */
 
-    public function getPassedAttribute()
-    {
-        $now = new Carbon();
-
-        return $this->train->carbon_departure_date->lt( $now );
-    }
-
-    public function getFullPriceAttribute()
-    {
-        if ( $this->currency == 'EUR' ) {
-            return $this->price . '€';
-        } else {
-            return $this->currency_symbol . $this->price;
-        }
-    }
-
-    public function getCurrencySymbolAttribute()
-    {
-        return $this->getSymbolCurrency( $this->currency );
-    }
-
-    public function getBoughtCurrencySymbolAttribute()
-    {
-        return $this->getSymbolCurrency( $this->bought_currency );
-    }
-
-//    public function getFlexibilityAttribute( $value )
-//    {
-//        return trans( 'common.ticket.flexibility.' . $value );
-//    }
-
     public function getClassAttribute( $value )
     {
-        //TODO: use JSON below to make string from class + add that to admin form attributes
         return $value;
     }
-
-//{"fareFlexibility":{"1":{"code":"1","value":"Non Flexible"},"2":{"code":"2","value":"Semi Flexible"},"3":{"code":"3","value":"Fully Flexible"},"7":{"code":"7","value":"Off Peak"},"8":{"code":"8","value":"Advance"},"9":{"code":"9","value":"Anytime"}},"classOfService":{"B":{"code":"B","value":"Standard"},"H":{"code":"H","value":"Standard Premier"},"A":{"code":"A","value":"Business Premier"},"2":{"code":"2","value":"Standard Class"},"1":{"code":"1","value":"First Class"}}}
 
     public function getStatusAttribute()
     {
@@ -306,11 +249,6 @@ class Ticket extends Model
         $this->attributes['provider'] = $value;
     }
 
-    public function setSoldToIdAttribute( $value )
-    {
-        $this->attributes['sold_to_id'] = $value;
-    }
-
     public function getDiscussionSoldAttribute()
     {
         return $this->discussions()->where( 'buyer_id', $this->buyer->id )->first();
@@ -332,11 +270,6 @@ class Ticket extends Model
     /**
      * RELATIONSHIPS
      */
-
-    public function user()
-    {
-        return $this->belongsTo( 'App\User' );
-    }
 
     public function train()
     {
@@ -384,10 +317,6 @@ class Ticket extends Model
         }
 
         return $currentTickets;
-    }
-
-    public static function getMostRecentTickets( $limit ) {
-        return Ticket::latest('created_at')->limit($limit)->get();
     }
 
     /**
