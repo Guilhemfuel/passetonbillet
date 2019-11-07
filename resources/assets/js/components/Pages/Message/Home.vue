@@ -2,7 +2,7 @@
     <div class="col-12">
 
 
-        <loader class="mx-auto mt-5" v-if="loading"></loader>
+        <loader class="mx-auto my-5" v-if="isLoading"></loader>
         <div class="card" v-else-if="this.hasDiscussions === false && offersAwaiting.length === 0">
             <p class="card-body text-ptb-sm text-center">
                 {{ trans('message.empty')}}
@@ -131,9 +131,12 @@
                                 <tr v-if="currentDiscussions.length === 0"
                                     class="mt-3 text-center text-ptb-sm">
                                     <th colspan="3">
-                                        <p v-if="currentDiscussions.length === 0">
-                                            {{trans('message.discussions.noDiscussions')}}
-                                        </p>
+                                        <loader class="mx-auto my-5" v-if="isLoading"></loader>
+                                        <div class="card" v-else-if="this.hasDiscussions === false && offersAwaiting.length === 0">
+                                            <p class="card-body text-ptb-sm text-center">
+                                                {{ trans('message.empty')}}
+                                            </p>
+                                        </div>
                                     </th>
                                 </tr>
 
@@ -249,7 +252,11 @@
         },
         data() {
             return {
-                loading: true,
+                loading: {
+                    buying: true,
+                    offers_accepted: true,
+                    offers_received: true
+                },
                 user: this.$root.user,
                 state: 'default',
                 csrf: window.csrf,
@@ -266,6 +273,9 @@
             }
         },
         computed: {
+            isLoading() {
+                return this.loading.buying || this.loading.offers_accepted || this.loading.offers_received;
+            },
             currentDiscussions() {
 
                 /* The list for the discussions to display */
@@ -397,21 +407,21 @@
             this.$http.get(this.route('api.discussion.messages', ['buying']))
                 .then(response => {
                     this.buyingDiscussions = response.data.data;
-                    this.loading=false;
+                    this.loading.buying=false;
                 }, response => {
                     this.$message(response.body.data.message,);
                 });
             this.$http.get(this.route('api.discussion.messages', ['offers_accepted']))
                 .then(response => {
                     this.sellingDiscussions = response.data.data;
-                    this.loading=false;
+                    this.loading.offers_accepted=false;
                 }, response => {
                     this.$message(response.body.data.message,);
                 })
             this.$http.get(this.route('api.discussion.messages', ['offers_received']))
                 .then(response => {
                     this.offersAwaiting = response.data.data;
-                    this.loading=false;
+                    this.loading.offers_received=false;
                 }, response => {
                     this.$message(response.body.data.message,);
                 })
