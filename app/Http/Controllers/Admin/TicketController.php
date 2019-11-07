@@ -290,6 +290,7 @@ class TicketController extends BaseController
             return redirect()->back();
         }
         $ticket->restore();
+        $ticket->discussions()->withTrashed()->restore();
         event( new TicketAddedEvent( $ticket ) );
 
         flash( 'Ticket restored.' )->success();
