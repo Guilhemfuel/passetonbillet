@@ -3,8 +3,8 @@
 use Faker\Generator as Faker;
 
 $factory->define( App\Train::class, function ( Faker $faker ) {
-    $station1 = factory( \App\Station::class )->create();
-    $station2 = factory( \App\Station::class )->create();
+    $station1 = \App\Station::inRandomOrder()->first();
+    $station2 = \App\Station::inRandomOrder()->first();
 
     $date = new \Carbon\Carbon();
     $date->addDays( random_int( 0, 30 ) );
