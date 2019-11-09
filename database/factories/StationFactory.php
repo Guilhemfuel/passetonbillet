@@ -22,8 +22,8 @@ $factory->define( App\Station::class, function ( Faker $faker ) {
         'sncf_id'           => $faker->text,
         'is_suggestable'    => true,
         'data'              => "{}",
-        'n_grams'           => (new \TeamTNT\TNTSearch\Indexer\TNTIndexer())->buildTrigrams( $name ),
-        'n_grams_fr'        =>  (new \TeamTNT\TNTSearch\Indexer\TNTIndexer())->buildTrigrams( $nameFr ),
-        'n_grams_en'        =>  (new \TeamTNT\TNTSearch\Indexer\TNTIndexer())->buildTrigrams( $nameEn ),
+        'n_grams'           => "",
+        'n_grams_fr'        =>  "",
+        'n_grams_en'        =>  "",
     ];
 } );
