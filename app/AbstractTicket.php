@@ -13,6 +13,8 @@ abstract class AbstractTicket extends BaseModel
     protected $dates = [ 'deleted_at', 'marked_as_fraud_at' ];
     protected $with = ['user'];
 
+    CONST MAX_PRICE = 1000;
+
     // These fillable are required for child classes
     protected $fillable = [
         // User info
@@ -130,5 +132,9 @@ abstract class AbstractTicket extends BaseModel
      */
     public static function getMostRecentTickets( $limit ) {
         return self::latest('created_at')->limit($limit)->get();
+    }
+
+    public function maxPrice() {
+        return (self::MAX_PRICE / 100) * $this->bought_price;
     }
 }

@@ -169,7 +169,7 @@ return [
             'video_title'      => 'Selling tickets at PasseTonBillet'
         ],
 
-        'step_1'            => 'Step 1/2: find your ticket',
+        'step_1'            => 'Step 1/4: find your ticket',
         'description'       => 'Selling a ticket is very easy and super quick. All we need to do is to enter your name and your booking code. All the tickets corresponding to your specific booking will appear and you only have to select those that you want to sell.',
         'inputs'            => [
             'first_name'   => 'First Name of any passenger',
@@ -184,7 +184,9 @@ return [
         'help_booking_code' => 'This code can be found on your booking/order confirmation email, after "Booking Reference" or "PNR", and is 6 characters long.',
         'searching'         => 'Searching for your tickets...',
         'select'            => 'Hooray ! We found your tickets. Select the ticket you want to sell.',
-        'step_2'            => 'Step 2/2: Fill selling details',
+        'step_2'            => 'Step 2/4: Fill selling details',
+        'step_3'            => 'Étape 3/4: Ajoutez vos billets',
+        'step_4'            => 'Étape 4/4: Mettez votre billet en vente',
         'details'           => 'We\'re almost done! Just enter your selling price. You can preview your changes directly on the ticket.',
         'submit'            => 'Sell ticket',
         'preview'           => 'Ticket Preview',
@@ -334,7 +336,30 @@ return [
     ],
     'errors'    => [
         'passed' => 'This ticket is already passed.'
-    ]
+    ],
 
+    'pdf' => [
+        'description_1' => 'Si ton fichier PDF contient plusieurs billets, assurez vous de télécharger touts les billets.
+        À l\'étape suivante vous pourrez ensuite choisir quels billets vous souhaitez mettre en vente.',
+
+        'description_2' => 'Personne ne pourra voir vos billets avant qu\'ils aient été payés.',
+
+        'description_3' => 'Vous pouvez télécharger des fichiers PDF ou Pkpass (Apple Wallet).',
+
+        'select_file' => 'Séléctionner un fichier',
+
+        'zoom_pdf' => 'Agrandir',
+
+        'choose_pdf' => 'Choisisez le PDF qui correpond au billet que vous souhaitez vendre',
+        'choose_this_ticket' => 'Choisir ce billet',
+        'sell_this_ticket' => 'Ceci est le billet en vente',
+    ],
+
+    'step_4' => [
+        'text_1' => 'Merci de confirmer que vous ne revendez pas votre billet sur une autre plateforme que Passetonbillet. Cela nous permet de garantir aux acheteurs potentiels que votre billet est disponible et qu’ils peuvent le télécharger directement après avoir effectué le paiement. ',
+        'text_2' => 'Autre plateformes: Kelbillet, Trocsdestrains, Zepass, Facebook',
+        'text_3' => 'Vous recevrez un lien unique par billet que vous pourrez partager sur Facebook qui permettra aux personnes interessées d’acheter le billet directement depuis PasseTonBillet.',
+        'text_4' => 'Je garantie que mon billet est uniquement en vente sur Passetonbillet.'
+    ]
 
 ];

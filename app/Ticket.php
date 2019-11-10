@@ -22,6 +22,8 @@ class Ticket extends AbstractTicket
 
     const PROVIDERS = [ 'eurostar', 'thalys', 'sncf','izy','ouigo' ];
 
+    CONST MAX_PRICE = 1000;
+
     protected $dates = [ 'deleted_at', 'marked_as_fraud_at' ];
 
     protected $fillable = [
@@ -54,7 +56,10 @@ class Ticket extends AbstractTicket
         'buyer_email',
         'buyer_name',
 
-        'marked_as_fraud_at'
+        'marked_as_fraud_at',
+
+        'pdf',
+        'page_pdf'
     ];
 
     /**
@@ -332,6 +337,10 @@ class Ticket extends AbstractTicket
         static::deleting( function ( $ticket ) {
             $ticket->discussions()->delete();
         } );
+    }
+
+    public function maxPrice() {
+        return (self::MAX_PRICE / 100) * $this->bought_price;
     }
 
 }

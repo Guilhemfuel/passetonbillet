@@ -85,7 +85,6 @@ class PageController extends Controller
      */
     public function sellPage()
     {
-
         if ( \Auth::check() ) {
             return view( 'tickets.sell.auth' );
         } else {

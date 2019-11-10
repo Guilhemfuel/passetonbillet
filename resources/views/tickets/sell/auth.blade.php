@@ -12,13 +12,16 @@
 
             @if(Auth::user()->phone_verified)
 
+                <sell-ticket :api="child.sell_tickets.api" :user="user" :routes="child.sell_tickets.routes"></sell-ticket>
+
                 @if (Auth::user()->id_uploaded)
-                    <sell-ticket :api="child.sell_tickets.api" :user="user" :routes="child.sell_tickets.routes"></sell-ticket>
+
                 @else
 
                     {{-- Verify identity--}}
 
-                    <div class="col-sm-12">
+                {{--
+                <div class="col-sm-12">
                         <h1 class="card-title mb-0">@lang('tickets.sell.title')</h1>
                         <div class="card">
                             <div class="card-body justify-content-center d-flex">
@@ -56,6 +59,8 @@
                             </div>
                         </div>
                     </div>
+                --}}
+
                 @endif
             @else
 
@@ -176,6 +181,8 @@
 
 
 @push('vue-data')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.3.200/pdf.min.js" integrity="sha256-J4Z8Fhj2MITUakMQatkqOVdtqodUlwHtQ/ey6fSsudE=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.3.200/pdf.worker.js" integrity="sha256-dJSOqtDrNjfG3bC2bSZAHCZgE4zQT0Js6brOkFp8PE8=" crossorigin="anonymous"></script>
     <script type="text/javascript">
         data.sell_tickets = {
             api: {

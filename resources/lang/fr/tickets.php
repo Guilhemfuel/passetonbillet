@@ -174,7 +174,7 @@ return [
 
         'title' => 'Vendre un billet',
 
-        'step_1'            => 'Étape 1/2: Retrouver votre billet',
+        'step_1'            => 'Étape 1/4: Retrouver votre billet',
         'description'       => 'Vendre un billet est très simple et très rapide. Tout ce que vous avez à faire est d\'entrer votre nom de famille ainsi que votre numéro de réservation. Tous les tickets correspondants à cette reservation vont alors aparaître et vous n\'aurez plus qu\'à séléctionner ceux que vous souhaitez mettre en vente.',
         'inputs'            => [
             'first_name'   => 'Prénom de famille associé à la reservation',
@@ -189,7 +189,9 @@ return [
         'help_booking_code' => 'Cette référence se trouve sur votre confirmation de reservation / commande ou sur votre billet après "Dossier" ou "PNR" et est composé de 6 caractères.',
         'searching'         => 'Recherche de vos billets...',
         'select'            => 'Hooray ! Nous avons trouvé vos billets. Selectionnez le billet que vous souhaitez vendre.',
-        'step_2'            => 'Étape 2/2: Compléter les informations sur la vente',
+        'step_2'            => 'Étape 2/4: Compléter les informations sur la vente',
+        'step_3'            => 'Étape 3/4: Ajoutez vos billets',
+        'step_4'            => 'Étape 4/4: Mettez votre billet en vente',
         'details'           => 'Nous avons presque terminé! Il ne vous reste qu\'à indiquer votre prix. Vous pouvez prévisualiser vos changement directement sur le billet.',
         'submit'            => 'Vendre le billet',
         'preview'           => 'Prévisualisation du billet',
@@ -342,7 +344,29 @@ return [
     ],
     'errors' => [
         'passed' => 'Ce ticket est déjà passé!'
+    ],
+
+    'pdf' => [
+        'description_1' => 'Si ton fichier PDF contient plusieurs billets, assurez vous de télécharger touts les billets.
+        À l\'étape suivante vous pourrez ensuite choisir quels billets vous souhaitez mettre en vente.',
+
+        'description_2' => 'Personne ne pourra voir vos billets avant qu\'ils aient été payés.',
+
+        'description_3' => 'Vous pouvez télécharger des fichiers PDF ou Pkpass (Apple Wallet).',
+
+        'select_file' => 'Séléctionner un fichier',
+
+        'zoom_pdf' => 'Agrandir',
+
+        'choose_pdf' => 'Choisisez le PDF qui correpond au billet que vous souhaitez vendre',
+        'choose_this_ticket' => 'Choisir ce billet',
+        'sell_this_ticket' => 'Ceci est le billet en vente',
+    ],
+
+    'step_4' => [
+        'text_1' => 'Merci de confirmer que vous ne revendez pas votre billet sur une autre plateforme que Passetonbillet. Cela nous permet de garantir aux acheteurs potentiels que votre billet est disponible et qu’ils peuvent le télécharger directement après avoir effectué le paiement. ',
+        'text_2' => 'Autre plateformes: Kelbillet, Trocsdestrains, Zepass, Facebook',
+        'text_3' => 'Vous recevrez un lien unique par billet que vous pourrez partager sur Facebook qui permettra aux personnes interessées d’acheter le billet directement depuis PasseTonBillet.',
+        'text_4' => 'Je garantie que mon billet est uniquement en vente sur Passetonbillet.'
     ]
-
-
 ];

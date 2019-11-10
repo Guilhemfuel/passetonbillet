@@ -34,6 +34,8 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Facades\Eurostar;
 use Mockery\Exception;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class TicketController extends Controller
 {
@@ -44,6 +46,7 @@ class TicketController extends Controller
 
     const COOKIE_TRIP_ARRIVAL = 'train_arrival';
 
+
     /**
      * @param SellTicketRequest $request
      *
@@ -51,7 +54,7 @@ class TicketController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function sellTicket( SellTicketRequest $request )
+    public function sellTicket(SellTicketRequest $request)
     {
         $tickets = $request->session()->get( 'tickets' );
         $request->session()->forget( 'tickets' );
@@ -80,10 +83,18 @@ class TicketController extends Controller
             return redirect()->route( 'public.ticket.sell.page' );
         }
 
+        //Upload file
+        $data = explode(',', $request->file);
+        $random = Str::random(40);
+
+        Storage::disk('local')->put("uploads/$random.pdf", base64_decode($data[1]));
+
         $ticket->user_id = \Auth::id();
         $ticket->price = $request->price;
         $ticket->currency = $ticket->bought_currency;
         $ticket->user_notes = $request->notes;
+        $ticket->pdf = "$random.pdf";
+        $ticket->page_pdf = $request->page;
         $ticket->save();
 
         Amplitude::logEvent( 'add_ticket', [

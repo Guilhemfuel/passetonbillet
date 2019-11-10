@@ -109,17 +109,24 @@
         <!-- selling details and confirm sale -->
         <div class="row" v-if="state=='selling_details'">
             <div class="col-12 mb-3">
-                <h4 class="card-title mb-0">
+                <h4 class="card-title mb-0" v-if="step==2">
                     {{trans('tickets.sell.step_2')}}
                 </h4>
+                <h4 class="card-title mb-0" v-if="step==3">
+                    {{trans('tickets.sell.step_3')}}
+                </h4>
+                <h4 class="card-title mb-0" v-if="step==4">
+                    {{trans('tickets.sell.step_4')}}
+                </h4>
             </div>
-            <div class="col-sm-12 col-md-6">
+
+            <div v-if="step==2" class="col-sm-12 col-md-6">
                 <div class="card">
                     <div class="card-body">
                         <p class="card-text text-justify">
                             {{trans('tickets.sell.details')}}
                         </p>
-                        <vue-form method="post" :action="route('public.ticket.sell.post')" ref="sell_form">
+                        <form method="post" ref="sell_form">
                             <input type="hidden" name="index" :value="selectedTicket.id">
 
                             <div class="form-group">
@@ -142,7 +149,44 @@
                             <input-text
                                     name="cgu"
                                     type="checkbox"
-                                    :label="trans('tickets.sell.manual.form.cgu')"
+                                    @change="cgu = !cgu"
+                                    :label="trans('tickets.sell.manual.form.cgu')">
+                            </input-text>
+
+                            <button type="submit" class="btn btn-ptb btn-block mt-4" @click.prevent="step3">
+                                {{trans('tickets.sell.submit')}}
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div v-if="step==3" class="col-sm-12 col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <pdf-viewer @returnData="getPdf"></pdf-viewer>
+                    </div>
+                </div>
+            </div>
+
+            <div v-if="step==4" class="col-sm-12 col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="text-center">{{trans('tickets.step_4.text_1')}}</p>
+                        <p class="text-center">{{trans('tickets.step_4.text_2')}}</p>
+                        <p class="text-center">{{trans('tickets.step_4.text_3')}}</p>
+
+                        <vue-form method="post" :action="route('public.ticket.sell.post')" ref="sell_ticket">
+                            <input type="hidden" name="index" :value="selectedTicket.id">
+                            <input type="hidden" name="price" :value="selectedTicket.price">
+                            <input type="hidden" name="file" :value="pdf.file">
+                            <input type="hidden" name="page" :value="pdf.page">
+                            <input type="hidden" name="cgu" :value="cgu">
+
+                            <input-text
+                                    name="unique-ticket"
+                                    type="checkbox"
+                                    :label="trans('tickets.step_4.text_4')"
                                     validation="required">
                             </input-text>
 
@@ -153,6 +197,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="col-sm-12 col-md-6">
                 <ticket :ticket="selectedTicket" :display="true"
                         class-name="mb-0 mt-sm-4 mt-md-0 max-sized"></ticket>
@@ -164,8 +209,11 @@
 </template>
 
 <script>
+    import PdfViewer from "../../PTB/PdfViewer.vue";
+
     export default {
-        props: {
+      components: {PdfViewer},
+      props: {
             api: {type: Object, required: true},
             routes: {type: Object, required: true},
             user: {type: Object, required: true},
@@ -174,6 +222,7 @@
             return {
                 csrf: window.csrf,
                 state: 'input',
+                step: 2,
                 form: {
                     email: null,
                     last_name: this.user.last_name,
@@ -184,6 +233,11 @@
                 formExtraFields: false,
                 tickets: [],
                 selectedTicket: {},
+              pdf: {
+                file: null,
+                page: null
+              },
+              cgu: false
             }
         },
         computed: {
@@ -256,6 +310,26 @@
                 this.selectedTicket.price = Math.floor(this.selectedTicket.bought_price);
                 this.state = 'selling_details';
             },
+          step3() {
+              if(this.cgu) {
+                this.step = 3;
+              }
+          },
+          getPdf(file) {
+            this.base64(file.file)
+            this.pdf.page = file.page
+            let serialize = JSON.stringify(this.pdf)
+
+            this.step = 4;
+          },
+          base64 (file)  {
+            let reader = new FileReader();
+            let baseString;
+            reader.onloadend = () => {
+              this.pdf.file = reader.result;
+            };
+            reader.readAsDataURL(file);
+          }
         }
     }
 </script>

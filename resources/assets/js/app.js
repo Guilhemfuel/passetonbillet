@@ -75,6 +75,7 @@ Vue.component( 'ticket-mini', require(/* webpackChunkName: "ticket-mini" */ './c
 Vue.component( 'blog-posts', require(/* webpackChunkName: "blog-posts" */ './components/PTB/BlogPosts.vue').default);
 Vue.component( 'alert-modal', require(/* webpackChunkName: "alert-modal" */ './components/PTB/AlertModal.vue').default);
 Vue.component( 'call-modal', require(/* webpackChunkName: "call-modal" */ './components/PTB/CallModal.vue').default);
+Vue.component( 'pdf-viewer', require(/* webpackChunkName: "call-modal" */ './components/PTB/PdfViewer.vue').default);
 
 
 /**
