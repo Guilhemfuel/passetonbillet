@@ -131,6 +131,8 @@ class Eurostar extends TrainConnector
 
             if ( $ticket ) {
                 array_push( $tickets, $ticket );
+            } else {
+                \Log::info("Eurostar retrieval failed with booking code ${referenceNumber} and last name ${lastName}.");
             }
 
             if ( $returnTickets ) {
@@ -147,8 +149,6 @@ class Eurostar extends TrainConnector
 
     public function createTrainAndReturnTicket( $data, $currency, $lastName, $referenceNumber, $buyerEmail, $outbound = true, $past = false )
     {
-
-
         $trainNumber = $data['info']['trainNumber'];
         $trainDepartureDate = $data['info']['departureDate'];
         $trainDepartureTime = $data['info']['departureTime'];

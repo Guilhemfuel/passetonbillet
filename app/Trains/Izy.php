@@ -165,6 +165,8 @@ class Izy extends TrainConnector
 
             if ( $ticket ) {
                 array_push( $tickets, $ticket );
+            } else {
+                \Log::info("Izy retrieval failed with booking code ${referenceNumber} and last name ${lastName}.");
             }
 
         }

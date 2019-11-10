@@ -141,6 +141,8 @@ class Sncf extends TrainConnector
 
                 if ( $ticket ) {
                     array_push( $tickets, $ticket );
+                } else {
+                    \Log::info("SNCF retrieval failed with booking code ${referenceNumber}, and email ${buyerEmail} and last name ${lastName}.");
                 }
             }
 
