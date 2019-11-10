@@ -91,6 +91,8 @@ class Thalys extends TrainConnector
         $response = $this->client->request( 'GET', $url);
         $bookings = json_decode( (string) $response->getBody(), true );
 
+        $tickets = [];
+
         if (!$bookings) {
             return null;
         }

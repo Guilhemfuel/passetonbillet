@@ -31,7 +31,7 @@ class TicketRessource extends Resource
             'bought_currency_symbol' => $this->bought_currency_symbol,
             'inbound'                => $this->inbound,
             'buyer'                  => $this->sold_to_id ? new UserRessource( $this->buyer ) : null,
-            'discussion_id'          => $this->sold_to_id ? $this->discussionSold->id : null,
+            'discussion_id'          => $this->discussionSold ? $this->discussionSold->id : null,
             'provider'               => $this->provider,
             'created_at'             => $this->created_at,
             'pdf_downloaded'         => $this->when( \Auth::check() && \Auth::user()->id == $this->user_id, $this->pdf_downloaded ),
