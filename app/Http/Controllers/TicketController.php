@@ -36,6 +36,8 @@ use App\Facades\Eurostar;
 use Mockery\Exception;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use App\Services\MangoPayService;
+
 
 class TicketController extends Controller
 {
@@ -47,19 +49,51 @@ class TicketController extends Controller
     const COOKIE_TRIP_ARRIVAL = 'train_arrival';
 
 
-    public function buyTicket(Request $request, $id) {
+    public function buyTicket(Request $request, $id)
+    {
 
         $user = \Auth::user();
 
-        if(!$user->phone_verified) {
+        if (!$user->phone_verified) {
             return response()->json(['state' => 'phone_not_verified']);
         }
 
-        $ticket = Ticket::where('id', $id)->first();
+        // $ticket = Ticket::where('id', $id)->first();
 
-        return redirect()->back();
+        $mangoPay = new MangoPayService();
+
+        if (!$user->mangopay_id) {
+            $mangoUser = $mangoPay->createMangoUser($user);
+
+            $user->mangopay_id = $mangoUser->Id;
+            $user->save();
+        } else {
+
+            $mangoPay->getMangoUser($user->mangopay_id);
+            //$mangoPay->createCardRegistration($card);
+        }
+
+        return response()->json(['state' => 'buy_ticket']);
     }
 
+    public function addCardRegistration(Request $request) {
+
+        $user = \Auth::user();
+
+        $mangoPay = new MangoPayService();
+        $mangoPay->getMangoUser($user->mangopay_id);
+
+        $cardRegistration = $mangoPay->createCardRegistration($request->data);
+
+        return response()->json($cardRegistration);
+    }
+
+    public function updateCardRegistration(Request $request) {
+        $mangoPay = new MangoPayService();
+        $result = $mangoPay->updateCardRegistration($request->id, $request->data);
+
+        return response()->json($result);
+    }
 
     /**
      * @param SellTicketRequest $request

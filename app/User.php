@@ -42,6 +42,7 @@ class User extends Authenticatable
         'picture',
         'email',
         'password',
+        'mangopay_id',
     ];
 
     /**

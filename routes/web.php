@@ -259,9 +259,11 @@ Route::group( [ 'prefix' => 'api' ], function () {
     Route::post( 'alerts/create', 'API\AlertController@createAlert' )->name( 'api.alerts.create' );
     Route::delete( '/alerts/{alert_id}', 'API\AlertController@deleteAlert' )->name( 'api.alerts.delete' );
 
-
     Route::get( 'tickets/buy', 'TicketController@buyTickets' )->name( 'api.tickets.buy' );
     Route::post( 'ticket/buy/{id}', 'TicketController@buyTicket' )->name( 'api.ticket.buy' );
+    Route::get( 'ticket/addCardRegistration', 'TicketController@addCardRegistration' )->name( 'api.ticket.add.card.registration' );
+    Route::POST( 'ticket/updateCardRegistration', 'TicketController@updateCardRegistration' )->name( 'api.ticket.update.card.registration' );
+
     Route::get( 'tickets/affiliates/sncf', 'API\AffiliateController@sncfAffiliate' )->name( 'api.tickets.affiliates.sncf' );
     Route::get( 'stations/search', 'StationController@stationSearch' )->name( 'api.stations.search' );
     Route::get( 'stations/{id}', 'StationController@show' )->name( 'api.stations.show' );
