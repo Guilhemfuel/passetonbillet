@@ -47,6 +47,22 @@ class TicketController extends Controller
     const COOKIE_TRIP_ARRIVAL = 'train_arrival';
 
 
+    public function buyTicket(Request $request, $id) {
+
+        $user = \Auth::user();
+
+        if(!$user->phone_verified) {
+            return response()->json(['state' => 'phone_not_verified']);
+        }
+
+        $ticket = Ticket::where('id', $id)->first();
+
+        dd('test');
+
+        return redirect()->back();
+    }
+
+
     /**
      * @param SellTicketRequest $request
      *

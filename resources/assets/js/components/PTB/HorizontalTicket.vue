@@ -140,7 +140,12 @@
                             <p v-if="!showSecurity" class="ticket-type"
                                v-html="trans('tickets.component.type.second_hand')">
                             </p>
-                            <button class="btn btn-ptb btn-upper ml-3" @click.prevent="contactSeller()">
+
+                            <button v-if="this.ticket.hasPdf" class="btn btn-ptb btn-upper ml-3" @click.prevent="modalBuyOpen = true">
+                                {{trans('tickets.component.buy')}}
+                            </button>
+
+                            <button v-else class="btn btn-ptb btn-upper ml-3" @click.prevent="contactSeller()">
                                 {{trans('tickets.component.contact')}}
                             </button>
                         </div>
@@ -301,6 +306,12 @@
             </div>
 
         </modal>
+
+        <buy-modal :ticket="ticket"
+                   :is-open="modalBuyOpen"
+                   @close-modal="modalBuyOpen=false;"
+        ></buy-modal>
+
     </div>
 
 </template>
@@ -322,7 +333,8 @@
                 showRegister: false,
                 loading: false,
 
-                priceOffer: this.ticket.price
+                priceOffer: this.ticket.price,
+                modalBuyOpen: false,
             }
         },
         mounted() {

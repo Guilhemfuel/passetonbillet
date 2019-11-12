@@ -343,4 +343,8 @@ class Ticket extends AbstractTicket
         return (self::MAX_PRICE / 100) * $this->bought_price;
     }
 
+    public function hasPdf() {
+        return $this->pdf ? true : false;
+    }
+
 }

@@ -261,6 +261,7 @@ Route::group( [ 'prefix' => 'api' ], function () {
 
 
     Route::get( 'tickets/buy', 'TicketController@buyTickets' )->name( 'api.tickets.buy' );
+    Route::post( 'ticket/buy/{id}', 'TicketController@buyTicket' )->name( 'api.ticket.buy' );
     Route::get( 'tickets/affiliates/sncf', 'API\AffiliateController@sncfAffiliate' )->name( 'api.tickets.affiliates.sncf' );
     Route::get( 'stations/search', 'StationController@stationSearch' )->name( 'api.stations.search' );
     Route::get( 'stations/{id}', 'StationController@show' )->name( 'api.stations.show' );

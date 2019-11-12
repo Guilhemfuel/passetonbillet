@@ -137,4 +137,8 @@ abstract class AbstractTicket extends BaseModel
     public function maxPrice() {
         return (self::MAX_PRICE / 100) * $this->bought_price;
     }
+
+    public function hasPdf() {
+        return $this->pdf ? true : false;
+    }
 }

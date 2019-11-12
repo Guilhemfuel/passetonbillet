@@ -26,8 +26,7 @@
                         :options="cleaveOptions"
                         v-model="actualValue"
                         required
-                        v-validate="'required'"
-                        ></cleave>
+                        v-validate="'required'"></cleave>
             </div>
             <input type="hidden" name="phone" :value="resultNumber"/>
             <input type="hidden" name="phone_country" :value="activeCountry?activeCountry.code:null"/>
@@ -85,7 +84,7 @@
             return {
                 activeCountryCode: this.countryValue ? this.countryValue:'FR',
                 actualValue: this.value,
-                countries: countries.phones
+                countries: countries.phones,
             }
         },
         computed: {
@@ -109,10 +108,22 @@
                 return this.actualValue.replace(/ /g,'');
             },
         },
-        methods: {
-            caretClick : function () {
-                this.$refs.select.click();
-            }
+      methods: {
+        caretClick: function () {
+          this.$refs.select.click();
+        },
+        emitToParent() {
+          let form = { phone: this.resultNumber, phone_country: this.activeCountry.code };
+          this.$emit('getData', form)
         }
+      },
+      watch: {
+        actualValue () {
+          this.emitToParent()
+        },
+        activeCountryCode () {
+          this.emitToParent()
+        }
+      }
     }
 </script>

@@ -114,6 +114,7 @@ if (lang === 'fr') {
 window.moment = moment;
 window.Vue.prototype.$moment = moment;
 window.Vue.prototype.route = route;
+window.Vue.prototype.lang = lang.toUpperCase();
 window.Vue.prototype.$mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
 /**

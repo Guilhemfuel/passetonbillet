@@ -120,7 +120,6 @@ class UserController extends Controller
      */
     public function addPhone( Request $request )
     {
-
         $request->validate( [
             'phone'         => 'required',
             'phone_country' => 'required',
@@ -136,6 +135,14 @@ class UserController extends Controller
         if ( User::withTrashed()->where( 'phone', $phone )
                  ->where( 'phone_country', $request->phone_country )
                  ->count() > 0 ) {
+
+            if($request->ajax()){
+                return response()->json([
+                    'message' => __( 'tickets.sell.confirm_number.errors.phone_already_used'),
+                    'type' => 'error'
+                ]);
+            }
+
             flash( __( 'tickets.sell.confirm_number.errors.phone_already_used' ) )->error();
 
             return redirect()->back();
@@ -143,6 +150,15 @@ class UserController extends Controller
 
         // Make sure user doesn't have a phone yet
         if ( $request->user()->phone_verified ) {
+
+            if($request->ajax()){
+                return response()->json([
+                    'state' => 'phone_verified',
+                    'message' => __('tickets.sell.confirm_number.errors.phone_already_verified'),
+                    'type' => 'error'
+                ]);
+            }
+
             flash( __( 'tickets.sell.confirm_number.errors.phone_already_verified' ) )->error();
 
             return redirect()->back();
@@ -150,6 +166,15 @@ class UserController extends Controller
 
         // Now we make sure that verificaton wasn't sent more than 3 times for one user
         if ( PhoneVerification::withTrashed()->where( 'user_id', $request->user()->id )->count() > 2 ) {
+
+            if($request->ajax()){
+                return response()->json([
+                    'state' => 'phone_verification_sent',
+                    'message' => __( 'tickets.sell.confirm_number.errors.verify_max_retry' ),
+                    'type' => 'error'
+                ]);
+            }
+
             flash( __( 'tickets.sell.confirm_number.errors.verify_max_retry' ) )->error();
 
             return redirect()->back();
@@ -169,6 +194,8 @@ class UserController extends Controller
                 'user_id'       => $request->user()->id
             ] );
 
+        $warning = null;
+
         if ( \App::environment( 'production', 'staging' ) ) {
             try {
                 Nexmo::message()->send( [
@@ -177,15 +204,39 @@ class UserController extends Controller
                     'text' => $phoneVerification->message
                 ] );
             } catch (\Exception $e){
+
+                if($request->ajax()){
+                    return response()->json([
+                        'state' => 'phone_verification_sent',
+                        'message' => __('common.error'),
+                        'type' => 'error'
+                    ]);
+                }
+
                 flash(__('common.error'))->error();
+
                 return redirect()->back();
             }
         } else {
-            flash( 'Development mode: Would send a text to: '.$phoneVerification->phone_number.
-            ' containing code :'. $phoneVerification->code)->warning();
+
+            $warning = 'Development mode: Would send a text to: '.$phoneVerification->phone_number.
+                ' containing code :'. $phoneVerification->code;
+
+            if(!$request->ajax()){
+                flash($warning)->warning();
+            }
         }
 
         $phoneVerification->save();
+
+        if($request->ajax()){
+            return response()->json([
+                'state' => 'phone_verification_sent',
+                'warning' => $warning,
+                'message' => __( 'tickets.sell.confirm_number.success.code_sent' ),
+                'type' => 'success'
+            ]);
+        }
 
         flash( __( 'tickets.sell.confirm_number.success.code_sent' ) )->success();
 
@@ -210,6 +261,15 @@ class UserController extends Controller
 
         // Make sure user doesn't have a phone yet
         if ( $request->user()->phone_verified ) {
+
+            if($request->ajax()){
+                return response()->json([
+                    'state' => 'phone_verified',
+                    'message' => __('tickets.sell.confirm_number.errors.phone_already_verified'),
+                    'type' => 'error'
+                ]);
+            }
+
             flash( __( 'tickets.sell.confirm_number.errors.phone_already_verified' ) )->error();
 
             return redirect()->back();
@@ -221,6 +281,14 @@ class UserController extends Controller
                                               ->first();
 
         if ( ! $phoneVerification ) {
+
+            if($request->ajax()){
+                return response()->json([
+                    'message' => __('tickets.sell.confirm_number.errors.no_verification_found'),
+                    'type' => 'error'
+                ]);
+            }
+
             flash( __( 'tickets.sell.confirm_number.errors.no_verification_found' ) )->error();
 
             return redirect()->back();
@@ -230,6 +298,14 @@ class UserController extends Controller
         if ( User::where( 'phone', $phoneVerification->phone )
                  ->where( 'phone_country', $phoneVerification->phone_country )
                  ->count() > 0 ) {
+
+            if($request->ajax()){
+                return response()->json([
+                    'message' => __( 'tickets.sell.confirm_number.errors.phone_already_used'),
+                    'type' => 'error'
+                ]);
+            }
+
             flash( __( 'tickets.sell.confirm_number.errors.phone_already_used' ) )->error()->important();
 
             return redirect()->back();
@@ -242,6 +318,14 @@ class UserController extends Controller
         $user->save();
 
         $phoneVerification->delete();
+
+        if($request->ajax()){
+            return response()->json([
+                'state' => 'phone_verified',
+                'message' => __( 'tickets.sell.confirm_number.success.number_confirmed' ),
+                'type' => 'success'
+            ]);
+        }
 
         flash( __( 'tickets.sell.confirm_number.success.number_confirmed' ) )->success();
 

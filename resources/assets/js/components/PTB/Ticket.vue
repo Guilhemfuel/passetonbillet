@@ -115,7 +115,12 @@
                         <template v-else-if="!pastTicket && !display">
                             <div class="btn-buy row btn-buy-group" v-if="!selecting && buying">
                                 <div class="col text-center p-0">
-                                    <button class="btn btn-ptb btn-sm btn-call" @click.prevent="modalCallOpen = true">
+
+                                    <button v-if="this.ticket.hasPdf" class="btn btn-ptb btn-sm btn-call" @click.prevent="modalBuyOpen = true">
+                                        {{trans('tickets.component.buy')}}
+                                    </button>
+
+                                    <button v-else class="btn btn-ptb btn-sm btn-call" @click.prevent="modalCallOpen = true">
                                         <i class="fa fa-phone" aria-hidden="true"></i>
                                         {{trans('tickets.component.call')}}
                                     </button>
@@ -486,6 +491,11 @@
             </template>
         </modal>
 
+        <buy-modal :ticket="ticket"
+                    :is-open="modalBuyOpen"
+                    @close-modal="modalBuyOpen=false;"
+        ></buy-modal>
+
         <call-modal :ticket="ticket"
                     :is-open="modalCallOpen"
                     @close-modal="modalCallOpen=false;"
@@ -551,6 +561,7 @@
                 shareModalOpen: false,
                 modalDeleteOpen: false,
                 modalCallOpen: false,
+                modalBuyOpen: false,
                 modalEurostarWarning: this.ticketJustPublished && this.ticket.provider == 'eurostar',
             }
         },

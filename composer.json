@@ -37,6 +37,7 @@
         "laravel/tinker": "~1.0",
         "league/csv": "^9.1",
         "league/flysystem-aws-s3-v3": "^1.0",
+        "mangopay/php-sdk-v2": "2.3",
         "nexmo/laravel": "^2.0",
         "nicolaslopezj/searchable": "1.12.0",
         "pusher/pusher-php-server": "~3.0",
