@@ -31,74 +31,6 @@
                 </div>
             </div>
 
-            <div v-else-if="state == 'phone_not_verified'">
-                <div class="modal-body">
-                    <p class="text-justify">
-                        {{trans('tickets.sell.confirm_number.last_step')}}
-                    </p>
-                    <form method="post" :action="this.route('public.profile.phone.add')">
-                        <div class="row">
-
-                            <div class="col-md-12">
-
-                                <div class="form-group">
-                                    <phone :country-value="this.lang" @getData="getPhoneForm"></phone>
-                                </div>
-
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-ptb-blue btn-block" @click.prevent="addPhone">
-                                        {{ trans('tickets.sell.confirm_number.CTA') }}
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-            <div v-else-if="state == 'phone_verification_sent'">
-                <div class="modal-body">
-                    <p class="card-text text-justify">
-                        {{ trans('tickets.sell.confirm_number.last_step') }}
-                    </p>
-                    <form method="post" :action="this.route('public.profile.phone.verify')">
-                        <div class="row">
-                            <div class="col-sm-12 col-md-12">
-                                <div class="form-group">
-                                    <cleave type="text"
-                                            class="form-control"
-                                            placeholder="XXXXXX"
-                                            :options="{ numericOnly: true, blocks:[6] }"
-                                            name="code"
-                                            v-model="formConfirmPhone.code"></cleave>
-                                </div>
-                            </div>
-                            <div class="col-sm-12 col-md-12">
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-ptb-blue btn-block" @click.prevent="confirmPhone">
-                                        {{ trans('tickets.sell.confirm_number.CTA') }}
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                    <p @click.prevent="buyTicket">{{ trans('tickets.sell.confirm_number.no_code_received') }}</p>
-                </div>
-            </div>
-
-            <div v-else-if="state == 'phone_verified'">
-                <div class="modal-body">
-                    <p class="card-text text-justify">
-                        Votre numéro est vérifié !
-                    </p>
-                    <button type="submit" class="btn btn-ptb-blue btn-block" @click.prevent="confirmPhone">
-                        Acheter le billet
-                    </button>
-                </div>
-            </div>
-
             <div v-else-if="state == 'buy_ticket'">
                 <div class="modal-body">
                     <p class="card-text text-justify">
@@ -106,8 +38,9 @@
                     </p>
                 </div>
             </div>
-
         </modal>
+
+        <phone-modal :is-open="modalPhoneOpen" @close-modal="modalPhoneOpen=false;"></phone-modal>
     </div>
 </template>
 
@@ -120,15 +53,12 @@
     data() {
       return {
         state: 'recap',
+        modalPhoneOpen: false,
         modalBuyOpened: this.isOpen == null ? false : null,
         date: new moment(this.ticket.train.departure_date, 'YYYY-MM-DD') || null,
         form: {
           _token: window.csrf,
-        },
-        formPhone: {},
-        formConfirmPhone: {
-          code: null
-        },
+        }
       }
     },
     mounted() {
@@ -157,33 +87,23 @@
         this.$emit('close-modal');
       },
       handleResponse(response) {
-        if(response.body.state) { this.state = response.body.state; }
-        if(response.body.message) { this.$message({message: response.body.message, type: response.body.type}) }
-      },
-      getPhoneForm (data) {
-        this.formPhone = data
+        if (response.body.state) {
+          if(response.body.state === 'phone_not_verified') {
+            this.modalPhoneOpen = true
+          } else {
+            this.state = response.body.state;
+          }
+        }
+        if (response.body.message) {
+          this.$message({message: response.body.message, type: response.body.type})
+        }
       },
       buyTicket() {
         this.$http.post(this.route('api.ticket.buy', [this.ticket.id]), this.form)
           .then(response => {
             this.handleResponse(response)
           });
-      },
-      addPhone() {
-        this.$http.post(this.route('public.profile.phone.add'), this.formPhone)
-          .then(response => {
-            this.handleResponse(response)
-          });
-      },
-      confirmPhone() {
-        this.$http.post(this.route('public.profile.phone.verify'), this.formConfirmPhone)
-          .then(response => {
-            this.handleResponse(response)
-          });
       }
-    },
-    watch: {
-
     }
   }
 </script>

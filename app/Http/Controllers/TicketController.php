@@ -57,8 +57,6 @@ class TicketController extends Controller
 
         $ticket = Ticket::where('id', $id)->first();
 
-        dd('test');
-
         return redirect()->back();
     }
 

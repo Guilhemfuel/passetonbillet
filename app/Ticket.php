@@ -339,11 +339,11 @@ class Ticket extends AbstractTicket
         } );
     }
 
-    public function maxPrice() {
+    public function getMaxPriceAttribute() {
         return (self::MAX_PRICE / 100) * $this->bought_price;
     }
 
-    public function hasPdf() {
+    public function getHasPdfAttribute() {
         return $this->pdf ? true : false;
     }
 

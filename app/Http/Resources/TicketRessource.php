@@ -37,8 +37,8 @@ class TicketRessource extends Resource
             'pdf_downloaded'         => $this->when( \Auth::check() && \Auth::user()->id == $this->user_id, $this->pdf_downloaded ),
             'passed'                 => $this->passed,
             'sold'                   => $this->sold,
-            'maxPrice'               => $this->maxPrice(),
-            'hasPdf'                 => $this->hasPdf(),
+            'maxPrice'               => $this->max_price,
+            'hasPdf'                 => $this->has_pdf,
 
             // Only for seller, or when selecting (user id is null)
             'ticket_number'          => $this->when( ( \Auth::check() && \Auth::user()->id == $this->user_id ) || $this->user_id == null, $this->ticket_number ),
