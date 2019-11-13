@@ -135,7 +135,7 @@ class MangoPayService
             $PayIn->ExecutionType = "DIRECT";
 
             $PayIn->ExecutionDetails = new MangoPay\PayInExecutionDetailsDirect();
-            $PayIn->ExecutionDetails->SecureModeReturnURL = "http".(isset($_SERVER['HTTPS']) ? "s" : null)."://".$_SERVER["HTTP_HOST"].$_SERVER["SCRIPT_NAME"]."?";
+            $PayIn->ExecutionDetails->SecureModeReturnURL = $data->SecureModeReturnURL;
             $PayIn->ExecutionDetails->CardId = $data->CardId;
 
             $PayIn = $this->mangoPayApi->PayIns->Create($PayIn);
@@ -192,5 +192,31 @@ class MangoPayService
         } catch (MangoPay\Libraries\Exception $e) {
             return $e->GetMessage();
         }
+    }
+
+    public function getWalletTransactions($id) {
+        try {
+
+            $transactions = $this->mangoPayApi->Wallets->GetTransactions($id);
+            return $transactions;
+
+        } catch (MangoPay\Libraries\ResponseException $e) {
+            return $e->GetMessage();
+        } catch (MangoPay\Libraries\Exception $e) {
+            return $e->GetMessage();
+        }
+    }
+
+    public function getTransaction($id, $wallet) {
+
+        $transactions = $this->getWalletTransactions($wallet);
+
+        foreach($transactions as $transaction) {
+            if($transaction->Id === $id) {
+                return $transaction;
+            }
+        }
+
+        return null;
     }
 }

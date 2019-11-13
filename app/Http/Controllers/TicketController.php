@@ -101,8 +101,8 @@ class TicketController extends Controller
             'Amount' => $ticket->price,
             'CurrencyFees' => $ticket->bought_currency,
             'AmountFees' => 1,
-            'SecureModeReturnURL' => 'pio',
             'CardId' => $request->idCard,
+            'SecureModeReturnURL' => route('api.ticket.transaction.success')
         ];
 
         $payIn = $mangoPaySeller->directPayIn((object)$payIn);
@@ -112,6 +112,10 @@ class TicketController extends Controller
         $transaction->save();
 
         if($transaction->status === 'SUCCEEDED') {
+
+            //Send email with ticket PDF to user
+            $this->$this->sendTicket($ticket->id);
+
             return response()->json(['state' => 'success']);
         }
 
@@ -120,6 +124,37 @@ class TicketController extends Controller
         }
 
         return response()->json(['state' => 'error', 'payIn' => $payIn]);
+    }
+
+    public function successPayment(Request $request) {
+        //MangoPay SecureModeReturnURL
+        $transaction = Transaction::where('transaction', $request->transactionId)->first();
+
+        if ($transaction) {
+            $mangoPay = new MangoPayService();
+            $transactionMango = $mangoPay->getTransaction($transaction->transaction, $transaction->wallet_id);
+
+            $transaction->status = $transactionMango->Status;
+            $transaction->save();
+
+            if($transaction->status === 'SUCCEEDED') {
+                //Send email with ticket PDF to user
+                $this->sendTicket($transaction->ticket_id);
+            }
+
+            return redirect()->route('home');
+        }
+
+        return redirect()->route('home');
+    }
+
+    public function sendTicket($id) {
+
+        $ticket = Ticket::where('id', $id)->first();
+        $pdf = $ticket->pdf;
+        $email = $ticket->transaction->purchaser->email;
+
+        //Envoie du mail avec PDF
     }
 
     /**
