@@ -291,6 +291,11 @@ class Ticket extends AbstractTicket
         return $this->belongsTo( 'App\User', 'sold_to_id' );
     }
 
+    public function transaction()
+    {
+        return $this->hasOne('App\Transaction');
+    }
+
     /**
      * Static
      */

@@ -35,7 +35,6 @@
                                     <p class="time">{{arrival_time}}</p>
                                 </div>
                             </div>
-
                         </div>
 
                         <div v-if="this.ticket.hasPdf">
@@ -56,7 +55,7 @@
                         </p>
 
                         <label v-for="card in userCards" :key="card.Id" class="credit-card" :for="'card-' + card.Id">{{ card.Alias }}
-                            <input type="radio" :id="'card-' + card.Id" name="card" :value="card.Id">
+                            <input type="radio" :id="'card-' + card.Id" name="card" :value="card.Id" @change="formBuy = card.Id">
                         </label>
 
                         <div>
@@ -67,7 +66,7 @@
 
                         <div v-if="typeof userCards === 'object' && userCards[0]">
                             <button class="btn btn-ptb btn-upper text-uppercase mt-3 w-100"
-                                    @click.prevent="addCardRegistration">
+                                    @click.prevent="buy">
                                 Acheter {{ ticket.price }}{{ ticket.currency_symbol }}
                             </button>
                         </div>
@@ -141,7 +140,8 @@
           cardExpirationDate: null,
           cardCvx: null,
           idCard: null,
-        }
+        },
+        formBuy: null,
       }
     },
     mounted() {
@@ -167,9 +167,8 @@
           if (!(this.previousState.includes(oldVal))) {
             this.previousState.push(oldVal);
           }
-          console.log(this.previousState)
         }
-      },
+      }
     },
     methods: {
       closeModal() {
@@ -195,22 +194,9 @@
           }
         }
       },
-      handleResponse(response) {
-        if (response.body.state) {
-          if(response.body.state === 'phone_not_verified') {
-            this.modalPhoneOpen = true
-          } else {
-            this.state = response.body.state;
-          }
-        }
-        if (response.body.message) {
-          this.$message({message: response.body.message, type: response.body.type})
-        }
-      },
       getAllCards() {
         this.$http.get(this.route('api.user.get.cards'))
           .then(response => {
-            console.log(response)
             if(typeof response.body === 'object') {
               this.userCards = response.body;
             }
@@ -258,11 +244,21 @@
       updateCardRegistration(data) {
         this.$http.post(this.route('api.user.update.card.registration'), {'data': data, 'id': this.formRegistrationCard.idCard})
           .then(response => {
-            console.log(response.body)
             //Back to the user cards screen
             this.getAllCards()
           });
       },
+      buy() {
+        if(this.formBuy) {
+          this.$http.post(this.route('api.ticket.buy', [this.ticket.id]), {'idCard': this.formBuy})
+            .then(response => {
+              console.log(response.body)
+              if(response.body.redirect) {
+                window.location.href = response.body.redirect;
+              }
+            });
+        }
+      }
     }
   }
 </script>
@@ -301,7 +297,6 @@
     .recap-ticket .recap-time p {
         margin: 0;
     }
-
 
     .recap-ticket h3 {
         font-weight: bold;

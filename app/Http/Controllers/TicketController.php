@@ -30,6 +30,8 @@ use App\Notifications\OfferNotification;
 use App\Ticket;
 use App\Train;
 use App\Trains\TrainConnector;
+use App\Transaction;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Facades\Eurostar;
@@ -48,32 +50,76 @@ class TicketController extends Controller
 
     const COOKIE_TRIP_ARRIVAL = 'train_arrival';
 
-
     public function buyTicket(Request $request, $id)
     {
-
         $user = \Auth::user();
+        $ticket = Ticket::where('id', $id)->first();
 
-        if (!$user->phone_verified) {
-            return response()->json(['state' => 'phone_not_verified']);
+        //If ticket exist and available
+        if (!$ticket) {
+            return response()->json(['message' => 'Ticket doesn\'t exist']);
         }
-
-        // $ticket = Ticket::where('id', $id)->first();
-
-        $mangoPay = new MangoPayService();
 
         if (!$user->mangopay_id) {
-            $mangoUser = $mangoPay->createMangoUser($user);
-
-            $user->mangopay_id = $mangoUser->Id;
-            $user->save();
-        } else {
-
-            $mangoPay->getMangoUser($user->mangopay_id);
-            //$mangoPay->createCardRegistration($card);
+            return response()->json(['message' => 'No MangoPay Account']);
         }
 
-        return response()->json(['state' => 'buy_ticket']);
+        $mangoPaySeller = new MangoPayService();
+
+        $seller = User::where('id', $ticket->user->id)->first();
+
+        //Create MangoPay for seller if doesn't exist
+        if (!$seller->mangopay_id) {
+            $mangoSeller = $mangoPaySeller->createMangoUser($ticket->user);
+
+            $seller->mangopay_id = $mangoSeller->Id;
+            $seller->save();
+        } else {
+            $mangoPaySeller->getMangoUser($ticket->user->mangopay_id);
+        }
+
+        $transaction = Transaction::where('ticket_id', $ticket->id)->first();
+
+        //If ticket has no transaction yet, then we can create a waller for it
+        if (!$transaction) {
+            $wallet = $mangoPaySeller->createWallet($ticket->id);
+
+            $transaction = new Transaction();
+
+            $transaction->wallet_id = $wallet->Id;
+            $transaction->seller_id = $seller->id;
+            $transaction->purchaser_id = $user->id;
+            $transaction->ticket_id = $ticket->id;
+
+            $transaction->save();
+        }
+
+        $payIn = [
+            'CreditedWalletId' => $ticket->transaction->wallet_id,
+            'AuthorId' => $user->mangopay_id,
+            'Currency' => $ticket->bought_currency,
+            'Amount' => $ticket->price,
+            'CurrencyFees' => $ticket->bought_currency,
+            'AmountFees' => 1,
+            'SecureModeReturnURL' => 'pio',
+            'CardId' => $request->idCard,
+        ];
+
+        $payIn = $mangoPaySeller->directPayIn((object)$payIn);
+
+        $transaction->status = $payIn->Status;
+        $transaction->transaction = $payIn->Id;
+        $transaction->save();
+
+        if($transaction->status === 'SUCCEEDED') {
+            return response()->json(['state' => 'success']);
+        }
+
+        if($payIn->ExecutionDetails->SecureModeNeeded) {
+            return response()->json(['state' => 'created', 'payIn' => $payIn, 'redirect' => $payIn->ExecutionDetails->SecureModeRedirectURL]);
+        }
+
+        return response()->json(['state' => 'error', 'payIn' => $payIn]);
     }
 
     /**

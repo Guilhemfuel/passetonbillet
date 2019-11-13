@@ -21,6 +21,15 @@ class UserController extends Controller
         $user = \Auth::user();
 
         $mangoPay = new MangoPayService();
+
+        //Create Mango User if not exist
+        if (!$user->mangopay_id) {
+            $mangoUser = $mangoPay->createMangoUser($user);
+
+            $user->mangopay_id = $mangoUser->Id;
+            $user->save();
+        }
+
         $cards = $mangoPay->getAllCards($user->mangopay_id);
 
         return response()->json($cards);

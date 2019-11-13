@@ -114,4 +114,83 @@ class MangoPayService
             return $e->GetMessage();
         }
     }
+
+    public function directPayIn($data) {
+        try {
+
+            $PayIn = new MangoPay\PayIn();
+            $PayIn->CreditedWalletId = $data->CreditedWalletId;
+            $PayIn->AuthorId = $data->AuthorId;
+
+            $PayIn->PaymentType = "CARD";
+            $PayIn->PaymentDetails = new MangoPay\PayInPaymentDetailsCard();
+
+            $PayIn->DebitedFunds = new \MangoPay\Money();
+            $PayIn->DebitedFunds->Currency = $data->Currency;
+            $PayIn->DebitedFunds->Amount = $data->Amount * 100;
+
+            $PayIn->Fees = new \MangoPay\Money();
+            $PayIn->Fees->Currency = $data->CurrencyFees;
+            $PayIn->Fees->Amount = $data->AmountFees * 100;
+            $PayIn->ExecutionType = "DIRECT";
+
+            $PayIn->ExecutionDetails = new MangoPay\PayInExecutionDetailsDirect();
+            $PayIn->ExecutionDetails->SecureModeReturnURL = "http".(isset($_SERVER['HTTPS']) ? "s" : null)."://".$_SERVER["HTTP_HOST"].$_SERVER["SCRIPT_NAME"]."?";
+            $PayIn->ExecutionDetails->CardId = $data->CardId;
+
+            $PayIn = $this->mangoPayApi->PayIns->Create($PayIn);
+
+            return $PayIn;
+
+        } catch (MangoPay\Libraries\ResponseException $e) {
+            return $e->GetMessage();
+        } catch (MangoPay\Libraries\Exception $e) {
+            return $e->GetMessage();
+        }
+    }
+
+    public function createWallet($name) {
+        try {
+
+            $wallet = new MangoPay\Wallet();
+            $wallet->Owners = array ($this->mangoUser);
+            $wallet->Description = "Passe Ton Billet - Ticket : " . $name;
+            $wallet->Currency = "EUR";
+
+            $wallet = $this->mangoPayApi->Wallets->Create($wallet);
+
+            return $wallet;
+
+        } catch (MangoPay\Libraries\ResponseException $e) {
+            return $e->GetMessage();
+        } catch (MangoPay\Libraries\Exception $e) {
+            return $e->GetMessage();
+        }
+    }
+
+    public function getWallet($id) {
+        try {
+
+            $wallet = $this->mangoPayApi->Wallets->Get($id);
+            return $wallet;
+
+        } catch (MangoPay\Libraries\ResponseException $e) {
+            return $e->GetMessage();
+        } catch (MangoPay\Libraries\Exception $e) {
+            return $e->GetMessage();
+        }
+    }
+
+    public function getAllWallet() {
+        try {
+
+            $wallets = $this->mangoPayApi->Users->GetWallets($this->mangoUser);
+            return $wallets;
+
+        } catch (MangoPay\Libraries\ResponseException $e) {
+            return $e->GetMessage();
+        } catch (MangoPay\Libraries\Exception $e) {
+            return $e->GetMessage();
+        }
+    }
 }
