@@ -76,25 +76,6 @@ class TicketController extends Controller
         return response()->json(['state' => 'buy_ticket']);
     }
 
-    public function addCardRegistration(Request $request) {
-
-        $user = \Auth::user();
-
-        $mangoPay = new MangoPayService();
-        $mangoPay->getMangoUser($user->mangopay_id);
-
-        $cardRegistration = $mangoPay->createCardRegistration($request->data);
-
-        return response()->json($cardRegistration);
-    }
-
-    public function updateCardRegistration(Request $request) {
-        $mangoPay = new MangoPayService();
-        $result = $mangoPay->updateCardRegistration($request->id, $request->data);
-
-        return response()->json($result);
-    }
-
     /**
      * @param SellTicketRequest $request
      *

@@ -11,10 +11,39 @@ use App\Notifications\Verification\IdConfirmed;
 use App\User;
 use Illuminate\Http\Request;
 use Nexmo\Laravel\Facade\Nexmo;
+use App\Services\MangoPayService;
 
 class UserController extends Controller
 {
     const ID_PATH = 'id_verification';
+
+    public function getCards() {
+        $user = \Auth::user();
+
+        $mangoPay = new MangoPayService();
+        $cards = $mangoPay->getAllCards($user->mangopay_id);
+
+        return response()->json($cards);
+    }
+
+    public function addCardRegistration(Request $request) {
+
+        $user = \Auth::user();
+
+        $mangoPay = new MangoPayService();
+        $mangoPay->getMangoUser($user->mangopay_id);
+
+        $cardRegistration = $mangoPay->createCardRegistration($request->data);
+
+        return response()->json($cardRegistration);
+    }
+
+    public function updateCardRegistration(Request $request) {
+        $mangoPay = new MangoPayService();
+        $result = $mangoPay->updateCardRegistration($request->id, $request->data);
+
+        return response()->json($result);
+    }
 
     /**
      * Upload

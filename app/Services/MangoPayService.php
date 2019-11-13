@@ -66,6 +66,19 @@ class MangoPayService
         }
     }
 
+    public function getAllCards($id) {
+        try {
+
+            $cards = $this->mangoPayApi->Users->GetCards($id);
+            return $cards;
+
+        } catch (MangoPay\Libraries\ResponseException $e) {
+            return $e->GetCode();
+        } catch (MangoPay\Libraries\Exception $e) {
+            return $e->GetMessage();
+        }
+    }
+
     public function createCardRegistration($card = null) {
         try {
             $cardRegistration = new MangoPay\CardRegistration();
