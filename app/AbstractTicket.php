@@ -141,4 +141,8 @@ abstract class AbstractTicket extends BaseModel
     public function getHasPdfAttribute() {
         return $this->pdf ? true : false;
     }
+
+    public function hasBeenSold() {
+        return ($this->transaction && $this->transaction->status === 'SUCCEEDED') ? true : false;
+    }
 }

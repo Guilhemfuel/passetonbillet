@@ -197,7 +197,16 @@ class MangoPayService
     public function getWalletTransactions($id) {
         try {
 
-            $transactions = $this->mangoPayApi->Wallets->GetTransactions($id);
+            $pagination = new MangoPay\Pagination();
+            $pagination->Page = 1;
+            $pagination->ItemsPerPage = 20;
+
+            $filter = new MangoPay\FilterTransactions();
+
+            $sorting = new MangoPay\Sorting();
+            $sorting->AddField("CreationDate", MangoPay\SortDirection::DESC);
+
+            $transactions = $this->mangoPayApi->Wallets->GetTransactions($id, $pagination, $filter, $sorting);
             return $transactions;
 
         } catch (MangoPay\Libraries\ResponseException $e) {

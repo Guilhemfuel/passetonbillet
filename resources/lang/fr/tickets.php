@@ -368,5 +368,21 @@ return [
         'text_2' => 'Autre plateformes: Kelbillet, Trocsdestrains, Zepass, Facebook',
         'text_3' => 'Vous recevrez un lien unique par billet que vous pourrez partager sur Facebook qui permettra aux personnes interessées d’acheter le billet directement depuis PasseTonBillet.',
         'text_4' => 'Je garantie que mon billet est uniquement en vente sur Passetonbillet.'
+    ],
+
+    'buy_modal' => [
+        'buy_ticket_of' => 'Acheter le ticket de',
+        'instant_receive' => 'Vous recevrez le billet instantanément',
+        'choose_payment' => 'Choisissez un moyen de paiement',
+        'add_payment' => 'Ajoutez un moyen de paiement',
+        'add' => 'Ajouter',
+        'error' => 'Une erreur est survenue',
+
+        'send_email_to' => 'Nous avons envoyé votre billet à',
+        'have_good_trip' => 'Bon voyage !',
+
+        'ticket_doesnt_exist' => 'Ce ticket n\'existe pas !',
+        'no_mangopay' => 'Un problème est survenu avec mangopay',
+        'ticket_already_sold' => 'Ce ticket a déjà été vendu !',
     ]
 ];

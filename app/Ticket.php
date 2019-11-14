@@ -190,8 +190,11 @@ class Ticket extends AbstractTicket
         foreach ( $trains as $train ) {
             if ( $train->tickets()->withoutScams() ) {
                 foreach ( $train->tickets as $ticket ) {
-                    if ( $ticket->sold_to_id == null ) {
-                        $tickets->push( $ticket );
+                    // If ticket is already bought we don't put in the search
+                    if (!$ticket->hasBeenSold()) {
+                        if ( $ticket->sold_to_id == null ) {
+                            $tickets->push( $ticket );
+                        }
                     }
                 }
             }
@@ -350,6 +353,10 @@ class Ticket extends AbstractTicket
 
     public function getHasPdfAttribute() {
         return $this->pdf ? true : false;
+    }
+
+    public function hasBeenSold() {
+        return ($this->transaction && $this->transaction->status === 'SUCCEEDED') ? true : false;
     }
 
 }

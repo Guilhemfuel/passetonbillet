@@ -60,6 +60,9 @@ Route::get( 'ticket/sell', 'PageController@sellPage' )->name( 'public.ticket.sel
 // Ticket search page
 Route::get( 'ticket/buy', 'PageController@buyPage' )->name( 'public.ticket.buy.page' );
 
+// Download Ticket
+Route::get( 'ticket/download/{id}', 'TicketController@downloadTicket' )->name( 'public.ticket.download' );
+
 /**
  * Public alert pages
  */

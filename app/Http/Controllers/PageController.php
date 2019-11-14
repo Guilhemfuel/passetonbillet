@@ -23,6 +23,7 @@ use App\Notifications\Verification\IdConfirmed;
 use App\Station;
 use App\Ticket;
 use App\Train;
+use App\Transaction;
 use App\User;
 use Carbon\Carbon;
 use Hashids\Hashids;
@@ -33,8 +34,16 @@ use Mockery\Exception;
 class PageController extends Controller
 {
 
-    public function home()
+    public function home(Request $request)
     {
+
+        $successPurchase = false;
+        if($transactionId = $request->session()->pull('successPurchase')) {
+            $transaction = Transaction::where('transaction', $transactionId)->first();
+
+            $successPurchase = (object) ['ticket' => $transaction->ticket_id, 'email' => $transaction->purchaser->email];
+        }
+
         // Order of stations
         $defaultStationsIds = [ 4916, 8267, 5974, 4718, 4790 ];
         $defaultStations = Station::findMany( $defaultStationsIds );
@@ -60,6 +69,7 @@ class PageController extends Controller
             'arrivalStation'   => $arrivalStation ? new StationRessource( $arrivalStation ) : null,
             'questions'        => $questions,
             'reviews'          => $reviews,
+            'successPurchase'  => $successPurchase
         ] );
     }
 

@@ -15,6 +15,7 @@ return [
     'offer'                   => 'You have received a new offer',
     'offer_accepted'          => 'One of your offers was accepted',
     'ticket_sold'             => 'Your ticket has sold!',
+    'ticket_sold_seller'      => 'You sold a ticket !',
     'review_request'          => 'Help us to improve our service',
     'alert_triggered'         => 'PasseTonBillet Alert: a new ticket has just been published !',
 

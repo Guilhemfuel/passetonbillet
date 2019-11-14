@@ -6,8 +6,14 @@
 
 @section('content')
 
+    @if ($successPurchase)
+        {{-- Modal to download ticket once user bought it --}}
+        <success-purchase-modal :ticket-id="{!! $successPurchase->ticket !!}" :email="'{!! $successPurchase->email !!}'"></success-purchase-modal>
+    @endif
+
     <div class="welcome-page">
         <div class="section-header">
+
             <div class="first-section" style="background-image: url('{{secure_asset('img/bg/1.jpg')}}');">
                 <div class="fixed-content">
                     <nav class="navbar pos-top" id="nav">

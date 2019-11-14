@@ -12,10 +12,10 @@
                 <div class="modal-body row">
                     <div class="col-sm-12 col-md-12 text-center m-auto">
                         <h4 class="card-text text-center font-weight-bold">
-                            Acheter le billet de {{ ticket.user.first_name }}
+                            {{trans('tickets.buy_modal.buy_ticket_of')}} {{ ticket.user.first_name }}
                         </h4>
                         <p class="card-text text-center font-weight-bold">
-                            Vous recevrez le billet instantanément
+                            {{trans('tickets.buy_modal.instant_receive')}}
                         </p>
 
                         <div class="recap-ticket">
@@ -39,7 +39,7 @@
 
                         <div v-if="this.ticket.hasPdf">
                             <button class="btn btn-ptb btn-upper text-uppercase mt-3 w-100" @click.prevent="getAllCards">
-                                Acheter {{ ticket.price }}{{ ticket.currency_symbol }}
+                                {{trans('tickets.component.buy')}} {{ ticket.price }}{{ ticket.currency_symbol }}
                             </button>
                         </div>
 
@@ -51,7 +51,7 @@
                 <div class="modal-body row">
                     <div class="col-sm-12 col-md-8 text-center m-auto">
                         <p class="card-text text-center font-weight-bold">
-                            Choisissez un moyen de paiement
+                            {{trans('tickets.buy_modal.choose_payment')}}
                         </p>
 
                         <label v-for="card in userCards" :key="card.Id" class="credit-card" :for="'card-' + card.Id">{{ card.Alias }}
@@ -60,14 +60,14 @@
 
                         <div>
                             <button class="btn-add-payment w-100" @click.prevent="addCardRegistration">
-                                Ajouter un moyen de paiement
+                                {{trans('tickets.buy_modal.add_payment')}}
                             </button>
                         </div>
 
                         <div v-if="typeof userCards === 'object' && userCards[0]">
                             <button class="btn btn-ptb btn-upper text-uppercase mt-3 w-100"
                                     @click.prevent="buy">
-                                Acheter {{ ticket.price }}{{ ticket.currency_symbol }}
+                                {{trans('tickets.component.buy')}} {{ ticket.price }}{{ ticket.currency_symbol }}
                             </button>
                         </div>
 
@@ -79,7 +79,7 @@
                 <div class="modal-body row">
                     <div class="col-sm-12 col-md-8 text-center m-auto">
                         <p class="card-text text-center font-weight-bold">
-                            Ajouter un moyen de paiement
+                            {{trans('tickets.buy_modal.add_payment')}}
                         </p>
 
                         <form :action="CardRegistrationURL" method="post" id="formRegistrationCard" class="w-100 m-auto row">
@@ -105,7 +105,7 @@
 
                             <div class="col-sm-12 col-md-12">
                                 <button class="btn btn-ptb btn-upper mt-3 w-100" @click.prevent="saveCardRegistration">
-                                    Ajouter
+                                    {{trans('tickets.buy_modal.add')}}
                                 </button>
                             </div>
                         </form>
@@ -238,7 +238,14 @@
               request.headers.set('Content-Type', 'application/json');
             };
 
-            this.updateCardRegistration(response.body)
+            if(response.body.includes("errorCode")) {
+              this.$message({message: this.trans('tickets.buy_modal.error'), type: 'error'})
+            } else if (response.body.message) {
+              this.$message({message: response.body.message, type: 'error'})
+            } else {
+              this.updateCardRegistration(response.body)
+            }
+
           });
       },
       updateCardRegistration(data) {
@@ -255,6 +262,10 @@
               console.log(response.body)
               if(response.body.redirect) {
                 window.location.href = response.body.redirect;
+              } else if (response.body.message) {
+                this.$message({message: response.body.message, type: 'error'})
+              } else {
+                this.$message({message: this.trans('tickets.buy_modal.error'), type: 'error'})
               }
             });
         }

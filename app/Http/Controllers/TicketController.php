@@ -23,6 +23,8 @@ use App\Http\Resources\TrainRessource;
 use App\Jobs\DownloadTicketPdf;
 use App\Listeners\Admin\Checks\CheckPriceTicketAddedListener;
 use App\Mail\OfferEmail;
+use App\Mail\SendNotifToSellerEmail;
+use App\Mail\SendTicketEmail;
 use App\Models\AdminWarning;
 use App\Models\Discussion;
 use App\Models\Statistic;
@@ -57,11 +59,11 @@ class TicketController extends Controller
 
         //If ticket exist and available
         if (!$ticket) {
-            return response()->json(['message' => 'Ticket doesn\'t exist']);
+            return response()->json(['message' => trans('tickets.buy_modal.ticket_doesnt_exist')]);
         }
 
         if (!$user->mangopay_id) {
-            return response()->json(['message' => 'No MangoPay Account']);
+            return response()->json(['message' => trans('tickets.buy_modal.no_mangopay')]);
         }
 
         $mangoPaySeller = new MangoPayService();
@@ -94,6 +96,10 @@ class TicketController extends Controller
             $transaction->save();
         }
 
+        if ($transaction->status === 'SUCCEEDED') {
+            return response()->json(['message' => trans('tickets.buy_modal.ticket_already_sold')]);
+        }
+
         $payIn = [
             'CreditedWalletId' => $ticket->transaction->wallet_id,
             'AuthorId' => $user->mangopay_id,
@@ -112,11 +118,7 @@ class TicketController extends Controller
         $transaction->save();
 
         if($transaction->status === 'SUCCEEDED') {
-
-            //Send email with ticket PDF to user
-            $this->$this->sendTicket($ticket->id);
-
-            return response()->json(['state' => 'success']);
+            return response()->json(['state' => 'success', 'redirect' => route('api.ticket.transaction.success') . '?transactionId=' . $transaction->transaction]);
         }
 
         if($payIn->ExecutionDetails->SecureModeNeeded) {
@@ -134,27 +136,55 @@ class TicketController extends Controller
             $mangoPay = new MangoPayService();
             $transactionMango = $mangoPay->getTransaction($transaction->transaction, $transaction->wallet_id);
 
-            $transaction->status = $transactionMango->Status;
-            $transaction->save();
+            if ($transactionMango) {
+                $transaction->status = $transactionMango->Status;
+                $transaction->save();
 
-            if($transaction->status === 'SUCCEEDED') {
-                //Send email with ticket PDF to user
-                $this->sendTicket($transaction->ticket_id);
+                if($transaction->status === 'SUCCEEDED') {
+                    //Send email with ticket PDF to user
+                    $this->sendTicket($transaction->ticket_id);
+
+                    $request->session()->put('successPurchase', $request->transactionId);
+                } else {
+                    $request->session()->put('failPurchase', $request->transactionId);
+                }
             }
-
-            return redirect()->route('home');
         }
 
         return redirect()->route('home');
     }
 
-    public function sendTicket($id) {
+    public function sendTicket($id = 16439) {
+
+        $user = \Auth::user();
 
         $ticket = Ticket::where('id', $id)->first();
         $pdf = $ticket->pdf;
         $email = $ticket->transaction->purchaser->email;
 
-        //Envoie du mail avec PDF
+        $file = storage_path('app/uploads/' . $ticket->pdf);
+
+        //Send email to Purchaser
+        \Mail::to($user->email)->send(new SendTicketEmail($user, $ticket, $file));
+
+        //Send email to Seller
+        \Mail::to($user->email)->send(new SendNotifToSellerEmail($ticket->transaction->seller, $ticket));
+    }
+
+    public function downloadTicket($id)
+    {
+        $user = \Auth::user();
+
+        if ($user) {
+            $ticket = Ticket::where('id', $id)->first();
+            if ($ticket) {
+                if ($ticket->transaction->purchaser_id === $user->id && $ticket->transaction->status === 'SUCCEEDED') {
+                    return Storage::download('uploads/' . $ticket->pdf);
+                }
+            }
+        }
+
+        return redirect()->route('home');
     }
 
     /**
@@ -334,13 +364,8 @@ class TicketController extends Controller
 
     }
 
-    /**
-     * Redirects to the link to download the pdf of a ticket
-     *
-     * @param Request $request
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
+    /*
+     * Obsolete
     public function downloadTicket( $ticket_id )
     {
         $ticket = Ticket::find( $ticket_id );
@@ -370,6 +395,7 @@ class TicketController extends Controller
 
         return redirect( $url );
     }
+    */
 
     /////////////////////////
     /// API
