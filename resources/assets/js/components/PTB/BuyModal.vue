@@ -126,7 +126,6 @@
       return {
         state: 'recap',
         previousState: [],
-        modalBuyOpened: this.isOpen == null ? false : null,
         date: new moment(this.ticket.train.departure_date, 'YYYY-MM-DD') || null,
         form: {
           _token: window.csrf,
@@ -145,11 +144,15 @@
       }
     },
     mounted() {
-      console.log(this.ticket)
+
     },
     computed: {
       trulyOpened() {
-        if (this.isOpen == true || this.modalBuyOpened == true) {
+        if (this.isOpen == true) {
+          if (!this.$root.user) {
+            this.state = '';
+            window.location.href = this.route('login');
+          }
           return true;
         }
         return false;
@@ -172,10 +175,6 @@
     },
     methods: {
       closeModal() {
-        // Only update that if modal not controlled externally
-        if (this.isOpen == null) {
-          this.modalBuyOpened = false;
-        }
         this.$emit('close-modal');
       },
       previousModal() {

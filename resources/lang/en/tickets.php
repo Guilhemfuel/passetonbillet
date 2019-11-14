@@ -348,6 +348,8 @@ return [
 
         'select_file' => 'Séléctionner un fichier',
 
+        'price_too_high' => 'Price is too high and can\'t exceed :',
+
         'zoom_pdf' => 'Agrandir',
 
         'choose_pdf' => 'Choisisez le PDF qui correpond au billet que vous souhaitez vendre',

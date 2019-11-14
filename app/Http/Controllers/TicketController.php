@@ -56,6 +56,7 @@ class TicketController extends Controller
     {
         $user = \Auth::user();
         $ticket = Ticket::where('id', $id)->first();
+        $transaction = Transaction::where('ticket_id', $ticket->id)->first();
 
         //If ticket exist and available
         if (!$ticket) {
@@ -64,6 +65,11 @@ class TicketController extends Controller
 
         if (!$user->mangopay_id) {
             return response()->json(['message' => trans('tickets.buy_modal.no_mangopay')]);
+        }
+
+        //If ticket is already bought
+        if ($transaction->status === 'SUCCEEDED') {
+            return response()->json(['message' => trans('tickets.buy_modal.ticket_already_sold')]);
         }
 
         $mangoPaySeller = new MangoPayService();
@@ -80,11 +86,9 @@ class TicketController extends Controller
             $mangoPaySeller->getMangoUser($ticket->user->mangopay_id);
         }
 
-        $transaction = Transaction::where('ticket_id', $ticket->id)->first();
-
         //If ticket has no transaction yet, then we can create a waller for it
         if (!$transaction) {
-            $wallet = $mangoPaySeller->createWallet($ticket->id);
+            $wallet = $mangoPaySeller->createWallet($ticket->id, $ticket->currency);
 
             $transaction = new Transaction();
 
@@ -94,14 +98,21 @@ class TicketController extends Controller
             $transaction->ticket_id = $ticket->id;
 
             $transaction->save();
-        }
+        } else {
+            $wallet = $mangoPaySeller->getWallet($transaction->wallet_id);
 
-        if ($transaction->status === 'SUCCEEDED') {
-            return response()->json(['message' => trans('tickets.buy_modal.ticket_already_sold')]);
+            //If there is a current wallet with wrong currency we need to make a new one
+            //It is not allow to change currency in Mangopay
+            if($wallet->Currency != $ticket->currency) {
+                $wallet = $mangoPaySeller->createWallet($ticket->id, $ticket->currency);
+
+                $transaction->wallet_id = $wallet->Id;
+                $transaction->save();
+            }
         }
 
         $payIn = [
-            'CreditedWalletId' => $ticket->transaction->wallet_id,
+            'CreditedWalletId' => $transaction->wallet_id,
             'AuthorId' => $user->mangopay_id,
             'Currency' => $ticket->bought_currency,
             'Amount' => $ticket->price,
@@ -112,6 +123,10 @@ class TicketController extends Controller
         ];
 
         $payIn = $mangoPaySeller->directPayIn((object)$payIn);
+
+        if(!$payIn OR !is_object($payIn)) {
+            return response()->json(['state' => 'error', 'payIn' => $payIn]);
+        }
 
         $transaction->status = $payIn->Status;
         $transaction->transaction = $payIn->Id;

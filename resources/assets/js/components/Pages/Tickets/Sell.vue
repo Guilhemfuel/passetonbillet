@@ -172,11 +172,22 @@
             <div v-if="step==4" class="col-sm-12 col-md-6">
                 <div class="card">
                     <div class="card-body">
+
+                        <transition enter-class="pre-animated"
+                                    enter-active-class="animated fadeIn"
+                                    leave-active-class="animated fadeOut">
+                            <div v-if="loaderSellTicket==true">
+                                <div class="p-5">
+                                    <loader :class-name="'mx-auto'"></loader>
+                                </div>
+                            </div>
+                        </transition>
+
                         <p class="text-center">{{trans('tickets.step_4.text_1')}}</p>
                         <p class="text-center">{{trans('tickets.step_4.text_2')}}</p>
                         <p class="text-center">{{trans('tickets.step_4.text_3')}}</p>
 
-                        <vue-form method="post" :action="route('public.ticket.sell.post')" ref="sell_ticket">
+                        <vue-form name="formSellTicket" method="post" :action="route('public.ticket.sell.post')" ref="sell_ticket">
                             <input type="hidden" name="index" :value="selectedTicket.id">
                             <input type="hidden" name="price" :value="selectedTicket.price">
                             <input type="hidden" name="file" :value="pdf.file">
@@ -190,7 +201,7 @@
                                     validation="required">
                             </input-text>
 
-                            <button type="submit" class="btn btn-ptb btn-block mt-4">
+                            <button type="submit" class="btn btn-ptb btn-block mt-4" @click.prevent="submitForm()">
                                 {{trans('tickets.sell.submit')}}
                             </button>
                         </vue-form>
@@ -222,6 +233,7 @@
             return {
                 csrf: window.csrf,
                 state: 'input',
+                loaderSellTicket: false,
                 step: 2,
                 form: {
                     email: null,
@@ -254,6 +266,7 @@
                             .then(response => {
 
                                 if (response.ok) {
+
                                     if (response.data.data.length == 1) {
                                         this.state = 'selling_details';
                                         this.tickets = response.data.data;
@@ -311,6 +324,10 @@
                 this.state = 'selling_details';
             },
           step3() {
+              if(this.selectedTicket.price > this.selectedTicket.maxPrice) {
+                let message = this.trans('tickets.pdf.price_too_high') + ' ' + this.selectedTicket.maxPrice + this.selectedTicket.currency;
+                  this.$message({message: message, type: 'alert'})
+              }
               if(this.cgu) {
                 this.step = 3;
               }
@@ -329,6 +346,13 @@
               this.pdf.file = reader.result;
             };
             reader.readAsDataURL(file);
+          },
+          submitForm() {
+            let checkBox = document.getElementById("unique-ticket");
+            if (checkBox.checked === true){
+              this.loaderSellTicket = true;
+              document.forms["formSellTicket"].submit();
+            }
           }
         }
     }

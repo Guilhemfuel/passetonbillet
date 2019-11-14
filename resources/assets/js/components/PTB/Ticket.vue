@@ -116,7 +116,7 @@
                             <div class="btn-buy row btn-buy-group" v-if="!selecting && buying">
                                 <div class="col text-center p-0">
 
-                                    <button v-if="this.ticket.hasPdf" class="btn btn-ptb btn-sm btn-call" @click.prevent="modalBuyOpen = true">
+                                    <button v-if="this.ticket.hasPdf" class="btn btn-ptb btn-sm btn-call" @click.prevent="ifUserLogged()">
                                         {{trans('tickets.component.buy')}}
                                     </button>
 
@@ -616,6 +616,13 @@
             }
         },
         methods: {
+          ifUserLogged() {
+            if (!this.$root.user) {
+              window.location.href = this.route('login');
+            } else {
+              this.modalBuyOpen = true
+            }
+          },
             ucFirst(string) {
                 return string.charAt(0).toUpperCase() + string.slice(1);
             },

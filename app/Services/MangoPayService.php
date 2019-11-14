@@ -149,13 +149,13 @@ class MangoPayService
         }
     }
 
-    public function createWallet($name) {
+    public function createWallet($name, $currency) {
         try {
 
             $wallet = new MangoPay\Wallet();
             $wallet->Owners = array ($this->mangoUser);
             $wallet->Description = "Passe Ton Billet - Ticket : " . $name;
-            $wallet->Currency = "EUR";
+            $wallet->Currency = $currency;
 
             $wallet = $this->mangoPayApi->Wallets->Create($wallet);
 
