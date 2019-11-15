@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use App\Services\PdfService;
 
 class TicketController extends Controller
 {
@@ -138,17 +139,19 @@ class TicketController extends Controller
                         Storage::delete('uploads/' . $ticket->pdf);
                     }
 
-                    //Upload file
-                    $data = explode(',', $request->file);
-                    $random = Str::random(40);
+                    $pdfService = new PdfService();
+                    $pdf = $pdfService->storePdfBase64($request->file);
 
-                    Storage::disk('local')->put("uploads/$random.pdf", base64_decode($data[1]));
+                    if ($pdfService->checkPdf()) {
+                        $pdfService->splitPdf($request->page);
 
-                    $ticket->pdf = "$random.pdf";
-                    $ticket->page_pdf = $request->page;
-                    $ticket->save();
+                        $ticket->pdf = $pdf;
+                        $ticket->page_pdf = $request->page;
+                        $ticket->save();
 
-                    return response()->json(['status' => 'success', 'message' => trans('tickets.api.pdf_uploaded')]);
+                        return response()->json(['status' => 'success', 'message' => trans('tickets.api.pdf_uploaded')]);
+                    }
+                    return response()->json(['status' => 'error', 'message' => trans('tickets.pdf.verif_pdf_error')], 400);
                 }
                 return response()->json(['status' => 'error', 'message' => trans('tickets.api.pdf_empty')], 400);
             }

@@ -39,8 +39,8 @@ use Illuminate\Http\Request;
 use App\Facades\Eurostar;
 use Mockery\Exception;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 use App\Services\MangoPayService;
+use App\Services\PdfService;
 
 
 class TicketController extends Controller
@@ -195,7 +195,8 @@ class TicketController extends Controller
             $ticket = Ticket::where('id', $id)->first();
             if ($ticket) {
                 if ($ticket->user_id === $user->id OR ($ticket->transaction->purchaser_id === $user->id && $ticket->transaction->status === 'SUCCEEDED')) {
-                    return Storage::download('uploads/' . $ticket->pdf);
+                    $name = 'PTB Ticket n°' .  $ticket->id . ' - ' . $ticket->train->departureCity->name . '-' . $ticket->train->arrivalCity->name . '.pdf';
+                    return Storage::download('uploads/' . $ticket->pdf, $name);
                 }
             }
         }
@@ -239,32 +240,38 @@ class TicketController extends Controller
             return redirect()->route( 'public.ticket.sell.page' );
         }
 
-        //Upload file
-        $data = explode(',', $request->file);
-        $random = Str::random(40);
 
-        Storage::disk('local')->put("uploads/$random.pdf", base64_decode($data[1]));
+        $pdfService = new PdfService();
+        $pdf = $pdfService->storePdfBase64($request->file);
 
-        $ticket->user_id = \Auth::id();
-        $ticket->price = $request->price;
-        $ticket->currency = $ticket->bought_currency;
-        $ticket->user_notes = $request->notes;
-        $ticket->pdf = "$random.pdf";
-        $ticket->page_pdf = $request->page;
-        $ticket->save();
+        //Class to check PDF in the futur
+        if ($pdfService->checkPdf()) {
+            $pdfService->splitPdf($request->page);
 
-        Amplitude::logEvent( 'add_ticket', [
-            'ticket_id'       => $ticket->id,
-            'ticket_provider' => $ticket->provider
-        ] );
+            $ticket->user_id = \Auth::id();
+            $ticket->price = $request->price;
+            $ticket->currency = $ticket->bought_currency;
+            $ticket->user_notes = $request->notes;
+            $ticket->pdf = $pdf;
+            $ticket->page_pdf = $request->page;
+            $ticket->save();
 
-        // Dispatch ticket added event
-        event( new TicketAddedEvent( $ticket ) );
+            Amplitude::logEvent( 'add_ticket', [
+                'ticket_id'       => $ticket->id,
+                'ticket_provider' => $ticket->provider
+            ] );
 
-        flash( __( 'tickets.sell.success' ) )->success()->important();
+            // Dispatch ticket added event
+            event( new TicketAddedEvent( $ticket ) );
 
-        return redirect()->route( 'public.ticket.owned.page' )
-                         ->with( [ 'addedTicket' => new TicketRessource( $ticket ) ] );
+            flash( __( 'tickets.sell.success' ) )->success()->important();
+
+            return redirect()->route( 'public.ticket.owned.page' )
+                ->with( [ 'addedTicket' => new TicketRessource( $ticket ) ] );
+        }
+
+        flash( __( 'tickets.pdf.verif_pdf_error' ) )->error()->important();
+        return redirect()->route( 'public.ticket.sell.page' );
     }
 
     /**

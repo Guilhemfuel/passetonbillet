@@ -177,6 +177,8 @@
             this.loaderPdf = false;
           }, response => {
             this.handleResponse(response)
+            this.openModal = false;
+            this.loaderPdf = false;
           });
       },
     },

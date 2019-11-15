@@ -356,6 +356,8 @@ return [
 
         'zoom_pdf' => 'Agrandir',
 
+        'verif_pdf_error' => 'Error during the PDF verification',
+
         'choose_pdf' => 'Choisisez le PDF qui correpond au billet que vous souhaitez vendre',
         'choose_this_ticket' => 'Choisir ce billet',
         'sell_this_ticket' => 'Ceci est le billet en vente',
