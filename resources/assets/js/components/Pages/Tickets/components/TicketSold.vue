@@ -1,109 +1,137 @@
 <template>
-    <div class="my-ticket row">
+    <transition enter-class="pre-animated"
+                enter-active-class="animated fadeIn"
+                leave-active-class="animated fadeOut">
+        <div class="my-ticket row" v-if="!deletedTicket">
 
-        <div v-if="!update" class="front">
-            <div>
-                N°{{ ticket.id }}<br>
-                <span class="font-weight-bold">{{ formatedDate(ticket.created_at) }}</span>
-            </div>
-
-            <div class="d-flex justify-content-between departure">
+            <div v-if="!update" class="front">
                 <div>
-                    <span class="font-weight-bold text-uppercase">{{ ticket.train.departure_city.name }}</span><br>
-                    {{ ticket.train.departure_time }}
+                    N°{{ ticket.id }}<br>
+                    <span class="font-weight-bold">{{ formatedDate(ticket.created_at) }}</span>
                 </div>
 
-                <div>
-                    <i aria-hidden="true" class="fa fa-long-arrow-right"></i>
+                <div class="d-flex justify-content-between departure">
+                    <div>
+                        <span class="font-weight-bold text-uppercase">{{ ticket.train.departure_city.name }}</span><br>
+                        {{ ticket.train.departure_time }}
+                    </div>
+
+                    <div>
+                        <i aria-hidden="true" class="fa fa-long-arrow-right"></i>
+                    </div>
+
+                    <div>
+                        <span class="font-weight-bold text-uppercase">{{ ticket.train.arrival_city.name }}</span><br>
+                        {{ ticket.train.arrival_time }}
+                    </div>
                 </div>
 
-                <div>
-                    <span class="font-weight-bold text-uppercase">{{ ticket.train.arrival_city.name }}</span><br>
-                    {{ ticket.train.arrival_time }}
+                <div class="font-weight-bold price">
+                    {{ ticket.price }}{{ ticket.currency_symbol }}
+                </div>
+
+                <div class="button-my-ticket-update" @click.prevent="update = true">
+                    <button class="btn btn-ptb btn-upper text-uppercase w-100">
+                        {{ trans('tickets.component.update') }}
+                    </button>
+                </div>
+
+                <div class="button-my-ticket-share">
+                    <button class="btn btn-ptb btn-upper text-uppercase w-100">
+                        {{ trans('tickets.component.share_btn') }}
+                    </button>
                 </div>
             </div>
 
-            <div class="font-weight-bold price">
-                {{ ticket.price }}{{ ticket.currency_symbol }}
+            <div v-else class="back">
+                <div @click.prevent="update = false" class="back-to-front font-weight-bold">
+                    <i class="fa fa-chevron-left" aria-hidden="true"></i> Retour
+                </div>
+
+                <div class="col-2 input-group">
+                    <span class="input-group-addon">{{ticket.currency_symbol}}</span>
+                    <input type="text"
+                           :class="'form-control'"
+                           :aria-label="trans('tickets.component.price')"
+                           :placeholder="trans('tickets.component.price')"
+                           v-model="ticket.price"
+                           name="price"
+                           v-validate="'required|numeric|min_value:0|max_value:' + ticket.price">
+                </div>
+
+                <div class="button-my-ticket-update">
+                    <button class="btn btn-ptb btn-upper text-uppercase w-100" @click.prevent="updatePrice()">
+                        {{ trans('tickets.component.update_price') }}
+                    </button>
+                </div>
+
+                <div class="button-my-ticket-download">
+                    <button class="btn btn-ptb btn-upper text-uppercase w-100" @click.prevent="downloadTicket()">
+                        {{ trans('tickets.component.download') }}
+                    </button>
+                </div>
+
+                <div class="button-my-ticket-change">
+                    <button class="btn btn-ptb btn-upper text-uppercase w-100" @click.prevent="changeTicket()">
+                        {{ trans('tickets.component.change_pdf') }}
+                    </button>
+                </div>
+
+                <div class="button-my-ticket-delete">
+                    <button class="btn btn-ptb btn-upper text-uppercase w-100" @click.prevent="deleteTicket()">
+                        {{ trans('tickets.component.delete_button') }}
+                    </button>
+                </div>
             </div>
 
-            <div class="button-my-ticket-update" @click.prevent="update = true">
-                <button class="btn btn-ptb btn-upper text-uppercase w-100">
-                    {{ trans('tickets.component.update') }}
-                </button>
-            </div>
+            <modal :is-open="openModal"
+                   @close-modal="closeModal()"
+                   class="review-modal">
 
-            <div class="button-my-ticket-share">
-                <button class="btn btn-ptb btn-upper text-uppercase w-100">
-                    {{ trans('tickets.component.share_btn') }}
-                </button>
-            </div>
-        </div>
+                <div v-if="!loaderPdf">
+                    <pdf-viewer @returnData="getPdf"></pdf-viewer>
+                </div>
 
-        <div v-else class="back">
-            <div @click.prevent="update = false" class="back-to-front font-weight-bold">
-                <i class="fa fa-chevron-left" aria-hidden="true"></i> Retour
-            </div>
-
-            <div class="col-2 input-group">
-                <span class="input-group-addon">{{ticket.currency_symbol}}</span>
-                <input type="text"
-                       :class="'form-control'"
-                       :aria-label="trans('tickets.component.price')"
-                       :placeholder="trans('tickets.component.price')"
-                       v-model="ticket.price"
-                       name="price"
-                       v-validate="'required|numeric|min_value:0|max_value:' + ticket.price">
-            </div>
-
-            <div class="button-my-ticket-update">
-                <button class="btn btn-ptb btn-upper text-uppercase w-100" @click.prevent="updatePrice()">
-                    {{ trans('tickets.component.update_price') }}
-                </button>
-            </div>
-
-            <div class="button-my-ticket-download">
-                <button class="btn btn-ptb btn-upper text-uppercase w-100" @click.prevent="downloadTicket()">
-                    {{ trans('tickets.component.download') }}
-                </button>
-            </div>
-
-            <div class="button-my-ticket-change">
-                <button class="btn btn-ptb btn-upper text-uppercase w-100" @click.prevent="changeTicket()">
-                    {{ trans('tickets.component.change_pdf') }}
-                </button>
-            </div>
-
-            <div class="button-my-ticket-delete">
-                <button class="btn btn-ptb btn-upper text-uppercase w-100" @click.prevent="deleteTicket()">
-                    {{ trans('tickets.component.delete_button') }}
-                </button>
-            </div>
-        </div>
-
-        <modal :is-open="openModal"
-               @close-modal="closeModal()"
-               class="review-modal">
-
-            <div v-if="!loaderPdf">
-                <pdf-viewer @returnData="getPdf"></pdf-viewer>
-            </div>
-
-            <div v-else>
-                <transition enter-class="pre-animated"
-                            enter-active-class="animated fadeIn"
-                            leave-active-class="animated fadeOut">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="p-5">
-                                <loader :class-name="'mx-auto'"></loader>
+                <div v-else>
+                    <transition enter-class="pre-animated"
+                                enter-active-class="animated fadeIn"
+                                leave-active-class="animated fadeOut">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="p-5">
+                                    <loader :class-name="'mx-auto'"></loader>
+                                </div>
                             </div>
                         </div>
+                    </transition>
+                </div>
+            </modal>
+
+            <modal :is-open="openDeleteModal"
+                   @close-modal="closeModal()"
+                   class="review-modal">
+                <div class="text-center">
+                    <div class="font-weight-bold">
+                        {{ trans('tickets.api.confirm_delete') }}
                     </div>
-                </transition>
-            </div>
-        </modal>
-    </div>
+
+                    <div class="d-flex justify-content-center mt-3">
+                        <div class="button-my-ticket-delete mr-2">
+                            <button class="btn btn-ptb btn-upper text-uppercase w-100" @click.prevent="confirmDeleteTicket()">
+                                {{ trans('tickets.component.yes') }}
+                            </button>
+                        </div>
+
+                        <div class="button-my-ticket-change ml-2">
+                            <button class="btn btn-ptb btn-upper text-uppercase w-100" @click.prevent="openDeleteModal = false">
+                                {{ trans('tickets.component.no') }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </modal>
+        </div>
+    </transition>
 </template>
 
 <script>
@@ -115,6 +143,8 @@
       return {
         update: false,
         openModal: false,
+        openDeleteModal: false,
+        deletedTicket: false,
         pdf: {
           file: null,
           page: null
@@ -131,6 +161,7 @@
       },
       closeModal() {
         this.openModal = false;
+        this.openDeleteModal = false;
       },
       updatePrice() {
         console.log(this.ticket.price)
@@ -146,11 +177,17 @@
         window.location.href = this.route('public.ticket.download', [this.ticket.id]);
       },
       changeTicket() {
-        console.log('change');
         this.openModal = true;
       },
       deleteTicket() {
-        console.log('delete');
+        this.openDeleteModal = true;
+      },
+      confirmDeleteTicket() {
+        this.$http.delete(this.route('api.ticket.delete', [this.ticket.id]))
+          .then(response => {
+            this.handleResponse(response)
+            this.deletedTicket = true;
+          });
       },
       getPdf(file) {
         this.loaderPdf = true;

@@ -159,4 +159,25 @@ class TicketController extends Controller
         }
         return response(['status' => 'error', 'message' => trans('tickets.api.not_allowed')], 400);
     }
+
+    public function deleteTicket($id) {
+        $user = \Auth::user();
+        $ticket = Ticket::where('id', $id)->first();
+
+        if($ticket->user_id === $user->id) {
+
+            if($ticket->has_pdf) {
+                Storage::delete('uploads/' . $ticket->pdf);
+            }
+
+            if(!$ticket->transaction or $ticket->transaction->status != "SUCCEEDED")
+            {
+                $ticket->delete();
+
+                return response()->json(['status' => 'success', 'message' => trans('tickets.api.ticket_deleted')]);
+            }
+        }
+
+        return response(['status' => 'error', 'message' => trans('tickets.api.delete_ticket_no_right')], 400);
+    }
 }

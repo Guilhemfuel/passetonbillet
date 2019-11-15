@@ -299,6 +299,8 @@ Route::group( [ 'prefix' => 'api' ], function () {
         Route::post( 'ticket/offer', 'TicketController@makeAnOffer' )->name( 'api.tickets.offer' );
         Route::post( 'ticket/change-price/{id}', 'API\TicketController@updatePrice' )->name( 'api.ticket.change.price' );
         Route::post( 'ticket/update-pdf/{id}', 'API\TicketController@updatePdf' )->name( 'api.ticket.update.pdf' );
+        Route::delete( 'ticket/delete/{id}', 'API\TicketController@deleteTicket' )->name( 'api.ticket.delete' );
+
         Route::get( 'ticket/{ticket}/offers/', 'API\TicketController@getOffers' )->name( 'api.tickets.offers' );
         Route::get( 'ticket/owned/{type}', 'API\TicketController@owned' )->name( 'api.tickets.owned' );
 

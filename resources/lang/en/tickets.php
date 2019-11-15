@@ -9,6 +9,8 @@ return [
     */
 
     'component' => [
+        'yes'                       => 'Yes',
+        'no'                        => 'No',
         'buy'                       => 'Buy',
         'update'                    => 'Update',
         'update_price'              => 'Update price',
@@ -387,10 +389,13 @@ return [
     ],
 
     'api' => [
-        'not_allowed' => 'Not allowed to update this ticket',
-        'price_empty' => 'New price is empty',
-        'pdf_empty'   => 'No PDF !',
-        'pdf_uploaded'   => 'PDF uploaded with success !',
-        'price_updated' => 'Price updated !',
+        'not_allowed'            => 'Not allowed to update this ticket',
+        'price_empty'            => 'New price is empty',
+        'pdf_empty'              => 'No PDF !',
+        'pdf_uploaded'           => 'PDF uploaded with success !',
+        'price_updated'          => 'Price updated !',
+        'ticket_deleted'         => 'Ticket deleted with success !',
+        'delete_ticket_no_right' => 'You don\'t have the right to delete this ticket',
+        'confirm_delete'         => 'Are you sure to delete this ticket ?',
     ],
 ];

@@ -9,6 +9,8 @@ return [
     */
 
     'component' => [
+        'yes'                       => 'Oui',
+        'no'                        => 'Non',
         'buy'                       => 'Acheter',
         'update'                    => 'Modifier',
         'update_price'              => 'Modifier prix',
@@ -395,10 +397,13 @@ return [
     ],
 
     'api' => [
-        'not_allowed' => 'Vous n\'êtes pas autorisé à modifier ce ticket',
-        'price_empty' => 'Le prix n\'est pas renseigné',
-        'pdf_empty'   => 'Aucun PDF !',
-        'pdf_uploaded'   => 'PDF téléchargé avec succés !',
-        'price_updated' => 'Prix modifié !',
+        'not_allowed'            => 'Vous n\'êtes pas autorisé à modifier ce ticket',
+        'price_empty'            => 'Le prix n\'est pas renseigné',
+        'pdf_empty'              => 'Aucun PDF !',
+        'pdf_uploaded'           => 'PDF téléchargé avec succès !',
+        'price_updated'          => 'Prix modifié !',
+        'ticket_deleted'         => 'Billet supprimé avec succès !',
+        'delete_ticket_no_right' => 'Vous n\'avez pas le droit de supprimer ce billet',
+        'confirm_delete'         => 'Êtes-vous sûr de vouloir supprimer ce billet ?',
     ],
 ];
