@@ -37,7 +37,7 @@
                 </div>
 
                 <div class="button-my-ticket-share">
-                    <button class="btn btn-ptb btn-upper text-uppercase w-100">
+                    <button class="btn btn-ptb btn-upper text-uppercase w-100" @click.prevent="openShareModal = true">
                         {{ trans('tickets.component.share_btn') }}
                     </button>
                 </div>
@@ -130,6 +130,15 @@
                     </div>
                 </div>
             </modal>
+
+            <modal class="ticket-modal-share"
+                   :is-open="openShareModal"
+                   @close-modal="openShareModal=false"
+                   :title="trans('tickets.component.share_modal.title')"
+            >
+                <share-ticket :ticket="ticket"></share-ticket>
+
+            </modal>
         </div>
     </transition>
 </template>
@@ -145,6 +154,7 @@
         openModal: false,
         openDeleteModal: false,
         deletedTicket: false,
+        openShareModal: false,
         pdf: {
           file: null,
           page: null

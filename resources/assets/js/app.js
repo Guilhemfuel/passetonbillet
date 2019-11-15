@@ -78,6 +78,7 @@ Vue.component( 'buy-modal', require(/* webpackChunkName: "alert-modal" */ './com
 Vue.component( 'call-modal', require(/* webpackChunkName: "call-modal" */ './components/PTB/CallModal.vue').default);
 Vue.component( 'phone-modal', require(/* webpackChunkName: "call-modal" */ './components/PTB/PhoneModal.vue').default);
 Vue.component( 'pdf-viewer', require(/* webpackChunkName: "call-modal" */ './components/PTB/PdfViewer.vue').default);
+Vue.component( 'share-ticket', require(/* webpackChunkName: "call-modal" */ './components/PTB/ShareTicket.vue').default);
 Vue.component( 'success-purchase-modal', require(/* webpackChunkName: "call-modal" */ './components/PTB/SuccessPurchaseModal.vue').default);
 
 
