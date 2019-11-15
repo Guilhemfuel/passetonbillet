@@ -178,6 +178,15 @@ class PageController extends Controller
 
     }
 
+    public function myTicketsBought() {
+        return view( 'tickets.bought' );
+    }
+
+    public function myTicketsSold() {
+
+        return view( 'tickets.sold' );
+    }
+
     /**
      *
      * Display page to manage alerts

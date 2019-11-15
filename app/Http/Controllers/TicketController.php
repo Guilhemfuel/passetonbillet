@@ -67,11 +67,6 @@ class TicketController extends Controller
             return response()->json(['message' => trans('tickets.buy_modal.no_mangopay')]);
         }
 
-        //If ticket is already bought
-        if ($transaction->status === 'SUCCEEDED') {
-            return response()->json(['message' => trans('tickets.buy_modal.ticket_already_sold')]);
-        }
-
         $mangoPaySeller = new MangoPayService();
 
         $seller = User::where('id', $ticket->user->id)->first();
@@ -99,6 +94,12 @@ class TicketController extends Controller
 
             $transaction->save();
         } else {
+
+            //If ticket is already bought
+            if ($transaction->status === 'SUCCEEDED') {
+                return response()->json(['message' => trans('tickets.buy_modal.ticket_already_sold')]);
+            }
+
             $wallet = $mangoPaySeller->getWallet($transaction->wallet_id);
 
             //If there is a current wallet with wrong currency we need to make a new one
@@ -193,7 +194,7 @@ class TicketController extends Controller
         if ($user) {
             $ticket = Ticket::where('id', $id)->first();
             if ($ticket) {
-                if ($ticket->transaction->purchaser_id === $user->id && $ticket->transaction->status === 'SUCCEEDED') {
+                if ($ticket->user_id === $user->id OR ($ticket->transaction->purchaser_id === $user->id && $ticket->transaction->status === 'SUCCEEDED')) {
                     return Storage::download('uploads/' . $ticket->pdf);
                 }
             }

@@ -91,9 +91,12 @@ Vue.component( 'help', require(/* webpackChunkName: "help" */ './components/Page
 
 Vue.component( 'sell-ticket', require(/* webpackChunkName: "sell-ticket" */ './components/Pages/Tickets/Sell.vue').default);
 Vue.component( 'my-tickets', require(/* webpackChunkName: "my-tickets" */ './components/Pages/Tickets/Mytickets.vue').default);
+Vue.component( 'my-tickets-bought', require(/* webpackChunkName: "my-tickets" */ './components/Pages/Tickets/MyTicketsBought.vue').default);
+Vue.component( 'my-tickets-sold', require(/* webpackChunkName: "my-tickets" */ './components/Pages/Tickets/MyTicketsSold.vue').default);
 Vue.component( 'buy-ticket', require(/* webpackChunkName: "buy-ticket" */ './components/Pages/Tickets/Buy.vue').default);
 Vue.component( 'train-results', require(/* webpackChunkName: "train-results" */ './components/Pages/Tickets/components/TrainResults.vue').default);
 
+Vue.component( 'ticket-sold', require(/* webpackChunkName: "train-results" */ './components/Pages/Tickets/components/TicketSold.vue').default);
 
 Vue.component( 'home-search', require(/* webpackChunkName: "home-search" */ './components/Pages/Welcome/HomeSearch.vue').default);
 Vue.component( 'recent-tickets', require(/* webpackChunkName: "recent-tickets" */ './components/Pages/Welcome/RecentTickets.vue').default);

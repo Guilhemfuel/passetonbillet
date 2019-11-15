@@ -12,6 +12,8 @@ use App\Ticket;
 use App\Train;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class TicketController extends Controller
 {
@@ -93,5 +95,65 @@ class TicketController extends Controller
             'status' => 'error',
             'message' => 'Wrong type specified.'
         ], 400);
+    }
+
+    public function updatePrice($id, Request $request) {
+
+        $user = \Auth::user();
+        $ticket = Ticket::where('id', $id)->first();
+
+        if($ticket->user_id === $user->id) {
+
+            if(!$ticket->hasBeenSold()) {
+
+                if($request->price) {
+
+                    if ($ticket->maxPrice >= $request->price) {
+
+                        $ticket->price = $request->price;
+                        $ticket->save();
+
+                        return response()->json(['status' => 'success', 'message' => trans('tickets.api.price_updated')]);
+                    }
+                    return response()->json(['status' => 'error', 'message' => trans('tickets.pdf.price_too_high') . ' ' . $ticket->maxPrice . $ticket->currency], 400);
+                }
+                return response()->json(['status' => 'error', 'message' => trans('tickets.api.price_empty')], 400);
+            }
+            return response()->json(['status' => 'error', 'message' => trans('tickets.buy_modal.ticket_already_sold')], 400);
+        }
+        return response(['status' => 'error', 'message' => trans('tickets.api.not_allowed')], 400);
+    }
+
+    public function updatePdf($id, Request $request) {
+        $user = \Auth::user();
+        $ticket = Ticket::where('id', $id)->first();
+
+        if($ticket->user_id === $user->id) {
+
+            if(!$ticket->hasBeenSold()) {
+
+                if($request->file && $request->page) {
+
+                    if($ticket->has_pdf) {
+                        Storage::delete('uploads/' . $ticket->pdf);
+                    }
+
+                    //Upload file
+                    $data = explode(',', $request->file);
+                    $random = Str::random(40);
+
+                    Storage::disk('local')->put("uploads/$random.pdf", base64_decode($data[1]));
+
+                    $ticket->pdf = "$random.pdf";
+                    $ticket->page_pdf = $request->page;
+                    $ticket->save();
+
+                    return response()->json(['status' => 'success', 'message' => trans('tickets.api.pdf_uploaded')]);
+                }
+                return response()->json(['status' => 'error', 'message' => trans('tickets.api.pdf_empty')], 400);
+            }
+            return response()->json(['status' => 'error', 'message' => trans('tickets.buy_modal.ticket_already_sold')], 400);
+        }
+        return response(['status' => 'error', 'message' => trans('tickets.api.not_allowed')], 400);
     }
 }

@@ -1,9 +1,9 @@
 <template>
-    <div class="vue-modal">
+    <div class="vue-modal" @click="$emit('close-modal')">
     <transition name="fade" v-on:afterEnter="transitionCallback">
         <div v-show="isOpen">
             <div class="modal" :class="modalClass">
-                <div class="modal-dialog" role="document">
+                <div class="modal-dialog" role="document" @click.stop>
                     <div class="modal-content" v-click-outside="outsideClick">
                         <div class="modal-header" v-if="title">
                             <h5 :class="['modal-title',titleClass]" v-html="title"></h5>
@@ -62,7 +62,9 @@
             },
             transitionCallback(){
                 this.$emit('modal-opened');
-                this.fullyOpened = true;
+                // Y a un problème avec cette ligne, on peut pas utiliser de v-if sur les parents sans que ça fasse disparaitre la modal
+                // De plus il y a beaucoup trop de logique, alors qu'on peut utiliser un emit sur la div Parent et un @click.stop sur la modale
+                // this.fullyOpened = true;
             }
         },
         directives: {

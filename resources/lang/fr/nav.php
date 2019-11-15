@@ -18,6 +18,8 @@ return [
     'messages.mobile'    => 'Offres',
     'my_alerts'          => 'Mes Alertes',
     'my_tickets'         => 'Mes billets',
+    'my_tickets_bought'  => 'Mes billets achetés',
+    'my_tickets_sold'    => 'Mes billets vendus',
     'my_tickets.mobile'  => 'Billets',
     'sell_ticket'        => 'Vendre un billet',
     'resell_a_ticket'    => 'Revendre un billet',

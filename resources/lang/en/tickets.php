@@ -10,6 +10,10 @@ return [
 
     'component' => [
         'buy'                       => 'Buy',
+        'update'                    => 'Update',
+        'update_price'              => 'Update price',
+        'delete_button'             => 'Delete',
+        'change_pdf'                => 'Change PDF',
         'contact'                   => 'Contact',
         'details'                   => 'Details',
         'call'                      => 'Call',
@@ -378,5 +382,13 @@ return [
         'ticket_doesnt_exist' => 'This ticket doesn\'t exist',
         'no_mangopay' => 'A problem has occured with mangopay',
         'ticket_already_sold' => 'This ticket has already been sold !',
-    ]
+    ],
+
+    'api' => [
+        'not_allowed' => 'Not allowed to update this ticket',
+        'price_empty' => 'New price is empty',
+        'pdf_empty'   => 'No PDF !',
+        'pdf_uploaded'   => 'PDF uploaded with success !',
+        'price_updated' => 'Price updated !',
+    ],
 ];

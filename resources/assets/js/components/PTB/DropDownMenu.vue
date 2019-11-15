@@ -12,16 +12,18 @@
 
                 <el-dropdown-item command="public.ticket.owned.page">
                     <i class="fa fa-ticket" aria-hidden="true"></i>
-                    {{trans('nav.my_tickets')}}
+                    {{trans('nav.my_tickets_bought')}}
                 </el-dropdown-item>
+                <el-dropdown-item command="public.ticket.sold.page">
+                    <i class="fa fa-ticket" aria-hidden="true"></i>
+                    {{trans('nav.my_tickets_sold')}}
+                </el-dropdown-item>
+
                 <el-dropdown-item command="public.alerts.page">
                     <i class="fa fa-bell" aria-hidden="true"></i>
                     {{trans('nav.my_alerts')}}
                 </el-dropdown-item>
-                <el-dropdown-item command="public.message.home.page">
-                    <i class="fa fa-envelope" aria-hidden="true"></i>
-                    {{trans('nav.messages')}}
-                </el-dropdown-item>
+
                 <el-dropdown-item command="public.profile.home">
                     <i class="fa fa-user" aria-hidden="true"></i>
                     {{trans('nav.my_profile')}}

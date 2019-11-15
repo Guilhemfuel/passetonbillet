@@ -17,6 +17,8 @@ return [
     'messages.mobile'    => 'Offers',
     'my_alerts'          => 'My Alerts',
     'my_tickets'         => 'My tickets',
+    'my_tickets_bought'  => 'My tickets bought',
+    'my_tickets_sold'    => 'My tickets sold',
     'my_tickets.mobile'  => 'Tickets',
     'sell_ticket'        => 'Sell a ticket',
     'resell_a_ticket'    => 'Sell a ticket',

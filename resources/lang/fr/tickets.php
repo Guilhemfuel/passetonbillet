@@ -10,6 +10,10 @@ return [
 
     'component' => [
         'buy'                       => 'Acheter',
+        'update'                    => 'Modifier',
+        'update_price'              => 'Modifier prix',
+        'delete_button'             => 'Supprimer',
+        'change_pdf'                => 'Changer PDF',
         'contact'                   => 'Contacter',
         'details'                   => 'Détails',
         'call'                      => 'Appeler',
@@ -386,5 +390,13 @@ return [
         'ticket_doesnt_exist' => 'Ce ticket n\'existe pas !',
         'no_mangopay' => 'Un problème est survenu avec mangopay',
         'ticket_already_sold' => 'Ce ticket a déjà été vendu !',
-    ]
+    ],
+
+    'api' => [
+        'not_allowed' => 'Vous n\'êtes pas autorisé à modifier ce ticket',
+        'price_empty' => 'Le prix n\'est pas renseigné',
+        'pdf_empty'   => 'Aucun PDF !',
+        'pdf_uploaded'   => 'PDF téléchargé avec succés !',
+        'price_updated' => 'Prix modifié !',
+    ],
 ];

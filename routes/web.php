@@ -111,6 +111,9 @@ Route::group( [ 'middleware' => 'auth', 'as' => 'public.' ], function () {
         // Possible values for tab: selling (default), sold, offered, bought
         Route::get( 'owned/{tab?}', 'PageController@myTicketsPage' )->name( 'owned.page' );
 
+        Route::get( 'owned', 'PageController@myTicketsBought' )->name( 'bought.page' );
+        Route::get( 'sold', 'PageController@myTicketsSold' )->name( 'sold.page' );
+
         // Remove a non-sold ticket
         Route::delete( '/', 'TicketController@deleteOrSell' )->name( 'delete_or_sell' );
 
@@ -289,10 +292,13 @@ Route::group( [ 'prefix' => 'api' ], function () {
      */
     Route::group( [ 'middleware' => 'auth' ], function () {
         Route::get( 'notifications', 'UserController@getNotifications' )->name( 'api.notifications' );
+        Route::get( 'notifications', 'UserController@getNotifications' )->name( 'api.notifications' );
 
         // Ticket api routes
         Route::post( 'ticket/search', 'TicketController@searchTickets' )->name( 'api.tickets.search' );
         Route::post( 'ticket/offer', 'TicketController@makeAnOffer' )->name( 'api.tickets.offer' );
+        Route::post( 'ticket/change-price/{id}', 'API\TicketController@updatePrice' )->name( 'api.ticket.change.price' );
+        Route::post( 'ticket/update-pdf/{id}', 'API\TicketController@updatePdf' )->name( 'api.ticket.update.pdf' );
         Route::get( 'ticket/{ticket}/offers/', 'API\TicketController@getOffers' )->name( 'api.tickets.offers' );
         Route::get( 'ticket/owned/{type}', 'API\TicketController@owned' )->name( 'api.tickets.owned' );
 
