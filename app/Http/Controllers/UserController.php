@@ -17,9 +17,12 @@ class UserController extends Controller
 {
     const ID_PATH = 'id_verification';
 
+    //Get all credit cards from User in Mangopay
     public function getCards() {
-        $user = \Auth::user();
 
+        $this->middleware('auth');
+
+        $user = \Auth::user();
         $mangoPay = new MangoPayService();
 
         //Create Mango User if not exist
@@ -35,7 +38,10 @@ class UserController extends Controller
         return response()->json($cards);
     }
 
+    //This method will return a secure form for Mangopay to add new credit card
     public function addCardRegistration(Request $request) {
+
+        $this->middleware('auth');
 
         $user = \Auth::user();
 
@@ -47,7 +53,11 @@ class UserController extends Controller
         return response()->json($cardRegistration);
     }
 
+    //This method will save the new Credit card from the custom form in addCardRegistration
     public function updateCardRegistration(Request $request) {
+
+        $this->middleware('auth');
+
         $mangoPay = new MangoPayService();
         $result = $mangoPay->updateCardRegistration($request->id, $request->data);
 

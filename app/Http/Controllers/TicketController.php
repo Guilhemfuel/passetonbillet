@@ -52,8 +52,14 @@ class TicketController extends Controller
 
     const COOKIE_TRIP_ARRIVAL = 'train_arrival';
 
+    //After user put credit card and click on payment
+    //We can create user mangopay and wallet
+    //If there is a 3DSecure transaction we send the callback URL from mangopay
+    //If not we can send the success by ourselves
     public function buyTicket(Request $request, $id)
     {
+        $this->middleware('auth');
+
         $user = \Auth::user();
         $ticket = Ticket::where('id', $id)->first();
         $transaction = Transaction::where('ticket_id', $ticket->id)->first();
@@ -73,7 +79,7 @@ class TicketController extends Controller
 
         //Create MangoPay for seller if doesn't exist
         if (!$seller->mangopay_id) {
-            $mangoSeller = $mangoPaySeller->createMangoUser($ticket->user);
+            $mangoSeller = $mangoPaySeller->createMangoUser($seller);
 
             $seller->mangopay_id = $mangoSeller->Id;
             $seller->save();
@@ -81,7 +87,7 @@ class TicketController extends Controller
             $mangoPaySeller->getMangoUser($ticket->user->mangopay_id);
         }
 
-        //If ticket has no transaction yet, then we can create a waller for it
+        //If ticket has no transaction yet, then we can create a wallet for it
         if (!$transaction) {
             $wallet = $mangoPaySeller->createWallet($ticket->id, $ticket->currency);
 
@@ -129,6 +135,7 @@ class TicketController extends Controller
             return response()->json(['state' => 'error', 'payIn' => $payIn]);
         }
 
+        $transaction->purchaser_id = $user->id;
         $transaction->status = $payIn->Status;
         $transaction->transaction = $payIn->Id;
         $transaction->save();
@@ -144,7 +151,12 @@ class TicketController extends Controller
         return response()->json(['state' => 'error', 'payIn' => $payIn]);
     }
 
+    //After 3DSecure from MangoPay we get a callback with transactionId
+    //We can refresh status of Transaction then display a message to user if payment succeed or failed
     public function successPayment(Request $request) {
+
+        $this->middleware('auth');
+
         //MangoPay SecureModeReturnURL
         $transaction = Transaction::where('transaction', $request->transactionId)->first();
 
@@ -158,7 +170,7 @@ class TicketController extends Controller
 
                 if($transaction->status === 'SUCCEEDED') {
                     //Send email with ticket PDF to user
-                    $this->sendTicket($transaction->ticket_id);
+                    $this->sendTicket($transaction->ticket);
 
                     $request->session()->put('successPurchase', $request->transactionId);
                 } else {
@@ -170,13 +182,12 @@ class TicketController extends Controller
         return redirect()->route('home');
     }
 
-    public function sendTicket($id = 16439) {
+    //After payment success we can send ticket to user by email
+    private function sendTicket($ticket) {
+
+        $this->middleware('auth');
 
         $user = \Auth::user();
-
-        $ticket = Ticket::where('id', $id)->first();
-        $pdf = $ticket->pdf;
-        $email = $ticket->transaction->purchaser->email;
 
         $file = storage_path('app/uploads/' . $ticket->pdf);
 
@@ -213,6 +224,8 @@ class TicketController extends Controller
      */
     public function sellTicket(SellTicketRequest $request)
     {
+        $this->middleware('auth');
+
         $tickets = $request->session()->get( 'tickets' );
         $request->session()->forget( 'tickets' );
         // Make sure we find ticket in session
@@ -246,32 +259,33 @@ class TicketController extends Controller
 
         //Class to check PDF in the futur
         if ($pdfService->checkPdf()) {
-            $pdfService->splitPdf($request->page);
-
-            $ticket->user_id = \Auth::id();
-            $ticket->price = $request->price;
-            $ticket->currency = $ticket->bought_currency;
-            $ticket->user_notes = $request->notes;
-            $ticket->pdf = $pdf;
-            $ticket->page_pdf = $request->page;
-            $ticket->save();
-
-            Amplitude::logEvent( 'add_ticket', [
-                'ticket_id'       => $ticket->id,
-                'ticket_provider' => $ticket->provider
-            ] );
-
-            // Dispatch ticket added event
-            event( new TicketAddedEvent( $ticket ) );
-
-            flash( __( 'tickets.sell.success' ) )->success()->important();
-
-            return redirect()->route( 'public.ticket.owned.page' )
-                ->with( [ 'addedTicket' => new TicketRessource( $ticket ) ] );
+            flash(__('tickets.pdf.verif_pdf_error'))->error()->important();
+            return redirect()->route('public.ticket.sell.page');
         }
 
-        flash( __( 'tickets.pdf.verif_pdf_error' ) )->error()->important();
-        return redirect()->route( 'public.ticket.sell.page' );
+        $pdfService->splitPdf($request->page);
+
+        $ticket->user_id = \Auth::id();
+        $ticket->price = $request->price;
+        $ticket->currency = $ticket->bought_currency;
+        $ticket->user_notes = $request->notes;
+        $ticket->pdf = $pdf;
+        $ticket->page_pdf = $request->page;
+        $ticket->save();
+
+        Amplitude::logEvent('add_ticket', [
+            'ticket_id' => $ticket->id,
+            'ticket_provider' => $ticket->provider
+        ]);
+
+        // Dispatch ticket added event
+        event(new TicketAddedEvent($ticket));
+
+        flash(__('tickets.sell.success'))->success()->important();
+
+        return redirect()->route('public.ticket.owned.page')
+            ->with(['addedTicket' => new TicketRessource($ticket)]);
+
     }
 
     /**
@@ -386,39 +400,6 @@ class TicketController extends Controller
         return redirect()->route( 'public.ticket.owned.page' );
 
     }
-
-    /*
-     * Obsolete
-    public function downloadTicket( $ticket_id )
-    {
-        $ticket = Ticket::find( $ticket_id );
-        // Make sure allowed user
-        if ( ! $ticket || $ticket->passed || ( $ticket->buyer->id != \Auth::user()->id && ! \Auth::user()->isAdmin() ) ) {
-            flash( __( 'common.error' ) )->error()->important();
-
-            return redirect()->route( 'public.ticket.owned.page' );
-        }
-
-        // Check if file exists
-        $filePath = 'pdf/tickets/' . $ticket->pdf_file_name;
-        if ( ! \Storage::disk( 's3' )->exists( $filePath ) ) {
-            flash( __( 'common.error' ) )->error()->important();
-
-            return redirect()->route( 'public.ticket.owned.page' );
-        }
-
-        // Store stat
-        AppHelper::stat( 'download_pdf', [
-            'ticket_id' => $ticket_id
-        ] );
-
-        $url = \Storage::disk( 's3' )->temporaryUrl(
-            $filePath, now()->addMinutes( 5 )
-        );
-
-        return redirect( $url );
-    }
-    */
 
     /////////////////////////
     /// API

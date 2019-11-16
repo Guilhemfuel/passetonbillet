@@ -83,7 +83,7 @@ class MangoPayService
         try {
             $cardRegistration = new MangoPay\CardRegistration();
             $cardRegistration->UserId = $this->mangoUser;
-            $cardRegistration->Currency = isset($card->currency) ? $card->currency : "EUR";
+            $cardRegistration->Currency = "EUR";
             $cardRegistration->CardType = isset($card->type) ? $card->type : "CB_VISA_MASTERCARD";
 
             $cardRegistration = $this->mangoPayApi->CardRegistrations->Create($cardRegistration);
@@ -126,11 +126,11 @@ class MangoPayService
             $PayIn->PaymentDetails = new MangoPay\PayInPaymentDetailsCard();
 
             $PayIn->DebitedFunds = new \MangoPay\Money();
-            $PayIn->DebitedFunds->Currency = $data->Currency;
+            $PayIn->DebitedFunds->Currency = "EUR";
             $PayIn->DebitedFunds->Amount = $data->Amount * 100;
 
             $PayIn->Fees = new \MangoPay\Money();
-            $PayIn->Fees->Currency = $data->CurrencyFees;
+            $PayIn->Fees->Currency = "EUR";
             $PayIn->Fees->Amount = $data->AmountFees * 100;
             $PayIn->ExecutionType = "DIRECT";
 
@@ -155,7 +155,7 @@ class MangoPayService
             $wallet = new MangoPay\Wallet();
             $wallet->Owners = array ($this->mangoUser);
             $wallet->Description = "Passe Ton Billet - Ticket : " . $name;
-            $wallet->Currency = $currency;
+            $wallet->Currency = "EUR";
 
             $wallet = $this->mangoPayApi->Wallets->Create($wallet);
 
