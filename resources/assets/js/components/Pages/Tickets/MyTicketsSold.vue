@@ -13,7 +13,6 @@
 </template>
 
 <script>
-
   export default {
     data() {
       return {
@@ -28,14 +27,10 @@
             .then(response => {
               this.tickets = response.data.data;
               this.loading=false;
-              console.log(this.tickets);
             });
         } else {
           this.loading=false;
         }
-      },
-      formatedDate(date) {
-        return new moment(date, 'YYYY-MM-DD').format('L');
       }
     },
     computed: {

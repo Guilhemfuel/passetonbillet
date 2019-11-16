@@ -7,6 +7,7 @@
 @section('dashboard-content')
     <div class="container">
         <div class="row" id="owned-tickets">
+            <my-tickets-bought></my-tickets-bought>
         </div>
     </div>
 @endsection

@@ -107,12 +107,12 @@ Route::group( [ 'middleware' => 'auth', 'as' => 'public.' ], function () {
         Route::post( 'sell', 'TicketController@sellTicket' )->name( 'sell.post' )->middleware( 'auth.verified.phone' );
         Route::post( 'edit/{ticket_id}', 'TicketController@changeTicketPrice' )->name( 'edit' )->middleware( 'auth.verified.phone' );
 
+        Route::get( 'owned', 'PageController@myTicketsBought' )->name( 'bought.page' );
+        Route::get( 'sold', 'PageController@myTicketsSold' )->name( 'sold.page' );
+
         // See my tickets
         // Possible values for tab: selling (default), sold, offered, bought
         Route::get( 'owned/{tab?}', 'PageController@myTicketsPage' )->name( 'owned.page' );
-
-        Route::get( 'owned', 'PageController@myTicketsBought' )->name( 'bought.page' );
-        Route::get( 'sold', 'PageController@myTicketsSold' )->name( 'sold.page' );
 
         // Remove a non-sold ticket
         Route::delete( '/', 'TicketController@deleteOrSell' )->name( 'delete_or_sell' );
@@ -314,5 +314,3 @@ Route::group( [ 'prefix' => 'api' ], function () {
 
     } );
 } );
-
-

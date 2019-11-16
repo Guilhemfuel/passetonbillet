@@ -98,6 +98,7 @@ Vue.component( 'buy-ticket', require(/* webpackChunkName: "buy-ticket" */ './com
 Vue.component( 'train-results', require(/* webpackChunkName: "train-results" */ './components/Pages/Tickets/components/TrainResults.vue').default);
 
 Vue.component( 'ticket-sold', require(/* webpackChunkName: "train-results" */ './components/Pages/Tickets/components/TicketSold.vue').default);
+Vue.component( 'ticket-bought', require(/* webpackChunkName: "train-results" */ './components/Pages/Tickets/components/TicketBought.vue').default);
 
 Vue.component( 'home-search', require(/* webpackChunkName: "home-search" */ './components/Pages/Welcome/HomeSearch.vue').default);
 Vue.component( 'recent-tickets', require(/* webpackChunkName: "recent-tickets" */ './components/Pages/Welcome/RecentTickets.vue').default);

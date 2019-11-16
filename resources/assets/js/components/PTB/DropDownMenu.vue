@@ -10,7 +10,7 @@
             <!-- Menu For Connected user-->
             <template v-if="user">
 
-                <el-dropdown-item command="public.ticket.owned.page">
+                <el-dropdown-item command="public.ticket.bought.page">
                     <i class="fa fa-ticket" aria-hidden="true"></i>
                     {{trans('nav.my_tickets_bought')}}
                 </el-dropdown-item>

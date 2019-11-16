@@ -79,7 +79,13 @@ class TicketController extends Controller
                 return TicketRessource::collection( \Auth::user()->tickets );
                 break;
             case 'bought':
-                return TicketRessource::collection( \Auth::user()->boughtTickets );
+
+                $tickets = Ticket::select('*', 'tickets.id')
+                    ->join('transactions', 'tickets.id', '=', 'transactions.ticket_id')
+                    ->where('purchaser_id', \Auth::user()->id)
+                    ->where('status', 'SUCCEEDED')->get();
+
+                return TicketRessource::collection($tickets);
                 break;
             case 'offers_sent':
                 return DiscussionResource::collection( \Auth::user()->offers

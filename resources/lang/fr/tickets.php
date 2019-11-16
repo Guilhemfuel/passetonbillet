@@ -15,6 +15,7 @@ return [
         'update'                    => 'Modifier',
         'update_price'              => 'Modifier prix',
         'delete_button'             => 'Supprimer',
+        'help_button'               => 'Aide',
         'change_pdf'                => 'Changer PDF',
         'contact'                   => 'Contacter',
         'details'                   => 'Détails',
