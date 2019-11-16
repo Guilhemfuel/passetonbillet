@@ -104,71 +104,92 @@ class TicketController extends Controller
         ], 400);
     }
 
-    public function updatePrice($id, Request $request) {
+    public function updatePrice($id, Request $request)
+    {
+        $this->middleware('auth');
 
         $user = \Auth::user();
         $ticket = Ticket::where('id', $id)->first();
 
-        if($ticket->user_id === $user->id) {
+        if($ticket) {
+            return response(['status' => 'error', 'message' => trans('tickets.buy_modal.ticket_doesnt_exist')], 400);
+        }
 
-            if(!$ticket->hasBeenSold()) {
+        if ($ticket->user_id === $user->id) {
+            return response(['status' => 'error', 'message' => trans('tickets.api.not_allowed')], 400);
+        }
 
-                if($request->price) {
-
-                    if ($ticket->maxPrice >= $request->price) {
-
-                        $ticket->price = $request->price;
-                        $ticket->save();
-
-                        return response()->json(['status' => 'success', 'message' => trans('tickets.api.price_updated')]);
-                    }
-                    return response()->json(['status' => 'error', 'message' => trans('tickets.pdf.price_too_high') . ' ' . $ticket->maxPrice . $ticket->currency], 400);
-                }
-                return response()->json(['status' => 'error', 'message' => trans('tickets.api.price_empty')], 400);
-            }
+        if (!$ticket->hasBeenSold()) {
             return response()->json(['status' => 'error', 'message' => trans('tickets.buy_modal.ticket_already_sold')], 400);
         }
-        return response(['status' => 'error', 'message' => trans('tickets.api.not_allowed')], 400);
+
+        if ($request->price) {
+            return response()->json(['status' => 'error', 'message' => trans('tickets.api.price_empty')], 400);
+        }
+
+        if ($ticket->maxPrice >= $request->price) {
+
+            $ticket->price = $request->price;
+            $ticket->save();
+
+            return response()->json(['status' => 'success', 'message' => trans('tickets.api.price_updated')]);
+        }
+        return response()->json(['status' => 'error', 'message' => trans('tickets.pdf.price_too_high') . ' ' . $ticket->maxPrice . $ticket->currency], 400);
     }
 
-    public function updatePdf($id, Request $request) {
+    public function updatePdf($id, Request $request)
+    {
+        $this->middleware('auth');
+
         $user = \Auth::user();
         $ticket = Ticket::where('id', $id)->first();
 
-        if($ticket->user_id === $user->id) {
+        if($ticket) {
+            return response(['status' => 'error', 'message' => trans('tickets.buy_modal.ticket_doesnt_exist')], 400);
+        }
 
-            if(!$ticket->hasBeenSold()) {
+        if ($ticket->user_id === $user->id) {
+            return response(['status' => 'error', 'message' => trans('tickets.api.not_allowed')], 400);
+        }
 
-                if($request->file && $request->page) {
-
-                    if($ticket->has_pdf) {
-                        Storage::delete('uploads/' . $ticket->pdf);
-                    }
-
-                    $pdfService = new PdfService();
-                    $pdf = $pdfService->storePdfBase64($request->file);
-
-                    if ($pdfService->checkPdf()) {
-                        $pdfService->splitPdf($request->page);
-
-                        $ticket->pdf = $pdf;
-                        $ticket->page_pdf = $request->page;
-                        $ticket->save();
-
-                        return response()->json(['status' => 'success', 'message' => trans('tickets.api.pdf_uploaded')]);
-                    }
-                    return response()->json(['status' => 'error', 'message' => trans('tickets.pdf.verif_pdf_error')], 400);
-                }
-                return response()->json(['status' => 'error', 'message' => trans('tickets.api.pdf_empty')], 400);
-            }
+        if (!$ticket->hasBeenSold()) {
             return response()->json(['status' => 'error', 'message' => trans('tickets.buy_modal.ticket_already_sold')], 400);
         }
-        return response(['status' => 'error', 'message' => trans('tickets.api.not_allowed')], 400);
+
+        if ($request->file && $request->page) {
+            return response()->json(['status' => 'error', 'message' => trans('tickets.api.pdf_empty')], 400);
+        }
+
+        $pdfService = new PdfService();
+
+        if ($pdfService->checkPdf()) {
+
+            if ($ticket->has_pdf) {
+                Storage::delete('uploads/' . $ticket->pdf);
+            }
+
+            $pdf = $pdfService->storePdfBase64($request->file);
+            $pdfService->splitPdf($request->page);
+
+            $ticket->pdf = $pdf;
+            $ticket->page_pdf = $request->page;
+            $ticket->save();
+
+            return response()->json(['status' => 'success', 'message' => trans('tickets.api.pdf_uploaded')]);
+        }
+        return response()->json(['status' => 'error', 'message' => trans('tickets.pdf.verif_pdf_error')], 400);
     }
 
-    public function deleteTicket($id) {
+    public function deleteTicket($id)
+    {
+        $this->middleware('auth');
+
         $user = \Auth::user();
         $ticket = Ticket::where('id', $id)->first();
+
+        if($ticket) {
+            return response(['status' => 'error', 'message' => trans('tickets.buy_modal.ticket_doesnt_exist')], 400);
+        }
 
         if($ticket->user_id === $user->id) {
 
@@ -179,11 +200,9 @@ class TicketController extends Controller
             if(!$ticket->transaction or $ticket->transaction->status != "SUCCEEDED")
             {
                 $ticket->delete();
-
                 return response()->json(['status' => 'success', 'message' => trans('tickets.api.ticket_deleted')]);
             }
         }
-
         return response(['status' => 'error', 'message' => trans('tickets.api.delete_ticket_no_right')], 400);
     }
 }
