@@ -65,7 +65,7 @@
         window.location.href = this.route('public.ticket.download', [this.ticket.id]);
       },
       help() {
-        console.log('Help');
+        this.$emit('claimTicket', this.ticket.id)
       },
     },
   }

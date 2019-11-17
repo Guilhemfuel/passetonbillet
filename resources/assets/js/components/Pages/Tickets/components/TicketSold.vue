@@ -137,7 +137,6 @@
                    :title="trans('tickets.component.share_modal.title')"
             >
                 <share-ticket :ticket="ticket"></share-ticket>
-
             </modal>
         </div>
     </transition>
@@ -146,7 +145,7 @@
 <script>
   export default {
     props: {
-      ticket: {required: true}
+      ticket: {required: true},
     },
     data() {
       return {
@@ -232,7 +231,7 @@
   }
 </script>
 
-<style>
+<style scoped>
     .my-ticket {
         border-radius: 20px;
         background-color: white;

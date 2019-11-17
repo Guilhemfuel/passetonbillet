@@ -9,8 +9,10 @@
                         {{trans('tickets.buy_modal.have_good_trip')}}
                     </h4>
 
-                    <div class="col-12">
-
+                    <div class="col-12 d-flex justify-content-center">
+                        <div class="paper-plane-success">
+                            <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+                        </div>
                     </div>
 
                     <div class="col-12">
@@ -53,3 +55,18 @@
     }
   }
 </script>
+
+<style>
+    .paper-plane-success {
+        background-color: #f6f6f7;
+        border-radius: 40px;
+        width: 80px;
+        height: 80px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #50e3c2;
+        font-size: 30px;
+        margin: 10px 0;
+    }
+</style>
