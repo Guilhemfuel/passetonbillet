@@ -32,8 +32,8 @@ class MangoPayService
             $mangoUser->FirstName = $user->first_name;
             $mangoUser->LastName = $user->last_name;
             $mangoUser->Birthday = strtotime($user->birthdate);
-            $mangoUser->Nationality = $user->location ? $user->location : "FR";
-            $mangoUser->CountryOfResidence = $user->location ? $user->location : "FR";
+            $mangoUser->Nationality = $user->idVerification ? $user->idVerification->country : "FR";
+            $mangoUser->CountryOfResidence = $user->idVerification ? $user->idVerification->country : "FR";
             $mangoUser->Email = $user->email;
 
             $mangoUser = $this->mangoPayApi->Users->Create($mangoUser);

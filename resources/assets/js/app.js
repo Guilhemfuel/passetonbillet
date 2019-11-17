@@ -91,7 +91,6 @@ Vue.component( 'social-password', require(/* webpackChunkName: "social-password"
 Vue.component( 'help', require(/* webpackChunkName: "help" */ './components/Pages/Help/Faq.vue').default);
 
 Vue.component( 'sell-ticket', require(/* webpackChunkName: "sell-ticket" */ './components/Pages/Tickets/Sell.vue').default);
-Vue.component( 'my-tickets', require(/* webpackChunkName: "my-tickets" */ './components/Pages/Tickets/Mytickets.vue').default);
 Vue.component( 'my-tickets-bought', require(/* webpackChunkName: "my-tickets" */ './components/Pages/Tickets/MyTicketsBought.vue').default);
 Vue.component( 'my-tickets-sold', require(/* webpackChunkName: "my-tickets" */ './components/Pages/Tickets/MyTicketsSold.vue').default);
 Vue.component( 'buy-ticket', require(/* webpackChunkName: "buy-ticket" */ './components/Pages/Tickets/Buy.vue').default);

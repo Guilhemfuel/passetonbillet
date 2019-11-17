@@ -207,7 +207,7 @@ class TicketController extends Controller
             if ($ticket) {
                 if ($ticket->user_id === $user->id OR ($ticket->transaction->purchaser_id === $user->id && $ticket->transaction->status === 'SUCCEEDED')) {
                     $name = 'PTB Ticket n°' .  $ticket->id . ' - ' . $ticket->train->departureCity->name . '-' . $ticket->train->arrivalCity->name . '.pdf';
-                    return Storage::download('uploads/' . $ticket->pdf, $name);
+                    return Storage::download(env('STORAGE_PDF') . '/' . $ticket->pdf, $name);
                 }
             }
         }

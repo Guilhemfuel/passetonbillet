@@ -270,7 +270,7 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Statistic');
     }
 
-    public function PurchaseTransactions()
+    public function purchaserTransactions()
     {
         return $this->hasMany('App\Transaction', 'purchaser_id');
     }

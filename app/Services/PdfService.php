@@ -24,8 +24,8 @@ class PdfService
         $data = explode(',', $pdf);
         $random = Str::random(40);
 
-        Storage::disk('local')->put("uploads/$random.pdf", base64_decode($data[1]));
-        $path = storage_path('app/uploads/' . $random . '.pdf');
+        Storage::disk('local')->put(env('STORAGE_PDF') . "/$random.pdf", base64_decode($data[1]));
+        $path = storage_path('app/'. env('STORAGE_PDF') .'/' . $random . '.pdf');
 
         $this->pdf = $path;
 

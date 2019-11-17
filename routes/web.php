@@ -292,7 +292,6 @@ Route::group( [ 'prefix' => 'api' ], function () {
      */
     Route::group( [ 'middleware' => 'auth' ], function () {
         Route::get( 'notifications', 'UserController@getNotifications' )->name( 'api.notifications' );
-        Route::get( 'notifications', 'UserController@getNotifications' )->name( 'api.notifications' );
 
         // Ticket api routes
         Route::post( 'ticket/search', 'TicketController@searchTickets' )->name( 'api.tickets.search' );

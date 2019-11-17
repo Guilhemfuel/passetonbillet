@@ -165,7 +165,7 @@ class TicketController extends Controller
         if ($pdfService->checkPdf()) {
 
             if ($ticket->has_pdf) {
-                Storage::delete('uploads/' . $ticket->pdf);
+                Storage::delete(env('STORAGE_PDF') . '/' . $ticket->pdf);
             }
 
             $pdf = $pdfService->storePdfBase64($request->file);
@@ -194,7 +194,7 @@ class TicketController extends Controller
         if($ticket->user_id === $user->id) {
 
             if($ticket->has_pdf) {
-                Storage::delete('uploads/' . $ticket->pdf);
+                Storage::delete(env('STORAGE_PDF') . '/' . $ticket->pdf);
             }
 
             if(!$ticket->transaction or $ticket->transaction->status != "SUCCEEDED")

@@ -17,8 +17,10 @@ class CreateTransactionsTable extends Migration
             $table->increments('id');
             $table->timestamps();
 
-            $table->integer('wallet_id');
+            $table->string('transaction')->nullable();
+            $table->string('status')->nullable();
 
+            $table->integer('wallet_id');
             $table->bigInteger( 'seller_id' )->unsigned();
             $table->bigInteger( 'purchaser_id' )->unsigned();
             $table->bigInteger( 'ticket_id' )->unsigned();

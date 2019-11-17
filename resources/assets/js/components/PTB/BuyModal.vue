@@ -5,7 +5,7 @@
                class="review-modal">
 
             <div id="previousModal" @click="previousModal">
-                <
+                <i class="fa fa-chevron-left" aria-hidden="true"></i>
             </div>
 
             <div v-if="state == 'recap'">
