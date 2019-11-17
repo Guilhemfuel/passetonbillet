@@ -4,6 +4,9 @@
            :is-open="openModal"
            @close-modal="closeModal"
     >
+
+        <div class="timeLeft" v-if="timeLeft">{{ timeLeft }} {{ trans('tickets.claim.hours_left') }}</div>
+
         <div v-if="state === 'start'" class="col-10 text-center mx-auto">
             <h1>
                 {{ trans('tickets.claim.start') }}
@@ -107,7 +110,9 @@
         <div v-if="state === 'question-5'" class="col-10 text-center mx-auto">
             <h1>{{ trans('tickets.claim.question_5') }}</h1>
 
-            <p class="mt-2"><textarea id="moreInformation" name="moreInformation" v-model="moreInformation" rows="5" cols="33"></textarea></p>
+            <p class="mt-2">
+                <textarea id="moreInformation" name="moreInformation" :placeholder="trans('tickets.claim.more_info')" v-model="moreInformation"></textarea>
+            </p>
 
             <div class="button-my-ticket-delete mt-2 mx-auto">
                 <button class="btn btn-ptb btn-upper text-uppercase w-100" @click.prevent="answerQuestion(moreInformation)">
@@ -140,8 +145,10 @@
     },
     data() {
       return {
-        state: 'start',
+        state: 'faq',
         currentQuestion: 1,
+        timeLimit: 48,
+        timeLeft: null,
         timeScan: null,
         moreInformation: null,
         answers: []
@@ -153,14 +160,18 @@
         this.$emit("close-modal", false);
       },
       resetComponent() {
-        this.state = 'start';
+        console.log('reset')
+        this.state = 'faq';
         this.currentQuestion = 1;
+        this.timeLeft = null;
         this.timeScan = null;
         this.moreInformation = null;
         this.answers = [];
       },
+      formatedDate(date) {
+        return new moment(date, 'YYYY-MM-DD').format('L');
+      },
       answerQuestion(answer) {
-        console.log(answer)
         this.answers.push(answer)
         this.currentQuestion++;
         if (this.currentQuestion <= 5) {
@@ -170,23 +181,70 @@
         }
         console.log(this.answers);
       },
+      calculTimeLeft() {
+        let dateDeparture = this.ticket.train.departure_date + ' ' + this.ticket.train.departure_time;
+        let dateNow = moment().format('YYYY-MM-DD HH:mm:ss');
+
+        //If departure has started, we display the claim modal
+        //If not we display only FAQ modal
+        if(dateDeparture <= dateNow) {
+          this.state = 'start';
+          let diff = new moment(dateNow,"YYYY-MM-DD HH:mm:ss").diff(moment(dateDeparture,"YYYY-MM-DD HH:mm:ss"));
+          let hoursSinceDeparture = Math.round(new moment.duration(diff).asHours());
+          let minutesSinceDeparture = Math.round(new moment.duration(diff).asMinutes());
+
+          //If train departure is less than 48 hours
+          if (hoursSinceDeparture <= this.timeLimit) {
+            this.timeLeft = this.timeLimit - hoursSinceDeparture;
+          }
+        }
+      },
       submitClaim() {
         console.log('Submit !')
       },
     },
     computed: {
     },
-    mounted() {
-
+    watch: {
+      openModal: function () {
+        if(this.openModal) {
+          this.calculTimeLeft();
+        }
+      }
     }
   }
 </script>
 
 <style scoped>
     #modal-claim h1 {
-        font-size: 20px;
+        font-size: 15px;
+        margin-bottom: 10px;
         text-align: center;
         color: black;
+        font-weight: bold;
+    }
+
+    #modal-claim textarea {
+        background-color: #eaeaea;
+        border: none;
+        border-radius: 10px;
+        font-size: 14px;
+        width: 300px;
+        height: 150px;
+        color: #545454;
+    }
+
+    .timeLeft {
+        background-color: #f8254a;
+        font-weight: bold;
+        font-size: 14px;
+        color: white;
+        text-align: center;
+        border-radius: 10px;
+        width: 80px;
+        padding: 6px;
+        line-height: 12px;
+        margin: 0 0 10px 0;
     }
 
     .button-my-ticket-update, .button-my-ticket-delete {  width: 300px;  }

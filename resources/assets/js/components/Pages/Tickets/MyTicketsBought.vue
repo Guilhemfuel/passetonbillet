@@ -21,7 +21,7 @@
             </div>
         </div>
 
-        <claim-modal :openModal="openClaimModal" :ticket="ticketIdClaim" @close-modal="openClaimModal = false; ticketIdClaim = null"></claim-modal>
+        <claim-modal :openModal="openClaimModal" :ticket="ticketClaim" @close-modal="openClaimModal = false; ticketIdClaim = null"></claim-modal>
     </div>
 </template>
 
@@ -33,7 +33,7 @@
         loading: true,
         dateNow: Date.parse(new moment().format("YYYY[-]MM[-]DD")),
         openClaimModal: false,
-        ticketIdClaim: null,
+        ticketClaim: null,
     }
     },
     methods: {
@@ -48,9 +48,9 @@
           this.loading=false;
         }
       },
-      claim(ticketId) {
+      claim(ticket) {
         this.openClaimModal = true;
-        this.ticketIdClaim = ticketId;
+        this.ticketClaim = ticket;
       }
     },
     computed: {

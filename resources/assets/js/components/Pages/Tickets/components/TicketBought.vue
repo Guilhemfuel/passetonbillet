@@ -6,7 +6,7 @@
             <div class="front">
                 <div>
                     N°{{ ticket.id }}<br>
-                    <span class="font-weight-bold">{{ formatedDate(ticket.created_at) }}</span>
+                    <span class="font-weight-bold">{{ formatedDate(ticket.train.departure_date) }}</span>
                 </div>
 
                 <div class="d-flex justify-content-between departure">
@@ -36,7 +36,8 @@
                 </div>
 
                 <div class="button-my-ticket-change">
-                    <button class="btn btn-ptb btn-upper text-uppercase w-100" @click.prevent="help()">
+                    <div v-if="isDisabled" class="tooltip-limit-claim">{{ trans('tickets.claim.claim_limit_reached') }}</div>
+                    <button class="btn btn-ptb btn-upper text-uppercase w-100" @click.prevent="help()" :disabled=isDisabled>
                         {{ trans('tickets.component.help_button') }}
                     </button>
                 </div>
@@ -52,6 +53,7 @@
     },
     data() {
       return {
+        timeLimit: 48,
       }
     },
     methods: {
@@ -65,9 +67,28 @@
         window.location.href = this.route('public.ticket.download', [this.ticket.id]);
       },
       help() {
-        this.$emit('claimTicket', this.ticket.id)
+        this.$emit('claimTicket', this.ticket)
       },
     },
+    computed: {
+      isDisabled() {
+        let dateDeparture = this.ticket.train.departure_date + ' ' + this.ticket.train.departure_time;
+        let dateNow = moment().format('YYYY-MM-DD HH:mm:ss');
+
+        //If departure has started
+        if(dateDeparture <= dateNow) {
+          let diff = new moment(dateNow,"YYYY-MM-DD HH:mm:ss").diff(moment(dateDeparture,"YYYY-MM-DD HH:mm:ss"));
+          let hoursSinceDeparture = new moment.duration(diff).asHours();
+
+          //If train departure is more than 48 Hours then we disable the help button
+          if (hoursSinceDeparture > this.timeLimit) {
+            return true;
+          }
+        }
+
+        return false;
+      }
+    }
   }
 </script>
 
@@ -91,6 +112,25 @@
     .my-ticket > div > div {  margin: 0 10px;  }
 
     .my-ticket .departure {  width: 350px;  }
+
+    .tooltip-limit-claim {
+        background-color: rgba(0, 0, 0, 0.85);
+        color: white;
+        position: absolute;
+        font-size: 11px;
+        border-radius: 10px;
+        width: 250px;
+        margin-left: -260px;
+        visibility: hidden;
+        opacity: 0;
+        transition: all 0.8s ease;
+        padding: 5px;
+    }
+
+    .button-my-ticket-change:hover .tooltip-limit-claim {
+        visibility: visible;
+        opacity: 1;
+    }
 
     @media screen and (max-width: 768px) {
 

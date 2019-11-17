@@ -433,8 +433,12 @@ return [
         'question_4_more' => 'Lors d’un controle, l’agent de sécurité peut demander de vérifier que le nom du billet correspond au nom sur votre pièce d’identité',
 
         'question_5' => 'Merci d’ajouter ici toute information supplémentaire qui pourrait être utile dans la résolution de ce conflt:',
+        'more_info' => 'Informations supplémentaires...',
 
         'end' => 'Conflit créé',
         'end_more' => 'Merci! Nous avons pris en compte vos réponses et nous vous contacterons d’ici peu avec le verdict final.',
+
+        'hours_left' => 'Hours left',
+        'claim_limit_reached' => 'Les 48 heures pendant lesquelles vous pouviez signaler un problème sont passées. Le vendeur a reçu votre paiement.'
     ],
 ];
