@@ -11,6 +11,9 @@ return [
     'component' => [
         'yes'                       => 'Oui',
         'no'                        => 'Non',
+        'validate'                  => 'Valider',
+        'submit'                    => 'Soumettre',
+        'finish'                    => 'Terminer',
         'buy'                       => 'Acheter',
         'update'                    => 'Modifier',
         'update_price'              => 'Modifier prix',
@@ -406,5 +409,32 @@ return [
         'ticket_deleted'         => 'Billet supprimé avec succès !',
         'delete_ticket_no_right' => 'Vous n\'avez pas le droit de supprimer ce billet',
         'confirm_delete'         => 'Êtes-vous sûr de vouloir supprimer ce billet ?',
+    ],
+
+    'claim' => [
+        'start' => 'Avez-vous eu rencontré un problème avec ce billet ?',
+        'start_more' => 'Si vous n’avez pas pu voyager avec ce billet, vous avez 48 heures pour nous le signaler en ouvrant un conflit avec le vendeur',
+        'i_have_question' => 'Non, j\'ai une question',
+
+        'we_answers' => 'Nous répondons à vos questions',
+        'read_our_faq' => 'Nous vous invitons à lire nos FAQs qui contiennent les réponses à toutes les questions fréquentes que les acheteurs peuvent se poser',
+        'read_faq' => 'LIRE LES FAQs',
+
+        'question_1' => 'Avez-vous essayé de scanner le billet en personne?',
+        'question_1_more' => 'Êtes-vous la personne qui a essayé de scanner le billet aux bornes automatiques?',
+
+        'question_2' => 'À quelle heure avez-vous essayé de scanner le billet?',
+        'question_2_more' => 'C’est important d’être le plus précis possible. Nous pouvons vérifier dans notre système',
+
+        'question_3' => 'Avez-vous rencontré un problème au moment du scannage du billet ?',
+        'question_3_more' => 'Cela se traduit généralement par un message d’erreur sur les bornes automatiques vous demandant de contacter un agent',
+
+        'question_4' => 'Avez-vous été controlé après avoir scanné le billet?',
+        'question_4_more' => 'Lors d’un controle, l’agent de sécurité peut demander de vérifier que le nom du billet correspond au nom sur votre pièce d’identité',
+
+        'question_5' => 'Merci d’ajouter ici toute information supplémentaire qui pourrait être utile dans la résolution de ce conflt:',
+
+        'end' => 'Conflit créé',
+        'end_more' => 'Merci! Nous avons pris en compte vos réponses et nous vous contacterons d’ici peu avec le verdict final.',
     ],
 ];
