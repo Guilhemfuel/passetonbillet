@@ -275,9 +275,19 @@ class User extends Authenticatable
         return $this->hasMany('App\Transaction', 'purchaser_id');
     }
 
-    public function sellTransactions()
+    public function sellerTransactions()
     {
         return $this->hasMany('App\Transaction', 'seller_id');
+    }
+
+    public function purchaserClaim()
+    {
+        return $this->hasMany('App\Claim', 'purchaser_id');
+    }
+
+    public function sellerClaim()
+    {
+        return $this->hasMany('App\Claim', 'seller_id');
     }
 
     /**

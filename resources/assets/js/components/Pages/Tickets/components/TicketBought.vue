@@ -92,7 +92,7 @@
   }
 </script>
 
-<style>
+<style scoped>
     .my-ticket {
         border-radius: 20px;
         background-color: white;

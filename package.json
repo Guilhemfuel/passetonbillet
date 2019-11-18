@@ -58,6 +58,7 @@
     "vue-scroll": "^2.1.12",
     "vue-smoothscroll": "^0.1.1",
     "vue-template-compiler": "^2.6.10",
+    "vue-timeselector": "^1.0.0",
     "vue2-editor": "^2.10.0",
     "vuejs-datepicker": "^0.9.7",
     "webpack": "^4.39.2"

@@ -303,6 +303,9 @@ Route::group( [ 'prefix' => 'api' ], function () {
         Route::get( 'ticket/{ticket}/offers/', 'API\TicketController@getOffers' )->name( 'api.tickets.offers' );
         Route::get( 'ticket/owned/{type}', 'API\TicketController@owned' )->name( 'api.tickets.owned' );
 
+        Route::post( 'claim/add/buyer', 'ClaimController@addClaimBuyer' )->name( 'api.add.claim.buyer' );
+        Route::post( 'claim/add/seller', 'ClaimController@addClaimSeller' )->name( 'api.add.claim.seller' );
+
         // Discussion api routes
         Route::get( 'messages/home/{type}', 'API\DiscussionController@messages' )->name( 'api.discussion.messages' );
         Route::post( 'messages/{ticket}/{discussion}', 'DiscussionController@sendMessage' )->name( 'api.discussion.send' );

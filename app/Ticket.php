@@ -299,6 +299,11 @@ class Ticket extends AbstractTicket
         return $this->hasOne('App\Transaction');
     }
 
+    public function claim()
+    {
+        return $this->hasOne('App\Claim');
+    }
+
     /**
      * Static
      */

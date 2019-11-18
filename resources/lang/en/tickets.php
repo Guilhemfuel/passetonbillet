@@ -431,6 +431,13 @@ return [
         'end_more' => 'Merci! Nous avons pris en compte vos réponses et nous vous contacterons d’ici peu avec le verdict final.',
 
         'hours_left' => 'Hours left',
-        'claim_limit_reached' => 'Les 48 heures pendant lesquelles vous pouviez signaler un problème sont passées. Le vendeur a reçu votre paiement.'
+        'claim_limit_reached' => 'Les 48 heures pendant lesquelles vous pouviez signaler un problème sont passées. Le vendeur a reçu votre paiement.',
+
+        'api' => [
+            'no_data' => 'No data sent',
+            'claim_sent' => 'Claim sent !',
+            'claim_date_limit' => 'You can\'t ask for a claim, the limit of 48 hours is reached',
+            'claim_before_departure' => 'You can\'t ask for a claim before a departure',
+        ],
     ],
 ];

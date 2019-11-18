@@ -64,6 +64,10 @@
 
             <p class="mt-2">{{ trans('tickets.claim.question_2_more') }}</p>
 
+            <div class="col-10 text-center mx-auto timepicker">
+                <input type="time" id="timeAnswer" name="timeAnswer" value="12:00:00" v-model="timeScan" required>
+            </div>
+
             <div class="button-my-ticket-delete mt-2 mx-auto">
                 <button class="btn btn-ptb btn-upper text-uppercase w-100" @click.prevent="answerQuestion(timeScan)">
                     {{ trans('tickets.component.validate') }}
@@ -129,7 +133,7 @@
             <div><i class="fa fa-check" aria-hidden="true"></i></div>
 
             <div class="button-my-ticket-delete mt-2 mx-auto">
-                <button class="btn btn-ptb btn-upper text-uppercase w-100" @click.prevent="submitClaim">
+                <button class="btn btn-ptb btn-upper text-uppercase w-100" @click.prevent="closeModal">
                     {{ trans('tickets.component.finish') }}
                 </button>
             </div>
@@ -149,7 +153,7 @@
         currentQuestion: 1,
         timeLimit: 48,
         timeLeft: null,
-        timeScan: null,
+        timeScan: '12:00:00',
         moreInformation: null,
         answers: []
       }
@@ -160,13 +164,15 @@
         this.$emit("close-modal", false);
       },
       resetComponent() {
-        console.log('reset')
         this.state = 'faq';
         this.currentQuestion = 1;
         this.timeLeft = null;
-        this.timeScan = null;
+        this.timeScan = '12:00:00';
         this.moreInformation = null;
         this.answers = [];
+      },
+      handleResponse(response) {
+        if(response.body.message) { this.$message({message: response.body.message, type: response.body.status}) }
       },
       formatedDate(date) {
         return new moment(date, 'YYYY-MM-DD').format('L');
@@ -177,9 +183,9 @@
         if (this.currentQuestion <= 5) {
           this.state = 'question-' + this.currentQuestion;
         } else {
+          this.submitClaim();
           this.state = 'end';
         }
-        console.log(this.answers);
       },
       calculTimeLeft() {
         let dateDeparture = this.ticket.train.departure_date + ' ' + this.ticket.train.departure_time;
@@ -200,7 +206,14 @@
         }
       },
       submitClaim() {
-        console.log('Submit !')
+        let data = JSON.stringify({'answers': this.answers, 'ticket': this.ticket})
+
+        this.$http.post(this.route('api.add.claim.buyer'), data)
+          .then(response => {
+            if(response.body.status === 'error') {
+              this.handleResponse(response)
+            }
+          });
       },
     },
     computed: {
@@ -234,6 +247,14 @@
         color: #545454;
     }
 
+    #modal-claim .timepicker {  border: solid 2px #eaeaea;  }
+
+    #modal-claim .timepicker input {
+        border: none;
+        color: #545454;
+        margin-left: 20px;
+    }
+
     .timeLeft {
         background-color: #f8254a;
         font-weight: bold;
@@ -247,7 +268,7 @@
         margin: 0 0 10px 0;
     }
 
-    .button-my-ticket-update, .button-my-ticket-delete {  width: 300px;  }
+    .button-my-ticket-update, .button-my-ticket-delete {  max-width: 300px;  }
 
     .button-my-ticket-update button {  background-color: #0b89e7;  }
     .button-my-ticket-delete button {  background-color: #f8254a;  }

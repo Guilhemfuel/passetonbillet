@@ -253,7 +253,6 @@ class TicketController extends Controller
             return redirect()->route( 'public.ticket.sell.page' );
         }
 
-
         $pdfService = new PdfService();
         $pdf = $pdfService->storePdfBase64($request->file);
 
