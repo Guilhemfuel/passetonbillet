@@ -64,6 +64,33 @@ class UserController extends Controller
         return response()->json($result);
     }
 
+    public function getBankAccount() {
+        $this->middleware('auth');
+
+        $user = \Auth::user();
+        $mangoPay = new MangoPayService();
+        $mangoPay->getMangoUser($user->mangopay_id);
+
+        $bankAccount = $mangoPay->getBankAccount();
+
+        return response()->json(['bankAccount' => $bankAccount]);
+    }
+
+    public function updateBankAccount(Request $request) {
+        $this->middleware('auth');
+
+        $user = \Auth::user();
+        $mangoPay = new MangoPayService();
+        $mangoPay->getMangoUser($user->mangopay_id);
+
+        if($request->iban && $request->nameAccount && $request->address && $request->city && $request->postal) {
+            $bankAccount = $mangoPay->createBankAccount($request);
+            return response()->json(['message' => __( 'tickets.bank_account_success'), 'type' => 'success', 'bankAccount' => $bankAccount]);
+        }
+
+        return response()->json(['message' => __( 'tickets.bank_account_not_complete'), 'type' => 'error']);
+    }
+
     /**
      * Upload
      *

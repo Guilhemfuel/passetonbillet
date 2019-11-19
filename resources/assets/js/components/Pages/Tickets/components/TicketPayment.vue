@@ -31,7 +31,12 @@
                 <div class="button-my-ticket-update">
                     <div class="tooltip-limit-claim">{{ trans('tickets.claim.claim_limit_reached') }}</div>
                     <button class="btn btn-ptb btn-upper text-uppercase w-100" @click.prevent="help()">
-                        {{ trans('tickets.component.help_button') }}
+                        <span v-if="ticket.hasClaim">
+                            {{ trans('tickets.component.resolve') }}
+                        </span>
+                        <span v-else>
+                            {{ trans('tickets.component.help_button') }}
+                        </span>
                     </button>
                 </div>
             </div>
@@ -47,6 +52,7 @@
     data() {
       return {
         timeLeft: null,
+        dateNow: moment().format('YYYY-MM-DD HH:mm:ss'),
       }
     },
     methods: {
@@ -59,22 +65,22 @@
       calculTimeLeft() {
         let dateBeforeTransfer = this.ticket.dateBeforeTransfer;
         let claimLimitSeller = this.ticket.claimLimitSeller;
-        let dateNow = moment().format('YYYY-MM-DD HH:mm:ss');
 
         if(this.ticket.hasClaim) {
-          if(claimLimitSeller > dateNow) {
-            let diff = new moment(claimLimitSeller,"YYYY-MM-DD HH:mm:ss").diff(moment(dateNow,"YYYY-MM-DD HH:mm:ss"));
-            this.timeLeft = Math.round(new moment.duration(diff).asHours());
+          if(claimLimitSeller > this.dateNow) {
+            let diff = new moment(claimLimitSeller,"YYYY-MM-DD HH:mm:ss").diff(moment(this.dateNow,"YYYY-MM-DD HH:mm:ss"));
+            this.timeLeft = Math.round(new moment.duration(diff).asHours()) + ' ' + this.trans('tickets.claim.hours_left');
           } else {
-            this.timeLeft = 0;
+            this.timeLeft = 0 + ' ' + this.trans('tickets.claim.hours_left');
           }
         }
         else {
           console.log(dateBeforeTransfer)
-          if(dateBeforeTransfer > dateNow) {
-            console.log('ah oui')
-            let diff = new moment(dateBeforeTransfer,"YYYY-MM-DD HH:mm:ss").diff(moment(dateNow,"YYYY-MM-DD HH:mm:ss"));
-            this.timeLeft = Math.round(new moment.duration(diff).asHours());
+          if(dateBeforeTransfer > this.dateNow) {
+            let diff = new moment(dateBeforeTransfer,"YYYY-MM-DD HH:mm:ss").diff(moment(this.dateNow,"YYYY-MM-DD HH:mm:ss"));
+            this.timeLeft = Math.round(new moment.duration(diff).asHours()) + ' ' + this.trans('tickets.claim.hours_left');
+          } else {
+            this.timeLeft = 'Paiement effectué'
           }
         }
       },

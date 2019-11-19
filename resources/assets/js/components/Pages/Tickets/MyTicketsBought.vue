@@ -21,7 +21,7 @@
             </div>
         </div>
 
-        <claim-modal-purchaser :openModal="openClaimModal" :ticket="ticketClaim" @close-modal="openClaimModal = false; ticketIdClaim = null"></claim-modal-purchaser>
+        <claim-modal-purchaser :openModal="openClaimModal" :ticket="ticketClaim" @close-modal="openClaimModal = false;"></claim-modal-purchaser>
     </div>
 </template>
 

@@ -14,6 +14,7 @@ return [
         'validate'                  => 'Valider',
         'submit'                    => 'Soumettre',
         'finish'                    => 'Terminer',
+        'resolve'                   => 'Résoudre',
         'buy'                       => 'Acheter',
         'update'                    => 'Modifier',
         'update_price'              => 'Modifier prix',
@@ -446,6 +447,24 @@ return [
             'claim_sent' => 'Litige envoyé !',
             'claim_date_limit' => 'Demande de litige impossible, les 48h sont passés',
             'claim_before_departure' => 'Vous ne pouvez pas faire une demande de litige avant le départ',
+            'claim_not_possible' => 'Vous ne pouvez pas créer un litige si aucun litige n\'a été crée de la part de l\'acheteur'
         ],
     ],
+
+    'claim_seller' => [
+        'start' => 'Résoudre le conflit',
+        'start_more' => 'L’acheteur n’a pas pu voyager avec votre billet pour la raison suivante:',
+        'unvalid_ticket' => 'Billet non valide',
+        'you_have_limited_time' => 'Vous avez :hours heures pour résoudre ce conflit ou l’acheteur sera remboursé',
+
+        'question_1' => 'À part sur Passetonbillet.fr et les groupes Facebook appartenant au site, avez-vous mis votre billet en vente sur d’autres plateformes? ',
+        'question_1_more' => '(ex: Trocsdestrains.fr, Kelbillet.fr, Zepass.com, autres groupes Facebook…)',
+
+        'question_2' => 'Avez-vous bien téléchargé le billet complet original lors de la mise en vente sur Passetonbillet.fr?',
+        'question_2_more' => 'Le billet doit être téléchargé directement depuis le site Eurostar, Thalys, SNCF ou autre.',
+    ],
+
+    'update_bank_account' => 'Modifier informations de paiement',
+    'bank_account_not_complete' => 'Veuillez compléter le formulaire entièrement',
+    'bank_account_success' => 'Votre compte bancaire est ajouté !',
 ];

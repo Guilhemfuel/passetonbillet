@@ -228,4 +228,49 @@ class MangoPayService
 
         return null;
     }
+
+    public function createBankAccount($data) {
+        try {
+            $BankAccount = new MangoPay\BankAccount();
+            $BankAccount->Type = "IBAN";
+            $BankAccount->Details = new MangoPay\BankAccountDetailsIBAN();
+            $BankAccount->Details->IBAN = $data->iban;
+            $BankAccount->OwnerName = $data->nameAccount;
+
+            $BankAccount->OwnerAddress = new MangoPay\Address();
+            $BankAccount->OwnerAddress->AddressLine1 = $data->address;
+            $BankAccount->OwnerAddress->City = $data->city;
+            $BankAccount->OwnerAddress->PostalCode = $data->postal;
+            $BankAccount->OwnerAddress->Country = \Auth::user()->phone_country;
+
+            $BankAccount = $this->mangoPayApi->Users->CreateBankAccount($this->mangoUser, $BankAccount);
+
+            return $BankAccount;
+
+        } catch (MangoPay\Libraries\ResponseException $e) {
+            return $e->GetMessage();
+        } catch (MangoPay\Libraries\Exception $e) {
+            return $e->GetMessage();
+        }
+    }
+
+    public function getBankAccount() {
+        try {
+
+            $pagination = new MangoPay\Pagination();
+            $pagination->Page = 1;
+            $pagination->ItemsPerPage = 5;
+
+            $sorting = new MangoPay\Sorting();
+            $sorting->AddField("CreationDate", MangoPay\SortDirection::DESC);
+
+            $BankAccount = $this->mangoPayApi->Users->GetBankAccounts($this->mangoUser, $pagination, $sorting);
+            return $BankAccount ? $BankAccount[0] : null;
+
+        } catch (MangoPay\Libraries\ResponseException $e) {
+            return $e->GetMessage();
+        } catch (MangoPay\Libraries\Exception $e) {
+            return $e->GetMessage();
+        }
+    }
 }

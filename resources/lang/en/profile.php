@@ -22,6 +22,11 @@ return [
     'by'                               => 'by',
     'only_you'                         => 'Private profile information',
     'delete_account'                   => 'Delete my account',
+    'owner_name'                       => 'Owner name',
+    'iban'                             => 'Iban',
+    'address'                          => 'Address',
+    'city'                             => 'City',
+    'cp'                               => 'Postal Code',
 
     'stats_title' => 'Statistics',
 
@@ -80,6 +85,9 @@ return [
             'cta'     => 'Confirm account deletion',
             'cancel'  => 'Whoops! I want to keep my account',
             'success' => 'Account successfully deleted. Please contact us to give feedback. We hope to see you again soon on PasseTonBillet !'
+        ],
+        'bank_account' => [
+            'payment_info' => 'Payment information',
         ]
     ]
 ];

@@ -22,6 +22,11 @@ return [
     'by'                               => 'par',
     'only_you'                         => 'Informations privées du profil',
     'delete_account'                   => 'Supprimer mon compte',
+    'owner_name'                       => 'Nom du titulaire',
+    'iban'                             => 'Iban',
+    'address'                          => 'Adresse',
+    'city'                             => 'Ville',
+    'cp'                               => 'Code Postal',
 
 
     'stats_title' => 'Statistiques',
@@ -82,6 +87,9 @@ return [
             'cancel'  => 'Oups! Je veux garder mon compte',
             'success' => 'Compte supprimé avec succès. Merci de nous contacter pour nous laisser votre avis. Nous espèrons vous revoir bientot sur PasseTonBillet !'
 
+        ],
+        'bank_account' => [
+            'payment_info' => 'Information de paiement',
         ]
     ]
 ];

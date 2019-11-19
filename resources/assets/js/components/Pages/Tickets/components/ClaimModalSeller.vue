@@ -9,22 +9,24 @@
 
         <div v-if="state === 'start'" class="col-10 text-center mx-auto">
             <h1>
-                {{ trans('tickets.claim.start') }}
+                {{ trans('tickets.claim_seller.start') }}
             </h1>
 
             <p class="mt-2">
-                {{ trans('tickets.claim.start_more') }}
+                {{ trans('tickets.claim_seller.start_more') }}
             </p>
 
-            <div class="button-my-ticket-update mt-2 mx-auto">
-                <button class="btn btn-ptb btn-upper text-uppercase w-100" @click.prevent="state = 'faq'">
-                    {{ trans('tickets.claim.i_have_question') }}
-                </button>
-            </div>
+            <p class="mt-2">
+                {{ trans('tickets.claim_seller.unvalid_ticket') }}
+            </p>
+
+            <p class="mt-2">
+                {{ trans('tickets.claim_seller.you_have_limited_time') }}
+            </p>
 
             <div class="button-my-ticket-delete mt-2 mx-auto">
                 <button class="btn btn-ptb btn-upper text-uppercase w-100" @click.prevent="state = 'question-1'">
-                    {{ trans('tickets.component.yes') }}
+                    {{ trans('tickets.component.resolve') }}
                 </button>
             </div>
         </div>
@@ -42,9 +44,9 @@
         </div>
 
         <div v-if="state === 'question-1'" class="col-10 text-center mx-auto">
-            <h1>{{ trans('tickets.claim.question_1') }}</h1>
+            <h1>{{ trans('tickets.claim_seller.question_1') }}</h1>
 
-            <p class="mt-2">{{ trans('tickets.claim.question_1_more') }}</p>
+            <p class="mt-2">{{ trans('tickets.claim_seller.question_1_more') }}</p>
 
             <div class="button-my-ticket-update mt-2 mx-auto">
                 <button class="btn btn-ptb btn-upper text-uppercase w-100" @click.prevent="answerQuestion(false)">
@@ -60,59 +62,25 @@
         </div>
 
         <div v-if="state === 'question-2'" class="col-10 text-center mx-auto">
-            <h1>{{ trans('tickets.claim.question_2') }}</h1>
+            <h1>{{ trans('tickets.claim_seller.question_2') }}</h1>
 
-            <p class="mt-2">{{ trans('tickets.claim.question_2_more') }}</p>
+            <p class="mt-2">{{ trans('tickets.claim_seller.question_2_more') }}</p>
 
-            <div class="col-10 text-center mx-auto timepicker">
-                <input type="time" id="timeAnswer" name="timeAnswer" value="12:00:00" v-model="timeScan" required>
+            <div class="button-my-ticket-update mt-2 mx-auto">
+                <button class="btn btn-ptb btn-upper text-uppercase w-100" @click.prevent="answerQuestion(false)">
+                    {{ trans('tickets.component.no') }}
+                </button>
             </div>
 
             <div class="button-my-ticket-delete mt-2 mx-auto">
-                <button class="btn btn-ptb btn-upper text-uppercase w-100" @click.prevent="answerQuestion(timeScan)">
-                    {{ trans('tickets.component.validate') }}
+                <button class="btn btn-ptb btn-upper text-uppercase w-100" @click.prevent="answerQuestion(true)">
+                    {{ trans('tickets.component.yes') }}
                 </button>
             </div>
         </div>
 
         <div v-if="state === 'question-3'" class="col-10 text-center mx-auto">
             <h1>{{ trans('tickets.claim.question_3') }}</h1>
-
-            <p class="mt-2">{{ trans('tickets.claim.question_3_more') }}</p>
-
-            <div class="button-my-ticket-update mt-2 mx-auto">
-                <button class="btn btn-ptb btn-upper text-uppercase w-100" @click.prevent="answerQuestion(false)">
-                    {{ trans('tickets.component.no') }}
-                </button>
-            </div>
-
-            <div class="button-my-ticket-delete mt-2 mx-auto">
-                <button class="btn btn-ptb btn-upper text-uppercase w-100" @click.prevent="answerQuestion(true)">
-                    {{ trans('tickets.component.yes') }}
-                </button>
-            </div>
-        </div>
-
-        <div v-if="state === 'question-4'" class="col-10 text-center mx-auto">
-            <h1>{{ trans('tickets.claim.question_4') }}</h1>
-
-            <p class="mt-2">{{ trans('tickets.claim.question_4_more') }}</p>
-
-            <div class="button-my-ticket-update mt-2 mx-auto">
-                <button class="btn btn-ptb btn-upper text-uppercase w-100" @click.prevent="answerQuestion(false)">
-                    {{ trans('tickets.component.no') }}
-                </button>
-            </div>
-
-            <div class="button-my-ticket-delete mt-2 mx-auto">
-                <button class="btn btn-ptb btn-upper text-uppercase w-100" @click.prevent="answerQuestion(true)">
-                    {{ trans('tickets.component.yes') }}
-                </button>
-            </div>
-        </div>
-
-        <div v-if="state === 'question-5'" class="col-10 text-center mx-auto">
-            <h1>{{ trans('tickets.claim.question_5') }}</h1>
 
             <p class="mt-2">
                 <textarea id="moreInformation" name="moreInformation" :placeholder="trans('tickets.claim.more_info')" v-model="moreInformation"></textarea>
@@ -126,14 +94,14 @@
         </div>
 
         <div v-if="state === 'end'" class="col-10 text-center mx-auto">
-            <h1>{{ trans('tickets.claim.end') }}</h1>
+            <h1>{{ trans('tickets.claim_seller.start') }}</h1>
 
             <p class="mt-2">{{ trans('tickets.claim.end_more') }}</p>
 
             <div class="paper-plane-success mx-auto"><i class="fa fa-check" aria-hidden="true"></i></div>
 
             <div class="button-my-ticket-delete mt-3 mx-auto">
-                <button class="btn btn-ptb btn-upper text-uppercase w-100" @click.prevent="closeModal">
+                <button class="btn btn-ptb btn-upper text-uppercase w-100" @click.prevent="submitClaim">
                     {{ trans('tickets.component.finish') }}
                 </button>
             </div>
@@ -180,7 +148,7 @@
       answerQuestion(answer) {
         this.answers.push(answer)
         this.currentQuestion++;
-        if (this.currentQuestion <= 5) {
+        if (this.currentQuestion <= 3) {
           this.state = 'question-' + this.currentQuestion;
         } else {
           this.submitClaim();
@@ -189,17 +157,17 @@
       },
       calculTimeLeft() {
         let dateDeparture = this.ticket.train.full_departure_date;
-        let claimLimitPurchaser = this.ticket.claimLimitPurchaser;
+        let claimLimitSeller = this.ticket.claimLimitSeller;
         let dateNow = moment().format('YYYY-MM-DD HH:mm:ss');
 
         //If departure has started, we display the claim modal
         //If not we display only FAQ modal
         if(dateDeparture <= dateNow) {
           //If the limit time for claim is not reached
-          if(dateNow < claimLimitPurchaser) {
+          if(dateNow < claimLimitSeller) {
             this.state = 'start';
 
-            let diff = new moment(claimLimitPurchaser,"YYYY-MM-DD HH:mm:ss").diff(moment(dateNow,"YYYY-MM-DD HH:mm:ss"));
+            let diff = new moment(claimLimitSeller,"YYYY-MM-DD HH:mm:ss").diff(moment(dateNow,"YYYY-MM-DD HH:mm:ss"));
             this.timeLeft = Math.round(new moment.duration(diff).asHours());
           }
         }
@@ -207,7 +175,9 @@
       submitClaim() {
         let data = JSON.stringify({'answers': this.answers, 'ticket': this.ticket})
 
-        this.$http.post(this.route('api.add.claim.buyer'), data)
+        console.log(this.answers)
+
+        this.$http.post(this.route('api.add.claim.seller'), data)
           .then(response => {
             if(response.body.status === 'error') {
               this.handleResponse(response)

@@ -14,6 +14,7 @@ return [
         'validate'                  => 'Validate',
         'submit'                    => 'Submit',
         'finish'                    => 'Finish',
+        'resolve'                   => 'Resolve',
         'buy'                       => 'Buy',
         'update'                    => 'Update',
         'update_price'              => 'Update price',
@@ -438,6 +439,24 @@ return [
             'claim_sent' => 'Claim sent !',
             'claim_date_limit' => 'You can\'t ask for a claim, the limit of 48 hours is reached',
             'claim_before_departure' => 'You can\'t ask for a claim before a departure',
+            'claim_not_possible' => 'You can\'t make a claim as a seller if there is no claim for your ticket'
         ],
     ],
+
+    'claim_seller' => [
+        'start' => 'Résoudre le conflit',
+        'start_more' => 'L’acheteur n’a pas pu voyager avec votre billet pour la raison suivante:',
+        'unvalid_ticket' => 'Billet non valide',
+        'you_have_limited_time' => 'Vous avez :hours heures pour résoudre ce conflit ou l’acheteur sera remboursé',
+
+        'question_1' => 'À part sur Passetonbillet.fr et les groupes Facebook appartenant au site, avez-vous mis votre billet en vente sur d’autres plateformes? ',
+        'question_1_more' => '(ex: Trocsdestrains.fr, Kelbillet.fr, Zepass.com, autres groupes Facebook…)',
+
+        'question_2' => 'Avez-vous bien téléchargé le billet complet original lors de la mise en vente sur Passetonbillet.fr?',
+        'question_2_more' => 'Le billet doit être téléchargé directement depuis le site Eurostar, Thalys, SNCF ou autre.',
+    ],
+
+    'update_bank_account' => 'Update payment informations',
+    'bank_account_not_complete' => 'Some informations are missing',
+    'bank_account_success' => 'Votre compte bancaire est ajouté !',
 ];
