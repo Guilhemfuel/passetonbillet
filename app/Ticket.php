@@ -72,7 +72,7 @@ class Ticket extends AbstractTicket
     /**
      * Relationships of the model (used for eager loading)
      */
-    public static $relationships = [ 'user', 'train', 'discussions' ];
+    public static $relationships = [ 'user', 'train', 'discussions', 'transaction' ];
 
     /**
      * Searchable rules.
@@ -287,6 +287,15 @@ class Ticket extends AbstractTicket
         }
     }
 
+    public function getDateBeforeTransferAttribute() {
+        if(!$this->has_claim) {
+            if($this->transaction) {
+                return $this->train->carbon_departure_date->addHours(Claim::CLAIM_LIMIT_PURCHASER);
+            }
+        }
+        return null;
+    }
+
     /**
      * RELATIONSHIPS
      */
@@ -308,7 +317,7 @@ class Ticket extends AbstractTicket
 
     public function transaction()
     {
-        return $this->hasOne('App\Transaction');
+        return $this->hasOne('App\Transaction', 'ticket_id', 'id');
     }
 
     public function claim()

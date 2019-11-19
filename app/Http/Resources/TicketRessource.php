@@ -43,6 +43,7 @@ class TicketRessource extends Resource
             'hasClaim'               => $this->has_claim,
             'claimLimitPurchaser'    => $this->limit_claim_purchaser->format('Y-m-d H:i:s'),
             'claimLimitSeller'       => $this->limit_claim_seller ? $this->limit_claim_seller->format('Y-m-d H:i:s') : null,
+            'dateBeforeTransfer'     => $this->date_before_transfer ? $this->date_before_transfer->format('Y-m-d H:i:s') : null,
 
             // Only for seller, or when selecting (user id is null)
             'ticket_number'          => $this->when( ( \Auth::check() && \Auth::user()->id == $this->user_id ) || $this->user_id == null, $this->ticket_number ),

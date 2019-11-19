@@ -17,7 +17,7 @@ class CreateTransactionsTable extends Migration
             $table->increments('id');
             $table->timestamps();
 
-            $table->string('transaction')->nullable();
+            $table->string('transaction_mangopay')->nullable();
             $table->string('status')->nullable();
 
             $table->integer('wallet_id');

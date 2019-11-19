@@ -137,11 +137,11 @@ class TicketController extends Controller
 
         $transaction->purchaser_id = $user->id;
         $transaction->status = $payIn->Status;
-        $transaction->transaction = $payIn->Id;
+        $transaction->transaction_mangopay = $payIn->Id;
         $transaction->save();
 
         if($transaction->status === 'SUCCEEDED') {
-            return response()->json(['state' => 'success', 'redirect' => route('api.ticket.transaction.success') . '?transactionId=' . $transaction->transaction]);
+            return response()->json(['state' => 'success', 'redirect' => route('api.ticket.transaction.success') . '?transactionId=' . $transaction->transaction_mangopay]);
         }
 
         if($payIn->ExecutionDetails->SecureModeNeeded) {
@@ -162,7 +162,7 @@ class TicketController extends Controller
 
         if ($transaction) {
             $mangoPay = new MangoPayService();
-            $transactionMango = $mangoPay->getTransaction($transaction->transaction, $transaction->wallet_id);
+            $transactionMango = $mangoPay->getTransaction($transaction->transaction_mangopay, $transaction->wallet_id);
 
             if ($transactionMango) {
                 $transaction->status = $transactionMango->Status;

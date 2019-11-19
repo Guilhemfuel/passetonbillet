@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Claim;
 use App\Exceptions\PasseTonBilletException;
 use App\Facades\Optico;
 use App\Http\Resources\DiscussionLastMessageResource;
@@ -10,12 +11,14 @@ use App\Http\Resources\TicketRessource;
 use App\Models\Discussion;
 use App\Ticket;
 use App\Train;
+use App\Transaction;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use App\Services\PdfService;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class TicketController extends Controller
 {
@@ -75,6 +78,8 @@ class TicketController extends Controller
     {
         $this->middleware('auth');
 
+        $user = \Auth::user();
+
         switch ( $type ) {
             case 'selling':
                 return TicketRessource::collection( \Auth::user()->tickets );
@@ -83,23 +88,53 @@ class TicketController extends Controller
 
                 $tickets = Ticket::select('*', 'tickets.id')
                     ->join('transactions', 'tickets.id', '=', 'transactions.ticket_id')
-                    ->where('purchaser_id', \Auth::user()->id)
+                    ->where('purchaser_id', $user->id)
                     ->where('status', 'SUCCEEDED')->get();
 
                 return TicketRessource::collection($tickets);
                 break;
             case 'payment':
 
-                $dateNow = Carbon::now();
-                $dateNow->addDays(2);
+                //Payments with claims not resolved
+                $paymentsWithClaims = Ticket::select('*', 'tickets.id')
+                    ->where('user_id', \Auth::user()->id)
+                    ->join('claims', 'tickets.id', '=', 'claims.ticket_id')
+                    ->where('status', null)
+                    ->get();
 
-                $tickets = Ticket::select('*', 'tickets.id')
+                $paymentsWithClaims = TicketRessource::collection($paymentsWithClaims);
+
+                //All the payments not complete yet with no CLAIMS
+                $paymentsInWait = Ticket::select('*', 'tickets.id')
+                    ->where('user_id', \Auth::user()->id)
+                    ->join('transactions', 'tickets.id', '=', 'transactions.ticket_id')
+                    ->where('transactions.status', 'SUCCEEDED')
+                    ->where('status_transfer', null)
+                    ->whereNotIn('tickets.id', function($query) use($user) {
+                        $query->select('ticket_id')->from('claims')
+                        ->where('seller_id', $user->id);
+                    })
+                    ->get();
+
+                $paymentsInWait = TicketRessource::collection($paymentsInWait);
+
+                //If payment transfer status changed, then it is done or pending for transfer
+                $paymentsFinish = Ticket::select('*', 'tickets.id')
                     ->where('user_id', \Auth::user()->id)
                     ->join('transactions', 'tickets.id', '=', 'transactions.ticket_id')
                     ->where('status', 'SUCCEEDED')
+                    ->where('status_transfer', '!=', null)
                     ->get();
 
-                return TicketRessource::collection($tickets);
+                $paymentsFinish = TicketRessource::collection($paymentsFinish);
+
+                $data = array(
+                    'ticketsWithClaims' => $paymentsWithClaims,
+                    'ticketsInWait' => $paymentsInWait,
+                    'ticketsFinish' => $paymentsFinish,
+                );
+
+                return json_encode($data);
                 break;
             case 'offers_sent':
                 return DiscussionResource::collection( \Auth::user()->offers

@@ -10,10 +10,10 @@ class Claim extends Model
     CONST CLAIM_LIMIT_PURCHASER = 24;
     CONST CLAIM_LIMIT_SELLER = 24;
 
-    //Claim is won or lost for the creator, it means the Purchaser
-    CONST CLAIM_WON = 'WON';
-    CONST CLAIM_LOST = 'LOST';
-    CONST CLAIM_EQUALITY = 'EQUALITY';
+    //Claim is won or lost for the Purchaser
+    CONST CLAIM_STATUS_WON = 'WON';
+    CONST CLAIM_STATUS_LOST = 'LOST';
+    CONST CLAIM_STATUS_EQUALITY = 'EQUALITY';
 
     protected $fillable = [
         'ticket_id',

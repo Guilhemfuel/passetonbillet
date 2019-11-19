@@ -2,11 +2,10 @@
     <transition enter-class="pre-animated"
                 enter-active-class="animated fadeIn"
                 leave-active-class="animated fadeOut">
-        <div class="my-ticket row">
+        <div class="my-ticket row" v-bind:class="{ 'claim': ticket.hasClaim }">
             <div class="front">
-                <div>
-                    N°{{ ticket.id }}<br>
-                    <span class="font-weight-bold">{{ formatedDate(ticket.train.departure_date) }}</span>
+                <div class="status-payment">
+                    {{ timeLeft }} {{ trans('tickets.claim.hours_left') }}
                 </div>
 
                 <div class="d-flex justify-content-between departure">
@@ -43,11 +42,11 @@
 <script>
   export default {
     props: {
-      ticket: {required: true}
+      ticket: {required: true},
     },
     data() {
       return {
-
+        timeLeft: null,
       }
     },
     methods: {
@@ -57,12 +56,37 @@
       handleResponse(response) {
         if(response.body.message) { this.$message({message: response.body.message, type: response.body.status}) }
       },
+      calculTimeLeft() {
+        let dateBeforeTransfer = this.ticket.dateBeforeTransfer;
+        let claimLimitSeller = this.ticket.claimLimitSeller;
+        let dateNow = moment().format('YYYY-MM-DD HH:mm:ss');
+
+        if(this.ticket.hasClaim) {
+          if(claimLimitSeller > dateNow) {
+            let diff = new moment(claimLimitSeller,"YYYY-MM-DD HH:mm:ss").diff(moment(dateNow,"YYYY-MM-DD HH:mm:ss"));
+            this.timeLeft = Math.round(new moment.duration(diff).asHours());
+          } else {
+            this.timeLeft = 0;
+          }
+        }
+        else {
+          console.log(dateBeforeTransfer)
+          if(dateBeforeTransfer > dateNow) {
+            console.log('ah oui')
+            let diff = new moment(dateBeforeTransfer,"YYYY-MM-DD HH:mm:ss").diff(moment(dateNow,"YYYY-MM-DD HH:mm:ss"));
+            this.timeLeft = Math.round(new moment.duration(diff).asHours());
+          }
+        }
+      },
       help() {
         this.$emit('claimTicket', this.ticket)
       },
     },
     computed: {
 
+    },
+    mounted () {
+      this.calculTimeLeft()
     }
   }
 </script>
@@ -83,6 +107,17 @@
         text-align: center;
         color: #545454;
     }
+
+    .my-ticket .status-payment {
+        font-weight: bold;
+        border: 3px solid white;
+        border-radius: 10px;
+        padding: 10px;
+    }
+
+    .my-ticket.claim {  background-color: #f8254a;  }
+
+    .my-ticket.claim > div {  color: white;  }
 
     .my-ticket > div > div {  margin: 0 10px;  }
 
