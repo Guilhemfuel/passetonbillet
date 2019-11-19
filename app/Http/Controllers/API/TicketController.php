@@ -15,6 +15,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use App\Services\PdfService;
+use Carbon\Carbon;
 
 class TicketController extends Controller
 {
@@ -84,6 +85,19 @@ class TicketController extends Controller
                     ->join('transactions', 'tickets.id', '=', 'transactions.ticket_id')
                     ->where('purchaser_id', \Auth::user()->id)
                     ->where('status', 'SUCCEEDED')->get();
+
+                return TicketRessource::collection($tickets);
+                break;
+            case 'payment':
+
+                $dateNow = Carbon::now();
+                $dateNow->addDays(2);
+
+                $tickets = Ticket::select('*', 'tickets.id')
+                    ->where('user_id', \Auth::user()->id)
+                    ->join('transactions', 'tickets.id', '=', 'transactions.ticket_id')
+                    ->where('status', 'SUCCEEDED')
+                    ->get();
 
                 return TicketRessource::collection($tickets);
                 break;

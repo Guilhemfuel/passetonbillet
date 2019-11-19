@@ -18,6 +18,10 @@
                     <i class="fa fa-ticket" aria-hidden="true"></i>
                     {{trans('nav.my_tickets_sold')}}
                 </el-dropdown-item>
+                <el-dropdown-item command="public.ticket.payment.page">
+                    <i class="fa fa-money" aria-hidden="true"></i>
+                    {{trans('nav.my_tickets_payment')}}
+                </el-dropdown-item>
 
                 <el-dropdown-item command="public.alerts.page">
                     <i class="fa fa-bell" aria-hidden="true"></i>

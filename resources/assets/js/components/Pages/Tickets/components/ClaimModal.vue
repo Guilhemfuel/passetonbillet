@@ -130,9 +130,9 @@
 
             <p class="mt-2">{{ trans('tickets.claim.end_more') }}</p>
 
-            <div><i class="fa fa-check" aria-hidden="true"></i></div>
+            <div class="paper-plane-success mx-auto"><i class="fa fa-check" aria-hidden="true"></i></div>
 
-            <div class="button-my-ticket-delete mt-2 mx-auto">
+            <div class="button-my-ticket-delete mt-3 mx-auto">
                 <button class="btn btn-ptb btn-upper text-uppercase w-100" @click.prevent="closeModal">
                     {{ trans('tickets.component.finish') }}
                 </button>
@@ -151,7 +151,7 @@
       return {
         state: 'faq',
         currentQuestion: 1,
-        timeLimit: 48,
+        timeLimit: 24,
         timeLeft: null,
         timeScan: '12:00:00',
         moreInformation: null,
@@ -188,20 +188,19 @@
         }
       },
       calculTimeLeft() {
-        let dateDeparture = this.ticket.train.departure_date + ' ' + this.ticket.train.departure_time;
+        let dateDeparture = this.ticket.train.full_departure_date;
+        let claimLimitPurchaser = this.ticket.claimLimitPurchaser;
         let dateNow = moment().format('YYYY-MM-DD HH:mm:ss');
 
         //If departure has started, we display the claim modal
         //If not we display only FAQ modal
         if(dateDeparture <= dateNow) {
-          this.state = 'start';
-          let diff = new moment(dateNow,"YYYY-MM-DD HH:mm:ss").diff(moment(dateDeparture,"YYYY-MM-DD HH:mm:ss"));
-          let hoursSinceDeparture = Math.round(new moment.duration(diff).asHours());
-          let minutesSinceDeparture = Math.round(new moment.duration(diff).asMinutes());
+          //If the limit time for claim is not reached
+          if(dateNow < claimLimitPurchaser) {
+            this.state = 'start';
 
-          //If train departure is less than 48 hours
-          if (hoursSinceDeparture <= this.timeLimit) {
-            this.timeLeft = this.timeLimit - hoursSinceDeparture;
+            let diff = new moment(claimLimitPurchaser,"YYYY-MM-DD HH:mm:ss").diff(moment(dateNow,"YYYY-MM-DD HH:mm:ss"));
+            this.timeLeft = Math.round(new moment.duration(diff).asHours());
           }
         }
       },
@@ -272,4 +271,17 @@
 
     .button-my-ticket-update button {  background-color: #0b89e7;  }
     .button-my-ticket-delete button {  background-color: #f8254a;  }
+
+    .paper-plane-success {
+        background-color: #f6f6f7;
+        border-radius: 40px;
+        width: 80px;
+        height: 80px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #50e3c2;
+        font-size: 30px;
+        margin: 10px 0;
+    }
 </style>

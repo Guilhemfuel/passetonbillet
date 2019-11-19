@@ -110,6 +110,9 @@ Route::group( [ 'middleware' => 'auth', 'as' => 'public.' ], function () {
         Route::get( 'owned', 'PageController@myTicketsBought' )->name( 'bought.page' );
         Route::get( 'sold', 'PageController@myTicketsSold' )->name( 'sold.page' );
 
+        // Ticket payments
+        Route::get( 'my-payments', 'PageController@myTicketsPayments' )->name( 'payment.page' );
+
         // See my tickets
         // Possible values for tab: selling (default), sold, offered, bought
         Route::get( 'owned/{tab?}', 'PageController@myTicketsPage' )->name( 'owned.page' );

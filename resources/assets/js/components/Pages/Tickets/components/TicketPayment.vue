@@ -30,14 +30,8 @@
                 </div>
 
                 <div class="button-my-ticket-update">
-                    <button class="btn btn-ptb btn-upper text-uppercase w-100" @click.prevent="downloadTicket()">
-                        {{ trans('tickets.component.download') }}
-                    </button>
-                </div>
-
-                <div class="button-my-ticket-change">
-                    <div v-if="isDisabled" class="tooltip-limit-claim">{{ trans('tickets.claim.claim_limit_reached') }}</div>
-                    <button class="btn btn-ptb btn-upper text-uppercase w-100" @click.prevent="help()" :disabled=isDisabled>
+                    <div class="tooltip-limit-claim">{{ trans('tickets.claim.claim_limit_reached') }}</div>
+                    <button class="btn btn-ptb btn-upper text-uppercase w-100" @click.prevent="help()">
                         {{ trans('tickets.component.help_button') }}
                     </button>
                 </div>
@@ -53,6 +47,7 @@
     },
     data() {
       return {
+
       }
     },
     methods: {
@@ -62,29 +57,12 @@
       handleResponse(response) {
         if(response.body.message) { this.$message({message: response.body.message, type: response.body.status}) }
       },
-      downloadTicket() {
-        window.location.href = this.route('public.ticket.download', [this.ticket.id]);
-      },
       help() {
         this.$emit('claimTicket', this.ticket)
       },
     },
     computed: {
-      isDisabled() {
-        let dateDeparture = this.ticket.train.full_departure_date;
-        let claimLimitPurchaser = this.ticket.claimLimitPurchaser;
-        let dateNow = moment().format('YYYY-MM-DD HH:mm:ss');
 
-        //If departure has started
-        if(dateDeparture <= dateNow) {
-          //If the limit time for claim is reached we disable the help button
-          if(dateNow > claimLimitPurchaser) {
-            return true;
-          }
-        }
-
-        return false;
-      }
     }
   }
 </script>

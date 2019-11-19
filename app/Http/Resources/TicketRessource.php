@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Claim;
 use Illuminate\Http\Resources\Json\Resource;
 use Vinkla\Hashids\Facades\Hashids;
 
@@ -39,6 +40,9 @@ class TicketRessource extends Resource
             'sold'                   => $this->sold,
             'maxPrice'               => $this->max_price,
             'hasPdf'                 => $this->has_pdf,
+            'hasClaim'               => $this->has_claim,
+            'claimLimitPurchaser'    => $this->limit_claim_purchaser->format('Y-m-d H:i:s'),
+            'claimLimitSeller'       => $this->limit_claim_seller ? $this->limit_claim_seller->format('Y-m-d H:i:s') : null,
 
             // Only for seller, or when selecting (user id is null)
             'ticket_number'          => $this->when( ( \Auth::check() && \Auth::user()->id == $this->user_id ) || $this->user_id == null, $this->ticket_number ),

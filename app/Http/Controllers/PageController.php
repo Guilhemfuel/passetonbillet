@@ -93,8 +93,7 @@ class PageController extends Controller
      * Display page to sell a ticket
      *
      */
-    public function sellPage()
-    {
+    public function sellPage() {
         if ( \Auth::check() ) {
             return view( 'tickets.sell.auth' );
         } else {
@@ -175,7 +174,6 @@ class PageController extends Controller
         }
 
         return view( 'tickets.owned' )->with( 'state', $state );
-
     }
 
     public function myTicketsBought() {
@@ -183,8 +181,11 @@ class PageController extends Controller
     }
 
     public function myTicketsSold() {
-
         return view( 'tickets.sold' );
+    }
+
+    public function myTicketsPayments() {
+        return view( 'tickets.payments' );
     }
 
     /**

@@ -24,11 +24,8 @@ class ClaimController extends Controller
             return response(['status' => 'error', 'message' => trans('tickets.buy_modal.ticket_doesnt_exist')], 400);
         }
 
-        $departure = $ticket->train->departure_date;
-        $time = explode(":", $ticket->train->departure_time);
-        $departureDate = clone $departure->setTime($time[0], $time[1], $time[2]);
-
-        $dateLimitClaim = $departure->addDays(2);
+        $departureDate = clone $ticket->train->carbon_departure_date;
+        $dateLimitClaim = $ticket->limit_claim_purchaser;
         $dateNow = Carbon::now();
 
         //If departure train has not started yet
@@ -36,7 +33,7 @@ class ClaimController extends Controller
             return response(['status' => 'error', 'message' => trans('tickets.claim.api.claim_before_departure')], 400);
         }
 
-        //If 48 hours of claim are expired
+        //If limit of claim is expired
         if($dateLimitClaim < $dateNow) {
             return response(['status' => 'error', 'message' => trans('tickets.claim.api.claim_date_limit')], 400);
         }
@@ -51,7 +48,7 @@ class ClaimController extends Controller
             $claim->ticket_id = $ticket->id;
         }
 
-        $claim->claim_purchaser = serialize($request->answers);
+        $claim->claim_purchaser = json_encode($request->answers);
         $claim->save();
 
         return response()->json(['status' => 'success', 'message' => trans('tickets.claim.api.claim_sent')]);

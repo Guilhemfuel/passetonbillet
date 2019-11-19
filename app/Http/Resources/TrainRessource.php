@@ -25,6 +25,8 @@ class TrainRessource extends Resource
             'arrival_time'   => $this->arrival_time,
             'departure_city' => new StationRessource( $this->departureCity ),
             'arrival_city'   => new StationRessource( $this->arrivalCity ),
+            'full_departure_date' => $this->carbon_departure_date->format('Y-m-d H:i:s'),
+            'full_arrival_date' => $this->carbon_arrival_date->format('Y-m-d H:i:s'),
         ];
     }
 }

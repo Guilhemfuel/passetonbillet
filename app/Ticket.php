@@ -275,6 +275,18 @@ class Ticket extends AbstractTicket
                . $this->train->arrivalCity->name . ' | ' . $this->train->departure_date->format( 'j F Y' ). ' ' . __('common.on_ptb');
     }
 
+    public function getLimitClaimPurchaserAttribute() {
+        return $this->train->carbon_departure_date->addHours(Claim::CLAIM_LIMIT_PURCHASER);
+    }
+
+    public function getLimitClaimSellerAttribute() {
+        if($this->has_claim) {
+            return $this->claim->created_at->addHours(Claim::CLAIM_LIMIT_SELLER);
+        } else {
+            return null;
+        }
+    }
+
     /**
      * RELATIONSHIPS
      */
@@ -360,8 +372,11 @@ class Ticket extends AbstractTicket
         return $this->pdf ? true : false;
     }
 
+    public function getHasClaimAttribute() {
+        return $this->claim ? true : false;
+    }
+
     public function hasBeenSold() {
         return ($this->transaction && $this->transaction->status === 'SUCCEEDED') ? true : false;
     }
-
 }
