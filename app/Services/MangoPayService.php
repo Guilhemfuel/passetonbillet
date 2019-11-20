@@ -273,4 +273,34 @@ class MangoPayService
             return $e->GetMessage();
         }
     }
+
+    public function createRefundPayIn($PayInId, $user) {
+        try {
+            $Refund = new MangoPay\Refund();
+            $Refund->AuthorId = $user;
+
+            $Refund = $this->mangoPayApi->PayIns->CreateRefund($PayInId, $Refund);
+
+            return $Refund;
+
+        } catch (MangoPay\Libraries\ResponseException $e) {
+            return $e->GetMessage();
+        } catch (MangoPay\Libraries\Exception $e) {
+            return $e->GetMessage();
+        }
+    }
+
+    public function listRefundsPayIn($PayInId) {
+        try {
+
+            $Refunds = $this->mangoPayApi->PayIns->Get($PayInId);
+
+            return $Refunds;
+
+        } catch (MangoPay\Libraries\ResponseException $e) {
+            return $e->GetMessage();
+        } catch (MangoPay\Libraries\Exception $e) {
+            return $e->GetMessage();
+        }
+    }
 }

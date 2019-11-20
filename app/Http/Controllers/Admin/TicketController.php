@@ -16,6 +16,7 @@ use Faker\Factory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class TicketController extends BaseController
 {
@@ -296,6 +297,18 @@ class TicketController extends BaseController
         flash( 'Ticket restored.' )->success();
 
         return redirect()->route($this->CRUDmodelName . '.edit', $ticket->id );
+    }
+
+    public function showPdf($id) {
+
+        $ticket = Ticket::where('id', $id)->first();
+
+        if($ticket) {
+            return Storage::download(env('STORAGE_PDF') . '/' . $ticket->pdf);
+        } else {
+            \Session::flash( 'danger', 'Ticket not found' );
+            return redirect()->back();
+        }
     }
 
 }

@@ -10,6 +10,9 @@ class Transaction extends Model
     CONST STATUS_TRANSFER_DONE = 'DONE';
     CONST STATUS_TRANSFER_FAIL = 'FAIL';
     CONST STATUS_TRANSFER_PENDING = 'PENDING';
+    CONST STATUS_REFUND_SELLER = 'REFUND_SELLER';
+    CONST STATUS_REFUND_PURCHASER = 'REFUND_PURCHASER';
+    CONST STATUS_REFUND_EACH = 'REFUND_EACH';
 
     protected $fillable = [
         'wallet_id',
@@ -20,6 +23,8 @@ class Transaction extends Model
         'transaction_mangopay',
         'status_transfer',
     ];
+
+    public static $relationships = [ 'user', 'ticket'];
 
     public function seller()
     {

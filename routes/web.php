@@ -214,6 +214,15 @@ Route::blacklist( function () {
             Route::get( '/{ticket_id}/restore', 'Admin\TicketController@restore' )->name( 'restore' );
             Route::post( '/manual-upload/{ticket_id}', 'Admin\TicketController@pdfManualUpload' )->name( 'manual_upload' );
             Route::put( '/revert-status/{ticket_id}', 'Admin\TicketController@revertStatus' )->name( 'revert_status' );
+            Route::get( '/show-pdf/{ticket_id}', 'Admin\TicketController@showPdf' )->name( 'show_pdf' );
+        } );
+
+        Route::resource( 'claims', 'Admin\ClaimController' );
+        Route::group( [ 'prefix' => 'claims', 'as' => 'claims.' ], function () {
+            Route::get( '/claim/{ticket_id}', 'Admin\ClaimController@show' )->name( 'show' );
+            Route::get( '/claim/refund/{ticket_id}', 'Admin\ClaimController@refund' )->name( 'refund' );
+            Route::get( '/claim/pay/{ticket_id}', 'Admin\ClaimController@pay' )->name( 'pay' );
+            Route::get( '/claim/pay-each/{ticket_id}', 'Admin\ClaimController@payEach' )->name( 'pay_each' );
         } );
 
         Route::resource( 'trains', 'Admin\TrainController' );

@@ -24,6 +24,8 @@ class Claim extends Model
         'claim_seller',
     ];
 
+    public static $relationships = [ 'seller', 'purchaser', 'ticket'];
+
     public function seller()
     {
         return $this->belongsTo( 'App\User' );

@@ -10,6 +10,7 @@ require('./app');
 
 // CRUD Tables
 Vue.component('tickets-table', require('./components/Pages/Admin/CRUD/Tickets/Table.vue').default);
+Vue.component('claims-table', require('./components/Pages/Admin/CRUD/Claims/Table.vue').default);
 Vue.component('pretty-json', require('./components/Shared/Json.vue').default);
 
 // Charts

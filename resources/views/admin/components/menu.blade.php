@@ -27,6 +27,13 @@
     </a>
 </li>
 
+<li  class="{{  substr(Route::currentRouteName(),0,7) == 'claims.'? 'active':'' }}">
+    <a href="{{route('claims.index')}}">
+        <i class="fa fa-exclamation-circle"></i>
+        Claims
+    </a>
+</li>
+
 
 <li  class="{{ substr(Route::currentRouteName(),0,6) == 'stats.'? 'active':'' }}">
     <a href="{{route('stats.index')}}">

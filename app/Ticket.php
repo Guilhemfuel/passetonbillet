@@ -72,7 +72,7 @@ class Ticket extends AbstractTicket
     /**
      * Relationships of the model (used for eager loading)
      */
-    public static $relationships = [ 'user', 'train', 'discussions', 'transaction' ];
+    public static $relationships = [ 'user', 'train', 'discussions', 'transaction', 'claim' ];
 
     /**
      * Searchable rules.
