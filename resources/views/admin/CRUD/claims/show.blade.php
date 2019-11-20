@@ -134,7 +134,8 @@
                             <br>
                         @endforeach
                     @else
-                        Pas de réponse du vendeur
+                        Pas de réponse du vendeur <br>
+                        <b style="color: red;">Date limite Vendeur pour répondre : {{ $ticket->limit_claim_seller }}</b><br>
                         <br>
                     @endif
                 </div>
@@ -274,13 +275,13 @@
                         </div>
 
                         <div class="col-4">
-                            <a href="{{ route('claims.pay', ['ticket_id' => $ticket->id]) }}" class="btn btn-warning btn-fill btn-sm ml-3">
+                            <a href="{{ route('claims.pay_each', ['ticket_id' => $ticket->id]) }}" class="btn btn-warning btn-fill btn-sm ml-3">
                                 Pay 2/3 Each
                             </a>
                         </div>
 
                         <div class="col-4">
-                            <a href="{{ route('claims.pay_each', ['ticket_id' => $ticket->id]) }}" class="btn btn-warning btn-fill btn-sm ml-3">
+                            <a href="{{ route('claims.pay', ['ticket_id' => $ticket->id]) }}" class="btn btn-warning btn-fill btn-sm ml-3">
                                 Pay Seller
                             </a>
                         </div>

@@ -14,6 +14,8 @@ class Transaction extends Model
     CONST STATUS_REFUND_PURCHASER = 'REFUND_PURCHASER';
     CONST STATUS_REFUND_EACH = 'REFUND_EACH';
 
+    CONST FEES = 20;
+
     protected $fillable = [
         'wallet_id',
         'seller_id',

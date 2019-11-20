@@ -162,6 +162,26 @@ class ClaimController extends BaseController
         $ticket = Ticket::where('tickets.id', $id)->first();
         if ($ticket) {
 
+            $claim = Claim::where('ticket_id', $ticket->id)->first();
+            $transaction = Transaction::where('ticket_id', $ticket->id)->first();
+
+            $wallet = $transaction->wallet_id;
+            $mangoUser = $transaction->seller->mangopay_id;
+
+            $mangoPay = new MangoPayService();
+            $mangoPay->getMangoUser($mangoUser);
+            $bankAccount = $mangoPay->getBankAccount();
+            $wallet = $mangoPay->getWallet($wallet);
+
+            $payOut = $mangoPay->createPayOut($bankAccount->Id, $wallet);
+
+            if (isset($payOut->Status) && $payOut->Status === 'CREATED') {
+                $transaction->status_transfer = Transaction::STATUS_REFUND_SELLER;
+                $claim->status = Claim::CLAIM_STATUS_LOST;
+
+                $claim->save();
+                $transaction->save();
+            }
         }
 
         return redirect()->back();

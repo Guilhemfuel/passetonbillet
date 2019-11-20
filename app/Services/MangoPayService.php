@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Transaction;
 use MangoPay;
 
 class MangoPayService
@@ -22,6 +23,10 @@ class MangoPayService
         $this->mangoPayApi->Config->ClientPassword = env('MANGOPAY_PASSWORD');
         $this->mangoPayApi->Config->BaseUrl = env('MANGOPAY_URL');
         $this->mangoPayApi->Config->TemporaryFolder = $storagePath;
+    }
+
+    private function calculateFees($amount) {
+        return (Transaction::FEES / 100) * $amount;
     }
 
     public function createMangoUser($user) {
@@ -131,7 +136,7 @@ class MangoPayService
 
             $PayIn->Fees = new \MangoPay\Money();
             $PayIn->Fees->Currency = "EUR";
-            $PayIn->Fees->Amount = $data->AmountFees * 100;
+            $PayIn->Fees->Amount = $this->calculateFees($data->Amount * 100);
             $PayIn->ExecutionType = "DIRECT";
 
             $PayIn->ExecutionDetails = new MangoPay\PayInExecutionDetailsDirect();
@@ -274,10 +279,34 @@ class MangoPayService
         }
     }
 
-    public function createRefundPayIn($PayInId, $user) {
+    public function listRefundsPayIn($PayInId) {
+        try {
+
+            $Refunds = $this->mangoPayApi->PayIns->Get($PayInId);
+
+            return $Refunds;
+
+        } catch (MangoPay\Libraries\ResponseException $e) {
+            return $e->GetMessage();
+        } catch (MangoPay\Libraries\Exception $e) {
+            return $e->GetMessage();
+        }
+    }
+
+    public function createRefundPayIn($PayInId, $user, $amount = null) {
         try {
             $Refund = new MangoPay\Refund();
             $Refund->AuthorId = $user;
+
+            if($amount) {
+                $Refund->DebitedFunds = new MangoPay\Money();
+                $Refund->DebitedFunds->Currency = "EUR";
+                $Refund->DebitedFunds->Amount = $amount * 100;
+
+                $Refund->Fees = new MangoPay\Money();
+                $Refund->Fees->Currency = "EUR";
+                $Refund->Fees->Amount = $this->calculateFees($amount * 100);
+            }
 
             $Refund = $this->mangoPayApi->PayIns->CreateRefund($PayInId, $Refund);
 
@@ -290,12 +319,27 @@ class MangoPayService
         }
     }
 
-    public function listRefundsPayIn($PayInId) {
+    public function createPayOut($bankAccount, $wallet) {
         try {
+            $PayOut = new MangoPay\PayOut();
+            $PayOut->AuthorId = $this->mangoUser;
+            $PayOut->DebitedWalletID = $wallet->Id;
 
-            $Refunds = $this->mangoPayApi->PayIns->Get($PayInId);
+            $PayOut->DebitedFunds = new MangoPay\Money();
+            $PayOut->DebitedFunds->Currency = "EUR";
+            $PayOut->DebitedFunds->Amount = $wallet->Balance->Amount;
 
-            return $Refunds;
+            $PayOut->Fees = new MangoPay\Money();
+            $PayOut->Fees->Currency = "EUR";
+            $PayOut->Fees->Amount = $this->calculateFees($wallet->Balance->Amount);
+
+            $PayOut->PaymentType = "BANK_WIRE";
+            $PayOut->MeanOfPaymentDetails = new MangoPay\PayOutPaymentDetailsBankWire();
+            $PayOut->MeanOfPaymentDetails->BankAccountId = $bankAccount;
+
+            $PayOut = $this->mangoPayApi->PayOuts->Create($PayOut);
+
+            return $PayOut;
 
         } catch (MangoPay\Libraries\ResponseException $e) {
             return $e->GetMessage();
