@@ -136,7 +136,7 @@ class MangoPayService
 
             $PayIn->Fees = new \MangoPay\Money();
             $PayIn->Fees->Currency = "EUR";
-            $PayIn->Fees->Amount = $this->calculateFees($data->Amount * 100);
+            $PayIn->Fees->Amount = 0;
             $PayIn->ExecutionType = "DIRECT";
 
             $PayIn->ExecutionDetails = new MangoPay\PayInExecutionDetailsDirect();
@@ -293,19 +293,22 @@ class MangoPayService
         }
     }
 
-    public function createRefundPayIn($PayInId, $user, $amount = null) {
+    public function createRefundPayIn($PayInId, $user, $amount = null, $split = null) {
         try {
             $Refund = new MangoPay\Refund();
             $Refund->AuthorId = $user;
 
+            //If there is no amount then the full amount is refund
             if($amount) {
+                $amount = $split ? ($amount / 2) : $amount;
+
                 $Refund->DebitedFunds = new MangoPay\Money();
                 $Refund->DebitedFunds->Currency = "EUR";
-                $Refund->DebitedFunds->Amount = $amount * 100;
+                $Refund->DebitedFunds->Amount = $amount;
 
                 $Refund->Fees = new MangoPay\Money();
                 $Refund->Fees->Currency = "EUR";
-                $Refund->Fees->Amount = $this->calculateFees($amount * 100);
+                $Refund->Fees->Amount = $this->calculateFees($amount);
             }
 
             $Refund = $this->mangoPayApi->PayIns->CreateRefund($PayInId, $Refund);
@@ -319,10 +322,10 @@ class MangoPayService
         }
     }
 
-    public function createPayOut($bankAccount, $wallet) {
+    public function createPayOut($bankAccount, $user, $wallet) {
         try {
             $PayOut = new MangoPay\PayOut();
-            $PayOut->AuthorId = $this->mangoUser;
+            $PayOut->AuthorId = $user;
             $PayOut->DebitedWalletID = $wallet->Id;
 
             $PayOut->DebitedFunds = new MangoPay\Money();
@@ -335,7 +338,7 @@ class MangoPayService
 
             $PayOut->PaymentType = "BANK_WIRE";
             $PayOut->MeanOfPaymentDetails = new MangoPay\PayOutPaymentDetailsBankWire();
-            $PayOut->MeanOfPaymentDetails->BankAccountId = $bankAccount;
+            $PayOut->MeanOfPaymentDetails->BankAccountId = $bankAccount->Id;
 
             $PayOut = $this->mangoPayApi->PayOuts->Create($PayOut);
 

@@ -39,7 +39,7 @@ class PageController extends Controller
 
         $successPurchase = false;
         if($transactionId = $request->session()->pull('successPurchase')) {
-            $transaction = Transaction::where('transaction', $transactionId)->first();
+            $transaction = Transaction::where('transaction_mangopay', $transactionId)->first();
 
             $successPurchase = (object) ['ticket' => $transaction->ticket_id, 'email' => $transaction->purchaser->email];
         }

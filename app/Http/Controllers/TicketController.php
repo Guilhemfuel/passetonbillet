@@ -158,7 +158,7 @@ class TicketController extends Controller
         $this->middleware('auth');
 
         //MangoPay SecureModeReturnURL
-        $transaction = Transaction::where('transaction', $request->transactionId)->first();
+        $transaction = Transaction::where('transaction_mangopay', $request->transactionId)->first();
 
         if ($transaction) {
             $mangoPay = new MangoPayService();
@@ -170,6 +170,7 @@ class TicketController extends Controller
 
                 if($transaction->status === 'SUCCEEDED') {
                     //Send email with ticket PDF to user
+
                     $this->sendTicket($transaction->ticket);
 
                     $request->session()->put('successPurchase', $request->transactionId);
@@ -257,7 +258,7 @@ class TicketController extends Controller
         $pdf = $pdfService->storePdfBase64($request->file);
 
         //Class to check PDF in the futur
-        if ($pdfService->checkPdf()) {
+        if (!$pdfService->checkPdf()) {
             flash(__('tickets.pdf.verif_pdf_error'))->error()->important();
             return redirect()->route('public.ticket.sell.page');
         }

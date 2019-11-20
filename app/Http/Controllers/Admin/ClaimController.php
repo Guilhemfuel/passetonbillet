@@ -131,27 +131,33 @@ class ClaimController extends BaseController
     public function refund($id) {
 
         $ticket = Ticket::where('tickets.id', $id)->first();
-        if ($ticket) {
 
-            $claim = Claim::where('ticket_id', $ticket->id)->first();
-            $transaction = Transaction::where('ticket_id', $ticket->id)->first();
+        if (!$ticket) {
+            flash('Ce ticket n\'existe pas')->error();
+            return redirect()->back();
+        }
 
+        $claim = Claim::where('ticket_id', $ticket->id)->first();
+        $transaction = Transaction::where('ticket_id', $ticket->id)->first();
+
+        if (!$claim->status) {
             $transactionId = $transaction->transaction_mangopay;
             $mangoUser = $transaction->purchaser->mangopay_id;
 
             $mangoPay = new MangoPayService();
             $refunds = $mangoPay->listRefundsPayIn($transactionId);
-
             $refund = $mangoPay->createRefundPayIn($transactionId, $mangoUser);
 
-            if ($refund->Status === 'SUCCEEDED') {
+            $transaction->status_transfer = Transaction::STATUS_REFUND_PURCHASER;
+            $claim->status = Claim::CLAIM_STATUS_WON;
 
-                $transaction->status_transfer = Transaction::STATUS_REFUND_PURCHASER;
-                $claim->status = Claim::CLAIM_STATUS_WON;
+            $claim->save();
+            $transaction->save();
 
-                $claim->save();
-                $transaction->save();
-            }
+            flash('Claim résolu pour l\'acheteur !')->success();
+
+        } else {
+            flash('Ce claim a déjà été traité')->error();
         }
 
         return redirect()->back();
@@ -160,29 +166,41 @@ class ClaimController extends BaseController
     public function pay($id) {
 
         $ticket = Ticket::where('tickets.id', $id)->first();
-        if ($ticket) {
+
+        if (!$ticket) {
+            flash('Ce ticket n\'existe pas')->error();
+            return redirect()->back();
+        }
 
             $claim = Claim::where('ticket_id', $ticket->id)->first();
             $transaction = Transaction::where('ticket_id', $ticket->id)->first();
 
-            $wallet = $transaction->wallet_id;
-            $mangoUser = $transaction->seller->mangopay_id;
+            if (!$claim->status) {
+                $wallet = $transaction->wallet_id;
+                $mangoUser = $transaction->seller->mangopay_id;
 
-            $mangoPay = new MangoPayService();
-            $mangoPay->getMangoUser($mangoUser);
-            $bankAccount = $mangoPay->getBankAccount();
-            $wallet = $mangoPay->getWallet($wallet);
+                $mangoPay = new MangoPayService();
+                $mangoPay->getMangoUser($mangoUser);
+                $bankAccount = $mangoPay->getBankAccount();
+                $wallet = $mangoPay->getWallet($wallet);
 
-            $payOut = $mangoPay->createPayOut($bankAccount->Id, $wallet);
+                $payOut = $mangoPay->createPayOut($bankAccount, $mangoUser, $wallet);
 
-            if (isset($payOut->Status) && $payOut->Status === 'CREATED') {
-                $transaction->status_transfer = Transaction::STATUS_REFUND_SELLER;
                 $claim->status = Claim::CLAIM_STATUS_LOST;
-
                 $claim->save();
+
+                if (isset($payOut->Status)) {
+                    $transaction->status_transfer = $payOut->Status;
+                } else {
+                    $transaction->status_transfer = Transaction::STATUS_TRANSFER_FAIL;
+                }
+
                 $transaction->save();
+
+                flash('Claim résolu pour le vendeur !')->success();
+            } else {
+                flash('Ce claim a déjà été traité')->error();
             }
-        }
 
         return redirect()->back();
     }
@@ -190,8 +208,43 @@ class ClaimController extends BaseController
     public function payEach($id) {
 
         $ticket = Ticket::where('tickets.id', $id)->first();
-        if ($ticket) {
 
+        if (!$ticket) {
+            flash('Ce ticket n\'existe pas')->error();
+            return redirect()->back();
+        }
+
+        $claim = Claim::where('ticket_id', $ticket->id)->first();
+        $transaction = Transaction::where('ticket_id', $ticket->id)->first();
+
+        if (!$claim->status) {
+            $wallet = $transaction->wallet_id;
+            $transactionId = $transaction->transaction_mangopay;
+            $mangoBuyerUser = $transaction->purchaser->mangopay_id;
+            $mangoSellerUser = $transaction->seller->mangopay_id;
+
+            $mangoPay = new MangoPayService();
+            $mangoPay->getMangoUser($mangoSellerUser);
+            $bankAccount = $mangoPay->getBankAccount();
+            $wallet = $mangoPay->getWallet($wallet);
+
+            $refund = $mangoPay->createRefundPayIn($transactionId, $mangoBuyerUser, $wallet->Balance->Amount, true);
+            $payOut = $mangoPay->createPayOut($bankAccount, $mangoSellerUser, $wallet);
+
+            $claim->status = Claim::CLAIM_STATUS_EQUALITY;
+            $claim->save();
+
+            if (isset($payOut->Status)) {
+                $transaction->status_transfer = $payOut->Status;
+            } else {
+                $transaction->status_transfer = Transaction::STATUS_TRANSFER_FAIL;
+            }
+
+            $transaction->save();
+
+            flash('Claim résolu pour les 2 partis !')->success();
+        } else {
+            flash('Ce claim a déjà été traité')->error();
         }
 
         return redirect()->back();

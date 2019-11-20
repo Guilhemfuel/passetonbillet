@@ -211,22 +211,22 @@ class TicketController extends Controller
 
         $pdfService = new PdfService();
 
-        if ($pdfService->checkPdf()) {
-
-            if ($ticket->has_pdf) {
-                Storage::delete(env('STORAGE_PDF') . '/' . $ticket->pdf);
-            }
-
-            $pdf = $pdfService->storePdfBase64($request->file);
-            $pdfService->splitPdf($request->page);
-
-            $ticket->pdf = $pdf;
-            $ticket->page_pdf = $request->page;
-            $ticket->save();
-
-            return response()->json(['status' => 'success', 'message' => trans('tickets.api.pdf_uploaded')]);
+        if (!$pdfService->checkPdf()) {
+            return response()->json(['status' => 'error', 'message' => trans('tickets.pdf.verif_pdf_error')], 400);
         }
-        return response()->json(['status' => 'error', 'message' => trans('tickets.pdf.verif_pdf_error')], 400);
+
+        if ($ticket->has_pdf) {
+            Storage::delete(env('STORAGE_PDF') . '/' . $ticket->pdf);
+        }
+
+        $pdf = $pdfService->storePdfBase64($request->file);
+        $pdfService->splitPdf($request->page);
+
+        $ticket->pdf = $pdf;
+        $ticket->page_pdf = $request->page;
+        $ticket->save();
+
+        return response()->json(['status' => 'success', 'message' => trans('tickets.api.pdf_uploaded')]);
     }
 
     public function deleteTicket($id)

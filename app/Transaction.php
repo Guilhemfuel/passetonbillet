@@ -10,9 +10,6 @@ class Transaction extends Model
     CONST STATUS_TRANSFER_DONE = 'DONE';
     CONST STATUS_TRANSFER_FAIL = 'FAIL';
     CONST STATUS_TRANSFER_PENDING = 'PENDING';
-    CONST STATUS_REFUND_SELLER = 'REFUND_SELLER';
-    CONST STATUS_REFUND_PURCHASER = 'REFUND_PURCHASER';
-    CONST STATUS_REFUND_EACH = 'REFUND_EACH';
 
     CONST FEES = 20;
 
@@ -40,6 +37,6 @@ class Transaction extends Model
 
     public function ticket()
     {
-        return $this->belongsTo( 'App\Ticket', 'id');
+        return $this->belongsTo( 'App\Ticket');
     }
 }

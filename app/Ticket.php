@@ -317,7 +317,7 @@ class Ticket extends AbstractTicket
 
     public function transaction()
     {
-        return $this->hasOne('App\Transaction', 'ticket_id', 'id');
+        return $this->hasOne('App\Transaction');
     }
 
     public function claim()

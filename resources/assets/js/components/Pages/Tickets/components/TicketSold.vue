@@ -7,7 +7,7 @@
             <div v-if="!update" class="front">
                 <div>
                     N°{{ ticket.id }}<br>
-                    <span class="font-weight-bold">{{ formatedDate(ticket.created_at) }}</span>
+                    <span class="font-weight-bold">{{ formatedDate(ticket.train.departure_date) }}</span>
                 </div>
 
                 <div class="d-flex justify-content-between departure">
