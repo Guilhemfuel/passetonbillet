@@ -109,7 +109,7 @@ class TicketController extends Controller
                     ->where('user_id', \Auth::user()->id)
                     ->join('transactions', 'tickets.id', '=', 'transactions.ticket_id')
                     ->where('transactions.status', 'SUCCEEDED')
-                    ->where('status_transfer', null)
+                    ->where('status_payout', null)
                     ->whereNotIn('tickets.id', function($query) use($user) {
                         $query->select('ticket_id')->from('claims')
                         ->where('seller_id', $user->id);
@@ -123,7 +123,7 @@ class TicketController extends Controller
                     ->where('user_id', \Auth::user()->id)
                     ->join('transactions', 'tickets.id', '=', 'transactions.ticket_id')
                     ->where('status', 'SUCCEEDED')
-                    ->where('status_transfer', '!=', null)
+                    ->where('status_payout', '!=', null)
                     ->get();
 
                 $paymentsFinish = TicketRessource::collection($paymentsFinish);

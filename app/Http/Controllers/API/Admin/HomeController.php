@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\Admin;
 
+use App\Claim;
 use App\Http\Controllers\Controller;
 use App\Models\Alert;
 use App\Models\Discussion;
@@ -25,6 +26,7 @@ class HomeController extends Controller
         'offerCount',
         'alertCount',
         'alertCurrentCount',
+        'claimsCount',
     ];
 
     /**
@@ -70,6 +72,9 @@ class HomeController extends Controller
                 break;
             case 'alertCurrentCount':
                 return $this->getCurrentAlertCount();
+                break;
+            case 'claimsCount':
+                return $this->getClaimsCount();
                 break;
         }
 
@@ -133,6 +138,12 @@ class HomeController extends Controller
     private function getCurrentAlertCount(){
         return [
             'count' => Alert::current()->count(),
+        ];
+    }
+
+    private function getClaimsCount() {
+        return [
+            'count' => Claim::where('status', null)->count(),
         ];
     }
 

@@ -28,7 +28,8 @@ class Kernel extends ConsoleKernel
         Commands\DataCommand::class,
         Commands\OutputEmails::class,
         Commands\IdAutomation::class,
-        Commands\AcceptIds::class
+        Commands\AcceptIds::class,
+        Commands\MakeTransfers::class,
     ];
 
     /**

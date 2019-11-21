@@ -15,7 +15,7 @@ class MangoPayService
         $storagePath = storage_path('mangopay');
         if(!file_exists($storagePath) && !is_dir($storagePath)) {
 
-            mkdir($storagePath, 0775, true);
+            mkdir($storagePath, 0777, true);
         }
 
         $this->mangoPayApi = new MangoPay\MangoPayApi();
@@ -259,8 +259,12 @@ class MangoPayService
         }
     }
 
-    public function getBankAccount() {
+    public function getBankAccount($user = null) {
         try {
+
+            if(!$user) {
+                $user = $this->mangoUser;
+            }
 
             $pagination = new MangoPay\Pagination();
             $pagination->Page = 1;
@@ -269,7 +273,7 @@ class MangoPayService
             $sorting = new MangoPay\Sorting();
             $sorting->AddField("CreationDate", MangoPay\SortDirection::DESC);
 
-            $BankAccount = $this->mangoPayApi->Users->GetBankAccounts($this->mangoUser, $pagination, $sorting);
+            $BankAccount = $this->mangoPayApi->Users->GetBankAccounts($user, $pagination, $sorting);
             return $BankAccount ? $BankAccount[0] : null;
 
         } catch (MangoPay\Libraries\ResponseException $e) {
@@ -322,6 +326,19 @@ class MangoPayService
         }
     }
 
+    public function getRefund($id) {
+        try {
+
+            $Refund = $this->mangoPayApi->Refunds->Get($id);
+            return $Refund;
+
+        } catch (MangoPay\Libraries\ResponseException $e) {
+            return $e->GetMessage();
+        } catch (MangoPay\Libraries\Exception $e) {
+            return $e->GetMessage();
+        }
+    }
+
     public function createPayOut($bankAccount, $user, $wallet) {
         try {
             $PayOut = new MangoPay\PayOut();
@@ -343,6 +360,19 @@ class MangoPayService
             $PayOut = $this->mangoPayApi->PayOuts->Create($PayOut);
 
             return $PayOut;
+
+        } catch (MangoPay\Libraries\ResponseException $e) {
+            return $e->GetMessage();
+        } catch (MangoPay\Libraries\Exception $e) {
+            return $e->GetMessage();
+        }
+    }
+
+    public function getPayOut($id) {
+        try {
+
+            $Refund = $this->mangoPayApi->PayOuts->Get($id);
+            return $Refund;
 
         } catch (MangoPay\Libraries\ResponseException $e) {
             return $e->GetMessage();

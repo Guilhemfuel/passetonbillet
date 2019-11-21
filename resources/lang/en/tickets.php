@@ -458,5 +458,6 @@ return [
 
     'update_bank_account' => 'Update payment informations',
     'bank_account_not_complete' => 'Some informations are missing',
+    'bank_account_not_valid' => 'Il semblerait que les informations sont invalide',
     'bank_account_success' => 'Votre compte bancaire est ajouté !',
 ];

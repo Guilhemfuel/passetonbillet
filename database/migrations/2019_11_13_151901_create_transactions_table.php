@@ -28,6 +28,12 @@ class CreateTransactionsTable extends Migration
             $table->foreign('seller_id')->references('id')->on('users');
             $table->foreign('purchaser_id')->references('id')->on('users');
             $table->foreign('ticket_id')->references('id')->on('tickets');
+
+            $table->string('status_refund')->nullable();
+            $table->string('refund_id')->nullable();
+
+            $table->string('status_payout')->nullable();
+            $table->string('payout_id')->nullable();
         });
     }
 

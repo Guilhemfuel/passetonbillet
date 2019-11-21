@@ -286,6 +286,26 @@
                             </a>
                         </div>
                     </div>
+
+                    <div class="row mt-4">
+                        <div class="col-4">
+                            <a class="btn btn-danger btn-fill btn-sm ml-3" href="{{route('users.ban',$ticket->claim->purchaser_id)}}">
+                                <i class="fa fa-ban" aria-hidden="true"></i>
+                                Ban User
+                            </a>
+                        </div>
+
+                        <div class="col-4"></div>
+
+                        <div class="col-4">
+                            <a class="btn btn-danger btn-fill btn-sm ml-3" href="{{route('users.ban',$ticket->claim->seller_id)}}">
+                                <i class="fa fa-ban" aria-hidden="true"></i>
+                                Ban User
+                            </a>
+                        </div>
+                    </div>
+
+
                 </div>
 
             </div>

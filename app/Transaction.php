@@ -8,8 +8,10 @@ class Transaction extends Model
 {
 
     CONST STATUS_TRANSFER_DONE = 'DONE';
-    CONST STATUS_TRANSFER_FAIL = 'FAIL';
-    CONST STATUS_TRANSFER_PENDING = 'PENDING';
+    CONST STATUS_TRANSFER_FAIL = 'FAILED';
+    CONST STATUS_TRANSFER_CREATED = 'CREATED';
+    CONST STATUS_NO_BANK_ACCOUNT = 'NO_BANK_ACCOUNT';
+    CONST STATUS_NO_KYC = 'NO_KYC';
 
     CONST FEES = 20;
 
@@ -20,7 +22,10 @@ class Transaction extends Model
         'ticket_id',
         'status',
         'transaction_mangopay',
-        'status_transfer',
+        'status_refund',
+        'refund_id',
+        'status_payout',
+        'payout_id',
     ];
 
     public static $relationships = [ 'user', 'ticket'];

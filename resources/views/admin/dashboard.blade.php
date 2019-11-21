@@ -59,10 +59,10 @@
                    label="Awaiting Check"
                    endpoint="{{route('api.admin.home.resource','idVerificationCount')}}"
         ></home-stat>
-        <home-stat link="{{route('id_check.oldest')}}"
+        <home-stat link="{{route('claims.index')}}"
                    icon="fa-exclamation-circle"
                    label="Claims"
-                   endpoint="{{route('api.admin.home.resource','idVerificationCount')}}"
+                   endpoint="{{route('api.admin.home.resource','claimsCount')}}"
         ></home-stat>
     </div>
 

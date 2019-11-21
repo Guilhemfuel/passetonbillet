@@ -466,5 +466,6 @@ return [
 
     'update_bank_account' => 'Modifier informations de paiement',
     'bank_account_not_complete' => 'Veuillez compléter le formulaire entièrement',
+    'bank_account_not_valid' => 'Il semblerait que les informations sont invalide',
     'bank_account_success' => 'Votre compte bancaire est ajouté !',
 ];

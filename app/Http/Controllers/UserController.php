@@ -85,7 +85,12 @@ class UserController extends Controller
 
         if($request->iban && $request->nameAccount && $request->address && $request->city && $request->postal) {
             $bankAccount = $mangoPay->createBankAccount($request);
-            return response()->json(['message' => __( 'tickets.bank_account_success'), 'type' => 'success', 'bankAccount' => $bankAccount]);
+
+            if(isset($bankAccount->UserId)) {
+                return response()->json(['message' => __( 'tickets.bank_account_success'), 'type' => 'success', 'bankAccount' => $bankAccount]);
+            }
+
+            return response()->json(['message' => __( 'tickets.bank_account_not_valid'), 'type' => 'error', 'bankAccount' => $bankAccount]);
         }
 
         return response()->json(['message' => __( 'tickets.bank_account_not_complete'), 'type' => 'error']);
