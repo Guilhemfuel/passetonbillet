@@ -8,6 +8,9 @@
             <div v-for="ticket in tickets" :key="ticket.id" class="col-12">
                 <ticket-sold :ticket="ticket"></ticket-sold>
             </div>
+            <div v-if="!tickets.length">
+                <h3>{{ trans('tickets.no_ticket') }}</h3>
+            </div>
         </div>
     </div>
 </template>

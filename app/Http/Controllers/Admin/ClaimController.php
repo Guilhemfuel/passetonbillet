@@ -139,7 +139,6 @@ class ClaimController extends BaseController
         }
 
         $claim = Claim::where('ticket_id', $ticket->id)->first();
-        $transaction = Transaction::where('ticket_id', $ticket->id)->first();
 
         if (!$claim->status) {
             //Update Claim Status
@@ -165,7 +164,6 @@ class ClaimController extends BaseController
         }
 
             $claim = Claim::where('ticket_id', $ticket->id)->first();
-            $transaction = Transaction::where('ticket_id', $ticket->id)->first();
 
             if (!$claim->status) {
                 //Update claim status
@@ -190,7 +188,6 @@ class ClaimController extends BaseController
         }
 
         $claim = Claim::where('ticket_id', $ticket->id)->first();
-        $transaction = Transaction::where('ticket_id', $ticket->id)->first();
 
         if (!$claim->status) {
             $claim->status = Claim::CLAIM_STATUS_EQUALITY;

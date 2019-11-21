@@ -82,7 +82,17 @@ class TicketController extends Controller
 
         switch ( $type ) {
             case 'selling':
-                return TicketRessource::collection( \Auth::user()->tickets );
+
+                $tickets = Ticket::select('*', 'tickets.id')
+                    ->where('user_id', $user->id)
+                    ->whereNotIn('tickets.id', function($query) use($user) {
+                        $query->select('ticket_id')->from('transactions')
+                            ->where('seller_id', $user->id)
+                            ->where('status', 'SUCCEEDED');
+                    })
+                    ->get();
+
+                return TicketRessource::collection($tickets);
                 break;
             case 'bought':
 

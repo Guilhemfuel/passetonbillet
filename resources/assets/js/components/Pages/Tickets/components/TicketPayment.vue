@@ -2,10 +2,10 @@
     <transition enter-class="pre-animated"
                 enter-active-class="animated fadeIn"
                 leave-active-class="animated fadeOut">
-        <div class="my-ticket row" v-bind:class="{ 'claim': ticket.hasClaim }">
+        <div class="my-ticket row" v-bind:class="{ 'claim': currentlyInClaim }">
             <div class="front">
                 <div class="status-payment">
-                    {{ timeLeft }} {{ trans('tickets.claim.hours_left') }}
+                    {{ statusTicket }}
                 </div>
 
                 <div class="d-flex justify-content-between departure">
@@ -31,7 +31,7 @@
                 <div class="button-my-ticket-update">
                     <div class="tooltip-limit-claim">{{ trans('tickets.claim.claim_limit_reached') }}</div>
                     <button class="btn btn-ptb btn-upper text-uppercase w-100" @click.prevent="help()">
-                        <span v-if="ticket.hasClaim">
+                        <span v-if="currentlyInClaim">
                             {{ trans('tickets.component.resolve') }}
                         </span>
                         <span v-else>
@@ -51,7 +51,7 @@
     },
     data() {
       return {
-        timeLeft: null,
+        timeLeft: 0,
         dateNow: moment().format('YYYY-MM-DD HH:mm:ss'),
       }
     },
@@ -69,18 +69,14 @@
         if(this.ticket.hasClaim) {
           if(claimLimitSeller > this.dateNow) {
             let diff = new moment(claimLimitSeller,"YYYY-MM-DD HH:mm:ss").diff(moment(this.dateNow,"YYYY-MM-DD HH:mm:ss"));
-            this.timeLeft = Math.round(new moment.duration(diff).asHours()) + ' ' + this.trans('tickets.claim.hours_left');
-          } else {
-            this.timeLeft = 0 + ' ' + this.trans('tickets.claim.hours_left');
+            this.timeLeft = Math.round(new moment.duration(diff).asHours());
           }
         }
         else {
           console.log(dateBeforeTransfer)
           if(dateBeforeTransfer > this.dateNow) {
             let diff = new moment(dateBeforeTransfer,"YYYY-MM-DD HH:mm:ss").diff(moment(this.dateNow,"YYYY-MM-DD HH:mm:ss"));
-            this.timeLeft = Math.round(new moment.duration(diff).asHours()) + ' ' + this.trans('tickets.claim.hours_left');
-          } else {
-            this.timeLeft = 'Paiement effectué'
+            this.timeLeft = Math.round(new moment.duration(diff).asHours());
           }
         }
       },
@@ -89,9 +85,61 @@
       },
     },
     computed: {
+      currentlyInClaim() {
+        if (this.ticket.hasClaim && !this.ticket.statusClaim) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+      statusTicket() {
 
+        let status_payout = this.ticket.statusTransactionPayout;
+        let status_claim = this.ticket.statusClaim;
+
+        if (this.timeLeft > 0) {
+          return this.timeLeft + ' ' + this.trans('tickets.claim.hours_left');
+        }
+
+        if (status_payout) {
+          if (status_payout === 'SUCCEEDED') {
+            return this.trans('tickets.claim.succeeded');
+          }
+
+          if (status_payout === 'CREATED') {
+            return this.trans('tickets.claim.created');
+          }
+
+          if (status_payout === 'NO_BANK_ACCOUNT') {
+            return this.trans('tickets.claim.no_bank_account');
+          }
+
+          if (status_payout === 'NO_KYC') {
+            return this.trans('tickets.claim.no_kyc');
+          }
+
+          if (status_payout === 'FAILED') {
+            return this.trans('tickets.claim.failed');
+          }
+        }
+
+        if (status_claim) {
+          if (status_claim === 'WON') {
+            return this.trans('tickets.claim.won');
+          }
+
+          if (status_claim === 'LOST') {
+            return this.trans('tickets.claim.lost');
+          }
+
+          if (status_claim === 'EQUALITY') {
+            return this.trans('tickets.claim.equality');
+          }
+        }
+      }
     },
     mounted () {
+      console.log(this.ticket);
       this.calculTimeLeft()
     }
   }
@@ -116,10 +164,12 @@
 
     .my-ticket .status-payment {
         font-weight: bold;
-        border: 3px solid white;
+        border: 3px solid #0b89e7;
         border-radius: 10px;
         padding: 10px;
     }
+
+    .my-ticket.claim .status-payment {  border: 3px solid white;  }
 
     .my-ticket.claim {  background-color: #f8254a;  }
 

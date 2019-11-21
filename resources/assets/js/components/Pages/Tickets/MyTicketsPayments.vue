@@ -20,6 +20,10 @@
                         </div>
                     </div>
 
+                    <div v-if="!ticketsWithClaims.length">
+                        <h4>{{ trans('tickets.no_ticket') }}</h4>
+                    </div>
+
                     <h3 class="card-title text-left mb-0">Mes paiements en attente</h3>
                     <div v-for="ticket in ticketsInWait" :key="'post' + ticket.id" class="col-12">
                         <div>
@@ -27,11 +31,19 @@
                         </div>
                     </div>
 
+                    <div v-if="!ticketsInWait.length">
+                        <h4>{{ trans('tickets.no_ticket') }}</h4>
+                    </div>
+
                     <h3 class="card-title text-left mb-0">Mes paiements passés</h3>
                     <div v-for="ticket in ticketsFinish" :key="'post' + ticket.id" class="col-12">
                         <div>
                             <ticket-payment :ticket="ticket" @claimTicket="claim"></ticket-payment>
                         </div>
+                    </div>
+
+                    <div v-if="!ticketsFinish.length">
+                        <h4>{{ trans('tickets.no_ticket') }}</h4>
                     </div>
                 </div>
             </div>
@@ -48,9 +60,9 @@
     data() {
       return {
         tickets: [],
-        ticketsWithClaims: null,
-        ticketsInWait: null,
-        ticketsFinish: null,
+        ticketsWithClaims: [],
+        ticketsInWait: [],
+        ticketsFinish: [],
         loading: true,
         dateNow: Date.parse(new moment().format("YYYY[-]MM[-]DD")),
         openClaimModal: false,

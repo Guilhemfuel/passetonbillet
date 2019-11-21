@@ -287,7 +287,6 @@ class MangoPayService
         try {
 
             $Refunds = $this->mangoPayApi->PayIns->Get($PayInId);
-
             return $Refunds;
 
         } catch (MangoPay\Libraries\ResponseException $e) {

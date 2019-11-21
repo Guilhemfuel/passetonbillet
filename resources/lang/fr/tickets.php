@@ -449,6 +449,15 @@ return [
             'claim_before_departure' => 'Vous ne pouvez pas faire une demande de litige avant le départ',
             'claim_not_possible' => 'Vous ne pouvez pas créer un litige si aucun litige n\'a été crée de la part de l\'acheteur'
         ],
+
+        'succeeded' => 'Paiement effectué',
+        'created' => 'Paiement en cours',
+        'no_bank_account' => 'Veuillez fournir un compte bancaire',
+        'no_kyc' => 'Veuillez fournir une pièce d\'identité',
+        'failed' => 'Une erreur est survenue pour la validation de votre paiement',
+        'won' => 'Paiement reversé à l\'acheteur suite au litige',
+        'lost' => 'Le litige est en votre faveur',
+        'equality' => 'Vous ne recevrez que la moitié du paiement',
     ],
 
     'claim_seller' => [
@@ -468,4 +477,6 @@ return [
     'bank_account_not_complete' => 'Veuillez compléter le formulaire entièrement',
     'bank_account_not_valid' => 'Il semblerait que les informations sont invalide',
     'bank_account_success' => 'Votre compte bancaire est ajouté !',
+
+    'no_ticket' => 'Pas de billet pour l\'instant',
 ];

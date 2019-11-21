@@ -41,6 +41,8 @@ class TicketRessource extends Resource
             'maxPrice'               => $this->max_price,
             'hasPdf'                 => $this->has_pdf,
             'hasClaim'               => $this->has_claim,
+            'statusClaim'            => $this->has_claim ? $this->claim->status : null,
+            'statusTransactionPayout'      => $this->transaction ? $this->transaction->status_payout : null,
             'claimLimitPurchaser'    => $this->limit_claim_purchaser->format('Y-m-d H:i:s'),
             'claimLimitSeller'       => $this->limit_claim_seller ? $this->limit_claim_seller->format('Y-m-d H:i:s') : null,
             'dateBeforeTransfer'     => $this->date_before_transfer ? $this->date_before_transfer->format('Y-m-d H:i:s') : null,
