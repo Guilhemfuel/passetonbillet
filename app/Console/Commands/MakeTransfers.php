@@ -205,7 +205,7 @@ class MakeTransfers extends Command
 
                 //The first time status is CREATED, but after we update status to make sure it is success
                 //No need to continue PayOut if Success is made
-                if ($Transaction->status === 'SUCCEEDED') {
+                if ($Transaction->status_payout === 'SUCCEEDED') {
                     continue;
                 }
 
@@ -224,7 +224,23 @@ class MakeTransfers extends Command
                     }
 
                     $wallet = $mangoPay->getWallet($Transaction->wallet_id);
+                    $kyc = $mangoPay->viewKycDocument($Transaction->seller->mangopay_id, $Transaction->seller->kyc_id);
+
+                    //Update KYC Status if exist
+                    if(isset($kyc->Status)) {
+                        $Transaction->seller->kyc_status = $kyc->Status;
+                        $Transaction->save();
+                    }
+
+                    //If Wallet balance is more than 250€ and KYC not verified, then we need to ask for it
+                    if($wallet->Balance->Amount >= 25000 && $Transaction->seller->kyc_status !== 'SUCCEEDED') {
+                        $Transaction->status_payout = Transaction::STATUS_NO_KYC;
+                        $Transaction->save();
+                        continue;
+                    }
+
                     $payOut = $mangoPay->createPayOut($bankAccount, $Transaction->seller->mangopay_id, $wallet);
+
                     //Update transaction Payout
                     if (isset($payOut->Status)) {
                         $Transaction->status_payout = $payOut->Status;

@@ -379,4 +379,70 @@ class MangoPayService
             return $e->GetMessage();
         }
     }
+
+    public function createKycDocument($user) {
+        try {
+
+            $KycDocument = new \MangoPay\KycDocument();
+            $KycDocument->Type = "IDENTITY_PROOF";
+
+            $KycDocument = $this->mangoPayApi->Users->CreateKycDocument($user, $KycDocument);
+
+            return $KycDocument;
+
+        } catch (MangoPay\Libraries\ResponseException $e) {
+            return $e->GetMessage();
+        } catch (MangoPay\Libraries\Exception $e) {
+            return $e->GetMessage();
+        }
+    }
+
+    public function createKycPage($user, $kycDocument, $fileUrl) {
+        try {
+
+            $KycPage = new MangoPay\KycPage();
+            $KycPage->File = base64_encode(file_get_contents($fileUrl));
+
+            if (empty($KycPage->File)) {
+                throw new \MangoPay\Libraries\Exception('Content of the file cannot be empty');
+            }
+
+            return $Kyc = $this->mangoPayApi->Users->CreateKycPage($user, $kycDocument, $KycPage, null);
+
+        } catch (MangoPay\Libraries\ResponseException $e) {
+            return $e->GetMessage();
+        } catch (MangoPay\Libraries\Exception $e) {
+            return $e->GetMessage();
+        }
+    }
+
+    public function submitKycDocument($user, $kycDocoument) {
+        try {
+
+            $KycDocument = new MangoPay\KycDocument();
+            $KycDocument->Id = $kycDocoument;
+            $KycDocument->Status = "VALIDATION_ASKED";
+
+            $KycDocument = $this->mangoPayApi->Users->UpdateKycDocument($user, $KycDocument);
+            return $KycDocument;
+
+        } catch (MangoPay\Libraries\ResponseException $e) {
+            return $e->GetMessage();
+        } catch (MangoPay\Libraries\Exception $e) {
+            return $e->GetMessage();
+        }
+    }
+
+    public function viewKycDocument($user, $kycDocument) {
+        try {
+
+            $KycDocument = $this->mangoPayApi->Users->GetKycDocument($user, $kycDocument);
+            return $KycDocument;
+
+        } catch (MangoPay\Libraries\ResponseException $e) {
+            return $e->GetMessage();
+        } catch (MangoPay\Libraries\Exception $e) {
+            return $e->GetMessage();
+        }
+    }
 }

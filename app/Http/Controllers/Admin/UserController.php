@@ -8,6 +8,7 @@ use App\Models\Verification\IdVerification;
 use App\Notifications\Verification\IdConfirmed;
 use App\Notifications\Verification\IdDenied;
 use App\Rules\Country;
+use App\Services\MangoPayService;
 use App\User;
 use Illuminate\Hashing\BcryptHasher;
 use Illuminate\Http\Request;
@@ -16,6 +17,8 @@ use App\Http\Requests\Admin\UserRequest;
 use App\Exceptions\PasseTonBilletException;
 use Psy\Util\Str;
 use App\Notifications\WelcomeNotification;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\File;
 
 class UserController extends BaseController
 {
@@ -198,6 +201,41 @@ class UserController extends BaseController
         ] );
 
         $idVerif = IdVerification::find( $request->verification_id );
+
+        $mangoPay = new MangoPayService();
+
+        //Creation of MangoPay user if not exist
+        if(!$idVerif->user->mangopay_id) {
+            $mangoUser = $mangoPay->createMangoUser($idVerif->user);
+
+            $idVerif->user->mangopay_id = $mangoUser->Id;
+            $idVerif->user->save();
+        }
+
+        //Creation of KYC Document if not exist
+        if(!$idVerif->user->kyc_id) {
+            $kycDocument = $mangoPay->createKycDocument($idVerif->user->mangopay_id);
+            $idVerif->user->kyc_id = $kycDocument->Id;
+            $idVerif->user->kyc_status = $kycDocument->Status;
+            $idVerif->user->save();
+
+            if(!isset($kycDocument->Id)) {
+                flash()->error( 'Problem with MangoPay KYC Document creation !' );
+                return redirect()->back();
+            }
+        }
+
+        //Submit file to MangoPay
+        $mangoPay->createKycPage($idVerif->user->mangopay_id, $idVerif->user->kyc_id, $idVerif->scan);
+        $kycDocument = $mangoPay->submitKycDocument($idVerif->user->mangopay_id, $idVerif->user->kyc_id);
+
+        //If document has already been treated we take it for update
+        if(!isset($kycDocument->Status)) {
+            $kycDocument = $mangoPay->viewKycDocument($idVerif->user->mangopay_id, $idVerif->user->kyc_id);
+        }
+
+        $idVerif->user->kyc_status = $kycDocument->Status;
+        $idVerif->user->save();
 
         if ( $idVerif->accepted != null ) {
 
