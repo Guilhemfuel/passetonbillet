@@ -96,12 +96,32 @@ class TicketController extends Controller
                 break;
             case 'bought':
 
-                $tickets = Ticket::select('*', 'tickets.id')
-                    ->join('transactions', 'tickets.id', '=', 'transactions.ticket_id')
-                    ->where('purchaser_id', $user->id)
-                    ->where('status', 'SUCCEEDED')->get();
+                $dateNow = Carbon::now()->format('Y-m-d');
 
-                return TicketRessource::collection($tickets);
+                $pastTickets = Ticket::select('*', 'tickets.id')
+                    ->join('transactions', 'tickets.id', '=', 'transactions.ticket_id')
+                    ->join('trains', 'trains.id', '=', 'tickets.train_id')
+                    ->where('trains.departure_date', '<=', $dateNow)
+                    ->where('transactions.purchaser_id', $user->id)
+                    ->where('transactions.status', 'SUCCEEDED')->get();
+
+                $pastTickets = TicketRessource::collection($pastTickets);
+
+                $futurTickets = Ticket::select('*', 'tickets.id')
+                    ->join('transactions', 'tickets.id', '=', 'transactions.ticket_id')
+                    ->join('trains', 'trains.id', '=', 'tickets.train_id')
+                    ->where('trains.departure_date', '>', $dateNow)
+                    ->where('transactions.purchaser_id', $user->id)
+                    ->where('transactions.status', 'SUCCEEDED')->get();
+
+                $futurTickets = TicketRessource::collection($futurTickets);
+
+                $data = array(
+                    'pastTickets' => $pastTickets,
+                    'futurTickets' => $futurTickets,
+                );
+
+                return json_encode($data);
                 break;
             case 'payment':
 

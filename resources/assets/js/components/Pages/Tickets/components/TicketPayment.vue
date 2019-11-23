@@ -2,7 +2,7 @@
     <transition enter-class="pre-animated"
                 enter-active-class="animated fadeIn"
                 leave-active-class="animated fadeOut">
-        <div class="my-ticket row" v-bind:class="{ 'claim': currentlyInClaim }">
+        <div class="my-ticket" v-bind:class="{ 'claim': currentlyInClaim }">
             <div class="front">
                 <div class="status-payment">
                     {{ statusTicket }}

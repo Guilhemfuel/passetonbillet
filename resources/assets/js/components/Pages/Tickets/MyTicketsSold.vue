@@ -1,15 +1,20 @@
 <template>
-    <div class="col-12">
+    <div class="col-12 mt-3">
+        <div class="row">
+            <h1 class="card-title text-left mb-0">{{trans('tickets.owned.title')}}</h1>
 
-        <h1 class="card-title text-left mb-0">{{trans('tickets.owned.title')}}</h1>
-
-        <loader class="mx-auto" v-if="loading"></loader>
-        <div class="row" v-else>
-            <div v-for="ticket in tickets" :key="ticket.id" class="col-12">
-                <ticket-sold :ticket="ticket"></ticket-sold>
-            </div>
-            <div v-if="!tickets.length">
-                <h3>{{ trans('tickets.no_ticket') }}</h3>
+            <loader class="mx-auto" v-if="loading"></loader>
+            <div class="col-12" v-else>
+                <div class="row">
+                    <div v-for="ticket in tickets" :key="ticket.id" class="col-12">
+                        <ticket-sold :ticket="ticket"></ticket-sold>
+                    </div>
+                    <div v-if="!tickets.length" class="col-12">
+                        <div class="bloc-white">
+                            <h4>{{ trans('tickets.no_ticket') }}</h4>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -43,3 +48,17 @@
     }
   }
 </script>
+
+<style scoped>
+    .bloc-white {
+        border-radius: 20px;
+        background-color: white;
+        margin: 10px 0;
+        padding: 20px;
+        text-align: center;
+    }
+
+    .text-wrap {
+        white-space: normal;
+    }
+</style>

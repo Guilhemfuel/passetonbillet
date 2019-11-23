@@ -95,6 +95,10 @@ class Train extends BaseModel
         return $this->carbon_arrival_date->diffInMinutes($this->carbon_departure_date);
     }
 
+    public function getCarbonDateEmailAfterDepartureAttribute() {
+        return Carbon::createFromFormat('Y-m-d H:i:s', $this->departure_date->format('Y-m-d').' '.$this->departure_time,$this->departureCity->timezone)->addHours(1);
+    }
+
     /**
      * Relationships
      */

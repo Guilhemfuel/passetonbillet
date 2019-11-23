@@ -2,7 +2,7 @@
     <transition enter-class="pre-animated"
                 enter-active-class="animated fadeIn"
                 leave-active-class="animated fadeOut">
-        <div class="my-ticket row" v-if="!deletedTicket">
+        <div class="my-ticket" v-if="!deletedTicket">
 
             <div v-if="!update" class="front">
                 <div>

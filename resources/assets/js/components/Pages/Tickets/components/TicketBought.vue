@@ -2,7 +2,7 @@
     <transition enter-class="pre-animated"
                 enter-active-class="animated fadeIn"
                 leave-active-class="animated fadeOut">
-        <div class="my-ticket row">
+        <div class="my-ticket">
             <div class="front">
                 <div>
                     N°{{ ticket.id }}<br>
