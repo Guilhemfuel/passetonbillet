@@ -110,11 +110,13 @@ class RegisterController extends Controller
         return Validator::make( $data, [
             'first_name' => 'required|max:255',
             'last_name'  => 'required|max:255',
-            'birthdate'  => 'date_format:d/m/Y|nullable',
+            'birthdate'  => 'date_format:d/m/Y',
             'gender'     => 'int',
             'location'   => 'string|nullable',
             'email'      => 'required|email|max:255|unique:users',
             'password'   => 'required|min:8|confirmed',
+            'country_residence'   => 'required|min:2|max:2',
+            'nationality'   => 'required|min:2|max:2',
             'cgu'        => 'required|accepted'
         ] );
     }
@@ -152,6 +154,8 @@ class RegisterController extends Controller
             'gender'     => isset( $data['gender'] ) ? $data['gender'] : null,
             'location'   => isset( $data['location'] ) ? $data['location'] : null,
             'email'      => $data['email'],
+            'country_residence'      => $data['country_residence'],
+            'nationality'      => $data['nationality'],
             'password'   => bcrypt( $data['password'] ),
         ] );
         // Create email verify token and set default status

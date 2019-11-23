@@ -125,13 +125,58 @@ class UserController extends Controller
             ImageHelper::resizeImageAndUploadToS3( 700, null, true, $request->scan, self::ID_PATH, IdVerification::userIdFileName(\Auth::user(),$scanFileType) );
         }
 
+        $scan = self::ID_PATH.'/'.IdVerification::userIdFileName(\Auth::user(),$scanFileType);
+
         $idVerif = new IdVerification( [
             'user_id' => \Auth::user()->id,
-            'scan'    => self::ID_PATH.'/'.IdVerification::userIdFileName(\Auth::user(),$scanFileType),
-            'type'    => $request->get('type'),
-            'country' => $request->get('country')
+            'scan'    => $scan,
         ] );
+
+        //Upload Document for MangoPay KYC
+        $mangoPay = new MangoPayService();
+
+        //Creation of MangoPay user if not exist
+        if(!$idVerif->user->mangopay_id) {
+            $mangoUser = $mangoPay->createMangoUser($idVerif->user);
+            $idVerif->user->mangopay_id = $mangoUser->Id;
+            $idVerif->user->save();
+        }
+
+        //Creation of KYC Document if not exist
+        if(!$idVerif->user->kyc_id) {
+            $kycDocument = $mangoPay->createKycDocument($idVerif->user->mangopay_id);
+            $idVerif->user->kyc_id = $kycDocument->Id;
+            $idVerif->user->kyc_status = $kycDocument->Status;
+            $idVerif->user->save();
+
+            if(!isset($kycDocument->Id)) {
+                flash()->error( 'Problem with MangoPay KYC Document creation !' );
+                return redirect()->back();
+            }
+        }
+
+        //Submit file to MangoPay
+        $mangoPay->createKycPage($idVerif->user->mangopay_id, $idVerif->user->kyc_id, $idVerif->scan);
+        $kycDocument = $mangoPay->submitKycDocument($idVerif->user->mangopay_id, $idVerif->user->kyc_id);
+
+        //If document has already been treated we take it for update
+        if(!isset($kycDocument->Status)) {
+            $kycDocument = $mangoPay->viewKycDocument($idVerif->user->mangopay_id, $idVerif->user->kyc_id);
+        }
+
         $idVerif->save();
+
+        $idVerif->user->kyc_status = $kycDocument->Status;
+        $idVerif->user->save();
+
+        if ( $idVerif->accepted != null ) {
+
+            flash()->error( 'ID confirmation already done!' );
+
+            return redirect()->route( 'id_check.oldest' );
+        }
+
+
 
         flash( __( 'profile.modal.verify_identity.success' ) )->success();
 
@@ -411,6 +456,40 @@ class UserController extends Controller
 
         return redirect()->back();
 
+    }
+
+    public function addCountry(Request $request) {
+
+        $this->middleware('auth');
+        $user = \Auth::user();
+
+        if(!$request->country_residence OR !$request->nationality OR !$request->birthdate) {
+
+            if($request->ajax()){
+                return response()->json([
+                    'message' => __( 'profile.modal.verify_identity.error_completed_profil' ),
+                    'type' => 'error'
+                ]);
+            }
+
+            flash( __( 'profile.modal.verify_identity.error_completed_profil' ) )->error();
+            return redirect()->back();
+        }
+
+        $user->country_residence = $request->country_residence;
+        $user->nationality = $request->nationality;
+        $user->birthdate = $request->birthdate;
+        $user->save();
+
+        if($request->ajax()){
+            return response()->json([
+                'message' => __( 'profile.modal.verify_identity.completed_profil' ),
+                'type' => 'success'
+            ]);
+        }
+
+        flash( __( 'profile.modal.verify_identity.completed_profil' ) )->success();
+        return redirect()->back();
     }
 
     /**

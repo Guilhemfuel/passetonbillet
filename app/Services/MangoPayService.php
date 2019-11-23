@@ -25,8 +25,8 @@ class MangoPayService
         $this->mangoPayApi->Config->TemporaryFolder = $storagePath;
     }
 
-    private function calculateFees($amount) {
-        return (Transaction::FEES / 100) * $amount;
+    private function calculateFees($fees, $amount) {
+        return ($fees / 100) * $amount;
     }
 
     public function createMangoUser($user) {
@@ -37,8 +37,8 @@ class MangoPayService
             $mangoUser->FirstName = $user->first_name;
             $mangoUser->LastName = $user->last_name;
             $mangoUser->Birthday = strtotime($user->birthdate);
-            $mangoUser->Nationality = $user->idVerification ? $user->idVerification->country : "FR";
-            $mangoUser->CountryOfResidence = $user->idVerification ? $user->idVerification->country : "FR";
+            $mangoUser->Nationality = $user->nationality ? $user->nationality : "FR";
+            $mangoUser->CountryOfResidence = $user->country_residence ? $user->country_residence : "FR";
             $mangoUser->Email = $user->email;
 
             $mangoUser = $this->mangoPayApi->Users->Create($mangoUser);
@@ -296,7 +296,7 @@ class MangoPayService
         }
     }
 
-    public function createRefundPayIn($PayInId, $user, $amount = null, $split = null) {
+    public function createRefundPayIn($PayInId, $user, $fees = null, $amount = null, $split = null) {
         try {
             $Refund = new MangoPay\Refund();
             $Refund->AuthorId = $user;
@@ -311,7 +311,7 @@ class MangoPayService
 
                 $Refund->Fees = new MangoPay\Money();
                 $Refund->Fees->Currency = "EUR";
-                $Refund->Fees->Amount = $this->calculateFees($amount);
+                $Refund->Fees->Amount = $this->calculateFees($fees, $amount);
             }
 
             $Refund = $this->mangoPayApi->PayIns->CreateRefund($PayInId, $Refund);
@@ -338,7 +338,7 @@ class MangoPayService
         }
     }
 
-    public function createPayOut($bankAccount, $user, $wallet) {
+    public function createPayOut($bankAccount, $user, $wallet, $fees) {
         try {
             $PayOut = new MangoPay\PayOut();
             $PayOut->AuthorId = $user;
@@ -350,7 +350,7 @@ class MangoPayService
 
             $PayOut->Fees = new MangoPay\Money();
             $PayOut->Fees->Currency = "EUR";
-            $PayOut->Fees->Amount = $this->calculateFees($wallet->Balance->Amount);
+            $PayOut->Fees->Amount = $this->calculateFees($fees, $wallet->Balance->Amount);
 
             $PayOut->PaymentType = "BANK_WIRE";
             $PayOut->MeanOfPaymentDetails = new MangoPay\PayOutPaymentDetailsBankWire();

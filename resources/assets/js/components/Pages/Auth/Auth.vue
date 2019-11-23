@@ -128,7 +128,9 @@
                                     placeholder="DD/MM/YYYY"
                                     format="dd/MM/yyyy"
                                     value-format="dd/MM/yyyy"
-                                    default-value-format="DD/MM/YYYY"></input-date>
+                                    default-value-format="DD/MM/YYYY"
+                                    validation="required"
+                        ></input-date>
 
                         <input-text name="email"
                                     type="email"
@@ -153,6 +155,18 @@
                                     :placeholder="trans('auth.register.password_confirm')"
                                     validation="required|min:8"
                         ></input-text>
+
+                        <input-country name="country_residence"
+                                       :label="trans('profile.modal.verify_identity.country_residence')"
+                                       validation="required"
+                                       :placeholder="trans('profile.modal.verify_identity.country_residence')"
+                        ></input-country>
+
+                        <input-country name="nationality"
+                                       :label="trans('profile.modal.verify_identity.nationality')"
+                                       validation="required"
+                                       :placeholder="trans('profile.modal.verify_identity.nationality')"
+                        ></input-country>
 
                         <input-text name="cgu"
                                     type="checkbox"

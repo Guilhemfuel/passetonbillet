@@ -17,9 +17,9 @@
         >
             <el-option
                     v-for="country in countries"
-                    :key="country.code_iso3"
+                    :key="country.code_iso2"
                     :label="country.name_fr"
-                    :value="country.code_iso3">
+                    :value="country.code_iso2">
                 <span style="float: left">{{ country.name_fr }}</span>
                 <span style="float: right; color: #8492a6; font-size: 13px">{{ country.name_en }}</span>
             </el-option>

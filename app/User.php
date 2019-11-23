@@ -24,6 +24,9 @@ class User extends Authenticatable
     const STATUS_UNINVITED_USER = -1;
     const STATUS_ADMIN = 100;
 
+    CONST STATUS_KYC_SUCCEEDED = 'SUCCEEDED';
+    CONST STATUS_KYC_FAILED = 'FAILED';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -43,6 +46,8 @@ class User extends Authenticatable
         'email',
         'password',
         'mangopay_id',
+        'country_residence',
+        'nationality',
         'kyc_id',
         'kyc_status',
     ];
@@ -163,6 +168,11 @@ class User extends Authenticatable
         return true;
     }
 
+    public function getCountryProfilCompletedAttribute() {
+        if($this->country_residence == null OR $this->nationality == null) return false;
+        return true;
+    }
+
     public function getPhoneVerificationSentAttribute()
     {
         return $this->phoneVerification != null;
@@ -187,6 +197,10 @@ class User extends Authenticatable
         } catch (\Exception $e) {
             // do nothing
         }
+    }
+
+    public function getKycVerifiedAttribute() {
+        return ($this->kyc_status !== null && $this->kyc_status === 'SUCCEEDED') ?:false;
     }
 
     public function getFbConnectAttribute(  )

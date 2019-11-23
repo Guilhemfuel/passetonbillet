@@ -7,13 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 class Transaction extends Model
 {
 
-    CONST STATUS_TRANSFER_SUCCESS = 'SUCCESS';
+    CONST STATUS_TRANSFER_SUCCESS = 'SUCCEEDED';
     CONST STATUS_TRANSFER_FAIL = 'FAILED';
     CONST STATUS_TRANSFER_CREATED = 'CREATED';
     CONST STATUS_NO_BANK_ACCOUNT = 'NO_BANK_ACCOUNT';
     CONST STATUS_NO_KYC = 'NO_KYC';
 
-    CONST FEES = 20;
+    CONST FEES_TICKET_ON_SALE = 10; //When someone put a ticket on sale
+    CONST FEES_CLAIM_PURCHASER = 5;
+    CONST FEES_SELLER = 20;
+    //When equality, we split price / 2, so 100€ become 50€
+    //Then we apply fees to 50€ for each
+    CONST FEES_EQUALITY = 20;
 
     protected $fillable = [
         'wallet_id',

@@ -8,107 +8,152 @@
                 <i class="fa fa-chevron-left" aria-hidden="true"></i>
             </div>
 
-            <div v-if="state == 'recap'">
-                <div class="modal-body row">
-                    <div class="col-sm-12 col-md-12 text-center m-auto">
-                        <h4 class="card-text text-center font-weight-bold">
-                            {{trans('tickets.buy_modal.buy_ticket_of')}} {{ ticket.user.first_name }}
-                        </h4>
-                        <p class="card-text text-center font-weight-bold">
-                            {{trans('tickets.buy_modal.instant_receive')}}
-                        </p>
+            <div v-if="!this.$root.user.country_profil">
 
-                        <div class="recap-ticket">
+                <h3>{{ trans('profile.modal.verify_identity.complete_profil') }}</h3>
 
-                            <h3>{{date.format('dddd D MMMM YYYY')}}</h3>
+                <form method="post" :action="route('public.profile.country.add')">
 
-                            <div class="row d-flex align-items-center recap-time">
-                                <div class="col-5 from">
-                                    <p class="city">{{ticket.train.departure_city.name}}</p>
-                                    <p class="time">{{departure_time}}</p>
-                                </div>
-                                <div class="col-2 arrow px-2">
-                                    <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
-                                </div>
-                                <div class="col-5 to">
-                                    <p class="city">{{ticket.train.arrival_city.name}}</p>
-                                    <p class="time">{{arrival_time}}</p>
-                                </div>
-                            </div>
-                        </div>
+                    <input type="hidden" name="_token" :value="form._token">
 
-                        <div v-if="this.ticket.hasPdf">
-                            <button class="btn btn-ptb btn-upper text-uppercase mt-3 w-100" @click.prevent="getAllCards">
-                                {{trans('tickets.component.buy')}} {{ ticket.price }}{{ ticket.currency_symbol }}
+                    <input-country name="country_residence"
+                                   :label="trans('profile.modal.verify_identity.country_residence')"
+                                   validation="required"
+                                   v-model="formCompleteProfil.country_residence"
+                                   :placeholder="trans('profile.modal.verify_identity.country_residence')"
+                    ></input-country>
+
+                    <input-country name="nationality"
+                                   :label="trans('profile.modal.verify_identity.nationality')"
+                                   validation="required"
+                                   v-model="formCompleteProfil.nationality"
+                                   :placeholder="trans('profile.modal.verify_identity.nationality')"
+                    ></input-country>
+
+                    <input-date
+                            name="birthdate"
+                            v-model="formCompleteProfil.birthdate"
+                            class-name="col-xs-12"
+                            :label="trans('auth.register.birthdate')"
+                            placeholder="DD/MM/YYYY"
+                            format="dd/MM/yyyy"
+                            value-format="dd/MM/yyyy"
+                            default-value-format="DD/MM/YYYY">
+                    </input-date>
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-ptb-blue btn-block" @click.prevent="completeProfil">
+                                {{trans('profile.modal.verify_identity.complete_profil')}}
                             </button>
                         </div>
-
                     </div>
-                </div>
+                </form>
             </div>
 
-            <div v-else-if="state == 'show_cards'">
-                <div class="modal-body row">
-                    <div class="col-sm-12 col-md-8 text-center m-auto">
-                        <p class="card-text text-center font-weight-bold">
-                            {{trans('tickets.buy_modal.choose_payment')}}
-                        </p>
+            <div v-else>
+                <div v-if="state == 'recap'">
+                    <div class="modal-body row">
+                        <div class="col-sm-12 col-md-12 text-center m-auto">
+                            <h4 class="card-text text-center font-weight-bold">
+                                {{trans('tickets.buy_modal.buy_ticket_of')}} {{ ticket.user.first_name }}
+                            </h4>
+                            <p class="card-text text-center font-weight-bold">
+                                {{trans('tickets.buy_modal.instant_receive')}}
+                            </p>
 
-                        <label v-for="card in userCards" :key="card.Id" class="credit-card" :for="'card-' + card.Id">{{ card.Alias }}
-                            <input type="radio" :id="'card-' + card.Id" name="card" :value="card.Id" @change="formBuy = card.Id">
-                        </label>
+                            <div class="recap-ticket">
 
-                        <div>
-                            <button class="btn-add-payment w-100" @click.prevent="addCardRegistration">
-                                {{trans('tickets.buy_modal.add_payment')}}
-                            </button>
-                        </div>
+                                <h3>{{date.format('dddd D MMMM YYYY')}}</h3>
 
-                        <div v-if="typeof userCards === 'object' && userCards[0]">
-                            <button class="btn btn-ptb btn-upper text-uppercase mt-3 w-100"
-                                    @click.prevent="buy">
-                                {{trans('tickets.component.buy')}} {{ ticket.price }}{{ ticket.currency_symbol }}
-                            </button>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-            <div v-else-if="state == 'add_card'">
-                <div class="modal-body row">
-                    <div class="col-sm-12 col-md-8 text-center m-auto">
-                        <p class="card-text text-center font-weight-bold">
-                            {{trans('tickets.buy_modal.add_payment')}}
-                        </p>
-
-                        <form :action="CardRegistrationURL" method="post" id="formRegistrationCard" class="w-100 m-auto row">
-                            <input type="hidden" name="data" :value="formRegistrationCard.data"/>
-                            <input type="hidden" name="accessKeyRef" :value="formRegistrationCard.accessKeyRef"/>
-
-                            <div class="col-12">
-                                <input type="text" name="cardNumber" value="" v-model="formRegistrationCard.cardNumber" placeholder="NUMÉRO DE LA CARTE"/>
-                                <div class="clear"></div>
+                                <div class="row d-flex align-items-center recap-time">
+                                    <div class="col-5 from">
+                                        <p class="city">{{ticket.train.departure_city.name}}</p>
+                                        <p class="time">{{departure_time}}</p>
+                                    </div>
+                                    <div class="col-2 arrow px-2">
+                                        <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="col-5 to">
+                                        <p class="city">{{ticket.train.arrival_city.name}}</p>
+                                        <p class="time">{{arrival_time}}</p>
+                                    </div>
+                                </div>
                             </div>
 
-                            <div class="col-6">
-                                <input type="text" name="cardExpirationDate"
-                                       value="" v-model="formRegistrationCard.cardExpirationDate"
-                                       placeholder="MM/AA" maxlength="5"/>
-                                <div class="clear"></div>
-                            </div>
-
-                            <div class="col-6">
-                                <input type="text" name="cardCvx" value="" v-model="formRegistrationCard.cardCvx" placeholder="CVC" maxlength="3"/>
-                                <div class="clear"></div>
-                            </div>
-
-                            <div class="col-sm-12 col-md-12">
-                                <button class="btn btn-ptb btn-upper mt-3 w-100" @click.prevent="saveCardRegistration">
-                                    {{trans('tickets.buy_modal.add')}}
+                            <div v-if="this.ticket.hasPdf">
+                                <button class="btn btn-ptb btn-upper text-uppercase mt-3 w-100" @click.prevent="getAllCards">
+                                    {{trans('tickets.component.buy')}} {{ ticket.price }}{{ ticket.currency_symbol }}
                                 </button>
                             </div>
-                        </form>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div v-else-if="state == 'show_cards'">
+                    <div class="modal-body row">
+                        <div class="col-sm-12 col-md-8 text-center m-auto">
+                            <p class="card-text text-center font-weight-bold">
+                                {{trans('tickets.buy_modal.choose_payment')}}
+                            </p>
+
+                            <label v-for="card in userCards" :key="card.Id" class="credit-card" :for="'card-' + card.Id">{{ card.Alias }}
+                                <input type="radio" :id="'card-' + card.Id" name="card" :value="card.Id" @change="formBuy = card.Id">
+                            </label>
+
+                            <div>
+                                <button class="btn-add-payment w-100" @click.prevent="addCardRegistration">
+                                    {{trans('tickets.buy_modal.add_payment')}}
+                                </button>
+                            </div>
+
+                            <div v-if="typeof userCards === 'object' && userCards[0]">
+                                <button class="btn btn-ptb btn-upper text-uppercase mt-3 w-100"
+                                        @click.prevent="buy">
+                                    {{trans('tickets.component.buy')}} {{ ticket.price }}{{ ticket.currency_symbol }}
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div v-else-if="state == 'add_card'">
+                    <div class="modal-body row">
+                        <div class="col-sm-12 col-md-8 text-center m-auto">
+                            <p class="card-text text-center font-weight-bold">
+                                {{trans('tickets.buy_modal.add_payment')}}
+                            </p>
+
+                            <form :action="CardRegistrationURL" method="post" id="formRegistrationCard" class="w-100 m-auto row">
+                                <input type="hidden" name="data" :value="formRegistrationCard.data"/>
+                                <input type="hidden" name="accessKeyRef" :value="formRegistrationCard.accessKeyRef"/>
+
+                                <div class="col-12">
+                                    <input type="text" name="cardNumber" value="" v-model="formRegistrationCard.cardNumber" placeholder="NUMÉRO DE LA CARTE"/>
+                                    <div class="clear"></div>
+                                </div>
+
+                                <div class="col-6">
+                                    <input type="text" name="cardExpirationDate"
+                                           value="" v-model="formRegistrationCard.cardExpirationDate"
+                                           placeholder="MM/AA" maxlength="5"/>
+                                    <div class="clear"></div>
+                                </div>
+
+                                <div class="col-6">
+                                    <input type="text" name="cardCvx" value="" v-model="formRegistrationCard.cardCvx" placeholder="CVC" maxlength="3"/>
+                                    <div class="clear"></div>
+                                </div>
+
+                                <div class="col-sm-12 col-md-12">
+                                    <button class="btn btn-ptb btn-upper mt-3 w-100" @click.prevent="saveCardRegistration">
+                                        {{trans('tickets.buy_modal.add')}}
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -132,6 +177,11 @@
         },
         userCards: {},
         CardRegistrationURL: null,
+        formCompleteProfil: {
+          country_residence: null,
+          nationality: null,
+          birthdate: null,
+        },
         formRegistrationCard: {
           data: null,
           accessKeyRef: null,
@@ -192,6 +242,20 @@
             this.closeModal()
           }
         }
+      },
+      handleResponse(response) {
+        if(response.body.message) { this.$message({message: response.body.message, type: response.body.type}) }
+      },
+      completeProfil() {
+        console.log(this.formCompleteProfil);
+        this.$http.post(this.route('public.profile.country.add'), this.formCompleteProfil)
+          .then(response => {
+            this.handleResponse(response);
+            if(response.body.type === 'success') {
+              this.state = 'recap';
+              this.$root.user.country_profil = true;
+            }
+          });
       },
       getAllCards() {
         this.$http.get(this.route('api.user.get.cards'))

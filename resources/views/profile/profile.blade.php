@@ -42,13 +42,13 @@
                                     </div>
                                 </div>
                                 <div class="col-md-5 col-lg-4 col-sm-12 mt-xs-4">
-                                    @if(!$user->id_verified && $user->idVerification == null)
+                                    @if($user->kyc_status !== 'SUCCEEDED' AND $user->kyc_status !== 'VALIDATION_ASKED')
                                         <button class="btn btn-block btn-warning"
                                                 @click.prevent="child.profile.modalVerifyIdentity=true">@lang('profile.account_verify')
                                             <i
                                                     class="fa fa-check-circle pl-2" aria-hidden="true"></i>
                                         </button>
-                                    @elseif(!$user->id_verified && $user->idVerification != null)
+                                    @elseif($user->kyc_status === 'VALIDATION_ASKED')
                                         <button class="btn btn-block btn-warning" disabled
                                                 @click.prevent="child.profile.modalVerifyIdentity=true">@lang('profile.verification_pending')
                                             <i class="fa fa-clock-o" aria-hidden="true"></i>
@@ -134,17 +134,6 @@
                                 <div class="form-group">
                                     <input class="form-control" type="file" name="scan">
                                 </div>
-                                <input-select name="type"
-                                              label="@lang('profile.modal.verify_identity.type')"
-                                              validation="required"
-                                              placeholder="@lang('profile.modal.verify_identity.type')"
-                                              :options="child.profile.optionsType"
-                                ></input-select>
-                                <input-country name="country"
-                                               label="{{__('profile.modal.verify_identity.country')}}"
-                                               validation="required"
-                                               placeholder="{{__('profile.modal.verify_identity.country')}}"
-                                ></input-country>
                                 <button type="submit"
                                         class="btn btn-block btn-ptb-blue">@lang('profile.modal.verify_identity.cta')</button>
                             </vue-form>

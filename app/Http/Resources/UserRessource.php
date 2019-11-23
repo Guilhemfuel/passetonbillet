@@ -60,6 +60,7 @@ class UserRessource extends Resource
             'language'             => $this->language,
             'verified'             => $this->id_verified,
             'verification_pending' => $this->id_verification_pending,
+            'country_profil'       => $this->country_profil_completed,
             'admin'                => $this->isAdmin(),
             'unread_notifications' => count( $this->unreadNotifications ),
             'register_date'         => $this->created_at->format('d/m/Y'),

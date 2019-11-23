@@ -265,8 +265,11 @@ class TicketController extends Controller
 
         $pdfService->splitPdf($request->page);
 
+        //We put additional fees to the price ticket
+        $price = ((Transaction::FEES_TICKET_ON_SALE / 100) * $request->price) + $request->price;
+
         $ticket->user_id = \Auth::id();
-        $ticket->price = $request->price;
+        $ticket->price = $price;
         $ticket->currency = $ticket->bought_currency;
         $ticket->user_notes = $request->notes;
         $ticket->pdf = $pdf;
@@ -283,7 +286,7 @@ class TicketController extends Controller
 
         flash(__('tickets.sell.success'))->success()->important();
 
-        return redirect()->route('public.ticket.owned.page')
+        return redirect()->route('public.ticket.sold.page')
             ->with(['addedTicket' => new TicketRessource($ticket)]);
 
     }

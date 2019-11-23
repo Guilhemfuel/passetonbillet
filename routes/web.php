@@ -165,6 +165,7 @@ Route::group( [ 'middleware' => 'auth', 'as' => 'public.' ], function () {
 
         Route::post( 'phone/add', 'UserController@addPhone' )->name( 'phone.add' );
         Route::post( 'phone/verify', 'UserController@verifyPhone' )->name( 'phone.verify' );
+        Route::post( 'country/add', 'UserController@addCountry' )->name( 'country.add' );
         Route::post( 'password/change', 'UserController@changePassword' )->name( 'password.change' );
         Route::post( 'picture/upload', 'UserController@changeProfilePicture' )->name( 'picture.upload' );
         Route::post( 'identity/upload', 'UserController@uploadId' )->name( 'id.upload' );

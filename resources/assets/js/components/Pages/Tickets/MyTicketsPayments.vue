@@ -13,14 +13,12 @@
                         </div>
                     </div>
 
-                    <h3 class="card-title text-left mb-0">Mes conflits</h3>
-                    <div v-for="ticket in ticketsWithClaims" :key="'post' + ticket.id" class="col-12">
-                        <ticket-payment :ticket="ticket" @claimTicket="claim"></ticket-payment>
-                    </div>
-
-                    <div v-if="!ticketsWithClaims.length" class="col-12">
-                        <div class="bloc-white">
-                            <h4>{{ trans('tickets.no_ticket') }}</h4>
+                    <div v-if="ticketsWithClaims.length" class="col-12">
+                        <div class="row">
+                            <h3 class="card-title text-left mb-0">Mes conflits</h3>
+                            <div v-for="ticket in ticketsWithClaims" :key="'post' + ticket.id" class="col-12">
+                                <ticket-payment :ticket="ticket" @claimTicket="claim"></ticket-payment>
+                            </div>
                         </div>
                     </div>
 

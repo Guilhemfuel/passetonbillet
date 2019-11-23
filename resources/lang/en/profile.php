@@ -66,6 +66,9 @@ return [
         ],
         'verify_identity' => [
             'title'      => 'Identity check',
+            'complete_profil' => 'Complete your profil',
+            'completed_profil' => 'Your profil is completed !',
+            'error_completed_profil' => 'You need to complete everything',
             'text'       => 'In order to guarantee an optimal level of security for our users, you must upload a picture or a scan of one of your identity documents to have your profile verified.',
             'list_title' => 'Identification documents accepted',
             'list_id'    => [
@@ -78,7 +81,9 @@ return [
             'cta'        => 'Verify my identity',
             'delay'      => 'The identity verification usually takes place within 24 hours, but you\'ll be able to sell a ticket as soon as you uploaded it.',
             'error'      => 'An error occurred when we tried to download your identity document. Please try again. Contact us if the problem persists.',
-            'success'    => 'Your identity document was successfully downloaded. Your account should be verified within 24 hours!'
+            'success'    => 'Your identity document was successfully downloaded. Your account should be verified within 24 hours!',
+            'country_residence' => 'Country of residence',
+            'nationality' => 'Nationality',
         ],
         'delete_account'  => [
             'text'    => 'Do you really wish to delete your PasseTonBillet account? Your profile as well as your sale history, your tickets, your discussions, and your messages will be deleted. This action cannot be cancelled.',

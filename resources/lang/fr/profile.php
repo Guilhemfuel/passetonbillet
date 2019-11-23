@@ -67,6 +67,9 @@ return [
         ],
         'verify_identity' => [
             'title'      => 'Vérification d\'identité',
+            'complete_profil' => 'Complétez votre profil',
+            'completed_profil' => 'Votre profil est complété !',
+            'error_completed_profil' => 'Vous devez compléter tout les champs',
             'text'       => 'Afin d’assurer une sécurité maximum pour nos utilisateurs, vous devez vérifier la conformité de votre profil en nous envoyant une photo ou un scan d’une de vos pièces d’identité.',
             'list_title' => 'Pièces d\'identité acceptées',
             'list_id'    => [
@@ -79,7 +82,9 @@ return [
             'cta'        => 'Vérifier mon identité',
             'delay'      => 'La verification se fait généralement sous 24 heures, mais vous pourrez vendre un billet dès l\'upload de votre pièce d\'identité.',
             'error'      => 'Il y a une erreur lors de l\'upload de votre piẻce d\'identité. Si le problème persiste, contactez-nous!',
-            'success'    => 'Votre pièce d\'identité a bien été uploadé. Votre compte devrait être mis à jour sous 24h!'
+            'success'    => 'Votre pièce d\'identité a bien été uploadé. Votre compte devrait être mis à jour sous 24h!',
+            'country_residence' => 'Pays de résidence',
+            'nationality' => 'Nationalité',
         ],
         'delete_account'  => [
             'text'    => 'Voulez-vous vraiment supprimer votre compte PasseTonBillet? Votre profil ainsi que votre historique de vente, vos billets, vos discussions et vos messages seront supprimés. Cette action est irréversible.',

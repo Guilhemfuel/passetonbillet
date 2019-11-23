@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Claim;
 use App\Services\MangoPayService;
 use App\Transaction;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
@@ -139,7 +140,7 @@ class MakeTransfers extends Command
                     if($transaction->claim_status === Claim::CLAIM_STATUS_WON) {
                         //Refund
                         dump('Refund');
-                        $refund = $mangoPay->createRefundPayIn($Transaction->transaction_mangopay, $Transaction->purchaser->mangopay_id);
+                        $refund = $mangoPay->createRefundPayIn($Transaction->transaction_mangopay, $Transaction->purchaser->mangopay_id, Transaction::FEES_CLAIM_PURCHASER);
                         //Update transaction Refund
                         if(isset($refund->Status)) {
                             $Transaction->status_refund = $refund->Status;
@@ -156,7 +157,7 @@ class MakeTransfers extends Command
 
                         if($bankAccount) {
                             $wallet = $mangoPay->getWallet($Transaction->wallet_id);
-                            $payOut = $mangoPay->createPayOut($bankAccount, $Transaction->seller->mangopay_id, $wallet);
+                            $payOut = $mangoPay->createPayOut($bankAccount, $Transaction->seller->mangopay_id, $wallet, Transaction::FEES_SELLER);
                             //Update transaction Payout
                             if (isset($payOut->Status)) {
                                 $Transaction->status_payout = $payOut->Status;
@@ -176,7 +177,7 @@ class MakeTransfers extends Command
 
                         $wallet = $mangoPay->getWallet($Transaction->wallet_id);
                         //We can split the amount of refund then give the rest to Seller
-                        $refund = $mangoPay->createRefundPayIn($Transaction->transaction_mangopay, $Transaction->purchaser->mangopay_id, $wallet->Balance->Amount, true);
+                        $refund = $mangoPay->createRefundPayIn($Transaction->transaction_mangopay, $Transaction->purchaser->mangopay_id, Transaction::FEES_EQUALITY, $wallet->Balance->Amount, true);
 
                         if(isset($refund->Status)) {
                             $Transaction->status_refund = $refund->Status;
@@ -186,7 +187,7 @@ class MakeTransfers extends Command
                         }
 
                         if($bankAccount) {
-                            $payOut = $mangoPay->createPayOut($bankAccount, $Transaction->seller->mangopay_id, $wallet);
+                            $payOut = $mangoPay->createPayOut($bankAccount, $Transaction->seller->mangopay_id, $wallet, Transaction::FEES_EQUALITY);
                             if (isset($payOut->Status)) {
                                 $Transaction->status_payout = $payOut->Status;
                                 $Transaction->payout_id = $payOut->Id;
@@ -217,6 +218,7 @@ class MakeTransfers extends Command
 
                     $bankAccount = $mangoPay->getBankAccount($Transaction->seller->mangopay_id);
 
+                    //If user didn't put a Bank Account
                     if (!$bankAccount) {
                         $Transaction->status_payout = Transaction::STATUS_NO_BANK_ACCOUNT;
                         $Transaction->save();
@@ -232,14 +234,14 @@ class MakeTransfers extends Command
                         $Transaction->save();
                     }
 
-                    //If Wallet balance is more than 250€ and KYC not verified, then we need to ask for it
-                    if($wallet->Balance->Amount >= 25000 && $Transaction->seller->kyc_status !== 'SUCCEEDED') {
+                    //If KYC not verified, then we need to ask for it
+                    if($Transaction->seller->kyc_status !== User::STATUS_KYC_SUCCEEDED) {
                         $Transaction->status_payout = Transaction::STATUS_NO_KYC;
                         $Transaction->save();
                         continue;
                     }
 
-                    $payOut = $mangoPay->createPayOut($bankAccount, $Transaction->seller->mangopay_id, $wallet);
+                    $payOut = $mangoPay->createPayOut($bankAccount, $Transaction->seller->mangopay_id, $wallet, Transaction::FEES_SELLER);
 
                     //Update transaction Payout
                     if (isset($payOut->Status)) {
