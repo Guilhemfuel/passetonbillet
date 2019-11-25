@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers\Hooks;
 
+use App\Mail\FailPayoutEmail;
+use App\Mail\SendFailKycEmail;
+use App\Mail\SendSuccessKycEmail;
+use App\Mail\SuccessPayoutEmail;
 use App\Transaction;
 use App\User;
 use Illuminate\Http\Request;
@@ -17,6 +21,9 @@ class MangoPayController extends Controller
             }
             $user->kyc_status = Transaction::STATUS_TRANSFER_SUCCESS;
             $user->save();
+
+            \Mail::to($user->email)->send(new SendSuccessKycEmail($user));
+
         }
 
         return "";
@@ -30,6 +37,8 @@ class MangoPayController extends Controller
             }
             $user->kyc_status = Transaction::STATUS_TRANSFER_FAIL;
             $user->save();
+
+            \Mail::to($user->email)->send(new SendFailKycEmail($user));
         }
 
         return "";
@@ -43,6 +52,8 @@ class MangoPayController extends Controller
             }
             $transaction->status_payout = Transaction::STATUS_TRANSFER_SUCCESS;
             $transaction->save();
+
+            \Mail::to($transaction->seller->email)->send(new SuccessPayoutEmail($transaction->seller));
         }
 
         return "";
@@ -56,6 +67,8 @@ class MangoPayController extends Controller
             }
             $transaction->status_payout = Transaction::STATUS_TRANSFER_FAIL;
             $transaction->save();
+
+            \Mail::to($transaction->seller->email)->send(new FailPayoutEmail($transaction->seller));
         }
 
         return "";

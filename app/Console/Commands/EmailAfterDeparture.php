@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Claim;
+use App\Mail\SendAfterDepartureEmail;
 use App\Services\MangoPayService;
 use App\Ticket;
 use App\Train;
@@ -51,6 +52,7 @@ class EmailAfterDeparture extends Command
         $tickets = Ticket::select('*', 'transactions.id AS transaction_id')
             ->join('transactions', 'transactions.ticket_id', '=', 'tickets.id')
             ->where('transactions.status', 'SUCCEEDED')
+            ->where('transactions.email_departure', null)
             ->join('trains', 'tickets.train_id', '=', 'trains.id')
             ->where('departure_date', $dateToday)
             ->orWhere('departure_date', $dateYesterday)
@@ -65,13 +67,15 @@ class EmailAfterDeparture extends Command
                 if(!$ticket->email_departure) {
                     $transaction = Transaction::where('id', $ticket->transaction_id)->first();
                     //Send Email to Purchaser
-                    //\Mail::to($transaction->purchaser->email)->send(new SendTicketEmail($transaction->purchaser, $transaction->ticket));
+                    \Mail::to($transaction->purchaser->email)->send(new SendAfterDepartureEmail($transaction->purchaser, $transaction->ticket));
 
                     //Update status email after send
                     $transaction->email_departure = true;
-                    //$transaction->save();
+                    $transaction->save();
                 }
             }
         }
+
+        dump('Done !');
     }
 }

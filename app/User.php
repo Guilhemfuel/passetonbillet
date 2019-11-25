@@ -24,7 +24,7 @@ class User extends Authenticatable
     const STATUS_UNINVITED_USER = -1;
     const STATUS_ADMIN = 100;
 
-    CONST STATUS_KYC_SUCCEEDED = 'SUCCEEDED';
+    CONST STATUS_KYC_SUCCEEDED = 'VALIDATED';
     CONST STATUS_KYC_FAILED = 'FAILED';
 
     /**

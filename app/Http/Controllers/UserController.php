@@ -106,7 +106,7 @@ class UserController extends Controller
     public function uploadId( Request $request )
     {
         // Make sure user isn't verified or does not have a pending verification
-        if($request->user()->id_verified || $request->user()->idVerification!=null){
+        if($request->user()->kyc_status === 'SUCCEEDED' || $request->user()->kyc_status === 'VALIDATION_ASKED'){
             flash( __( 'profile.modal.verify_identity.error' ) )->error();
 
             return redirect()->route( 'public.profile.home' );
@@ -132,22 +132,24 @@ class UserController extends Controller
             'scan'    => $scan,
         ] );
 
+        $user = \Auth::user();
+
         //Upload Document for MangoPay KYC
         $mangoPay = new MangoPayService();
 
         //Creation of MangoPay user if not exist
-        if(!$idVerif->user->mangopay_id) {
-            $mangoUser = $mangoPay->createMangoUser($idVerif->user);
-            $idVerif->user->mangopay_id = $mangoUser->Id;
-            $idVerif->user->save();
+        if(!$user->mangopay_id) {
+            $mangoUser = $mangoPay->createMangoUser($user);
+            $user->mangopay_id = $mangoUser->Id;
+            $user->save();
         }
 
         //Creation of KYC Document if not exist
-        if(!$idVerif->user->kyc_id) {
-            $kycDocument = $mangoPay->createKycDocument($idVerif->user->mangopay_id);
-            $idVerif->user->kyc_id = $kycDocument->Id;
-            $idVerif->user->kyc_status = $kycDocument->Status;
-            $idVerif->user->save();
+        if(!$user->kyc_id) {
+            $kycDocument = $mangoPay->createKycDocument($user->mangopay_id);
+            $user->kyc_id = $kycDocument->Id;
+            $user->kyc_status = $kycDocument->Status;
+            $user->save();
 
             if(!isset($kycDocument->Id)) {
                 flash()->error( 'Problem with MangoPay KYC Document creation !' );
@@ -156,26 +158,25 @@ class UserController extends Controller
         }
 
         //Submit file to MangoPay
-        $mangoPay->createKycPage($idVerif->user->mangopay_id, $idVerif->user->kyc_id, $idVerif->scan);
-        $kycDocument = $mangoPay->submitKycDocument($idVerif->user->mangopay_id, $idVerif->user->kyc_id);
+        $mangoPay->createKycPage($user->mangopay_id, $user->kyc_id, $idVerif->scan);
+        $kycDocument = $mangoPay->submitKycDocument($user->mangopay_id, $user->kyc_id);
 
         //If document has already been treated we take it for update
         if(!isset($kycDocument->Status)) {
-            $kycDocument = $mangoPay->viewKycDocument($idVerif->user->mangopay_id, $idVerif->user->kyc_id);
+            $kycDocument = $mangoPay->viewKycDocument($user->mangopay_id, $user->kyc_id);
         }
 
-        $idVerif->save();
+        // $idVerif->save();
 
-        $idVerif->user->kyc_status = $kycDocument->Status;
-        $idVerif->user->save();
+        $user->kyc_status = $kycDocument->Status;
+        $user->save();
 
-        if ( $idVerif->accepted != null ) {
+        if ($user->kyc_status === 'SUCCEEDED') {
 
             flash()->error( 'ID confirmation already done!' );
 
             return redirect()->route( 'id_check.oldest' );
         }
-
 
 
         flash( __( 'profile.modal.verify_identity.success' ) )->success();

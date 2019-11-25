@@ -7,7 +7,7 @@
  */
 
 require('./app');
-/*
+
 // CRUD Tables
 Vue.component('tickets-table', require('./components/Pages/Admin/CRUD/Tickets/Table.vue').default);
 Vue.component('claims-table', require('./components/Pages/Admin/CRUD/Claims/Table.vue').default);
@@ -23,4 +23,3 @@ Vue.component('input-date-admin', require('./components/Forms/input-date-admin.v
 Vue.component('stats', require('./components/Pages/Admin/unique/stats.vue').default);
 Vue.component('page-builder', require('./components/Pages/Admin/unique/pagebuilder.vue').default);
 Vue.component('home-stat', require('./components/Pages/Admin/HomeStat.vue').default);
-*/

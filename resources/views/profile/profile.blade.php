@@ -114,7 +114,7 @@
                 {{-- Modals --}}
 
                 {{-- ID VERIFICATION MODAL --}}
-                @if(!Auth::user()->id_verified && Auth::user()->idVerification == null)
+                @if(!Auth::user()->kyc_status !== 'SUCCEEDED' && Auth::user()->kyc_status !== 'VALIDATION_ASKED')
 
                     <modal v-cloak :is-open="child.profile.modalVerifyIdentity"
                            @close-modal="child.profile.modalVerifyIdentity=false"
