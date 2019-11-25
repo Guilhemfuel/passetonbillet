@@ -1,12 +1,17 @@
 <template>
     <div class="col-12 mt-3">
         <div class="row">
-            <h1 class="card-title text-left mb-0">{{trans('tickets.owned.title')}}</h1>
+            <div class="col-12">
+                <h1 class="card-title text-left mb-0">{{trans('tickets.owned.title')}}</h1>
+            </div>
 
             <loader class="mx-auto" v-if="loading"></loader>
             <div class="col-12" v-else>
                 <div class="row">
-                    <h3 class="card-title text-left mb-0">Mes prochains voyage</h3>
+                    <div class="col-12">
+                        <h3 class="card-title text-left mb-0">Mes prochains voyage</h3>
+                    </div>
+
                     <div v-for="ticket in futurTickets" :key="'post' + ticket.id" class="col-12">
                         <div v-if="Date.parse(ticket.train.departure_date) > dateNow">
                             <ticket-bought :ticket="ticket" @claimTicket="claim"></ticket-bought>
@@ -18,7 +23,10 @@
                         </div>
                     </div>
 
-                    <h3 class="card-title text-left mb-0">Mes voyages passés</h3>
+                    <div class="col-12">
+                        <h3 class="card-title text-left mb-0">Mes voyages passés</h3>
+                    </div>
+
                     <div v-for="ticket in pastTickets" :key="'past' + ticket.id" class="col-12">
                         <div v-if="Date.parse(ticket.train.departure_date) <= dateNow">
                             <ticket-bought :ticket="ticket" @claimTicket="claim"></ticket-bought>
@@ -56,8 +64,6 @@
           this.$http.get(this.route('api.tickets.owned', ['bought']))
             .then(response => {
               this.tickets = response.data;
-
-              console.log(response.data);
 
               this.pastTickets = response.data.pastTickets;
               this.futurTickets = response.data.futurTickets;

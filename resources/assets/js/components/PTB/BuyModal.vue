@@ -247,7 +247,6 @@
         if(response.body.message) { this.$message({message: response.body.message, type: response.body.type}) }
       },
       completeProfil() {
-        console.log(this.formCompleteProfil);
         this.$http.post(this.route('public.profile.country.add'), this.formCompleteProfil)
           .then(response => {
             this.handleResponse(response);
@@ -322,7 +321,6 @@
         if(this.formBuy) {
           this.$http.post(this.route('api.ticket.buy', [this.ticket.id]), {'idCard': this.formBuy})
             .then(response => {
-              console.log(response.body)
               if(response.body.redirect) {
                 window.location.href = response.body.redirect;
               } else if (response.body.message) {

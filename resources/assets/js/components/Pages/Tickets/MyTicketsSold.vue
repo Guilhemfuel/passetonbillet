@@ -1,7 +1,9 @@
 <template>
     <div class="col-12 mt-3">
         <div class="row">
-            <h1 class="card-title text-left mb-0">{{trans('tickets.owned.title')}}</h1>
+            <div class="col-12">
+                <h1 class="card-title text-left mb-0">{{trans('tickets.owned.title')}}</h1>
+            </div>
 
             <loader class="mx-auto" v-if="loading"></loader>
             <div class="col-12" v-else>

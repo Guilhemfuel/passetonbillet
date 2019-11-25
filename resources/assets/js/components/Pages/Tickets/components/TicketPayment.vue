@@ -73,7 +73,6 @@
           }
         }
         else {
-          console.log(dateBeforeTransfer)
           if(dateBeforeTransfer > this.dateNow) {
             let diff = new moment(dateBeforeTransfer,"YYYY-MM-DD HH:mm:ss").diff(moment(this.dateNow,"YYYY-MM-DD HH:mm:ss"));
             this.timeLeft = Math.round(new moment.duration(diff).asHours());
@@ -139,7 +138,6 @@
       }
     },
     mounted () {
-      console.log(this.ticket);
       this.calculTimeLeft()
     }
   }
@@ -210,4 +208,26 @@
 
     .button-my-ticket-update button {  background-color: #0b89e7;  }
     .button-my-ticket-change button {  background-color: #9b9b9b;  }
+
+    @media (max-width: 991px) {
+        .my-ticket .btn-ptb {
+            font-size: 11px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .front {
+            flex-direction: column;
+        }
+
+        .my-ticket .btn-ptb {
+            font-size: 13px;
+        }
+    }
+
+    @media (max-width: 450px) {
+        .departure {
+            flex-direction: column;
+        }
+    }
 </style>

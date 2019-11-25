@@ -30,16 +30,18 @@
                     {{ ticket.price }}{{ ticket.currency_symbol }}
                 </div>
 
-                <div class="button-my-ticket-update" @click.prevent="update = true">
-                    <button class="btn btn-ptb btn-upper text-uppercase w-100">
-                        {{ trans('tickets.component.update') }}
-                    </button>
-                </div>
+                <div class="button-responsive">
+                    <div class="button-my-ticket-update mt-2 mr-2" @click.prevent="update = true">
+                        <button class="btn btn-ptb btn-upper text-uppercase w-100">
+                            {{ trans('tickets.component.update') }}
+                        </button>
+                    </div>
 
-                <div class="button-my-ticket-share">
-                    <button class="btn btn-ptb btn-upper text-uppercase w-100" @click.prevent="openShareModal = true">
-                        {{ trans('tickets.component.share_btn') }}
-                    </button>
+                    <div class="button-my-ticket-share mt-2">
+                        <button class="btn btn-ptb btn-upper text-uppercase w-100" @click.prevent="openShareModal = true">
+                            {{ trans('tickets.component.share_btn') }}
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -173,8 +175,6 @@
         this.openDeleteModal = false;
       },
       updatePrice() {
-        console.log(this.ticket.price)
-
         this.$http.post(this.route('api.ticket.change.price', [this.ticket.id]), {'price': this.ticket.price})
           .then(response => {
             this.handleResponse(response)
@@ -267,4 +267,34 @@
     .button-my-ticket-delete button {  background-color: #f8254a;  }
 
     .back-to-front {  cursor: pointer;  }
+
+    .button-responsive {
+        display: flex;
+    }
+
+    @media (max-width: 991px) {
+        .button-responsive {
+            flex-direction: column;
+        }
+
+        .my-ticket .btn-ptb {
+            font-size: 11px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .front, .back {
+            flex-direction: column;
+        }
+
+        .my-ticket .btn-ptb {
+            font-size: 13px;
+        }
+    }
+
+    @media (max-width: 450px) {
+        .departure {
+            flex-direction: column;
+        }
+    }
 </style>

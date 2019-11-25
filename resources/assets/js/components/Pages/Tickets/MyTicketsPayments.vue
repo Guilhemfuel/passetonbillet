@@ -75,8 +75,6 @@
             .then(response => {
               this.tickets = response.data;
 
-              console.log(this.tickets);
-
               this.ticketsWithClaims = response.data.ticketsWithClaims;
               this.ticketsInWait = response.data.ticketsInWait;
               this.ticketsFinish = response.data.ticketsFinish;

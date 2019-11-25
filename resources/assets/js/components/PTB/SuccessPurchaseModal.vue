@@ -43,8 +43,6 @@
       }
     },
     mounted() {
-      console.log(this.ticketId)
-      console.log(this.email)
     },
     computed: {},
     watch: {},

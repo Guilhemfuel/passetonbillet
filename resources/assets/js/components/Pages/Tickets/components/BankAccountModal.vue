@@ -71,7 +71,6 @@
         this.$http.get(this.route('api.user.get.bank_account'))
           .then(response => {
             if(response.body.bankAccount) {
-              console.log(response.body.bankAccount)
               this.form.nameAccount = response.body.bankAccount.OwnerName;
               this.form.iban = response.body.bankAccount.Details.IBAN;
               this.form.address = response.body.bankAccount.OwnerAddress.AddressLine1;
@@ -81,10 +80,8 @@
           });
       },
       saveBankAccount() {
-        console.log(this.form)
         this.$http.post(this.route('api.user.update.bank_account'), this.form)
           .then(response => {
-            console.log(response.data);
             this.handleResponse(response)
           });
       },

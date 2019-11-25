@@ -491,7 +491,8 @@
             </template>
         </modal>
 
-        <buy-modal :ticket="ticket"
+        <buy-modal  v-if="user"
+                    :ticket="ticket"
                     :is-open="modalBuyOpen"
                     @close-modal="modalBuyOpen=false;"
         ></buy-modal>

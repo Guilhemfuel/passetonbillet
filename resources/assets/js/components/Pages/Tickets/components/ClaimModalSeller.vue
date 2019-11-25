@@ -175,8 +175,6 @@
       submitClaim() {
         let data = JSON.stringify({'answers': this.answers, 'ticket': this.ticket})
 
-        console.log(this.answers)
-
         this.$http.post(this.route('api.add.claim.seller'), data)
           .then(response => {
             if(response.body.status === 'error') {

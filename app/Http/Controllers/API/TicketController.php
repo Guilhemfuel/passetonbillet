@@ -190,19 +190,19 @@ class TicketController extends Controller
         $user = \Auth::user();
         $ticket = Ticket::where('id', $id)->first();
 
-        if($ticket) {
+        if(!$ticket) {
             return response(['status' => 'error', 'message' => trans('tickets.buy_modal.ticket_doesnt_exist')], 400);
         }
 
-        if ($ticket->user_id === $user->id) {
+        if ($ticket->user_id !== $user->id) {
             return response(['status' => 'error', 'message' => trans('tickets.api.not_allowed')], 400);
         }
 
-        if (!$ticket->hasBeenSold()) {
+        if ($ticket->hasBeenSold()) {
             return response()->json(['status' => 'error', 'message' => trans('tickets.buy_modal.ticket_already_sold')], 400);
         }
 
-        if ($request->price) {
+        if (!$request->price) {
             return response()->json(['status' => 'error', 'message' => trans('tickets.api.price_empty')], 400);
         }
 
@@ -223,19 +223,19 @@ class TicketController extends Controller
         $user = \Auth::user();
         $ticket = Ticket::where('id', $id)->first();
 
-        if($ticket) {
+        if(!$ticket) {
             return response(['status' => 'error', 'message' => trans('tickets.buy_modal.ticket_doesnt_exist')], 400);
         }
 
-        if ($ticket->user_id === $user->id) {
+        if ($ticket->user_id !== $user->id) {
             return response(['status' => 'error', 'message' => trans('tickets.api.not_allowed')], 400);
         }
 
-        if (!$ticket->hasBeenSold()) {
+        if ($ticket->hasBeenSold()) {
             return response()->json(['status' => 'error', 'message' => trans('tickets.buy_modal.ticket_already_sold')], 400);
         }
 
-        if ($request->file && $request->page) {
+        if (!$request->file OR !$request->page) {
             return response()->json(['status' => 'error', 'message' => trans('tickets.api.pdf_empty')], 400);
         }
 
@@ -266,7 +266,7 @@ class TicketController extends Controller
         $user = \Auth::user();
         $ticket = Ticket::where('id', $id)->first();
 
-        if($ticket) {
+        if(!$ticket) {
             return response(['status' => 'error', 'message' => trans('tickets.buy_modal.ticket_doesnt_exist')], 400);
         }
 

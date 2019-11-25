@@ -6,7 +6,7 @@
 
 @section('dashboard-content')
     <div class="container">
-        <div class="row" id="sell-ticket">
+        <div class="row">
             <my-tickets-sold></my-tickets-sold>
         </div>
     </div>

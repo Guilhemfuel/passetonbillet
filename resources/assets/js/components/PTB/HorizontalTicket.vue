@@ -266,7 +266,12 @@
                             <i class="fa fa-question" aria-hidden="true"></i>
                         </div>
                         <div class="call">
-                            <call-modal v-if="contact" :ticket="ticket">
+
+                            <button v-if="this.ticket.hasPdf" class="btn btn-ptb btn-upper ml-3" @click.prevent="modalBuyOpen = true">
+                                {{trans('tickets.component.buy')}}
+                            </button>
+
+                            <call-modal v-else-if="contact" :ticket="ticket">
                                 <button class="btn btn-ptb btn-upper btn-sm-wrap ml-1">
                                     {{trans('tickets.component.buying_actions.call.btn')}}
                                 </button>
@@ -307,7 +312,8 @@
 
         </modal>
 
-        <buy-modal :ticket="ticket"
+        <buy-modal v-if="user"
+                   :ticket="ticket"
                    :is-open="modalBuyOpen"
                    @close-modal="modalBuyOpen=false;"
         ></buy-modal>

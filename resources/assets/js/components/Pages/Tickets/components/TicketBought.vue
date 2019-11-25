@@ -29,17 +29,19 @@
                     {{ ticket.price }}{{ ticket.currency_symbol }}
                 </div>
 
-                <div class="button-my-ticket-update">
-                    <button class="btn btn-ptb btn-upper text-uppercase w-100" @click.prevent="downloadTicket()">
-                        {{ trans('tickets.component.download') }}
-                    </button>
-                </div>
+                <div class="button-responsive">
+                    <div class="button-my-ticket-update mt-2 mr-2">
+                        <button class="btn btn-ptb btn-upper text-uppercase w-100" @click.prevent="downloadTicket()">
+                            {{ trans('tickets.component.download') }}
+                        </button>
+                    </div>
 
-                <div class="button-my-ticket-change">
-                    <div v-if="isDisabled" class="tooltip-limit-claim">{{ trans('tickets.claim.claim_limit_reached') }}</div>
-                    <button class="btn btn-ptb btn-upper text-uppercase w-100" @click.prevent="help()" :disabled=isDisabled>
-                        {{ trans('tickets.component.help_button') }}
-                    </button>
+                    <div class="button-my-ticket-change mt-2">
+                        <div v-if="isDisabled" class="tooltip-limit-claim">{{ trans('tickets.claim.claim_limit_reached') }}</div>
+                        <button class="btn btn-ptb btn-upper text-uppercase w-100" @click.prevent="help()" :disabled=isDisabled>
+                            {{ trans('tickets.component.help_button') }}
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -141,4 +143,38 @@
 
     .button-my-ticket-update button {  background-color: #0b89e7;  }
     .button-my-ticket-change button {  background-color: #9b9b9b;  }
+
+    .button-responsive {
+        display: flex;
+    }
+
+    @media (max-width: 991px) {
+        .button-responsive {
+            flex-direction: column;
+        }
+
+        .my-ticket .btn-ptb {
+            font-size: 11px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .front {
+            flex-direction: column;
+        }
+
+        .button-responsive {
+            flex-direction: column;
+        }
+
+        .my-ticket .btn-ptb {
+            font-size: 13px;
+        }
+    }
+
+    @media (max-width: 450px) {
+        .departure {
+            flex-direction: column;
+        }
+    }
 </style>

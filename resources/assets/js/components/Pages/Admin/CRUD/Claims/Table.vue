@@ -95,7 +95,6 @@
       }
     },
     mounted() {
-      console.log(this.claims);
     }
   }
 </script>
