@@ -79,3 +79,60 @@ Working on a new feature? Here is how to proceed:
 * Finally I create a pull request to the master branch, and set someone as reviewer for it. If possible, and if needed, try to add a quick description of the work done, and the strategy adopted. Make sure to merge master on this branch before creating the pull request so that there is no conflicts when the time to merge comes.
 * Then if there is some feedback, or some changes are required, I do them, re-push to update the pull request and let the reviewer know it was updated.
 * Then hourray! Code is merged to master (either by reviewer, or by the creator of the branch if asked by reviewer) and branch previously created is closed.
+
+### MangoPay
+Tout ce passe grâce au service **MangoPayService.php**, pour l'utiliser il suffit par exemple de faire :
+```
+$mangoPay = new MangoPayService();
+$mangoUser = $mangoPay->createMangoUser($user);
+```
+
+La plupart du code mise à jour se passe entre **TicketController**, **UserController** ainsi que les modèles **User**, **Ticket**, **Transaction** et **Claim**
+
+#### Hooks
+Des hooks sont utilisé pour valider un Kyc ainsi que les virements bancaire (PayoutSuccess / PayoutFailed)  
+Le fichier est **MangoPayController.php**
+
+### Claim Modèle :
+Comporte 5 constante :
+- La limite pour déclarer un litige pour l'acheteur est de 24h  
+- Si le litige est déclaré, le vendeur a 24h de + à partir du début de litige  
+**CLAIM_LIMIT_PURCHASER** = 24;  
+**CLAIM_LIMIT_SELLER** = 24;  
+
+Un claim est gagné ou perdu par rapport à l'acheteur :
+- **CLAIM_STATUS_WON** = 'WON';
+- **CLAIM_STATUS_LOST** = 'LOST';
+- **CLAIM_STATUS_EQUALITY** = 'EQUALITY';
+
+### Transaction Modèle :
+Des constantes sont utilisés pour les différentes Fees :
+- Ajout de 10% sur le prix de vente du billet (Un billet à 100 passe à 110€)
+**FEES_TICKET_ON_SALE** = 10;
+
+- Si on rembourse l'acheteur, on prend 5% de fees
+**FEES_CLAIM_PURCHASER** = 5;
+
+- Quand une vente est finalisé, on prend 20% au vendeur avant versement 
+**FEES_SELLER** = 20;
+
+- Pour un litige avec égalité on divise la somme par 2 et on applique 20% à chacun
+(100€ -> 20% de 50€ soit 10€ de fees par personne, total 20€ de fees)
+**FEES_EQUALITY** = 20;
+
+### PDF Service :
+Un fichier **PdfService** est utilisé pour enregistrer les billets  
+- Une méthode checkPdf vide est à true pour l'instant pour une vérification ultérieur
+- Une méthode permet de séparer un PDF pour ne garder qu'une seule page
+- Et la dernière méthode permet d'enregistrer le PDF en utilisant le chemin **env('STORAGE_PDF')**, paramétrable dans le fichier .env
+
+### Taches CRON :
+2 tâches CRON ont été mise en place :
+- **php artisan ptb:make-transfers**
+Cette taches va s'occuper d'envoyer les Refund et Payout au fur et à mesure.
+Elle vérifie que les vendeurs ont complété leur KYC ainsi que leur compte bancaire pour envoyer des mails si besoin
+La tâche fait également automatiquement les refund à l'acheteur si le vendeur n'a pas répondu au claim dans les 24h.
+
+- **php make artisan ptb:make-email-after-departure**
+Permet d'envoyer un mail environ 1h après le départ d'un train avec demande de Review, une fois le mail envoyé on passe une valeur à true (email_departure)
+pour s'assurer de ne pas renvoyer le mail une 2me fois.
