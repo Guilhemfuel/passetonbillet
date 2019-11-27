@@ -93,6 +93,12 @@ La plupart du code mise à jour se passe entre **TicketController**, **UserContr
 Des hooks sont utilisé pour valider un Kyc ainsi que les virements bancaire (PayoutSuccess / PayoutFailed)  
 Le fichier est **MangoPayController.php**
 
+Liste des hooks (à configurer dans mangopay):
+- https://www.passetonbillet.fr/hooks/PayoutSuccess
+- https://www.passetonbillet.fr/hooks/PayoutFailed
+- https://www.passetonbillet.fr/hooks/KycSuccess
+- https://www.passetonbillet.fr/hooks/KycFailed
+
 ### Claim Modèle :
 Comporte 5 constante :
 - La limite pour déclarer un litige pour l'acheteur est de 24h  
