@@ -10,10 +10,10 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class SendAfterDepartureEmail extends PtbMail
+class SendAfterDepartureEmail extends PtbMail implements ShouldQueue
 {
     use SerializesModels;
-    private $file;
+    use Queueable;
 
     /**
      * Create a new message instance.

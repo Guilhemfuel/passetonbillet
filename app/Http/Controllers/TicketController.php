@@ -23,6 +23,7 @@ use App\Http\Resources\TrainRessource;
 use App\Jobs\DownloadTicketPdf;
 use App\Listeners\Admin\Checks\CheckPriceTicketAddedListener;
 use App\Mail\OfferEmail;
+use App\Mail\SendAfterDepartureEmail;
 use App\Mail\SendNotifToSellerEmail;
 use App\Mail\SendTicketEmail;
 use App\Models\AdminWarning;
@@ -170,7 +171,6 @@ class TicketController extends Controller
 
                 if($transaction->status === 'SUCCEEDED') {
                     //Send email with ticket PDF to user
-
                     $this->sendTicket($transaction->ticket);
 
                     $request->session()->put('successPurchase', $request->transactionId);
@@ -197,6 +197,10 @@ class TicketController extends Controller
 
         //Send email to Seller
         \Mail::to($user->email)->send(new SendNotifToSellerEmail($ticket->transaction->seller, $ticket));
+
+        //Put email in Queue to send 1 hour after departure of train
+        $when = $ticket->train->carbon_date_email_after_departure;
+        \Mail::to($user->email)->later($when, new SendAfterDepartureEmail($user, $ticket));
     }
 
     public function downloadTicket($id)

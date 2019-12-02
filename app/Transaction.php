@@ -31,7 +31,6 @@ class Transaction extends Model
         'refund_id',
         'status_payout',
         'payout_id',
-        'email_departure',
     ];
 
     public static $relationships = [ 'user', 'ticket'];

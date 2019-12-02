@@ -30,7 +30,6 @@ class Kernel extends ConsoleKernel
         Commands\IdAutomation::class,
         Commands\AcceptIds::class,
         Commands\MakeTransfers::class,
-        Commands\EmailAfterDeparture::class,
     ];
 
     /**

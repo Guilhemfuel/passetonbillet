@@ -138,7 +138,3 @@ Un fichier **PdfService** est utilisé pour enregistrer les billets
 Cette taches va s'occuper d'envoyer les Refund et Payout au fur et à mesure.
 Elle vérifie que les vendeurs ont complété leur KYC ainsi que leur compte bancaire pour envoyer des mails si besoin
 La tâche fait également automatiquement les refund à l'acheteur si le vendeur n'a pas répondu au claim dans les 24h.
-
-- **php make artisan ptb:make-email-after-departure**
-Permet d'envoyer un mail environ 1h après le départ d'un train avec demande de Review, une fois le mail envoyé on passe une valeur à true (email_departure)
-pour s'assurer de ne pas renvoyer le mail une 2me fois.
