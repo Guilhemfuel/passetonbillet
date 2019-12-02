@@ -64,7 +64,7 @@
             <div v-else-if="state == 'phone_verified'">
                 <div class="modal-body">
                     <p class="card-text text-justify">
-                        Votre numéro est vérifié !
+                        {{ trans('tickets.sell.confirm_number.success.number_confirmed') }}
                     </p>
                 </div>
             </div>

@@ -74,12 +74,12 @@ Vue.component( 'horizontal-ticket', require(/* webpackChunkName: "horizontal-tic
 Vue.component( 'ticket-mini', require(/* webpackChunkName: "ticket-mini" */ './components/PTB/Ticket-Mini.vue').default);
 Vue.component( 'blog-posts', require(/* webpackChunkName: "blog-posts" */ './components/PTB/BlogPosts.vue').default);
 Vue.component( 'alert-modal', require(/* webpackChunkName: "alert-modal" */ './components/PTB/AlertModal.vue').default);
-Vue.component( 'buy-modal', require(/* webpackChunkName: "alert-modal" */ './components/PTB/BuyModal.vue').default);
+Vue.component( 'buy-modal', require(/* webpackChunkName: "buy-modal" */ './components/PTB/BuyModal.vue').default);
 Vue.component( 'call-modal', require(/* webpackChunkName: "call-modal" */ './components/PTB/CallModal.vue').default);
-Vue.component( 'phone-modal', require(/* webpackChunkName: "call-modal" */ './components/PTB/PhoneModal.vue').default);
-Vue.component( 'pdf-viewer', require(/* webpackChunkName: "call-modal" */ './components/PTB/PdfViewer.vue').default);
-Vue.component( 'share-ticket', require(/* webpackChunkName: "call-modal" */ './components/PTB/ShareTicket.vue').default);
-Vue.component( 'success-purchase-modal', require(/* webpackChunkName: "call-modal" */ './components/PTB/SuccessPurchaseModal.vue').default);
+Vue.component( 'phone-modal', require(/* webpackChunkName: "phone-modal" */ './components/PTB/PhoneModal.vue').default);
+Vue.component( 'pdf-viewer', require(/* webpackChunkName: "pdf-viewer" */ './components/PTB/PdfViewer.vue').default);
+Vue.component( 'share-ticket', require(/* webpackChunkName: "share-ticket" */ './components/PTB/ShareTicket.vue').default);
+Vue.component( 'success-purchase-modal', require(/* webpackChunkName: "success-purchase-modal" */ './components/PTB/SuccessPurchaseModal.vue').default);
 
 
 /**
@@ -91,18 +91,18 @@ Vue.component( 'social-password', require(/* webpackChunkName: "social-password"
 Vue.component( 'help', require(/* webpackChunkName: "help" */ './components/Pages/Help/Faq.vue').default);
 
 Vue.component( 'sell-ticket', require(/* webpackChunkName: "sell-ticket" */ './components/Pages/Tickets/Sell.vue').default);
-Vue.component( 'my-tickets-bought', require(/* webpackChunkName: "my-tickets" */ './components/Pages/Tickets/MyTicketsBought.vue').default);
-Vue.component( 'my-tickets-sold', require(/* webpackChunkName: "my-tickets" */ './components/Pages/Tickets/MyTicketsSold.vue').default);
-Vue.component( 'my-tickets-payments', require(/* webpackChunkName: "my-tickets" */ './components/Pages/Tickets/MyTicketsPayments.vue').default);
+Vue.component( 'my-tickets-bought', require(/* webpackChunkName: "my-tickets-bought" */ './components/Pages/Tickets/MyTicketsBought.vue').default);
+Vue.component( 'my-tickets-sold', require(/* webpackChunkName: "my-tickets-sold" */ './components/Pages/Tickets/MyTicketsSold.vue').default);
+Vue.component( 'my-tickets-payments', require(/* webpackChunkName: "my-tickets-payments" */ './components/Pages/Tickets/MyTicketsPayments.vue').default);
 Vue.component( 'buy-ticket', require(/* webpackChunkName: "buy-ticket" */ './components/Pages/Tickets/Buy.vue').default);
 Vue.component( 'train-results', require(/* webpackChunkName: "train-results" */ './components/Pages/Tickets/components/TrainResults.vue').default);
 
-Vue.component( 'ticket-sold', require(/* webpackChunkName: "train-results" */ './components/Pages/Tickets/components/TicketSold.vue').default);
-Vue.component( 'ticket-bought', require(/* webpackChunkName: "train-results" */ './components/Pages/Tickets/components/TicketBought.vue').default);
-Vue.component( 'ticket-payment', require(/* webpackChunkName: "train-results" */ './components/Pages/Tickets/components/TicketPayment.vue').default);
-Vue.component( 'claim-modal-purchaser', require(/* webpackChunkName: "train-results" */ './components/Pages/Tickets/components/ClaimModalPurchaser.vue').default);
-Vue.component( 'claim-modal-seller', require(/* webpackChunkName: "train-results" */ './components/Pages/Tickets/components/ClaimModalSeller.vue').default);
-Vue.component( 'bank-account-modal', require(/* webpackChunkName: "train-results" */ './components/Pages/Tickets/components/BankAccountModal.vue').default);
+Vue.component( 'ticket-sold', require(/* webpackChunkName: "ticket-sold" */ './components/Pages/Tickets/components/TicketSold.vue').default);
+Vue.component( 'ticket-bought', require(/* webpackChunkName: "ticket-bought" */ './components/Pages/Tickets/components/TicketBought.vue').default);
+Vue.component( 'ticket-payment', require(/* webpackChunkName: "ticket-payment" */ './components/Pages/Tickets/components/TicketPayment.vue').default);
+Vue.component( 'claim-modal-purchaser', require(/* webpackChunkName: "claim-modal-purchaser" */ './components/Pages/Tickets/components/ClaimModalPurchaser.vue').default);
+Vue.component( 'claim-modal-seller', require(/* webpackChunkName: "claim-modal-seller" */ './components/Pages/Tickets/components/ClaimModalSeller.vue').default);
+Vue.component( 'bank-account-modal', require(/* webpackChunkName: "bank-account-modal" */ './components/Pages/Tickets/components/BankAccountModal.vue').default);
 
 Vue.component( 'home-search', require(/* webpackChunkName: "home-search" */ './components/Pages/Welcome/HomeSearch.vue').default);
 Vue.component( 'recent-tickets', require(/* webpackChunkName: "recent-tickets" */ './components/Pages/Welcome/RecentTickets.vue').default);
