@@ -24,6 +24,16 @@ class Claim extends Model
         'claim_seller',
     ];
 
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'claim_purchaser' => 'array',
+        'claim_seller' => 'array',
+    ];
+
     public static $relationships = [ 'seller', 'purchaser', 'ticket'];
 
     public function seller()

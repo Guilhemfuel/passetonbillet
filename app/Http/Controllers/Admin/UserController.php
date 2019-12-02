@@ -208,6 +208,11 @@ class UserController extends BaseController
         if(!$idVerif->user->mangopay_id) {
             $mangoUser = $mangoPay->createMangoUser($idVerif->user);
 
+            if(!isset($mangoUser->Id)) {
+                flash()->error( 'Problem with MangoPay and User creation !' );
+                return redirect()->back();
+            }
+
             $idVerif->user->mangopay_id = $mangoUser->Id;
             $idVerif->user->save();
         }
@@ -215,14 +220,15 @@ class UserController extends BaseController
         //Creation of KYC Document if not exist
         if(!$idVerif->user->kyc_id) {
             $kycDocument = $mangoPay->createKycDocument($idVerif->user->mangopay_id);
-            $idVerif->user->kyc_id = $kycDocument->Id;
-            $idVerif->user->kyc_status = $kycDocument->Status;
-            $idVerif->user->save();
 
             if(!isset($kycDocument->Id)) {
                 flash()->error( 'Problem with MangoPay KYC Document creation !' );
                 return redirect()->back();
             }
+
+            $idVerif->user->kyc_id = $kycDocument->Id;
+            $idVerif->user->kyc_status = $kycDocument->Status;
+            $idVerif->user->save();
         }
 
         //Submit file to MangoPay

@@ -207,14 +207,21 @@ class TicketController extends Controller
     {
         $user = \Auth::user();
 
-        if ($user) {
-            $ticket = Ticket::where('id', $id)->first();
-            if ($ticket) {
-                if ($ticket->user_id === $user->id OR ($ticket->transaction->purchaser_id === $user->id && $ticket->transaction->status === 'SUCCEEDED')) {
-                    $name = 'PTB Ticket n°' .  $ticket->id . ' - ' . $ticket->train->departureCity->name . '-' . $ticket->train->arrivalCity->name . '.pdf';
-                    return Storage::download(env('STORAGE_PDF') . '/' . $ticket->pdf, $name);
-                }
-            }
+        if (!$user) {
+            flash()->error('User not found.');
+            return redirect()->back();
+        }
+
+        $ticket = Ticket::where('id', $id)->first();
+
+        if (!$ticket) {
+            flash('Ce ticket n\'existe pas')->error();
+            return redirect()->back();
+        }
+
+        if ($ticket->user_id === $user->id OR ($ticket->transaction->purchaser_id === $user->id && $ticket->transaction->status === 'SUCCEEDED')) {
+            $name = 'PTB Ticket n°' . $ticket->id . ' - ' . $ticket->train->departureCity->name . '-' . $ticket->train->arrivalCity->name . '.pdf';
+            return Storage::download(env('STORAGE_PDF') . '/' . $ticket->pdf, $name);
         }
 
         return redirect()->route('home');
@@ -270,14 +277,13 @@ class TicketController extends Controller
         $pdfService->splitPdf($request->page);
 
         //We put additional fees to the price ticket
-        $price = ((Transaction::FEES_TICKET_ON_SALE / 100) * $request->price) + $request->price;
+        $price = ceil(((Transaction::FEES_TICKET_ON_SALE / 100) * $request->price) + $request->price);
 
         $ticket->user_id = \Auth::id();
         $ticket->price = $price;
         $ticket->currency = $ticket->bought_currency;
         $ticket->user_notes = $request->notes;
         $ticket->pdf = $pdf;
-        $ticket->page_pdf = $request->page;
         $ticket->save();
 
         Amplitude::logEvent('add_ticket', [

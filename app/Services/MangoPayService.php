@@ -10,6 +10,8 @@ class MangoPayService
     private $mangoPayApi;
     private $mangoUser;
 
+    CONST CURRENCY_EUR = "EUR";
+
     public function __construct()
     {
         $storagePath = storage_path('mangopay');
@@ -88,7 +90,7 @@ class MangoPayService
         try {
             $cardRegistration = new MangoPay\CardRegistration();
             $cardRegistration->UserId = $this->mangoUser;
-            $cardRegistration->Currency = "EUR";
+            $cardRegistration->Currency = Mango;
             $cardRegistration->CardType = isset($card->type) ? $card->type : "CB_VISA_MASTERCARD";
 
             $cardRegistration = $this->mangoPayApi->CardRegistrations->Create($cardRegistration);

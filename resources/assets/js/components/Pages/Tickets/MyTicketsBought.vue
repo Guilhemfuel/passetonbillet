@@ -12,12 +12,12 @@
                         <h3 class="card-title text-left mb-0">Mes prochains voyage</h3>
                     </div>
 
-                    <div v-for="ticket in futurTickets" :key="'post' + ticket.id" class="col-12">
+                    <div v-for="ticket in futureTickets" :key="'post' + ticket.id" class="col-12">
                         <div v-if="Date.parse(ticket.train.departure_date) > dateNow">
                             <ticket-bought :ticket="ticket" @claimTicket="claim"></ticket-bought>
                         </div>
                     </div>
-                    <div v-if="!futurTickets.length" class="col-12">
+                    <div v-if="!futureTickets.length" class="col-12">
                         <div class="bloc-white">
                             <h4>{{ trans('tickets.no_ticket') }}</h4>
                         </div>
@@ -51,23 +51,27 @@
       return {
         tickets: [],
         pastTickets: [],
-        futurTickets: [],
+        futureTickets: [],
         loading: true,
         dateNow: Date.parse(new moment().format("YYYY[-]MM[-]DD")),
         openClaimModal: false,
         ticketClaim: null,
-    }
+      }
     },
     methods: {
       loadData() {
         if (this.tickets.length === 0) {
-          this.$http.get(this.route('api.tickets.owned', ['bought']))
+          this.$http.get(this.route('api.tickets.owned', ['future-tickets']))
             .then(response => {
-              this.tickets = response.data;
+              this.tickets = response.data.data;
 
-              this.pastTickets = response.data.pastTickets;
-              this.futurTickets = response.data.futurTickets;
+              this.futureTickets = response.data.data;
+              this.loading=false;
+            });
 
+          this.$http.get(this.route('api.tickets.owned', ['past-tickets']))
+            .then(response => {
+              this.pastTickets = response.data.data;
               this.loading=false;
             });
         } else {

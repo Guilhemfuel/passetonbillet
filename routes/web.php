@@ -291,11 +291,11 @@ Route::group( [ 'prefix' => 'api' ], function () {
     Route::post( 'ticket/buy/{id}', 'TicketController@buyTicket' )->name( 'api.ticket.buy' );
     Route::get( 'ticket/transaction/success', 'TicketController@successPayment' )->name( 'api.ticket.transaction.success' );
 
-    Route::get( 'user/get/cards', 'UserController@getCards' )->name( 'api.user.get.cards' );
-    Route::get( 'user/add/cardRegistration', 'UserController@addCardRegistration' )->name( 'api.user.add.card.registration' );
-    Route::POST( 'user/update/cardRegistration', 'UserController@updateCardRegistration' )->name( 'api.user.update.card.registration' );
-    Route::get( 'user/get/bankAccount', 'UserController@getBankAccount' )->name( 'api.user.get.bank_account' );
-    Route::POST( 'user/update/bankAccount', 'UserController@updateBankAccount' )->name( 'api.user.update.bank_account' );
+    Route::get( 'user/get/cards', 'API\UserController@getCards' )->name( 'api.user.get.cards' );
+    Route::get( 'user/add/cardRegistration', 'API\UserController@addCardRegistration' )->name( 'api.user.add.card.registration' );
+    Route::POST( 'user/update/cardRegistration', 'API\UserController@updateCardRegistration' )->name( 'api.user.update.card.registration' );
+    Route::get( 'user/get/bankAccount', 'API\UserController@getBankAccount' )->name( 'api.user.get.bank_account' );
+    Route::POST( 'user/update/bankAccount', 'API\UserController@updateBankAccount' )->name( 'api.user.update.bank_account' );
 
     Route::get( 'tickets/affiliates/sncf', 'API\AffiliateController@sncfAffiliate' )->name( 'api.tickets.affiliates.sncf' );
     Route::get( 'stations/search', 'StationController@stationSearch' )->name( 'api.stations.search' );

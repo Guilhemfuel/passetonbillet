@@ -94,7 +94,20 @@ class TicketController extends Controller
 
                 return TicketRessource::collection($tickets);
                 break;
-            case 'bought':
+            case 'future-tickets':
+
+                $dateNow = Carbon::now()->format('Y-m-d');
+
+                $futureTickets = Ticket::select('*', 'tickets.id')
+                    ->join('transactions', 'tickets.id', '=', 'transactions.ticket_id')
+                    ->join('trains', 'trains.id', '=', 'tickets.train_id')
+                    ->where('trains.departure_date', '>', $dateNow)
+                    ->where('transactions.purchaser_id', $user->id)
+                    ->where('transactions.status', 'SUCCEEDED')->get();
+
+                return TicketRessource::collection($futureTickets);
+                break;
+            case 'past-tickets':
 
                 $dateNow = Carbon::now()->format('Y-m-d');
 
@@ -105,23 +118,8 @@ class TicketController extends Controller
                     ->where('transactions.purchaser_id', $user->id)
                     ->where('transactions.status', 'SUCCEEDED')->get();
 
-                $pastTickets = TicketRessource::collection($pastTickets);
+                return TicketRessource::collection($pastTickets);
 
-                $futurTickets = Ticket::select('*', 'tickets.id')
-                    ->join('transactions', 'tickets.id', '=', 'transactions.ticket_id')
-                    ->join('trains', 'trains.id', '=', 'tickets.train_id')
-                    ->where('trains.departure_date', '>', $dateNow)
-                    ->where('transactions.purchaser_id', $user->id)
-                    ->where('transactions.status', 'SUCCEEDED')->get();
-
-                $futurTickets = TicketRessource::collection($futurTickets);
-
-                $data = array(
-                    'pastTickets' => $pastTickets,
-                    'futurTickets' => $futurTickets,
-                );
-
-                return json_encode($data);
                 break;
             case 'payment':
 
@@ -187,6 +185,10 @@ class TicketController extends Controller
     {
         $this->middleware('auth');
 
+        $request->validate([
+            'price' => 'required|integer'
+        ]);
+
         $user = \Auth::user();
         $ticket = Ticket::where('id', $id)->first();
 
@@ -200,10 +202,6 @@ class TicketController extends Controller
 
         if ($ticket->hasBeenSold()) {
             return response()->json(['status' => 'error', 'message' => trans('tickets.buy_modal.ticket_already_sold')], 400);
-        }
-
-        if (!$request->price) {
-            return response()->json(['status' => 'error', 'message' => trans('tickets.api.price_empty')], 400);
         }
 
         if ($ticket->maxPrice >= $request->price) {
@@ -220,6 +218,11 @@ class TicketController extends Controller
     {
         $this->middleware('auth');
 
+        $request->validate([
+            'file' => 'required',
+            'page' => 'required|integer'
+        ]);
+
         $user = \Auth::user();
         $ticket = Ticket::where('id', $id)->first();
 
@@ -233,10 +236,6 @@ class TicketController extends Controller
 
         if ($ticket->hasBeenSold()) {
             return response()->json(['status' => 'error', 'message' => trans('tickets.buy_modal.ticket_already_sold')], 400);
-        }
-
-        if (!$request->file OR !$request->page) {
-            return response()->json(['status' => 'error', 'message' => trans('tickets.api.pdf_empty')], 400);
         }
 
         $pdfService = new PdfService();
@@ -253,7 +252,6 @@ class TicketController extends Controller
         $pdfService->splitPdf($request->page);
 
         $ticket->pdf = $pdf;
-        $ticket->page_pdf = $request->page;
         $ticket->save();
 
         return response()->json(['status' => 'success', 'message' => trans('tickets.api.pdf_uploaded')]);

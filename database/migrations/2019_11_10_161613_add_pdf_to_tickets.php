@@ -15,7 +15,6 @@ class AddPdfToTickets extends Migration
     {
         Schema::table('tickets', function (Blueprint $table) {
             $table->string('pdf')->nullable();
-            $table->string('page_pdf')->nullable();
         });
     }
 
@@ -28,7 +27,6 @@ class AddPdfToTickets extends Migration
     {
         Schema::table('tickets', function (Blueprint $table) {
             $table->dropColumn('pdf');
-            $table->dropColumn('page_pdf');
         });
     }
 }

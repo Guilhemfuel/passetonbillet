@@ -74,7 +74,7 @@
                     @if($ticket->claim->claim_purchaser)
 
                         @php
-                            $answers = json_decode($ticket->claim->claim_purchaser);
+                            $answers = $ticket->claim->claim_purchaser;
 
                             $questions = [
                             'Avez vous essayez de scanner le billet en personne ?',
@@ -109,7 +109,7 @@
                     @if($ticket->claim->claim_seller)
 
                         @php
-                            $answers = json_decode($ticket->claim->claim_seller);
+                            $answers = $ticket->claim->claim_seller;
 
                             $questions = [
                             'Avez vous mis votre billet en vente sur d\'autre site ?',

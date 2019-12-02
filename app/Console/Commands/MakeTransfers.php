@@ -28,6 +28,8 @@ class MakeTransfers extends Command
      */
     protected $description = 'This command will check every transaction to make transfer Mangopay';
 
+    private $mangoPay;
+
     /**
      * Create a new command instance.
      *
@@ -36,6 +38,7 @@ class MakeTransfers extends Command
     public function __construct()
     {
         parent::__construct();
+        $this->mangoPay = new MangoPayService();
     }
 
     /**
@@ -65,7 +68,7 @@ class MakeTransfers extends Command
             })
             ->get();
 
-        $mangoPay = new MangoPayService();
+        $mangoPay = $this->mangoPay;
 
         foreach($transactions as $transaction) {
 
@@ -74,19 +77,7 @@ class MakeTransfers extends Command
                 //If claim is not resolved yet and seller has not replied
                 //We check if the time limit is reached
                 if($transaction->claim_status === null && $transaction->claim_seller === null) {
-
-                    $dateNow = Carbon::now();
-                    $date = Carbon::parse($transaction->claim_created_at);
-                    $limitForSeller = $date->addHours(Claim::CLAIM_LIMIT_SELLER);
-
-                    //If the limit is reached, then we resolve claim for Purchaser
-                    if($dateNow > $limitForSeller) {
-                        $claim = Claim::where('id', $transaction->claim_id)->first();
-                        $claim->status = Claim::CLAIM_STATUS_WON;
-                        $claim->save();
-
-                        $transaction->claim_status = Claim::CLAIM_STATUS_WON;
-                    }
+                    $this->claimNoAnswerSeller($transaction);
                 }
 
                 //IF CLAIM STILL NOT RESOLVE WE JUMP TO THE NEXT LOOP
@@ -141,110 +132,13 @@ class MakeTransfers extends Command
                 if($transaction->claim_id !== null) {
 
                     if($transaction->claim_status === Claim::CLAIM_STATUS_WON) {
-                        //Refund
-                        dump('Refund');
-                        $refund = $mangoPay->createRefundPayIn($Transaction->transaction_mangopay, $Transaction->purchaser->mangopay_id, Transaction::FEES_CLAIM_PURCHASER);
-                        //Update transaction Refund
-                        if(isset($refund->Status)) {
-                            $Transaction->status_refund = $refund->Status;
-                            $Transaction->refund_id = $refund->Id;
-                        } else {
-                            $Transaction->status_refund = Transaction::STATUS_TRANSFER_FAIL;
-                        }
+                        $this->claimWon($Transaction);
                     }
                     elseif($transaction->claim_status === Claim::CLAIM_STATUS_LOST) {
-                        //PayOut
-                        dump('PayOut Claim');
-
-                        $bankAccount = $mangoPay->getBankAccount($Transaction->seller->mangopay_id);
-
-                        //If user didn't put a Bank Account
-                        if (!$bankAccount) {
-                            $Transaction->status_payout = Transaction::STATUS_NO_BANK_ACCOUNT;
-                            $Transaction->save();
-                            \Mail::to($Transaction->seller->email)->send(new AddBankAccountEmail($Transaction->seller));
-                            continue;
-                        }
-
-                        //Check and update KYC Status if exist
-                        $kyc = $mangoPay->viewKycDocument($Transaction->seller->mangopay_id, $Transaction->seller->kyc_id);
-
-                        if(isset($kyc->Status)) {
-                            $Transaction->seller->kyc_status = $kyc->Status;
-                            $Transaction->save();
-                        }
-
-                        //If KYC not verified, then we need to ask for it
-                        if($Transaction->seller->kyc_status !== User::STATUS_KYC_SUCCEEDED) {
-                            $Transaction->status_payout = Transaction::STATUS_NO_KYC;
-                            $Transaction->save();
-                            //Send Email
-                            \Mail::to($Transaction->seller->email)->send(new SendCompleteKycEmail($Transaction->seller));
-                            continue;
-                        }
-
-                        $wallet = $mangoPay->getWallet($Transaction->wallet_id);
-                        $payOut = $mangoPay->createPayOut($bankAccount, $Transaction->seller->mangopay_id, $wallet, Transaction::FEES_SELLER);
-                        //Update transaction Payout
-                        if (isset($payOut->Status)) {
-                            $Transaction->status_payout = $payOut->Status;
-                            $Transaction->payout_id = $payOut->Id;
-                        } else {
-                            $Transaction->status_payout = Transaction::STATUS_TRANSFER_FAIL;
-                            \Mail::to($Transaction->seller->email)->send(new FailPayoutEmail($Transaction->seller));
-                        }
-
+                        $this->claimLost($Transaction);
                     }
                     elseif($transaction->claim_status === Claim::CLAIM_STATUS_EQUALITY) {
-                        //Both
-                        dump('Equality');
-                        $bankAccount = $mangoPay->getBankAccount($Transaction->seller->mangopay_id);
-
-                        $wallet = $mangoPay->getWallet($Transaction->wallet_id);
-                        //We can split the amount of refund then give the rest to Seller
-                        $refund = $mangoPay->createRefundPayIn($Transaction->transaction_mangopay, $Transaction->purchaser->mangopay_id, Transaction::FEES_EQUALITY, $wallet->Balance->Amount, true);
-
-                        if(isset($refund->Status)) {
-                            $Transaction->status_refund = $refund->Status;
-                            $Transaction->refund_id = $refund->Id;
-                        } else {
-                            $Transaction->status_refund = Transaction::STATUS_TRANSFER_FAIL;
-                        }
-
-                        //If user didn't put a Bank Account
-                        if (!$bankAccount) {
-                            $Transaction->status_payout = Transaction::STATUS_NO_BANK_ACCOUNT;
-                            $Transaction->save();
-                            \Mail::to($Transaction->seller->email)->send(new AddBankAccountEmail($Transaction->seller));
-                            continue;
-                        }
-
-                        //Check and update KYC Status if exist
-                        $kyc = $mangoPay->viewKycDocument($Transaction->seller->mangopay_id, $Transaction->seller->kyc_id);
-
-                        if(isset($kyc->Status)) {
-                            $Transaction->seller->kyc_status = $kyc->Status;
-                            $Transaction->save();
-                        }
-
-                        //If KYC not verified, then we need to ask for it
-                        if($Transaction->seller->kyc_status !== User::STATUS_KYC_SUCCEEDED) {
-                            $Transaction->status_payout = Transaction::STATUS_NO_KYC;
-                            $Transaction->save();
-                            //Send Email
-                            \Mail::to($Transaction->seller->email)->send(new SendCompleteKycEmail($Transaction->seller));
-                            continue;
-                        }
-
-                        $payOut = $mangoPay->createPayOut($bankAccount, $Transaction->seller->mangopay_id, $wallet, Transaction::FEES_EQUALITY);
-                        if (isset($payOut->Status)) {
-                            $Transaction->status_payout = $payOut->Status;
-                            $Transaction->payout_id = $payOut->Id;
-                        } else {
-                            $Transaction->status_payout = Transaction::STATUS_TRANSFER_FAIL;
-                            \Mail::to($Transaction->seller->email)->send(new FailPayoutEmail($Transaction->seller));
-                        }
-
+                        $this->claimEquality($Transaction);
                     }
 
                     $Transaction->save();
@@ -261,16 +155,14 @@ class MakeTransfers extends Command
 
                 //If Transaction has no claim and date of departure is reached + time end limit claim
                 if ($Transaction->ticket->date_before_transfer < $dateNow) {
-                    dump('Payout No Claim');
+                    $this->info('Payout No Claim');
 
                     $bankAccount = $mangoPay->getBankAccount($Transaction->seller->mangopay_id);
 
                     //If user didn't put a Bank Account
                     if (!$bankAccount) {
-                        $Transaction->status_payout = Transaction::STATUS_NO_BANK_ACCOUNT;
-                        $Transaction->save();
-                        \Mail::to($Transaction->seller->email)->send(new AddBankAccountEmail($Transaction->seller));
-                        continue;
+                        $this->noBankAccount($Transaction);
+                        return;
                     }
 
                     $wallet = $mangoPay->getWallet($Transaction->wallet_id);
@@ -284,29 +176,141 @@ class MakeTransfers extends Command
 
                     //If KYC not verified, then we need to ask for it
                     if($Transaction->seller->kyc_status !== User::STATUS_KYC_SUCCEEDED) {
-                        $Transaction->status_payout = Transaction::STATUS_NO_KYC;
-                        $Transaction->save();
-                        //Send Email
-                        \Mail::to($Transaction->seller->email)->send(new SendCompleteKycEmail($Transaction->seller));
-                        continue;
+                        $this->kycNotVerified($Transaction);
                     }
 
-                    $payOut = $mangoPay->createPayOut($bankAccount, $Transaction->seller->mangopay_id, $wallet, Transaction::FEES_SELLER);
-
-                    //Update transaction Payout
-                    if (isset($payOut->Status)) {
-                        $Transaction->status_payout = $payOut->Status;
-                        $Transaction->payout_id = $payOut->Id;
-                    } else {
-                        $Transaction->status_payout = Transaction::STATUS_TRANSFER_FAIL;
-                        \Mail::to($Transaction->seller->email)->send(new FailPayoutEmail($Transaction->seller));
-                    }
-
+                    $this->makePayOut($bankAccount, $Transaction, $wallet, Transaction::FEES_SELLER);
                     $Transaction->save();
                 }
             }
         }
 
-        dump('Done');
+        $this->info('Done');
+        exit;
+    }
+
+    private function claimNoAnswerSeller($transaction) {
+        $dateNow = Carbon::now();
+        $date = Carbon::parse($transaction->claim_created_at);
+        $limitForSeller = $date->addHours(Claim::CLAIM_LIMIT_SELLER);
+
+        //If the limit is reached, then we resolve claim for Purchaser
+        if($dateNow > $limitForSeller) {
+            $claim = Claim::where('id', $transaction->claim_id)->first();
+            $claim->status = Claim::CLAIM_STATUS_WON;
+            $claim->save();
+
+            $transaction->claim_status = Claim::CLAIM_STATUS_WON;
+        }
+        return;
+    }
+
+    private function claimWon($Transaction) {
+        $this->info('Refund');
+        $mangoPay = $this->mangoPay;
+
+        $refund = $mangoPay->createRefundPayIn($Transaction->transaction_mangopay, $Transaction->purchaser->mangopay_id, Transaction::FEES_CLAIM_PURCHASER);
+        //Update transaction Refund
+        if(isset($refund->Status)) {
+            $Transaction->status_refund = $refund->Status;
+            $Transaction->refund_id = $refund->Id;
+        } else {
+            $Transaction->status_refund = Transaction::STATUS_TRANSFER_FAIL;
+        }
+    }
+
+    private function claimLost($Transaction) {
+        $this->info('PayOut Claim');
+        $mangoPay = $this->mangoPay;
+
+        $bankAccount = $mangoPay->getBankAccount($Transaction->seller->mangopay_id);
+
+        //If user didn't put a Bank Account
+        if (!$bankAccount) {
+            $this->noBankAccount($Transaction);
+            return;
+        }
+
+        //Check and update KYC Status if exist
+        $kyc = $mangoPay->viewKycDocument($Transaction->seller->mangopay_id, $Transaction->seller->kyc_id);
+
+        if(isset($kyc->Status)) {
+            $Transaction->seller->kyc_status = $kyc->Status;
+            $Transaction->save();
+        }
+
+        //If KYC not verified, then we need to ask for it
+        if($Transaction->seller->kyc_status !== User::STATUS_KYC_SUCCEEDED) {
+            $this->kycNotVerified($Transaction);
+            return;
+        }
+
+        $wallet = $mangoPay->getWallet($Transaction->wallet_id);
+        $this->makePayOut($bankAccount, $Transaction, $wallet, Transaction::FEES_SELLER);
+    }
+
+    private function claimEquality($Transaction) {
+        $this->info('Equality');
+        $mangoPay = $this->mangoPay;
+
+        $bankAccount = $mangoPay->getBankAccount($Transaction->seller->mangopay_id);
+
+        $wallet = $mangoPay->getWallet($Transaction->wallet_id);
+        //We can split the amount of refund then give the rest to Seller
+        $refund = $mangoPay->createRefundPayIn($Transaction->transaction_mangopay, $Transaction->purchaser->mangopay_id, Transaction::FEES_EQUALITY, $wallet->Balance->Amount, true);
+
+        if(isset($refund->Status)) {
+            $Transaction->status_refund = $refund->Status;
+            $Transaction->refund_id = $refund->Id;
+        } else {
+            $Transaction->status_refund = Transaction::STATUS_TRANSFER_FAIL;
+        }
+
+        //If user didn't put a Bank Account
+        if (!$bankAccount) {
+            $this->noBankAccount($Transaction);
+            return;
+        }
+
+        //Check and update KYC Status if exist
+        $kyc = $mangoPay->viewKycDocument($Transaction->seller->mangopay_id, $Transaction->seller->kyc_id);
+
+        if(isset($kyc->Status)) {
+            $Transaction->seller->kyc_status = $kyc->Status;
+            $Transaction->save();
+        }
+
+        //If KYC not verified, then we need to ask for it
+        if($Transaction->seller->kyc_status !== User::STATUS_KYC_SUCCEEDED) {
+            $this->kycNotVerified($Transaction);
+            return;
+        }
+
+        $this->makePayOut($bankAccount, $Transaction, $wallet, Transaction::FEES_EQUALITY);
+    }
+
+    private function kycNotVerified($Transaction) {
+        $Transaction->status_payout = Transaction::STATUS_NO_KYC;
+        $Transaction->save();
+        //Send Email
+        \Mail::to($Transaction->seller->email)->send(new SendCompleteKycEmail($Transaction->seller));
+    }
+
+    private function noBankAccount($Transaction) {
+        $Transaction->status_payout = Transaction::STATUS_NO_BANK_ACCOUNT;
+        $Transaction->save();
+        \Mail::to($Transaction->seller->email)->send(new AddBankAccountEmail($Transaction->seller));
+    }
+
+    private function makePayOut($bankAccount, $Transaction, $wallet, $fees) {
+        $payOut = $this->mangoPay->createPayOut($bankAccount, $Transaction->seller->mangopay_id, $wallet, $fees);
+        //Update transaction Payout
+        if (isset($payOut->Status)) {
+            $Transaction->status_payout = $payOut->Status;
+            $Transaction->payout_id = $payOut->Id;
+        } else {
+            $Transaction->status_payout = Transaction::STATUS_TRANSFER_FAIL;
+            \Mail::to($Transaction->seller->email)->send(new FailPayoutEmail($Transaction->seller));
+        }
     }
 }

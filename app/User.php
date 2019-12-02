@@ -200,7 +200,7 @@ class User extends Authenticatable
     }
 
     public function getKycVerifiedAttribute() {
-        return ($this->kyc_status !== null && $this->kyc_status === 'SUCCEEDED') ?:false;
+        return ($this->kyc_status !== null && $this->kyc_status === 'SUCCEEDED');
     }
 
     public function getFbConnectAttribute(  )

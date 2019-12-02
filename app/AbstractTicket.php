@@ -135,7 +135,7 @@ abstract class AbstractTicket extends BaseModel
     }
 
     public function getMaxPriceAttribute() {
-        return (self::MAX_PRICE / 100) * $this->bought_price;
+        return ceil((self::MAX_PRICE / 100) * $this->bought_price);
     }
 
     public function getHasPdfAttribute() {

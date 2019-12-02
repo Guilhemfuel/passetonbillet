@@ -8,7 +8,7 @@
                 <i class="fa fa-chevron-left" aria-hidden="true"></i>
             </div>
 
-            <div v-if="!this.$root.user.country_profil">
+            <div v-if="!this.$root.user.country_profil_completed">
 
                 <h3>{{ trans('profile.modal.verify_identity.complete_profil') }}</h3>
 
@@ -252,7 +252,7 @@
             this.handleResponse(response);
             if(response.body.type === 'success') {
               this.state = 'recap';
-              this.$root.user.country_profil = true;
+              this.$root.user.country_profil_completed = true;
             }
           });
       },

@@ -14,9 +14,10 @@ class ClaimController extends Controller
 
         $user = \Auth::user();
 
-        if(!$request->ticket && !$request->answers) {
-            return response(['status' => 'error', 'message' => trans('tickets.claim.api.no_data')], 400);
-        }
+        $request->validate([
+            'ticket' => 'required',
+            'answers' => 'required',
+        ]);
 
         $ticket = Ticket::where('id', $request->ticket['id'])->first();
 
@@ -24,7 +25,7 @@ class ClaimController extends Controller
             return response(['status' => 'error', 'message' => trans('tickets.buy_modal.ticket_doesnt_exist')], 400);
         }
 
-        $departureDate = clone $ticket->train->carbon_departure_date;
+        $departureDate = $ticket->train->carbon_departure_date->copy();
         $dateLimitClaim = $ticket->limit_claim_purchaser;
         $dateNow = Carbon::now();
 
@@ -48,7 +49,7 @@ class ClaimController extends Controller
             $claim->ticket_id = $ticket->id;
         }
 
-        $claim->claim_purchaser = json_encode($request->answers);
+        $claim->claim_purchaser = $request->answers;
         $claim->save();
 
         return response()->json(['status' => 'success', 'message' => trans('tickets.claim.api.claim_sent')]);
@@ -57,11 +58,10 @@ class ClaimController extends Controller
     public function addClaimSeller(Request $request) {
         $this->middleware('auth');
 
-        $user = \Auth::user();
-
-        if(!$request->ticket && !$request->answers) {
-            return response(['status' => 'error', 'message' => trans('tickets.claim.api.no_data')], 400);
-        }
+        $request->validate([
+            'ticket' => 'required',
+            'answers' => 'required',
+        ]);
 
         $ticket = Ticket::where('id', $request->ticket['id'])->first();
 
@@ -69,7 +69,7 @@ class ClaimController extends Controller
             return response(['status' => 'error', 'message' => trans('tickets.buy_modal.ticket_doesnt_exist')], 400);
         }
 
-        $departureDate = clone $ticket->train->carbon_departure_date;
+        $departureDate = $ticket->train->carbon_departure_date->copy();
         $dateLimitClaim = $ticket->limit_claim_seller;
         $dateNow = Carbon::now();
 
@@ -89,7 +89,7 @@ class ClaimController extends Controller
             return response(['status' => 'error', 'message' => trans('tickets.claim.api.claim_not_possible')], 400);
         }
 
-        $claim->claim_seller = json_encode($request->answers);
+        $claim->claim_seller = $request->answers;
         $claim->save();
 
         return response()->json(['status' => 'success', 'message' => trans('tickets.claim.api.claim_sent')]);

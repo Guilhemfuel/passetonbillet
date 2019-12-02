@@ -59,7 +59,6 @@ class Ticket extends AbstractTicket
         'marked_as_fraud_at',
 
         'pdf',
-        'page_pdf'
     ];
 
     /**
@@ -374,7 +373,7 @@ class Ticket extends AbstractTicket
     }
 
     public function getMaxPriceAttribute() {
-        return (self::MAX_PRICE / 100) * $this->bought_price;
+        return ceil((self::MAX_PRICE / 100) * $this->bought_price);
     }
 
     public function getHasPdfAttribute() {
