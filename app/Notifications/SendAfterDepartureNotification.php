@@ -41,7 +41,6 @@ class SendAfterDepartureNotification extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $when = $this->ticket->train->carbon_date_email_after_departure;
-        \Mail::to($this->user->email)->later($when, new SendAfterDepartureEmail($this->user, $this->ticket));
+        return new SendAfterDepartureEmail($this->user, $this->ticket);
     }
 }

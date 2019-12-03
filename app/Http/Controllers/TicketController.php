@@ -203,9 +203,7 @@ class TicketController extends Controller
 
         //Put email in Queue to send 1 hour after departure of train
         $when = $ticket->train->carbon_date_email_after_departure;
-        \Mail::to($this->user->email)->later($when, new SendAfterDepartureEmail($user, $ticket));
-        //There is a bug with later methode in notify
-        //$user->notify(new SendAfterDepartureNotification($user, $ticket));
+        $user->notify((new SendAfterDepartureNotification($user, $ticket))->delay($when));
     }
 
     public function downloadTicket($id)
