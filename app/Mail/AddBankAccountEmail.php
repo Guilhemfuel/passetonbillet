@@ -13,7 +13,6 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 class AddBankAccountEmail extends PtbMail
 {
     use SerializesModels;
-    private $file;
 
     /**
      * Create a new message instance.

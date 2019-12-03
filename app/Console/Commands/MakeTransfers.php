@@ -6,6 +6,9 @@ use App\Claim;
 use App\Mail\AddBankAccountEmail;
 use App\Mail\FailPayoutEmail;
 use App\Mail\SendCompleteKycEmail;
+use App\Notifications\AddBankAccountNotification;
+use App\Notifications\FailPayoutNotification;
+use App\Notifications\SendCompleteKycNotification;
 use App\Services\MangoPayService;
 use App\Transaction;
 use App\User;
@@ -293,13 +296,13 @@ class MakeTransfers extends Command
         $Transaction->status_payout = Transaction::STATUS_NO_KYC;
         $Transaction->save();
         //Send Email
-        \Mail::to($Transaction->seller->email)->send(new SendCompleteKycEmail($Transaction->seller));
+        $Transaction->seller->notify((new SendCompleteKycNotification($Transaction->seller)));
     }
 
     private function noBankAccount($Transaction) {
         $Transaction->status_payout = Transaction::STATUS_NO_BANK_ACCOUNT;
         $Transaction->save();
-        \Mail::to($Transaction->seller->email)->send(new AddBankAccountEmail($Transaction->seller));
+        $Transaction->seller->notify((new AddBankAccountNotification($Transaction->seller)));
     }
 
     private function makePayOut($bankAccount, $Transaction, $wallet, $fees) {
@@ -310,7 +313,7 @@ class MakeTransfers extends Command
             $Transaction->payout_id = $payOut->Id;
         } else {
             $Transaction->status_payout = Transaction::STATUS_TRANSFER_FAIL;
-            \Mail::to($Transaction->seller->email)->send(new FailPayoutEmail($Transaction->seller));
+            $Transaction->seller->notify((new FailPayoutNotification($Transaction->seller)));
         }
     }
 }

@@ -14,7 +14,7 @@ class MangoPayService
 
     public function __construct()
     {
-        $storagePath = storage_path('mangopay');
+        $storagePath = env('MANGOPAY_STORAGE');
         if(!file_exists($storagePath) && !is_dir($storagePath)) {
 
             mkdir($storagePath, 0777, true);

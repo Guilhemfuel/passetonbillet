@@ -7,12 +7,13 @@ use App\Models\Discussion;
 use App\Models\Message;
 use App\Notifications\ResetPasswordNotification;
 use Carbon\Carbon;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Nicolaslopezj\Searchable\SearchableTrait;
 
-class User extends Authenticatable
+class User extends Authenticatable implements ShouldQueue
 {
     use Notifiable, SearchableTrait, SoftDeletes;
 
