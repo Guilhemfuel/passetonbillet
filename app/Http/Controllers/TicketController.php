@@ -30,6 +30,9 @@ use App\Models\AdminWarning;
 use App\Models\Discussion;
 use App\Models\Statistic;
 use App\Notifications\OfferNotification;
+use App\Notifications\SendAfterDepartureNotification;
+use App\Notifications\SendNotifToSellerNotification;
+use App\Notifications\SendTicketNotification;
 use App\Ticket;
 use App\Train;
 use App\Trains\TrainConnector;
@@ -193,14 +196,15 @@ class TicketController extends Controller
         $file = storage_path('app/uploads/' . $ticket->pdf);
 
         //Send email to Purchaser
-        \Mail::to($user->email)->send(new SendTicketEmail($user, $ticket, $file));
+        $user->notify((new SendTicketNotification($user, $ticket, $file)));
 
         //Send email to Seller
-        \Mail::to($user->email)->send(new SendNotifToSellerEmail($ticket->transaction->seller, $ticket));
+        $ticket->user->notify(new SendNotifToSellerNotification($ticket->transaction->seller, $ticket));
 
         //Put email in Queue to send 1 hour after departure of train
         $when = $ticket->train->carbon_date_email_after_departure;
-        \Mail::to($user->email)->later($when, new SendAfterDepartureEmail($user, $ticket));
+        \Mail::to($this->user->email)->later($when, new SendAfterDepartureEmail($user, $ticket));
+        //$user->notify(new SendAfterDepartureNotification($user, $ticket));
     }
 
     public function downloadTicket($id)

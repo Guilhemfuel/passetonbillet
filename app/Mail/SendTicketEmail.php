@@ -18,7 +18,9 @@ class SendTicketEmail extends PtbMail
     /**
      * Create a new message instance.
      *
-     * @return void
+     * @param User $user
+     * @param Ticket $ticket
+     * @param $file
      */
     public function __construct(User $user, Ticket $ticket, $file)
     {
