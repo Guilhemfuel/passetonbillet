@@ -90,17 +90,3 @@
     }
   }
 </script>
-
-<style scoped>
-    .bloc-white {
-        border-radius: 20px;
-        background-color: white;
-        margin: 10px 0;
-        padding: 20px;
-        text-align: center;
-    }
-
-    .text-wrap {
-        white-space: normal;
-    }
-</style>

@@ -144,90 +144,13 @@
 </script>
 
 <style scoped>
-    .my-ticket {
-        border-radius: 20px;
-        background-color: white;
-        margin: 10px 0;
-        padding: 20px;
-    }
 
-    .my-ticket > div {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        text-align: center;
-        color: #545454;
-    }
-
-    .my-ticket .status-payment {
-        font-weight: bold;
-        border: 3px solid #0b89e7;
-        border-radius: 10px;
-        padding: 10px;
-    }
 
     .my-ticket.claim .status-payment {  border: 3px solid white;  }
-
     .my-ticket.claim {  background-color: #f8254a;  }
-
     .my-ticket.claim > div {  color: white;  }
 
-    .my-ticket > div > div {  margin: 0 10px;  }
 
-    .my-ticket .departure {  width: 350px;  }
 
-    .tooltip-limit-claim {
-        background-color: rgba(0, 0, 0, 0.85);
-        color: white;
-        position: absolute;
-        font-size: 11px;
-        border-radius: 10px;
-        width: 250px;
-        margin-left: -260px;
-        visibility: hidden;
-        opacity: 0;
-        transition: all 0.8s ease;
-        padding: 5px;
-    }
 
-    .button-my-ticket-change:hover .tooltip-limit-claim {
-        visibility: visible;
-        opacity: 1;
-    }
-
-    @media screen and (max-width: 768px) {
-
-        .my-ticket {  flex-direction: column;  }
-        .my-ticket button {  margin-top: 10px;  }
-    }
-
-    .my-ticket .price {  font-size: 25px;  }
-
-    .button-my-ticket-change, .button-my-ticket-update {  width: 200px;  }
-
-    .button-my-ticket-update button {  background-color: #0b89e7;  }
-    .button-my-ticket-change button {  background-color: #9b9b9b;  }
-
-    @media (max-width: 991px) {
-        .my-ticket .btn-ptb {
-            font-size: 11px;
-        }
-    }
-
-    @media (max-width: 768px) {
-        .front {
-            flex-direction: column;
-        }
-
-        .my-ticket .btn-ptb {
-            font-size: 13px;
-        }
-    }
-
-    @media (max-width: 450px) {
-        .departure {
-            flex-direction: column;
-        }
-    }
 </style>
