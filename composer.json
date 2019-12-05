@@ -1,5 +1,5 @@
 {
-    "name": "PTB/PasseTonBillet",
+    "name": "ptb/passe-ton-billet",
     "description": "L'application web du site PasseTonBillet.",
     "keywords": ["ticket", "PasseTonBillet","train","travel"],
     "license": "MIT",
