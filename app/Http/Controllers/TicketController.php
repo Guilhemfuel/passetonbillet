@@ -114,12 +114,17 @@ class TicketController extends Controller
 
             //If there is a current wallet with wrong currency we need to make a new one
             //It is not allow to change currency in Mangopay
-            if($wallet->Currency != $ticket->currency) {
-                $wallet = $mangoPaySeller->createWallet($ticket->id, $ticket->currency);
 
-                $transaction->wallet_id = $wallet->Id;
-                $transaction->save();
+            if (!$wallet) {
+                $wallet = $mangoPaySeller->createWallet($ticket->id, $ticket->currency);
             }
+
+            if ($wallet->Currency != $ticket->currency) {
+                $wallet = $mangoPaySeller->createWallet($ticket->id, $ticket->currency);
+            }
+
+            $transaction->wallet_id = $wallet->Id;
+            $transaction->save();
         }
 
         $payIn = [
