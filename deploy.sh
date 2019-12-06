@@ -38,16 +38,16 @@ echo "Installing npm dependencies..."
 npm install
 echo " Done."
 
-# Build assets using Laravel Mix
-echo "Running npm run prod..."
-npm run production
-echo " Done."
-
 # Generate required files
 echo "Generating language file and sitemap..."
 php artisan ptb:generate-language
 php artisan ptb:generate-sitemap
-echo "Done."
+echo "Done."de
+
+# Build assets using Laravel Mix
+echo "Running npm run prod..."
+npm run production
+echo " Done."
 
 # Restart queues
 echo "Restarting queues..."

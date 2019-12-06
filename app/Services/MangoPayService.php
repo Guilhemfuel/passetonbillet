@@ -30,30 +30,20 @@ class MangoPayService
     }
 
     public function createMangoUser($user) {
+        $mangoUser = new MangoPay\UserNatural();
+        $mangoUser->PersonType = "NATURAL";
+        $mangoUser->FirstName = $user->first_name;
+        $mangoUser->LastName = $user->last_name;
+        $mangoUser->Birthday = strtotime($user->birthdate);
+        $mangoUser->Nationality = $user->nationality ? $user->nationality : "FR";
+        $mangoUser->CountryOfResidence = $user->country_residence ? $user->country_residence : "FR";
+        $mangoUser->Email = $user->email;
 
-        try {
-            $mangoUser = new MangoPay\UserNatural();
-            $mangoUser->PersonType = "NATURAL";
-            $mangoUser->FirstName = $user->first_name;
-            $mangoUser->LastName = $user->last_name;
-            $mangoUser->Birthday = strtotime($user->birthdate);
-            $mangoUser->Nationality = $user->nationality ? $user->nationality : "FR";
-            $mangoUser->CountryOfResidence = $user->country_residence ? $user->country_residence : "FR";
-            $mangoUser->Email = $user->email;
+        $mangoUser = $this->mangoPayApi->Users->Create($mangoUser);
 
-            $mangoUser = $this->mangoPayApi->Users->Create($mangoUser);
+        $this->mangoUser = $mangoUser->Id;
 
-            $this->mangoUser = $mangoUser->Id;
-
-            return $mangoUser;
-
-        } catch (MangoPay\Libraries\ResponseException $e) {
-            // handle/log the response exception with code $e->GetCode(), message $e->GetMessage() and error(s) $e->GetErrorDetails()
-            return $e->GetMessage();
-        } catch (MangoPay\Libraries\Exception $e) {
-            // handle/log the exception $e->GetMessage()
-            return $e->GetMessage();
-        }
+        return $mangoUser;
     }
 
     public function getMangoUser($id) {
