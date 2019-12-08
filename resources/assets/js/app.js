@@ -66,7 +66,6 @@ Vue.component( 'dropdown-menu', require(/* webpackChunkName: "dropdown-menu" */ 
  * PTB specific components
  */
 
-Vue.component( 'reviews', require(/* webpackChunkName: "reviews" */ './components/PTB/Review.vue').default);
 Vue.component( 'notifications', require(/* webpackChunkName: "notifications" */ './components/PTB/Notifications.vue').default);
 Vue.component( 'settings', require(/* webpackChunkName: "settings" */ './components/PTB/Settings.vue').default);
 Vue.component( 'ticket', require(/* webpackChunkName: "ticket" */ './components/PTB/Ticket.vue').default);
@@ -92,6 +91,7 @@ Vue.component( 'train-results', require(/* webpackChunkName: "train-results" */ 
 
 
 Vue.component( 'home-search', require(/* webpackChunkName: "home-search" */ './components/Pages/Welcome/HomeSearch.vue').default);
+Vue.component( 'reviews', require(/* webpackChunkName: "reviews" */ './components/Pages/Welcome/Reviews.vue').default);
 Vue.component( 'recent-tickets', require(/* webpackChunkName: "recent-tickets" */ './components/Pages/Welcome/RecentTickets.vue').default);
 Vue.component( 'home-buyer-seller-info', require(/* webpackChunkName: "home-buyer-seller-info" */ './components/Pages/Welcome/BuyerSellerInfo.vue').default);
 Vue.component( 'my-alerts', require(/* webpackChunkName: "my-alerts" */ './components/Pages/Alerts/Alerts.vue').default);

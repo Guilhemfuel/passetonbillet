@@ -158,6 +158,11 @@ class Sncf extends TrainConnector
     public function createTrainAndReturnTicket( $data, $currency, $lastName, $referenceNumber, $buyerEmail, $price, $databaseId, $passenger, $past = false )
     {
 
+        // Make sure it contains data
+        if (!isset($data["segments"])) {
+            return null;
+        }
+
         // Check if correspondance
         $correspondance = false;
 
