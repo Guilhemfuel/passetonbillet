@@ -85,6 +85,10 @@ class TicketController extends Controller
         if (!$seller->mangopay_id) {
             $mangoSeller = $mangoPaySeller->createMangoUser($seller);
 
+            if(!$mangoSeller->Id) {
+                return response()->json(['message' => __( 'tickets.mangopay_error'), 'type' => 'error', 'mangopay' => $mangoSeller]);
+            }
+
             $seller->mangopay_id = $mangoSeller->Id;
             $seller->save();
         } else {

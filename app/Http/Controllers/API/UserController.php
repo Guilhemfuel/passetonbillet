@@ -20,6 +20,10 @@ class UserController extends Controller
         if (!$user->mangopay_id) {
             $mangoUser = $mangoPay->createMangoUser($user);
 
+            if(!$mangoUser->Id) {
+                return response()->json(['message' => __( 'tickets.mangopay_error'), 'type' => 'error', 'mangopay' => $mangoUser]);
+            }
+
             $user->mangopay_id = $mangoUser->Id;
             $user->save();
         }

@@ -4,44 +4,41 @@
                @close-modal="closeModal()"
                class="review-modal">
 
-            <div id="previousModal" @click="previousModal">
+            <div v-if="state !== 'recap'" id="previousModal" @click="previousModal">
                 <i class="fa fa-chevron-left" aria-hidden="true"></i>
             </div>
 
             <div v-if="!this.$root.user.country_profil_completed">
-
-                <h3>{{ trans('profile.modal.verify_identity.complete_profil') }}</h3>
-
                 <form method="post" :action="route('public.profile.country.add')">
-
-                    <input type="hidden" name="_token" :value="form._token">
-
-                    <input-country name="country_residence"
-                                   :label="trans('profile.modal.verify_identity.country_residence')"
-                                   validation="required"
-                                   v-model="formCompleteProfil.country_residence"
-                                   :placeholder="trans('profile.modal.verify_identity.country_residence')"
-                    ></input-country>
-
-                    <input-country name="nationality"
-                                   :label="trans('profile.modal.verify_identity.nationality')"
-                                   validation="required"
-                                   v-model="formCompleteProfil.nationality"
-                                   :placeholder="trans('profile.modal.verify_identity.nationality')"
-                    ></input-country>
-
-                    <input-date
-                            name="birthdate"
-                            v-model="formCompleteProfil.birthdate"
-                            class-name="col-xs-12"
-                            :label="trans('auth.register.birthdate')"
-                            placeholder="DD/MM/YYYY"
-                            format="dd/MM/yyyy"
-                            value-format="dd/MM/yyyy"
-                            default-value-format="DD/MM/YYYY">
-                    </input-date>
-
                     <div class="col-md-12">
+                        <h3>{{ trans('profile.modal.verify_identity.complete_profil') }}</h3>
+                        <input type="hidden" name="_token" :value="form._token">
+
+                        <input-country name="country_residence"
+                                       :label="trans('profile.modal.verify_identity.country_residence')"
+                                       validation="required"
+                                       v-model="formCompleteProfil.country_residence"
+                                       :placeholder="trans('profile.modal.verify_identity.country_residence')"
+                        ></input-country>
+
+                        <input-country name="nationality"
+                                       :label="trans('profile.modal.verify_identity.nationality')"
+                                       validation="required"
+                                       v-model="formCompleteProfil.nationality"
+                                       :placeholder="trans('profile.modal.verify_identity.nationality')"
+                        ></input-country>
+
+                        <input-date
+                                name="birthdate"
+                                v-model="formCompleteProfil.birthdate"
+                                class-name="col-xs-12"
+                                :label="trans('auth.register.birthdate')"
+                                placeholder="DD/MM/YYYY"
+                                format="dd/MM/yyyy"
+                                value-format="dd/MM/yyyy"
+                                default-value-format="DD/MM/YYYY">
+                        </input-date>
+
                         <div class="form-group">
                             <button type="submit" class="btn btn-ptb-blue btn-block" @click.prevent="completeProfil">
                                 {{trans('profile.modal.verify_identity.complete_profil')}}
@@ -52,8 +49,7 @@
             </div>
 
             <div v-else>
-                <div v-if="state == 'recap'">
-                    <div class="modal-body row">
+                <div v-if="state == 'recap'" class="p-3">
                         <div class="col-sm-12 col-md-12 text-center m-auto">
                             <h4 class="card-text text-center font-weight-bold">
                                 {{trans('tickets.buy_modal.buy_ticket_of')}} {{ ticket.user.first_name }}
@@ -88,18 +84,17 @@
                             </div>
 
                         </div>
-                    </div>
                 </div>
 
-                <div v-else-if="state == 'show_cards'">
-                    <div class="modal-body row">
+                <div v-else-if="state == 'show_cards'" class="p-3">
                         <div class="col-sm-12 col-md-8 text-center m-auto">
                             <p class="card-text text-center font-weight-bold">
                                 {{trans('tickets.buy_modal.choose_payment')}}
                             </p>
 
-                            <label v-for="card in userCards" :key="card.Id" class="credit-card" :for="'card-' + card.Id">{{ card.Alias }}
+                            <label v-for="card in userCards" :key="card.Id" class="credit-card" :for="'card-' + card.Id">
                                 <input type="radio" :id="'card-' + card.Id" name="card" :value="card.Id" @change="formBuy = card.Id">
+                                {{ card.Alias }}
                             </label>
 
                             <div>
@@ -114,13 +109,10 @@
                                     {{trans('tickets.component.buy')}} {{ ticket.price }}{{ ticket.currency_symbol }}
                                 </button>
                             </div>
-
                         </div>
-                    </div>
                 </div>
 
-                <div v-else-if="state == 'add_card'">
-                    <div class="modal-body row">
+                <div v-else-if="state == 'add_card'" class="p-3">
                         <div class="col-sm-12 col-md-8 text-center m-auto">
                             <p class="card-text text-center font-weight-bold">
                                 {{trans('tickets.buy_modal.add_payment')}}
@@ -154,7 +146,6 @@
                                 </div>
                             </form>
                         </div>
-                    </div>
                 </div>
             </div>
         </modal>
@@ -193,9 +184,18 @@
         formBuy: null,
       }
     },
-    mounted() {
+      watch: {
+          state: function (newVal, oldVal) {
+              if (oldVal !== newVal) {
+                  if (!(this.previousState.includes(oldVal))) {
+                      this.previousState.push(oldVal);
+                  }
+              }
+          }
+      },
+      mounted() {
 
-    },
+      },
     computed: {
       trulyOpened() {
         if (this.isOpen == true) {
@@ -214,21 +214,12 @@
         return moment(this.ticket.train.departure_time, 'HH:mm:ss').format('HH:mm')
       }
     },
-    watch: {
-      state: function(newVal, oldVal) {
-        if(oldVal !== newVal) {
-          if (!(this.previousState.includes(oldVal))) {
-            this.previousState.push(oldVal);
-          }
-        }
-      }
-    },
     methods: {
       closeModal() {
         this.$emit('close-modal');
       },
       previousModal() {
-        if(this.previousState.includes(this.state)) {
+        if (this.previousState.includes(this.state)) {
           let position = this.previousState.indexOf(this.state);
           if (position > 0) {
             this.state = this.previousState[position - 1]
@@ -236,7 +227,7 @@
             this.closeModal()
           }
         } else {
-          if(this.previousState.length > 0) {
+          if (this.previousState.length > 0) {
             this.state = this.previousState[this.previousState.length - 1]
           } else {
             this.closeModal()
@@ -287,6 +278,10 @@
           request.headers.delete('X-CSRF-TOKEN');
           request.headers.delete('Content-Type');
         };
+
+        //Remove slash from expiration date
+        this.formRegistrationCard.cardExpirationDate = this.formRegistrationCard.cardExpirationDate.split('/').join('');
+        this.formRegistrationCard.cardExpirationDate = this.formRegistrationCard.cardExpirationDate.split('\\').join('');
 
         //Do not try to use JSON.stringify or give the full Object to Mangopay because it doesn't works.
         let serialize = 'data=' + this.formRegistrationCard.data + '&accessKeyRef=' + this.formRegistrationCard.accessKeyRef + '&cardNumber=' + this.formRegistrationCard.cardNumber + '&cardExpirationDate=' + this.formRegistrationCard.cardExpirationDate + '&cardCvx=' + this.formRegistrationCard.cardCvx;
@@ -359,6 +354,7 @@
     .recap-ticket {
         background-color: #f6f6f7;
         border-radius: 10px;
+        padding: 10px;
     }
 
     .recap-ticket .recap-time {
@@ -374,6 +370,7 @@
         font-weight: bold;
         text-align: center;
         color: #ff9600;
+        font-size: 20px;
     }
 
     .btn-add-payment {

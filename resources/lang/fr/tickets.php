@@ -479,4 +479,6 @@ return [
     'bank_account_success' => 'Votre compte bancaire est ajouté !',
 
     'no_ticket' => 'Pas de billet pour l\'instant',
+
+    'mangopay_error' => 'Une erreur est survenue avec notre service de paiement',
 ];

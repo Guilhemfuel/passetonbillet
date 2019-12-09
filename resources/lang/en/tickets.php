@@ -380,8 +380,8 @@ return [
     'buy_modal' => [
         'buy_ticket_of' => 'Buy ticket of',
         'instant_receive' => 'Vous recevrez le billet instantanément',
-        'choose_payment' => 'Choose a payment',
-        'add_payment' => 'Add a payment',
+        'choose_payment' => 'Choose a payment method',
+        'add_payment' => 'Add a payment method',
         'add' => 'Add',
         'error' => 'An error has occured',
 
@@ -471,4 +471,6 @@ return [
     'bank_account_success' => 'Votre compte bancaire est ajouté !',
 
     'no_ticket' => 'No ticket yet',
+
+    'mangopay_error' => 'An error has occured with our payment service',
 ];
