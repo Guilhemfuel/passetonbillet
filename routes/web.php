@@ -259,18 +259,17 @@ Route::group( [ 'prefix' => 'api' ], function () {
     Route::post( 'alerts/create', 'API\AlertController@createAlert' )->name( 'api.alerts.create' );
     Route::delete( '/alerts/{alert_id}', 'API\AlertController@deleteAlert' )->name( 'api.alerts.delete' );
 
-
     Route::get( 'tickets/buy', 'TicketController@buyTickets' )->name( 'api.tickets.buy' );
     Route::get( 'tickets/affiliates/sncf', 'API\AffiliateController@sncfAffiliate' )->name( 'api.tickets.affiliates.sncf' );
     Route::get( 'stations/search', 'StationController@stationSearch' )->name( 'api.stations.search' );
     Route::get( 'stations/{id}', 'StationController@show' )->name( 'api.stations.show' );
     Route::get( 'tickets/{ticket}/phone-number/{country}', 'API\TicketController@getPaidPhoneNumber' )->name( 'api.tickets.phone_number' );
 
-
     /**
      * Admin API
      */
     Route::group( [ 'middleware' => 'auth.admin' ], function () {
+        Route::get( 'admin/tickets/', 'API\Admin\TicketController@index' )->name( 'api.admin.tickets.index' );
         Route::get( 'users/{name}', 'Admin\UserController@searchAPI' )->name( 'api.users.search' );
         Route::get( 'home/resource/{resource}', 'API\Admin\HomeController@getHomeResource' )->name( 'api.admin.home.resource' );
     } );

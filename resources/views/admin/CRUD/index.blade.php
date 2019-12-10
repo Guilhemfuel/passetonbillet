@@ -15,7 +15,7 @@
                 {!!isset($search)?'<a href='.route($model.'.index').'>Cancel search</a>':''!!}
             </div>
 
-            <div class="card-body">
+            <div class="card-body pt-0">
                 <div class="crud-actions">
                     @if($creatable)
                         <a href="{{route($model.'.create')}}" class="btn btn-success btn-fill btn-sm"><i

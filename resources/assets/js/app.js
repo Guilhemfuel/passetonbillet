@@ -44,13 +44,6 @@ Vue.component( 'input-image', require(/* webpackChunkName: "input-image" */ './c
 Vue.component( 'input-station', require(/* webpackChunkName: "input-station" */ './components/Forms/input-station.vue').default);
 Vue.component( 'vue-form', require(/* webpackChunkName: "vue-form" */ './components/Forms/vue-form.vue').default);
 
-
-/**
- * Table components
- */
-Vue.component( 'smart-table', require(/* webpackChunkName: "smart-table" */ './components/Tables/smart-table.vue').default);
-
-
 /**
  * Shared components
  */

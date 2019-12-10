@@ -7,6 +7,7 @@
 /public/img
 /public/mix-manifest.json
 /public/sitemap.xml
+/resources/assets/js/route.js
 /storage/*.key
 /storage/emails
 /storage/ids
@@ -22,5 +23,6 @@ Homestead.yaml
 /report/
 npm-debug.log
 *.dump
+*.dump.zip
 package-lock.json
 composer.lock

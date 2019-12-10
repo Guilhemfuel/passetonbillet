@@ -27,7 +27,7 @@ class TicketTableResource extends JsonResource
             'offers_count'   => $this->discussions->count(),
             'status'         => $this->status,
             'provider'       => $this->provider,
-            'edit_link'      => route( 'tickets.edit', [ 'ticket_id' => $this->id ] ),
+            'edit_link'      => route( 'tickets.edit', [ $this->id ] ),
             'share_link'     => route( 'ticket.unique.page', [ 'ticket_id' => \Hashids::encode( $this->id ) ] ),
         ];
     }
