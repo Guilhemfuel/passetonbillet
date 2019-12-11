@@ -1,18 +1,5 @@
 <template>
     <div>
-        <!-- Ticket admin table-->
-                <!--<template slot-scope="scope">-->
-                    <!--<button :class="{'btn btn-sm btn-fill':true, 'btn-primary':scope.row.id!=copied, 'btn-success':scope.row.id==copied}" @click="share(scope.row.id)">-->
-                        <!--<i class="fa fa-clipboard" aria-hidden="true" v-if="scope.row.id!=copied"></i>-->
-                        <!--<i class="fa fa-check" aria-hidden="true" v-else></i>-->
-                    <!--</button>-->
-                    <!--<a class="btn btn-sm btn-info btn-fill" :href="scope.row.edit_link">-->
-                        <!--<i class="fa fa-pencil" aria-hidden="true"></i>-->
-                    <!--</a>-->
-                    <!--<input type="hidden" :value="scope.row.share_link" :id="'share-'+scope.row.id" >-->
-
-                <!--</template>-->
-
         <smart-table :remote="true" :api="api" :structure="structure" :routes="routes">
             <template name="actions" v-slot:actions="data">
                 <button class="btn btn-sm btn-info" @click.prevent="share(data.item.id)">
@@ -105,10 +92,6 @@
             }
         },
         methods: {
-            filterHandler(value, row, column) {
-                const property = column['property'];
-                return row[property] === value;
-            },
             share(id) {
                 const copyToClipboard = str => {
                     const el = document.createElement('textarea');  // Create a <textarea> element

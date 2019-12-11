@@ -46,7 +46,7 @@
                 </th>
             </tr>
             </thead>
-            <tbody v-if="!loading" :class="{'scrollable':tableScroll }">
+            <tbody v-if="!loading" class="scrollable">
             <template v-for="item in filteredData">
                 <!-- Render Row -->
                 <tr :class="{'row-link':rowLink!=null}" @click="rowClicked(item)">
@@ -214,7 +214,6 @@
 
                 // Position
                 tablePosition: 0,
-                tableScroll: false
             }
         },
         methods: {
@@ -375,7 +374,6 @@
                         this.loadedData = response.data.data;
                         this.updatePagination(response.data.meta);
                         this.loading = false;
-                        this.checkIfShouldScroll()
                     })
                     .catch(function (error) {
                         console.log(error);
@@ -412,16 +410,6 @@
                 }
                 this.loadData();
             },
-            /**
-             * Change the value of tableScroll if needed (only scroll when table in full view)
-            */
-            checkIfShouldScroll() {
-                if (this.tablePosition-10 <= window.scrollY) {
-                    this.tableScroll = true;
-                } else {
-                    this.tableScroll = false;
-                }
-            },
         },
         mounted() {
             // Make sure that incompatible behaviours are not used together.
@@ -438,13 +426,6 @@
             let table = this.$refs.tableIndex;
             this.tablePosition = table.getBoundingClientRect().top
                 + (window.pageYOffset || document.documentElement.scrollTop);
-            this.checkIfShouldScroll();
-        },
-        created() {
-            window.addEventListener('scroll', this.checkIfShouldScroll);
-        },
-        destroyed() {
-            window.removeEventListener('scroll', this.checkIfShouldScroll);
         },
         computed: {
             /**

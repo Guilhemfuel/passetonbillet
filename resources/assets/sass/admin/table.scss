@@ -57,10 +57,16 @@
   }
 
   .table {
-    thead th {
-      font-size: 12px;
-      text-transform: uppercase;
-      font-weight: 300;
+    thead {
+      position: sticky;
+      top: 0px;
+      background-color: white;
+
+      th {
+        font-size: 12px;
+        text-transform: uppercase;
+        font-weight: 300;
+      }
     }
 
     tbody td {
@@ -93,15 +99,11 @@
 // ----- Smart Table ------
 .smart-table {
 
-  .table-index {
-    padding:5px;
-  }
-
   // Full height table
   table.table {
     display: flex;
     flex-direction: column;
-    max-height: calc(100vh - 162px);
+    max-height: calc(100vh - 40px); // minus pagination
     width: 100%;
 
     &.not-remote, &.not-searchable {
@@ -192,10 +194,20 @@
   }
 
   .table-pagination {
+    position: sticky;
+    bottom: 0px;
+    background-color: $color-white;
+
     display: flex;
     height: 40px;
     padding: 4px;
     border-top: 1px solid $color-border-light;
+
+    .input-pagination {
+      width: 50px;
+      text-align: center;
+      height: 30px !important;
+    }
 
     .right, .left {
       flex:1;
@@ -221,6 +233,10 @@
       margin-left: auto;
       display: block;
       vertical-align: middle;
+
+      input {
+        height: 30px !important;
+      }
 
       .label {
         display: inline-block;

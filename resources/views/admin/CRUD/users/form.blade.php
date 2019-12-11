@@ -1,5 +1,11 @@
 @if($entity->banned)
     <h4 class="text-danger text-center">BANNED</h4>
+    @push('additional-btn')
+        <a class="btn btn-danger btn-fill btn-sm ml-3" href="{{route('users.unban',$entity->id)}}">
+            <i class="fa fa-ban" aria-hidden="true"></i>
+            Unban User
+        </a>
+    @endpush
 @else
     @push('additional-btn')
         <a class="btn btn-danger btn-fill btn-sm ml-3" href="{{route('users.ban',$entity->id)}}">

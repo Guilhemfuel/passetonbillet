@@ -15,6 +15,7 @@ Vue.component( 'smart-table', require(/* webpackChunkName: "smart-table" */ './c
 
 // CRUD Tables
 Vue.component('tickets-table', require('./components/Pages/Admin/CRUD/Tickets/Table.vue').default);
+Vue.component('users-table', require('./components/Pages/Admin/CRUD/Users/Table.vue').default);
 Vue.component('pretty-json', require('./components/Shared/Json.vue').default);
 
 // Charts

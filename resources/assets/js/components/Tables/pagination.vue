@@ -2,7 +2,7 @@
     <div :class="getClass">
         <button class="btn btn-link btn-sm d-none d-sm-block" :disabled="page==data.firstPage" @click="first()">First</button>
         <button class="btn btn-link btn-sm" :disabled="page==data.firstPage" @click="prev()">Prev</button>
-        <input :class="{'form-control form-control-sm':true,'invalid':errors.has('pagination')}"
+        <input :class="{'form-control form-control-sm input-pagination':true,'invalid':errors.has('pagination')}"
                v-model="page"
                @change="emitInput"
                v-validate="validation"

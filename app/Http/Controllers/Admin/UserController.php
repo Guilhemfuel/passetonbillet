@@ -24,10 +24,29 @@ class UserController extends BaseController
     protected $CRUDsingularEntityName = 'User';
 
     protected $creatable = false;
+    protected $searchable = false;
+    protected $paginable = false;
 
     protected $model = User::class;
 
     const ADMIN_IMPERSONATE_COOKIE_NAME = 'ptb-admin-impersonate';
+
+    /**
+     * Show a list of all entities
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function index( Request $request )
+    {
+        $data = [
+            'searchable' => $this->searchable,
+            'creatable' => $this->creatable
+        ];
+
+        return $this->ptbView( 'admin.CRUD.index', $data );
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -150,6 +169,32 @@ class UserController extends BaseController
 
         return redirect()->route( $this->CRUDmodelName . '.edit', $user->id );
     }
+
+    // ---------- Ban User -------
+
+    public function unbanUser( Request $request, $id )
+    {
+        $user = User::find( $id );
+        if ( ! $user ) {
+            \Session::flash( 'danger', 'Entity not found!' );
+
+            return redirect()->back();
+        }
+
+        if ( $user->status != User::STATUS_BANNED_USER ) {
+            \Session::flash( 'danger', 'Only active user (non admin) can be banned!' );
+
+            return redirect()->back();
+        }
+
+        $user->status = User::STATUS_USER;
+        $user->save();
+
+        flash( 'User unbanned.' )->success();
+
+        return redirect()->route( $this->CRUDmodelName . '.edit', $user->id );
+    }
+
 
     // ----------- Impersonate ------
 

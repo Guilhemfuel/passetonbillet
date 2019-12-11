@@ -196,6 +196,7 @@ Route::blacklist( function () {
             Route::get( '/verify/{id}', 'Admin\UserController@verifyUser' )->name( 'users.verify' );
             Route::get( '/impersonate/{id}', 'Admin\UserController@impersonate' )->name( 'users.impersonate' );
             Route::get( '/ban/{id}', 'Admin\UserController@banUser' )->name( 'users.ban' );
+            Route::get( '/unban/{id}', 'Admin\UserController@unbanUser' )->name( 'users.unban' );
         } );
 
         Route::resource( 'tickets', 'Admin\TicketController' );
@@ -270,6 +271,8 @@ Route::group( [ 'prefix' => 'api' ], function () {
      */
     Route::group( [ 'middleware' => 'auth.admin' ], function () {
         Route::get( 'admin/tickets/', 'API\Admin\TicketController@index' )->name( 'api.admin.tickets.index' );
+        Route::get( 'admin/users/', 'API\Admin\UserController@index' )->name( 'api.admin.users.index' );
+
         Route::get( 'users/{name}', 'Admin\UserController@searchAPI' )->name( 'api.users.search' );
         Route::get( 'home/resource/{resource}', 'API\Admin\HomeController@getHomeResource' )->name( 'api.admin.home.resource' );
     } );
