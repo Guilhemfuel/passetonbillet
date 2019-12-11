@@ -17,11 +17,10 @@ class SendTicketNotification extends Notification implements ShouldQueue
     private $ticket;
     private $file;
 
-    public function __construct(User $user, Ticket $ticket, $file)
+    public function __construct(User $user, Ticket $ticket)
     {
         $this->user = $user;
         $this->ticket = $ticket;
-        $this->file = $file;
     }
 
     /**
@@ -43,6 +42,6 @@ class SendTicketNotification extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        return new SendTicketEmail($this->user, $this->ticket, $this->file);
+        return new SendTicketEmail($this->user, $this->ticket);
     }
 }

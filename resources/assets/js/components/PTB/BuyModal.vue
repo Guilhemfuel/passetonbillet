@@ -83,6 +83,10 @@
                                 </button>
                             </div>
 
+                            <div class="charge_included">
+                                {{ trans('tickets.claim.charge_included') }}
+                            </div>
+
                         </div>
                 </div>
 
@@ -146,6 +150,16 @@
                                 </div>
                             </form>
                         </div>
+                </div>
+
+                <div class="px-3">
+                    <div class="col-sm-12 col-md-12 text-center m-auto">
+                        <div class="common_questions">
+                            <a :href="this.route('help.page')">
+                                {{ trans('tickets.claim.common_questions') }}
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </modal>

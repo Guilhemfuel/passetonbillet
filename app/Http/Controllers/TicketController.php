@@ -202,10 +202,8 @@ class TicketController extends Controller
 
         $user = \Auth::user();
 
-        $file = storage_path('app/uploads/' . $ticket->pdf);
-
         //Send email to Purchaser
-        $user->notify((new SendTicketNotification($user, $ticket, $file)));
+        $user->notify((new SendTicketNotification($user, $ticket)));
 
         //Send email to Seller
         $ticket->user->notify(new SendNotifToSellerNotification($ticket->transaction->seller, $ticket));
@@ -233,7 +231,15 @@ class TicketController extends Controller
 
         if ($ticket->user_id === $user->id OR ($ticket->transaction->purchaser_id === $user->id && $ticket->transaction->status === 'SUCCEEDED')) {
             $name = 'PTB Ticket n°' . $ticket->id . ' - ' . $ticket->train->departureCity->name . '-' . $ticket->train->arrivalCity->name . '.pdf';
-            return Storage::download(env('STORAGE_PDF') . '/' . $ticket->pdf, $name);
+
+            $headers = [
+                'Content-Type' => 'application/pdf',
+                'Content-Description' => 'File Transfer',
+                'Content-Disposition' => "attachment; filename={$name}",
+                'filename'=> $name
+            ];
+
+            return \Response::make(Storage::disk('s3')->get(env('STORAGE_PDF') . '/' . $ticket->pdf), 200, $headers);
         }
 
         return redirect()->route('home');
@@ -287,6 +293,7 @@ class TicketController extends Controller
         }
 
         $pdfService->splitPdf($request->page);
+        $pdfService->storeToAws();
 
         //We put additional fees to the price ticket
         $price = ceil(((Transaction::FEES_TICKET_ON_SALE / 100) * $request->price) + $request->price);

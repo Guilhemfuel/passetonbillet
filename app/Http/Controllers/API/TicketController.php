@@ -206,7 +206,10 @@ class TicketController extends Controller
 
         if ($ticket->maxPrice >= $request->price) {
 
-            $ticket->price = $request->price;
+            //Fees on update price ticket
+            $price = ceil(((Transaction::FEES_TICKET_ON_SALE / 100) * $request->price) + $request->price);
+
+            $ticket->price = $price;
             $ticket->save();
 
             return response()->json(['status' => 'success', 'message' => trans('tickets.api.price_updated')]);

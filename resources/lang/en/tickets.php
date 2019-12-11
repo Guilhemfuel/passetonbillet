@@ -411,7 +411,9 @@ return [
 
         'we_answers' => 'Nous répondons à vos questions',
         'read_our_faq' => 'Nous vous invitons à lire nos FAQs qui contiennent les réponses à toutes les questions fréquentes que les acheteurs peuvent se poser',
-        'read_faq' => 'LIRE LES FAQs',
+        'read_faq' => 'READ OUR FAQs',
+        'common_questions' => 'Common questions',
+        'charge_included' => 'Frais de gestion inclus',
 
         'question_1' => 'Avez-vous essayé de scanner le billet en personne?',
         'question_1_more' => 'Êtes-vous la personne qui a essayé de scanner le billet aux bornes automatiques?',
@@ -465,7 +467,7 @@ return [
         'question_2_more' => 'Le billet doit être téléchargé directement depuis le site Eurostar, Thalys, SNCF ou autre.',
     ],
 
-    'update_bank_account' => 'Update payment informations',
+    'update_bank_account' => 'Add my IBAN',
     'bank_account_not_complete' => 'Some informations are missing',
     'bank_account_not_valid' => 'Il semblerait que les informations sont invalide',
     'bank_account_success' => 'Votre compte bancaire est ajouté !',
