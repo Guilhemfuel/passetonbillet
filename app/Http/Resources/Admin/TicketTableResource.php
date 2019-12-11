@@ -17,6 +17,7 @@ class TicketTableResource extends JsonResource
     {
         return [
             'id'             => $this->id,
+            'buyer_name'     => $this->buyer_name,
             'seller_name'    => $this->user->full_name,
             'seller_link'    => route( 'users.edit', $this->user_id ),
             'departure_date' => $this->train->carbon_departure_date->format( 'd/m/Y' ),
@@ -27,6 +28,7 @@ class TicketTableResource extends JsonResource
             'offers_count'   => $this->discussions->count(),
             'status'         => $this->status,
             'provider'       => $this->provider,
+            'provider_code'  => $this->provider_code,
             'edit_link'      => route( 'tickets.edit', [ $this->id ] ),
             'share_link'     => route( 'ticket.unique.page', [ 'ticket_id' => \Hashids::encode( $this->id ) ] ),
         ];

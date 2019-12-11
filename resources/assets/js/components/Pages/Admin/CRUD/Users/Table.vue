@@ -42,6 +42,14 @@
                             sortable: true,
                         },
                         {
+                            name: "Email",
+                            type: "string",
+                            key: "email",
+                            searchable: true,
+                            sortable: true,
+                            hiddenMobile: true,
+                        },
+                        {
                             name: "Status",
                             type: "string",
                             key: "status",

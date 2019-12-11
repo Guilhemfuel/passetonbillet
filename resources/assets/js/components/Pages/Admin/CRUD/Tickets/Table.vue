@@ -41,6 +41,14 @@
                             key: "seller_name",
                         },
                         {
+                            name: "Booking Name",
+                            type: "string",
+                            key: "buyer_name",
+                            searchable: true,
+                            sortable: true,
+                            hiddenMobile: true,
+                        },
+                        {
                             name: "Date",
                             type: "string",
                             key: "departure_date",
@@ -61,6 +69,13 @@
                             hiddenMobile: true,
                         },
                         {
+                            name: "Price",
+                            type: "string",
+                            key: "price",
+                            align: "center",
+                            sortable: false,
+                        },
+                        {
                             name: "Provider",
                             type: "string",
                             key: "provider",
@@ -68,10 +83,12 @@
                             sortable: true,
                         },
                         {
-                            name: "Price",
+                            name: "Code",
                             type: "string",
-                            key: "price",
+                            key: "provider_code",
                             align: "center",
+                            hiddenMobile: true,
+                            searchable: true,
                             sortable: false,
                         },
                         {
