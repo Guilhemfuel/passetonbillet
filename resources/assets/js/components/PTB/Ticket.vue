@@ -88,7 +88,7 @@
                             </button>
 
                             <a class="btn btn-ptb btn-buy btn-sm" v-else
-                               :href="route('public.ticket.owned.page')">{{trans('tickets.component.edit')}}</a>
+                               :href="route('public.ticket.sold.page')">{{trans('tickets.component.edit')}}</a>
                         </template>
                         <!-- Make Offer -->
                         <template v-else-if="!pastTicket && !display
@@ -123,13 +123,6 @@
                                     <button v-else class="btn btn-ptb btn-sm btn-call" @click.prevent="modalCallOpen = true">
                                         <i class="fa fa-phone" aria-hidden="true"></i>
                                         {{trans('tickets.component.call')}}
-                                    </button>
-                                </div>
-                                <div class="col text-center p-0" v-if="!offerDone">
-                                    <button class="btn btn-ptb-white btn-sm text-center btn-contact"
-                                            @click="contactSeller()">
-                                        <i class="fa fa-envelope" aria-hidden="true"></i>
-                                        {{trans('tickets.component.contact')}}
                                     </button>
                                 </div>
                             </div>

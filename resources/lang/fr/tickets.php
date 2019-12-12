@@ -441,7 +441,8 @@ return [
         'end' => 'Conflit créé',
         'end_more' => 'Merci! Nous avons pris en compte vos réponses et nous vous contacterons d’ici peu avec le verdict final.',
 
-        'hours_left' => 'Hours left',
+        'hours_left' => 'heures restante',
+        'days_left' => 'jours restant',
         'claim_limit_reached' => 'Les 48 heures pendant lesquelles vous pouviez signaler un problème sont passées. Le vendeur a reçu votre paiement.',
 
         'api' => [

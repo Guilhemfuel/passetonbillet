@@ -97,6 +97,10 @@
         let status_claim = this.ticket.statusClaim;
 
         if (this.timeLeft > 0) {
+          if (this.timeLeft > 72) {
+            this.timeLeft = Math.round(this.timeLeft / 24);
+            return this.timeLeft + ' ' + this.trans('tickets.claim.days_left');
+          }
           return this.timeLeft + ' ' + this.trans('tickets.claim.hours_left');
         }
 

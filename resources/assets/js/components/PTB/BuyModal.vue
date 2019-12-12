@@ -91,19 +91,21 @@
                 </div>
 
                 <div v-else-if="state == 'show_cards'" class="p-3">
-                        <div class="col-sm-12 col-md-8 text-center m-auto">
+                        <div class="col-sm-12 col-md-12 text-center m-auto">
                             <p class="card-text text-center font-weight-bold">
                                 {{trans('tickets.buy_modal.choose_payment')}}
                             </p>
 
-                            <label v-for="card in userCards" :key="card.Id" class="credit-card" :for="'card-' + card.Id">
+                            <label v-for="card in userCards" :key="card.Id" :class="{highlight:card.Id === selected}" class="credit-card" @click="selected = card.Id" :for="'card-' + card.Id">
+                                <i class="fa fa-cc-visa" aria-hidden="true"></i>
                                 <input type="radio" :id="'card-' + card.Id" name="card" :value="card.Id" @change="formBuy = card.Id">
-                                {{ card.Alias }}
+                                {{ formatedCardNumber(card.Alias) }}
+                                <i class="fa fa-check-circle-o selected-creditcard" aria-hidden="true"></i>
                             </label>
 
                             <div>
                                 <button class="btn-add-payment w-100" @click.prevent="addCardRegistration">
-                                    {{trans('tickets.buy_modal.add_payment')}}
+                                    <i class="fa fa-credit-card" aria-hidden="true"></i> {{trans('tickets.buy_modal.add_payment')}}
                                 </button>
                             </div>
 
@@ -117,7 +119,7 @@
                 </div>
 
                 <div v-else-if="state == 'add_card'" class="p-3">
-                        <div class="col-sm-12 col-md-8 text-center m-auto">
+                        <div class="col-sm-12 col-md-12 text-center m-auto">
                             <p class="card-text text-center font-weight-bold">
                                 {{trans('tickets.buy_modal.add_payment')}}
                             </p>
@@ -126,24 +128,24 @@
                                 <input type="hidden" name="data" :value="formRegistrationCard.data"/>
                                 <input type="hidden" name="accessKeyRef" :value="formRegistrationCard.accessKeyRef"/>
 
-                                <div class="col-12">
+                                <div class="col-12 p-0">
                                     <input type="text" name="cardNumber" value="" v-model="formRegistrationCard.cardNumber" placeholder="NUMÉRO DE LA CARTE"/>
                                     <div class="clear"></div>
                                 </div>
 
-                                <div class="col-6">
+                                <div class="col-6 pl-0">
                                     <input type="text" name="cardExpirationDate"
                                            value="" v-model="formRegistrationCard.cardExpirationDate"
                                            placeholder="MM/AA" maxlength="5"/>
                                     <div class="clear"></div>
                                 </div>
 
-                                <div class="col-6">
+                                <div class="col-6 pr-0">
                                     <input type="text" name="cardCvx" value="" v-model="formRegistrationCard.cardCvx" placeholder="CVC" maxlength="3"/>
                                     <div class="clear"></div>
                                 </div>
 
-                                <div class="col-sm-12 col-md-12">
+                                <div class="col-sm-12 col-md-12 p-0">
                                     <button class="btn btn-ptb btn-upper mt-3 w-100" @click.prevent="saveCardRegistration">
                                         {{trans('tickets.buy_modal.add')}}
                                     </button>
@@ -196,6 +198,7 @@
           idCard: null,
         },
         formBuy: null,
+        selected: undefined,
       }
     },
       watch: {
@@ -294,11 +297,12 @@
         };
 
         //Remove slash from expiration date
-        this.formRegistrationCard.cardExpirationDate = this.formRegistrationCard.cardExpirationDate.split('/').join('');
-        this.formRegistrationCard.cardExpirationDate = this.formRegistrationCard.cardExpirationDate.split('\\').join('');
+        let expirationDate = this.formRegistrationCard.cardExpirationDate;
+        expirationDate = expirationDate.split('/').join('');
+        expirationDate = expirationDate.split('\\').join('');
 
         //Do not try to use JSON.stringify or give the full Object to Mangopay because it doesn't works.
-        let serialize = 'data=' + this.formRegistrationCard.data + '&accessKeyRef=' + this.formRegistrationCard.accessKeyRef + '&cardNumber=' + this.formRegistrationCard.cardNumber + '&cardExpirationDate=' + this.formRegistrationCard.cardExpirationDate + '&cardCvx=' + this.formRegistrationCard.cardCvx;
+        let serialize = 'data=' + this.formRegistrationCard.data + '&accessKeyRef=' + this.formRegistrationCard.accessKeyRef + '&cardNumber=' + this.formRegistrationCard.cardNumber + '&cardExpirationDate=' + expirationDate + '&cardCvx=' + this.formRegistrationCard.cardCvx;
 
         this.$http.post(this.CardRegistrationURL, serialize)
           .then(response => {
@@ -339,6 +343,9 @@
               }
             });
         }
+      },
+      formatedCardNumber(value) {
+        return '••••' + value.slice(-4);
       }
     }
   }
@@ -393,9 +400,14 @@
         background-color: transparent;
         text-align: center;
         color: #4a4a4a;
-        font-size: 16px;
+        font-size: 15px;
         font-weight: bold;
         padding: 10px;
+    }
+
+    .btn-add-payment i {
+        color: #FF9600;
+        margin-right: 5px;
     }
 
     .btn-add-payment:hover {
@@ -404,16 +416,23 @@
     }
 
     .credit-card {
-        display: block;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         margin: 10px 0;
         border-radius: 10px;
         border: solid 1px #dedede;
         background-color: transparent;
         text-align: center;
         color: #4a4a4a;
-        font-size: 16px;
+        font-size: 15px;
         font-weight: bold;
         padding: 10px;
+    }
+
+    .credit-card i {
+        color: #FF9600;
+        margin-right: 5px;
     }
 
     .credit-card:hover {
@@ -423,5 +442,33 @@
 
     .credit-card.selected {
         background-color: #f6f6f7;
+    }
+
+    .credit-card input[type="radio"] {
+        opacity: 0;
+        position: fixed;
+        width: 0;
+    }
+
+    .credit-card input[type="radio"]:checked::after + label {
+        content: '<i class="fa fa-check-circle-o" aria-hidden="true"></i>';
+        color: #1f9d55;
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+    }
+
+    .selected-creditcard {
+        color: #1f9d55!important;
+        opacity: 0;
+        margin-left: 10px;
+    }
+
+    label.highlight {
+        background: #ececec;
+    }
+
+    label.highlight .selected-creditcard {
+        opacity: 1;
     }
 </style>
