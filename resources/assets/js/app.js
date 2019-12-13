@@ -38,6 +38,7 @@ Vue.component( 'input-textarea-basic', require(/* webpackChunkName: "input-texta
 Vue.component( 'input-select', require(/* webpackChunkName: "input-select" */ './components/Forms/input-select.vue').default);
 Vue.component( 'input-currency', require(/* webpackChunkName: "input-currency" */ './components/Forms/input-currency.vue').default);
 Vue.component( 'input-date', require(/* webpackChunkName: "input-date" */ './components/Forms/input-date.vue').default);
+Vue.component('input-date-admin', require('./components/Forms/input-date-admin.vue').default);
 Vue.component( 'input-time', require(/* webpackChunkName: "input-time" */ './components/Forms/input-time.vue').default);
 Vue.component( 'input-country', require(/* webpackChunkName: "input-country" */ './components/Forms/input-country.vue').default);
 Vue.component( 'input-image', require(/* webpackChunkName: "input-image" */ './components/Forms/input-image.vue').default);

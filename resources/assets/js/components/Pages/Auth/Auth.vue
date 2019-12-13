@@ -121,14 +121,14 @@
                             </div>
                         </div>
 
-                        <input-date
+                        <input-date-admin
                                     name="birthdate"
                                     class-name="col-xs-12"
                                     :label="trans('auth.register.birthdate')"
                                     placeholder="DD/MM/YYYY"
                                     format="dd/MM/yyyy"
                                     value-format="dd/MM/yyyy"
-                                    default-value-format="DD/MM/YYYY"></input-date>
+                                    default-value-format="DD/MM/YYYY"></input-date-admin>
 
                         <input-text name="email"
                                     type="email"

@@ -219,6 +219,10 @@ class OutputEmails extends Command
     private function renderEmailVerificationEmail()
     {
         $user = User::first();
+        if (!$user->email_token) {
+            $user->email_token = str_random(20);
+            $user->save();
+        }
 
         $email = new EmailVerification( $user );
 
