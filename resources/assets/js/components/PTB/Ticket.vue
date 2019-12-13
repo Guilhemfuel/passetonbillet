@@ -138,7 +138,10 @@
                         <span>
                             <template v-if="ticket.offerPrice && ticket.offerPrice!=ticket.price">
                                 <span class="old-price">{{ticket.currency_symbol}}{{ticket.price}}</span>
-                                <span class="offer-price text-center">{{ticket.currency_symbol}}{{ Math.round(ticket.offerPrice * 1.1) }}</span>
+                                <span class="offer-price text-center">{{ticket.currency_symbol}}{{ ticket.offerPrice }} test</span>
+                            </template>
+                            <template v-else-if="ticket.sellPrice">
+                                <span class="text-center"></span> {{ticket.currency_symbol}}{{ ticket.sellPrice }}
                             </template>
                             <template v-else>
                             <span class="text-center"></span> {{ticket.currency_symbol}}{{ Math.round(ticket.price * 1.1) }}

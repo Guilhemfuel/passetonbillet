@@ -135,7 +135,7 @@ class TicketController extends Controller
             'CreditedWalletId' => $transaction->wallet_id,
             'AuthorId' => $user->mangopay_id,
             'Currency' => $ticket->bought_currency,
-            'Amount' => $ticket->price,
+            'Amount' => $ticket->sellPrice,
             'CurrencyFees' => $ticket->bought_currency,
             'AmountFees' => 1,
             'CardId' => $request->idCard,
@@ -295,11 +295,8 @@ class TicketController extends Controller
         $pdfService->splitPdf($request->page);
         $pdfService->storeToAws();
 
-        //We put additional fees to the price ticket
-        $price = ceil(((Transaction::FEES_TICKET_ON_SALE / 100) * $request->price) + $request->price);
-
         $ticket->user_id = \Auth::id();
-        $ticket->price = $price;
+        $ticket->price = $request->price;
         $ticket->currency = $ticket->bought_currency;
         $ticket->user_notes = $request->notes;
         $ticket->pdf = $pdf;

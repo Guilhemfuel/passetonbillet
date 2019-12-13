@@ -79,7 +79,7 @@
 
                             <div v-if="this.ticket.hasPdf">
                                 <button class="btn btn-ptb btn-upper text-uppercase mt-3 w-100" @click.prevent="getAllCards">
-                                    {{trans('tickets.component.buy')}} {{ ticket.price }}{{ ticket.currency_symbol }}
+                                    {{trans('tickets.component.buy')}} {{ ticket.sellPrice }}{{ ticket.currency_symbol }}
                                 </button>
                             </div>
 
@@ -112,7 +112,7 @@
                             <div v-if="typeof userCards === 'object' && userCards[0]">
                                 <button class="btn btn-ptb btn-upper text-uppercase mt-3 w-100"
                                         @click.prevent="buy">
-                                    {{trans('tickets.component.buy')}} {{ ticket.price }}{{ ticket.currency_symbol }}
+                                    {{trans('tickets.component.buy')}} {{ ticket.sellPrice }}{{ ticket.currency_symbol }}
                                 </button>
                             </div>
                         </div>

@@ -23,6 +23,7 @@ class TicketRessource extends Resource
             'user'                   => $this->user_id ? new UserRessource( $this->user ) : null,
             'train'                  => new TrainRessource( $this->train ),
             'price'                  => $this->price,
+            'sellPrice'              => $this->sell_price,
             'currency'               => $this->currency,
             'currency_symbol'        => $this->currency_symbol,
             'flexibility'            => $this->flexibility,

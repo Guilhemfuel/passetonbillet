@@ -337,7 +337,7 @@ class MangoPayService
         }
     }
 
-    public function createPayOut($bankAccount, $user, $wallet, $fees) {
+    public function createPayOut($bankAccount, $user, $wallet, $fees, $amount) {
         try {
             $PayOut = new MangoPay\PayOut();
             $PayOut->AuthorId = $user;
@@ -349,7 +349,7 @@ class MangoPayService
 
             $PayOut->Fees = new MangoPay\Money();
             $PayOut->Fees->Currency = self::EUR_CURRENCY;
-            $PayOut->Fees->Amount = $this->calculateFees($fees, $wallet->Balance->Amount);
+            $PayOut->Fees->Amount = $this->calculateFees($fees, $amount);
 
             $PayOut->PaymentType = "BANK_WIRE";
             $PayOut->MeanOfPaymentDetails = new MangoPay\PayOutPaymentDetailsBankWire();

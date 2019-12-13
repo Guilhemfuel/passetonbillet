@@ -182,7 +182,7 @@ class MakeTransfers extends Command
                         $this->kycNotVerified($Transaction);
                     }
 
-                    $this->makePayOut($bankAccount, $Transaction, $wallet, Transaction::FEES_SELLER);
+                    $this->makePayOut($bankAccount, $Transaction, $wallet, Transaction::FEES_SELLER, $Transaction->ticket->price);
                     $Transaction->save();
                 }
             }
@@ -249,7 +249,7 @@ class MakeTransfers extends Command
         }
 
         $wallet = $mangoPay->getWallet($Transaction->wallet_id);
-        $this->makePayOut($bankAccount, $Transaction, $wallet, Transaction::FEES_SELLER);
+        $this->makePayOut($bankAccount, $Transaction, $wallet, Transaction::FEES_SELLER, $Transaction->ticket->sellPrice);
     }
 
     private function claimEquality($Transaction) {
@@ -289,7 +289,7 @@ class MakeTransfers extends Command
             return;
         }
 
-        $this->makePayOut($bankAccount, $Transaction, $wallet, Transaction::FEES_EQUALITY);
+        $this->makePayOut($bankAccount, $Transaction, $wallet, Transaction::FEES_EQUALITY, $Transaction->ticket->sellPrice);
     }
 
     private function kycNotVerified($Transaction) {
@@ -305,8 +305,8 @@ class MakeTransfers extends Command
         $Transaction->seller->notify((new AddBankAccountNotification($Transaction->seller)));
     }
 
-    private function makePayOut($bankAccount, $Transaction, $wallet, $fees) {
-        $payOut = $this->mangoPay->createPayOut($bankAccount, $Transaction->seller->mangopay_id, $wallet, $fees);
+    private function makePayOut($bankAccount, $Transaction, $wallet, $fees, $amount) {
+        $payOut = $this->mangoPay->createPayOut($bankAccount, $Transaction->seller->mangopay_id, $wallet, $fees, $amount);
         //Update transaction Payout
         if (isset($payOut->Status)) {
             $Transaction->status_payout = $payOut->Status;
