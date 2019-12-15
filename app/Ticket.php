@@ -258,6 +258,9 @@ class Ticket extends AbstractTicket
 
     public function getDiscussionSoldAttribute()
     {
+        if (!$this->sold || $this->buyer == null){
+            return null;
+        }
         return $this->discussions()->where( 'buyer_id', $this->buyer->id )->first();
     }
 

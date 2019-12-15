@@ -38,18 +38,12 @@ Vue.component( 'input-textarea-basic', require(/* webpackChunkName: "input-texta
 Vue.component( 'input-select', require(/* webpackChunkName: "input-select" */ './components/Forms/input-select.vue').default);
 Vue.component( 'input-currency', require(/* webpackChunkName: "input-currency" */ './components/Forms/input-currency.vue').default);
 Vue.component( 'input-date', require(/* webpackChunkName: "input-date" */ './components/Forms/input-date.vue').default);
+Vue.component('input-date-admin', require('./components/Forms/input-date-admin.vue').default);
 Vue.component( 'input-time', require(/* webpackChunkName: "input-time" */ './components/Forms/input-time.vue').default);
 Vue.component( 'input-country', require(/* webpackChunkName: "input-country" */ './components/Forms/input-country.vue').default);
 Vue.component( 'input-image', require(/* webpackChunkName: "input-image" */ './components/Forms/input-image.vue').default);
 Vue.component( 'input-station', require(/* webpackChunkName: "input-station" */ './components/Forms/input-station.vue').default);
 Vue.component( 'vue-form', require(/* webpackChunkName: "vue-form" */ './components/Forms/vue-form.vue').default);
-
-
-/**
- * Table components
- */
-Vue.component( 'smart-table', require(/* webpackChunkName: "smart-table" */ './components/Tables/smart-table.vue').default);
-
 
 /**
  * Shared components
@@ -66,7 +60,6 @@ Vue.component( 'dropdown-menu', require(/* webpackChunkName: "dropdown-menu" */ 
  * PTB specific components
  */
 
-Vue.component( 'reviews', require(/* webpackChunkName: "reviews" */ './components/PTB/Review.vue').default);
 Vue.component( 'notifications', require(/* webpackChunkName: "notifications" */ './components/PTB/Notifications.vue').default);
 Vue.component( 'settings', require(/* webpackChunkName: "settings" */ './components/PTB/Settings.vue').default);
 Vue.component( 'ticket', require(/* webpackChunkName: "ticket" */ './components/PTB/Ticket.vue').default);
@@ -105,6 +98,7 @@ Vue.component( 'claim-modal-seller', require(/* webpackChunkName: "claim-modal-s
 Vue.component( 'bank-account-modal', require(/* webpackChunkName: "bank-account-modal" */ './components/Pages/Tickets/components/BankAccountModal.vue').default);
 
 Vue.component( 'home-search', require(/* webpackChunkName: "home-search" */ './components/Pages/Welcome/HomeSearch.vue').default);
+Vue.component( 'reviews', require(/* webpackChunkName: "reviews" */ './components/Pages/Welcome/Reviews.vue').default);
 Vue.component( 'recent-tickets', require(/* webpackChunkName: "recent-tickets" */ './components/Pages/Welcome/RecentTickets.vue').default);
 Vue.component( 'home-buyer-seller-info', require(/* webpackChunkName: "home-buyer-seller-info" */ './components/Pages/Welcome/BuyerSellerInfo.vue').default);
 Vue.component( 'my-alerts', require(/* webpackChunkName: "my-alerts" */ './components/Pages/Alerts/Alerts.vue').default);

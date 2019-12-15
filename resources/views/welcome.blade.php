@@ -175,45 +175,7 @@
                 </div>
             </div>
 
-            <div class="section-feedback" id="section-feedback">
-                <h2 class="text-center text-warning title">{{__('welcome.feedback.title')}}</h2>
-                <div class="container-fluid">
-                    <div class="row px-5">
-
-                        @foreach ($reviews as $review)
-                            <div class="px-2 col-12 col-sm-6 col-md-4 mt-4">
-                                <div class="card card-review ">
-                                    <div class="card-body">
-                                        <img
-                                                is-lazy="true"
-                                                v-lazy="'{{ $review->user->picture  }}'" class="picture"
-                                             alt="user profile picture"/>
-
-                                        <!-- <p class="date">
-                                            {{ $review->created_at }}
-                                        </p> -->
-
-                                        <h4 class="first-name">
-                                            {{ $review->user->first_name }}
-                                        </h4>
-                                        <el-rate
-                                                :value="5"
-                                                disabled
-                                                text-color="#FF9600"
-                                        >
-                                        </el-rate>
-                                        <p class="comment">
-                                            {{ $review->text }}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-
-                    </div>
-                </div>
-                <reviews></reviews>
-            </div>
+            <reviews></reviews>
 
             <home-buyer-seller-info></home-buyer-seller-info>
 

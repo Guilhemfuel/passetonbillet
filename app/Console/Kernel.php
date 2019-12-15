@@ -45,6 +45,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('telescope:prune')->daily();
         $schedule->command('ptb:generate-sitemap')->daily();
         $schedule->command('ptb:daily-stats')->daily();
+        $schedule->command('ptb:accept-ids')->hourly();
 
         $schedule->command(Commands\CleanAll::class)
                  ->dailyAt('3:00')

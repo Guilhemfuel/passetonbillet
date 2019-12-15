@@ -8,16 +8,21 @@
 
 require('./app');
 
+/**
+ * Table components
+ */
+Vue.component( 'smart-table', require(/* webpackChunkName: "smart-table" */ './components/Tables/smart-table.vue').default);
+
 // CRUD Tables
 Vue.component('tickets-table', require('./components/Pages/Admin/CRUD/Tickets/Table.vue').default);
 Vue.component('claims-table', require('./components/Pages/Admin/CRUD/Claims/Table.vue').default);
+Vue.component('users-table', require('./components/Pages/Admin/CRUD/Users/Table.vue').default);
 Vue.component('pretty-json', require('./components/Shared/Json.vue').default);
 
 // Charts
 Vue.component('line-chart', require('./components/Charts/line-chart.vue').default);
 Vue.component('doughnut-chart', require('./components/Charts/doughnut-chart.vue').default);
 Vue.component('input-date-admin', require('./components/Forms/input-date-admin.vue').default);
-
 
 // Pages
 Vue.component('stats', require('./components/Pages/Admin/unique/stats.vue').default);

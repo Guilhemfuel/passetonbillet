@@ -97,10 +97,6 @@ Route::get( '/about', 'PageController@about' )->name( 'about.page' );
 // Help Page
 Route::get( '/help', 'PageController@help' )->name( 'help.page' );
 
-// Contact page
-Route::get( '/contact', 'PageController@contact' )->name( 'contact.page' );
-Route::post( '/contact', 'HelpController@contact' )->name( 'contact' );
-
 /**
  * Connected user routes (auth middleware)
  */
@@ -215,6 +211,7 @@ Route::blacklist( function () {
             Route::get( '/verify/{id}', 'Admin\UserController@verifyUser' )->name( 'users.verify' );
             Route::get( '/impersonate/{id}', 'Admin\UserController@impersonate' )->name( 'users.impersonate' );
             Route::get( '/ban/{id}', 'Admin\UserController@banUser' )->name( 'users.ban' );
+            Route::get( '/unban/{id}', 'Admin\UserController@unbanUser' )->name( 'users.unban' );
         } );
 
         Route::resource( 'tickets', 'Admin\TicketController' );
@@ -303,11 +300,13 @@ Route::group( [ 'prefix' => 'api' ], function () {
     Route::get( 'stations/{id}', 'StationController@show' )->name( 'api.stations.show' );
     Route::get( 'tickets/{ticket}/phone-number/{country}', 'API\TicketController@getPaidPhoneNumber' )->name( 'api.tickets.phone_number' );
 
-
     /**
      * Admin API
      */
     Route::group( [ 'middleware' => 'auth.admin' ], function () {
+        Route::get( 'admin/tickets/', 'API\Admin\TicketController@index' )->name( 'api.admin.tickets.index' );
+        Route::get( 'admin/users/', 'API\Admin\UserController@index' )->name( 'api.admin.users.index' );
+
         Route::get( 'users/{name}', 'Admin\UserController@searchAPI' )->name( 'api.users.search' );
         Route::get( 'home/resource/{resource}', 'API\Admin\HomeController@getHomeResource' )->name( 'api.admin.home.resource' );
     } );

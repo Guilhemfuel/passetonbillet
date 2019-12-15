@@ -382,17 +382,18 @@
 
       .card-blog-post {
         height: 100%;
-        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
 
         .card-body {
           padding: 0px;
-          border-bottom: 3px solid;
-          border-color: $color-neon;
+          border: 0px;
 
           .image-container {
             height: 220px;
             padding: 10px;
             width: 100%;
+            border-radius: 10px 10px 0px 0px;
 
             border-bottom: none;
 
@@ -416,6 +417,8 @@
 
           .card-footer {
             background: $color-white;
+            border-radius: 0px 0px 10px 10px;
+            border: 0px;
 
             .post-title {
               text-align: center;
@@ -574,46 +577,72 @@
     padding-top: 50px;
     padding-bottom: 50px;
 
-    .card-review {
-      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
-      padding: 0px;
-      text-align: center;
-      height: 100%;
+    .placeholder {
+      background-color: white;
+      border-radius: 10px;
+      height: 200px;
+      padding-top: 80px;
+      box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
 
-      .card-body {
-        position: relative;
-        border-color: $color-neon;
-
-        .picture {
-          border-radius: 70px;
-          width: 70px;
-          height: 70px;
-          border: 3px solid white;
-          margin-top: -50px;
-          margin-bottom: 6px;
-          box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .comment {
-          margin-bottom: 0px;
-          margin-top: 10px;
-        }
-
-        .first-name {
-          font-weight: bold;
-          font-size: 20px;
-          margin-top: 9px;
-        }
-
-        .date {
-          color: #50E3C2;
-          position: absolute;
-          right: 10px;
-          top: 5px;
-          font-size: 14px;
-          font-weight: bold;
+      .spinner {
+        .double-bounce1, .double-bounce2 {
+          background-color: rgba(255, 150, 0, 0.25);
         }
       }
+    }
+
+    .card-review {
+      box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+      padding: 0px;
+      height: 100%;
+      border: none;
+      position: relative;
+      border-radius: 10px;
+
+      .card-body {
+        border: none;
+        padding: 20px;
+        padding-bottom: 0px;
+      }
+
+      .card-footer {
+        padding: 20px;
+        border: none;
+        background-color: $color-white;
+        border-radius: 0px 10px 10px;
+      }
+
+      .rate {
+        .el-icon-star-on:before {
+          font-size: 22px;
+          color: $color-orange;
+        }
+      }
+
+      .picture {
+        border-radius: 50px;
+        width: 50px;
+        height: 50px;
+      }
+
+      .comment {
+        margin-bottom: 0px;
+        margin-top: 10px;
+        font-weight: 600;
+      }
+
+      .name {
+        font-weight: 600;
+        margin-bottom: 0px;
+        margin-top: 14px;
+      }
+
+      .first-name {
+        font-weight: bold;
+        font-size: 20px;
+        margin-top: 9px;
+      }
+
     }
   }
 

@@ -219,13 +219,13 @@
         $crisp.push(["set", "user:email", "{{Auth::user()->email}}"])
         $crisp.push(["set", "user:nickname", "{{Auth::user()->first_name.' '.Auth::user()->last_name}}"])
         $crisp.push(["set", "user:avatar", "{{Auth::user()->picture}}"])
+        $crisp.push(["set", "session:data", ["user_id", {{Auth::id()}}]]);
 
         {{-- Set user ID --}}
         amplitude.getInstance().setUserId({{Auth::id()}});
         {{-- Give additional info --}}
         var identify = new amplitude.Identify().setOnce('email', '{{Auth::user()->email}}').setOnce('created_at', '{{Auth::user()->created_at->toIso8601String()}}');
         amplitude.getInstance().identify(identify);
-
     </script>
 @endif
 
@@ -284,12 +284,18 @@
                     logEvent: function (eventName, properties={}, event=null) {
                         // Check if event exists
                         if (!this.amplitudeEventTypes.includes(eventName)) {
-                                throw eventName + " is not a registered amplitude events.";
+                            throw eventName + " is not a registered amplitude events.";
                         }
 
-                        // Log event
+                        // Log event to both amplitude et crisp
                         window.amplitude.getInstance().logEvent(eventName, properties);
-
+                        // For Crisp, replcae null values
+                        Object.keys(properties).forEach(function(key) {
+                            if(properties[key] === null) {
+                                properties[key] = '-';
+                            }
+                        })
+                        window.$crisp.push(["set", "session:event", [[[eventName, properties]]]])
                         // If event is specified, and element is link, follow link after tracking is done
                         if (event && event.target.tagName.toLowerCase() == 'a') {
                             let location = event.target.getAttribute("href");

@@ -38,20 +38,7 @@ class TicketController extends BaseController
     public function index( Request $request )
     {
 
-        $entities = $this->model::join( 'trains', 'tickets.train_id', '=', 'trains.id' )
-                                ->join( 'stations', 'trains.departure_city', '=', 'stations.id' )
-                                ->with( $this->model::$relationships )
-                                ->orderBy( 'sold_to_id', 'desc' )
-                                ->orderBy( 'trains.departure_date' )
-                                ->where('trains.departure_date','>',Carbon::now()->addWeek(-1))
-                                ->orderBy( 'stations.name_en' )
-                                ->select( 'tickets.*', 'trains.departure_city', 'trains.departure_date', 'stations.name_en' )
-                                ->withScams()
-                                ->get();
-
-
         $data = [
-            'entities' => TicketTableResource::collection( $entities ),
             'searchable' => $this->searchable,
             'creatable' => $this->creatable
         ];

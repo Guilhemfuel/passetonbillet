@@ -49,14 +49,16 @@ class AppHelper
             return Statistic::create( [
                 'user_id' => \Auth::user()->id,
                 'action'  => $action,
-                'data'    => json_encode( $data )
+                'data'    => json_encode( $data ),
+                'ip'      => request()->ip()
             ] );
         } else {
             if ( $user ) {
                 return Statistic::create( [
                     'user_id' => $user->id,
                     'action'  => $action,
-                    'data'    => json_encode( $data )
+                    'data'    => json_encode( $data ),
+                    'ip'      => request()->ip()
                 ] );
             } else {
                 return Statistic::create( [ 'data' => json_encode( $data ), 'action' => $action ] );

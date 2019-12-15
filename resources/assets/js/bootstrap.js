@@ -196,3 +196,10 @@ import Cleave from 'vue-cleave-component';
 
 Vue.use(Cleave);
 Vue.use(VueLazyload);
+
+/**
+ * Finally we load extensions (plug-ins, mixins...)
+ */
+require('./extension');
+
+

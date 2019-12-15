@@ -9,7 +9,7 @@
                :id="name"
                v-model="date"
                @change="emitChange"
-               @input="emitInput"
+               @input="onInput"
                :placeholder="placeholder"
                @focus="$emit('focus');"
                @blur="emitBlur"
@@ -73,46 +73,36 @@
             }
         },
         methods: {
+            onInput() {
+                // On input add slash and limit to 10 chars
+                let value = this.date;
+
+                var numChars = value.length;
+
+                if (numChars>10) {
+                    value = this.date.slice(0,10);
+                }
+
+                if(numChars === 2 || numChars === 5){
+                    value += '/';
+                } else {
+                    if (!"0123456789\\".includes(value.slice(-1))) {
+                        value = this.date.slice(0,numChars - 1);
+                    }
+                }
+
+                this.date = value;
+
+                this.emitInput();
+
+            },
             cleanValue () {
                 let value = this.date;
                 // Emit change but change value before hand
 
                 let moment = this.$moment(value, 'DD/MM/YYYY',true);
-                // Starting by checking if is valid date
                 if (!moment.isValid() ) {
-                    if (/^\d+$/.test(value)) {
-                        if (value.length == 6) {
-                            // Add slash and year
-                            let fragments = value.match(/.{1,2}/g);
-
-                            let year = parseInt(fragments[2]);
-                            let currentYear = new Date().getFullYear() % 100;
-
-                            if (year <= currentYear) {
-                                if (year<10) {
-                                    year = '0' + year;
-                                }
-
-                                this.date = fragments[0] + '/' + fragments[1] + '/20' + year;
-                            } else {
-                                if (year<10) {
-                                    year = '0' + year;
-                                }
-
-                                this.date = fragments[0] + '/' + fragments[1] + '/19' + year;
-                            }
-
-                        } else if (value.length == 8) {
-                            // Add year
-                            let temp = this.date.slice();
-                            this.date = temp.slice(0,2) + '/' + temp[2] + temp[3] + '/' + temp[4] + temp[5] + temp[6] + temp[7]
-                        }
-                        else {
-                            this.date = null;
-                        }
-                    } else {
-                        this.date = null;
-                    }
+                    this.date = null;
                 }
             },
             emitBlur(value) {

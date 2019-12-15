@@ -49,9 +49,9 @@ class Thalys extends TrainConnector
 
                 $this->client = new Client( [
                     'headers' => [
-                        'Host'         => 'www.thalys.com',
-                        'Connection'   => 'keep-alive',
-                        'Origin'       => 'https://www.thalys.com',
+                        'Host'       => 'www.thalys.com',
+                        'Connection' => 'keep-alive',
+                        'Origin'     => 'https://www.thalys.com',
                     ]
                 ] );
             }
@@ -88,10 +88,12 @@ class Thalys extends TrainConnector
         $url = str_replace( '{name}', $lastName, $this->bookingURL );
         $url = str_replace( '{pnr}', $referenceNumber, $url );
 
-        $response = $this->client->request( 'GET', $url);
+        $response = $this->client->request( 'GET', $url );
         $bookings = json_decode( (string) $response->getBody(), true );
 
-        if (!$bookings) {
+        $tickets = [];
+
+        if ( ! $bookings ) {
             return null;
         }
 
@@ -99,8 +101,8 @@ class Thalys extends TrainConnector
             try {
                 $ticket = $this->createTrainAndReturnTicket( $booking, $lastName, $referenceNumber, $past );
                 $tickets[] = $ticket;
-            } catch (\Exception $error) {
-                \Log::info("Thalys retrieval failed with booking code ${referenceNumber} and last name ${lastName}. Error: ".$error->getMessage());
+            } catch ( \Exception $error ) {
+                \Log::info( "Thalys retrieval failed with booking code ${referenceNumber} and last name ${lastName}. Error: " . $error->getMessage() );
                 continue;
             }
         }
@@ -111,7 +113,7 @@ class Thalys extends TrainConnector
     /**
      * Given the information, create train and tickets
      */
-    public function createTrainAndReturnTicket( $data, $lastName, $referenceNumber, $past)
+    public function createTrainAndReturnTicket( $data, $lastName, $referenceNumber, $past )
     {
 
         $trainNumber = $data['TrainNumber'];
@@ -128,14 +130,14 @@ class Thalys extends TrainConnector
         $trainArrivalStation = Station::where( 'sncf_id', $data['DestinationStation'] )->first();
 
         if ( $trainDepartureStation == null ) {
-            throw new PasseTonBilletException( 'Departure station with code ' .$data['OriginStation'] . ' not found.' );
+            throw new PasseTonBilletException( 'Departure station with code ' . $data['OriginStation'] . ' not found.' );
         }
         if ( $trainArrivalStation == null ) {
             throw new PasseTonBilletException( 'Arrival station with code ' . $data['DestinationStation'] . ' not found.' );
         }
 
         // You can sell ticket max two hours before train!
-        if ( $past || ( ( new \DateTime( substr($trainDepartureDate,0,10 ). ' ' . $trainDepartureTime ) )
+        if ( $past || ( ( new \DateTime( substr( $trainDepartureDate, 0, 10 ) . ' ' . $trainDepartureTime ) )
                             ->modify( '-2 hour' ) >= new \DateTime() ) ) {
 
             // We don't consider past tickets
@@ -159,11 +161,11 @@ class Thalys extends TrainConnector
 
             // Find price or fail
             $boughtPrice = null;
-            if (isset($data['TicketInfos']['Amount'])) {
+            if ( isset( $data['TicketInfos']['Amount'] ) ) {
                 $boughtPrice = $data['TicketInfos']['Amount'];
-            } elseif( isset($data['TicketInfos']['Transactions'])) {
-                foreach ($data['TicketInfos']['Transactions'] as $transaction) {
-                    if ($transaction['TransactionType'] == 'Sold') {
+            } elseif ( isset( $data['TicketInfos']['Transactions'] ) ) {
+                foreach ( $data['TicketInfos']['Transactions'] as $transaction ) {
+                    if ( $transaction['TransactionType'] == 'Sold' ) {
                         $boughtPrice = $transaction['Amount'];
                         break;
                     }
@@ -171,7 +173,7 @@ class Thalys extends TrainConnector
 
             }
 
-            if (!$boughtPrice) {
+            if ( ! $boughtPrice ) {
                 return null;
             }
 
@@ -185,7 +187,7 @@ class Thalys extends TrainConnector
             $ticket->class = $class;
             $ticket->bought_price = intval( $boughtPrice );
             $ticket->bought_currency = 'EUR';
-            $ticket->inbound = $data['Direction'] == 'I';
+            $ticket->inbound = isset( $data['Direction'] ) ? $data['Direction'] == 'I' : false;
             $ticket->buyer_name = $lastName;
             $ticket->provider = self::PROVIDER;
             $ticket->provider_code = $referenceNumber;

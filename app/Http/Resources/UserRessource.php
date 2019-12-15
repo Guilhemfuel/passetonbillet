@@ -56,6 +56,7 @@ class UserRessource extends Resource
             'fb_connect'           => $this->fb_connect,
             'location'             => $this->location,
             'picture'              => $this->picture,
+            'status'               => $this->when( \Auth::check() && ( \Auth::user()->isAdmin() || $this->id == \Auth::id() ), $this->role ),
             'email'                => $this->when( \Auth::check() && ( \Auth::user()->isAdmin() || $this->id == \Auth::id() ), $this->email ),
             'language'             => $this->language,
             'verified'             => $this->id_verified,

@@ -15,13 +15,13 @@
 @import "variables";
 @import "overrides";
 
+// Bootstrap
+@import "~bootstrap/scss/bootstrap.scss";
+
 // Custom
 @import "admin/table";
 @import "admin/dashboard";
 @import "admin/unique";
-
-// Bootstrap
-@import "~bootstrap/scss/bootstrap.scss";
 
 // Animate Sass
 @import "~animatewithsass"; //TODO:delete this one

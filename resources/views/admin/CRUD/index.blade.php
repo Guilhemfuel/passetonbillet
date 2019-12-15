@@ -15,7 +15,7 @@
                 {!!isset($search)?'<a href='.route($model.'.index').'>Cancel search</a>':''!!}
             </div>
 
-            <div class="card-body">
+            <div class="card-body py-0">
                 <div class="crud-actions">
                     @if($creatable)
                         <a href="{{route($model.'.create')}}" class="btn btn-success btn-fill btn-sm"><i
@@ -62,7 +62,7 @@
                     </div>
                 @endif
 
-                <div class="table-responsive table-full-width">
+                <div class="table-full-width">
                     @include('admin.CRUD.'. $model .'.table')
                 </div>
 
