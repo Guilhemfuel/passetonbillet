@@ -85,10 +85,6 @@ Route::get( '/about', 'PageController@about' )->name( 'about.page' );
 // Help Page
 Route::get( '/help', 'PageController@help' )->name( 'help.page' );
 
-// Contact page
-Route::get( '/contact', 'PageController@contact' )->name( 'contact.page' );
-Route::post( '/contact', 'HelpController@contact' )->name( 'contact' );
-
 /**
  * Connected user routes (auth middleware)
  */

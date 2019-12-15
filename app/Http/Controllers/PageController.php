@@ -290,14 +290,6 @@ class PageController extends Controller
      */
 
     /**
-     * Display the contact page
-     */
-    public function contact()
-    {
-        return view( 'help.contact' );
-    }
-
-    /**
      * Display the about page
      */
     public function about()

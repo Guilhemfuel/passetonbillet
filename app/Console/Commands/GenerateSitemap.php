@@ -25,7 +25,6 @@ class GenerateSitemap extends Command
         ['privacy.page',0.6],
         ['about.page',0.6],
         ['help.page',0.6],
-        ['contact.page',0.6],
         ['robot',0.6]
     ];
 
