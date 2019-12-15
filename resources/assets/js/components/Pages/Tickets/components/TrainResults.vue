@@ -1,4 +1,4 @@
-<template>
+ <template>
     <div class="train-results px-4 px-sm-0">
         <div class="train-tickets">
 

@@ -438,77 +438,52 @@ class TicketController extends Controller
     {
         // Local testing
         if ( \App::environment() != 'prod' && $request->last_name == 'ptb' ) {
-            $ticket = factory( Ticket::class )->state( 'new' )->make();
+            $tickets = collect($this->fakeTickets($request));
+            session( [ 'tickets' => $tickets ] );
 
-            switch ( $request->booking_code ) {
-                case 'sncfff':
-                case 'sncffff':
-                    $ticket->provider = 'sncf';
-                    break;
-                case 'eurosta':
-                case 'eurost':
-                    $ticket->provider = 'eurostar';
-                    break;
-                case 'thalys':
-                case 'thalyss':
-                    $ticket->provider = 'thalys';
-                    break;
-                case 'izyyyy':
-                case 'izyyyyy':
-                    $ticket->provider = 'izy';
-                    break;
-                case 'ouigooo':
-                case 'ouigoo':
-                    $ticket->provider = 'ouigo';
-                    break;
-                default:
-                    throw new \Exception( 'Debug booking code ' . $request->booking_code . ' does not
-                    correspond to a valid provider.' );
-            }
-            $tickets = [$ticket];
-        } else {
+            return TicketRessource::collection( $tickets );
+        }
 
-            // List of connectors and their Facades
-            $connectors = [
-                \App\Trains\Ouigo::class    => Ouigo::class,
-                \App\Trains\Izy::class      => Izy::class,
-                \App\Trains\Eurostar::class => Eurostar::class,
-                \App\Trains\Sncf::class     => Sncf::class,
-                \App\Trains\Thalys::class   => Thalys::class,
-            ];
+        // List of connectors and their Facades
+        $connectors = [
+            \App\Trains\Ouigo::class    => Ouigo::class,
+            \App\Trains\Izy::class      => Izy::class,
+            \App\Trains\Eurostar::class => Eurostar::class,
+            \App\Trains\Sncf::class     => Sncf::class,
+            \App\Trains\Thalys::class   => Thalys::class,
+        ];
 
-            $tickets = null;
-            $errors = []; // For debug purposes only
+        $tickets = null;
+        $errors = []; // For debug purposes only
 
-            // Try each connector until you find a correct result
-            foreach ( $connectors as $connector => $facade ) {
+        // Try each connector until you find a correct result
+        foreach ( $connectors as $connector => $facade ) {
 
-                // Only search for classic providers (with name) if email not specified
-                if ( ( $request->email == '' || is_null( $request->email ) )
-                     && ! in_array( $connector::PROVIDER, TrainConnector::CLASSIC_PROVIDERS ) ) {
-                    continue;
-                }
-
-                // Query tickets for provider
-                try {
-                    $tickets = $facade::retrieveTicket( $request->email, $request->last_name, $request->booking_code );
-                    break;
-                } catch ( PasseTonBilletException $e ) {
-                    $errors[] = [
-                        'message' => $e->getMessage(),
-                        'trace'   => $e->getFile() . ' line: ' . $e->getLine()
-                    ];
-                    continue;
-                }
+            // Only search for classic providers (with name) if email not specified
+            if ( ( $request->email == '' || is_null( $request->email ) )
+                 && ! in_array( $connector::PROVIDER, TrainConnector::CLASSIC_PROVIDERS ) ) {
+                continue;
             }
 
-            // Return Debug infos
-            if ( \App::environment() == 'local' && count( $errors ) > 0 && $tickets == null ) {
-                return response( [
-                    'message' => 'Multiple errors found.',
-                    'errors'  => $errors
-                ], 400 );
+            // Query tickets for provider
+            try {
+                $tickets = $facade::retrieveTicket( $request->email, $request->last_name, $request->booking_code );
+                break;
+            } catch ( PasseTonBilletException $e ) {
+                $errors[] = [
+                    'message' => $e->getMessage(),
+                    'trace'   => $e->getFile() . ' line: ' . $e->getLine()
+                ];
+                continue;
             }
+        }
+
+        // Return Debug infos
+        if ( \App::environment() == 'local' && count( $errors ) > 0 && $tickets == null ) {
+            return response( [
+                'message' => 'Multiple errors found.',
+                'errors'  => $errors
+            ], 400 );
         }
 
         $tickets = collect( $tickets );
@@ -527,6 +502,37 @@ class TicketController extends Controller
         session( [ 'tickets' => $tickets ] );
 
         return TicketRessource::collection( $tickets );
+    }
+
+    private function fakeTickets(Request $request) {
+        $ticket = factory( Ticket::class )->state( 'new' )->make();
+
+        switch ( $request->booking_code ) {
+            case 'sncfff':
+            case 'sncffff':
+                $ticket->provider = 'sncf';
+                break;
+            case 'eurosta':
+            case 'eurost':
+                $ticket->provider = 'eurostar';
+                break;
+            case 'thalys':
+            case 'thalyss':
+                $ticket->provider = 'thalys';
+                break;
+            case 'izyyyy':
+            case 'izyyyyy':
+                $ticket->provider = 'izy';
+                break;
+            case 'ouigooo':
+            case 'ouigoo':
+                $ticket->provider = 'ouigo';
+                break;
+            default:
+                throw new \Exception( 'Debug booking code ' . $request->booking_code . ' does not
+                    correspond to a valid provider.' );
+        }
+        return [$ticket];
     }
 
     /**

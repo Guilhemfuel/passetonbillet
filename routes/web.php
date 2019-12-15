@@ -229,6 +229,7 @@ Route::blacklist( function () {
 
         Route::resource( 'claims', 'Admin\ClaimController' );
         Route::group( [ 'prefix' => 'claims', 'as' => 'claims.' ], function () {
+            Route::get( '/test/make-transfer', 'Admin\ClaimController@makeTransfer' )->name( 'make-transfer' );
             Route::get( '/claim/{ticket_id}', 'Admin\ClaimController@show' )->name( 'show' );
             Route::get( '/claim/refund/{ticket_id}', 'Admin\ClaimController@refund' )->name( 'refund' );
             Route::get( '/claim/pay/{ticket_id}', 'Admin\ClaimController@pay' )->name( 'pay' );

@@ -187,4 +187,18 @@ class ClaimController extends BaseController
 
         return redirect()->back();
     }
+
+    public function makeTransfer() {
+
+        if (\App::environment() == 'production') {
+            flash()->error('Not allowed to do this in production.');
+            return redirect()->back();
+        }
+
+        \Artisan::queue('ptb:make-transfers');
+
+        flash()->success('Command is now running.');
+        return redirect()->route('claims.index');
+
+    }
 }
