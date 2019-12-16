@@ -203,7 +203,7 @@ class TicketController extends Controller
         $user = \Auth::user();
 
         //Send email to Purchaser
-        //$user->notify((new SendTicketNotification($user, $ticket)));
+        $user->notify((new SendTicketNotification($user, $ticket)));
 
         //Send email to Seller
         $ticket->user->notify(new SendNotifToSellerNotification($ticket->transaction->seller, $ticket));
