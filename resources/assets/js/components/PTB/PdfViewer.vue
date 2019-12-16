@@ -26,6 +26,14 @@
         </transition>
 
         <div v-if="state=='description'">
+
+            <div style="text-align: center;">
+                <img class="svg-icon"
+                     src="/img/Group.svg"
+                     alt="Icon PDF"
+                />
+            </div>
+
             <p class="text-center">
                 {{trans('tickets.pdf.description_1')}}
             </p>

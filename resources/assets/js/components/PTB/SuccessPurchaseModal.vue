@@ -20,9 +20,9 @@
                     </div>
 
                     <div class="col-sm-12 col-md-12">
-                        <button class="btn btn-ptb btn-upper mt-3 w-100" @click.prevent="downloadTicket()">
+                        <a class="btn btn-ptb btn-upper mt-3 w-100" :href="this.route('public.ticket.download', [this.ticketId])" target="_blank">
                             {{trans('tickets.component.download_ticket')}}
-                        </button>
+                        </a>
                     </div>
 
                 </div>

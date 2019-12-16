@@ -151,29 +151,6 @@
                         </div>
                     </form>
                 </div>
-
-            @elseif(!Auth::user()->kyc_status !== 'SUCCEEDED' && Auth::user()->kyc_status !== 'VALIDATION_ASKED')
-                    <div class="modal-body text-justify pt-0">
-                        <img class="mx-auto d-block mb-3 ptb-icon" style="width: 120px;"
-                             src="{{secure_asset('img/icones/ptb-icon-id.png')}}">
-                        <p>@lang('profile.modal.verify_identity.text')</p>
-                        <p>@lang('profile.modal.verify_identity.list_title'):</p>
-                        <ul>
-                            @foreach( __('profile.modal.verify_identity.list_id') as $item)
-                                <li>{{$item}}</li>
-                            @endforeach
-                        </ul>
-                        <vue-form method="POST" action="{{route('public.profile.id.upload')}}"
-                                  enctype="multipart/form-data">
-                            <div class="form-group">
-                                <input class="form-control" type="file" name="scan">
-                            </div>
-                            <button type="submit"
-                                    class="btn btn-block btn-ptb-blue">@lang('profile.modal.verify_identity.cta')</button>
-                        </vue-form>
-                        <br>
-                        <p class="text-center">@lang('profile.modal.verify_identity.delay')</p>
-                    </div>
             @else
                 <sell-ticket :api="child.sell_tickets.api" :user="user" :routes="child.sell_tickets.routes"></sell-ticket>
             @endif

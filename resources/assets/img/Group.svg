@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="171px" height="171px" viewBox="0 0 171 171" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 60.1 (88133) - https://sketch.com -->
+    <title>Group</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="sell_ticket.upload_pdf" transform="translate(-807.000000, -299.000000)">
+            <g id="Group-28" transform="translate(0.000000, 5.000000)">
+                <g id="Group" transform="translate(807.000000, 294.000000)">
+                    <circle id="Oval" fill="#F6F6F7" cx="85.5" cy="85.5" r="85.5"></circle>
+                    <rect id="Rectangle" fill="#0B89E7" x="40" y="27" width="91" height="118" rx="14"></rect>
+                    <path d="M40,99 L131,99 L131,131 C131,138.731986 124.731986,145 117,145 L54,145 C46.2680135,145 40,138.731986 40,131 L40,99 L40,99 Z" id="Rectangle-Copy-4" fill="#FFFFFF"></path>
+                    <text id="" font-family="material" font-size="40" font-weight="normal" fill="#FFFFFF">
+                        <tspan x="86" y="67"></tspan>
+                    </text>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

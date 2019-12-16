@@ -31,9 +31,9 @@
 
                 <div class="button-responsive">
                     <div class="button-my-ticket-update mt-2 mr-2">
-                        <button class="btn btn-ptb btn-upper text-uppercase w-100" @click.prevent="downloadTicket()">
+                        <a class="btn btn-ptb btn-upper text-uppercase w-100" :href="this.route('public.ticket.download', [this.ticket.id])" target="_blank">
                             {{ trans('tickets.component.download') }}
-                        </button>
+                        </a>
                     </div>
 
                     <div class="button-my-ticket-change mt-2">
