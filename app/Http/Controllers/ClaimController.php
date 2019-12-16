@@ -30,12 +30,12 @@ class ClaimController extends Controller
         $dateNow = Carbon::now();
 
         //If departure train has not started yet
-        if($departureDate > $dateNow) {
+        if($departureDate->gt($dateNow)) {
             return response(['status' => 'error', 'message' => trans('tickets.claim.api.claim_before_departure')], 400);
         }
 
         //If limit of claim is expired
-        if($dateLimitClaim < $dateNow) {
+        if($dateNow->gt($dateLimitClaim)) {
             return response(['status' => 'error', 'message' => trans('tickets.claim.api.claim_date_limit')], 400);
         }
 
@@ -74,12 +74,12 @@ class ClaimController extends Controller
         $dateNow = Carbon::now();
 
         //If departure train has not started yet
-        if($departureDate > $dateNow) {
+        if($departureDate->gt($dateNow)) {
             return response(['status' => 'error', 'message' => trans('tickets.claim.api.claim_before_departure')], 400);
         }
 
         //If limit of claim is expired
-        if($dateLimitClaim < $dateNow) {
+        if($dateNow->gt($dateLimitClaim)) {
             return response(['status' => 'error', 'message' => trans('tickets.claim.api.claim_date_limit')], 400);
         }
 
