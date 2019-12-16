@@ -1,48 +1,51 @@
-
 {{-- Additional Butttons--}}
 @push('additional-btn')
     @if(!$entity->scam)
-    <a class="btn btn-danger btn-fill btn-sm mr-3 mt-2" href="{{route('tickets.scam',$entity->id)}}">
-        <i class="fa fa-ban" aria-hidden="true"></i>
-        Mark as Scam
-    </a>
+        <a class="btn btn-danger btn-fill btn-sm mr-3 mt-2" href="{{route('tickets.scam',$entity->id)}}">
+            <i class="fa fa-ban" aria-hidden="true"></i>
+            Mark as Scam
+        </a>
     @endif
     @if($entity->sold_to_id!=null)
-        <vue-form class='form-check-inline' action="{{route('tickets.revert_status',['ticket_id'=>$entity->id])}}" method="PUT">
+        <vue-form class='form-check-inline' action="{{route('tickets.revert_status',['ticket_id'=>$entity->id])}}"
+                  method="PUT">
             <button class="btn btn-outline-purple btn-fill btn-sm mr-3 mt-2" type="submit">
                 <i class="fa fa-undo" aria-hidden="true"></i> Resell
             </button>
         </vue-form>
     @endif
     @if($entity->pdf_downloaded)
-    <a class="btn btn-info btn-fill btn-sm mr-3 mt-2" target="_blank" href="{{route('public.ticket.download',['ticket_id'=>$entity->id])}}">
-        <i class="fa fa-file-pdf-o" aria-hidden="true"></i> Download ticket
-    </a>
+        <a class="btn btn-info btn-fill btn-sm mr-3 mt-2" target="_blank"
+           href="{{route('public.ticket.download',['ticket_id'=>$entity->id])}}">
+            <i class="fa fa-file-pdf-o" aria-hidden="true"></i> Download ticket
+        </a>
     @else
-    <button class="btn btn-info btn-fill btn-sm mr-3 mt-2" type="button" disabled>
-        <i class="fa fa-file-pdf-o" aria-hidden="true"></i> Download ticket
-    </button>
+        <button class="btn btn-info btn-fill btn-sm mr-3 mt-2" type="button" disabled>
+            <i class="fa fa-file-pdf-o" aria-hidden="true"></i> Download ticket
+        </button>
     @endif
     @if(!$entity->passed)
-    <button class="btn btn-primary btn-fill btn-sm mr-3 mt-2" @click.prevent="child.ticket.uploadPdfModal = true">
-        <i class="fa fa-cloud-upload" aria-hidden="true"></i>
-        Manually Upload PDF
-    </button>
-    @if(!$entity->pdf_downloaded)
-    <a class="btn btn-warning btn-fill btn-sm mt-2" href="{{route('tickets.redownload',['ticket_id'=>$entity->id])}}">
-        <i class="fa fa-cloud-download" aria-hidden="true"></i> Retry downloading ticket
-        {{$entity->sold_to_id}}
-    </a>
-    @endif
+        <button class="btn btn-primary btn-fill btn-sm mr-3 mt-2" @click.prevent="child.ticket.uploadPdfModal = true">
+            <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+            Manually Upload PDF
+        </button>
+        @if(!$entity->pdf_downloaded)
+            <a class="btn btn-warning btn-fill btn-sm mt-2"
+               href="{{route('tickets.redownload',['ticket_id'=>$entity->id])}}">
+                <i class="fa fa-cloud-download" aria-hidden="true"></i> Retry downloading ticket
+                {{$entity->sold_to_id}}
+            </a>
+        @endif
 
 
 
 
         @push('additional-content')
             {{-- Modal here so that pdf form is in the right place (not in the update form)--}}
-            <modal v-cloak :is-open="child.ticket.uploadPdfModal"  @close-modal="child.ticket.uploadPdfModal = false"
+            <modal v-cloak :is-open="child.ticket.uploadPdfModal" @close-modal="child.ticket.uploadPdfModal = false"
                    title="Manually upload ticket PDF">
-                <form method="post" action="{{route('tickets.manual_upload',$entity->id)}}" enctype="multipart/form-data" id="pdfForm">
+                <form method="post" action="{{route('tickets.manual_upload',$entity->id)}}"
+                      enctype="multipart/form-data" id="pdfForm">
                     {{csrf_field()}}
                     <div class="form-group">
                         <input class="form-control" type="file" name="ticket_pdf">
@@ -70,11 +73,11 @@
         </div>
     </div>
 @elseif($entity->sold_to_id!=null)
-<div class="row text-bold">
-    <div class="col">
-        <h3 class="text-success  text-center">SOLD</h3>
+    <div class="row text-bold">
+        <div class="col">
+            <h3 class="text-success  text-center">SOLD</h3>
+        </div>
     </div>
-</div>
 @endif
 
 {{-- Form --}}
@@ -104,7 +107,7 @@
     <div class="col-md-3">
         <div class="form-group">
             <label>Arrival city</label>
-            <input type="text" class="form-control"  name="arrival_city" placeholder="Arrival city"
+            <input type="text" class="form-control" name="arrival_city" placeholder="Arrival city"
                    value="{{$entity->train->arrivalCity->name}}" disabled>
         </div>
     </div>
@@ -154,9 +157,9 @@
         <div class="form-group">
             <label><a href="{{route('users.edit',$entity->user->id)}}">Seller</a></label>
             @if(!$entity->scam)
-            <userpicker :name="'user_id'"
-                        :default-placeholder="'User name'"
-                        :default-value="{{json_encode($entity->user)}}"></userpicker>
+                <userpicker :name="'user_id'"
+                            :default-placeholder="'User name'"
+                            :default-value="{{json_encode($entity->user)}}"></userpicker>
             @else
                 <input type="text" class="form-control"
                        value="{{$entity->user->full_name}}" disabled>
@@ -175,7 +178,7 @@
     <div class="col-md-3">
         <div class="form-group">
             <label>Bought price</label>
-            <input class="form-control" value="{{$entity->bought_price}}" name="bought_price" />
+            <input class="form-control" value="{{$entity->bought_price}}" name="bought_price"/>
         </div>
     </div>
     <div class="col-md-3">
@@ -207,6 +210,26 @@
         </div>
     </div>
 </div>
+@if (App::environment() != 'production')
+    <div class="row">
+        <div class="col-md-12">
+            <p>Only for testing purposes (not available in prod)</p>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <input-date
+                        name="departure_date"
+                        label="Date"
+                        validation=""
+                        placeholder="DD/MM/YYYY"
+                        format="dd/MM/yyyy"
+                        value-format="dd/MM/yyyy"
+                        default-value-format="DD/MM/YYYY"
+                ></input-date>
+            </div>
+        </div>
+    </div>
+@endif
 
 
 {{------------ Additional content --------------}}
@@ -238,7 +261,8 @@
                             {{$offer->status_text}}
                         </td>
                         <td>
-                            <a href="{{route('offers.edit',$offer->id)}}"><i class="fa fa-comments" aria-hidden="true"></i>
+                            <a href="{{route('offers.edit',$offer->id)}}"><i class="fa fa-comments"
+                                                                             aria-hidden="true"></i>
                             </a>
                         </td>
                     </tr>

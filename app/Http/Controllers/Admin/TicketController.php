@@ -40,7 +40,7 @@ class TicketController extends BaseController
 
         $data = [
             'searchable' => $this->searchable,
-            'creatable' => $this->creatable
+            'creatable'  => $this->creatable
         ];
 
         return $this->ptbView( 'admin.CRUD.index', $data );
@@ -111,12 +111,41 @@ class TicketController extends BaseController
 
             return redirect()->back();
         }
+
+        // Staging/dev functionality to change train departure date
+        if ( \App::environment() != 'production' && $request->has( 'departure_date' )
+             && $request->get( 'departure_date' ) != '' && $request->get( 'departure_date' ) != null
+        ) {
+            $this->changeTicketDateForTest( $request, $ticket );
+        }
+
         $ticket->update( $request->all() );
         $ticket->save();
 
         flash()->success( 'Ticket updated!' );
 
         return redirect()->route( $this->CRUDmodelName . '.edit', $ticket->id );
+    }
+
+    /**
+     * Update train date for testing purposes
+     *
+     * @param Request $request
+     *
+     * @return bool
+     */
+    private function changeTicketDateForTest( Request $request, Ticket $ticket )
+    {
+        $this->validate( $request, [
+            'departure_date' => 'date_format:d/m/Y'
+        ] );
+
+        $train = $ticket->train;
+        $train->departure_date = $request->departure_date;
+        $train->arrival_date = $request->departure_date;
+        $train->save();
+
+        return true;
     }
 
     /**
@@ -283,17 +312,19 @@ class TicketController extends BaseController
 
         flash( 'Ticket restored.' )->success();
 
-        return redirect()->route($this->CRUDmodelName . '.edit', $ticket->id );
+        return redirect()->route( $this->CRUDmodelName . '.edit', $ticket->id );
     }
 
-    public function showPdf($id) {
+    public function showPdf( $id )
+    {
 
-        $ticket = Ticket::where('id', $id)->first();
+        $ticket = Ticket::where( 'id', $id )->first();
 
-        if($ticket) {
-            return Storage::download(env('STORAGE_PDF') . '/' . $ticket->pdf);
+        if ( $ticket ) {
+            return Storage::download( env( 'STORAGE_PDF' ) . '/' . $ticket->pdf );
         } else {
             \Session::flash( 'danger', 'Ticket not found' );
+
             return redirect()->back();
         }
     }
