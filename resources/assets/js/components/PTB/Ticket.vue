@@ -88,7 +88,7 @@
                             </button>
 
                             <a class="btn btn-ptb btn-buy btn-sm" v-else
-                               :href="route('public.ticket.owned.page')">{{trans('tickets.component.edit')}}</a>
+                               :href="route('public.ticket.sold.page')">{{trans('tickets.component.edit')}}</a>
                         </template>
                         <!-- Make Offer -->
                         <template v-else-if="!pastTicket && !display
@@ -125,13 +125,6 @@
                                         {{trans('tickets.component.call')}}
                                     </button>
                                 </div>
-                                <div class="col text-center p-0" v-if="!offerDone">
-                                    <button class="btn btn-ptb-white btn-sm text-center btn-contact"
-                                            @click="contactSeller()">
-                                        <i class="fa fa-envelope" aria-hidden="true"></i>
-                                        {{trans('tickets.component.contact')}}
-                                    </button>
-                                </div>
                             </div>
                             <button class="btn btn-ptb btn-buy btn-sm" v-if="selecting" @click.prevent="sell">
                                 {{trans('tickets.component.sell')}}
@@ -145,10 +138,13 @@
                         <span>
                             <template v-if="ticket.offerPrice && ticket.offerPrice!=ticket.price">
                                 <span class="old-price">{{ticket.currency_symbol}}{{ticket.price}}</span>
-                                <span class="offer-price text-center">{{ticket.currency_symbol}}{{ticket.offerPrice}}</span>
+                                <span class="offer-price text-center">{{ticket.currency_symbol}}{{ ticket.offerPrice }} test</span>
+                            </template>
+                            <template v-else-if="ticket.sellPrice">
+                                <span class="text-center"></span> {{ticket.currency_symbol}}{{ ticket.sellPrice }}
                             </template>
                             <template v-else>
-                            <span class="text-center"></span> {{ticket.currency_symbol}}{{ticket.price}}
+                            <span class="text-center"></span> {{ticket.currency_symbol}}{{ Math.round(ticket.price * 1.1) }}
                             </template>
                         </span>
                         </div>

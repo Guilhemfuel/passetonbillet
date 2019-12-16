@@ -49,7 +49,7 @@
             </h5>
             <div class="row">
                 <div class="col-6">
-                    <canvas :ref="'pdf-canvas-' + page.currentPage" :id="'pdf-canvas-' + page.currentPage" width="200"></canvas>
+                    <canvas :ref="'pdf-canvas-' + page.currentPage" :id="'pdf-canvas-' + page.currentPage" width="200" style="width: 100%;"></canvas>
                 </div>
 
                 <div class="col-6">

@@ -56,6 +56,9 @@
                                         </button>
                                     @endif
                                     <button class="btn btn-block btn-ptb-blue"
+                                            @click.prevent="child.profile.modalBankAccountOpen=true">@lang('tickets.update_bank_account')
+                                    </button>
+                                    <button class="btn btn-block btn-ptb-blue"
                                             @click.prevent="child.profile.modalPasswordOpen=true">@lang('profile.change_password')
                                     </button>
                                     <button class="btn btn-block btn-ptb-blue"
@@ -198,6 +201,8 @@
                     </div>
                 </modal>
 
+                <bank-account-modal :open-modal="child.profile.modalBankAccountOpen" @close-modal="child.profile.modalBankAccountOpen=false"></bank-account-modal>
+
                 @if(\Auth::user()->id != $user->id && isset($tickets) && $tickets->count() > 0)
                     <h3 class="mt-4 mb-0 text-center">@lang('common.ticket.name')s</h3>
                     <div class="tickets row">
@@ -231,6 +236,7 @@ $api = [
          */
         data.profile = {
             modalInfoOpen: false,
+            modalBankAccountOpen: false,
             modalPasswordOpen: false,
             modalPictureUploadOpen: false,
             modalNameOpen: false,

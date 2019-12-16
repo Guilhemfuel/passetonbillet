@@ -130,8 +130,13 @@ abstract class AbstractTicket extends BaseModel
     /**
      * Static
      */
-    public static function getMostRecentTickets( $limit ) {
-        return self::latest('created_at')->limit($limit)->get();
+    public static function getMostRecentTickets($limit)
+    {
+        return self::latest('created_at')
+            ->whereNotIn('tickets.id', function ($query) {
+                $query->select('ticket_id')->from('transactions')
+                    ->where('status', 'SUCCEEDED');
+            })->limit($limit)->get();
     }
 
     public function getMaxPriceAttribute() {

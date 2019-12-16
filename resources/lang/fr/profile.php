@@ -9,8 +9,8 @@ return [
     */
 
     'title'                            => 'Mon profil',
-    'account_verify'                   => 'Vérifier votre compte',
-    'verification_pending'             => 'Vérification du profil en cours',
+    'account_verify'                   => 'Vérifier mon identité',
+    'verification_pending'             => 'Vérification d\'identité en cours',
     'account_verified'                 => 'Identité vérifée',
     'change_password'                  => 'Changer le mot de passe',
     'change_picture'                   => 'Changer la photo de profil',

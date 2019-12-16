@@ -4,7 +4,7 @@
             <div class="row flex-nowrap">
                 <div class="trip-info d-flex">
                     <div class="price-duration">
-                        <p class="price">{{ticket.bought_currency_symbol}}{{ticket.price}}</p>
+                        <p class="price">{{ticket.bought_currency_symbol}}{{ticket.sellPrice}}</p>
                         <p class="duration">{{duration}}</p>
                     </div>
                     <svg height="100" width="30">
@@ -220,7 +220,7 @@
                                             name="price"
                                             :default-value="corresponding_user_offer && corresponding_user_offer.status != -1 ? corresponding_user_offer.price.toString() : ticket.price.toString()"
                                             :placeholder="trans('tickets.component.price')"
-                                            :validation="'required|numeric|min_value:0|max_value:'+ticket.price">
+                                            :validation="'required|numeric|min_value:0|max_value:'+ticket.sellPrice">
                                         <template slot="prepend">
                                             <span>{{ticket.currency_symbol}}</span>
                                         </template>
@@ -339,7 +339,7 @@
                 showRegister: false,
                 loading: false,
 
-                priceOffer: this.ticket.price,
+                priceOffer: this.ticket.sellPrice,
                 modalBuyOpen: false,
             }
         },

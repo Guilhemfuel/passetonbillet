@@ -168,7 +168,7 @@ $animation-duration: 0.3s;
   .modal-content {
     border-radius: 0px;
     border: 0px;
-    margin-top: 10%;
+    width: 100%;
   }
 
   .modal-body {
@@ -711,4 +711,12 @@ $animation-duration: 0.3s;
     }
 
   }
+}
+
+.modal-dialog {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  margin: 0 auto!important;
 }

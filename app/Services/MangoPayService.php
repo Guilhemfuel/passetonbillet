@@ -10,6 +10,8 @@ class MangoPayService
     private $mangoPayApi;
     private $mangoUser;
 
+    CONST EUR_CURRENCY = "EUR";
+
     public function __construct()
     {
         $storagePath = storage_path('mangopay');
@@ -30,20 +32,27 @@ class MangoPayService
     }
 
     public function createMangoUser($user) {
-        $mangoUser = new MangoPay\UserNatural();
-        $mangoUser->PersonType = "NATURAL";
-        $mangoUser->FirstName = $user->first_name;
-        $mangoUser->LastName = $user->last_name;
-        $mangoUser->Birthday = strtotime($user->birthdate);
-        $mangoUser->Nationality = $user->nationality ? $user->nationality : "FR";
-        $mangoUser->CountryOfResidence = $user->country_residence ? $user->country_residence : "FR";
-        $mangoUser->Email = $user->email;
+        try {
+            $mangoUser = new MangoPay\UserNatural();
+            $mangoUser->PersonType = "NATURAL";
+            $mangoUser->FirstName = $user->first_name;
+            $mangoUser->LastName = $user->last_name;
+            $mangoUser->Birthday = strtotime($user->birthdate);
+            $mangoUser->Nationality = $user->nationality ? $user->nationality : "FR";
+            $mangoUser->CountryOfResidence = $user->country_residence ? $user->country_residence : "FR";
+            $mangoUser->Email = $user->email;
 
-        $mangoUser = $this->mangoPayApi->Users->Create($mangoUser);
+            $mangoUser = $this->mangoPayApi->Users->Create($mangoUser);
 
-        $this->mangoUser = $mangoUser->Id;
+            $this->mangoUser = $mangoUser->Id;
 
-        return $mangoUser;
+            return $mangoUser;
+
+        } catch (MangoPay\Libraries\ResponseException $e) {
+            return $e->GetMessage();
+        } catch (MangoPay\Libraries\Exception $e) {
+            return $e->GetMessage();
+        }
     }
 
     public function getMangoUser($id) {
@@ -78,7 +87,7 @@ class MangoPayService
         try {
             $cardRegistration = new MangoPay\CardRegistration();
             $cardRegistration->UserId = $this->mangoUser;
-            $cardRegistration->Currency = "EUR";
+            $cardRegistration->Currency = self::EUR_CURRENCY;
             $cardRegistration->CardType = isset($card->type) ? $card->type : "CB_VISA_MASTERCARD";
 
             $cardRegistration = $this->mangoPayApi->CardRegistrations->Create($cardRegistration);
@@ -121,11 +130,11 @@ class MangoPayService
             $PayIn->PaymentDetails = new MangoPay\PayInPaymentDetailsCard();
 
             $PayIn->DebitedFunds = new \MangoPay\Money();
-            $PayIn->DebitedFunds->Currency = "EUR";
+            $PayIn->DebitedFunds->Currency = self::EUR_CURRENCY;
             $PayIn->DebitedFunds->Amount = $data->Amount * 100;
 
             $PayIn->Fees = new \MangoPay\Money();
-            $PayIn->Fees->Currency = "EUR";
+            $PayIn->Fees->Currency = self::EUR_CURRENCY;
             $PayIn->Fees->Amount = 0;
             $PayIn->ExecutionType = "DIRECT";
 
@@ -150,7 +159,7 @@ class MangoPayService
             $wallet = new MangoPay\Wallet();
             $wallet->Owners = array ($this->mangoUser);
             $wallet->Description = "Passe Ton Billet - Ticket : " . $name;
-            $wallet->Currency = "EUR";
+            $wallet->Currency = self::EUR_CURRENCY;
 
             $wallet = $this->mangoPayApi->Wallets->Create($wallet);
 
@@ -296,11 +305,11 @@ class MangoPayService
                 $amount = $split ? ($amount / 2) : $amount;
 
                 $Refund->DebitedFunds = new MangoPay\Money();
-                $Refund->DebitedFunds->Currency = "EUR";
+                $Refund->DebitedFunds->Currency = self::EUR_CURRENCY;
                 $Refund->DebitedFunds->Amount = $amount;
 
                 $Refund->Fees = new MangoPay\Money();
-                $Refund->Fees->Currency = "EUR";
+                $Refund->Fees->Currency = self::EUR_CURRENCY;
                 $Refund->Fees->Amount = $this->calculateFees($fees, $amount);
             }
 
@@ -328,19 +337,19 @@ class MangoPayService
         }
     }
 
-    public function createPayOut($bankAccount, $user, $wallet, $fees) {
+    public function createPayOut($bankAccount, $user, $wallet, $fees, $amount) {
         try {
             $PayOut = new MangoPay\PayOut();
             $PayOut->AuthorId = $user;
             $PayOut->DebitedWalletID = $wallet->Id;
 
             $PayOut->DebitedFunds = new MangoPay\Money();
-            $PayOut->DebitedFunds->Currency = "EUR";
+            $PayOut->DebitedFunds->Currency = self::EUR_CURRENCY;
             $PayOut->DebitedFunds->Amount = $wallet->Balance->Amount;
 
             $PayOut->Fees = new MangoPay\Money();
-            $PayOut->Fees->Currency = "EUR";
-            $PayOut->Fees->Amount = $this->calculateFees($fees, $wallet->Balance->Amount);
+            $PayOut->Fees->Currency = self::EUR_CURRENCY;
+            $PayOut->Fees->Amount = $this->calculateFees($fees, $amount);
 
             $PayOut->PaymentType = "BANK_WIRE";
             $PayOut->MeanOfPaymentDetails = new MangoPay\PayOutPaymentDetailsBankWire();

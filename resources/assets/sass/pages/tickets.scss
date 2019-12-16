@@ -1190,3 +1190,21 @@ $animation-duration: 0.5s;
 .text-wrap {
   white-space: normal;
 }
+
+.common_questions a {
+  color: #adadad;
+  text-align: center;
+  border: 1px solid #adadad;
+  padding: 10px;
+  border-radius: 5px;
+  width: 100%;
+  display: block;
+  font-size: 12px;
+}
+
+.charge_included {
+  text-align: center;
+  color: #adadad;
+  font-size: 12px;
+  margin-top: 10px;
+}

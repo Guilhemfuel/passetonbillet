@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Collection;
 use Nicolaslopezj\Searchable\SearchableTrait;
+use App\Transaction;
 
 /**
  * App\Ticket
@@ -385,6 +386,10 @@ class Ticket extends AbstractTicket
 
     public function getHasClaimAttribute() {
         return $this->claim ? true : false;
+    }
+
+    public function getSellPriceAttribute() {
+        return ceil(((Transaction::FEES_TICKET_ON_SALE / 100) * $this->price) + $this->price);
     }
 
     public function hasBeenSold() {

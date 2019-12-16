@@ -61,6 +61,12 @@ class UserController extends Controller
         //Creation of MangoPay user if not exist
         if(!$user->mangopay_id) {
             $mangoUser = $mangoPay->createMangoUser($user);
+
+            if(!$mangoUser->Id) {
+                flash()->error(__( 'tickets.mangopay_error'));
+                return redirect()->back();
+            }
+
             $user->mangopay_id = $mangoUser->Id;
             $user->save();
         }

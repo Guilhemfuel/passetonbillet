@@ -380,8 +380,8 @@ return [
     'buy_modal' => [
         'buy_ticket_of' => 'Buy ticket of',
         'instant_receive' => 'Vous recevrez le billet instantanément',
-        'choose_payment' => 'Choose a payment',
-        'add_payment' => 'Add a payment',
+        'choose_payment' => 'Choose a payment method',
+        'add_payment' => 'Add a payment method',
         'add' => 'Add',
         'error' => 'An error has occured',
 
@@ -411,7 +411,9 @@ return [
 
         'we_answers' => 'Nous répondons à vos questions',
         'read_our_faq' => 'Nous vous invitons à lire nos FAQs qui contiennent les réponses à toutes les questions fréquentes que les acheteurs peuvent se poser',
-        'read_faq' => 'LIRE LES FAQs',
+        'read_faq' => 'READ OUR FAQs',
+        'common_questions' => 'Common questions',
+        'charge_included' => 'Frais de gestion inclus',
 
         'question_1' => 'Avez-vous essayé de scanner le billet en personne?',
         'question_1_more' => 'Êtes-vous la personne qui a essayé de scanner le billet aux bornes automatiques?',
@@ -432,6 +434,7 @@ return [
         'end_more' => 'Merci! Nous avons pris en compte vos réponses et nous vous contacterons d’ici peu avec le verdict final.',
 
         'hours_left' => 'Hours left',
+        'days_left' => 'Days left',
         'claim_limit_reached' => 'Les 48 heures pendant lesquelles vous pouviez signaler un problème sont passées. Le vendeur a reçu votre paiement.',
 
         'api' => [
@@ -465,10 +468,12 @@ return [
         'question_2_more' => 'Le billet doit être téléchargé directement depuis le site Eurostar, Thalys, SNCF ou autre.',
     ],
 
-    'update_bank_account' => 'Update payment informations',
+    'update_bank_account' => 'Add my IBAN',
     'bank_account_not_complete' => 'Some informations are missing',
     'bank_account_not_valid' => 'Il semblerait que les informations sont invalide',
     'bank_account_success' => 'Votre compte bancaire est ajouté !',
 
     'no_ticket' => 'No ticket yet',
+
+    'mangopay_error' => 'An error has occured with our payment service',
 ];

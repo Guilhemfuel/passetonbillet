@@ -9,6 +9,7 @@ use setasign\Fpdi\Fpdi;
 class PdfService
 {
     private $pdf;
+    private $pdfName;
 
     //Give the complete full path to the PDF
     public function __construct($pdf = null)
@@ -28,8 +29,9 @@ class PdfService
         $path = storage_path('app/'. env('STORAGE_PDF') .'/' . $random . '.pdf');
 
         $this->pdf = $path;
+        $this->pdfName = $random . '.pdf';
 
-        return $random . '.pdf';
+        return $this->pdfName;
     }
 
     public function splitPdf($page)
@@ -41,5 +43,13 @@ class PdfService
         $pdf->useTemplate($tplIdx);
         $pdf->Output($this->pdf, "F");
         $pdf->close();
+    }
+
+    public function storeToAws() {
+        $file = Storage::disk('local')->get(env('STORAGE_PDF') . '/' . $this->pdfName);
+        Storage::disk('s3')->put(env('STORAGE_PDF') . '/' . basename($this->pdf), $file);
+
+        //Delete local storage
+        Storage::disk('local')->delete(env('STORAGE_PDF') . '/' . $this->pdfName);
     }
 }

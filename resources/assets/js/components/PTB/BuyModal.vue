@@ -4,44 +4,41 @@
                @close-modal="closeModal()"
                class="review-modal">
 
-            <div id="previousModal" @click="previousModal">
+            <div v-if="state !== 'recap'" id="previousModal" @click="previousModal">
                 <i class="fa fa-chevron-left" aria-hidden="true"></i>
             </div>
 
             <div v-if="!this.$root.user.country_profil_completed">
-
-                <h3>{{ trans('profile.modal.verify_identity.complete_profil') }}</h3>
-
                 <form method="post" :action="route('public.profile.country.add')">
-
-                    <input type="hidden" name="_token" :value="form._token">
-
-                    <input-country name="country_residence"
-                                   :label="trans('profile.modal.verify_identity.country_residence')"
-                                   validation="required"
-                                   v-model="formCompleteProfil.country_residence"
-                                   :placeholder="trans('profile.modal.verify_identity.country_residence')"
-                    ></input-country>
-
-                    <input-country name="nationality"
-                                   :label="trans('profile.modal.verify_identity.nationality')"
-                                   validation="required"
-                                   v-model="formCompleteProfil.nationality"
-                                   :placeholder="trans('profile.modal.verify_identity.nationality')"
-                    ></input-country>
-
-                    <input-date
-                            name="birthdate"
-                            v-model="formCompleteProfil.birthdate"
-                            class-name="col-xs-12"
-                            :label="trans('auth.register.birthdate')"
-                            placeholder="DD/MM/YYYY"
-                            format="dd/MM/yyyy"
-                            value-format="dd/MM/yyyy"
-                            default-value-format="DD/MM/YYYY">
-                    </input-date>
-
                     <div class="col-md-12">
+                        <h3>{{ trans('profile.modal.verify_identity.complete_profil') }}</h3>
+                        <input type="hidden" name="_token" :value="form._token">
+
+                        <input-country name="country_residence"
+                                       :label="trans('profile.modal.verify_identity.country_residence')"
+                                       validation="required"
+                                       v-model="formCompleteProfil.country_residence"
+                                       :placeholder="trans('profile.modal.verify_identity.country_residence')"
+                        ></input-country>
+
+                        <input-country name="nationality"
+                                       :label="trans('profile.modal.verify_identity.nationality')"
+                                       validation="required"
+                                       v-model="formCompleteProfil.nationality"
+                                       :placeholder="trans('profile.modal.verify_identity.nationality')"
+                        ></input-country>
+
+                        <input-date
+                                name="birthdate"
+                                v-model="formCompleteProfil.birthdate"
+                                class-name="col-xs-12"
+                                :label="trans('auth.register.birthdate')"
+                                placeholder="DD/MM/YYYY"
+                                format="dd/MM/yyyy"
+                                value-format="dd/MM/yyyy"
+                                default-value-format="DD/MM/YYYY">
+                        </input-date>
+
                         <div class="form-group">
                             <button type="submit" class="btn btn-ptb-blue btn-block" @click.prevent="completeProfil">
                                 {{trans('profile.modal.verify_identity.complete_profil')}}
@@ -52,8 +49,7 @@
             </div>
 
             <div v-else>
-                <div v-if="state == 'recap'">
-                    <div class="modal-body row">
+                <div v-if="state == 'recap'" class="p-3">
                         <div class="col-sm-12 col-md-12 text-center m-auto">
                             <h4 class="card-text text-center font-weight-bold">
                                 {{trans('tickets.buy_modal.buy_ticket_of')}} {{ ticket.user.first_name }}
@@ -83,45 +79,47 @@
 
                             <div v-if="this.ticket.hasPdf">
                                 <button class="btn btn-ptb btn-upper text-uppercase mt-3 w-100" @click.prevent="getAllCards">
-                                    {{trans('tickets.component.buy')}} {{ ticket.price }}{{ ticket.currency_symbol }}
+                                    {{trans('tickets.component.buy')}} {{ ticket.sellPrice }}{{ ticket.currency_symbol }}
                                 </button>
                             </div>
 
+                            <div class="charge_included">
+                                {{ trans('tickets.claim.charge_included') }}
+                            </div>
+
                         </div>
-                    </div>
                 </div>
 
-                <div v-else-if="state == 'show_cards'">
-                    <div class="modal-body row">
-                        <div class="col-sm-12 col-md-8 text-center m-auto">
+                <div v-else-if="state == 'show_cards'" class="p-3">
+                        <div class="col-sm-12 col-md-12 text-center m-auto">
                             <p class="card-text text-center font-weight-bold">
                                 {{trans('tickets.buy_modal.choose_payment')}}
                             </p>
 
-                            <label v-for="card in userCards" :key="card.Id" class="credit-card" :for="'card-' + card.Id">{{ card.Alias }}
+                            <label v-for="card in userCards" :key="card.Id" :class="{highlight:card.Id === selected}" class="credit-card" @click="selected = card.Id" :for="'card-' + card.Id">
+                                <i class="fa fa-cc-visa" aria-hidden="true"></i>
                                 <input type="radio" :id="'card-' + card.Id" name="card" :value="card.Id" @change="formBuy = card.Id">
+                                {{ formatedCardNumber(card.Alias) }}
+                                <i class="fa fa-check-circle-o selected-creditcard" aria-hidden="true"></i>
                             </label>
 
                             <div>
                                 <button class="btn-add-payment w-100" @click.prevent="addCardRegistration">
-                                    {{trans('tickets.buy_modal.add_payment')}}
+                                    <i class="fa fa-credit-card" aria-hidden="true"></i> {{trans('tickets.buy_modal.add_payment')}}
                                 </button>
                             </div>
 
                             <div v-if="typeof userCards === 'object' && userCards[0]">
                                 <button class="btn btn-ptb btn-upper text-uppercase mt-3 w-100"
                                         @click.prevent="buy">
-                                    {{trans('tickets.component.buy')}} {{ ticket.price }}{{ ticket.currency_symbol }}
+                                    {{trans('tickets.component.buy')}} {{ ticket.sellPrice }}{{ ticket.currency_symbol }}
                                 </button>
                             </div>
-
                         </div>
-                    </div>
                 </div>
 
-                <div v-else-if="state == 'add_card'">
-                    <div class="modal-body row">
-                        <div class="col-sm-12 col-md-8 text-center m-auto">
+                <div v-else-if="state == 'add_card'" class="p-3">
+                        <div class="col-sm-12 col-md-12 text-center m-auto">
                             <p class="card-text text-center font-weight-bold">
                                 {{trans('tickets.buy_modal.add_payment')}}
                             </p>
@@ -130,29 +128,38 @@
                                 <input type="hidden" name="data" :value="formRegistrationCard.data"/>
                                 <input type="hidden" name="accessKeyRef" :value="formRegistrationCard.accessKeyRef"/>
 
-                                <div class="col-12">
+                                <div class="col-12 p-0">
                                     <input type="text" name="cardNumber" value="" v-model="formRegistrationCard.cardNumber" placeholder="NUMÉRO DE LA CARTE"/>
                                     <div class="clear"></div>
                                 </div>
 
-                                <div class="col-6">
+                                <div class="col-6 pl-0">
                                     <input type="text" name="cardExpirationDate"
                                            value="" v-model="formRegistrationCard.cardExpirationDate"
                                            placeholder="MM/AA" maxlength="5"/>
                                     <div class="clear"></div>
                                 </div>
 
-                                <div class="col-6">
+                                <div class="col-6 pr-0">
                                     <input type="text" name="cardCvx" value="" v-model="formRegistrationCard.cardCvx" placeholder="CVC" maxlength="3"/>
                                     <div class="clear"></div>
                                 </div>
 
-                                <div class="col-sm-12 col-md-12">
+                                <div class="col-sm-12 col-md-12 p-0">
                                     <button class="btn btn-ptb btn-upper mt-3 w-100" @click.prevent="saveCardRegistration">
                                         {{trans('tickets.buy_modal.add')}}
                                     </button>
                                 </div>
                             </form>
+                        </div>
+                </div>
+
+                <div class="px-3">
+                    <div class="col-sm-12 col-md-12 text-center m-auto">
+                        <div class="common_questions">
+                            <a :href="this.route('help.page')">
+                                {{ trans('tickets.claim.common_questions') }}
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -191,11 +198,21 @@
           idCard: null,
         },
         formBuy: null,
+        selected: undefined,
       }
     },
-    mounted() {
+      watch: {
+          state: function (newVal, oldVal) {
+              if (oldVal !== newVal) {
+                  if (!(this.previousState.includes(oldVal))) {
+                      this.previousState.push(oldVal);
+                  }
+              }
+          }
+      },
+      mounted() {
 
-    },
+      },
     computed: {
       trulyOpened() {
         if (this.isOpen == true) {
@@ -214,21 +231,12 @@
         return moment(this.ticket.train.departure_time, 'HH:mm:ss').format('HH:mm')
       }
     },
-    watch: {
-      state: function(newVal, oldVal) {
-        if(oldVal !== newVal) {
-          if (!(this.previousState.includes(oldVal))) {
-            this.previousState.push(oldVal);
-          }
-        }
-      }
-    },
     methods: {
       closeModal() {
         this.$emit('close-modal');
       },
       previousModal() {
-        if(this.previousState.includes(this.state)) {
+        if (this.previousState.includes(this.state)) {
           let position = this.previousState.indexOf(this.state);
           if (position > 0) {
             this.state = this.previousState[position - 1]
@@ -236,7 +244,7 @@
             this.closeModal()
           }
         } else {
-          if(this.previousState.length > 0) {
+          if (this.previousState.length > 0) {
             this.state = this.previousState[this.previousState.length - 1]
           } else {
             this.closeModal()
@@ -288,8 +296,13 @@
           request.headers.delete('Content-Type');
         };
 
+        //Remove slash from expiration date
+        let expirationDate = this.formRegistrationCard.cardExpirationDate;
+        expirationDate = expirationDate.split('/').join('');
+        expirationDate = expirationDate.split('\\').join('');
+
         //Do not try to use JSON.stringify or give the full Object to Mangopay because it doesn't works.
-        let serialize = 'data=' + this.formRegistrationCard.data + '&accessKeyRef=' + this.formRegistrationCard.accessKeyRef + '&cardNumber=' + this.formRegistrationCard.cardNumber + '&cardExpirationDate=' + this.formRegistrationCard.cardExpirationDate + '&cardCvx=' + this.formRegistrationCard.cardCvx;
+        let serialize = 'data=' + this.formRegistrationCard.data + '&accessKeyRef=' + this.formRegistrationCard.accessKeyRef + '&cardNumber=' + this.formRegistrationCard.cardNumber + '&cardExpirationDate=' + expirationDate + '&cardCvx=' + this.formRegistrationCard.cardCvx;
 
         this.$http.post(this.CardRegistrationURL, serialize)
           .then(response => {
@@ -330,6 +343,9 @@
               }
             });
         }
+      },
+      formatedCardNumber(value) {
+        return '••••' + value.slice(-4);
       }
     }
   }
@@ -359,6 +375,7 @@
     .recap-ticket {
         background-color: #f6f6f7;
         border-radius: 10px;
+        padding: 10px;
     }
 
     .recap-ticket .recap-time {
@@ -374,6 +391,7 @@
         font-weight: bold;
         text-align: center;
         color: #ff9600;
+        font-size: 20px;
     }
 
     .btn-add-payment {
@@ -382,9 +400,14 @@
         background-color: transparent;
         text-align: center;
         color: #4a4a4a;
-        font-size: 16px;
+        font-size: 15px;
         font-weight: bold;
         padding: 10px;
+    }
+
+    .btn-add-payment i {
+        color: #FF9600;
+        margin-right: 5px;
     }
 
     .btn-add-payment:hover {
@@ -393,16 +416,23 @@
     }
 
     .credit-card {
-        display: block;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         margin: 10px 0;
         border-radius: 10px;
         border: solid 1px #dedede;
         background-color: transparent;
         text-align: center;
         color: #4a4a4a;
-        font-size: 16px;
+        font-size: 15px;
         font-weight: bold;
         padding: 10px;
+    }
+
+    .credit-card i {
+        color: #FF9600;
+        margin-right: 5px;
     }
 
     .credit-card:hover {
@@ -412,5 +442,33 @@
 
     .credit-card.selected {
         background-color: #f6f6f7;
+    }
+
+    .credit-card input[type="radio"] {
+        opacity: 0;
+        position: fixed;
+        width: 0;
+    }
+
+    .credit-card input[type="radio"]:checked::after + label {
+        content: '<i class="fa fa-check-circle-o" aria-hidden="true"></i>';
+        color: #1f9d55;
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+    }
+
+    .selected-creditcard {
+        color: #1f9d55!important;
+        opacity: 0;
+        margin-left: 10px;
+    }
+
+    label.highlight {
+        background: #ececec;
+    }
+
+    label.highlight .selected-creditcard {
+        opacity: 1;
     }
 </style>
