@@ -95,7 +95,14 @@ class MakeTransfers extends Command
             //UPDATE OLD TRANSACTION STATUS
             //If a Payout exist we update status
             if($Transaction->status_payout !== 'SUCCEEDED' && $Transaction->status_payout !== null) {
-                $payout = $mangoPay->getPayOut($Transaction->payout_id);
+
+                try {
+                    $payout = $mangoPay->getPayOut($Transaction->payout_id);
+                } catch (\MangoPay\Libraries\ResponseException $e) {
+                    $Transaction->status_payout = Transaction::STATUS_TRANSFER_FAIL;
+                } catch (\MangoPay\Libraries\Exception $e) {
+                    $Transaction->status_payout = Transaction::STATUS_TRANSFER_FAIL;
+                }
 
                 if(isset($payout->Status)) {
                     //Update status Payout
@@ -108,7 +115,14 @@ class MakeTransfers extends Command
 
             //If a refund exist we update status
             if($Transaction->status_refund !== 'SUCCEEDED' && $Transaction->status_refund !== null) {
-                $refund = $mangoPay->getRefund($Transaction->refund_id);
+
+                try {
+                    $refund = $mangoPay->getRefund($Transaction->refund_id);
+                } catch (\MangoPay\Libraries\ResponseException $e) {
+                    $Transaction->status_refund = Transaction::STATUS_TRANSFER_FAIL;
+                } catch (\MangoPay\Libraries\Exception $e) {
+                    $Transaction->status_refund = Transaction::STATUS_TRANSFER_FAIL;
+                }
 
                 if(isset($refund->Status)) {
                     //Update status Payout
@@ -160,7 +174,13 @@ class MakeTransfers extends Command
                 if ($Transaction->ticket->date_before_transfer < $dateNow) {
                     $this->info('Payout No Claim');
 
-                    $bankAccount = $mangoPay->getBankAccount($Transaction->seller->mangopay_id);
+                    try {
+                        $bankAccount = $mangoPay->getBankAccount($Transaction->seller->mangopay_id);
+                    } catch (\MangoPay\Libraries\ResponseException $e) {
+                        continue;
+                    } catch (\MangoPay\Libraries\Exception $e) {
+                        continue;
+                    }
 
                     //If user didn't put a Bank Account
                     if (!$bankAccount) {
@@ -168,8 +188,21 @@ class MakeTransfers extends Command
                         return;
                     }
 
-                    $wallet = $mangoPay->getWallet($Transaction->wallet_id);
-                    $kyc = $mangoPay->viewKycDocument($Transaction->seller->mangopay_id, $Transaction->seller->kyc_id);
+                    try {
+                        $wallet = $mangoPay->getWallet($Transaction->wallet_id);
+                    } catch (\MangoPay\Libraries\ResponseException $e) {
+                        continue;
+                    } catch (\MangoPay\Libraries\Exception $e) {
+                        continue;
+                    }
+
+                    try {
+                        $kyc = $mangoPay->viewKycDocument($Transaction->seller->mangopay_id, $Transaction->seller->kyc_id);
+                    } catch (\MangoPay\Libraries\ResponseException $e) {
+
+                    } catch (\MangoPay\Libraries\Exception $e) {
+
+                    }
 
                     //Update KYC Status if exist
                     if(isset($kyc->Status)) {
@@ -212,7 +245,15 @@ class MakeTransfers extends Command
         $this->info('Refund');
         $mangoPay = $this->mangoPay;
 
-        $refund = $mangoPay->createRefundPayIn($Transaction->transaction_mangopay, $Transaction->purchaser->mangopay_id, Transaction::FEES_CLAIM_PURCHASER);
+        try {
+            $refund = $mangoPay->createRefundPayIn($Transaction->transaction_mangopay, $Transaction->purchaser->mangopay_id, Transaction::FEES_CLAIM_PURCHASER);
+        } catch (\MangoPay\Libraries\ResponseException $e) {
+            $Transaction->status_refund = Transaction::STATUS_TRANSFER_FAIL;
+        } catch (\MangoPay\Libraries\Exception $e) {
+            $Transaction->status_refund = Transaction::STATUS_TRANSFER_FAIL;
+        }
+
+
         //Update transaction Refund
         if(isset($refund->Status)) {
             $Transaction->status_refund = $refund->Status;
@@ -226,7 +267,13 @@ class MakeTransfers extends Command
         $this->info('PayOut Claim');
         $mangoPay = $this->mangoPay;
 
-        $bankAccount = $mangoPay->getBankAccount($Transaction->seller->mangopay_id);
+        try {
+            $bankAccount = $mangoPay->getBankAccount($Transaction->seller->mangopay_id);
+        } catch (\MangoPay\Libraries\ResponseException $e) {
+            exit;
+        } catch (\MangoPay\Libraries\Exception $e) {
+            exit;
+        }
 
         //If user didn't put a Bank Account
         if (!$bankAccount) {
@@ -234,8 +281,14 @@ class MakeTransfers extends Command
             return;
         }
 
-        //Check and update KYC Status if exist
-        $kyc = $mangoPay->viewKycDocument($Transaction->seller->mangopay_id, $Transaction->seller->kyc_id);
+        try {
+            //Check and update KYC Status if exist
+            $kyc = $mangoPay->viewKycDocument($Transaction->seller->mangopay_id, $Transaction->seller->kyc_id);
+        } catch (\MangoPay\Libraries\ResponseException $e) {
+
+        } catch (\MangoPay\Libraries\Exception $e) {
+
+        }
 
         if(isset($kyc->Status)) {
             $Transaction->seller->kyc_status = $kyc->Status;
@@ -248,7 +301,14 @@ class MakeTransfers extends Command
             return;
         }
 
-        $wallet = $mangoPay->getWallet($Transaction->wallet_id);
+        try {
+            $wallet = $mangoPay->getWallet($Transaction->wallet_id);
+        } catch (\MangoPay\Libraries\ResponseException $e) {
+            exit;
+        } catch (\MangoPay\Libraries\Exception $e) {
+            exit;
+        }
+
         $this->makePayOut($bankAccount, $Transaction, $wallet, Transaction::FEES_SELLER, $Transaction->ticket->sellPrice);
     }
 
@@ -256,11 +316,30 @@ class MakeTransfers extends Command
         $this->info('Equality');
         $mangoPay = $this->mangoPay;
 
-        $bankAccount = $mangoPay->getBankAccount($Transaction->seller->mangopay_id);
+        try {
+            $bankAccount = $mangoPay->getBankAccount($Transaction->seller->mangopay_id);
+        } catch (\MangoPay\Libraries\ResponseException $e) {
+            exit;
+        } catch (\MangoPay\Libraries\Exception $e) {
+            exit;
+        }
 
-        $wallet = $mangoPay->getWallet($Transaction->wallet_id);
-        //We can split the amount of refund then give the rest to Seller
-        $refund = $mangoPay->createRefundPayIn($Transaction->transaction_mangopay, $Transaction->purchaser->mangopay_id, Transaction::FEES_EQUALITY, $wallet->Balance->Amount, true);
+        try {
+            $wallet = $mangoPay->getWallet($Transaction->wallet_id);
+        } catch (\MangoPay\Libraries\ResponseException $e) {
+            exit;
+        } catch (\MangoPay\Libraries\Exception $e) {
+            exit;
+        }
+
+        try {
+            //We can split the amount of refund then give the rest to Seller
+            $refund = $mangoPay->createRefundPayIn($Transaction->transaction_mangopay, $Transaction->purchaser->mangopay_id, Transaction::FEES_EQUALITY, $wallet->Balance->Amount, true);
+        } catch (\MangoPay\Libraries\ResponseException $e) {
+            $Transaction->status_refund = Transaction::STATUS_TRANSFER_FAIL;
+        } catch (\MangoPay\Libraries\Exception $e) {
+            $Transaction->status_refund = Transaction::STATUS_TRANSFER_FAIL;
+        }
 
         if(isset($refund->Status)) {
             $Transaction->status_refund = $refund->Status;
@@ -275,8 +354,14 @@ class MakeTransfers extends Command
             return;
         }
 
-        //Check and update KYC Status if exist
-        $kyc = $mangoPay->viewKycDocument($Transaction->seller->mangopay_id, $Transaction->seller->kyc_id);
+        try {
+            //Check and update KYC Status if exist
+            $kyc = $mangoPay->viewKycDocument($Transaction->seller->mangopay_id, $Transaction->seller->kyc_id);
+        } catch (\MangoPay\Libraries\ResponseException $e) {
+
+        } catch (\MangoPay\Libraries\Exception $e) {
+
+        }
 
         if(isset($kyc->Status)) {
             $Transaction->seller->kyc_status = $kyc->Status;
@@ -306,7 +391,18 @@ class MakeTransfers extends Command
     }
 
     private function makePayOut($bankAccount, $Transaction, $wallet, $fees, $amount) {
-        $payOut = $this->mangoPay->createPayOut($bankAccount, $Transaction->seller->mangopay_id, $wallet, $fees, $amount);
+        try {
+            $payOut = $this->mangoPay->createPayOut($bankAccount, $Transaction->seller->mangopay_id, $wallet, $fees, $amount);
+        } catch (\MangoPay\Libraries\ResponseException $e) {
+            $Transaction->status_payout = Transaction::STATUS_TRANSFER_FAIL;
+            $Transaction->seller->notify((new FailPayoutNotification($Transaction->seller)));
+            exit;
+        } catch (\MangoPay\Libraries\Exception $e) {
+            $Transaction->status_payout = Transaction::STATUS_TRANSFER_FAIL;
+            $Transaction->seller->notify((new FailPayoutNotification($Transaction->seller)));
+            exit;
+        }
+
         //Update transaction Payout
         if (isset($payOut->Status)) {
             $Transaction->status_payout = $payOut->Status;

@@ -83,7 +83,9 @@
         this.$http.post(this.route('api.user.update.bank_account'), this.form)
           .then(response => {
             this.handleResponse(response)
-          });
+          }).catch(response => {
+          this.handleResponse(response);
+        });
       },
     },
     computed: {},

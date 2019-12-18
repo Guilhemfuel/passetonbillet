@@ -31,79 +31,49 @@ class MangoPayService
         return ($fees / 100) * $amount;
     }
 
-    public function createMangoUser($user) {
-        try {
-            $mangoUser = new MangoPay\UserNatural();
-            $mangoUser->PersonType = "NATURAL";
-            $mangoUser->FirstName = $user->first_name;
-            $mangoUser->LastName = $user->last_name;
-            $mangoUser->Birthday = strtotime($user->birthdate);
-            $mangoUser->Nationality = $user->nationality ? $user->nationality : "FR";
-            $mangoUser->CountryOfResidence = $user->country_residence ? $user->country_residence : "FR";
-            $mangoUser->Email = $user->email;
+    public function createMangoUser($user)
+    {
+        $mangoUser = new MangoPay\UserNatural();
+        $mangoUser->PersonType = "NATURAL";
+        $mangoUser->FirstName = $user->first_name;
+        $mangoUser->LastName = $user->last_name;
+        $mangoUser->Birthday = strtotime($user->birthdate);
+        $mangoUser->Nationality = $user->nationality ? $user->nationality : "FR";
+        $mangoUser->CountryOfResidence = $user->country_residence ? $user->country_residence : "FR";
+        $mangoUser->Email = $user->email;
 
-            $mangoUser = $this->mangoPayApi->Users->Create($mangoUser);
+        $mangoUser = $this->mangoPayApi->Users->Create($mangoUser);
 
-            $this->mangoUser = $mangoUser->Id;
+        $this->mangoUser = $mangoUser->Id;
 
-            return $mangoUser;
-
-        } catch (MangoPay\Libraries\ResponseException $e) {
-            return $e->GetMessage();
-        } catch (MangoPay\Libraries\Exception $e) {
-            return $e->GetMessage();
-        }
+        return $mangoUser;
     }
 
-    public function getMangoUser($id) {
-        try {
+    public function getMangoUser($id)
+    {
+        $user = $this->mangoPayApi->Users->Get($id);
+        $this->mangoUser = $user->Id;
 
-            $user = $this->mangoPayApi->Users->Get($id);
-            $this->mangoUser = $user->Id;
-
-            return $user;
-
-        } catch (MangoPay\Libraries\ResponseException $e) {
-            return $e->GetMessage();
-        } catch (MangoPay\Libraries\Exception $e) {
-            return $e->GetMessage();
-        }
+        return $user;
     }
 
     public function getAllCards($id) {
-        try {
-
-            $cards = $this->mangoPayApi->Users->GetCards($id);
-            return $cards;
-
-        } catch (MangoPay\Libraries\ResponseException $e) {
-            return $e->GetCode();
-        } catch (MangoPay\Libraries\Exception $e) {
-            return $e->GetMessage();
-        }
+        $cards = $this->mangoPayApi->Users->GetCards($id);
+        return $cards;
     }
 
     public function createCardRegistration($card = null) {
-        try {
-            $cardRegistration = new MangoPay\CardRegistration();
-            $cardRegistration->UserId = $this->mangoUser;
-            $cardRegistration->Currency = self::EUR_CURRENCY;
-            $cardRegistration->CardType = isset($card->type) ? $card->type : "CB_VISA_MASTERCARD";
+        $cardRegistration = new MangoPay\CardRegistration();
+        $cardRegistration->UserId = $this->mangoUser;
+        $cardRegistration->Currency = self::EUR_CURRENCY;
+        $cardRegistration->CardType = isset($card->type) ? $card->type : "CB_VISA_MASTERCARD";
 
-            $cardRegistration = $this->mangoPayApi->CardRegistrations->Create($cardRegistration);
+        $cardRegistration = $this->mangoPayApi->CardRegistrations->Create($cardRegistration);
 
-            return $cardRegistration;
-
-        } catch (MangoPay\Libraries\ResponseException $e) {
-            return $e->GetMessage();
-        } catch (MangoPay\Libraries\Exception $e) {
-            return $e->GetMessage();
-        }
+        return $cardRegistration;
     }
 
     public function updateCardRegistration($id, $data) {
-        try {
-
             $cardRegistration = new MangoPay\CardRegistration();
             $cardRegistration->Id = $id;
             $cardRegistration->RegistrationData = $data;
@@ -111,113 +81,67 @@ class MangoPayService
             $cardRegistration = $this->mangoPayApi->CardRegistrations->Update($cardRegistration);
 
             return $cardRegistration;
-
-        } catch (MangoPay\Libraries\ResponseException $e) {
-            return $e->GetMessage();
-        } catch (MangoPay\Libraries\Exception $e) {
-            return $e->GetMessage();
-        }
     }
 
     public function directPayIn($data) {
-        try {
+        $PayIn = new MangoPay\PayIn();
+        $PayIn->CreditedWalletId = $data->CreditedWalletId;
+        $PayIn->AuthorId = $data->AuthorId;
 
-            $PayIn = new MangoPay\PayIn();
-            $PayIn->CreditedWalletId = $data->CreditedWalletId;
-            $PayIn->AuthorId = $data->AuthorId;
+        $PayIn->PaymentType = "CARD";
+        $PayIn->PaymentDetails = new MangoPay\PayInPaymentDetailsCard();
 
-            $PayIn->PaymentType = "CARD";
-            $PayIn->PaymentDetails = new MangoPay\PayInPaymentDetailsCard();
+        $PayIn->DebitedFunds = new \MangoPay\Money();
+        $PayIn->DebitedFunds->Currency = self::EUR_CURRENCY;
+        $PayIn->DebitedFunds->Amount = $data->Amount * 100;
 
-            $PayIn->DebitedFunds = new \MangoPay\Money();
-            $PayIn->DebitedFunds->Currency = self::EUR_CURRENCY;
-            $PayIn->DebitedFunds->Amount = $data->Amount * 100;
+        $PayIn->Fees = new \MangoPay\Money();
+        $PayIn->Fees->Currency = self::EUR_CURRENCY;
+        $PayIn->Fees->Amount = 0;
+        $PayIn->ExecutionType = "DIRECT";
 
-            $PayIn->Fees = new \MangoPay\Money();
-            $PayIn->Fees->Currency = self::EUR_CURRENCY;
-            $PayIn->Fees->Amount = 0;
-            $PayIn->ExecutionType = "DIRECT";
+        $PayIn->ExecutionDetails = new MangoPay\PayInExecutionDetailsDirect();
+        $PayIn->ExecutionDetails->SecureModeReturnURL = $data->SecureModeReturnURL;
+        $PayIn->ExecutionDetails->CardId = $data->CardId;
 
-            $PayIn->ExecutionDetails = new MangoPay\PayInExecutionDetailsDirect();
-            $PayIn->ExecutionDetails->SecureModeReturnURL = $data->SecureModeReturnURL;
-            $PayIn->ExecutionDetails->CardId = $data->CardId;
+        $PayIn = $this->mangoPayApi->PayIns->Create($PayIn);
 
-            $PayIn = $this->mangoPayApi->PayIns->Create($PayIn);
-
-            return $PayIn;
-
-        } catch (MangoPay\Libraries\ResponseException $e) {
-            return $e->GetMessage();
-        } catch (MangoPay\Libraries\Exception $e) {
-            return $e->GetMessage();
-        }
+        return $PayIn;
     }
 
     public function createWallet($name, $currency) {
-        try {
+        $wallet = new MangoPay\Wallet();
+        $wallet->Owners = array($this->mangoUser);
+        $wallet->Description = "Passe Ton Billet - Ticket : " . $name;
+        $wallet->Currency = self::EUR_CURRENCY;
 
-            $wallet = new MangoPay\Wallet();
-            $wallet->Owners = array ($this->mangoUser);
-            $wallet->Description = "Passe Ton Billet - Ticket : " . $name;
-            $wallet->Currency = self::EUR_CURRENCY;
+        $wallet = $this->mangoPayApi->Wallets->Create($wallet);
 
-            $wallet = $this->mangoPayApi->Wallets->Create($wallet);
-
-            return $wallet;
-
-        } catch (MangoPay\Libraries\ResponseException $e) {
-            return $e->GetMessage();
-        } catch (MangoPay\Libraries\Exception $e) {
-            return $e->GetMessage();
-        }
+        return $wallet;
     }
 
     public function getWallet($id) {
-        try {
-
-            $wallet = $this->mangoPayApi->Wallets->Get($id);
-            return $wallet;
-
-        } catch (MangoPay\Libraries\ResponseException $e) {
-            return $e->GetMessage();
-        } catch (MangoPay\Libraries\Exception $e) {
-            return $e->GetMessage();
-        }
+        $wallet = $this->mangoPayApi->Wallets->Get($id);
+        return $wallet;
     }
 
     public function getAllWallet() {
-        try {
-
-            $wallets = $this->mangoPayApi->Users->GetWallets($this->mangoUser);
-            return $wallets;
-
-        } catch (MangoPay\Libraries\ResponseException $e) {
-            return $e->GetMessage();
-        } catch (MangoPay\Libraries\Exception $e) {
-            return $e->GetMessage();
-        }
+        $wallets = $this->mangoPayApi->Users->GetWallets($this->mangoUser);
+        return $wallets;
     }
 
     public function getWalletTransactions($id) {
-        try {
+        $pagination = new MangoPay\Pagination();
+        $pagination->Page = 1;
+        $pagination->ItemsPerPage = 20;
 
-            $pagination = new MangoPay\Pagination();
-            $pagination->Page = 1;
-            $pagination->ItemsPerPage = 20;
+        $filter = new MangoPay\FilterTransactions();
 
-            $filter = new MangoPay\FilterTransactions();
+        $sorting = new MangoPay\Sorting();
+        $sorting->AddField("CreationDate", MangoPay\SortDirection::DESC);
 
-            $sorting = new MangoPay\Sorting();
-            $sorting->AddField("CreationDate", MangoPay\SortDirection::DESC);
-
-            $transactions = $this->mangoPayApi->Wallets->GetTransactions($id, $pagination, $filter, $sorting);
-            return $transactions;
-
-        } catch (MangoPay\Libraries\ResponseException $e) {
-            return $e->GetMessage();
-        } catch (MangoPay\Libraries\Exception $e) {
-            return $e->GetMessage();
-        }
+        $transactions = $this->mangoPayApi->Wallets->GetTransactions($id, $pagination, $filter, $sorting);
+        return $transactions;
     }
 
     public function getTransaction($id, $wallet) {
@@ -234,214 +158,129 @@ class MangoPayService
     }
 
     public function createBankAccount($data) {
-        try {
-            $BankAccount = new MangoPay\BankAccount();
-            $BankAccount->Type = "IBAN";
-            $BankAccount->Details = new MangoPay\BankAccountDetailsIBAN();
-            $BankAccount->Details->IBAN = $data->iban;
-            $BankAccount->OwnerName = $data->nameAccount;
+        $BankAccount = new MangoPay\BankAccount();
+        $BankAccount->Type = "IBAN";
+        $BankAccount->Details = new MangoPay\BankAccountDetailsIBAN();
+        $BankAccount->Details->IBAN = $data->iban;
+        $BankAccount->OwnerName = $data->nameAccount;
 
-            $BankAccount->OwnerAddress = new MangoPay\Address();
-            $BankAccount->OwnerAddress->AddressLine1 = $data->address;
-            $BankAccount->OwnerAddress->City = $data->city;
-            $BankAccount->OwnerAddress->PostalCode = $data->postal;
-            $BankAccount->OwnerAddress->Country = \Auth::user()->phone_country;
+        $BankAccount->OwnerAddress = new MangoPay\Address();
+        $BankAccount->OwnerAddress->AddressLine1 = $data->address;
+        $BankAccount->OwnerAddress->City = $data->city;
+        $BankAccount->OwnerAddress->PostalCode = $data->postal;
+        $BankAccount->OwnerAddress->Country = \Auth::user()->phone_country;
 
-            $BankAccount = $this->mangoPayApi->Users->CreateBankAccount($this->mangoUser, $BankAccount);
+        $BankAccount = $this->mangoPayApi->Users->CreateBankAccount($this->mangoUser, $BankAccount);
 
-            return $BankAccount;
-
-        } catch (MangoPay\Libraries\ResponseException $e) {
-            return $e->GetMessage();
-        } catch (MangoPay\Libraries\Exception $e) {
-            return $e->GetMessage();
-        }
+        return $BankAccount;
     }
 
     public function getBankAccount($user = null) {
-        try {
-
-            if(!$user) {
-                $user = $this->mangoUser;
-            }
-
-            $pagination = new MangoPay\Pagination();
-            $pagination->Page = 1;
-            $pagination->ItemsPerPage = 5;
-
-            $sorting = new MangoPay\Sorting();
-            $sorting->AddField("CreationDate", MangoPay\SortDirection::DESC);
-
-            $BankAccount = $this->mangoPayApi->Users->GetBankAccounts($user, $pagination, $sorting);
-            return $BankAccount ? $BankAccount[0] : null;
-
-        } catch (MangoPay\Libraries\ResponseException $e) {
-            return $e->GetMessage();
-        } catch (MangoPay\Libraries\Exception $e) {
-            return $e->GetMessage();
+        if (!$user) {
+            $user = $this->mangoUser;
         }
+
+        $pagination = new MangoPay\Pagination();
+        $pagination->Page = 1;
+        $pagination->ItemsPerPage = 5;
+
+        $sorting = new MangoPay\Sorting();
+        $sorting->AddField("CreationDate", MangoPay\SortDirection::DESC);
+
+        $BankAccount = $this->mangoPayApi->Users->GetBankAccounts($user, $pagination, $sorting);
+        return $BankAccount ? $BankAccount[0] : null;
     }
 
     public function listRefundsPayIn($PayInId) {
-        try {
-
-            $Refunds = $this->mangoPayApi->PayIns->Get($PayInId);
-            return $Refunds;
-
-        } catch (MangoPay\Libraries\ResponseException $e) {
-            return $e->GetMessage();
-        } catch (MangoPay\Libraries\Exception $e) {
-            return $e->GetMessage();
-        }
+        $Refunds = $this->mangoPayApi->PayIns->Get($PayInId);
+        return $Refunds;
     }
 
     public function createRefundPayIn($PayInId, $user, $fees = null, $amount = null, $split = null) {
-        try {
-            $Refund = new MangoPay\Refund();
-            $Refund->AuthorId = $user;
+        $Refund = new MangoPay\Refund();
+        $Refund->AuthorId = $user;
 
-            //If there is no amount then the full amount is refund
-            if($amount) {
-                $amount = $split ? ($amount / 2) : $amount;
+        //If there is no amount then the full amount is refund
+        if ($amount) {
+            $amount = $split ? ($amount / 2) : $amount;
 
-                $Refund->DebitedFunds = new MangoPay\Money();
-                $Refund->DebitedFunds->Currency = self::EUR_CURRENCY;
-                $Refund->DebitedFunds->Amount = $amount;
+            $Refund->DebitedFunds = new MangoPay\Money();
+            $Refund->DebitedFunds->Currency = self::EUR_CURRENCY;
+            $Refund->DebitedFunds->Amount = $amount;
 
-                $Refund->Fees = new MangoPay\Money();
-                $Refund->Fees->Currency = self::EUR_CURRENCY;
-                $Refund->Fees->Amount = $this->calculateFees($fees, $amount);
-            }
-
-            $Refund = $this->mangoPayApi->PayIns->CreateRefund($PayInId, $Refund);
-
-            return $Refund;
-
-        } catch (MangoPay\Libraries\ResponseException $e) {
-            return $e->GetMessage();
-        } catch (MangoPay\Libraries\Exception $e) {
-            return $e->GetMessage();
+            $Refund->Fees = new MangoPay\Money();
+            $Refund->Fees->Currency = self::EUR_CURRENCY;
+            $Refund->Fees->Amount = $this->calculateFees($fees, $amount);
         }
+
+        $Refund = $this->mangoPayApi->PayIns->CreateRefund($PayInId, $Refund);
+
+        return $Refund;
     }
 
     public function getRefund($id) {
-        try {
-
-            $Refund = $this->mangoPayApi->Refunds->Get($id);
-            return $Refund;
-
-        } catch (MangoPay\Libraries\ResponseException $e) {
-            return $e->GetMessage();
-        } catch (MangoPay\Libraries\Exception $e) {
-            return $e->GetMessage();
-        }
+        $Refund = $this->mangoPayApi->Refunds->Get($id);
+        return $Refund;
     }
 
     public function createPayOut($bankAccount, $user, $wallet, $fees, $amount) {
-        try {
-            $PayOut = new MangoPay\PayOut();
-            $PayOut->AuthorId = $user;
-            $PayOut->DebitedWalletID = $wallet->Id;
+        $PayOut = new MangoPay\PayOut();
+        $PayOut->AuthorId = $user;
+        $PayOut->DebitedWalletID = $wallet->Id;
 
-            $PayOut->DebitedFunds = new MangoPay\Money();
-            $PayOut->DebitedFunds->Currency = self::EUR_CURRENCY;
-            $PayOut->DebitedFunds->Amount = $wallet->Balance->Amount;
+        $PayOut->DebitedFunds = new MangoPay\Money();
+        $PayOut->DebitedFunds->Currency = self::EUR_CURRENCY;
+        $PayOut->DebitedFunds->Amount = $wallet->Balance->Amount;
 
-            $PayOut->Fees = new MangoPay\Money();
-            $PayOut->Fees->Currency = self::EUR_CURRENCY;
-            $PayOut->Fees->Amount = $this->calculateFees($fees, $amount);
+        $PayOut->Fees = new MangoPay\Money();
+        $PayOut->Fees->Currency = self::EUR_CURRENCY;
+        $PayOut->Fees->Amount = $this->calculateFees($fees, $amount);
 
-            $PayOut->PaymentType = "BANK_WIRE";
-            $PayOut->MeanOfPaymentDetails = new MangoPay\PayOutPaymentDetailsBankWire();
-            $PayOut->MeanOfPaymentDetails->BankAccountId = $bankAccount->Id;
+        $PayOut->PaymentType = "BANK_WIRE";
+        $PayOut->MeanOfPaymentDetails = new MangoPay\PayOutPaymentDetailsBankWire();
+        $PayOut->MeanOfPaymentDetails->BankAccountId = $bankAccount->Id;
 
-            $PayOut = $this->mangoPayApi->PayOuts->Create($PayOut);
+        $PayOut = $this->mangoPayApi->PayOuts->Create($PayOut);
 
-            return $PayOut;
-
-        } catch (MangoPay\Libraries\ResponseException $e) {
-            return $e->GetMessage();
-        } catch (MangoPay\Libraries\Exception $e) {
-            return $e->GetMessage();
-        }
+        return $PayOut;
     }
 
     public function getPayOut($id) {
-        try {
-
-            $Refund = $this->mangoPayApi->PayOuts->Get($id);
-            return $Refund;
-
-        } catch (MangoPay\Libraries\ResponseException $e) {
-            return $e->GetMessage();
-        } catch (MangoPay\Libraries\Exception $e) {
-            return $e->GetMessage();
-        }
+        $Refund = $this->mangoPayApi->PayOuts->Get($id);
+        return $Refund;
     }
 
     public function createKycDocument($user) {
-        try {
+        $KycDocument = new \MangoPay\KycDocument();
+        $KycDocument->Type = "IDENTITY_PROOF";
 
-            $KycDocument = new \MangoPay\KycDocument();
-            $KycDocument->Type = "IDENTITY_PROOF";
+        $KycDocument = $this->mangoPayApi->Users->CreateKycDocument($user, $KycDocument);
 
-            $KycDocument = $this->mangoPayApi->Users->CreateKycDocument($user, $KycDocument);
-
-            return $KycDocument;
-
-        } catch (MangoPay\Libraries\ResponseException $e) {
-            return $e->GetMessage();
-        } catch (MangoPay\Libraries\Exception $e) {
-            return $e->GetMessage();
-        }
+        return $KycDocument;
     }
 
     public function createKycPage($user, $kycDocument, $fileUrl) {
-        try {
+        $KycPage = new MangoPay\KycPage();
+        $KycPage->File = base64_encode(file_get_contents($fileUrl));
 
-            $KycPage = new MangoPay\KycPage();
-            $KycPage->File = base64_encode(file_get_contents($fileUrl));
-
-            if (empty($KycPage->File)) {
-                throw new \MangoPay\Libraries\Exception('Content of the file cannot be empty');
-            }
-
-            return $Kyc = $this->mangoPayApi->Users->CreateKycPage($user, $kycDocument, $KycPage, null);
-
-        } catch (MangoPay\Libraries\ResponseException $e) {
-            return $e->GetMessage();
-        } catch (MangoPay\Libraries\Exception $e) {
-            return $e->GetMessage();
+        if (empty($KycPage->File)) {
+            throw new \MangoPay\Libraries\Exception('Content of the file cannot be empty');
         }
+
+        return $Kyc = $this->mangoPayApi->Users->CreateKycPage($user, $kycDocument, $KycPage, null);
     }
 
     public function submitKycDocument($user, $kycDocoument) {
-        try {
+        $KycDocument = new MangoPay\KycDocument();
+        $KycDocument->Id = $kycDocoument;
+        $KycDocument->Status = "VALIDATION_ASKED";
 
-            $KycDocument = new MangoPay\KycDocument();
-            $KycDocument->Id = $kycDocoument;
-            $KycDocument->Status = "VALIDATION_ASKED";
-
-            $KycDocument = $this->mangoPayApi->Users->UpdateKycDocument($user, $KycDocument);
-            return $KycDocument;
-
-        } catch (MangoPay\Libraries\ResponseException $e) {
-            return $e->GetMessage();
-        } catch (MangoPay\Libraries\Exception $e) {
-            return $e->GetMessage();
-        }
+        $KycDocument = $this->mangoPayApi->Users->UpdateKycDocument($user, $KycDocument);
+        return $KycDocument;
     }
 
     public function viewKycDocument($user, $kycDocument) {
-        try {
-
-            $KycDocument = $this->mangoPayApi->Users->GetKycDocument($user, $kycDocument);
-            return $KycDocument;
-
-        } catch (MangoPay\Libraries\ResponseException $e) {
-            return $e->GetMessage();
-        } catch (MangoPay\Libraries\Exception $e) {
-            return $e->GetMessage();
-        }
+        $KycDocument = $this->mangoPayApi->Users->GetKycDocument($user, $kycDocument);
+        return $KycDocument;
     }
 }

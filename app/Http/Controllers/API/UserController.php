@@ -18,17 +18,26 @@ class UserController extends Controller
 
         //Create Mango User if not exist
         if (!$user->mangopay_id) {
-            $mangoUser = $mangoPay->createMangoUser($user);
 
-            if(!$mangoUser->Id) {
-                return response()->json(['message' => __( 'tickets.mangopay_error'), 'type' => 'error', 'mangopay' => $mangoUser]);
+            try {
+                $mangoUser = $mangoPay->createMangoUser($user);
+            } catch (\MangoPay\Libraries\ResponseException $e) {
+                return response()->json(['message' => __( 'tickets.mangopay_error'), 'type' => 'error', 'mangopay' => $e->GetMessage()], 400);
+            } catch (\MangoPay\Libraries\Exception $e) {
+                return response()->json(['message' => __( 'tickets.mangopay_error'), 'type' => 'error', 'mangopay' => $e->GetMessage()], 400);
             }
 
             $user->mangopay_id = $mangoUser->Id;
             $user->save();
         }
 
-        $cards = $mangoPay->getAllCards($user->mangopay_id);
+        try {
+            $cards = $mangoPay->getAllCards($user->mangopay_id);
+        } catch (\MangoPay\Libraries\ResponseException $e) {
+            return response()->json(['message' => __( 'tickets.mangopay_error'), 'type' => 'error', 'mangopay' => $e->GetMessage()], 400);
+        } catch (\MangoPay\Libraries\Exception $e) {
+            return response()->json(['message' => __( 'tickets.mangopay_error'), 'type' => 'error', 'mangopay' => $e->GetMessage()], 400);
+        }
 
         return response()->json($cards);
     }
@@ -41,9 +50,22 @@ class UserController extends Controller
         $user = \Auth::user();
 
         $mangoPay = new MangoPayService();
-        $mangoPay->getMangoUser($user->mangopay_id);
 
-        $cardRegistration = $mangoPay->createCardRegistration($request->data);
+        try {
+            $mangoPay->getMangoUser($user->mangopay_id);
+        } catch (\MangoPay\Libraries\ResponseException $e) {
+            return response()->json(['message' => __( 'tickets.mangopay_error'), 'type' => 'error', 'mangopay' => $e->GetMessage()], 400);
+        } catch (\MangoPay\Libraries\Exception $e) {
+            return response()->json(['message' => __( 'tickets.mangopay_error'), 'type' => 'error', 'mangopay' => $e->GetMessage()], 400);
+        }
+
+        try {
+            $cardRegistration = $mangoPay->createCardRegistration($request->data);
+        } catch (\MangoPay\Libraries\ResponseException $e) {
+            return response()->json(['message' => __( 'tickets.mangopay_error'), 'type' => 'error', 'mangopay' => $e->GetMessage()], 400);
+        } catch (\MangoPay\Libraries\Exception $e) {
+            return response()->json(['message' => __( 'tickets.mangopay_error'), 'type' => 'error', 'mangopay' => $e->GetMessage()], 400);
+        }
 
         return response()->json($cardRegistration);
     }
@@ -54,7 +76,14 @@ class UserController extends Controller
         $this->middleware('auth');
 
         $mangoPay = new MangoPayService();
-        $result = $mangoPay->updateCardRegistration($request->id, $request->data);
+
+        try {
+            $result = $mangoPay->updateCardRegistration($request->id, $request->data);
+        } catch (\MangoPay\Libraries\ResponseException $e) {
+            return response()->json(['message' => __( 'tickets.mangopay_error'), 'type' => 'error', 'mangopay' => $e->GetMessage()], 400);
+        } catch (\MangoPay\Libraries\Exception $e) {
+            return response()->json(['message' => __( 'tickets.mangopay_error'), 'type' => 'error', 'mangopay' => $e->GetMessage()], 400);
+        }
 
         return response()->json($result);
     }
@@ -64,9 +93,22 @@ class UserController extends Controller
 
         $user = \Auth::user();
         $mangoPay = new MangoPayService();
-        $mangoPay->getMangoUser($user->mangopay_id);
 
-        $bankAccount = $mangoPay->getBankAccount();
+        try {
+            $mangoPay->getMangoUser($user->mangopay_id);
+        } catch (\MangoPay\Libraries\ResponseException $e) {
+            return response()->json(['message' => __( 'tickets.mangopay_error'), 'type' => 'error', 'mangopay' => $e->GetMessage()], 400);
+        } catch (\MangoPay\Libraries\Exception $e) {
+            return response()->json(['message' => __( 'tickets.mangopay_error'), 'type' => 'error', 'mangopay' => $e->GetMessage()], 400);
+        }
+
+        try {
+            $bankAccount = $mangoPay->getBankAccount();
+        } catch (\MangoPay\Libraries\ResponseException $e) {
+            return response()->json(['message' => __( 'tickets.mangopay_error'), 'type' => 'error', 'mangopay' => $e->GetMessage()], 400);
+        } catch (\MangoPay\Libraries\Exception $e) {
+            return response()->json(['message' => __( 'tickets.mangopay_error'), 'type' => 'error', 'mangopay' => $e->GetMessage()], 400);
+        }
 
         return response()->json(['bankAccount' => $bankAccount]);
     }
@@ -76,10 +118,24 @@ class UserController extends Controller
 
         $user = \Auth::user();
         $mangoPay = new MangoPayService();
-        $mangoPay->getMangoUser($user->mangopay_id);
+
+        try {
+            $mangoPay->getMangoUser($user->mangopay_id);
+        } catch (\MangoPay\Libraries\ResponseException $e) {
+            return response()->json(['message' => __( 'tickets.mangopay_error'), 'type' => 'error', 'mangopay' => $e->GetMessage()], 400);
+        } catch (\MangoPay\Libraries\Exception $e) {
+            return response()->json(['message' => __( 'tickets.mangopay_error'), 'type' => 'error', 'mangopay' => $e->GetMessage()], 400);
+        }
 
         if($request->iban && $request->nameAccount && $request->address && $request->city && $request->postal) {
-            $bankAccount = $mangoPay->createBankAccount($request);
+
+            try {
+                $bankAccount = $mangoPay->createBankAccount($request);
+            } catch (\MangoPay\Libraries\ResponseException $e) {
+                return response()->json(['message' => __( 'tickets.bank_account_not_valid'), 'type' => 'error', 'mangopay' => $e->GetMessage()], 400);
+            } catch (\MangoPay\Libraries\Exception $e) {
+                return response()->json(['message' => __( 'tickets.bank_account_not_valid'), 'type' => 'error', 'mangopay' => $e->GetMessage()], 400);
+            }
 
             if(isset($bankAccount->UserId)) {
                 return response()->json(['message' => __( 'tickets.bank_account_success'), 'type' => 'success', 'bankAccount' => $bankAccount]);

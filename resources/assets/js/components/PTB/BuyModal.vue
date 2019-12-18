@@ -262,7 +262,9 @@
               this.state = 'recap';
               this.$root.user.country_profil_completed = true;
             }
-          });
+          }).catch(response => {
+          this.handleResponse(response);
+        });
       },
       getAllCards() {
         this.$http.get(this.route('api.user.get.cards'))
@@ -271,12 +273,13 @@
               this.userCards = response.body;
             }
             this.state = 'show_cards';
-          });
+          }).catch(response => {
+          this.handleResponse(response);
+        });
       },
       addCardRegistration() {
         this.$http.get(this.route('api.user.add.card.registration'))
           .then(response => {
-
             let data = response.body;
 
             this.CardRegistrationURL = data.CardRegistrationURL;
@@ -286,7 +289,9 @@
             this.formRegistrationCard.idCard = data.Id;
 
             this.state = 'add_card';
-          });
+          }).catch(response => {
+          this.handleResponse(response);
+        });
       },
       saveCardRegistration() {
 
@@ -321,14 +326,18 @@
               this.updateCardRegistration(response.body)
             }
 
-          });
+          }).catch(response => {
+          this.handleResponse(response);
+        });
       },
       updateCardRegistration(data) {
         this.$http.post(this.route('api.user.update.card.registration'), {'data': data, 'id': this.formRegistrationCard.idCard})
           .then(response => {
             //Back to the user cards screen
             this.getAllCards()
-          });
+          }).catch(response => {
+          this.handleResponse(response);
+        });
       },
       buy() {
         if(this.formBuy) {
@@ -341,7 +350,9 @@
               } else {
                 this.$message({message: this.trans('tickets.buy_modal.error'), type: 'error'})
               }
-            });
+            }).catch(response => {
+            this.handleResponse(response);
+          });
         }
       },
       formatedCardNumber(value) {

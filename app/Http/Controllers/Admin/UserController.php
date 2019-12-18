@@ -251,9 +251,13 @@ class UserController extends BaseController
 
         //Creation of MangoPay user if not exist
         if(!$idVerif->user->mangopay_id) {
-            $mangoUser = $mangoPay->createMangoUser($idVerif->user);
 
-            if(!isset($mangoUser->Id)) {
+            try {
+                $mangoUser = $mangoPay->createMangoUser($idVerif->user);
+            } catch (\MangoPay\Libraries\ResponseException $e) {
+                flash()->error( 'Problem with MangoPay and User creation !' );
+                return redirect()->back();
+            } catch (\MangoPay\Libraries\Exception $e) {
                 flash()->error( 'Problem with MangoPay and User creation !' );
                 return redirect()->back();
             }
@@ -264,7 +268,15 @@ class UserController extends BaseController
 
         //Creation of KYC Document if not exist
         if(!$idVerif->user->kyc_id) {
-            $kycDocument = $mangoPay->createKycDocument($idVerif->user->mangopay_id);
+            try {
+                $kycDocument = $mangoPay->createKycDocument($idVerif->user->mangopay_id);
+            } catch (\MangoPay\Libraries\ResponseException $e) {
+                flash()->error(__( 'tickets.mangopay_error'));
+                return redirect()->back();
+            } catch (\MangoPay\Libraries\Exception $e) {
+                flash()->error(__( 'tickets.mangopay_error'));
+                return redirect()->back();
+            }
 
             if(!isset($kycDocument->Id)) {
                 flash()->error( 'Problem with MangoPay KYC Document creation !' );
@@ -276,13 +288,38 @@ class UserController extends BaseController
             $idVerif->user->save();
         }
 
-        //Submit file to MangoPay
-        $mangoPay->createKycPage($idVerif->user->mangopay_id, $idVerif->user->kyc_id, $idVerif->scan);
-        $kycDocument = $mangoPay->submitKycDocument($idVerif->user->mangopay_id, $idVerif->user->kyc_id);
+        try {
+            //Submit file to MangoPay
+            $mangoPay->createKycPage($idVerif->user->mangopay_id, $idVerif->user->kyc_id, $idVerif->scan);
+        } catch (\MangoPay\Libraries\ResponseException $e) {
+            flash()->error(__( 'tickets.mangopay_error'));
+            return redirect()->back();
+        } catch (\MangoPay\Libraries\Exception $e) {
+            flash()->error(__( 'tickets.mangopay_error'));
+            return redirect()->back();
+        }
+
+        try {
+            $kycDocument = $mangoPay->submitKycDocument($idVerif->user->mangopay_id, $idVerif->user->kyc_id);
+        } catch (\MangoPay\Libraries\ResponseException $e) {
+            flash()->error(__( 'tickets.mangopay_error'));
+            return redirect()->back();
+        } catch (\MangoPay\Libraries\Exception $e) {
+            flash()->error(__( 'tickets.mangopay_error'));
+            return redirect()->back();
+        }
 
         //If document has already been treated we take it for update
         if(!isset($kycDocument->Status)) {
-            $kycDocument = $mangoPay->viewKycDocument($idVerif->user->mangopay_id, $idVerif->user->kyc_id);
+            try {
+                $kycDocument = $mangoPay->viewKycDocument($idVerif->user->mangopay_id, $idVerif->user->kyc_id);
+            } catch (\MangoPay\Libraries\ResponseException $e) {
+                flash()->error(__( 'tickets.mangopay_error'));
+                return redirect()->back();
+            } catch (\MangoPay\Libraries\Exception $e) {
+                flash()->error(__( 'tickets.mangopay_error'));
+                return redirect()->back();
+            }
         }
 
         $idVerif->user->kyc_status = $kycDocument->Status;

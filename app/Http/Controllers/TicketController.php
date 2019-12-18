@@ -83,21 +83,36 @@ class TicketController extends Controller
 
         //Create MangoPay for seller if doesn't exist
         if (!$seller->mangopay_id) {
-            $mangoSeller = $mangoPaySeller->createMangoUser($seller);
 
-            if(!$mangoSeller->Id) {
-                return response()->json(['message' => __( 'tickets.mangopay_error'), 'type' => 'error', 'mangopay' => $mangoSeller]);
+            try {
+                $mangoSeller = $mangoPaySeller->createMangoUser($seller);
+            } catch (\MangoPay\Libraries\ResponseException $e) {
+                return response()->json(['message' => __( 'tickets.mangopay_error'), 'type' => 'error', 'mangopay' => $e->GetMessage()], 400);
+            } catch (\MangoPay\Libraries\Exception $e) {
+                return response()->json(['message' => __( 'tickets.mangopay_error'), 'type' => 'error', 'mangopay' => $e->GetMessage()], 400);
             }
 
             $seller->mangopay_id = $mangoSeller->Id;
             $seller->save();
         } else {
-            $mangoPaySeller->getMangoUser($ticket->user->mangopay_id);
+            try {
+                $mangoPaySeller->getMangoUser($ticket->user->mangopay_id);
+            } catch (\MangoPay\Libraries\ResponseException $e) {
+                return $e->GetMessage();
+            } catch (\MangoPay\Libraries\Exception $e) {
+                return $e->GetMessage();
+            }
         }
 
         //If ticket has no transaction yet, then we can create a wallet for it
         if (!$transaction) {
-            $wallet = $mangoPaySeller->createWallet($ticket->id, $ticket->currency);
+            try {
+                $wallet = $mangoPaySeller->createWallet($ticket->id, $ticket->currency);
+            } catch (\MangoPay\Libraries\ResponseException $e) {
+                return response()->json(['message' => __( 'tickets.mangopay_error'), 'type' => 'error', 'mangopay' => $e->GetMessage()], 400);
+            } catch (\MangoPay\Libraries\Exception $e) {
+                return response()->json(['message' => __( 'tickets.mangopay_error'), 'type' => 'error', 'mangopay' => $e->GetMessage()], 400);
+            }
 
             $transaction = new Transaction();
 
@@ -114,17 +129,25 @@ class TicketController extends Controller
                 return response()->json(['message' => trans('tickets.buy_modal.ticket_already_sold')]);
             }
 
-            $wallet = $mangoPaySeller->getWallet($transaction->wallet_id);
+            try {
+                $wallet = $mangoPaySeller->getWallet($transaction->wallet_id);
+            } catch (\MangoPay\Libraries\ResponseException $e) {
+                return response()->json(['message' => __( 'tickets.mangopay_error'), 'type' => 'error', 'mangopay' => $e->GetMessage()], 400);
+            } catch (\MangoPay\Libraries\Exception $e) {
+                return response()->json(['message' => __( 'tickets.mangopay_error'), 'type' => 'error', 'mangopay' => $e->GetMessage()], 400);
+            }
 
             //If there is a current wallet with wrong currency we need to make a new one
             //It is not allow to change currency in Mangopay
 
-            if (!$wallet) {
-                $wallet = $mangoPaySeller->createWallet($ticket->id, $ticket->currency);
-            }
-
-            if ($wallet->Currency != $ticket->currency) {
-                $wallet = $mangoPaySeller->createWallet($ticket->id, $ticket->currency);
+            if (!$wallet or $wallet->Currency != $ticket->currency) {
+                try {
+                    $wallet = $mangoPaySeller->createWallet($ticket->id, $ticket->currency);
+                } catch (\MangoPay\Libraries\ResponseException $e) {
+                    return response()->json(['message' => __( 'tickets.mangopay_error'), 'type' => 'error', 'mangopay' => $e->GetMessage()], 400);
+                } catch (\MangoPay\Libraries\Exception $e) {
+                    return response()->json(['message' => __( 'tickets.mangopay_error'), 'type' => 'error', 'mangopay' => $e->GetMessage()], 400);
+                }
             }
 
             $transaction->wallet_id = $wallet->Id;
@@ -142,10 +165,12 @@ class TicketController extends Controller
             'SecureModeReturnURL' => route('api.ticket.transaction.success')
         ];
 
-        $payIn = $mangoPaySeller->directPayIn((object)$payIn);
-
-        if(!$payIn OR !is_object($payIn)) {
-            return response()->json(['state' => 'error', 'payIn' => $payIn]);
+        try {
+            $payIn = $mangoPaySeller->directPayIn((object)$payIn);
+        } catch (\MangoPay\Libraries\ResponseException $e) {
+            return response()->json(['message' => __( 'tickets.mangopay_error'), 'type' => 'error', 'mangopay' => $e->GetMessage()], 400);
+        } catch (\MangoPay\Libraries\Exception $e) {
+            return response()->json(['message' => __( 'tickets.mangopay_error'), 'type' => 'error', 'mangopay' => $e->GetMessage()], 400);
         }
 
         $transaction->purchaser_id = $user->id;
@@ -175,7 +200,14 @@ class TicketController extends Controller
 
         if ($transaction) {
             $mangoPay = new MangoPayService();
-            $transactionMango = $mangoPay->getTransaction($transaction->transaction_mangopay, $transaction->wallet_id);
+
+            try {
+                $transactionMango = $mangoPay->getTransaction($transaction->transaction_mangopay, $transaction->wallet_id);
+            } catch (\MangoPay\Libraries\ResponseException $e) {
+                return response()->json(['message' => __( 'tickets.mangopay_error'), 'type' => 'error', 'mangopay' => $e->GetMessage()], 400);
+            } catch (\MangoPay\Libraries\Exception $e) {
+                return response()->json(['message' => __( 'tickets.mangopay_error'), 'type' => 'error', 'mangopay' => $e->GetMessage()], 400);
+            }
 
             if ($transactionMango) {
                 $transaction->status = $transactionMango->Status;
