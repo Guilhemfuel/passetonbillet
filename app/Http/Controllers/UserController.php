@@ -12,6 +12,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Nexmo\Laravel\Facade\Nexmo;
 use App\Services\MangoPayService;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -421,8 +422,15 @@ class UserController extends Controller
         $this->middleware('auth');
         $user = \Auth::user();
 
-        if(!$request->country_residence OR !$request->nationality OR !$request->birthdate) {
+        try {
+            $request->validate(
+                [
+                    'country_residence' => 'required',
+                    'nationality' => 'required',
+                    'birthdate' => 'required',
+                ]);
 
+        } catch (\Exception $e) {
             if($request->expectsJson()){
                 return response()->json([
                     'message' => __( 'profile.modal.verify_identity.error_completed_profil' ),

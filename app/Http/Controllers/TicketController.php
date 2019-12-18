@@ -247,6 +247,8 @@ class TicketController extends Controller
 
     public function downloadTicket($id)
     {
+        $this->middleware('auth');
+
         $user = \Auth::user();
 
         if (!$user) {
