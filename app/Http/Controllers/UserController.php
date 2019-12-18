@@ -181,7 +181,7 @@ class UserController extends Controller
                  ->where( 'phone_country', $request->phone_country )
                  ->count() > 0 ) {
 
-            if($request->ajax()){
+            if($request->expectsJson()){
                 return response()->json([
                     'message' => __( 'tickets.sell.confirm_number.errors.phone_already_used'),
                     'type' => 'error'
@@ -196,7 +196,7 @@ class UserController extends Controller
         // Make sure user doesn't have a phone yet
         if ( $request->user()->phone_verified ) {
 
-            if($request->ajax()){
+            if($request->expectsJson()){
                 return response()->json([
                     'state' => 'phone_verified',
                     'message' => __('tickets.sell.confirm_number.errors.phone_already_verified'),
@@ -212,7 +212,7 @@ class UserController extends Controller
         // Now we make sure that verificaton wasn't sent more than 3 times for one user
         if ( PhoneVerification::withTrashed()->where( 'user_id', $request->user()->id )->count() > 2 ) {
 
-            if($request->ajax()){
+            if($request->expectsJson()){
                 return response()->json([
                     'state' => 'phone_verification_sent',
                     'message' => __( 'tickets.sell.confirm_number.errors.verify_max_retry' ),
@@ -250,7 +250,7 @@ class UserController extends Controller
                 ] );
             } catch (\Exception $e){
 
-                if($request->ajax()){
+                if($request->expectsJson()){
                     return response()->json([
                         'state' => 'phone_verification_sent',
                         'message' => __('common.error'),
@@ -267,14 +267,14 @@ class UserController extends Controller
             $warning = 'Development mode: Would send a text to: '.$phoneVerification->phone_number.
                 ' containing code :'. $phoneVerification->code;
 
-            if(!$request->ajax()){
+            if(!$request->expectsJson()){
                 flash($warning)->warning();
             }
         }
 
         $phoneVerification->save();
 
-        if($request->ajax()){
+        if($request->expectsJson()){
             return response()->json([
                 'state' => 'phone_verification_sent',
                 'warning' => $warning,
@@ -307,7 +307,7 @@ class UserController extends Controller
         // Make sure user doesn't have a phone yet
         if ( $request->user()->phone_verified ) {
 
-            if($request->ajax()){
+            if($request->expectsJson()){
                 return response()->json([
                     'state' => 'phone_verified',
                     'message' => __('tickets.sell.confirm_number.errors.phone_already_verified'),
@@ -327,7 +327,7 @@ class UserController extends Controller
 
         if ( ! $phoneVerification ) {
 
-            if($request->ajax()){
+            if($request->expectsJson()){
                 return response()->json([
                     'message' => __('tickets.sell.confirm_number.errors.no_verification_found'),
                     'type' => 'error'
@@ -344,7 +344,7 @@ class UserController extends Controller
                  ->where( 'phone_country', $phoneVerification->phone_country )
                  ->count() > 0 ) {
 
-            if($request->ajax()){
+            if($request->expectsJson()){
                 return response()->json([
                     'message' => __( 'tickets.sell.confirm_number.errors.phone_already_used'),
                     'type' => 'error'
@@ -364,7 +364,7 @@ class UserController extends Controller
 
         $phoneVerification->delete();
 
-        if($request->ajax()){
+        if($request->expectsJson()){
             return response()->json([
                 'state' => 'phone_verified',
                 'message' => __( 'tickets.sell.confirm_number.success.number_confirmed' ),
@@ -385,7 +385,7 @@ class UserController extends Controller
 
         if(!$request->country_residence OR !$request->nationality OR !$request->birthdate) {
 
-            if($request->ajax()){
+            if($request->expectsJson()){
                 return response()->json([
                     'message' => __( 'profile.modal.verify_identity.error_completed_profil' ),
                     'type' => 'error'
@@ -401,7 +401,7 @@ class UserController extends Controller
         $user->birthdate = $request->birthdate;
         $user->save();
 
-        if($request->ajax()){
+        if($request->expectsJson()){
             return response()->json([
                 'message' => __( 'profile.modal.verify_identity.completed_profil' ),
                 'type' => 'success'
