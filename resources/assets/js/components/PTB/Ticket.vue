@@ -116,7 +116,7 @@
                             <div class="btn-buy row btn-buy-group" v-if="!selecting && buying">
                                 <div class="col text-center p-0">
 
-                                    <button v-if="this.ticket.hasPdf" class="btn btn-ptb btn-sm btn-call" @click.prevent="ifUserLogged()">
+                                    <button v-if="this.ticket.has_pdf" class="btn btn-ptb btn-sm btn-call" @click.prevent="ifUserLogged()">
                                         {{trans('tickets.component.buy')}}
                                     </button>
 

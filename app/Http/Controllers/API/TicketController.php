@@ -204,14 +204,14 @@ class TicketController extends Controller
             return response()->json(['status' => 'error', 'message' => trans('tickets.buy_modal.ticket_already_sold')], 400);
         }
 
-        if ($ticket->maxPrice >= $request->price) {
+        if ($ticket->max_price >= $request->price) {
 
             $ticket->price = $request->price;
             $ticket->save();
 
             return response()->json(['status' => 'success', 'message' => trans('tickets.api.price_updated')]);
         }
-        return response()->json(['status' => 'error', 'message' => trans('tickets.pdf.price_too_high') . ' ' . $ticket->maxPrice . $ticket->currency], 400);
+        return response()->json(['status' => 'error', 'message' => trans('tickets.pdf.price_too_high') . ' ' . $ticket->max_price . $ticket->currency], 400);
     }
 
     public function updatePdf($id, Request $request)

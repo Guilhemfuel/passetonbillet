@@ -189,7 +189,7 @@
       },
       calculTimeLeft() {
         let dateDeparture = this.ticket.train.full_departure_date;
-        let claimLimitPurchaser = this.ticket.claimLimitPurchaser;
+        let claimLimitPurchaser = this.ticket.claim_limit_purchaser;
         let dateNow = moment().format('YYYY-MM-DD HH:mm:ss');
 
         //If departure has started, we display the claim modal

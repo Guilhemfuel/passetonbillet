@@ -141,7 +141,7 @@
                                v-html="trans('tickets.component.type.second_hand')">
                             </p>
 
-                            <button v-if="this.ticket.hasPdf" class="btn btn-ptb btn-upper ml-3" @click.prevent="modalBuyOpen = true">
+                            <button v-if="this.ticket.has_pdf" class="btn btn-ptb btn-upper ml-3" @click.prevent="modalBuyOpen = true">
                                 {{trans('tickets.component.buy')}}
                             </button>
 
@@ -267,7 +267,7 @@
                         </div>
                         <div class="call">
 
-                            <button v-if="this.ticket.hasPdf" class="btn btn-ptb btn-upper ml-3" @click.prevent="modalBuyOpen = true">
+                            <button v-if="this.ticket.has_pdf" class="btn btn-ptb btn-upper ml-3" @click.prevent="modalBuyOpen = true">
                                 {{trans('tickets.component.buy')}}
                             </button>
 

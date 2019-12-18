@@ -77,7 +77,7 @@
                                 </div>
                             </div>
 
-                            <div v-if="this.ticket.hasPdf">
+                            <div v-if="this.ticket.has_pdf">
                                 <button class="btn btn-ptb btn-upper text-uppercase mt-3 w-100" @click.prevent="getAllCards">
                                     {{trans('tickets.component.buy')}} {{ ticket.sellPrice }}{{ ticket.currency_symbol }}
                                 </button>

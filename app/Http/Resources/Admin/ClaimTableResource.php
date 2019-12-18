@@ -38,12 +38,12 @@ class ClaimTableResource extends Resource
             'bought_price'           => $this->bought_price,
             'bought_currency'        => $this->bought_currency,
             'bought_currency_symbol' => $this->bought_currency_symbol,
-            'maxPrice'               => $this->max_price,
-            'hasPdf'                 => $this->has_pdf,
-            'hasClaim'               => $this->has_claim,
-            'claimLimitPurchaser'    => $this->limit_claim_purchaser->format('Y-m-d H:i:s'),
-            'claimLimitSeller'       => $this->limit_claim_seller ? $this->limit_claim_seller->format('Y-m-d H:i:s') : null,
-            'dateBeforeTransfer'     => $this->date_before_transfer ? $this->date_before_transfer->format('Y-m-d H:i:s') : null,
+            'max_price'               => $this->max_price,
+            'has_pdf'                 => $this->has_pdf,
+            'has_claim'               => $this->has_claim,
+            'claim_limit_purchaser'    => $this->limit_claim_purchaser->format('Y-m-d H:i:s'),
+            'claim_limit_seller'       => $this->limit_claim_seller ? $this->limit_claim_seller->format('Y-m-d H:i:s') : null,
+            'date_before_transfer'     => $this->date_before_transfer ? $this->date_before_transfer->format('Y-m-d H:i:s') : null,
 
             // Only for seller, or when selecting (user id is null)
             'ticket_number'          => $this->when( ( \Auth::check() && \Auth::user()->id == $this->user_id ) || $this->user_id == null, $this->ticket_number ),

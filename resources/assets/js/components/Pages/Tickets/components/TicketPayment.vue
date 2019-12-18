@@ -63,10 +63,10 @@
         if(response.body.message) { this.$message({message: response.body.message, type: response.body.status}) }
       },
       calculTimeLeft() {
-        let dateBeforeTransfer = this.ticket.dateBeforeTransfer;
-        let claimLimitSeller = this.ticket.claimLimitSeller;
+        let dateBeforeTransfer = this.ticket.date_before_transfer;
+        let claimLimitSeller = this.ticket.claim_limit_seller;
 
-        if(this.ticket.hasClaim) {
+        if(this.ticket.has_claim) {
           if(claimLimitSeller > this.dateNow) {
             let diff = new moment(claimLimitSeller,"YYYY-MM-DD HH:mm:ss").diff(moment(this.dateNow,"YYYY-MM-DD HH:mm:ss"));
             this.timeLeft = Math.round(new moment.duration(diff).asHours());
@@ -85,7 +85,7 @@
     },
     computed: {
       currentlyInClaim() {
-        if (this.ticket.hasClaim && !this.ticket.statusClaim) {
+        if (this.ticket.has_claim && !this.ticket.status_claim) {
           return true;
         } else {
           return false;
@@ -93,8 +93,8 @@
       },
       statusTicket() {
 
-        let status_payout = this.ticket.statusTransactionPayout;
-        let status_claim = this.ticket.statusClaim;
+        let status_payout = this.ticket.status_transaction_payout;
+        let status_claim = this.ticket.status_claim;
 
         if (this.timeLeft > 0) {
           if (this.timeLeft > 72) {

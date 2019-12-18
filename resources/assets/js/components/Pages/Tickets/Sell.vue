@@ -324,8 +324,8 @@
                 this.state = 'selling_details';
             },
           step3() {
-              if(this.selectedTicket.price > this.selectedTicket.maxPrice) {
-                let message = this.trans('tickets.pdf.price_too_high') + ' ' + this.selectedTicket.maxPrice + this.selectedTicket.currency;
+              if(this.selectedTicket.price > this.selectedTicket.max_price) {
+                let message = this.trans('tickets.pdf.price_too_high') + ' ' + this.selectedTicket.max_price + this.selectedTicket.currency;
                   this.$message({message: message, type: 'alert'})
               }
               if(this.cgu) {
