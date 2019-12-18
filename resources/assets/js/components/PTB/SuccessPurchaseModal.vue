@@ -53,18 +53,3 @@
     }
   }
 </script>
-
-<style>
-    .paper-plane-success {
-        background-color: #f6f6f7;
-        border-radius: 40px;
-        width: 80px;
-        height: 80px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: #50e3c2;
-        font-size: 30px;
-        margin: 10px 0;
-    }
-</style>

@@ -5,6 +5,7 @@ namespace App\Http;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\ForbidBanUsersMiddleware;
 use App\Http\Middleware\HttpsProtocol;
+use App\Http\Middleware\MangopayMiddleware;
 use App\Http\Middleware\Verified\Phone;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -66,6 +67,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'cors' => \App\Http\Middleware\Cors::class, // <<< add this line
 
+        'mangopay.check' =>  \App\Http\Middleware\MangopayMiddleware::class,
         'auth.verified.phone' => Phone::class,
 
         // Admin Middelware

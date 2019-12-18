@@ -54,10 +54,12 @@ Route::post( '/register/fb/confirm', 'Auth\RegisterController@fb_confirm_inscrip
  * Hooks MangoPay
  */
 
-Route::get('/hooks/KycSuccess', 'Hooks\MangoPayController@KycSuccess');
-Route::get('/hooks/KycFailed', 'Hooks\MangoPayController@KycFailed');
-Route::get('/hooks/PayoutSuccess', 'Hooks\MangoPayController@PayoutSuccess');
-Route::get('/hooks/PayoutFailed', 'Hooks\MangoPayController@PayoutFailed');
+Route::group( [ 'middleware' => 'mangopay.check'], function () {
+    Route::get('/hooks/KycSuccess', 'Hooks\MangoPayController@KycSuccess');
+    Route::get('/hooks/KycFailed', 'Hooks\MangoPayController@KycFailed');
+    Route::get('/hooks/PayoutSuccess', 'Hooks\MangoPayController@PayoutSuccess');
+    Route::get('/hooks/PayoutFailed', 'Hooks\MangoPayController@PayoutFailed');
+});
 
 /**
  * Public ticket pages
