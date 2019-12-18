@@ -146,15 +146,3 @@
     }
   }
 </script>
-
-<style scoped>
-
-
-    .my-ticket.claim .status-payment {  border: 3px solid white;  }
-    .my-ticket.claim {  background-color: #f8254a;  }
-    .my-ticket.claim > div {  color: white;  }
-
-
-
-
-</style>

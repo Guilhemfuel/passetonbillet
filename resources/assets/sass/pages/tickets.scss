@@ -1221,3 +1221,42 @@ $animation-duration: 0.5s;
   font-size: 30px;
   margin: 10px 0;
 }
+
+#modal-claim h1 {
+  font-size: 15px;
+  margin-bottom: 10px;
+  text-align: center;
+  color: black;
+  font-weight: bold;
+}
+
+#modal-claim textarea {
+  background-color: #eaeaea;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  width: 300px;
+  height: 150px;
+  color: #545454;
+}
+
+#modal-claim .timepicker {  border: solid 2px #eaeaea;  }
+
+#modal-claim .timepicker input {
+  border: none;
+  color: #545454;
+  margin-left: 20px;
+}
+
+.timeLeft {
+  background-color: #f8254a;
+  font-weight: bold;
+  font-size: 14px;
+  color: white;
+  text-align: center;
+  border-radius: 10px;
+  width: 80px;
+  padding: 6px;
+  line-height: 12px;
+  margin: 0 0 10px 0;
+}
