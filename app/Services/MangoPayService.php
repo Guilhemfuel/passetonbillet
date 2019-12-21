@@ -196,21 +196,27 @@ class MangoPayService
         return $Refunds;
     }
 
-    public function createRefundPayIn($PayInId, $user, $fees = null, $amount = null, $split = null) {
+    public function createRefundPayIn($PayInId, $user, $wallet, $fees = null, $amount = null, $split = null) {
         $Refund = new MangoPay\Refund();
         $Refund->AuthorId = $user;
 
         //If there is no amount then the full amount is refund
         if ($amount) {
-            $amount = $split ? ($amount / 2) : $amount;
+
+            $withdraw = $wallet->Balance->Amount;
+
+            if ($split) {
+                $amount = $amount / 2; //100€ -> 50€
+                $withdraw = $withdraw / 2; //110€ -> 55€
+            }
 
             $Refund->DebitedFunds = new MangoPay\Money();
             $Refund->DebitedFunds->Currency = self::EUR_CURRENCY;
-            $Refund->DebitedFunds->Amount = $amount;
+            $Refund->DebitedFunds->Amount = $withdraw;
 
             $Refund->Fees = new MangoPay\Money();
             $Refund->Fees->Currency = self::EUR_CURRENCY;
-            $Refund->Fees->Amount = $this->calculateFees($fees, $amount);
+            $Refund->Fees->Amount = $this->calculateFees($fees, $amount); //5% 50€ -> 5€
         }
 
         $Refund = $this->mangoPayApi->PayIns->CreateRefund($PayInId, $Refund);
@@ -223,7 +229,7 @@ class MangoPayService
         return $Refund;
     }
 
-    public function createPayOut($bankAccount, $user, $wallet, $fees, $amount) {
+    public function createPayOut($bankAccount, $user, $wallet, $fees, $amount, $split = null) {
         $PayOut = new MangoPay\PayOut();
         $PayOut->AuthorId = $user;
         $PayOut->DebitedWalletID = $wallet->Id;
@@ -232,9 +238,17 @@ class MangoPayService
         $PayOut->DebitedFunds->Currency = self::EUR_CURRENCY;
         $PayOut->DebitedFunds->Amount = $wallet->Balance->Amount;
 
+        //110€ Wallet - 100€ initial price ticket = 10€ fees
+        $totalfees = $wallet->Balance->Amount - $amount;
+
+        if($split) {
+            $amount = $amount / 2; //100€ / 2 = 50€
+            $totalfees = $wallet->Balance->Amount - $amount; //55€ - 50€ = 5€
+        }
+
         $PayOut->Fees = new MangoPay\Money();
         $PayOut->Fees->Currency = self::EUR_CURRENCY;
-        $PayOut->Fees->Amount = $this->calculateFees($fees, $amount);
+        $PayOut->Fees->Amount = $this->calculateFees($fees, $amount) + $totalfees; //5% de 100€ + 10€ de fees = 15€
 
         $PayOut->PaymentType = "BANK_WIRE";
         $PayOut->MeanOfPaymentDetails = new MangoPay\PayOutPaymentDetailsBankWire();

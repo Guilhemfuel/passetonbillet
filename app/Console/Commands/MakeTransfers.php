@@ -246,7 +246,15 @@ class MakeTransfers extends Command
         $mangoPay = $this->mangoPay;
 
         try {
-            $refund = $mangoPay->createRefundPayIn($Transaction->transaction_mangopay, $Transaction->purchaser->mangopay_id, Transaction::FEES_CLAIM_PURCHASER);
+            $wallet = $mangoPay->getWallet($Transaction->wallet_id);
+        } catch (\MangoPay\Libraries\ResponseException $e) {
+            exit;
+        } catch (\MangoPay\Libraries\Exception $e) {
+            exit;
+        }
+
+        try {
+            $refund = $mangoPay->createRefundPayIn($Transaction->transaction_mangopay, $Transaction->purchaser->mangopay_id, $wallet, Transaction::FEES_CLAIM_PURCHASER, $Transaction->ticket->price);
         } catch (\MangoPay\Libraries\ResponseException $e) {
             $Transaction->status_refund = Transaction::STATUS_TRANSFER_FAIL;
         } catch (\MangoPay\Libraries\Exception $e) {
@@ -309,7 +317,7 @@ class MakeTransfers extends Command
             exit;
         }
 
-        $this->makePayOut($bankAccount, $Transaction, $wallet, Transaction::FEES_SELLER, $Transaction->ticket->sellPrice);
+        $this->makePayOut($bankAccount, $Transaction, $wallet, Transaction::FEES_SELLER, $Transaction->ticket->price);
     }
 
     private function claimEquality($Transaction) {
@@ -334,7 +342,7 @@ class MakeTransfers extends Command
 
         try {
             //We can split the amount of refund then give the rest to Seller
-            $refund = $mangoPay->createRefundPayIn($Transaction->transaction_mangopay, $Transaction->purchaser->mangopay_id, Transaction::FEES_EQUALITY, $wallet->Balance->Amount, true);
+            $refund = $mangoPay->createRefundPayIn($Transaction->transaction_mangopay, $Transaction->purchaser->mangopay_id, $wallet, Transaction::FEES_EQUALITY, $wallet->Balance->Amount, true);
         } catch (\MangoPay\Libraries\ResponseException $e) {
             $Transaction->status_refund = Transaction::STATUS_TRANSFER_FAIL;
         } catch (\MangoPay\Libraries\Exception $e) {
@@ -374,7 +382,7 @@ class MakeTransfers extends Command
             return;
         }
 
-        $this->makePayOut($bankAccount, $Transaction, $wallet, Transaction::FEES_EQUALITY, $Transaction->ticket->sellPrice);
+        $this->makePayOut($bankAccount, $Transaction, $wallet, Transaction::FEES_EQUALITY, $Transaction->ticket->price);
     }
 
     private function kycNotVerified($Transaction) {

@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use App\Mail\SendNotifToSellerEmail;
+use App\Mail\SendSuccessKycEmail;
 use App\Ticket;
 use App\User;
 use Illuminate\Bus\Queueable;
@@ -39,6 +40,6 @@ class SendSuccessKycNotification extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        return new SendSuccessKycNotification($this->user);
+        return new SendSuccessKycEmail($this->user);
     }
 }

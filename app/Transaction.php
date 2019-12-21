@@ -15,10 +15,10 @@ class Transaction extends Model
 
     CONST FEES_TICKET_ON_SALE = 10; //When someone put a ticket on sale
     CONST FEES_CLAIM_PURCHASER = 5;
-    CONST FEES_SELLER = 20;
+    CONST FEES_SELLER = 5;
     //When equality, we split price / 2, so 100€ become 50€
     //Then we apply fees to 50€ for each
-    CONST FEES_EQUALITY = 20;
+    CONST FEES_EQUALITY = 10;
 
     protected $fillable = [
         'wallet_id',
