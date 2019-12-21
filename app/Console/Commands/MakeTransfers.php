@@ -342,7 +342,7 @@ class MakeTransfers extends Command
 
         try {
             //We can split the amount of refund then give the rest to Seller
-            $refund = $mangoPay->createRefundPayIn($Transaction->transaction_mangopay, $Transaction->purchaser->mangopay_id, $wallet, Transaction::FEES_EQUALITY, $wallet->Balance->Amount, true);
+            $refund = $mangoPay->createRefundPayIn($Transaction->transaction_mangopay, $Transaction->purchaser->mangopay_id, $wallet, Transaction::FEES_EQUALITY_PURCHASER, $Transaction->ticket->price, true);
         } catch (\MangoPay\Libraries\ResponseException $e) {
             $Transaction->status_refund = Transaction::STATUS_TRANSFER_FAIL;
         } catch (\MangoPay\Libraries\Exception $e) {
@@ -382,7 +382,16 @@ class MakeTransfers extends Command
             return;
         }
 
-        $this->makePayOut($bankAccount, $Transaction, $wallet, Transaction::FEES_EQUALITY, $Transaction->ticket->price);
+        //Update Wallet after Refund
+        try {
+            $wallet = $mangoPay->getWallet($Transaction->wallet_id);
+        } catch (\MangoPay\Libraries\ResponseException $e) {
+            exit;
+        } catch (\MangoPay\Libraries\Exception $e) {
+            exit;
+        }
+
+        $this->makePayOut($bankAccount, $Transaction, $wallet, Transaction::FEES_EQUALITY_SELLER, $Transaction->ticket->price, true);
     }
 
     private function kycNotVerified($Transaction) {
@@ -398,9 +407,9 @@ class MakeTransfers extends Command
         $Transaction->seller->notify((new AddBankAccountNotification($Transaction->seller)));
     }
 
-    private function makePayOut($bankAccount, $Transaction, $wallet, $fees, $amount) {
+    private function makePayOut($bankAccount, $Transaction, $wallet, $fees, $amount, $equality = null) {
         try {
-            $payOut = $this->mangoPay->createPayOut($bankAccount, $Transaction->seller->mangopay_id, $wallet, $fees, $amount);
+            $payOut = $this->mangoPay->createPayOut($bankAccount, $Transaction->seller->mangopay_id, $wallet, $fees, $amount, $equality);
         } catch (\MangoPay\Libraries\ResponseException $e) {
             $Transaction->status_payout = Transaction::STATUS_TRANSFER_FAIL;
             $Transaction->seller->notify((new FailPayoutNotification($Transaction->seller)));

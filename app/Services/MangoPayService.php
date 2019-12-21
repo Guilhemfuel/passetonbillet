@@ -209,7 +209,6 @@ class MangoPayService
             $withdraw = $wallet->Balance->Amount;
 
             if ($split) {
-                $amount = $amount / 2; //100€ -> 50€
                 $withdraw = $withdraw / 2; //110€ -> 55€
             }
 
@@ -232,7 +231,7 @@ class MangoPayService
         return $Refund;
     }
 
-    public function createPayOut($bankAccount, $user, $wallet, $fees, $amount, $split = null) {
+    public function createPayOut($bankAccount, $user, $wallet, $fees, $amount, $equality = null) {
 
         $amount = $amount * 100;
 
@@ -247,9 +246,9 @@ class MangoPayService
         //110€ Wallet - 100€ initial price ticket = 10€ fees
         $totalfees = $wallet->Balance->Amount - $amount;
 
-        if($split) {
-            $amount = $amount / 2; //100€ / 2 = 50€
-            $totalfees = $wallet->Balance->Amount - $amount; //55€ - 50€ = 5€
+        if($equality) {
+            $totalfees = 0;
+            $amount = $wallet->Balance->Amount;
         }
 
         $PayOut->Fees = new MangoPay\Money();

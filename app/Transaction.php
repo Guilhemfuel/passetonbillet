@@ -18,7 +18,8 @@ class Transaction extends Model
     CONST FEES_SELLER = 5;
     //When equality, we split price / 2, so 100€ become 50€
     //Then we apply fees to 50€ for each
-    CONST FEES_EQUALITY = 10;
+    CONST FEES_EQUALITY_SELLER = 10;
+    CONST FEES_EQUALITY_PURCHASER = 0;
 
     protected $fillable = [
         'wallet_id',
