@@ -197,6 +197,9 @@ class MangoPayService
     }
 
     public function createRefundPayIn($PayInId, $user, $wallet, $fees = null, $amount = null, $split = null) {
+
+        $amount = $amount * 100;
+
         $Refund = new MangoPay\Refund();
         $Refund->AuthorId = $user;
 
@@ -230,6 +233,9 @@ class MangoPayService
     }
 
     public function createPayOut($bankAccount, $user, $wallet, $fees, $amount, $split = null) {
+
+        $amount = $amount * 100;
+
         $PayOut = new MangoPay\PayOut();
         $PayOut->AuthorId = $user;
         $PayOut->DebitedWalletID = $wallet->Id;
