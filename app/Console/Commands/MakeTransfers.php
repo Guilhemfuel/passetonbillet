@@ -75,6 +75,8 @@ class MakeTransfers extends Command
 
         foreach($transactions as $transaction) {
 
+            $this->info($transaction->id);
+
             //If a claim exist for this transaction we check and update status
             if($transaction->claim_id) {
                 //If claim is not resolved yet and seller has not replied
@@ -248,9 +250,9 @@ class MakeTransfers extends Command
         try {
             $wallet = $mangoPay->getWallet($Transaction->wallet_id);
         } catch (\MangoPay\Libraries\ResponseException $e) {
-            exit;
+            return;
         } catch (\MangoPay\Libraries\Exception $e) {
-            exit;
+            return;
         }
 
         try {
@@ -278,9 +280,9 @@ class MakeTransfers extends Command
         try {
             $bankAccount = $mangoPay->getBankAccount($Transaction->seller->mangopay_id);
         } catch (\MangoPay\Libraries\ResponseException $e) {
-            exit;
+            return;
         } catch (\MangoPay\Libraries\Exception $e) {
-            exit;
+            return;
         }
 
         //If user didn't put a Bank Account
@@ -312,9 +314,9 @@ class MakeTransfers extends Command
         try {
             $wallet = $mangoPay->getWallet($Transaction->wallet_id);
         } catch (\MangoPay\Libraries\ResponseException $e) {
-            exit;
+            return;
         } catch (\MangoPay\Libraries\Exception $e) {
-            exit;
+            return;
         }
 
         $this->makePayOut($bankAccount, $Transaction, $wallet, Transaction::FEES_SELLER, $Transaction->ticket->price);
@@ -327,17 +329,17 @@ class MakeTransfers extends Command
         try {
             $bankAccount = $mangoPay->getBankAccount($Transaction->seller->mangopay_id);
         } catch (\MangoPay\Libraries\ResponseException $e) {
-            exit;
+            return;
         } catch (\MangoPay\Libraries\Exception $e) {
-            exit;
+            return;
         }
 
         try {
             $wallet = $mangoPay->getWallet($Transaction->wallet_id);
         } catch (\MangoPay\Libraries\ResponseException $e) {
-            exit;
+            return;
         } catch (\MangoPay\Libraries\Exception $e) {
-            exit;
+            return;
         }
 
         try {
@@ -386,9 +388,9 @@ class MakeTransfers extends Command
         try {
             $wallet = $mangoPay->getWallet($Transaction->wallet_id);
         } catch (\MangoPay\Libraries\ResponseException $e) {
-            exit;
+            return;
         } catch (\MangoPay\Libraries\Exception $e) {
-            exit;
+            return;
         }
 
         $this->makePayOut($bankAccount, $Transaction, $wallet, Transaction::FEES_EQUALITY_SELLER, $Transaction->ticket->price, true);
@@ -413,11 +415,11 @@ class MakeTransfers extends Command
         } catch (\MangoPay\Libraries\ResponseException $e) {
             $Transaction->status_payout = Transaction::STATUS_TRANSFER_FAIL;
             $Transaction->seller->notify((new FailPayoutNotification($Transaction->seller)));
-            exit;
+            return;
         } catch (\MangoPay\Libraries\Exception $e) {
             $Transaction->status_payout = Transaction::STATUS_TRANSFER_FAIL;
             $Transaction->seller->notify((new FailPayoutNotification($Transaction->seller)));
-            exit;
+            return;
         }
 
         //Update transaction Payout
@@ -428,5 +430,6 @@ class MakeTransfers extends Command
             $Transaction->status_payout = Transaction::STATUS_TRANSFER_FAIL;
             $Transaction->seller->notify((new FailPayoutNotification($Transaction->seller)));
         }
+        return;
     }
 }
