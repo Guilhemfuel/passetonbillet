@@ -44,7 +44,7 @@
     "pusher-js": "^4.4.0",
     "raven-js": "^3.27.2",
     "resolve-url-loader": "^3.1.0",
-    "ssri": "^5.3.0",
+    "ssri": "^8.0.1",
     "tether": "^1.4.7",
     "vee-validate": "^2.2.15",
     "vue": "^2.6.10",
